@@ -17,6 +17,7 @@ export function AnimatedNumberBasic() {
 
   return (
     <div className="w-full">
+      <h3 className="mb-5 text-lg font-medium">Career Highlights and Impact</h3>
       <div className="grid grid-cols-2 md:grid-cols-4 w-full gap-6 items-end">
         <div className="flex flex-col items-center py-1">
           <div className="flex items-center justify-center w-6 h-6 mb-2">

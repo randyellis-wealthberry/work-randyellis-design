@@ -50,27 +50,27 @@ export const PROJECTS: Project[] = [
 
 export const WORK_EXPERIENCE: WorkExperience[] = [
   {
-    company: "Reglazed Studio",
-    title: "CEO",
-    start: "2024",
+    company: "Wealthberry Labs",
+    title: "Head of Product",
+    start: "2022",
     end: "Present",
-    link: "https://ibelick.com",
+    link: "https://www.buildyourlegacywithai.com",
     id: "work1",
   },
   {
-    company: "Freelance",
-    title: "Design Engineer",
-    start: "2022",
-    end: "2024",
-    link: "https://ibelick.com",
+    company: "Clockwork",
+    title: "Lead UX Researcher (Consultant)",
+    start: "2023",
+    end: "2023",
+    link: "https://www.clockwork.com",
     id: "work2",
   },
   {
-    company: "Freelance",
-    title: "Front-end Developer",
-    start: "2017",
-    end: "Present",
-    link: "https://ibelick.com",
+    company: "Nagarro",
+    title: "Head of Design",
+    start: "2020",
+    end: "2022",
+    link: "https://www.nagarro.com",
     id: "work3",
   },
 ];
@@ -124,4 +124,4 @@ export const SOCIAL_LINKS: SocialLink[] = [
   },
 ];
 
-export const EMAIL = "your@email.com";
+export const EMAIL = "randy.ellis.pro@gmail.com";

@@ -20,6 +20,12 @@ import {
 } from "@/components/core/accordion";
 import { AnimatedNumberBasic } from "@/components/core/animated-number-basic";
 import {
+  AnimatedAsset,
+  AnimatedVideo,
+  AnimatedImage,
+  AnimatedIframe,
+} from "@/components/ui/animated-asset";
+import {
   PROJECTS,
   WORK_EXPERIENCE,
   BLOG_POSTS,
@@ -243,9 +249,15 @@ export default function Personal() {
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           {PROJECTS.map((project) => (
             <div key={project.id} className="space-y-2">
-              <div className="relative rounded-2xl bg-zinc-50/40 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950/40 dark:ring-zinc-800/50">
-                <ProjectVideo src={project.video} />
-              </div>
+              <AnimatedVideo
+                src={project.video}
+                hoverScale={1.03}
+                transition={{
+                  type: "spring",
+                  bounce: 0.1,
+                  duration: 0.4,
+                }}
+              />
               <div className="px-1">
                 <a
                   className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"
@@ -261,6 +273,110 @@ export default function Personal() {
               </div>
             </div>
           ))}
+        </div>
+      </motion.section>
+
+      <motion.section
+        variants={VARIANTS_SECTION}
+        transition={TRANSITION_SECTION}
+      >
+        <h3 className="mb-5 text-lg font-medium">Animated Asset Components</h3>
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+          <div className="space-y-2">
+            <AnimatedVideo
+              src={PROJECTS[0].video}
+              hoverScale={1.03}
+              transition={{
+                type: "spring",
+                bounce: 0.1,
+                duration: 0.4,
+              }}
+            />
+            <div className="px-1">
+              <p className="font-medium text-zinc-900 dark:text-zinc-50">
+                AnimatedVideo Component
+              </p>
+              <p className="text-sm text-zinc-600 dark:text-zinc-400">
+                Uses the same video with enhanced hover effects
+              </p>
+            </div>
+          </div>
+          
+          <div className="space-y-2">
+            <AnimatedImage
+              src="/cover.jpg"
+              alt="Portfolio Cover"
+              objectFit="cover"
+              hoverScale={1.05}
+              transition={{
+                type: "spring",
+                bounce: 0.2,
+                duration: 0.3,
+              }}
+            />
+            <div className="px-1">
+              <p className="font-medium text-zinc-900 dark:text-zinc-50">
+                AnimatedImage Component
+              </p>
+              <p className="text-sm text-zinc-600 dark:text-zinc-400">
+                Responsive image with morphing dialog
+              </p>
+            </div>
+          </div>
+          
+          <div className="space-y-2">
+            <AnimatedAsset
+              hoverScale={1.02}
+              containerClassName="bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-950 dark:to-purple-950"
+              expandedChildren={
+                <div className="flex items-center justify-center h-full">
+                  <div className="text-center p-8">
+                    <h2 className="text-3xl font-bold mb-4 text-zinc-900 dark:text-zinc-50">
+                      Expanded Custom Content
+                    </h2>
+                    <p className="text-lg text-zinc-600 dark:text-zinc-400">
+                      This shows different content when expanded!
+                    </p>
+                  </div>
+                </div>
+              }
+            >
+              <div className="flex items-center justify-center h-full p-6">
+                <div className="text-center">
+                  <h3 className="text-xl font-semibold mb-2 text-zinc-900 dark:text-zinc-50">
+                    Custom Content
+                  </h3>
+                  <p className="text-zinc-600 dark:text-zinc-400">
+                    Click to see expanded view
+                  </p>
+                </div>
+              </div>
+            </AnimatedAsset>
+            <div className="px-1">
+              <p className="font-medium text-zinc-900 dark:text-zinc-50">
+                AnimatedAsset Component
+              </p>
+              <p className="text-sm text-zinc-600 dark:text-zinc-400">
+                Custom content with different expanded view
+              </p>
+            </div>
+          </div>
+          
+          <div className="space-y-2">
+            <AnimatedIframe
+              src="https://codesandbox.io/embed/framer-motion-layout-animations-snz6o?fontsize=14&hidenavigation=1&theme=dark"
+              title="Framer Motion Demo"
+              hoverScale={1.01}
+            />
+            <div className="px-1">
+              <p className="font-medium text-zinc-900 dark:text-zinc-50">
+                AnimatedIframe Component
+              </p>
+              <p className="text-sm text-zinc-600 dark:text-zinc-400">
+                Interactive CodeSandbox embed
+              </p>
+            </div>
+          </div>
         </div>
       </motion.section>
 
