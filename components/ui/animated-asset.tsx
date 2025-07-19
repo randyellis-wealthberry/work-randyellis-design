@@ -44,7 +44,7 @@ export const AnimatedAsset = ({
     <div
       className={cn(
         "relative rounded-2xl bg-zinc-50/40 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950/40 dark:ring-zinc-800/50",
-        containerClassName
+        containerClassName,
       )}
     >
       <MorphingDialog transition={transition}>
@@ -52,7 +52,7 @@ export const AnimatedAsset = ({
           <motion.div
             className={cn(
               "aspect-video w-full cursor-zoom-in rounded-xl overflow-hidden",
-              className
+              className,
             )}
             whileHover={{ scale: hoverScale }}
             transition={{ duration: 0.2 }}
@@ -64,7 +64,7 @@ export const AnimatedAsset = ({
           <MorphingDialogContent
             className={cn(
               "relative aspect-video rounded-2xl bg-zinc-50 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950 dark:ring-zinc-800/50",
-              expandedClassName
+              expandedClassName,
             )}
           >
             <div className="aspect-video h-[50vh] w-full rounded-xl md:h-[70vh] overflow-hidden">
@@ -100,7 +100,7 @@ type AnimatedVideoProps = {
   loop?: boolean;
   muted?: boolean;
   poster?: string;
-} & Omit<AnimatedAssetProps, 'children' | 'expandedChildren'>;
+} & Omit<AnimatedAssetProps, "children" | "expandedChildren">;
 
 export const AnimatedVideo = ({
   src,
@@ -122,11 +122,7 @@ export const AnimatedVideo = ({
     />
   );
 
-  return (
-    <AnimatedAsset {...props}>
-      {videoElement}
-    </AnimatedAsset>
-  );
+  return <AnimatedAsset {...props}>{videoElement}</AnimatedAsset>;
 };
 
 type AnimatedImageProps = {
@@ -134,7 +130,7 @@ type AnimatedImageProps = {
   alt: string;
   className?: string;
   objectFit?: "cover" | "contain" | "fill" | "scale-down" | "none";
-} & Omit<AnimatedAssetProps, 'children' | 'expandedChildren'>;
+} & Omit<AnimatedAssetProps, "children" | "expandedChildren">;
 
 export const AnimatedImage = ({
   src,
@@ -150,23 +146,19 @@ export const AnimatedImage = ({
       className={cn(
         "aspect-video w-full h-full",
         `object-${objectFit}`,
-        className
+        className,
       )}
     />
   );
 
-  return (
-    <AnimatedAsset {...props}>
-      {imageElement}
-    </AnimatedAsset>
-  );
+  return <AnimatedAsset {...props}>{imageElement}</AnimatedAsset>;
 };
 
 type AnimatedIframeProps = {
   src: string;
   title: string;
   className?: string;
-} & Omit<AnimatedAssetProps, 'children' | 'expandedChildren'>;
+} & Omit<AnimatedAssetProps, "children" | "expandedChildren">;
 
 export const AnimatedIframe = ({
   src,
@@ -178,14 +170,13 @@ export const AnimatedIframe = ({
     <iframe
       src={src}
       title={title}
-      className={cn("aspect-video w-full h-full border-0 rounded-xl", className)}
+      className={cn(
+        "aspect-video w-full h-full border-0 rounded-xl",
+        className,
+      )}
       allowFullScreen
     />
   );
 
-  return (
-    <AnimatedAsset {...props}>
-      {iframeElement}
-    </AnimatedAsset>
-  );
+  return <AnimatedAsset {...props}>{iframeElement}</AnimatedAsset>;
 };

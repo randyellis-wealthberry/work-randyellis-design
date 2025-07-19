@@ -1,15 +1,9 @@
 "use client";
+import { useState } from "react";
 import { motion } from "motion/react";
-import { XIcon, ChevronUp } from "lucide-react";
+import { ChevronUp } from "lucide-react";
 import { Spotlight } from "@/components/ui/spotlight";
 import { Magnetic } from "@/components/ui/magnetic";
-import {
-  MorphingDialog,
-  MorphingDialogTrigger,
-  MorphingDialogContent,
-  MorphingDialogClose,
-  MorphingDialogContainer,
-} from "@/components/ui/morphing-dialog";
 import Link from "next/link";
 import { AnimatedBackground } from "@/components/ui/animated-background";
 import {
@@ -19,12 +13,8 @@ import {
   AccordionContent,
 } from "@/components/core/accordion";
 import { AnimatedNumberBasic } from "@/components/core/animated-number-basic";
-import {
-  AnimatedAsset,
-  AnimatedVideo,
-  AnimatedImage,
-  AnimatedIframe,
-} from "@/components/ui/animated-asset";
+import { AnimatedVideo } from "@/components/ui/animated-asset";
+import { TransitionPanel } from "@/components/motion-primitives/transition-panel";
 import {
   PROJECTS,
   WORK_EXPERIENCE,
@@ -51,56 +41,6 @@ const VARIANTS_SECTION = {
 const TRANSITION_SECTION = {
   duration: 0.3,
 };
-
-type ProjectVideoProps = {
-  src: string;
-};
-
-function ProjectVideo({ src }: ProjectVideoProps) {
-  return (
-    <MorphingDialog
-      transition={{
-        type: "spring",
-        bounce: 0,
-        duration: 0.3,
-      }}
-    >
-      <MorphingDialogTrigger>
-        <video
-          src={src}
-          autoPlay
-          loop
-          muted
-          className="aspect-video w-full cursor-zoom-in rounded-xl"
-        />
-      </MorphingDialogTrigger>
-      <MorphingDialogContainer>
-        <MorphingDialogContent className="relative aspect-video rounded-2xl bg-zinc-50 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950 dark:ring-zinc-800/50">
-          <video
-            src={src}
-            autoPlay
-            loop
-            muted
-            className="aspect-video h-[50vh] w-full rounded-xl md:h-[70vh]"
-          />
-        </MorphingDialogContent>
-        <MorphingDialogClose
-          className="fixed top-6 right-6 h-fit w-fit rounded-full bg-white p-1"
-          variants={{
-            initial: { opacity: 0 },
-            animate: {
-              opacity: 1,
-              transition: { delay: 0.3, duration: 0.1 },
-            },
-            exit: { opacity: 0, transition: { duration: 0 } },
-          }}
-        >
-          <XIcon className="h-5 w-5 text-zinc-500" />
-        </MorphingDialogClose>
-      </MorphingDialogContainer>
-    </MorphingDialog>
-  );
-}
 
 function MagneticSocialLink({
   children,
@@ -136,77 +76,149 @@ function MagneticSocialLink({
   );
 }
 
+function TransitionPanelExample() {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const panels = [
+    {
+      title: "Design Philosophy",
+      content:
+        "Creating intuitive interfaces that bridge the gap between user needs and business goals. Every pixel serves a purpose, every interaction tells a story.",
+    },
+    {
+      title: "Technical Expertise",
+      content:
+        "Specializing in React, Next.js, and modern web technologies. Building scalable, performant applications with attention to detail and user experience.",
+    },
+    {
+      title: "Innovation Focus",
+      content:
+        "Exploring the intersection of AI and design. Leveraging generative AI tools to enhance creative workflows and deliver exceptional digital experiences.",
+    },
+  ];
+
+  const variants = {
+    enter: { opacity: 0, y: 20, filter: "blur(4px)" },
+    center: { opacity: 1, y: 0, filter: "blur(0px)" },
+    exit: { opacity: 0, y: -20, filter: "blur(4px)" },
+  };
+
+  return (
+    <div className="space-y-4">
+      <div className="flex space-x-2">
+        {panels.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setActiveIndex(index)}
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 ${
+              activeIndex === index
+                ? "bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900"
+                : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:bg-zinc-700"
+            }`}
+          >
+            {panels[index].title}
+          </button>
+        ))}
+      </div>
+      <TransitionPanel
+        activeIndex={activeIndex}
+        variants={variants}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+        className="min-h-[120px] rounded-xl bg-zinc-50 p-6 dark:bg-zinc-900/50"
+      >
+        {panels.map((panel, index) => (
+          <div key={index} className="space-y-3">
+            <h4 className="text-lg font-medium text-zinc-900 dark:text-zinc-100">
+              {panel.title}
+            </h4>
+            <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">
+              {panel.content}
+            </p>
+          </div>
+        ))}
+      </TransitionPanel>
+    </div>
+  );
+}
+
 function AccordionIcons() {
   return (
     <Accordion
       className="flex w-full flex-col divide-y divide-zinc-200 dark:divide-zinc-700"
       transition={{ duration: 0.2, ease: "easeInOut" }}
     >
-      <AccordionItem value="getting-started" className="py-2">
+      <AccordionItem value="ai-design-approach" className="py-2">
         <AccordionTrigger className="w-full text-left text-zinc-950 dark:text-zinc-50">
           <div className="flex items-center justify-between">
-            <div>Getting Started</div>
+            <div>What&apos;s your approach to AI in design?</div>
             <ChevronUp className="h-4 w-4 text-zinc-950 transition-transform duration-200 group-data-expanded:-rotate-180 dark:text-zinc-50" />
           </div>
         </AccordionTrigger>
         <AccordionContent>
           <p className="text-zinc-500 dark:text-zinc-400">
-            Discover the fundamental concepts of Motion-Primitives. This section
-            guides you through the installation process and provides an overview
-            of how to integrate these components into your projects. Learn about
-            the core functionalities and how to set up your first animation
-            effectively.
+            I believe AI should enhance human creativity, not replace it. My
+            work on the AI Design System Generator demonstrates how AI can
+            accelerate the design process while maintaining design quality and
+            accessibility. I focus on leveraging AI to automate repetitive
+            tasks, generate intelligent suggestions, and help designers make
+            more informed decisions based on data and user behavior patterns.
           </p>
         </AccordionContent>
       </AccordionItem>
-      <AccordionItem value="animation-properties" className="py-2">
+      <AccordionItem value="design-development-bridge" className="py-2">
         <AccordionTrigger className="w-full text-left text-zinc-950 dark:text-zinc-50">
           <div className="flex items-center justify-between">
-            <div>Animation Properties</div>
+            <div>How do you bridge design and development?</div>
             <ChevronUp className="h-4 w-4 text-zinc-950 transition-transform duration-200 group-data-expanded:-rotate-180 dark:text-zinc-50" />
           </div>
         </AccordionTrigger>
         <AccordionContent>
           <p className="text-zinc-500 dark:text-zinc-400">
-            Explore the comprehensive range of animation properties available in
-            Motion-Primitives. Understand how to manipulate timing, easing, and
-            delays to create smooth, dynamic animations. This segment also
-            covers the customization of animations to fit the flow and style of
-            your web applications.
+            With a background spanning both design leadership and hands-on
+            development, I understand the challenges on both sides. I create
+            design systems that are technically feasible, write production-ready
+            React code, and ensure designs translate seamlessly to
+            implementation. My approach involves early technical validation,
+            component-driven design, and close collaboration between design and
+            engineering teams throughout the product development lifecycle.
           </p>
         </AccordionContent>
       </AccordionItem>
-      <AccordionItem value="advanced-usage" className="py-2">
+      <AccordionItem value="scaling-products" className="py-2">
         <AccordionTrigger className="w-full text-left text-zinc-950 dark:text-zinc-50">
           <div className="flex items-center justify-between">
-            <div>Advanced Usage</div>
+            <div>What&apos;s your experience with scaling products?</div>
             <ChevronUp className="h-4 w-4 text-zinc-950 transition-transform duration-200 group-data-expanded:-rotate-180 dark:text-zinc-50" />
           </div>
         </AccordionTrigger>
         <AccordionContent>
           <p className="text-zinc-500 dark:text-zinc-400">
-            Dive deeper into advanced techniques and features of
-            Motion-Primitives. Learn about chaining animations, creating complex
-            sequences, and utilizing motion sensors for interactive animations.
-            Gain insights on how to leverage these advanced features to enhance
-            user experience and engagement.
+            I&apos;ve led products that have reached significant scale,
+            including GrowIt, one of the fastest-growing gardening apps in the
+            U.S. with over 100K active users and a 4.8★ App Store rating. My
+            experience spans from early-stage product validation to scaling
+            infrastructure and teams. I focus on building sustainable growth
+            through excellent user experience, data-driven decision making, and
+            scalable technical architecture that can handle rapid user growth.
           </p>
         </AccordionContent>
       </AccordionItem>
-      <AccordionItem value="community-and-support" className="py-2">
+      <AccordionItem value="product-leadership" className="py-2">
         <AccordionTrigger className="w-full text-left text-zinc-950 dark:text-zinc-50">
           <div className="flex items-center justify-between">
-            <div>Community and Support</div>
+            <div>How do you approach product leadership?</div>
             <ChevronUp className="h-4 w-4 text-zinc-950 transition-transform duration-200 group-data-expanded:-rotate-180 dark:text-zinc-50" />
           </div>
         </AccordionTrigger>
         <AccordionContent>
           <p className="text-zinc-500 dark:text-zinc-400">
-            Engage with the Motion-Primitives community to gain additional
-            support and insight. Find out how to participate in discussions,
-            contribute to the project, and access a wealth of shared knowledge
-            and resources. Learn about upcoming features, best practices, and
-            how to get help with your specific use cases.
+            As Head of Product at Wealthberry Labs and former Head of Design at
+            Nagarro, I&apos;ve learned that great products emerge from balancing
+            user needs, business goals, and technical constraints. I believe in
+            empowering teams through clear vision, data-driven decisions, and
+            fostering a culture of experimentation. Having mentored 800+
+            designers, I&apos;m passionate about developing talent and building
+            cross-functional teams that deliver exceptional user experiences.
           </p>
         </AccordionContent>
       </AccordionItem>
@@ -245,6 +257,14 @@ export default function Personal() {
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
+        <h3 className="mb-5 text-lg font-medium">Featured Showcase</h3>
+        <TransitionPanelExample />
+      </motion.section>
+
+      <motion.section
+        variants={VARIANTS_SECTION}
+        transition={TRANSITION_SECTION}
+      >
         <h3 className="mb-5 text-lg font-medium">Selected Projects</h3>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           {PROJECTS.map((project) => (
@@ -259,124 +279,19 @@ export default function Personal() {
                 }}
               />
               <div className="px-1">
-                <a
+                <Link
                   className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"
-                  href={project.link}
-                  target="_blank"
+                  href={`/projects/${project.slug}`}
                 >
                   {project.name}
                   <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 dark:bg-zinc-50 transition-all duration-200 group-hover:max-w-full"></span>
-                </a>
+                </Link>
                 <p className="text-base text-zinc-600 dark:text-zinc-400">
                   {project.description}
                 </p>
               </div>
             </div>
           ))}
-        </div>
-      </motion.section>
-
-      <motion.section
-        variants={VARIANTS_SECTION}
-        transition={TRANSITION_SECTION}
-      >
-        <h3 className="mb-5 text-lg font-medium">Animated Asset Components</h3>
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-          <div className="space-y-2">
-            <AnimatedVideo
-              src={PROJECTS[0].video}
-              hoverScale={1.03}
-              transition={{
-                type: "spring",
-                bounce: 0.1,
-                duration: 0.4,
-              }}
-            />
-            <div className="px-1">
-              <p className="font-medium text-zinc-900 dark:text-zinc-50">
-                AnimatedVideo Component
-              </p>
-              <p className="text-sm text-zinc-600 dark:text-zinc-400">
-                Uses the same video with enhanced hover effects
-              </p>
-            </div>
-          </div>
-          
-          <div className="space-y-2">
-            <AnimatedImage
-              src="/cover.jpg"
-              alt="Portfolio Cover"
-              objectFit="cover"
-              hoverScale={1.05}
-              transition={{
-                type: "spring",
-                bounce: 0.2,
-                duration: 0.3,
-              }}
-            />
-            <div className="px-1">
-              <p className="font-medium text-zinc-900 dark:text-zinc-50">
-                AnimatedImage Component
-              </p>
-              <p className="text-sm text-zinc-600 dark:text-zinc-400">
-                Responsive image with morphing dialog
-              </p>
-            </div>
-          </div>
-          
-          <div className="space-y-2">
-            <AnimatedAsset
-              hoverScale={1.02}
-              containerClassName="bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-950 dark:to-purple-950"
-              expandedChildren={
-                <div className="flex items-center justify-center h-full">
-                  <div className="text-center p-8">
-                    <h2 className="text-3xl font-bold mb-4 text-zinc-900 dark:text-zinc-50">
-                      Expanded Custom Content
-                    </h2>
-                    <p className="text-lg text-zinc-600 dark:text-zinc-400">
-                      This shows different content when expanded!
-                    </p>
-                  </div>
-                </div>
-              }
-            >
-              <div className="flex items-center justify-center h-full p-6">
-                <div className="text-center">
-                  <h3 className="text-xl font-semibold mb-2 text-zinc-900 dark:text-zinc-50">
-                    Custom Content
-                  </h3>
-                  <p className="text-zinc-600 dark:text-zinc-400">
-                    Click to see expanded view
-                  </p>
-                </div>
-              </div>
-            </AnimatedAsset>
-            <div className="px-1">
-              <p className="font-medium text-zinc-900 dark:text-zinc-50">
-                AnimatedAsset Component
-              </p>
-              <p className="text-sm text-zinc-600 dark:text-zinc-400">
-                Custom content with different expanded view
-              </p>
-            </div>
-          </div>
-          
-          <div className="space-y-2">
-            <AnimatedIframe
-              src="https://codesandbox.io/embed/framer-motion-layout-animations-snz6o?fontsize=14&hidenavigation=1&theme=dark"
-              title="Framer Motion Demo"
-              hoverScale={1.01}
-            />
-            <div className="px-1">
-              <p className="font-medium text-zinc-900 dark:text-zinc-50">
-                AnimatedIframe Component
-              </p>
-              <p className="text-sm text-zinc-600 dark:text-zinc-400">
-                Interactive CodeSandbox embed
-              </p>
-            </div>
-          </div>
         </div>
       </motion.section>
 
