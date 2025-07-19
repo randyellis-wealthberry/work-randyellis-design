@@ -5,16 +5,17 @@ import { Canvas } from "@react-three/fiber";
 import { Suspense, useState, useRef, useEffect } from "react";
 import * as THREE from "three";
 import { AnimatedAsset } from "./animated-asset";
+import { UnicornWebGL } from "./unicorn-webgl";
 
 type WebGLSceneProps = {
-  type: "organic" | "neural" | "geometric";
+  type: "organic" | "neural" | "geometric" | "unicorn";
   color?: string;
   speed?: number;
   intensity?: number;
 };
 
 type AnimatedWebGLProps = {
-  sceneType: "organic" | "neural" | "geometric";
+  sceneType: "organic" | "neural" | "geometric" | "unicorn";
   fallbackSrc?: string;
   className?: string;
   containerClassName?: string;
@@ -26,6 +27,7 @@ type AnimatedWebGLProps = {
   };
   hoverScale?: number;
   showCloseButton?: boolean;
+  disableZoom?: boolean;
   color?: string;
   speed?: number;
   intensity?: number;
@@ -39,17 +41,21 @@ function OrganicScene({
 }: Partial<WebGLSceneProps>) {
   const meshRef = useRef<THREE.Mesh>(null);
   const particlesRef = useRef<THREE.Group>(null);
+  const leavesRef = useRef<THREE.Group>(null);
 
   useEffect(() => {
     if (!meshRef.current) return;
 
     const animate = () => {
       if (meshRef.current) {
-        meshRef.current.rotation.x += 0.01 * speed;
-        meshRef.current.rotation.y += 0.01 * speed;
+        meshRef.current.rotation.x += 0.008 * speed;
+        meshRef.current.rotation.y += 0.012 * speed;
       }
       if (particlesRef.current) {
-        particlesRef.current.rotation.z += 0.005 * speed;
+        particlesRef.current.rotation.z += 0.003 * speed;
+      }
+      if (leavesRef.current) {
+        leavesRef.current.rotation.y += 0.006 * speed;
       }
       requestAnimationFrame(animate);
     };
@@ -58,35 +64,77 @@ function OrganicScene({
 
   return (
     <>
-      <ambientLight intensity={0.6} />
-      <pointLight position={[10, 10, 10]} intensity={intensity} />
+      <ambientLight intensity={0.4} />
+      <pointLight position={[8, 8, 8]} intensity={intensity * 0.8} />
+      <pointLight
+        position={[-4, -4, 4]}
+        intensity={intensity * 0.3}
+        color="#90ee90"
+      />
 
-      {/* Main organic shape */}
+      {/* Main organic vine-like structure - centered */}
       <mesh ref={meshRef} position={[0, 0, 0]}>
-        <torusKnotGeometry args={[1, 0.3, 100, 16]} />
+        <torusKnotGeometry args={[1.2, 0.25, 120, 20]} />
         <meshStandardMaterial
           color={color}
           wireframe={false}
           transparent
-          opacity={0.8}
+          opacity={0.85}
+          roughness={0.3}
+          metalness={0.1}
         />
       </mesh>
 
-      {/* Floating particles */}
+      {/* Growth particles - seeds/pollen */}
       <group ref={particlesRef}>
-        {Array.from({ length: 20 }).map((_, i) => (
-          <mesh
-            key={i}
-            position={[
-              Math.sin(i * 0.5) * 3,
-              Math.cos(i * 0.3) * 2,
-              Math.sin(i * 0.2) * 2,
-            ]}
-          >
-            <sphereGeometry args={[0.05]} />
-            <meshStandardMaterial color={color} />
-          </mesh>
-        ))}
+        {Array.from({ length: 25 }).map((_, i) => {
+          const angle = (i / 25) * Math.PI * 2;
+          const radius = 2.5 + Math.sin(i * 0.8) * 0.5;
+          return (
+            <mesh
+              key={i}
+              position={[
+                Math.cos(angle) * radius,
+                Math.sin(i * 0.4) * 1.5,
+                Math.sin(angle) * radius,
+              ]}
+            >
+              <sphereGeometry args={[0.04 + Math.sin(i) * 0.02]} />
+              <meshStandardMaterial
+                color={i % 3 === 0 ? "#90ee90" : color}
+                transparent
+                opacity={0.8}
+              />
+            </mesh>
+          );
+        })}
+      </group>
+
+      {/* Leaf-like elements */}
+      <group ref={leavesRef}>
+        {Array.from({ length: 12 }).map((_, i) => {
+          const angle = (i / 12) * Math.PI * 2;
+          const radius = 1.8;
+          return (
+            <mesh
+              key={`leaf-${i}`}
+              position={[
+                Math.cos(angle) * radius,
+                Math.sin(angle) * 0.3,
+                Math.sin(angle) * radius,
+              ]}
+              rotation={[angle, 0, Math.PI / 4]}
+            >
+              <planeGeometry args={[0.3, 0.6]} />
+              <meshStandardMaterial
+                color="#32cd32"
+                transparent
+                opacity={0.7}
+                side={THREE.DoubleSide}
+              />
+            </mesh>
+          );
+        })}
       </group>
     </>
   );
@@ -233,6 +281,9 @@ function WebGLScene({ type, color, speed, intensity }: WebGLSceneProps) {
       return (
         <GeometricScene color={color} speed={speed} intensity={intensity} />
       );
+    case "unicorn":
+      // Unicorn Studio scenes are handled separately, not through Three.js
+      return null;
     default:
       return (
         <GeometricScene color={color} speed={speed} intensity={intensity} />
@@ -253,6 +304,7 @@ export const AnimatedWebGL = ({
   },
   hoverScale = 1.02,
   showCloseButton = true,
+  disableZoom = false,
   color,
   speed = 1,
   intensity = 1,
@@ -264,6 +316,9 @@ export const AnimatedWebGL = ({
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Ensure we're on the client side
+    if (typeof window === "undefined") return;
+
     // Check if mobile device
     const checkMobile = () => {
       setIsMobile(
@@ -308,8 +363,62 @@ export const AnimatedWebGL = ({
     };
   }, []);
 
+  // Handle Unicorn Studio scenes
+  if (sceneType === "unicorn") {
+    if (disableZoom) {
+      return (
+        <div ref={containerRef}>
+          <UnicornWebGL
+            className={cn("aspect-video w-full h-full", className)}
+            onError={() => setHasError(true)}
+          />
+        </div>
+      );
+    }
+    return (
+      <div ref={containerRef}>
+        <AnimatedAsset
+          className={className}
+          containerClassName={containerClassName}
+          expandedClassName={expandedClassName}
+          transition={transition}
+          hoverScale={hoverScale}
+          showCloseButton={showCloseButton}
+          expandedChildren={
+            <div className="aspect-video h-[50vh] w-full rounded-xl md:h-[70vh] overflow-hidden">
+              <UnicornWebGL
+                className="w-full h-full"
+                onError={() => setHasError(true)}
+              />
+            </div>
+          }
+        >
+          <UnicornWebGL
+            className={cn("aspect-video w-full h-full", className)}
+            onError={() => setHasError(true)}
+          />
+        </AnimatedAsset>
+      </div>
+    );
+  }
+
   // Fallback to video/image if WebGL not supported, on mobile, or has error
   if ((!webglSupported || hasError || isMobile) && fallbackSrc) {
+    if (disableZoom) {
+      return (
+        <div ref={containerRef}>
+          <video
+            src={fallbackSrc}
+            autoPlay
+            loop
+            muted
+            playsInline
+            className={cn("aspect-video w-full h-full object-cover", className)}
+          />
+        </div>
+      );
+    }
+
     return (
       <div ref={containerRef}>
         <AnimatedAsset
@@ -339,7 +448,11 @@ export const AnimatedWebGL = ({
         <Canvas
           camera={{ position: [0, 0, 8], fov: 45 }}
           style={{ width: "100%", height: "100%" }}
-          dpr={Math.min(window.devicePixelRatio, 2)} // Limit DPR for performance
+          dpr={
+            typeof window !== "undefined"
+              ? Math.min(window.devicePixelRatio, 2)
+              : 1
+          } // Limit DPR for performance
           performance={{ min: 0.5 }} // Adaptive performance
           onError={() => setHasError(true)}
           gl={{
@@ -361,6 +474,10 @@ export const AnimatedWebGL = ({
     </div>
   );
 
+  if (disableZoom) {
+    return <div ref={containerRef}>{webglContent}</div>;
+  }
+
   return (
     <div ref={containerRef}>
       <AnimatedAsset
@@ -375,7 +492,11 @@ export const AnimatedWebGL = ({
             <Canvas
               camera={{ position: [0, 0, 8], fov: 45 }}
               style={{ width: "100%", height: "100%" }}
-              dpr={Math.min(window.devicePixelRatio, 2)}
+              dpr={
+                typeof window !== "undefined"
+                  ? Math.min(window.devicePixelRatio, 2)
+                  : 1
+              }
               performance={{ min: 0.5 }}
               onError={() => setHasError(true)}
               gl={{

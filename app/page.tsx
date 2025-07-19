@@ -45,9 +45,9 @@ const TRANSITION_SECTION = {
 function getWebGLSceneType(
   category: string,
   name: string,
-): "organic" | "neural" | "geometric" {
+): "organic" | "neural" | "geometric" | "unicorn" {
   if (category === "Mobile App" && name.toLowerCase().includes("grow")) {
-    return "organic";
+    return "unicorn";
   }
   if (category === "AI/ML" || name.toLowerCase().includes("ai")) {
     return "neural";

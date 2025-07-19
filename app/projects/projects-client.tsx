@@ -42,7 +42,7 @@ const VARIANTS_ITEM = {
 function getWebGLSceneType(
   category: string,
   name: string,
-): "organic" | "neural" | "geometric" {
+): "organic" | "neural" | "geometric" | "unicorn" {
   if (category === "Mobile App" && name.toLowerCase().includes("grow")) {
     return "organic";
   }
@@ -113,20 +113,23 @@ export default function ProjectsClient() {
               {filteredProjects.map((project) => (
                 <motion.div key={project.id} variants={VARIANTS_ITEM}>
                   <Card className="group relative overflow-hidden">
-                    <div className="aspect-video overflow-hidden">
-                      <AnimatedWebGL
-                        sceneType={getWebGLSceneType(
-                          project.category,
-                          project.name,
-                        )}
-                        fallbackSrc={project.video}
-                        color={getProjectColor(project.category)}
-                        speed={1.0}
-                        intensity={0.7}
-                        className="h-full w-full transition-transform duration-300 group-hover:scale-105"
-                        hoverScale={1.02}
-                      />
-                    </div>
+                    <Link href={`/projects/${project.slug}`} className="block">
+                      <div className="aspect-video overflow-hidden">
+                        <AnimatedWebGL
+                          sceneType={getWebGLSceneType(
+                            project.category,
+                            project.name,
+                          )}
+                          fallbackSrc={project.video}
+                          color={getProjectColor(project.category)}
+                          speed={1.0}
+                          intensity={0.7}
+                          className="h-full w-full transition-transform duration-300 group-hover:scale-105"
+                          hoverScale={1.02}
+                          disableZoom={true}
+                        />
+                      </div>
+                    </Link>
 
                     <CardHeader>
                       <div className="flex items-start justify-between">

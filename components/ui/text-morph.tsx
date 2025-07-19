@@ -5,7 +5,12 @@ import { useMemo, useId } from "react";
 
 export type TextMorphProps = {
   children: string;
-  as?: React.ElementType;
+  as?: React.ElementType<{
+    className?: string;
+    style?: React.CSSProperties;
+    "aria-label"?: string;
+    children?: React.ReactNode;
+  }>;
   className?: string;
   style?: React.CSSProperties;
   variants?: Variants;
