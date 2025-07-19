@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import { ChevronUp } from "lucide-react";
 import { Spotlight } from "@/components/ui/spotlight";
@@ -19,7 +19,7 @@ import {
   PROJECTS,
   WORK_EXPERIENCE,
   BLOG_POSTS,
-  EMAIL,
+  getEmail,
   SOCIAL_LINKS,
 } from "./data";
 
@@ -250,6 +250,16 @@ function AccordionIcons() {
   );
 }
 
+function DecodedEmail() {
+  const [email, setEmail] = useState("");
+
+  useEffect(() => {
+    setEmail(getEmail());
+  }, []);
+
+  return email;
+}
+
 export default function Personal() {
   return (
     <motion.main
@@ -291,23 +301,62 @@ export default function Personal() {
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
+        <h3 className="mb-5 text-lg font-medium">What am I working on</h3>
+        <div className="grid grid-cols-1 gap-8 sm:gap-6 sm:grid-cols-2">
+          {PROJECTS.slice(0, 2).map((project) => (
+            <div key={project.id} className="space-y-2">
+              <img
+                src="/images/projects/placeholder-thumbnail.jpg"
+                alt={project.name}
+                className="aspect-video w-full h-full object-cover rounded-lg"
+              />
+              <div className="px-1">
+                <Link
+                  className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"
+                  href={`/projects/${project.slug}`}
+                >
+                  {project.name}
+                  <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 dark:bg-zinc-50 transition-all duration-200 group-hover:max-w-full"></span>
+                </Link>
+                <p className="text-base text-zinc-600 dark:text-zinc-400">
+                  {project.description}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </motion.section>
+
+      <motion.section
+        variants={VARIANTS_SECTION}
+        transition={TRANSITION_SECTION}
+      >
         <h3 className="mb-5 text-lg font-medium">Selected Projects</h3>
         <div className="grid grid-cols-1 gap-8 sm:gap-6 sm:grid-cols-2">
           {PROJECTS.map((project) => (
             <div key={project.id} className="space-y-2">
-              <AnimatedWebGL
-                sceneType={getWebGLSceneType(project.category, project.name)}
-                fallbackSrc={project.video}
-                color={getProjectColor(project.category)}
-                speed={1.2}
-                intensity={0.8}
-                hoverScale={1.03}
-                transition={{
-                  type: "spring",
-                  bounce: 0.1,
-                  duration: 0.4,
-                }}
-              />
+              {project.name.toLowerCase().includes("growit") &&
+              project.thumbnail ? (
+                <img
+                  src={project.thumbnail}
+                  alt={project.name}
+                  className="aspect-video w-full h-full object-cover rounded-lg"
+                />
+              ) : (
+                <AnimatedWebGL
+                  sceneType={getWebGLSceneType(project.category, project.name)}
+                  fallbackSrc={project.video}
+                  color={getProjectColor(project.category)}
+                  speed={1.2}
+                  intensity={0.8}
+                  hoverScale={1.03}
+                  transition={{
+                    type: "spring",
+                    bounce: 0.1,
+                    duration: 0.4,
+                  }}
+                />
+              )}
               <div className="px-1">
                 <Link
                   className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"
@@ -414,8 +463,11 @@ export default function Personal() {
         <h3 className="mb-5 text-lg font-medium">Connect</h3>
         <p className="mb-5 text-zinc-600 dark:text-zinc-400">
           Feel free to contact me at{" "}
-          <a className="underline dark:text-zinc-300" href={`mailto:${EMAIL}`}>
-            {EMAIL}
+          <a
+            className="underline dark:text-zinc-300"
+            href={`mailto:${getEmail()}`}
+          >
+            <DecodedEmail />
           </a>
         </p>
         <div className="flex items-center justify-start space-x-3">

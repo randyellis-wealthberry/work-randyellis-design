@@ -9,6 +9,7 @@ type Project = {
   link: string;
   githubLink?: string;
   video: string;
+  thumbnail?: string;
   images: string[];
   timeline: string;
   status: "completed" | "in-progress" | "concept";
@@ -60,6 +61,7 @@ export const PROJECTS: Project[] = [
     githubLink: "https://github.com/example/growit-app",
     video:
       "https://res.cloudinary.com/read-cv/video/upload/t_v_b/v1/1/profileItems/W2azTw5BVbMXfj7F53G92hMVIn32/newProfileItem/d898be8a-7037-4c71-af0c-8997239b050d.mp4?_a=DATAdtAAZAA0",
+    thumbnail: "/images/projects/growit-thumbnail.jpg",
     images: [
       "/projects/growit/app-screens.jpg",
       "/projects/growit/user-journey.jpg",
@@ -112,6 +114,7 @@ export const PROJECTS: Project[] = [
     link: "https://ai-design-system.demo.com/",
     video:
       "https://res.cloudinary.com/read-cv/video/upload/t_v_b/v1/1/profileItems/W2azTw5BVbMXfj7F53G92hMVIn32/newProfileItem/d898be8a-7037-4c71-af0c-8997239b050d.mp4?_a=DATAdtAAZAA0",
+    thumbnail: "/images/projects/ai-design-thumbnail.jpg",
     images: [
       "/projects/ai-design/interface.jpg",
       "/projects/ai-design/generated-system.jpg",
@@ -213,23 +216,26 @@ export const BLOG_POSTS: BlogPost[] = [
 export const SOCIAL_LINKS: SocialLink[] = [
   {
     label: "Github",
-    link: "https://github.com/ibelick",
+    link: "https://github.com/randyellis-wealthberry",
   },
   {
     label: "Twitter",
-    link: "https://twitter.com/ibelick",
+    link: "https://x.com/iamrandyellis",
   },
   {
     label: "LinkedIn",
-    link: "https://www.linkedin.com/in/ibelick",
-  },
-  {
-    label: "Instagram",
-    link: "https://www.instagram.com/ibelick",
+    link: "https://www.linkedin.com/in/iamrandyellis/",
   },
 ];
 
-export const EMAIL = "randy.ellis.pro@gmail.com";
+// Obfuscated email (base64 encoded)
+export const EMAIL_ENCODED = "cmFuZHkuZWxsaXMucHJvQGdtYWlsLmNvbQ==";
+
+// Utility function to decode email
+export const getEmail = () => {
+  if (typeof window === "undefined") return "";
+  return atob(EMAIL_ENCODED);
+};
 
 export const PROJECT_CATEGORIES = [
   "All",

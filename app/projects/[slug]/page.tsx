@@ -368,11 +368,12 @@ export default async function ProjectDetailPage({
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <Button asChild className="w-full">
-                      <Link href={`/projects/${relatedProject.slug}`}>
-                        View Project
-                      </Link>
-                    </Button>
+                    <Link
+                      href={`/projects/${relatedProject.slug}`}
+                      className="inline-flex items-center justify-center gap-2 px-6 py-3 w-full bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                    >
+                      View Project
+                    </Link>
                   </CardContent>
                 </Card>
               ))}
@@ -391,9 +392,12 @@ export default async function ProjectDetailPage({
             I&apos;m always excited to discuss new projects and opportunities.
             Let&apos;s create something amazing together.
           </p>
-          <Button asChild size="lg">
-            <Link href="/#connect">Get in Touch</Link>
-          </Button>
+          <Link
+            href="/#connect"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            Get in Touch
+          </Link>
         </motion.section>
       </motion.div>
     </div>

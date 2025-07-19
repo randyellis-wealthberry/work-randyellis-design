@@ -9,6 +9,7 @@ import {
   TrendingUp,
   Lightbulb,
 } from "lucide-react";
+import { getEmail } from "../data";
 
 export const metadata: Metadata = {
   title: "About Randy Ellis - AI Product Design Engineer & Leader",
@@ -279,7 +280,7 @@ export default function AboutPage() {
         </p>
         <div className="flex justify-center gap-4">
           <a
-            href="mailto:randy.ellis.pro@gmail.com"
+            href={`mailto:${getEmail()}`}
             className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
           >
             Get in Touch
