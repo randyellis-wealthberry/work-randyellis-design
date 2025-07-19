@@ -13,7 +13,7 @@ import {
   AccordionContent,
 } from "@/components/core/accordion";
 import { AnimatedNumberBasic } from "@/components/core/animated-number-basic";
-import { AnimatedVideo } from "@/components/ui/animated-asset";
+import { AnimatedWebGL } from "@/components/ui/animated-webgl";
 import { TransitionPanel } from "@/components/motion-primitives/transition-panel";
 import {
   PROJECTS,
@@ -41,6 +41,30 @@ const VARIANTS_SECTION = {
 const TRANSITION_SECTION = {
   duration: 0.3,
 };
+
+function getWebGLSceneType(
+  category: string,
+  name: string,
+): "organic" | "neural" | "geometric" {
+  if (category === "Mobile App" && name.toLowerCase().includes("grow")) {
+    return "organic";
+  }
+  if (category === "AI/ML" || name.toLowerCase().includes("ai")) {
+    return "neural";
+  }
+  return "geometric";
+}
+
+function getProjectColor(category: string): string {
+  switch (category) {
+    case "Mobile App":
+      return "#22c55e"; // Green for mobile/growth
+    case "AI/ML":
+      return "#3b82f6"; // Blue for AI/tech
+    default:
+      return "#8b5cf6"; // Purple for general projects
+  }
+}
 
 function MagneticSocialLink({
   children,
@@ -229,7 +253,7 @@ function AccordionIcons() {
 export default function Personal() {
   return (
     <motion.main
-      className="space-y-24"
+      className="space-y-32 sm:space-y-24"
       variants={VARIANTS_CONTAINER}
       initial="hidden"
       animate="visible"
@@ -240,8 +264,10 @@ export default function Personal() {
       >
         <div className="flex-1">
           <p className="text-zinc-600 dark:text-zinc-400">
-            Focused on creating intuitive and performant web experiences.
-            Bridging the gap between design and development.
+            AI Product Design Engineer specializing in generative AI, design
+            systems, and product leadership. Currently Head of Product at
+            Wealthberry Labs, with 2.5M+ users impacted and $50M in product
+            value delivered.
           </p>
         </div>
       </motion.section>
@@ -257,7 +283,7 @@ export default function Personal() {
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
-        <h3 className="mb-5 text-lg font-medium">Featured Showcase</h3>
+        <h3 className="mb-5 text-lg font-medium">Core Ideologies</h3>
         <TransitionPanelExample />
       </motion.section>
 
@@ -266,11 +292,15 @@ export default function Personal() {
         transition={TRANSITION_SECTION}
       >
         <h3 className="mb-5 text-lg font-medium">Selected Projects</h3>
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-8 sm:gap-6 sm:grid-cols-2">
           {PROJECTS.map((project) => (
             <div key={project.id} className="space-y-2">
-              <AnimatedVideo
-                src={project.video}
+              <AnimatedWebGL
+                sceneType={getWebGLSceneType(project.category, project.name)}
+                fallbackSrc={project.video}
+                color={getProjectColor(project.category)}
+                speed={1.2}
+                intensity={0.8}
                 hoverScale={1.03}
                 transition={{
                   type: "spring",
