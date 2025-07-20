@@ -24,6 +24,17 @@ export type Project = {
   learnings?: string[];
   teamSize?: number;
   role?: string;
+  overview?: {
+    deliverables: string[];
+    teamMembers: string[];
+    timelineDuration: string;
+    toolsUsed: string[];
+  };
+  constraints?: {
+    environmental: string[];
+    technical: string[];
+    location: string[];
+  };
 };
 
 type WorkExperience = {
@@ -49,6 +60,103 @@ type SocialLink = {
 };
 
 export const PROJECTS: Project[] = [
+  {
+    id: "echo-drive",
+    name: "EchoDrive - Digital Transformation in Truckload Management",
+    slug: "echo",
+    description:
+      "Modern truckload management platform for Echo Global Logistics, modernizing shipping operations with mobile and web solutions.",
+    longDescription:
+      "Echo Global Logistics, a leading provider of technology-enabled transportation and supply chain management services, partnered with Eight Bit Studios to modernize their truckload management operations. The shipping industry, long reliant on outdated methods, faced significant challenges in coordinating shippers, drivers, and dispatch teams. EchoDrive was designed to build a modern shipment tracking system that would streamline communication, improve compliance, and drive business growth.",
+    category: "Mobile App",
+    tags: [
+      "Transportation",
+      "Logistics",
+      "Mobile Native",
+      "ELD Compliance",
+      "iOS",
+      "Android",
+    ],
+    link: "https://www.echo.com/",
+    githubLink: undefined,
+    video:
+      "https://res.cloudinary.com/read-cv/video/upload/t_v_b/v1/1/profileItems/W2azTw5BVbMXfj7F53G92hMVIn32/newProfileItem/d898be8a-7037-4c71-af0c-8997239b050d.mp4?_a=DATAdtAAZAA0",
+    thumbnail: "/projects/echo/poster.png",
+    images: [
+      "/projects/echo/img1.jpg",
+      "/projects/echo/img2.jpg",
+      "/projects/echo/img3.jpg",
+      "/projects/echo/img4.jpg",
+      "/projects/echo/img5.jpg",
+    ],
+    timeline: "Q1 2019 - Q4 2019",
+    status: "completed",
+    technologies: [
+      "React Native",
+      "iOS",
+      "Android",
+      "React",
+      "Node.js",
+      "Electronic Logging",
+      "Real-time Tracking",
+    ],
+    featured: true,
+    metrics: [
+      { label: "LTL Revenue Increase", value: "$184.4M" },
+      { label: "Active Drivers", value: "10K+" },
+      { label: "Beta Downloads", value: "1K+" },
+      { label: "Shipment Volume Growth", value: "+12%" },
+    ],
+    challenges: [
+      "Achieve compliance with Electronic Logging Device (ELD) Mandate",
+      "Enhance truckload visibility to reduce call-center stress",
+      "Increase Less Than Truckload (LTL) shipment revenues and volume",
+      "Boost driver engagement and modernize legacy workflows",
+    ],
+    solutions: [
+      "Built native mobile app with electronic logging compliance",
+      "Implemented real-time shipment tracking and communication platform",
+      "Created self-serve booking application for LTL shipments",
+      "Developed cohesive web portal for dispatch teams and customer service",
+    ],
+    learnings: [
+      "Transportation industry digital transformation",
+      "Regulatory compliance in logistics technology",
+      "Driver-dispatcher communication optimization",
+      "Mobile-first design for industrial applications",
+    ],
+    teamSize: 8,
+    role: "UX Designer & Product Strategist",
+    overview: {
+      deliverables: [
+        "Discovery & Research",
+        "User Journey Mapping",
+        "Brand Identity & Strategy",
+        "Native Mobile App (iOS/Android)",
+        "Web Portal for Dispatch",
+        "Interactive Onboarding",
+      ],
+      teamMembers: [
+        "UX Designer (Me)",
+        "iOS Developer",
+        "Android Developer",
+        "Frontend Engineer",
+        "Backend Engineer",
+        "Product Manager",
+        "Visual Designer",
+        "QA Engineer",
+      ],
+      timelineDuration: "12 months",
+      toolsUsed: [
+        "React Native",
+        "React & TypeScript",
+        "Node.js & Express",
+        "Figma (Design)",
+        "Sketch (Prototyping)",
+        "InVision (Testing)",
+      ],
+    },
+  },
   {
     id: "project2",
     name: "GrowIt - Social Gardening App",
@@ -101,6 +209,48 @@ export const PROJECTS: Project[] = [
     ],
     teamSize: 8,
     role: "Product Designer & Frontend Lead",
+    overview: {
+      deliverables: [
+        "Lead Product Designer",
+        "Features vision and thinking",
+        "Evaluative UX Research",
+        "User Flow",
+        "Interaction Design",
+        "Hi-Fi Prototyping",
+      ],
+      teamMembers: [
+        "Software Engineer (iOS + Android)",
+        "UX Designer/Researcher (Me)",
+        "Visual Designer",
+        "Project Manager",
+      ],
+      timelineDuration: "4-weeks (pilot)",
+      toolsUsed: [
+        "Adobe Photoshop",
+        "InVision (Hi-Fi Prototype)",
+        "Miro (Wireframe/Collaboration)",
+        "Xtensio (Personas)",
+        "Pencil & Pad (Sketching)",
+      ],
+    },
+    constraints: {
+      environmental: [
+        "Chicago's climate is typically continental with cold winters, warm summers, and frequent short fluctuations in temperature, humidity, cloudiness, and wind direction.",
+      ],
+      technical: [
+        "Signal strength increases as a device moves closer to the beacon, leading to a better proximity estimate.",
+        "Physical objects and materials can block signals, reducing the received signal strength.",
+        "Human bodies can also block signals",
+      ],
+      location: [
+        "How would we mount the iBeacons?",
+        "Can we place them on trees/lampposts /barriers?",
+        "Other radio frequencies",
+        "If connection drops, what do we show?",
+        "Null state",
+        "CTA/Null state",
+      ],
+    },
   },
   {
     id: "project3",
