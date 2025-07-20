@@ -20,7 +20,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Spotlight } from "@/components/ui/spotlight";
 import { Magnetic } from "@/components/ui/magnetic";
 import { AnimatedNumberBasic } from "@/components/core/animated-number-basic";
-import { AnimatedWebGL } from "@/components/ui/animated-webgl";
+import { UnicornStudioEmbed } from "@/components/ui/unicorn-studio-embed";
 import { TransitionPanel } from "@/components/motion-primitives/transition-panel";
 import {
   Accordion,
@@ -315,11 +315,10 @@ export default function GrowItPage() {
 
         {/* Hero Visual */}
         <div className="mt-12">
-          <AnimatedWebGL
-            sceneType="organic"
-            color="#22c55e"
-            speed={1.0}
-            intensity={0.6}
+          <UnicornStudioEmbed
+            projectId="tuUM450x5GBk3j3thVRy"
+            width={1440}
+            height={900}
             className="w-full h-64 sm:h-80 rounded-xl"
           />
         </div>
