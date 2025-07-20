@@ -9,6 +9,12 @@ import {
   Calendar,
   Users,
   CheckCircle,
+  Briefcase,
+  Clock,
+  Target,
+  Cloud,
+  Cpu,
+  MapPin,
 } from "lucide-react";
 import {
   Card,
@@ -21,6 +27,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { AnimatedVideo, AnimatedImage } from "@/components/ui/animated-asset";
+import { AnimatedMetricCard } from "@/components/ui/animated-metric-card";
 import type { Project } from "../../data";
 
 const VARIANTS_CONTAINER = {
@@ -42,17 +49,6 @@ const TRANSITION_ITEM = {
   duration: 0.4,
   ease: "easeOut",
 };
-
-function MetricCard({ label, value }: { label: string; value: string }) {
-  return (
-    <Card>
-      <CardContent className="pt-6 text-center">
-        <div className="text-2xl font-bold">{value}</div>
-        <div className="text-sm text-muted-foreground">{label}</div>
-      </CardContent>
-    </Card>
-  );
-}
 
 function SectionCard({
   title,
@@ -223,17 +219,24 @@ export default function ProjectDetailClient({
         {/* Metrics */}
         {project.metrics && (
           <motion.section
-            className="space-y-4"
+            className="space-y-6"
             variants={VARIANTS_ITEM}
             transition={TRANSITION_ITEM}
           >
-            <h2 className="text-2xl font-bold text-center">Project Impact</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="text-center space-y-2">
+              <p className="text-sm text-muted-foreground uppercase tracking-wide">
+                Measurable Impact
+              </p>
+              <h2 className="text-3xl font-bold">Project Results</h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {project.metrics.map((metric, index) => (
-                <MetricCard
+                <AnimatedMetricCard
                   key={index}
                   label={metric.label}
                   value={metric.value}
+                  delay={index * 200}
+                  duration={2000}
                 />
               ))}
             </div>
@@ -261,6 +264,261 @@ export default function ProjectDetailClient({
             ))}
           </div>
         </motion.section>
+
+        <Separator />
+
+        {/* Project Overview */}
+        {project.overview && (
+          <motion.section
+            className="space-y-6"
+            variants={VARIANTS_ITEM}
+            transition={TRANSITION_ITEM}
+          >
+            <div className="text-center space-y-2">
+              <p className="text-sm text-muted-foreground uppercase tracking-wide">
+                Role & Team
+              </p>
+              <h2 className="text-3xl font-bold">Project Overview</h2>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* My Role & Deliverables */}
+              <Card className="h-full flex flex-col border-muted hover:border-primary/30 transition-colors duration-200">
+                <CardHeader>
+                  <div className="flex items-center space-x-3">
+                    <div className="p-2 bg-primary/10 rounded-lg">
+                      <Briefcase className="h-5 w-5 text-primary" />
+                    </div>
+                    <CardTitle className="text-base font-semibold">
+                      My Role/Deliverables
+                    </CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent className="flex-1">
+                  <ul className="space-y-3">
+                    {project.overview.deliverables.map((item, index) => (
+                      <li key={index} className="flex items-start">
+                        <span className="text-primary mr-2 mt-1">•</span>
+                        <span className="text-sm text-muted-foreground leading-relaxed">
+                          {item}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+
+              {/* Team & Collaboration */}
+              <Card className="h-full flex flex-col border-muted hover:border-primary/30 transition-colors duration-200">
+                <CardHeader>
+                  <div className="flex items-center space-x-3">
+                    <div className="p-2 bg-primary/10 rounded-lg">
+                      <Users className="h-5 w-5 text-primary" />
+                    </div>
+                    <CardTitle className="text-base font-semibold">
+                      Who I worked with
+                    </CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent className="flex-1">
+                  <ul className="space-y-3">
+                    {project.overview.teamMembers.map((item, index) => (
+                      <li key={index} className="flex items-start">
+                        <span className="text-primary mr-2 mt-1">•</span>
+                        <span className="text-sm text-muted-foreground leading-relaxed">
+                          {item}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+
+              {/* Timeline */}
+              <Card className="h-full flex flex-col border-muted hover:border-primary/30 transition-colors duration-200">
+                <CardHeader>
+                  <div className="flex items-center space-x-3">
+                    <div className="p-2 bg-primary/10 rounded-lg">
+                      <Clock className="h-5 w-5 text-primary" />
+                    </div>
+                    <CardTitle className="text-base font-semibold">
+                      Timeline
+                    </CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent className="flex-1 flex items-start">
+                  <div className="flex items-center space-x-2">
+                    <span className="text-primary">•</span>
+                    <Badge
+                      variant="outline"
+                      className="bg-primary/5 border-primary/20 text-sm font-medium"
+                    >
+                      {project.overview.timelineDuration}
+                    </Badge>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Tools Used */}
+              <Card className="h-full flex flex-col border-muted hover:border-primary/30 transition-colors duration-200">
+                <CardHeader>
+                  <div className="flex items-center space-x-3">
+                    <div className="p-2 bg-primary/10 rounded-lg">
+                      <Target className="h-5 w-5 text-primary" />
+                    </div>
+                    <CardTitle className="text-base font-semibold">
+                      Tools Used
+                    </CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent className="flex-1">
+                  <ul className="space-y-3">
+                    {project.overview.toolsUsed.map((item, index) => (
+                      <li key={index} className="flex items-start">
+                        <span className="text-primary mr-2 mt-1">•</span>
+                        <span className="text-sm text-muted-foreground leading-relaxed">
+                          {item}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            </div>
+          </motion.section>
+        )}
+
+        <Separator />
+
+        {/* Project Constraints */}
+        {project.constraints && (
+          <motion.section
+            className="space-y-6"
+            variants={VARIANTS_ITEM}
+            transition={TRANSITION_ITEM}
+          >
+            <div className="text-center space-y-2">
+              <p className="text-sm text-muted-foreground uppercase tracking-wide">
+                Constraints
+              </p>
+              <h2 className="text-3xl font-bold">
+                Constraints For The GrowIt App
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Environmental */}
+              <Card className="h-full flex flex-col border-muted hover:border-primary/30 transition-colors duration-200">
+                <CardHeader>
+                  <div className="flex items-center space-x-3">
+                    <div className="p-2 bg-primary/10 rounded-lg">
+                      <Cloud className="h-5 w-5 text-primary" />
+                    </div>
+                    <CardTitle className="text-base font-semibold">
+                      Environmental
+                    </CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent className="flex-1 space-y-4">
+                  <div className="aspect-video bg-muted rounded-lg flex items-center justify-center">
+                    <span className="text-muted-foreground text-sm">
+                      Environmental Image
+                    </span>
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium mb-3">
+                      Things to consider:
+                    </p>
+                    <ul className="space-y-2">
+                      {project.constraints.environmental.map((item, index) => (
+                        <li key={index} className="flex items-start">
+                          <span className="text-primary mr-2 mt-1">•</span>
+                          <span className="text-sm text-muted-foreground leading-relaxed">
+                            {item}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Technical */}
+              <Card className="h-full flex flex-col border-muted hover:border-primary/30 transition-colors duration-200">
+                <CardHeader>
+                  <div className="flex items-center space-x-3">
+                    <div className="p-2 bg-primary/10 rounded-lg">
+                      <Cpu className="h-5 w-5 text-primary" />
+                    </div>
+                    <CardTitle className="text-base font-semibold">
+                      Technical
+                    </CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent className="flex-1 space-y-4">
+                  <div className="aspect-video bg-muted rounded-lg flex items-center justify-center">
+                    <span className="text-muted-foreground text-sm">
+                      Technical Image
+                    </span>
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium mb-3">
+                      Things to consider:
+                    </p>
+                    <ul className="space-y-2">
+                      {project.constraints.technical.map((item, index) => (
+                        <li key={index} className="flex items-start">
+                          <span className="text-primary mr-2 mt-1">•</span>
+                          <span className="text-sm text-muted-foreground leading-relaxed">
+                            {item}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Location - Spans full width on large screens */}
+              <Card className="lg:col-span-2 h-full flex flex-col border-muted hover:border-primary/30 transition-colors duration-200">
+                <CardHeader>
+                  <div className="flex items-center space-x-3">
+                    <div className="p-2 bg-primary/10 rounded-lg">
+                      <MapPin className="h-5 w-5 text-primary" />
+                    </div>
+                    <CardTitle className="text-base font-semibold">
+                      Location
+                    </CardTitle>
+                  </div>
+                </CardHeader>
+                <CardContent className="flex-1 space-y-4">
+                  <div className="grid lg:grid-cols-2 gap-6">
+                    <div className="aspect-video bg-muted rounded-lg flex items-center justify-center">
+                      <span className="text-muted-foreground text-sm">
+                        Location Image
+                      </span>
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium mb-3">
+                        Things to consider:
+                      </p>
+                      <ul className="space-y-2">
+                        {project.constraints.location.map((item, index) => (
+                          <li key={index} className="flex items-start">
+                            <span className="text-primary mr-2 mt-1">•</span>
+                            <span className="text-sm text-muted-foreground leading-relaxed">
+                              {item}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </motion.section>
+        )}
 
         <Separator />
 
