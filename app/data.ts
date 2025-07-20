@@ -1,4 +1,4 @@
-type Project = {
+export type Project = {
   id: string;
   name: string;
   slug: string;
@@ -52,7 +52,7 @@ export const PROJECTS: Project[] = [
   {
     id: "project2",
     name: "GrowIt - Social Gardening App",
-    slug: "growit-social-gardening",
+    slug: "growit",
     description: "One of the fastest-growing mobile gardening apps in the U.S.",
     longDescription:
       "GrowIt is a social gardening platform that connects plant enthusiasts worldwide. Users can share their gardening journey, get expert advice, and discover new plants through an engaging social experience. The app features plant identification, care reminders, and a vibrant community of gardening enthusiasts.",
@@ -62,7 +62,7 @@ export const PROJECTS: Project[] = [
     githubLink: "https://github.com/example/growit-app",
     video:
       "https://res.cloudinary.com/read-cv/video/upload/t_v_b/v1/1/profileItems/W2azTw5BVbMXfj7F53G92hMVIn32/newProfileItem/d898be8a-7037-4c71-af0c-8997239b050d.mp4?_a=DATAdtAAZAA0",
-    thumbnail: "/images/projects/growit-thumbnail.jpg",
+    thumbnail: "/images/projects/growit-thumbnail.webp",
     images: [
       "/projects/growit/app-screens.jpg",
       "/projects/growit/user-journey.jpg",
@@ -250,7 +250,11 @@ export const EMAIL_ENCODED = "cmFuZHkuZWxsaXMucHJvQGdtYWlsLmNvbQ==";
 
 // Utility function to decode email
 export const getEmail = () => {
-  if (typeof window === "undefined") return "";
+  if (typeof window === "undefined") {
+    // Server-side: use Buffer for Node.js
+    return Buffer.from(EMAIL_ENCODED, "base64").toString("utf-8");
+  }
+  // Client-side: use atob
   return atob(EMAIL_ENCODED);
 };
 

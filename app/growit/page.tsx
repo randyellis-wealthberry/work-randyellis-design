@@ -2,6 +2,12 @@
 
 import { motion } from "motion/react";
 import { Badge } from "@/components/ui/badge";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -22,7 +28,15 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "@/components/core/accordion";
-import { ChevronUp, Leaf, Users, Target, TrendingUp } from "lucide-react";
+import {
+  ChevronUp,
+  Leaf,
+  Users,
+  Target,
+  TrendingUp,
+  Briefcase,
+  Clock,
+} from "lucide-react";
 import { useState } from "react";
 
 const VARIANTS_CONTAINER = {
@@ -112,6 +126,43 @@ const TESTIMONIALS = [
     avatar: "ET",
   },
 ];
+
+const PROJECT_OVERVIEW = {
+  role: {
+    title: "My Role & Deliverables",
+    icon: Briefcase,
+    items: [
+      "Lead Product Designer",
+      "Features vision and thinking",
+      "Evaluative UX Research",
+      "User Flow Design",
+      "Interaction Design",
+      "Hi-Fi Prototyping",
+    ],
+  },
+  team: {
+    title: "Who I worked with",
+    icon: Users,
+    items: [
+      "Software Engineer (iOS + Android)",
+      "UX Designer/Researcher (Me)",
+      "Visual Designer",
+      "Project Manager",
+    ],
+  },
+  timeline: {
+    title: "Timeline & Tools",
+    icon: Clock,
+    timeline: "4-weeks (pilot)",
+    tools: [
+      { name: "Adobe Photoshop", description: "Visual design and assets" },
+      { name: "InVision", description: "Hi-Fi Prototype creation" },
+      { name: "Miro", description: "Wireframe and collaboration" },
+      { name: "Xtensio", description: "Personas development" },
+      { name: "Pencil & Pad", description: "Initial sketching" },
+    ],
+  },
+};
 
 function ProcessStepsSection() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -312,6 +363,117 @@ export default function GrowItPage() {
               App Rating
             </p>
           </div>
+        </div>
+      </motion.section>
+
+      {/* Project Overview */}
+      <motion.section
+        variants={VARIANTS_SECTION}
+        transition={TRANSITION_SECTION}
+      >
+        <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50 mb-8 text-center">
+          Project Overview
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* My Role & Deliverables */}
+          <Card className="border-zinc-200 dark:border-zinc-800 hover:border-green-300 dark:hover:border-green-700 transition-colors duration-200">
+            <CardHeader>
+              <div className="flex items-center space-x-3">
+                <div className="p-2 bg-green-100 dark:bg-green-800 rounded-lg">
+                  <PROJECT_OVERVIEW.role.icon className="h-6 w-6 text-green-600 dark:text-green-400" />
+                </div>
+                <CardTitle className="text-lg">
+                  {PROJECT_OVERVIEW.role.title}
+                </CardTitle>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <ul className="space-y-2">
+                {PROJECT_OVERVIEW.role.items.map((item, index) => (
+                  <li key={index} className="flex items-start">
+                    <span className="text-green-500 mr-2">•</span>
+                    <span className="text-sm text-zinc-600 dark:text-zinc-400">
+                      {item}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
+          </Card>
+
+          {/* Team & Collaboration */}
+          <Card className="border-zinc-200 dark:border-zinc-800 hover:border-green-300 dark:hover:border-green-700 transition-colors duration-200">
+            <CardHeader>
+              <div className="flex items-center space-x-3">
+                <div className="p-2 bg-green-100 dark:bg-green-800 rounded-lg">
+                  <PROJECT_OVERVIEW.team.icon className="h-6 w-6 text-green-600 dark:text-green-400" />
+                </div>
+                <CardTitle className="text-lg">
+                  {PROJECT_OVERVIEW.team.title}
+                </CardTitle>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <ul className="space-y-2">
+                {PROJECT_OVERVIEW.team.items.map((item, index) => (
+                  <li key={index} className="flex items-start">
+                    <span className="text-green-500 mr-2">•</span>
+                    <span className="text-sm text-zinc-600 dark:text-zinc-400">
+                      {item}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
+          </Card>
+
+          {/* Timeline & Tools */}
+          <Card className="border-zinc-200 dark:border-zinc-800 hover:border-green-300 dark:hover:border-green-700 transition-colors duration-200">
+            <CardHeader>
+              <div className="flex items-center space-x-3">
+                <div className="p-2 bg-green-100 dark:bg-green-800 rounded-lg">
+                  <PROJECT_OVERVIEW.timeline.icon className="h-6 w-6 text-green-600 dark:text-green-400" />
+                </div>
+                <CardTitle className="text-lg">
+                  {PROJECT_OVERVIEW.timeline.title}
+                </CardTitle>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div>
+                <Badge
+                  variant="outline"
+                  className="bg-green-50 dark:bg-green-900 border-green-200 dark:border-green-700"
+                >
+                  {PROJECT_OVERVIEW.timeline.timeline}
+                </Badge>
+              </div>
+              <div className="space-y-2">
+                <h4 className="text-sm font-medium text-zinc-900 dark:text-zinc-100">
+                  Tools Used:
+                </h4>
+                <TooltipProvider>
+                  <div className="flex flex-wrap gap-1">
+                    {PROJECT_OVERVIEW.timeline.tools.map((tool, index) => (
+                      <Tooltip key={index}>
+                        <TooltipTrigger asChild>
+                          <Badge
+                            variant="secondary"
+                            className="text-xs cursor-help hover:bg-green-100 dark:hover:bg-green-800"
+                          >
+                            {tool.name}
+                          </Badge>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>{tool.description}</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    ))}
+                  </div>
+                </TooltipProvider>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </motion.section>
 
