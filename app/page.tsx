@@ -5,6 +5,7 @@ import { ChevronUp } from "lucide-react";
 import { Spotlight } from "@/components/ui/spotlight";
 import { Magnetic } from "@/components/ui/magnetic";
 import Link from "next/link";
+import Image from "next/image";
 import { AnimatedBackground } from "@/components/ui/animated-background";
 import {
   Accordion,
@@ -309,9 +310,11 @@ export default function Personal() {
           {PROJECTS.slice(0, 2).map((project) => (
             <div key={project.id} className="space-y-2">
               <Link href={`/projects/${project.slug}`}>
-                <img
+                <Image
                   src="/images/projects/placeholder-thumbnail.jpg"
                   alt={project.name}
+                  width={500}
+                  height={281}
                   className="aspect-video w-full h-full object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity duration-200"
                 />
               </Link>
@@ -343,9 +346,11 @@ export default function Personal() {
             <div key={project.id} className="space-y-2">
               {project.thumbnail ? (
                 <Link href={`/projects/${project.slug}`}>
-                  <img
+                  <Image
                     src={project.thumbnail}
                     alt={project.name}
+                    width={500}
+                    height={281}
                     className="aspect-video w-full h-full object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity duration-200"
                   />
                 </Link>

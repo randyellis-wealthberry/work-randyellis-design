@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 import {
   MorphingDialog,
   MorphingDialogTrigger,
@@ -140,9 +141,11 @@ export const AnimatedImage = ({
   ...props
 }: AnimatedImageProps) => {
   const imageElement = (
-    <img
+    <Image
       src={src}
       alt={alt}
+      width={500}
+      height={281}
       className={cn(
         "aspect-video w-full h-full",
         `object-${objectFit}`,
