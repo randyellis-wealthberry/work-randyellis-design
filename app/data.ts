@@ -101,6 +101,48 @@ export const PROJECTS: Project[] = [
     ],
     teamSize: 8,
     role: "Product Designer & Frontend Lead",
+    overview: {
+      deliverables: [
+        "Lead Product Designer",
+        "Features vision and thinking",
+        "Evaluative UX Research",
+        "User Flow",
+        "Interaction Design",
+        "Hi-Fi Prototyping",
+      ],
+      teamMembers: [
+        "Software Engineer (iOS + Android)",
+        "UX Designer/Researcher (Me)",
+        "Visual Designer",
+        "Project Manager",
+      ],
+      timelineDuration: "4-weeks (pilot)",
+      toolsUsed: [
+        "Adobe Photoshop",
+        "InVision (Hi-Fi Prototype)",
+        "Miro (Wireframe/Collaboration)",
+        "Xtensio (Personas)",
+        "Pencil & Pad (Sketching)",
+      ],
+    },
+    constraints: {
+      environmental: [
+        "Chicago's climate is typically continental with cold winters, warm summers, and frequent short fluctuations in temperature, humidity, cloudiness, and wind direction.",
+      ],
+      technical: [
+        "Signal strength increases as a device moves closer to the beacon, leading to a better proximity estimate.",
+        "Physical objects and materials can block signals, reducing the received signal strength.",
+        "Human bodies can also block signals",
+      ],
+      location: [
+        "How would we mount the iBeacons?",
+        "Can we place them on trees/lampposts /barriers?",
+        "Other radio frequencies",
+        "If connection drops, what do we show?",
+        "Null state",
+        "CTA/Null state",
+      ],
+    },
   },
   {
     id: "project3",
