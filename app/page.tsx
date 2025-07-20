@@ -14,6 +14,7 @@ import {
 } from "@/components/core/accordion";
 import { AnimatedNumberBasic } from "@/components/core/animated-number-basic";
 import { AnimatedWebGL } from "@/components/ui/animated-webgl";
+import { UnicornStudioEmbed } from "@/components/ui/unicorn-studio-embed";
 import { TransitionPanel } from "@/components/motion-primitives/transition-panel";
 import {
   PROJECTS,
@@ -341,13 +342,13 @@ export default function Personal() {
         <div className="grid grid-cols-1 gap-8 sm:gap-6 sm:grid-cols-2">
           {PROJECTS.map((project) => (
             <div key={project.id} className="space-y-2">
-              {project.name.toLowerCase().includes("growit") &&
-              project.thumbnail ? (
+              {project.name.toLowerCase().includes("growit") ? (
                 <Link href={`/projects/${project.slug}`}>
-                  <img
-                    src={project.thumbnail}
-                    alt={project.name}
-                    className="aspect-video w-full h-full object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity duration-200"
+                  <UnicornStudioEmbed
+                    projectId="tuUM450x5GBk3j3thVRy"
+                    width={1440}
+                    height={900}
+                    className="aspect-video w-full h-full rounded-lg cursor-pointer hover:opacity-90 transition-opacity duration-200"
                   />
                 </Link>
               ) : (
