@@ -351,6 +351,14 @@ export default function Personal() {
                     className="aspect-video w-full h-full rounded-lg cursor-pointer hover:opacity-90 transition-opacity duration-200"
                   />
                 </Link>
+              ) : project.thumbnail ? (
+                <Link href={`/projects/${project.slug}`}>
+                  <img
+                    src={project.thumbnail}
+                    alt={project.name}
+                    className="aspect-video w-full h-full object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity duration-200"
+                  />
+                </Link>
               ) : (
                 <Link
                   href={`/projects/${project.slug}`}
