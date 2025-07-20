@@ -305,10 +305,10 @@ export default function Personal() {
         transition={TRANSITION_SECTION}
         className="mt-40 sm:mt-32"
       >
-        <h3 className="mb-5 text-lg font-medium">What am I working on</h3>
-        <div className="grid grid-cols-1 gap-8 sm:gap-6 sm:grid-cols-2">
+        <h3 className="mb-8 text-lg font-medium">What am I working on</h3>
+        <div className="grid grid-cols-1 gap-12 lg:gap-8 sm:grid-cols-2">
           {PROJECTS.slice(0, 2).map((project) => (
-            <div key={project.id} className="space-y-2">
+            <div key={project.id} className="space-y-4">
               <Link href={`/projects/${project.slug}`}>
                 <Image
                   src="/images/projects/placeholder-thumbnail.jpg"
@@ -318,7 +318,7 @@ export default function Personal() {
                   className="aspect-video w-full h-full object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity duration-200"
                 />
               </Link>
-              <div className="px-1">
+              <div className="px-1 space-y-2">
                 <Link
                   className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"
                   href={`/projects/${project.slug}`}
@@ -340,10 +340,10 @@ export default function Personal() {
         transition={TRANSITION_SECTION}
         className="mt-40 sm:mt-32"
       >
-        <h3 className="mb-5 text-lg font-medium">Selected Projects</h3>
-        <div className="grid grid-cols-1 gap-8 sm:gap-6 sm:grid-cols-2">
+        <h3 className="mb-8 text-lg font-medium">Selected Projects</h3>
+        <div className="grid grid-cols-1 gap-12 lg:gap-8 sm:grid-cols-2">
           {PROJECTS.map((project) => (
-            <div key={project.id} className="space-y-2">
+            <div key={project.id} className="space-y-4">
               {project.thumbnail ? (
                 <Link href={`/projects/${project.slug}`}>
                   <Image
@@ -377,7 +377,7 @@ export default function Personal() {
                   />
                 </Link>
               )}
-              <div className="px-1">
+              <div className="px-1 space-y-2">
                 <Link
                   className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"
                   href={`/projects/${project.slug}`}
