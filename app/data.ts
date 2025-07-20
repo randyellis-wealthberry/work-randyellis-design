@@ -33,6 +33,7 @@ type WorkExperience = {
   end: string;
   link: string;
   id: string;
+  description: string[];
 };
 
 type BlogPost = {
@@ -160,26 +161,42 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
   {
     company: "Wealthberry Labs",
     title: "Head of Product",
-    start: "2022",
+    start: "Oct 2022",
     end: "Present",
     link: "https://www.buildyourlegacywithai.com",
     id: "work1",
+    description: [
+      "Lead product vision for fintech platform, enhancing user experience and increasing retention",
+      "Managed teams to achieve 18% conversion from signups to paid waitlist",
+      "Conducted 50+ UX sessions to refine features, boosting task completion by 34%",
+      "Implemented user-driven development, earning 'intuitive and empowering' feedback",
+    ],
   },
   {
     company: "Clockwork",
-    title: "Lead UX Researcher (Consultant)",
-    start: "2023",
-    end: "2023",
+    title: "Lead UX Researcher",
+    start: "Apr 2023",
+    end: "Oct 2023",
     link: "https://www.clockwork.com",
     id: "work2",
+    description: [
+      "Developed wireframes, reducing onboarding time",
+      "Interviewed planners to optimize financial tools",
+      "Suggested PIM, improving inventory efficiency",
+    ],
   },
   {
     company: "Nagarro",
     title: "Head of Design",
-    start: "2020",
-    end: "2022",
+    start: "Mar 2022",
+    end: "Oct 2022",
     link: "https://www.nagarro.com",
     id: "work3",
+    description: [
+      "Spearheaded IT firm's design strategy, boosting brand recognition by 50% and generating 100+ leads",
+      "Coached 15+ designers, enhancing skills and increasing retention by 40%",
+      "Authored 15+ articles, improving site traffic by 40% and boosting leads by 25%",
+    ],
   },
 ];
 

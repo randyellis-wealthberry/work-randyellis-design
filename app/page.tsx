@@ -77,6 +77,8 @@ function MagneticSocialLink({
     <Magnetic springOptions={{ bounce: 0 }} intensity={0.3}>
       <a
         href={link}
+        target="_blank"
+        rel="noopener noreferrer"
         className="group relative inline-flex shrink-0 items-center gap-[1px] rounded-full bg-zinc-100 px-2.5 py-1 text-sm text-black transition-colors duration-200 hover:bg-zinc-950 hover:text-zinc-50 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700"
       >
         {children}
@@ -300,16 +302,19 @@ export default function Personal() {
       <motion.section
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
+        className="mt-40 sm:mt-32"
       >
         <h3 className="mb-5 text-lg font-medium">What am I working on</h3>
         <div className="grid grid-cols-1 gap-8 sm:gap-6 sm:grid-cols-2">
           {PROJECTS.slice(0, 2).map((project) => (
             <div key={project.id} className="space-y-2">
-              <img
-                src="/images/projects/placeholder-thumbnail.jpg"
-                alt={project.name}
-                className="aspect-video w-full h-full object-cover rounded-lg"
-              />
+              <Link href={`/projects/${project.slug}`}>
+                <img
+                  src="/images/projects/placeholder-thumbnail.jpg"
+                  alt={project.name}
+                  className="aspect-video w-full h-full object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity duration-200"
+                />
+              </Link>
               <div className="px-1">
                 <Link
                   className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"
@@ -330,6 +335,7 @@ export default function Personal() {
       <motion.section
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
+        className="mt-40 sm:mt-32"
       >
         <h3 className="mb-5 text-lg font-medium">Selected Projects</h3>
         <div className="grid grid-cols-1 gap-8 sm:gap-6 sm:grid-cols-2">
@@ -337,25 +343,35 @@ export default function Personal() {
             <div key={project.id} className="space-y-2">
               {project.name.toLowerCase().includes("growit") &&
               project.thumbnail ? (
-                <img
-                  src={project.thumbnail}
-                  alt={project.name}
-                  className="aspect-video w-full h-full object-cover rounded-lg"
-                />
+                <Link href={`/projects/${project.slug}`}>
+                  <img
+                    src={project.thumbnail}
+                    alt={project.name}
+                    className="aspect-video w-full h-full object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity duration-200"
+                  />
+                </Link>
               ) : (
-                <AnimatedWebGL
-                  sceneType={getWebGLSceneType(project.category, project.name)}
-                  fallbackSrc={project.video}
-                  color={getProjectColor(project.category)}
-                  speed={1.2}
-                  intensity={0.8}
-                  hoverScale={1.03}
-                  transition={{
-                    type: "spring",
-                    bounce: 0.1,
-                    duration: 0.4,
-                  }}
-                />
+                <Link
+                  href={`/projects/${project.slug}`}
+                  className="block cursor-pointer"
+                >
+                  <AnimatedWebGL
+                    sceneType={getWebGLSceneType(
+                      project.category,
+                      project.name,
+                    )}
+                    fallbackSrc={project.video}
+                    color={getProjectColor(project.category)}
+                    speed={1.2}
+                    intensity={0.8}
+                    hoverScale={1.03}
+                    transition={{
+                      type: "spring",
+                      bounce: 0.1,
+                      duration: 0.4,
+                    }}
+                  />
+                </Link>
               )}
               <div className="px-1">
                 <Link
@@ -377,6 +393,7 @@ export default function Personal() {
       <motion.section
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
+        className="mt-40 sm:mt-32"
       >
         <h3 className="mb-5 text-lg font-medium">Work Experience</h3>
         <div className="flex flex-col space-y-2">

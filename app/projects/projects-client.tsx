@@ -111,8 +111,12 @@ export default function ProjectsClient() {
               animate="visible"
             >
               {filteredProjects.map((project) => (
-                <motion.div key={project.id} variants={VARIANTS_ITEM}>
-                  <Card className="group relative overflow-hidden">
+                <motion.div
+                  key={project.id}
+                  variants={VARIANTS_ITEM}
+                  className="h-full"
+                >
+                  <Card className="group relative overflow-hidden h-full flex flex-col">
                     <Link href={`/projects/${project.slug}`} className="block">
                       <div className="aspect-video overflow-hidden">
                         <AnimatedWebGL
@@ -155,8 +159,8 @@ export default function ProjectsClient() {
                       </div>
                     </CardHeader>
 
-                    <CardContent>
-                      <div className="space-y-4">
+                    <CardContent className="flex-1 flex flex-col">
+                      <div className="space-y-4 flex-1">
                         {/* Project Metrics */}
                         {project.metrics && (
                           <div className="grid grid-cols-3 gap-2 text-center">
@@ -210,35 +214,35 @@ export default function ProjectsClient() {
                             </Badge>
                           )}
                         </div>
+                      </div>
 
-                        {/* Action Buttons */}
-                        <div className="flex gap-2 pt-2">
-                          <Button asChild size="sm" className="flex-1">
-                            <Link href={`/projects/${project.slug}`}>
-                              View Details
-                            </Link>
-                          </Button>
+                      {/* Action Buttons - Always at bottom */}
+                      <div className="flex gap-2 pt-4">
+                        <Button asChild size="sm" className="flex-1">
+                          <Link href={`/projects/${project.slug}`}>
+                            View Details
+                          </Link>
+                        </Button>
+                        <Button asChild variant="outline" size="sm">
+                          <a
+                            href={project.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            <ExternalLink className="h-4 w-4" />
+                          </a>
+                        </Button>
+                        {project.githubLink && (
                           <Button asChild variant="outline" size="sm">
                             <a
-                              href={project.link}
+                              href={project.githubLink}
                               target="_blank"
                               rel="noopener noreferrer"
                             >
-                              <ExternalLink className="h-4 w-4" />
+                              <Github className="h-4 w-4" />
                             </a>
                           </Button>
-                          {project.githubLink && (
-                            <Button asChild variant="outline" size="sm">
-                              <a
-                                href={project.githubLink}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                <Github className="h-4 w-4" />
-                              </a>
-                            </Button>
-                          )}
-                        </div>
+                        )}
                       </div>
                     </CardContent>
                   </Card>
