@@ -344,12 +344,14 @@ export default function Personal() {
             <div key={project.id} className="space-y-2">
               {project.name.toLowerCase().includes("growit") ? (
                 <Link href={`/projects/${project.slug}`}>
-                  <UnicornStudioEmbed
-                    projectId="tuUM450x5GBk3j3thVRy"
-                    width={1440}
-                    height={900}
-                    className="aspect-video w-full h-full rounded-lg cursor-pointer hover:opacity-90 transition-opacity duration-200"
-                  />
+                  <div style={{ aspectRatio: "4/3" }} className="w-full">
+                    <UnicornStudioEmbed
+                      projectId="tuUM450x5GBk3j3thVRy"
+                      width={1440}
+                      height={1080}
+                      className="w-full h-full rounded-lg cursor-pointer hover:opacity-90 transition-opacity duration-200"
+                    />
+                  </div>
                 </Link>
               ) : project.thumbnail ? (
                 <Link href={`/projects/${project.slug}`}>

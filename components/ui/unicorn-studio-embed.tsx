@@ -22,7 +22,7 @@ declare global {
 export function UnicornStudioEmbed({
   projectId,
   width = 1440,
-  height = 900,
+  height = 1080,
   className,
 }: UnicornStudioEmbedProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -123,9 +123,14 @@ export function UnicornStudioEmbed({
         style={{
           width: "100%",
           height: "100%",
-          minHeight: "200px",
+          minHeight: "350px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          transform: "scale(1.1)",
+          transformOrigin: "center center",
         }}
-        className="absolute inset-0"
+        className="absolute inset-0 unicorn-studio-embed"
       />
 
       {/* Loading fallback - only show when not loaded */}
@@ -139,6 +144,19 @@ export function UnicornStudioEmbed({
           </div>
         </div>
       )}
+
+      {/* Hide vendor badge with CSS */}
+      <style jsx>{`
+        .unicorn-studio-embed :global([data-badge*="unicorn"]),
+        .unicorn-studio-embed :global([class*="badge"]),
+        .unicorn-studio-embed :global([class*="branding"]),
+        .unicorn-studio-embed :global([class*="watermark"]),
+        .unicorn-studio-embed :global(a[href*="unicorn.studio"]) {
+          display: none !important;
+          visibility: hidden !important;
+          opacity: 0 !important;
+        }
+      `}</style>
     </div>
   );
 }
