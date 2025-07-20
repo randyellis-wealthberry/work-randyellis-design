@@ -44,7 +44,7 @@ function getWebGLSceneType(
   name: string,
 ): "organic" | "neural" | "geometric" | "unicorn" {
   if (category === "Mobile App" && name.toLowerCase().includes("grow")) {
-    return "organic";
+    return "unicorn";
   }
   if (category === "AI/ML" || name.toLowerCase().includes("ai")) {
     return "neural";
@@ -119,19 +119,27 @@ export default function ProjectsClient() {
                   <Card className="group relative overflow-hidden h-full flex flex-col">
                     <Link href={`/projects/${project.slug}`} className="block">
                       <div className="aspect-video overflow-hidden">
-                        <AnimatedWebGL
-                          sceneType={getWebGLSceneType(
-                            project.category,
-                            project.name,
-                          )}
-                          fallbackSrc={project.video}
-                          color={getProjectColor(project.category)}
-                          speed={1.0}
-                          intensity={0.7}
-                          className="h-full w-full transition-transform duration-300 group-hover:scale-105"
-                          hoverScale={1.02}
-                          disableZoom={true}
-                        />
+                        {project.thumbnail ? (
+                          <img
+                            src={project.thumbnail}
+                            alt={project.name}
+                            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                          />
+                        ) : (
+                          <AnimatedWebGL
+                            sceneType={getWebGLSceneType(
+                              project.category,
+                              project.name,
+                            )}
+                            fallbackSrc={project.video}
+                            color={getProjectColor(project.category)}
+                            speed={1.0}
+                            intensity={0.7}
+                            className="h-full w-full transition-transform duration-300 group-hover:scale-105"
+                            hoverScale={1.02}
+                            disableZoom={true}
+                          />
+                        )}
                       </div>
                     </Link>
 

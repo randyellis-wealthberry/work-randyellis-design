@@ -27,6 +27,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { AnimatedVideo, AnimatedImage } from "@/components/ui/animated-asset";
+import { VideoPlayer } from "@/components/ui/video-player";
 import type { Project } from "../../data";
 
 const VARIANTS_CONTAINER = {
@@ -53,7 +54,9 @@ function MetricCard({ label, value }: { label: string; value: string }) {
   return (
     <Card className="hover:shadow-lg transition-all duration-300 border-muted hover:border-primary/30 bg-gradient-to-br from-background to-muted/30">
       <CardContent className="pt-6 text-center">
-        <div className="text-2xl md:text-3xl font-bold text-primary mb-2 min-h-[2.5rem] flex items-center justify-center">{value}</div>
+        <div className="text-2xl md:text-3xl font-bold text-primary mb-2 min-h-[2.5rem] flex items-center justify-center">
+          {value}
+        </div>
         <div className="text-sm text-muted-foreground font-medium">{label}</div>
       </CardContent>
     </Card>
@@ -212,15 +215,14 @@ export default function ProjectDetailClient({
               </div>
             </div>
 
-            <div className="aspect-video w-full">
-              <AnimatedVideo
+            <div className="w-full">
+              <VideoPlayer
                 src={project.video}
-                hoverScale={1.02}
-                transition={{
-                  type: "spring",
-                  bounce: 0.1,
-                  duration: 0.4,
-                }}
+                poster={project.thumbnail}
+                thumbnailClassName="aspect-video w-full"
+                autoPlay={false}
+                loop={true}
+                muted={true}
               />
             </div>
           </div>
@@ -242,10 +244,7 @@ export default function ProjectDetailClient({
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 place-items-center max-w-4xl mx-auto">
               {project.metrics.map((metric, index) => (
                 <div key={index} className="w-full max-w-sm">
-                  <MetricCard
-                    label={metric.label}
-                    value={metric.value}
-                  />
+                  <MetricCard label={metric.label} value={metric.value} />
                 </div>
               ))}
             </div>
@@ -431,8 +430,8 @@ export default function ProjectDetailClient({
                 <CardContent className="flex-1 space-y-4">
                   <div className="aspect-video rounded-lg overflow-hidden">
                     <AnimatedImage
-                      src="https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=800&h=450&fit=crop&q=80"
-                      alt="Chicago weather and climate conditions"
+                      src="/projects/growit/scene-mockup.jpg"
+                      alt="GrowIt app in natural garden environment showing environmental considerations"
                       objectFit="cover"
                       hoverScale={1.02}
                       transition={{
@@ -447,7 +446,7 @@ export default function ProjectDetailClient({
                       Things to consider:
                     </p>
                     <ul className="space-y-2">
-                      {project.constraints.environmental.map((item, index) => (
+                      {project.constraints.environmental?.map((item, index) => (
                         <li key={index} className="flex items-start">
                           <span className="text-primary mr-2 mt-1">•</span>
                           <span className="text-sm text-muted-foreground leading-relaxed">
@@ -475,8 +474,8 @@ export default function ProjectDetailClient({
                 <CardContent className="flex-1 space-y-4">
                   <div className="aspect-video rounded-lg overflow-hidden">
                     <AnimatedImage
-                      src="https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=800&h=450&fit=crop&q=80"
-                      alt="Bluetooth beacons and signal technology"
+                      src="/projects/growit/technical-concepts.png"
+                      alt="GrowIt technical architecture and beacon signal concepts"
                       objectFit="cover"
                       hoverScale={1.02}
                       transition={{
@@ -491,7 +490,7 @@ export default function ProjectDetailClient({
                       Things to consider:
                     </p>
                     <ul className="space-y-2">
-                      {project.constraints.technical.map((item, index) => (
+                      {project.constraints.technical?.map((item, index) => (
                         <li key={index} className="flex items-start">
                           <span className="text-primary mr-2 mt-1">•</span>
                           <span className="text-sm text-muted-foreground leading-relaxed">
@@ -520,8 +519,8 @@ export default function ProjectDetailClient({
                   <div className="grid lg:grid-cols-2 gap-6">
                     <div className="aspect-video rounded-lg overflow-hidden">
                       <AnimatedImage
-                        src="https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?w=800&h=450&fit=crop&q=80"
-                        alt="GPS mapping and location services"
+                        src="/projects/growit/location-features.png"
+                        alt="GrowIt location-based features and community mapping"
                         objectFit="cover"
                         hoverScale={1.02}
                         transition={{
@@ -536,7 +535,7 @@ export default function ProjectDetailClient({
                         Things to consider:
                       </p>
                       <ul className="space-y-2">
-                        {project.constraints.location.map((item, index) => (
+                        {project.constraints.location?.map((item, index) => (
                           <li key={index} className="flex items-start">
                             <span className="text-primary mr-2 mt-1">•</span>
                             <span className="text-sm text-muted-foreground leading-relaxed">
