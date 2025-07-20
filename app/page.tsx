@@ -341,8 +341,7 @@ export default function Personal() {
         <div className="grid grid-cols-1 gap-8 sm:gap-6 sm:grid-cols-2">
           {PROJECTS.map((project) => (
             <div key={project.id} className="space-y-2">
-              {project.name.toLowerCase().includes("growit") &&
-              project.thumbnail ? (
+              {project.thumbnail ? (
                 <Link href={`/projects/${project.slug}`}>
                   <img
                     src={project.thumbnail}
