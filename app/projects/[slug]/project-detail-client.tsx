@@ -28,6 +28,11 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { AnimatedVideo, AnimatedImage } from "@/components/ui/animated-asset";
 import { VideoPlayer } from "@/components/ui/video-player";
+import {
+  VimeoEmbed,
+  isVimeoUrl,
+  extractVimeoId,
+} from "@/components/ui/vimeo-embed";
 import type { Project } from "../../data";
 
 const VARIANTS_CONTAINER = {
@@ -216,14 +221,25 @@ export default function ProjectDetailClient({
             </div>
 
             <div className="w-full">
-              <VideoPlayer
-                src={project.video}
-                poster={project.thumbnail}
-                thumbnailClassName="aspect-video w-full"
-                autoPlay={false}
-                loop={true}
-                muted={true}
-              />
+              {isVimeoUrl(project.video) ? (
+                <VimeoEmbed
+                  videoId={extractVimeoId(project.video) || ""}
+                  className="aspect-video w-full"
+                  title={`${project.name} Demo Video`}
+                  autoplay={false}
+                  loop={true}
+                  muted={true}
+                />
+              ) : (
+                <VideoPlayer
+                  src={project.video}
+                  poster={project.thumbnail}
+                  thumbnailClassName="aspect-video w-full"
+                  autoPlay={false}
+                  loop={true}
+                  muted={true}
+                />
+              )}
             </div>
           </div>
         </motion.section>

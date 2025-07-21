@@ -24,6 +24,17 @@ export type Project = {
   learnings?: string[];
   teamSize?: number;
   role?: string;
+  overview?: {
+    deliverables: string[];
+    teamMembers: string[];
+    timelineDuration: string;
+    toolsUsed: string[];
+  };
+  constraints?: {
+    environmental?: string[];
+    technical?: string[];
+    location?: string[];
+  };
 };
 
 type WorkExperience = {
@@ -50,6 +61,101 @@ type SocialLink = {
 
 export const PROJECTS: Project[] = [
   {
+    id: "echo-drive",
+    name: "EchoDrive - Digital Transformation in Truckload Management",
+    slug: "echo",
+    description:
+      "Modern truckload management platform for Echo Global Logistics, modernizing shipping operations with mobile and web solutions.",
+    longDescription:
+      "Echo Global Logistics, a leading provider of technology-enabled transportation and supply chain management services, partnered with Eight Bit Studios to modernize their truckload management operations. The shipping industry, long reliant on outdated methods, faced significant challenges in coordinating shippers, drivers, and dispatch teams. EchoDrive was designed to build a modern shipment tracking system that would streamline communication, improve compliance, and drive business growth.",
+    category: "Mobile App",
+    tags: [
+      "Transportation",
+      "Logistics",
+      "Mobile Native",
+      "ELD Compliance",
+      "iOS",
+      "Android",
+    ],
+    link: "https://www.echo.com/",
+    video: "/video.mp4",
+    thumbnail: "/projects/echo/poster.png",
+    images: [
+      "/projects/echo/img1.jpg",
+      "/projects/echo/img2.jpg",
+      "/projects/echo/img3.jpg",
+      "/projects/echo/img4.jpg",
+      "/projects/echo/img5.jpg",
+    ],
+    timeline: "Q1 2019 - Q4 2019",
+    status: "completed",
+    technologies: [
+      "React Native",
+      "iOS",
+      "Android",
+      "React",
+      "Node.js",
+      "Electronic Logging",
+      "Real-time Tracking",
+    ],
+    featured: true,
+    metrics: [
+      { label: "LTL Revenue Increase", value: "$184.4M" },
+      { label: "Active Drivers", value: "10K+" },
+      { label: "Beta Downloads", value: "1K+" },
+      { label: "Shipment Volume Growth", value: "+12%" },
+    ],
+    challenges: [
+      "Achieve compliance with Electronic Logging Device (ELD) Mandate",
+      "Enhance truckload visibility to reduce call-center stress",
+      "Increase Less Than Truckload (LTL) shipment revenues and volume",
+      "Boost driver engagement and modernize legacy workflows",
+    ],
+    solutions: [
+      "Built native mobile app with electronic logging compliance",
+      "Implemented real-time shipment tracking and communication platform",
+      "Created self-serve booking application for LTL shipments",
+      "Developed cohesive web portal for dispatch teams and customer service",
+    ],
+    learnings: [
+      "Transportation industry digital transformation",
+      "Regulatory compliance in logistics technology",
+      "Driver-dispatcher communication optimization",
+      "Mobile-first design for industrial applications",
+    ],
+    teamSize: 8,
+    role: "UX Designer & Product Strategist",
+    overview: {
+      deliverables: [
+        "Discovery & Research",
+        "User Journey Mapping",
+        "Brand Identity & Strategy",
+        "Native Mobile App (iOS/Android)",
+        "Web Portal for Dispatch",
+        "Interactive Onboarding",
+      ],
+      teamMembers: [
+        "UX Designer (Me)",
+        "iOS Developer",
+        "Android Developer",
+        "Frontend Engineer",
+        "Backend Engineer",
+        "Product Manager",
+        "Visual Designer",
+        "QA Engineer",
+      ],
+      timelineDuration: "12 months",
+      toolsUsed: [
+        "React Native",
+        "React & TypeScript",
+        "Node.js & Express",
+        "Figma (Design)",
+        "Sketch (Prototyping)",
+        "InVision (Testing)",
+      ],
+    },
+  },
+  {
     id: "project2",
     name: "GrowIt - Social Gardening App",
     slug: "growit",
@@ -60,13 +166,15 @@ export const PROJECTS: Project[] = [
     tags: ["React Native", "Social Platform", "Mobile Design", "Community"],
     link: "https://www.growit.com/",
     githubLink: "https://github.com/example/growit-app",
-    video:
-      "https://res.cloudinary.com/read-cv/video/upload/t_v_b/v1/1/profileItems/W2azTw5BVbMXfj7F53G92hMVIn32/newProfileItem/d898be8a-7037-4c71-af0c-8997239b050d.mp4?_a=DATAdtAAZAA0",
+    video: "https://vimeo.com/YOUR_VIMEO_VIDEO_ID", // Replace YOUR_VIMEO_VIDEO_ID with actual Vimeo video ID
     thumbnail: "/images/projects/growit-thumbnail-main.jpg",
     images: [
-      "/projects/growit/app-screens.jpg",
-      "/projects/growit/user-journey.jpg",
-      "/projects/growit/design-system.jpg",
+      "/projects/growit/hero-mockup.jpg",
+      "/projects/growit/app-screens-overview.jpg",
+      "/projects/growit/ui-design.jpg",
+      "/projects/growit/persona-research.png",
+      "/projects/growit/wireframe-sketches.png",
+      "/projects/growit/app-mockup-1.jpg",
     ],
     timeline: "Q1 2024 - Q3 2024",
     status: "completed",
@@ -144,59 +252,6 @@ export const PROJECTS: Project[] = [
       ],
     },
   },
-  {
-    id: "project3",
-    name: "AI Design System Generator",
-    slug: "ai-design-system",
-    description:
-      "AI-powered tool that generates comprehensive design systems from simple inputs.",
-    longDescription:
-      "An experimental project exploring how AI can accelerate the design system creation process. The tool analyzes brand guidelines, existing designs, and user requirements to generate a complete design system with components, tokens, and documentation.",
-    category: "AI/ML",
-    tags: ["AI", "Design Systems", "Automation", "Figma"],
-    link: "https://ai-design-system.demo.com/",
-    video:
-      "https://res.cloudinary.com/read-cv/video/upload/t_v_b/v1/1/profileItems/W2azTw5BVbMXfj7F53G92hMVIn32/newProfileItem/d898be8a-7037-4c71-af0c-8997239b050d.mp4?_a=DATAdtAAZAA0",
-    thumbnail: "/images/projects/ai-design-thumbnail.jpg",
-    images: [
-      "/projects/ai-design/interface.jpg",
-      "/projects/ai-design/generated-system.jpg",
-      "/projects/ai-design/workflow.jpg",
-    ],
-    timeline: "Q4 2024 - Present",
-    status: "in-progress",
-    technologies: [
-      "Python",
-      "OpenAI API",
-      "Figma API",
-      "React",
-      "FastAPI",
-      "PostgreSQL",
-    ],
-    featured: false,
-    metrics: [
-      { label: "Generated Systems", value: "500+" },
-      { label: "Time Saved", value: "80%" },
-      { label: "Beta Users", value: "150" },
-    ],
-    challenges: [
-      "Training AI to understand design principles",
-      "Ensuring generated systems are accessible",
-      "Integrating with existing design workflows",
-    ],
-    solutions: [
-      "Curated training data from top design systems",
-      "Built-in accessibility validation and testing",
-      "Created plugins for popular design tools",
-    ],
-    learnings: [
-      "AI model training and fine-tuning for design tasks",
-      "Design system architecture and scalability",
-      "API integration with design tools",
-    ],
-    teamSize: 2,
-    role: "Full-stack Developer & AI Researcher",
-  },
 ];
 
 export const WORK_EXPERIENCE: WorkExperience[] = [
@@ -243,6 +298,14 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
 ];
 
 export const BLOG_POSTS: BlogPost[] = [
+  {
+    title:
+      "The Product Manager's Guide to AI Evaluations: Building Better AI Products",
+    description:
+      "Learn why systematic AI evaluation is essential for product managers, and discover a practical framework for assessing and improving generative AI systems.",
+    link: "/blog/product-manager-guide-ai-evaluations",
+    uid: "blog-5",
+  },
   {
     title: "Exploring the Intersection of Design, AI, and Design Engineering",
     description: "How AI is changing the way we design",
@@ -304,7 +367,6 @@ export const PROJECT_CATEGORIES = [
   "All",
   "Web Development",
   "Mobile App",
-  "AI/ML",
   "Design Systems",
   "UI/UX",
 ] as const;

@@ -132,6 +132,10 @@ type AnimatedImageProps = {
   objectFit?: "cover" | "contain" | "fill" | "scale-down" | "none";
 } & Omit<AnimatedAssetProps, "children" | "expandedChildren">;
 
+import Image from "next/image";
+
+// ... (rest of the file)
+
 export const AnimatedImage = ({
   src,
   alt,
@@ -140,14 +144,12 @@ export const AnimatedImage = ({
   ...props
 }: AnimatedImageProps) => {
   const imageElement = (
-    <img
+    <Image
       src={src}
       alt={alt}
-      className={cn(
-        "aspect-video w-full h-full",
-        `object-${objectFit}`,
-        className,
-      )}
+      layout="fill"
+      objectFit={objectFit}
+      className={cn("aspect-video w-full h-full", className)}
     />
   );
 

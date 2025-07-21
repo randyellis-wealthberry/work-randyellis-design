@@ -7,6 +7,7 @@ The `clean-port.sh` script automatically kills processes on common development p
 ### Usage
 
 **Via npm scripts (recommended):**
+
 ```bash
 # Clean ports and start dev server
 npm run dev
@@ -19,6 +20,7 @@ npm run clean-port-specific 3000
 ```
 
 **Direct script usage:**
+
 ```bash
 # Clean all common dev ports
 ./scripts/clean-port.sh
@@ -49,6 +51,7 @@ npm run clean-port-specific 3000
 ### Integration
 
 The script is automatically integrated into the main `dev` command, so running `npm run dev` will:
+
 1. Clean up any existing development servers
 2. Start the Next.js development server on port 3000
 
