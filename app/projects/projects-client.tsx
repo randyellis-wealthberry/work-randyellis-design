@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ExternalLink, Github, Calendar, Users } from "lucide-react";
 import {
   Card,
@@ -15,7 +16,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
-import { AnimatedWebGL } from "@/components/ui/animated-webgl";
 import { PROJECTS, PROJECT_CATEGORIES } from "../data";
 
 const VARIANTS_CONTAINER = {
@@ -38,30 +38,6 @@ const VARIANTS_ITEM = {
     },
   },
 };
-
-function getWebGLSceneType(
-  category: string,
-  name: string,
-): "organic" | "neural" | "geometric" | "unicorn" {
-  if (category === "Mobile App" && name.toLowerCase().includes("grow")) {
-    return "organic";
-  }
-  if (category === "AI/ML" || name.toLowerCase().includes("ai")) {
-    return "neural";
-  }
-  return "geometric";
-}
-
-function getProjectColor(category: string): string {
-  switch (category) {
-    case "Mobile App":
-      return "#22c55e"; // Green for mobile/growth
-    case "AI/ML":
-      return "#3b82f6"; // Blue for AI/tech
-    default:
-      return "#8b5cf6"; // Purple for general projects
-  }
-}
 
 export default function ProjectsClient() {
   const [activeCategory, setActiveCategory] = useState("All");
@@ -119,22 +95,18 @@ export default function ProjectsClient() {
                   <Card className="group relative overflow-hidden h-full flex flex-col">
                     <Link href={`/projects/${project.slug}`} className="block">
                       <div className="aspect-video overflow-hidden">
-                        <AnimatedWebGL
-                          sceneType={getWebGLSceneType(
-                            project.category,
-                            project.name,
-                          )}
-                          fallbackSrc={project.video}
-                          color={getProjectColor(project.category)}
-                          speed={1.0}
-                          intensity={0.7}
-                          className="h-full w-full transition-transform duration-300 group-hover:scale-105"
-                          hoverScale={1.02}
-                          disableZoom={true}
+                        <Image
+                          src={
+                            project.thumbnail ||
+                            "/images/projects/placeholder-thumbnail.jpg"
+                          }
+                          alt={project.name}
+                          width={500}
+                          height={300}
+                          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                         />
                       </div>
                     </Link>
-
                     <CardHeader>
                       <div className="flex items-start justify-between">
                         <div className="space-y-1">
@@ -158,7 +130,6 @@ export default function ProjectsClient() {
                         </Badge>
                       </div>
                     </CardHeader>
-
                     <CardContent className="flex-1 flex flex-col">
                       <div className="space-y-4 flex-1">
                         {/* Project Metrics */}

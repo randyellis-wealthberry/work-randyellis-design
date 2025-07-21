@@ -14,7 +14,6 @@ import {
   AccordionContent,
 } from "@/components/core/accordion";
 import { AnimatedNumberBasic } from "@/components/core/animated-number-basic";
-import { AnimatedWebGL } from "@/components/ui/animated-webgl";
 import { TransitionPanel } from "@/components/motion-primitives/transition-panel";
 import {
   PROJECTS,
@@ -42,30 +41,6 @@ const VARIANTS_SECTION = {
 const TRANSITION_SECTION = {
   duration: 0.3,
 };
-
-function getWebGLSceneType(
-  category: string,
-  name: string,
-): "organic" | "neural" | "geometric" | "unicorn" {
-  if (category === "Mobile App" && name.toLowerCase().includes("grow")) {
-    return "unicorn";
-  }
-  if (category === "AI/ML" || name.toLowerCase().includes("ai")) {
-    return "neural";
-  }
-  return "geometric";
-}
-
-function getProjectColor(category: string): string {
-  switch (category) {
-    case "Mobile App":
-      return "#22c55e"; // Green for mobile/growth
-    case "AI/ML":
-      return "#3b82f6"; // Blue for AI/tech
-    default:
-      return "#8b5cf6"; // Purple for general projects
-  }
-}
 
 function MagneticSocialLink({
   children,
@@ -305,79 +280,23 @@ export default function Personal() {
         transition={TRANSITION_SECTION}
         className="mt-40 sm:mt-32"
       >
-        <h3 className="mb-8 text-lg font-medium">What am I working on</h3>
-        <div className="grid grid-cols-1 gap-12 lg:gap-8 sm:grid-cols-2">
+        <h3 className="mb-5 text-lg font-medium">What am I working on</h3>
+        <div className="grid grid-cols-1 gap-12 sm:gap-8 sm:grid-cols-2">
           {PROJECTS.slice(0, 2).map((project) => (
             <div key={project.id} className="space-y-4">
               <Link href={`/projects/${project.slug}`}>
                 <Image
-                  src="/images/projects/placeholder-thumbnail.jpg"
+                  src={
+                    project.thumbnail ||
+                    "/images/projects/placeholder-thumbnail.jpg"
+                  }
                   alt={project.name}
                   width={500}
-                  height={281}
-                  className="aspect-video w-full h-full object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity duration-200"
+                  height={300}
+                  className="aspect-video w-full max-h-48 object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity duration-200"
                 />
               </Link>
-              <div className="px-1 space-y-2">
-                <Link
-                  className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"
-                  href={`/projects/${project.slug}`}
-                >
-                  {project.name}
-                  <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 dark:bg-zinc-50 transition-all duration-200 group-hover:max-w-full"></span>
-                </Link>
-                <p className="text-base text-zinc-600 dark:text-zinc-400">
-                  {project.description}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </motion.section>
-
-      <motion.section
-        variants={VARIANTS_SECTION}
-        transition={TRANSITION_SECTION}
-        className="mt-40 sm:mt-32"
-      >
-        <h3 className="mb-8 text-lg font-medium">Selected Projects</h3>
-        <div className="grid grid-cols-1 gap-12 lg:gap-8 sm:grid-cols-2">
-          {PROJECTS.map((project) => (
-            <div key={project.id} className="space-y-4">
-              {project.thumbnail ? (
-                <Link href={`/projects/${project.slug}`}>
-                  <Image
-                    src={project.thumbnail}
-                    alt={project.name}
-                    width={500}
-                    height={281}
-                    className="aspect-video w-full h-full object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity duration-200"
-                  />
-                </Link>
-              ) : (
-                <Link
-                  href={`/projects/${project.slug}`}
-                  className="block cursor-pointer"
-                >
-                  <AnimatedWebGL
-                    sceneType={getWebGLSceneType(
-                      project.category,
-                      project.name,
-                    )}
-                    fallbackSrc={project.video}
-                    color={getProjectColor(project.category)}
-                    speed={1.2}
-                    intensity={0.8}
-                    hoverScale={1.03}
-                    transition={{
-                      type: "spring",
-                      bounce: 0.1,
-                      duration: 0.4,
-                    }}
-                  />
-                </Link>
-              )}
-              <div className="px-1 space-y-2">
+              <div className="px-1">
                 <Link
                   className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"
                   href={`/projects/${project.slug}`}

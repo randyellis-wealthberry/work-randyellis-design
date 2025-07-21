@@ -18,6 +18,37 @@
   ::file-selector-button {
     border-color: var(--color-gray-200, currentColor);
   }
+
+  /* Video Player Custom Styles */
+  .slider {
+    background: linear-gradient(
+      to right,
+      #ffffff 0%,
+      #ffffff var(--progress, 0%),
+      rgba(255, 255, 255, 0.3) var(--progress, 0%),
+      rgba(255, 255, 255, 0.3) 100%
+    );
+  }
+
+  .slider::-webkit-slider-thumb {
+    appearance: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: #ffffff;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .slider::-moz-range-thumb {
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: #ffffff;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
 }
 
 :root {
