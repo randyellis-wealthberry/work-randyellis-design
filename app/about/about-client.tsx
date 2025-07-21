@@ -4,11 +4,18 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import {
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+} from "@/components/core/accordion";
+import {
   ExternalLink,
   Award,
   Users,
   TrendingUp,
   Lightbulb,
+  ChevronUp,
 } from "lucide-react";
 import { getEmail } from "../data";
 
@@ -81,6 +88,109 @@ const experience = [
   },
 ];
 
+const adjunctExperience = [
+  {
+    company: "ThrivedX",
+    title: "Adjunct User Experience Instructor",
+    period: "May 2021 - Nov 2022",
+    description:
+      "Conducted lectures, led discussions, and facilitated activities on product design principles, processes, and methodologies.",
+    achievements: [
+      "Conducted lectures, led discussions, and facilitated activities on product design principles, processes, and methodologies",
+      "Developed and led workshops on effective writing techniques and provided personalized feedback to 20+ students, improving writing skills by 25% and increasing overall satisfaction by 30%",
+      "Prepared, developed, and improved the program curriculum, assessment methods, and learning outcomes based on industry trends and feedback from students and employers",
+    ],
+  },
+  {
+    company: "General Assembly",
+    title: "Lead Product Design Instructor",
+    period: "Aug 2016 - Jul 2021",
+    description:
+      "Taught product design courses to a diverse group of students, ranging from beginners to advanced professionals, using instructional methods and technologies.",
+    achievements: [
+      "Taught product design courses to a diverse group of students, ranging from beginners to advanced professionals, using instructional methods and technologies",
+      "Coached students on professional growth by conducting mock interviews, reviewing resumes, and providing constructive feedback; increased students' job offer acceptance rate by 25%",
+      "Achieved a student success rate of 95%, as measured by student retention, completion, and job placement rates, in alignment with the program's target goals",
+    ],
+  },
+];
+
+const certifications = [
+  {
+    certName: "Trustworthy Generative AI",
+    universityName: "Vanderbilt University",
+    certDateIssued: "Apr 28, 2025",
+    validationLink: "https://coursera.org/verify/3RRMXQI3TCS6",
+  },
+  {
+    certName: "Prompt Engineering for ChatGPT",
+    universityName: "Vanderbilt University",
+    certDateIssued: "Apr 28, 2025",
+    validationLink: "https://coursera.org/verify/7WUUQR5PZTDH",
+  },
+  {
+    certName: "IT Fundamentals and Hardware Essentials",
+    universityName: "Packt",
+    certDateIssued: "May 3, 2025",
+    validationLink: "https://coursera.org/verify/9P0T7VC491X3",
+  },
+  {
+    certName: "Google AI Essentials",
+    universityName: "Google",
+    certDateIssued: "May 3, 2025",
+    validationLink: "https://coursera.org/verify/9SOF12H0WADL",
+  },
+  {
+    certName: "Networking, Peripherals, and Wireless Technologies",
+    universityName: "Packt",
+    certDateIssued: "May 3, 2025",
+    validationLink: "https://coursera.org/verify/ES7ZOJPUOV2Y",
+  },
+  {
+    certName: "Leadership Through Social Influence",
+    universityName: "Northwestern University",
+    certDateIssued: "Apr 29, 2025",
+    validationLink: "https://coursera.org/verify/FKU8HG762FLM",
+  },
+  {
+    certName:
+      "High Performance Collaboration: Leadership, Teamwork, and Negotiation",
+    universityName: "Northwestern University",
+    certDateIssued: "Apr 28, 2025",
+    validationLink: "https://coursera.org/verify/KUI8G4DFK7MG",
+  },
+  {
+    certName: "Advanced Networking, Virtualization, and IT Security",
+    universityName: "Packt",
+    certDateIssued: "May 3, 2025",
+    validationLink: "https://coursera.org/verify/PMV565AL0DG9",
+  },
+  {
+    certName: "Generative AI Leadership & Strategy",
+    universityName: "Vanderbilt University",
+    certDateIssued: "Apr 28, 2025",
+    validationLink: "https://coursera.org/verify/specialization/QPBSTXZDMMN8",
+  },
+  {
+    certName: "CompTIA A+ Certification Core 1 (220-1101)",
+    universityName: "Packt",
+    certDateIssued: "May 3, 2025",
+    validationLink: "https://coursera.org/verify/specialization/VOCCSPV5YLZH",
+  },
+  {
+    certName: "Leadership Through Marketing",
+    universityName: "Northwestern University",
+    certDateIssued: "Apr 29, 2025",
+    validationLink: "https://coursera.org/verify/VPIM3205T6GU",
+  },
+  {
+    certName: "Leadership Communication for Maximum Impact: Storytelling",
+    universityName: "Northwestern University",
+    certDateIssued: "Apr 28, 2025",
+    validationLink: "https://coursera.org/verify/WUY725TPQC1I",
+  },
+];
+
 const skills = [
   "AI Product Design",
   "Generative AI",
@@ -114,6 +224,51 @@ const VARIANTS_SECTION = {
 const TRANSITION_SECTION = {
   duration: 0.3,
 };
+
+function CertificationsAccordion() {
+  return (
+    <Accordion
+      className="flex w-full flex-col divide-y divide-zinc-200 dark:divide-zinc-700"
+      transition={{ duration: 0.2, ease: "easeInOut" }}
+    >
+      {certifications.map((cert, index) => (
+        <AccordionItem key={index} value={`cert-${index}`} className="py-2">
+          <AccordionTrigger className="w-full text-left text-zinc-950 dark:text-zinc-50">
+            <div className="flex items-center justify-between">
+              <div>{cert.certName}</div>
+              <ChevronUp className="h-4 w-4 text-zinc-950 transition-transform duration-200 group-data-expanded:-rotate-180 dark:text-zinc-50" />
+            </div>
+          </AccordionTrigger>
+          <AccordionContent>
+            <div className="space-y-3">
+              <div className="flex items-center gap-2">
+                <span className="font-medium text-blue-600">
+                  {cert.universityName}
+                </span>
+                <Badge variant="outline">
+                  {new Date(cert.certDateIssued).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                  })}
+                </Badge>
+              </div>
+              <a
+                href={cert.validationLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sm text-zinc-600 hover:text-blue-600 dark:text-zinc-400 dark:hover:text-blue-400 transition-colors"
+              >
+                Verify Certificate
+                <ExternalLink className="h-3 w-3" />
+              </a>
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+      ))}
+    </Accordion>
+  );
+}
 
 export default function AboutClient() {
   return (
@@ -250,6 +405,74 @@ export default function AboutClient() {
             </Card>
           ))}
         </div>
+      </motion.section>
+
+      <Separator />
+
+      {/* Adjunct Instructor Experience */}
+      <motion.section
+        className="space-y-6"
+        variants={VARIANTS_SECTION}
+        transition={TRANSITION_SECTION}
+      >
+        <h2 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100">
+          Adjunct Instructor Experience
+        </h2>
+        <div className="space-y-8">
+          {adjunctExperience.map((role, index) => (
+            <Card key={index}>
+              <CardHeader>
+                <div className="flex justify-between items-start">
+                  <div>
+                    <CardTitle className="text-lg">{role.title}</CardTitle>
+                    <div className="flex items-center gap-2 mt-1">
+                      <span className="font-medium text-blue-600">
+                        {role.company}
+                      </span>
+                      <ExternalLink className="h-4 w-4 text-zinc-400" />
+                    </div>
+                  </div>
+                  <Badge variant="outline">{role.period}</Badge>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <p className="text-zinc-600 dark:text-zinc-400">
+                  {role.description}
+                </p>
+                <div className="space-y-2">
+                  <h4 className="text-sm font-medium text-zinc-900 dark:text-zinc-100">
+                    Key Achievements:
+                  </h4>
+                  <ul className="space-y-1">
+                    {role.achievements.map((achievement, achievementIndex) => (
+                      <li
+                        key={achievementIndex}
+                        className="text-sm text-zinc-600 dark:text-zinc-400 flex items-start gap-2"
+                      >
+                        <span className="text-blue-600 mt-1">•</span>
+                        {achievement}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </motion.section>
+
+      <Separator />
+
+      {/* Certifications */}
+      <motion.section
+        className="space-y-6"
+        variants={VARIANTS_SECTION}
+        transition={TRANSITION_SECTION}
+      >
+        <h2 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100">
+          Certifications
+        </h2>
+        <CertificationsAccordion />
       </motion.section>
 
       {/* Skills */}

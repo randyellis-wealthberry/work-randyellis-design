@@ -176,7 +176,7 @@ export const PROJECTS: Project[] = [
       "/projects/growit/wireframe-sketches.png",
       "/projects/growit/app-mockup-1.jpg",
     ],
-    timeline: "Q1 2024 - Q3 2024",
+    timeline: "Q1 2025 - Q3 2025",
     status: "completed",
     technologies: [
       "React Native",
@@ -302,7 +302,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title:
       "The Product Manager's Guide to AI Evaluations: Building Better AI Products",
     description:
-      "Learn why systematic AI evaluation is essential for product managers, and discover a practical framework for assessing and improving generative AI systems.",
+      "A practical framework for product managers to evaluate and improve generative AI systems.",
     link: "/blog/product-manager-guide-ai-evaluations",
     uid: "blog-5",
   },
@@ -314,22 +314,20 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     title: "Why I left my job to start my own company",
-    description:
-      "A deep dive into my decision to leave my job and start my own company",
+    description: "My decision to leave corporate and start my own company.",
     link: "/blog/exploring-the-intersection-of-design-ai-and-design-engineering",
     uid: "blog-2",
   },
   {
     title: "What I learned from my first year of freelancing",
-    description:
-      "A look back at my first year of freelancing and what I learned",
+    description: "Key insights from my first year as a freelancer.",
     link: "/blog/exploring-the-intersection-of-design-ai-and-design-engineering",
     uid: "blog-3",
   },
   {
     title: "How to Export Metadata from MDX for Next.js SEO",
     description:
-      "A guide on exporting metadata from MDX files to leverage Next.js SEO features.",
+      "How to export metadata from MDX files for Next.js SEO optimization.",
     link: "/blog/example-mdx-metadata",
     uid: "blog-4",
   },
