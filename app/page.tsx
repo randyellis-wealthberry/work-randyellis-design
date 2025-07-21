@@ -238,6 +238,48 @@ function DecodedEmail() {
   return email;
 }
 
+function isVideoUrl(url: string): boolean {
+  return (
+    url.includes("player.vimeo.com") ||
+    url.includes("youtube.com") ||
+    url.includes("youtu.be")
+  );
+}
+
+function ProjectThumbnail({ project }: { project: (typeof PROJECTS)[0] }) {
+  const thumbnailSrc =
+    project.thumbnail || "/images/projects/placeholder-thumbnail.jpg";
+
+  if (isVideoUrl(thumbnailSrc)) {
+    return (
+      <Link href={`/projects/${project.slug}`}>
+        <div className="aspect-video w-full max-h-48 rounded-lg overflow-hidden cursor-pointer hover:opacity-90 transition-opacity duration-200">
+          <iframe
+            src={thumbnailSrc}
+            className="w-full h-full"
+            frameBorder="0"
+            allow="autoplay; fullscreen; picture-in-picture"
+            allowFullScreen
+            title={project.name}
+          />
+        </div>
+      </Link>
+    );
+  }
+
+  return (
+    <Link href={`/projects/${project.slug}`}>
+      <Image
+        src={thumbnailSrc}
+        alt={project.name}
+        width={500}
+        height={300}
+        className="aspect-video w-full max-h-48 object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity duration-200"
+      />
+    </Link>
+  );
+}
+
 export default function Personal() {
   return (
     <motion.main
@@ -284,18 +326,7 @@ export default function Personal() {
         <div className="grid grid-cols-1 gap-12 sm:gap-8 sm:grid-cols-2">
           {PROJECTS.slice(0, 2).map((project) => (
             <div key={project.id} className="space-y-4">
-              <Link href={`/projects/${project.slug}`}>
-                <Image
-                  src={
-                    project.thumbnail ||
-                    "/images/projects/placeholder-thumbnail.jpg"
-                  }
-                  alt={project.name}
-                  width={500}
-                  height={300}
-                  className="aspect-video w-full max-h-48 object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity duration-200"
-                />
-              </Link>
+              <ProjectThumbnail project={project} />
               <div className="px-1">
                 <Link
                   className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"

@@ -169,8 +169,10 @@ export const PROJECTS: Project[] = [
     tags: ["React Native", "Social Platform", "Mobile Design", "Community"],
     link: "https://www.growit.com/",
     githubLink: "https://github.com/example/growit-app",
-    video: "https://vimeo.com/YOUR_VIMEO_VIDEO_ID", // Replace YOUR_VIMEO_VIDEO_ID with actual Vimeo video ID
-    thumbnail: "/images/projects/growit-thumbnail-main.jpg",
+    video:
+      "https://player.vimeo.com/video/799152976?background=1&api=1&player_id=799152976_1676475040264&autopause=0&autoplay=1&mute=1&badge=0&loop=1&portrait=0&title=0&origin=https://work.randyellis.design",
+    thumbnail:
+      "https://player.vimeo.com/video/799152976?background=1&api=1&player_id=799152976_1676475040264&autopause=0&autoplay=1&mute=1&badge=0&loop=1&portrait=0&title=0&origin=https://work.randyellis.design",
     images: [
       "/projects/growit/hero-mockup.jpg",
       "/projects/growit/app-screens-overview.jpg",
