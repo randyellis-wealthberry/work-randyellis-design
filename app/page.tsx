@@ -15,6 +15,7 @@ import {
 } from "@/components/core/accordion";
 import { AnimatedNumberBasic } from "@/components/core/animated-number-basic";
 import { TransitionPanel } from "@/components/motion-primitives/transition-panel";
+import { isVideoUrl } from "@/lib/video-utils";
 import {
   PROJECTS,
   WORK_EXPERIENCE,
@@ -236,14 +237,6 @@ function DecodedEmail() {
   }, []);
 
   return email;
-}
-
-function isVideoUrl(url: string): boolean {
-  return (
-    url.includes("player.vimeo.com") ||
-    url.includes("youtube.com") ||
-    url.includes("youtu.be")
-  );
 }
 
 function ProjectThumbnail({ project }: { project: (typeof PROJECTS)[0] }) {

@@ -171,8 +171,7 @@ export const PROJECTS: Project[] = [
     githubLink: "https://github.com/example/growit-app",
     video:
       "https://player.vimeo.com/video/799152976?background=1&api=1&player_id=799152976_1676475040264&autopause=0&autoplay=1&mute=1&badge=0&loop=1&portrait=0&title=0&origin=https://work.randyellis.design",
-    thumbnail:
-      "https://player.vimeo.com/video/799152976?background=1&api=1&player_id=799152976_1676475040264&autopause=0&autoplay=1&mute=1&badge=0&loop=1&portrait=0&title=0&origin=https://work.randyellis.design",
+    thumbnail: "/images/projects/growit-thumbnail.jpg",
     images: [
       "/projects/growit/hero-mockup.jpg",
       "/projects/growit/app-screens-overview.jpg",

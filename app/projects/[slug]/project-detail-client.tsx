@@ -26,7 +26,11 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { AnimatedVideo, AnimatedImage } from "@/components/ui/animated-asset";
+import {
+  AnimatedVideo,
+  AnimatedImage,
+  AnimatedIframe,
+} from "@/components/ui/animated-asset";
 import { VideoPlayer } from "@/components/ui/video-player";
 import {
   VimeoEmbed,
@@ -647,15 +651,29 @@ export default function ProjectDetailClient({
                   className="group hover:shadow-lg transition-all duration-300"
                 >
                   <div className="aspect-video overflow-hidden">
-                    <AnimatedVideo
-                      src={relatedProject.video}
-                      hoverScale={1.05}
-                      transition={{
-                        type: "spring",
-                        bounce: 0.1,
-                        duration: 0.4,
-                      }}
-                    />
+                    {isVimeoUrl(relatedProject.video) ? (
+                      <AnimatedIframe
+                        src={relatedProject.video}
+                        title={`${relatedProject.name} Demo Video`}
+                        hoverScale={1.05}
+                        transition={{
+                          type: "spring",
+                          bounce: 0.1,
+                          duration: 0.4,
+                        }}
+                      />
+                    ) : (
+                      <AnimatedVideo
+                        src={relatedProject.video}
+                        poster={relatedProject.thumbnail}
+                        hoverScale={1.05}
+                        transition={{
+                          type: "spring",
+                          bounce: 0.1,
+                          duration: 0.4,
+                        }}
+                      />
+                    )}
                   </div>
                   <CardHeader>
                     <CardTitle className="group-hover:text-blue-600 transition-colors">

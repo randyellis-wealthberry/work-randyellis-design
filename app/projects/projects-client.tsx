@@ -16,6 +16,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
+import { isVideoUrl } from "@/lib/video-utils";
 import { PROJECTS, PROJECT_CATEGORIES } from "../data";
 
 const VARIANTS_CONTAINER = {
@@ -38,6 +39,47 @@ const VARIANTS_ITEM = {
     },
   },
 };
+
+function ProjectThumbnail({ project }: { project: (typeof PROJECTS)[0] }) {
+  // Check both video and thumbnail fields for video content
+  const videoSrc = isVideoUrl(project.video) ? project.video : null;
+  const thumbnailSrc = isVideoUrl(project.thumbnail || "")
+    ? project.thumbnail
+    : null;
+  const staticThumbnail = !isVideoUrl(project.thumbnail || "")
+    ? project.thumbnail || "/images/projects/placeholder-thumbnail.jpg"
+    : "/images/projects/placeholder-thumbnail.jpg";
+
+  // Prioritize video field, then thumbnail field, then static thumbnail
+  const displaySrc = videoSrc || thumbnailSrc;
+
+  if (displaySrc) {
+    return (
+      <div className="aspect-video overflow-hidden">
+        <iframe
+          src={displaySrc}
+          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+          frameBorder="0"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowFullScreen
+          title={project.name}
+        />
+      </div>
+    );
+  }
+
+  return (
+    <div className="aspect-video overflow-hidden">
+      <Image
+        src={staticThumbnail}
+        alt={project.name}
+        width={500}
+        height={300}
+        className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+      />
+    </div>
+  );
+}
 
 export default function ProjectsClient() {
   const [activeCategory, setActiveCategory] = useState("All");
@@ -94,18 +136,7 @@ export default function ProjectsClient() {
                 >
                   <Card className="group relative overflow-hidden h-full flex flex-col">
                     <Link href={`/projects/${project.slug}`} className="block">
-                      <div className="aspect-video overflow-hidden">
-                        <Image
-                          src={
-                            project.thumbnail ||
-                            "/images/projects/placeholder-thumbnail.jpg"
-                          }
-                          alt={project.name}
-                          width={500}
-                          height={300}
-                          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                        />
-                      </div>
+                      <ProjectThumbnail project={project} />
                     </Link>
                     <CardHeader>
                       <div className="flex items-start justify-between">
