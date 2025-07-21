@@ -280,7 +280,7 @@ export default function Personal() {
         transition={TRANSITION_SECTION}
         className="mt-40 sm:mt-32"
       >
-        <h3 className="mb-5 text-lg font-medium">What am I working on</h3>
+        <h3 className="mb-5 text-lg font-medium">Selected Projects</h3>
         <div className="grid grid-cols-1 gap-12 sm:gap-8 sm:grid-cols-2">
           {PROJECTS.slice(0, 2).map((project) => (
             <div key={project.id} className="space-y-4">
@@ -304,12 +304,52 @@ export default function Personal() {
                   {project.name}
                   <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 dark:bg-zinc-50 transition-all duration-200 group-hover:max-w-full"></span>
                 </Link>
+                {project.subtitle && (
+                  <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                    {project.subtitle}
+                  </p>
+                )}
                 <p className="text-base text-zinc-600 dark:text-zinc-400">
                   {project.description}
                 </p>
               </div>
             </div>
           ))}
+        </div>
+      </motion.section>
+
+      <motion.section
+        variants={VARIANTS_SECTION}
+        transition={TRANSITION_SECTION}
+        className="mt-40 sm:mt-32"
+      >
+        <h3 className="mb-5 text-lg font-medium">What am I working on</h3>
+        <div className="grid grid-cols-1 gap-12 sm:gap-8">
+          <div className="space-y-4">
+            <Link href="/projects">
+              <Image
+                src="/images/projects/placeholder-thumbnail.jpg"
+                alt="Selected Project"
+                width={500}
+                height={300}
+                className="aspect-video w-full max-h-48 object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity duration-200"
+              />
+            </Link>
+            <div className="px-1">
+              <Link
+                className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"
+                href="/projects"
+              >
+                Featured Project Title
+                <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 dark:bg-zinc-50 transition-all duration-200 group-hover:max-w-full"></span>
+              </Link>
+              <p className="text-base text-zinc-600 dark:text-zinc-400">
+                This is a placeholder description for the selected project
+                showcase. It demonstrates the layout and styling for featured
+                work.
+              </p>
+            </div>
+          </div>
         </div>
       </motion.section>
 

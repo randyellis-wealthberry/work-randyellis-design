@@ -1,6 +1,7 @@
 export type Project = {
   id: string;
   name: string;
+  subtitle?: string;
   slug: string;
   description: string;
   longDescription: string;
@@ -62,7 +63,8 @@ type SocialLink = {
 export const PROJECTS: Project[] = [
   {
     id: "echo-drive",
-    name: "EchoDrive - Digital Transformation in Truckload Management",
+    name: "EchoDrive",
+    subtitle: "Digital Truckload Management",
     slug: "echo",
     description:
       "Modern truckload management platform for Echo Global Logistics, modernizing shipping operations with mobile and web solutions.",
@@ -157,7 +159,8 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "project2",
-    name: "GrowIt - Social Gardening App",
+    name: "GrowIt",
+    subtitle: "Social Gardening App",
     slug: "growit",
     description: "One of the fastest-growing mobile gardening apps in the U.S.",
     longDescription:
@@ -300,36 +303,27 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
 export const BLOG_POSTS: BlogPost[] = [
   {
     title:
+      "When AI Finally Gets It Right: Phion Just Made Me Forget Why I Hate Setup",
+    description:
+      "How Phion revolutionized the development experience by eliminating setup friction and letting developers focus on creation.",
+    link: "/blog/when-ai-gets-it-right-phion",
+    uid: "blog-7",
+  },
+  {
+    title:
+      "PROFITS, NOT PIXELS: The story of world's most expensive (yet, valuable?) cup of coffee",
+    description:
+      "How the design job market has shifted from aesthetics to business impact and ROI-driven decisions.",
+    link: "/blog/profits-not-pixels",
+    uid: "blog-6",
+  },
+  {
+    title:
       "The Product Manager's Guide to AI Evaluations: Building Better AI Products",
     description:
       "A practical framework for product managers to evaluate and improve generative AI systems.",
     link: "/blog/product-manager-guide-ai-evaluations",
     uid: "blog-5",
-  },
-  {
-    title: "Exploring the Intersection of Design, AI, and Design Engineering",
-    description: "How AI is changing the way we design",
-    link: "/blog/exploring-the-intersection-of-design-ai-and-design-engineering",
-    uid: "blog-1",
-  },
-  {
-    title: "Why I left my job to start my own company",
-    description: "My decision to leave corporate and start my own company.",
-    link: "/blog/exploring-the-intersection-of-design-ai-and-design-engineering",
-    uid: "blog-2",
-  },
-  {
-    title: "What I learned from my first year of freelancing",
-    description: "Key insights from my first year as a freelancer.",
-    link: "/blog/exploring-the-intersection-of-design-ai-and-design-engineering",
-    uid: "blog-3",
-  },
-  {
-    title: "How to Export Metadata from MDX for Next.js SEO",
-    description:
-      "How to export metadata from MDX files for Next.js SEO optimization.",
-    link: "/blog/example-mdx-metadata",
-    uid: "blog-4",
   },
 ];
 
