@@ -369,7 +369,7 @@ export default function Personal() {
               </Link>
               <p className="text-base text-zinc-600 dark:text-zinc-400">
                 My new project to bridge the gap between design excellence and
-                boardroom fluency. Inspired by PROFITS, NOT PIXELS Book
+                boardroom fluency. Inspired by PROFITS, NOT PIXELS Manuscript
               </p>
             </div>
           </div>

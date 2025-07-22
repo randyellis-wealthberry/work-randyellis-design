@@ -41,7 +41,7 @@ const achievements = [
   {
     icon: Lightbulb,
     value: "800+",
-    label: "Designers Mentored",
+    label: "Design Mentorship",
     description: "Growing the next generation of design talent",
   },
 ];
@@ -312,7 +312,7 @@ export default function AboutClient() {
                 <div className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 mb-1">
                   {achievement.value}
                 </div>
-                <div className="text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+                <div className="text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1 whitespace-nowrap">
                   {achievement.label}
                 </div>
                 <div className="text-xs text-zinc-500 dark:text-zinc-400">
