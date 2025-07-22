@@ -13,7 +13,8 @@ export default async function OpengraphImage() {
     (
       <div
         style={{
-          background: "linear-gradient(135deg, #0f1419 0%, #1a2332 50%, #2d1b3d 100%)",
+          background:
+            "linear-gradient(135deg, #0f1419 0%, #1a2332 50%, #2d1b3d 100%)",
           width: "100%",
           height: "100%",
           display: "flex",
@@ -290,6 +291,6 @@ export default async function OpengraphImage() {
     ),
     {
       ...size,
-    }
+    },
   );
 }

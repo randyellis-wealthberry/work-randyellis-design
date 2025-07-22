@@ -173,7 +173,8 @@ export function PersonStructuredData() {
       {
         "@type": "Project",
         name: "GrowIt - Gardening App",
-        description: "One of the fastest-growing gardening apps in the U.S. with 100K+ users and 4.8★ rating",
+        description:
+          "One of the fastest-growing gardening apps in the U.S. with 100K+ users and 4.8★ rating",
       },
       {
         "@type": "Project",

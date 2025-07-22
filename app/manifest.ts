@@ -4,7 +4,8 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "Randy Ellis - AI Product Design Engineer",
     short_name: "Randy Ellis",
-    description: "AI Product Design Engineer specializing in generative AI, design systems, and product leadership. Portfolio showcasing innovative projects and design expertise.",
+    description:
+      "AI Product Design Engineer specializing in generative AI, design systems, and product leadership. Portfolio showcasing innovative projects and design expertise.",
     start_url: "/",
     display: "standalone",
     background_color: "#ffffff",
