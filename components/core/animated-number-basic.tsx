@@ -125,7 +125,7 @@ export function AnimatedNumberBasic() {
             />
           </div>
           <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400 mt-1 text-center h-6 flex items-end justify-center leading-tight">
-            Designer Mentored
+            Designers Mentored
           </p>
         </div>
       </div>

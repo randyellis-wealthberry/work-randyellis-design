@@ -9,6 +9,7 @@ import {
   PersonStructuredData,
   WebsiteStructuredData,
   ProfessionalServiceStructuredData,
+  OrganizationStructuredData,
 } from "@/components/seo/structured-data";
 
 export const viewport: Viewport = {
@@ -94,6 +95,7 @@ export default function RootLayout({
         <PersonStructuredData />
         <WebsiteStructuredData />
         <ProfessionalServiceStructuredData />
+        <OrganizationStructuredData />
       </head>
       <body
         className={`${geist.variable} ${geistMono.variable} bg-white tracking-tight antialiased dark:bg-zinc-950`}

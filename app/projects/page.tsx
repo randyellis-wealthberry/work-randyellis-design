@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import ProjectsClient from "./projects-client";
+import { BreadcrumbStructuredData } from "@/components/seo/structured-data";
 
 export const metadata: Metadata = {
   title: "AI Product Design Projects - Randy Ellis Portfolio",
@@ -24,5 +25,15 @@ export const metadata: Metadata = {
 };
 
 export default function ProjectsPage() {
-  return <ProjectsClient />;
+  const breadcrumbItems = [
+    { name: "Home", url: "https://work.randyellis.design" },
+    { name: "Projects", url: "https://work.randyellis.design/projects" },
+  ];
+
+  return (
+    <>
+      <BreadcrumbStructuredData items={breadcrumbItems} />
+      <ProjectsClient />
+    </>
+  );
 }
