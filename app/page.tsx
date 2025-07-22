@@ -286,6 +286,9 @@ export default function Personal() {
         transition={TRANSITION_SECTION}
       >
         <div className="flex-1">
+          <h1 className="sr-only">
+            Randy Ellis - AI Product Design Engineer Portfolio
+          </h1>
           <p className="text-zinc-600 dark:text-zinc-400">
             AI Product Design Engineer specializing in generative AI, design
             systems, and product leadership. Currently Head of Product at
