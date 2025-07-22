@@ -352,8 +352,8 @@ export default function Personal() {
           <div className="space-y-4">
             <Link href="/projects">
               <Image
-                src="/images/projects/placeholder-thumbnail.jpg"
-                alt="Selected Project"
+                src="/images/projects/metis-thumbnail.jpg"
+                alt="METIS AI Business Strategy Agent"
                 width={500}
                 height={300}
                 className="aspect-video w-full max-h-48 object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity duration-200"
@@ -364,13 +364,12 @@ export default function Personal() {
                 className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"
                 href="/projects"
               >
-                Featured Project Title
+                METIS:LAYER - AI BUSINESS STRATEGY FOR PRODUCT DESIGNERS
                 <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 dark:bg-zinc-50 transition-all duration-200 group-hover:max-w-full"></span>
               </Link>
               <p className="text-base text-zinc-600 dark:text-zinc-400">
-                This is a placeholder description for the selected project
-                showcase. It demonstrates the layout and styling for featured
-                work.
+                My new project to bridge the gap between design excellence and
+                boardroom fluency. Inspired by PROFITS, NOT PIXELS Book
               </p>
             </div>
           </div>
