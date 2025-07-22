@@ -49,6 +49,7 @@ const achievements = [
 const experience = [
   {
     company: "Wealthberry Labs",
+    companyUrl: "https://www.buildyourlegacywithai.com",
     title: "Head of Product",
     period: "2022 - Present",
     description:
@@ -62,6 +63,7 @@ const experience = [
   },
   {
     company: "Clockwork",
+    companyUrl: "https://www.clockwork.com",
     title: "Lead UX Researcher (Consultant)",
     period: "2023",
     description:
@@ -75,6 +77,7 @@ const experience = [
   },
   {
     company: "Nagarro",
+    companyUrl: "https://www.nagarro.com",
     title: "Head of Design",
     period: "2020 - 2022",
     description:
@@ -90,7 +93,8 @@ const experience = [
 
 const adjunctExperience = [
   {
-    company: "ThrivedX",
+    company: "ThriveDX",
+    companyUrl: "https://www.thrivedx.com",
     title: "Adjunct User Experience Instructor",
     period: "May 2021 - Nov 2022",
     description:
@@ -103,6 +107,7 @@ const adjunctExperience = [
   },
   {
     company: "General Assembly",
+    companyUrl: "https://generalassemb.ly/instructors/randy-ellis/6528",
     title: "Lead Product Design Instructor",
     period: "Aug 2016 - Jul 2021",
     description:
@@ -372,10 +377,15 @@ export default function AboutClient() {
                   <div>
                     <CardTitle className="text-lg">{role.title}</CardTitle>
                     <div className="flex items-center gap-2 mt-1">
-                      <span className="font-medium text-blue-600">
+                      <a
+                        href={role.companyUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-medium text-blue-600 hover:text-blue-700 transition-colors flex items-center gap-1"
+                      >
                         {role.company}
-                      </span>
-                      <ExternalLink className="h-4 w-4 text-zinc-400" />
+                        <ExternalLink className="h-4 w-4" />
+                      </a>
                     </div>
                   </div>
                   <Badge variant="outline">{role.period}</Badge>
@@ -426,10 +436,15 @@ export default function AboutClient() {
                   <div>
                     <CardTitle className="text-lg">{role.title}</CardTitle>
                     <div className="flex items-center gap-2 mt-1">
-                      <span className="font-medium text-blue-600">
+                      <a
+                        href={role.companyUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-medium text-blue-600 hover:text-blue-700 transition-colors flex items-center gap-1"
+                      >
                         {role.company}
-                      </span>
-                      <ExternalLink className="h-4 w-4 text-zinc-400" />
+                        <ExternalLink className="h-4 w-4" />
+                      </a>
                     </div>
                   </div>
                   <Badge variant="outline">{role.period}</Badge>
