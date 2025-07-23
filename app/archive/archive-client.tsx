@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import { useState } from "react";
 import { ExternalLink, Calendar } from "lucide-react";
+import { ScrambleSectionTitle } from "@/components/ui/scramble-section-title";
 import {
   Card,
   CardContent,
@@ -54,9 +55,12 @@ export default function ArchiveClient() {
     >
       <motion.section variants={VARIANTS_ITEM}>
         <div className="space-y-4">
-          <h1 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100">
+          <ScrambleSectionTitle
+            as="h1"
+            className="text-3xl font-bold text-zinc-900 dark:text-zinc-100"
+          >
             Archive
-          </h1>
+          </ScrambleSectionTitle>
           <p className="text-lg text-zinc-600 dark:text-zinc-400">
             A collection of old articles, presentations, and career footage
             spanning my journey in design and technology.
