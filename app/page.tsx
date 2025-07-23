@@ -429,9 +429,18 @@ export default function Personal() {
         transition={TRANSITION_SECTION}
         className="mt-40 sm:mt-32"
       >
-        <ScrambleSectionTitle className="mb-5 text-lg font-medium">
-          Work Experience
-        </ScrambleSectionTitle>
+        <div className="flex items-center justify-between mb-5">
+          <ScrambleSectionTitle className="text-lg font-medium">
+            Recent Work Experience
+          </ScrambleSectionTitle>
+          <Link
+            href="/about"
+            className="group relative inline-flex items-center text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors duration-200"
+          >
+            View all
+            <span className="absolute bottom-0 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 dark:bg-zinc-50 transition-all duration-200 group-hover:max-w-full"></span>
+          </Link>
+        </div>
         <div className="flex flex-col space-y-2">
           {WORK_EXPERIENCE.map((job) => (
             <a
