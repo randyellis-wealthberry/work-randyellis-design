@@ -1,6 +1,8 @@
 "use client";
 import { motion } from "motion/react";
 import Image from "next/image";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 const VARIANTS_CONTAINER = {
   hidden: { opacity: 0 },
@@ -22,6 +24,13 @@ const TRANSITION_SECTION = {
 };
 
 export default function MetisClient() {
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <motion.main
       className="max-w-5xl mx-auto space-y-16 px-4"
@@ -35,21 +44,21 @@ export default function MetisClient() {
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
-        <h1 className="text-5xl font-bold text-zinc-900 dark:text-zinc-100 tracking-tight mb-8">
-          METIS
-        </h1>
-
-        {/* Hero Banner Image */}
-        <div className="relative w-full aspect-[16/9] max-w-4xl mx-auto mb-8 rounded-2xl overflow-hidden shadow-2xl">
+        {/* Hero Banner Image - Half Height */}
+        <div className="relative w-full aspect-[16/4.5] max-w-4xl mx-auto mb-8 rounded-2xl overflow-hidden shadow-2xl">
           <Image
             src="/images/hero-banner-metis.jpg"
-            alt="METIS - AI Business Strategy for Product Designers"
+            alt="METIS:LAYER - A Business Strategy AI Agent for Digital Designers"
             fill
             className="object-cover"
             priority
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
           />
         </div>
+
+        <h1 className="text-4xl font-bold text-zinc-900 dark:text-zinc-100 tracking-tight mb-6">
+          METIS:LAYER: A Business Strategy AI Agent for Digital Designers
+        </h1>
 
         <p className="text-xl text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-2xl mx-auto">
           A humble announcement about what I&apos;m building and sharing with
@@ -107,15 +116,20 @@ export default function MetisClient() {
 
         {/* Signature Image with Left Tilt */}
         <div className="flex justify-start">
-          <div className="transform -rotate-2 transition-transform hover:rotate-0 duration-300">
-            <Image
-              src="/images/randyellis-signature.png"
-              alt="Randy Ellis Signature"
-              width={200}
-              height={80}
-              className="opacity-80 dark:invert"
-              style={{ filter: "contrast(1.1)" }}
-            />
+          <div className="transform -rotate-2">
+            {mounted && (
+              <Image
+                src={
+                  resolvedTheme === "dark"
+                    ? "/images/randyellis-signature.png"
+                    : "/images/randyellis-signature-light.png"
+                }
+                alt="Randy Ellis Handwritten Signature"
+                width={200}
+                height={80}
+                className="opacity-90"
+              />
+            )}
           </div>
         </div>
 
