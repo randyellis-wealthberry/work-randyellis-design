@@ -17,7 +17,12 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
-import { isVideoUrl } from "@/lib/video-utils";
+import {
+  isVideoUrl,
+  isUnicornStudioId,
+  extractUnicornStudioId,
+} from "@/lib/video-utils";
+import { UnicornStudioEmbed } from "@/components/ui/unicorn-studio-embed";
 import { PROJECTS, PROJECT_CATEGORIES } from "../data";
 
 const VARIANTS_CONTAINER = {
@@ -42,14 +47,39 @@ const VARIANTS_ITEM = {
 };
 
 function ProjectThumbnail({ project }: { project: (typeof PROJECTS)[0] }) {
-  // Check both video and thumbnail fields for video content
+  // Check for UnicornStudio content first (highest priority)
+  const unicornVideoId = isUnicornStudioId(project.video)
+    ? extractUnicornStudioId(project.video)
+    : null;
+  const unicornThumbnailId = isUnicornStudioId(project.thumbnail || "")
+    ? extractUnicornStudioId(project.thumbnail || "")
+    : null;
+  const unicornId = unicornVideoId || unicornThumbnailId;
+
+  // Check for regular video content
   const videoSrc = isVideoUrl(project.video) ? project.video : null;
   const thumbnailSrc = isVideoUrl(project.thumbnail || "")
     ? project.thumbnail
     : null;
-  const staticThumbnail = !isVideoUrl(project.thumbnail || "")
-    ? project.thumbnail || "/images/projects/placeholder-thumbnail.jpg"
-    : "/images/projects/placeholder-thumbnail.jpg";
+  const staticThumbnail =
+    !isVideoUrl(project.thumbnail || "") &&
+    !isUnicornStudioId(project.thumbnail || "")
+      ? project.thumbnail || "/images/projects/placeholder-thumbnail.jpg"
+      : "/images/projects/placeholder-thumbnail.jpg";
+
+  // Priority: UnicornStudio > Video > Static thumbnail
+  if (unicornId) {
+    return (
+      <div className="aspect-video overflow-hidden">
+        <UnicornStudioEmbed
+          projectId={unicornId}
+          width={1920}
+          height={1080}
+          className="h-full w-full transition-transform duration-300 group-hover:scale-105"
+        />
+      </div>
+    );
+  }
 
   // Prioritize video field, then thumbnail field, then static thumbnail
   const displaySrc = videoSrc || thumbnailSrc;

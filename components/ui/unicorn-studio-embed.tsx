@@ -57,7 +57,7 @@ export function UnicornStudioEmbed({
         // Create and load the UnicornStudio script
         const script = document.createElement("script");
         script.src =
-          "https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v1.4.28/dist/unicornStudio.umd.js";
+          "https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v1.4.29/dist/unicornStudio.umd.js";
         script.onload = () => {
           try {
             if (!window.UnicornStudio?.isInitialized) {
@@ -115,6 +115,7 @@ export function UnicornStudioEmbed({
       )}
       style={{
         aspectRatio: `${width}/${height}`,
+        maxHeight: "inherit",
       }}
     >
       {/* UnicornStudio Embed */}
@@ -123,12 +124,11 @@ export function UnicornStudioEmbed({
         style={{
           width: "100%",
           height: "100%",
-          minHeight: "350px",
           display: "flex",
-          alignItems: "center",
+          alignItems: "flex-start",
           justifyContent: "center",
-          transform: "scale(1.1)",
-          transformOrigin: "center center",
+          transform: "scale(1.1) translateY(-10%)",
+          transformOrigin: "center top",
         }}
         className="absolute inset-0 unicorn-studio-embed"
       />

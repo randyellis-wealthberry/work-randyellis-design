@@ -219,6 +219,10 @@ export function VideoPlayer({
               muted
               loop
               autoPlay
+              tabIndex={-1}
+              controls={false}
+              disablePictureInPicture
+              style={{ pointerEvents: 'none' }}
             >
               <source src={src} type="video/mp4" />
               Your browser does not support the video tag.
@@ -253,6 +257,8 @@ export function VideoPlayer({
             autoPlay={autoPlay}
             loop={loop}
             muted={muted}
+            tabIndex={-1}
+            disablePictureInPicture
             onTimeUpdate={handleTimeUpdate}
             onLoadedMetadata={handleLoadedMetadata}
             onPlay={() => setIsPlaying(true)}

@@ -17,6 +17,7 @@ import { AnimatedNumberBasic } from "@/components/core/animated-number-basic";
 import { TransitionPanel } from "@/components/motion-primitives/transition-panel";
 import { ScrambleSectionTitle } from "@/components/ui/scramble-section-title";
 import { isVideoUrl } from "@/lib/video-utils";
+import { UnicornStudioEmbed } from "@/components/ui/unicorn-studio-embed";
 import {
   PROJECTS,
   WORK_EXPERIENCE,
@@ -241,6 +242,29 @@ function DecodedEmail() {
 }
 
 function ProjectThumbnail({ project }: { project: (typeof PROJECTS)[0] }) {
+  // Check if project has a video and it's a local MP4 file for thumbnail display
+  if (project.video && project.video.includes('.mp4') && project.video.startsWith('/')) {
+    return (
+      <Link href={`/projects/${project.slug}`}>
+        <div className="aspect-video w-full max-h-48 rounded-lg overflow-hidden cursor-pointer hover:opacity-90 transition-opacity duration-200">
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            tabIndex={-1}
+            controls={false}
+            disablePictureInPicture
+            style={{ pointerEvents: 'none' }}
+            className="w-full h-full object-cover"
+          >
+            <source src={project.video} type="video/mp4" />
+          </video>
+        </div>
+      </Link>
+    );
+  }
+
   const thumbnailSrc =
     project.thumbnail || "/images/projects/placeholder-thumbnail.jpg";
 
@@ -361,13 +385,21 @@ export default function Personal() {
         <div className="grid grid-cols-1 gap-12 sm:gap-8">
           <div className="space-y-4">
             <Link href="/projects">
-              <Image
-                src="/images/projects/metis-thumbnail.jpg"
-                alt="METIS AI Business Strategy Agent"
-                width={500}
-                height={300}
-                className="aspect-video w-full max-h-48 object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity duration-200"
-              />
+              <div className="aspect-video w-full max-h-48 rounded-lg overflow-hidden cursor-pointer hover:opacity-90 transition-opacity duration-200">
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  tabIndex={-1}
+                  controls={false}
+                  disablePictureInPicture
+                  style={{ pointerEvents: 'none' }}
+                  className="w-full h-full object-cover"
+                >
+                  <source src="/images/projects/metis-logomark-glitch.webm" type="video/webm" />
+                </video>
+              </div>
             </Link>
             <div className="px-1">
               <Link

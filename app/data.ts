@@ -101,7 +101,7 @@ export const PROJECTS: Project[] = [
       "Android",
     ],
     link: "https://www.echo.com/",
-    video: "/video.mp4",
+    video: "/images/projects/4bd17769-e35c-45ef-b7b9-0682fadd2317 - 01.mp4",
     thumbnail: "/projects/echo/poster.png",
     images: [
       "/projects/echo/img1.jpg",
