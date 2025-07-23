@@ -222,6 +222,8 @@ export function VideoPlayer({
               tabIndex={-1}
               controls={false}
               disablePictureInPicture
+              preload="metadata"
+              role="presentation"
               style={{ pointerEvents: "none" }}
             >
               <source src={src} type="video/mp4" />
@@ -259,6 +261,7 @@ export function VideoPlayer({
             muted={muted}
             tabIndex={-1}
             disablePictureInPicture
+            role="presentation"
             onTimeUpdate={handleTimeUpdate}
             onLoadedMetadata={handleLoadedMetadata}
             onPlay={() => setIsPlaying(true)}
