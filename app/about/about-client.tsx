@@ -134,6 +134,37 @@ const certifications = [
     validationLink: "https://coursera.org/verify/7WUUQR5PZTDH",
   },
   {
+    certName:
+      "High Performance Collaboration: Leadership, Teamwork, and Negotiation",
+    universityName: "Northwestern University",
+    certDateIssued: "Apr 28, 2025",
+    validationLink: "https://coursera.org/verify/KUI8G4DFK7MG",
+  },
+  {
+    certName: "Generative AI Leadership & Strategy",
+    universityName: "Vanderbilt University",
+    certDateIssued: "Apr 28, 2025",
+    validationLink: "https://coursera.org/verify/specialization/QPBSTXZDMMN8",
+  },
+  {
+    certName: "Leadership Communication for Maximum Impact: Storytelling",
+    universityName: "Northwestern University",
+    certDateIssued: "Apr 28, 2025",
+    validationLink: "https://coursera.org/verify/WUY725TPQC1I",
+  },
+  {
+    certName: "Leadership Through Social Influence",
+    universityName: "Northwestern University",
+    certDateIssued: "Apr 29, 2025",
+    validationLink: "https://coursera.org/verify/FKU8HG762FLM",
+  },
+  {
+    certName: "Leadership Through Marketing",
+    universityName: "Northwestern University",
+    certDateIssued: "Apr 29, 2025",
+    validationLink: "https://coursera.org/verify/VPIM3205T6GU",
+  },
+  {
     certName: "IT Fundamentals and Hardware Essentials",
     universityName: "Packt",
     certDateIssued: "May 3, 2025",
@@ -152,47 +183,16 @@ const certifications = [
     validationLink: "https://coursera.org/verify/ES7ZOJPUOV2Y",
   },
   {
-    certName: "Leadership Through Social Influence",
-    universityName: "Northwestern University",
-    certDateIssued: "Apr 29, 2025",
-    validationLink: "https://coursera.org/verify/FKU8HG762FLM",
-  },
-  {
-    certName:
-      "High Performance Collaboration: Leadership, Teamwork, and Negotiation",
-    universityName: "Northwestern University",
-    certDateIssued: "Apr 28, 2025",
-    validationLink: "https://coursera.org/verify/KUI8G4DFK7MG",
-  },
-  {
     certName: "Advanced Networking, Virtualization, and IT Security",
     universityName: "Packt",
     certDateIssued: "May 3, 2025",
     validationLink: "https://coursera.org/verify/PMV565AL0DG9",
   },
   {
-    certName: "Generative AI Leadership & Strategy",
-    universityName: "Vanderbilt University",
-    certDateIssued: "Apr 28, 2025",
-    validationLink: "https://coursera.org/verify/specialization/QPBSTXZDMMN8",
-  },
-  {
     certName: "CompTIA A+ Certification Core 1 (220-1101)",
     universityName: "Packt",
     certDateIssued: "May 3, 2025",
     validationLink: "https://coursera.org/verify/specialization/VOCCSPV5YLZH",
-  },
-  {
-    certName: "Leadership Through Marketing",
-    universityName: "Northwestern University",
-    certDateIssued: "Apr 29, 2025",
-    validationLink: "https://coursera.org/verify/VPIM3205T6GU",
-  },
-  {
-    certName: "Leadership Communication for Maximum Impact: Storytelling",
-    universityName: "Northwestern University",
-    certDateIssued: "Apr 28, 2025",
-    validationLink: "https://coursera.org/verify/WUY725TPQC1I",
   },
 ];
 
