@@ -17,7 +17,6 @@ import { AnimatedNumberBasic } from "@/components/core/animated-number-basic";
 import { TransitionPanel } from "@/components/motion-primitives/transition-panel";
 import { ScrambleSectionTitle } from "@/components/ui/scramble-section-title";
 import { isVideoUrl } from "@/lib/video-utils";
-import { UnicornStudioEmbed } from "@/components/ui/unicorn-studio-embed";
 import {
   PROJECTS,
   WORK_EXPERIENCE,
@@ -243,7 +242,11 @@ function DecodedEmail() {
 
 function ProjectThumbnail({ project }: { project: (typeof PROJECTS)[0] }) {
   // Check if project has a video and it's a local MP4 file for thumbnail display
-  if (project.video && project.video.includes('.mp4') && project.video.startsWith('/')) {
+  if (
+    project.video &&
+    project.video.includes(".mp4") &&
+    project.video.startsWith("/")
+  ) {
     return (
       <Link href={`/projects/${project.slug}`}>
         <div className="aspect-video w-full max-h-48 rounded-lg overflow-hidden cursor-pointer hover:opacity-90 transition-opacity duration-200">
@@ -255,7 +258,7 @@ function ProjectThumbnail({ project }: { project: (typeof PROJECTS)[0] }) {
             tabIndex={-1}
             controls={false}
             disablePictureInPicture
-            style={{ pointerEvents: 'none' }}
+            style={{ pointerEvents: "none" }}
             className="w-full h-full object-cover"
           >
             <source src={project.video} type="video/mp4" />
@@ -394,10 +397,13 @@ export default function Personal() {
                   tabIndex={-1}
                   controls={false}
                   disablePictureInPicture
-                  style={{ pointerEvents: 'none' }}
+                  style={{ pointerEvents: "none" }}
                   className="w-full h-full object-cover"
                 >
-                  <source src="/images/projects/metis-logomark-glitch.webm" type="video/webm" />
+                  <source
+                    src="/images/projects/metis-logomark-glitch.webm"
+                    type="video/webm"
+                  />
                 </video>
               </div>
             </Link>

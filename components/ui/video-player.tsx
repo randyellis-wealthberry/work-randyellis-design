@@ -222,7 +222,7 @@ export function VideoPlayer({
               tabIndex={-1}
               controls={false}
               disablePictureInPicture
-              style={{ pointerEvents: 'none' }}
+              style={{ pointerEvents: "none" }}
             >
               <source src={src} type="video/mp4" />
               Your browser does not support the video tag.
