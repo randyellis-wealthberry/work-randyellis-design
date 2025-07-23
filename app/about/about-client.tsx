@@ -18,6 +18,7 @@ import {
   ChevronUp,
 } from "lucide-react";
 import { getEmail } from "../data";
+import AvatarCircularText from "@/components/ui/avatar-circular-text";
 
 const achievements = [
   {
@@ -285,19 +286,32 @@ export default function AboutClient() {
     >
       {/* Hero Section */}
       <motion.section
-        className="space-y-6"
+        className="space-y-8"
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
-        <h1 className="text-4xl font-bold text-zinc-900 dark:text-zinc-100">
-          About Randy Ellis
-        </h1>
-        <p className="text-xl text-zinc-600 dark:text-zinc-400 leading-relaxed">
-          AI Product Design Engineer bridging the gap between cutting-edge
-          artificial intelligence and human-centered design. Passionate about
-          creating products that amplify human potential through thoughtful AI
-          integration.
-        </p>
+        {/* Avatar with Circular Text */}
+        <div className="flex flex-col md:flex-row md:items-start md:gap-12">
+          <motion.div
+            className="flex justify-center md:justify-start mb-8 md:mb-0"
+            variants={VARIANTS_SECTION}
+            transition={{ ...TRANSITION_SECTION, delay: 0.1 }}
+          >
+            <AvatarCircularText />
+          </motion.div>
+
+          <div className="flex-1 space-y-6">
+            <h1 className="text-4xl font-bold text-zinc-900 dark:text-zinc-100 text-center md:text-left">
+              Randy Ellis
+            </h1>
+            <p className="text-xl text-zinc-600 dark:text-zinc-400 leading-relaxed text-center md:text-left">
+              AI Product Design Engineer bridging the gap between cutting-edge
+              artificial intelligence and human-centered design. Passionate
+              about creating products that amplify human potential through
+              thoughtful AI integration.
+            </p>
+          </div>
+        </div>
       </motion.section>
 
       {/* Achievements */}
