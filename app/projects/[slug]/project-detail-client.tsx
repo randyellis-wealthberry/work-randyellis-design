@@ -56,7 +56,6 @@ const VARIANTS_ITEM = {
 
 const TRANSITION_ITEM = {
   duration: 0.4,
-  ease: "easeOut",
 };
 
 function MetricCard({ label, value }: { label: string; value: string }) {
@@ -454,11 +453,6 @@ export default function ProjectDetailClient({
                       alt="GrowIt app in natural garden environment showing environmental considerations"
                       objectFit="cover"
                       hoverScale={1.02}
-                      transition={{
-                        type: "spring",
-                        bounce: 0.1,
-                        duration: 0.3,
-                      }}
                     />
                   </div>
                   <div>
@@ -498,11 +492,6 @@ export default function ProjectDetailClient({
                       alt="GrowIt technical architecture and beacon signal concepts"
                       objectFit="cover"
                       hoverScale={1.02}
-                      transition={{
-                        type: "spring",
-                        bounce: 0.1,
-                        duration: 0.3,
-                      }}
                     />
                   </div>
                   <div>
@@ -543,11 +532,6 @@ export default function ProjectDetailClient({
                         alt="GrowIt location-based features and community mapping"
                         objectFit="cover"
                         hoverScale={1.02}
-                        transition={{
-                          type: "spring",
-                          bounce: 0.1,
-                          duration: 0.3,
-                        }}
                       />
                     </div>
                     <div>
@@ -624,11 +608,6 @@ export default function ProjectDetailClient({
                     alt={`${project.name} screenshot ${index + 1}`}
                     objectFit="cover"
                     hoverScale={1.02}
-                    transition={{
-                      type: "spring",
-                      bounce: 0.1,
-                      duration: 0.3,
-                    }}
                   />
                 </div>
               ))}
@@ -656,22 +635,12 @@ export default function ProjectDetailClient({
                         src={relatedProject.video}
                         title={`${relatedProject.name} Demo Video`}
                         hoverScale={1.05}
-                        transition={{
-                          type: "spring",
-                          bounce: 0.1,
-                          duration: 0.4,
-                        }}
                       />
                     ) : (
                       <AnimatedVideo
                         src={relatedProject.video}
                         poster={relatedProject.thumbnail}
                         hoverScale={1.05}
-                        transition={{
-                          type: "spring",
-                          bounce: 0.1,
-                          duration: 0.4,
-                        }}
                       />
                     )}
                   </div>

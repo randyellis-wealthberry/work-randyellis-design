@@ -136,7 +136,7 @@ export function AccordionContent({
           initial={{ height: 0, opacity: 0 }}
           animate={{ height: "auto", opacity: 1 }}
           exit={{ height: 0, opacity: 0 }}
-          transition={transition || { duration: 0.2, ease: "easeInOut" }}
+          transition={transition || { duration: 0.2 }}
           className={cn("overflow-hidden", className)}
         >
           <div className="pb-2 pt-2">{children}</div>

@@ -126,7 +126,7 @@ function TransitionPanelExample() {
       <TransitionPanel
         activeIndex={activeIndex}
         variants={variants}
-        transition={{ duration: 0.3, ease: "easeInOut" }}
+        transition={{ duration: 0.3 }}
         className="min-h-[120px] rounded-xl bg-zinc-50 p-6 dark:bg-zinc-900/50"
       >
         {panels.map((panel, index) => (
@@ -148,7 +148,7 @@ function AccordionIcons() {
   return (
     <Accordion
       className="flex w-full flex-col divide-y divide-zinc-200 dark:divide-zinc-700"
-      transition={{ duration: 0.2, ease: "easeInOut" }}
+      transition={{ duration: 0.2 }}
     >
       <AccordionItem value="ai-design-approach" className="py-2">
         <AccordionTrigger className="w-full text-left text-zinc-950 dark:text-zinc-50">
