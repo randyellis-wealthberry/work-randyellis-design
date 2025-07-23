@@ -397,12 +397,14 @@ export default function Personal() {
                   tabIndex={-1}
                   controls={false}
                   disablePictureInPicture
+                  preload="metadata"
+                  role="presentation"
                   style={{ pointerEvents: "none" }}
                   className="w-full h-full object-cover"
                 >
                   <source
-                    src="/images/projects/metis-logomark-glitch.webm"
-                    type="video/webm"
+                    src="/images/projects/metis-logomark-glitch.mp4"
+                    type="video/mp4"
                   />
                 </video>
               </div>
