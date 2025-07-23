@@ -387,7 +387,7 @@ export default function Personal() {
         </ScrambleSectionTitle>
         <div className="grid grid-cols-1 gap-12 sm:gap-8">
           <div className="space-y-4">
-            <Link href="/projects">
+            <Link href="/metis">
               <div className="aspect-video w-full max-h-48 rounded-lg overflow-hidden cursor-pointer hover:opacity-90 transition-opacity duration-200">
                 <video
                   autoPlay
@@ -410,7 +410,7 @@ export default function Personal() {
             <div className="px-1">
               <Link
                 className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"
-                href="/projects"
+                href="/metis"
               >
                 METIS:LAYER - AI BUSINESS STRATEGY FOR PRODUCT DESIGNERS
                 <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 dark:bg-zinc-50 transition-all duration-200 group-hover:max-w-full"></span>
