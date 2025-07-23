@@ -60,6 +60,27 @@ type SocialLink = {
   link: string;
 };
 
+export type ArchiveItem = {
+  id: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  year: string;
+  category:
+    | "Pitch"
+    | "Presentation"
+    | "Article"
+    | "Career Footage"
+    | "Legacy Project";
+  type: "video" | "article" | "document";
+  video?: string;
+  thumbnail?: string;
+  link: string;
+  tags: string[];
+  company?: string;
+  event?: string;
+};
+
 export const PROJECTS: Project[] = [
   {
     id: "echo-drive",
@@ -362,4 +383,68 @@ export const PROJECT_CATEGORIES = [
   "Mobile App",
   "Design Systems",
   "UI/UX",
+] as const;
+
+export const ARCHIVE_ITEMS: ArchiveItem[] = [
+  {
+    id: "article-placeholder-1",
+    title: "Design Systems at Scale",
+    subtitle: "Building Consistent UI Libraries",
+    description:
+      "A comprehensive guide to building and maintaining design systems for large organizations.",
+    year: "2022",
+    category: "Article",
+    type: "article",
+    thumbnail: "/images/archive/article-placeholder-1.jpg",
+    link: "https://example.com/design-systems-at-scale",
+    tags: ["Design Systems", "UI/UX", "Frontend"],
+  },
+  {
+    id: "article-placeholder-2",
+    title: "The Future of AI in Design",
+    subtitle: "How Machine Learning Changes UX",
+    description:
+      "Exploring the intersection of artificial intelligence and user experience design.",
+    year: "2023",
+    category: "Article",
+    type: "article",
+    thumbnail: "/images/archive/article-placeholder-2.jpg",
+    link: "https://example.com/ai-in-design",
+    tags: ["AI", "UX Design", "Future Tech"],
+  },
+  {
+    id: "article-placeholder-3",
+    title: "Mobile-First Development",
+    subtitle: "Responsive Design Best Practices",
+    description:
+      "Essential strategies for building mobile-optimized web applications.",
+    year: "2021",
+    category: "Article",
+    type: "article",
+    thumbnail: "/images/archive/article-placeholder-3.jpg",
+    link: "https://example.com/mobile-first-development",
+    tags: ["Mobile", "Responsive", "Web Development"],
+  },
+  {
+    id: "article-placeholder-4",
+    title: "User Research Methods",
+    subtitle: "Data-Driven Design Decisions",
+    description:
+      "Practical approaches to conducting effective user research and usability testing.",
+    year: "2020",
+    category: "Article",
+    type: "article",
+    thumbnail: "/images/archive/article-placeholder-4.jpg",
+    link: "https://example.com/user-research-methods",
+    tags: ["User Research", "UX", "Testing"],
+  },
+];
+
+export const ARCHIVE_CATEGORIES = [
+  "All",
+  "Pitch",
+  "Presentation",
+  "Article",
+  "Career Footage",
+  "Legacy Project",
 ] as const;

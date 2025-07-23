@@ -17,11 +17,6 @@ type AnimatedAssetProps = {
   className?: string;
   containerClassName?: string;
   expandedClassName?: string;
-  transition?: {
-    type?: string;
-    bounce?: number;
-    duration?: number;
-  };
   hoverScale?: number;
   showCloseButton?: boolean;
 };
@@ -32,11 +27,6 @@ export const AnimatedAsset = ({
   className,
   containerClassName,
   expandedClassName,
-  transition = {
-    type: "spring",
-    bounce: 0,
-    duration: 0.3,
-  },
   hoverScale = 1.02,
   showCloseButton = true,
 }: AnimatedAssetProps) => {
@@ -47,7 +37,7 @@ export const AnimatedAsset = ({
         containerClassName,
       )}
     >
-      <MorphingDialog transition={transition}>
+      <MorphingDialog>
         <MorphingDialogTrigger>
           <motion.div
             className={cn(

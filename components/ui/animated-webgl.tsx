@@ -20,11 +20,6 @@ type AnimatedWebGLProps = {
   className?: string;
   containerClassName?: string;
   expandedClassName?: string;
-  transition?: {
-    type?: string;
-    bounce?: number;
-    duration?: number;
-  };
   hoverScale?: number;
   showCloseButton?: boolean;
   disableZoom?: boolean;
@@ -297,11 +292,6 @@ export const AnimatedWebGL = ({
   className,
   containerClassName,
   expandedClassName,
-  transition = {
-    type: "spring",
-    bounce: 0,
-    duration: 0.3,
-  },
   hoverScale = 1.02,
   showCloseButton = true,
   disableZoom = false,
@@ -381,7 +371,6 @@ export const AnimatedWebGL = ({
           className={className}
           containerClassName={containerClassName}
           expandedClassName={expandedClassName}
-          transition={transition}
           hoverScale={hoverScale}
           showCloseButton={showCloseButton}
           expandedChildren={
@@ -425,7 +414,6 @@ export const AnimatedWebGL = ({
           className={className}
           containerClassName={containerClassName}
           expandedClassName={expandedClassName}
-          transition={transition}
           hoverScale={hoverScale}
           showCloseButton={showCloseButton}
         >
@@ -484,7 +472,6 @@ export const AnimatedWebGL = ({
         className="overflow-hidden"
         containerClassName={containerClassName}
         expandedClassName={expandedClassName}
-        transition={transition}
         hoverScale={hoverScale}
         showCloseButton={showCloseButton}
         expandedChildren={

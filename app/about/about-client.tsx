@@ -234,7 +234,7 @@ function CertificationsAccordion() {
   return (
     <Accordion
       className="flex w-full flex-col divide-y divide-zinc-200 dark:divide-zinc-700"
-      transition={{ duration: 0.2, ease: "easeInOut" }}
+      transition={{ duration: 0.2 }}
     >
       {certifications.map((cert, index) => (
         <AccordionItem key={index} value={`cert-${index}`} className="py-2">

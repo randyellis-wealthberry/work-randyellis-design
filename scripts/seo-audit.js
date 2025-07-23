@@ -34,22 +34,22 @@ console.log(`   ✅ Robots directives: ${hasRobotsConfig ? "✓" : "✗"}`);
 console.log("\n2. Checking structured data...");
 const structuredDataPath = path.join(
   __dirname,
-  "../components/seo/structured-data.tsx"
+  "../components/seo/structured-data.tsx",
 );
 const structuredDataContent = fs.readFileSync(structuredDataPath, "utf8");
 
 const hasPersonSchema = structuredDataContent.includes("PersonStructuredData");
 const hasWebsiteSchema = structuredDataContent.includes(
-  "WebsiteStructuredData"
+  "WebsiteStructuredData",
 );
 const hasServiceSchema = structuredDataContent.includes(
-  "ProfessionalServiceStructuredData"
+  "ProfessionalServiceStructuredData",
 );
 const hasOrgSchema = structuredDataContent.includes(
-  "OrganizationStructuredData"
+  "OrganizationStructuredData",
 );
 const hasBreadcrumbSchema = structuredDataContent.includes(
-  "BreadcrumbStructuredData"
+  "BreadcrumbStructuredData",
 );
 
 console.log(`   ✅ Person schema: ${hasPersonSchema ? "✓" : "✗"}`);
@@ -84,9 +84,7 @@ ogImages.forEach((imagePath) => {
   const fullPath = path.join(__dirname, imagePath);
   const exists = fs.existsSync(fullPath);
   const pageName = imagePath.split("/").slice(-2)[0] || "homepage";
-  console.log(
-    `   ✅ ${pageName} OG image: ${exists ? "✓" : "✗"}`
-  );
+  console.log(`   ✅ ${pageName} OG image: ${exists ? "✓" : "✗"}`);
 });
 
 // Check 5: Icons and PWA
@@ -131,7 +129,9 @@ console.log("✅ PWA assets and icons ready");
 console.log("✅ Page-specific metadata configured");
 
 console.log("\n🚀 Pre-production deployment:");
-console.log("   Preview URL: https://workrandyellisdesign-kvfwxdrdr-wealthberrylabs.vercel.app");
+console.log(
+  "   Preview URL: https://workrandyellisdesign-kvfwxdrdr-wealthberrylabs.vercel.app",
+);
 
 console.log("\n📝 Next steps:");
 console.log("   1. Test with Google Rich Results Test");
