@@ -15,6 +15,7 @@ import {
 } from "@/components/core/accordion";
 import { AnimatedNumberBasic } from "@/components/core/animated-number-basic";
 import { TransitionPanel } from "@/components/motion-primitives/transition-panel";
+import { ScrambleSectionTitle } from "@/components/ui/scramble-section-title";
 import { isVideoUrl } from "@/lib/video-utils";
 import {
   PROJECTS,
@@ -309,7 +310,9 @@ export default function Personal() {
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
-        <h3 className="mb-5 text-lg font-medium">Core Ideologies</h3>
+        <ScrambleSectionTitle className="mb-5 text-lg font-medium">
+          Core Ideologies
+        </ScrambleSectionTitle>
         <TransitionPanelExample />
       </motion.section>
 
@@ -318,7 +321,9 @@ export default function Personal() {
         transition={TRANSITION_SECTION}
         className="mt-40 sm:mt-32"
       >
-        <h3 className="mb-5 text-lg font-medium">Selected Projects</h3>
+        <ScrambleSectionTitle className="mb-5 text-lg font-medium">
+          Selected Projects
+        </ScrambleSectionTitle>
         <div className="grid grid-cols-1 gap-12 sm:gap-8 sm:grid-cols-2">
           {PROJECTS.slice(0, 2).map((project) => (
             <div key={project.id} className="space-y-4">
@@ -350,7 +355,9 @@ export default function Personal() {
         transition={TRANSITION_SECTION}
         className="mt-40 sm:mt-32"
       >
-        <h3 className="mb-5 text-lg font-medium">What am I working on</h3>
+        <ScrambleSectionTitle className="mb-5 text-lg font-medium">
+          What am I working on
+        </ScrambleSectionTitle>
         <div className="grid grid-cols-1 gap-12 sm:gap-8">
           <div className="space-y-4">
             <Link href="/projects">
@@ -384,7 +391,9 @@ export default function Personal() {
         transition={TRANSITION_SECTION}
         className="mt-40 sm:mt-32"
       >
-        <h3 className="mb-5 text-lg font-medium">Work Experience</h3>
+        <ScrambleSectionTitle className="mb-5 text-lg font-medium">
+          Work Experience
+        </ScrambleSectionTitle>
         <div className="flex flex-col space-y-2">
           {WORK_EXPERIENCE.map((job) => (
             <a
@@ -422,7 +431,9 @@ export default function Personal() {
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
-        <h3 className="mb-3 text-lg font-medium">Blog</h3>
+        <ScrambleSectionTitle className="mb-3 text-lg font-medium">
+          Blog
+        </ScrambleSectionTitle>
         <div className="flex flex-col space-y-0">
           <AnimatedBackground
             enableHover
@@ -458,7 +469,9 @@ export default function Personal() {
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
-        <h3 className="mb-5 text-lg font-medium">FAQ</h3>
+        <ScrambleSectionTitle className="mb-5 text-lg font-medium">
+          FAQ
+        </ScrambleSectionTitle>
         <AccordionIcons />
       </motion.section>
 
@@ -466,7 +479,9 @@ export default function Personal() {
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
-        <h3 className="mb-5 text-lg font-medium">Connect</h3>
+        <ScrambleSectionTitle className="mb-5 text-lg font-medium">
+          Connect
+        </ScrambleSectionTitle>
         <p className="mb-5 text-zinc-600 dark:text-zinc-400">
           Feel free to contact me at{" "}
           <a

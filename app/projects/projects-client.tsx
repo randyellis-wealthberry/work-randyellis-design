@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import { useState } from "react";
 import Link from "next/link";
+import { ScrambleSectionTitle } from "@/components/ui/scramble-section-title";
 import Image from "next/image";
 import { ExternalLink, Github, Calendar, Users } from "lucide-react";
 import {
@@ -97,9 +98,12 @@ export default function ProjectsClient() {
     >
       <motion.section variants={VARIANTS_ITEM}>
         <div className="space-y-4">
-          <h1 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100">
+          <ScrambleSectionTitle
+            as="h1"
+            className="text-3xl font-bold text-zinc-900 dark:text-zinc-100"
+          >
             Projects
-          </h1>
+          </ScrambleSectionTitle>
           <p className="text-lg text-zinc-600 dark:text-zinc-400">
             A collection of projects showcasing my work in AI-powered product
             design, design systems, and innovative user experiences.
