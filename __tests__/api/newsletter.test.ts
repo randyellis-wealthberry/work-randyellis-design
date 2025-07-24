@@ -1,11 +1,9 @@
 import { z } from 'zod'
 
-// Mock Resend
-jest.mock('resend', () => ({
-  Resend: jest.fn().mockImplementation(() => ({
-    emails: {
-      send: jest.fn()
-    }
+// Mock Loops
+jest.mock('loops', () => ({
+  LoopsClient: jest.fn().mockImplementation(() => ({
+    updateContact: jest.fn()
   }))
 }))
 
@@ -20,6 +18,7 @@ describe('Newsletter API Logic', () => {
   describe('Email Validation', () => {
     const emailSchema = z.object({
       email: z.string().email('Invalid email address'),
+      firstName: z.string().optional(),
     })
 
     it('validates correct email format', () => {
@@ -27,10 +26,15 @@ describe('Newsletter API Logic', () => {
       expect(result.success).toBe(true)
     })
 
+    it('validates email with optional firstName', () => {
+      const result = emailSchema.safeParse({ email: 'test@example.com', firstName: 'John' })
+      expect(result.success).toBe(true)
+    })
+
     it('rejects invalid email format', () => {
       const result = emailSchema.safeParse({ email: 'invalid-email' })
       expect(result.success).toBe(false)
-      expect(result.error?.errors[0]?.message).toContain('Invalid email')
+      expect(result.error?.issues[0]?.message).toContain('Invalid email')
     })
 
     it('rejects missing email', () => {
@@ -39,47 +43,62 @@ describe('Newsletter API Logic', () => {
     })
   })
 
-  describe('Resend Integration', () => {
-    it('calls Resend with correct parameters', async () => {
-      const mockResend = require('resend').Resend
-      const mockSend = jest.fn().mockResolvedValue({ data: { id: 'email-id' } })
-      mockResend.mockImplementation(() => ({
-        emails: { send: mockSend }
+  describe('Loops Integration', () => {
+    it('calls Loops updateContact with correct parameters', async () => {
+      const mockLoops = require('loops').LoopsClient
+      const mockUpdateContact = jest.fn().mockResolvedValue({ success: true, id: 'contact-id' })
+      mockLoops.mockImplementation(() => ({
+        updateContact: mockUpdateContact
       }))
 
-      const resend = new mockResend('test-key')
-      await resend.emails.send({
-        from: 'test@example.com',
-        to: ['user@example.com'],
-        subject: 'Test Subject',
-        html: '<p>Test content</p>',
+      const loops = new mockLoops('test-key')
+      await loops.updateContact('test@example.com', {
+        firstName: 'John',
+        source: 'Website newsletter signup',
+        subscribed: true,
       })
 
-      expect(mockSend).toHaveBeenCalledWith({
-        from: 'test@example.com',
-        to: ['user@example.com'],
-        subject: 'Test Subject',
-        html: '<p>Test content</p>',
+      expect(mockUpdateContact).toHaveBeenCalledWith('test@example.com', {
+        firstName: 'John',
+        source: 'Website newsletter signup',
+        subscribed: true,
       })
     })
 
-    it('handles Resend errors', async () => {
-      const mockResend = require('resend').Resend
-      const mockSend = jest.fn().mockRejectedValue(new Error('Resend error'))
-      mockResend.mockImplementation(() => ({
-        emails: { send: mockSend }
+    it('handles Loops API errors', async () => {
+      const mockLoops = require('loops').LoopsClient
+      const mockUpdateContact = jest.fn().mockResolvedValue({ success: false, message: 'API error' })
+      mockLoops.mockImplementation(() => ({
+        updateContact: mockUpdateContact
       }))
 
-      const resend = new mockResend('test-key')
+      const loops = new mockLoops('test-key')
+      const result = await loops.updateContact('test@example.com', {
+        firstName: 'John',
+        source: 'Website newsletter signup',
+        subscribed: true,
+      })
+      
+      expect(result.success).toBe(false)
+      expect(result.message).toBe('API error')
+    })
+
+    it('handles Loops connection errors', async () => {
+      const mockLoops = require('loops').LoopsClient
+      const mockUpdateContact = jest.fn().mockRejectedValue(new Error('Connection error'))
+      mockLoops.mockImplementation(() => ({
+        updateContact: mockUpdateContact
+      }))
+
+      const loops = new mockLoops('test-key')
       
       await expect(
-        resend.emails.send({
-          from: 'test@example.com',
-          to: ['user@example.com'],
-          subject: 'Test Subject',
-          html: '<p>Test content</p>',
+        loops.updateContact('test@example.com', {
+          firstName: 'John',
+          source: 'Website newsletter signup',
+          subscribed: true,
         })
-      ).rejects.toThrow('Resend error')
+      ).rejects.toThrow('Connection error')
     })
   })
 

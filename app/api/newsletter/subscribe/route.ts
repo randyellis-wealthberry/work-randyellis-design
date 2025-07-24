@@ -1,17 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Resend } from "resend";
+import { LoopsClient } from "loops";
 import { z } from "zod";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const loops = new LoopsClient(process.env.LOOPS_API_KEY as string);
 
 const emailSchema = z.object({
   email: z.string().email("Invalid email address"),
+  firstName: z.string().optional(),
 });
 
 export async function POST(request: NextRequest) {
   try {
     // Check for required environment variables
-    if (!process.env.RESEND_API_KEY) {
+    if (!process.env.LOOPS_API_KEY) {
       return NextResponse.json(
         { error: "Server configuration error. Please contact support." },
         { status: 500 },
@@ -29,55 +30,36 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { email } = result.data;
+    const { email, firstName } = result.data;
 
-    // Send confirmation email via Resend
+    // Add contact to Loops.so
     try {
-      const { error: emailError } = await resend.emails.send({
-        from: "Randy Ellis Design <noreply@randyellis.design>",
-        to: [email],
-        subject: "Welcome to Business Strategy Prompts for Product Designers",
-        html: `
-          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-            <h1 style="color: #333; font-size: 24px; margin-bottom: 20px;">Welcome to Business Strategy Prompts!</h1>
-            
-            <p style="color: #666; font-size: 16px; line-height: 1.6; margin-bottom: 20px;">
-              Thank you for subscribing to our newsletter. You'll receive weekly insights that bridge design thinking with business strategy.
-            </p>
-            
-            <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
-              <h2 style="color: #333; font-size: 18px; margin: 0 0 10px 0;">What to expect:</h2>
-              <ul style="color: #666; margin: 0; padding-left: 20px;">
-                <li>Weekly strategic prompts for product designers</li>
-                <li>Business strategy insights</li>
-                <li>Tips to become a strategic partner in the boardroom</li>
-              </ul>
-            </div>
-            
-            <p style="color: #666; font-size: 14px; margin-top: 30px;">
-              Best regards,<br>
-              Randy Ellis<br>
-              <a href="${process.env.NEXT_PUBLIC_SITE_URL || "https://randyellis.design"}" style="color: #0066cc;">randyellis.design</a>
-            </p>
-            
-            <p style="color: #999; font-size: 12px; margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px;">
-              You can unsubscribe at any time by replying to this email.
-            </p>
-          </div>
-        `,
+      const resp = await loops.updateContact(email, {
+        firstName: firstName || "",
+        source: "Website newsletter signup",
+        subscribed: true,
+        // Add any custom properties you want to track
+        signupSource: "Newsletter form",
+        signupDate: new Date().toISOString(),
+        userAgent: request.headers.get("user-agent") || "",
+        referer: request.headers.get("referer") || "",
       });
 
-      if (emailError) {
-        console.error("Resend email error:", emailError);
+      if (!resp.success) {
+        console.error("Loops API error:", resp);
         return NextResponse.json(
-          { error: "Failed to send confirmation email. Please try again." },
-          { status: 500 },
+          { error: "Failed to subscribe. Please try again." },
+          { status: 400 },
         );
       }
+
+      console.log(
+        `Successfully added contact to Loops: ${email} (ID: ${resp.id})`,
+      );
     } catch (error) {
-      console.error("Email sending error:", error);
+      console.error("Loops subscription error:", error);
       return NextResponse.json(
-        { error: "Failed to send confirmation email. Please try again." },
+        { error: "Failed to subscribe. Please try again." },
         { status: 500 },
       );
     }
@@ -92,6 +74,7 @@ export async function POST(request: NextRequest) {
           },
           body: JSON.stringify({
             email,
+            firstName: firstName || "",
             timestamp: new Date().toISOString(),
             source: "newsletter-signup",
             metadata: {
@@ -108,7 +91,8 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      message: "Successfully subscribed! Check your email for confirmation.",
+      message:
+        "Successfully subscribed! You'll receive a confirmation email shortly.",
     });
   } catch (error) {
     console.error("Newsletter subscription error:", error);

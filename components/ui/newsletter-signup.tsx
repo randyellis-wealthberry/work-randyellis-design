@@ -118,7 +118,8 @@ export function NewsletterSignup() {
                 className="p-3 bg-green-100 dark:bg-green-900/30 border border-green-300 dark:border-green-700 rounded-lg"
               >
                 <p className="text-sm text-green-700 dark:text-green-300">
-                  Successfully subscribed! Check your email for confirmation.
+                  Successfully subscribed! You&apos;ll receive a confirmation
+                  email shortly.
                 </p>
               </motion.div>
             )}
