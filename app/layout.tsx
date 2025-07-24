@@ -6,6 +6,7 @@ import { Footer } from "./footer";
 import { NewsletterSignup } from "@/components/ui/newsletter-signup";
 import { ThemeProvider } from "next-themes";
 import { Analytics } from "@vercel/analytics/next";
+import { GoogleAnalytics } from "@/components/analytics/google-analytics";
 import {
   PersonStructuredData,
   WebsiteStructuredData,
@@ -118,6 +119,9 @@ export default function RootLayout({
           </div>
         </ThemeProvider>
         <Analytics />
+        {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
+        )}
       </body>
     </html>
   );
