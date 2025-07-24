@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "./header";
 import { Footer } from "./footer";
+import { NewsletterSignup } from "@/components/ui/newsletter-signup";
 import { ThemeProvider } from "next-themes";
 import { Analytics } from "@vercel/analytics/next";
 import {
@@ -111,6 +112,7 @@ export default function RootLayout({
             <div className="relative mx-auto w-full max-w-screen-md flex-1 px-4 sm:px-6 lg:px-8 pt-8 sm:pt-6">
               <Header />
               {children}
+              <NewsletterSignup />
               <Footer />
             </div>
           </div>
