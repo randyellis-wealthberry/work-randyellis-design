@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { motion } from "motion/react";
+import { FloatingInput } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 const emailSchema = z.object({
   email: z.string().email("Invalid email address").min(1, "Email is required"),
@@ -62,8 +64,13 @@ export function NewsletterSignup() {
     >
       <div className="max-w-lg mx-auto text-center space-y-6">
         <div className="space-y-3">
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <div className="w-2 h-2 rounded-full bg-blue-600"></div>
+            <div className="w-1 h-1 rounded-full bg-blue-400"></div>
+            <div className="w-0.5 h-0.5 rounded-full bg-blue-300"></div>
+          </div>
           <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">
-            Business Strategy Prompts for Product Designers
+            Business Strategy Prompts<br />for Product Designers
           </h3>
           <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">
             Get weekly insights that bridge design thinking with business
@@ -79,37 +86,24 @@ export function NewsletterSignup() {
           className="w-full max-w-md mx-auto"
         >
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            <div>
-              <label htmlFor="email" className="sr-only">
-                Email Address
-              </label>
-              <input
-                {...register("email")}
-                type="email"
-                id="email"
-                required
-                aria-describedby={errors.email ? "email-error" : "email-help"}
-                className="w-full px-4 py-3 border border-zinc-300 dark:border-zinc-600 rounded-lg shadow-sm placeholder-zinc-400 dark:placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-zinc-800 dark:text-white transition-colors"
-                placeholder="Enter your email address"
-                disabled={isSubmitting}
-              />
-              {errors.email && (
-                <p
-                  id="email-error"
-                  className="mt-2 text-sm text-red-600 dark:text-red-400"
-                >
-                  {errors.email.message}
-                </p>
-              )}
-            </div>
+            <FloatingInput
+              {...register("email")}
+              type="email"
+              label="Email Address"
+              required
+              aria-describedby={errors.email ? "email-error" : "email-help"}
+              disabled={isSubmitting}
+              error={errors.email?.message}
+            />
 
-            <button
+            <Button
               type="submit"
               disabled={isSubmitting}
-              className="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="w-full h-12 bg-blue-600 hover:bg-blue-700 focus-visible:ring-blue-500/20"
+              size="lg"
             >
               {isSubmitting ? "Subscribing..." : "Subscribe"}
-            </button>
+            </Button>
 
             {submitStatus === "success" && (
               <motion.div
