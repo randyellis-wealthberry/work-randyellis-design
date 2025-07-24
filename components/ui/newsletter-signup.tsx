@@ -70,7 +70,9 @@ export function NewsletterSignup() {
             <div className="w-0.5 h-0.5 rounded-full bg-blue-300"></div>
           </div>
           <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">
-            Business Strategy Prompts<br />for Product Designers
+            Business Strategy Prompts
+            <br />
+            for Product Designers
           </h3>
           <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">
             Get weekly insights that bridge design thinking with business
