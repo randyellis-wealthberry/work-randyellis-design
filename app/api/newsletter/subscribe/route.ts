@@ -2,8 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { LoopsClient } from "loops";
 import { z } from "zod";
 
-const loops = new LoopsClient(process.env.LOOPS_API_KEY as string);
-
 const emailSchema = z.object({
   email: z.string().email("Invalid email address"),
   firstName: z.string().optional(),
@@ -34,6 +32,7 @@ export async function POST(request: NextRequest) {
 
     // Add contact to Loops.so
     try {
+      const loops = new LoopsClient(process.env.LOOPS_API_KEY as string);
       const resp = await loops.updateContact(email, {
         firstName: firstName || "",
         source: "Website newsletter signup",
