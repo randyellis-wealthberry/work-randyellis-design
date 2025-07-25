@@ -37,6 +37,7 @@ import {
   isVimeoUrl,
   extractVimeoId,
 } from "@/components/ui/vimeo-embed";
+import { AnimatedMetricCard } from "@/components/ui/animated-metric-card";
 import type { Project } from "../../data";
 
 const VARIANTS_CONTAINER = {
@@ -57,19 +58,6 @@ const VARIANTS_ITEM = {
 const TRANSITION_ITEM = {
   duration: 0.4,
 };
-
-function MetricCard({ label, value }: { label: string; value: string }) {
-  return (
-    <Card className="hover:shadow-lg transition-all duration-300 border-muted hover:border-primary/30 bg-gradient-to-br from-background to-muted/30">
-      <CardContent className="pt-6 text-center">
-        <div className="text-2xl md:text-3xl font-bold text-primary mb-2 min-h-[2.5rem] flex items-center justify-center">
-          {value}
-        </div>
-        <div className="text-sm text-muted-foreground font-medium">{label}</div>
-      </CardContent>
-    </Card>
-  );
-}
 
 function SectionCard({
   title,
@@ -263,9 +251,42 @@ export default function ProjectDetailClient({
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 place-items-center max-w-4xl mx-auto">
               {project.metrics.map((metric, index) => (
                 <div key={index} className="w-full max-w-sm">
-                  <MetricCard label={metric.label} value={metric.value} />
+                  <AnimatedMetricCard
+                    label={metric.label}
+                    value={metric.value}
+                    animationDelay={index * 200}
+                    springOptions={{
+                      bounce: 0,
+                      duration: 2000 + index * 300,
+                    }}
+                  />
                 </div>
               ))}
+            </div>
+          </motion.section>
+        )}
+
+        {/* Background Story */}
+        {project.processStory?.background && (
+          <motion.section
+            className="space-y-6"
+            variants={VARIANTS_ITEM}
+            transition={TRANSITION_ITEM}
+          >
+            <div className="text-center space-y-2">
+              <p className="text-sm text-muted-foreground uppercase tracking-wide">
+                The Challenge
+              </p>
+              <h2 className="text-3xl font-bold">
+                The Challenge That Started It All
+              </h2>
+            </div>
+            <div className="max-w-4xl mx-auto">
+              <Card className="p-6 md:p-8 border-muted hover:border-primary/30 transition-colors duration-200">
+                <p className="text-base leading-relaxed text-muted-foreground">
+                  {project.processStory.background}
+                </p>
+              </Card>
             </div>
           </motion.section>
         )}
@@ -415,6 +436,43 @@ export default function ProjectDetailClient({
           </motion.section>
         )}
 
+        {/* Approach & Methodology */}
+        {(project.processStory?.approach ||
+          project.processStory?.methodology) && (
+          <motion.section
+            className="space-y-6"
+            variants={VARIANTS_ITEM}
+            transition={TRANSITION_ITEM}
+          >
+            <div className="text-center space-y-2">
+              <p className="text-sm text-muted-foreground uppercase tracking-wide">
+                Strategy & Process
+              </p>
+              <h2 className="text-3xl font-bold">The Technical Journey</h2>
+            </div>
+            <div className="max-w-4xl mx-auto space-y-6">
+              {project.processStory.approach && (
+                <Card className="p-6 md:p-8 border-muted hover:border-primary/30 transition-colors duration-200">
+                  <h3 className="text-xl font-semibold mb-4">The Vision</h3>
+                  <p className="text-base leading-relaxed text-muted-foreground">
+                    {project.processStory.approach}
+                  </p>
+                </Card>
+              )}
+              {project.processStory.methodology && (
+                <Card className="p-6 md:p-8 border-muted hover:border-primary/30 transition-colors duration-200">
+                  <h3 className="text-xl font-semibold mb-4">
+                    Building the Solution
+                  </h3>
+                  <p className="text-base leading-relaxed text-muted-foreground">
+                    {project.processStory.methodology}
+                  </p>
+                </Card>
+              )}
+            </div>
+          </motion.section>
+        )}
+
         <Separator />
 
         {/* Project Constraints */}
@@ -556,6 +614,43 @@ export default function ProjectDetailClient({
           </motion.section>
         )}
 
+        {/* Key Insights */}
+        {project.processStory?.keyInsights && (
+          <motion.section
+            className="space-y-6"
+            variants={VARIANTS_ITEM}
+            transition={TRANSITION_ITEM}
+          >
+            <div className="text-center space-y-2">
+              <p className="text-sm text-muted-foreground uppercase tracking-wide">
+                What Made This Work
+              </p>
+              <h2 className="text-3xl font-bold">Key Design Decisions</h2>
+            </div>
+            <div className="max-w-4xl mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {project.processStory.keyInsights.map((insight, index) => {
+                  const [title, ...descriptionParts] = insight.split(": ");
+                  const description = descriptionParts.join(": ");
+                  return (
+                    <Card
+                      key={index}
+                      className="p-6 border-muted hover:border-primary/30 transition-colors duration-200"
+                    >
+                      <h3 className="text-lg font-semibold mb-3 text-primary">
+                        {title}
+                      </h3>
+                      <p className="text-sm leading-relaxed text-muted-foreground">
+                        {description}
+                      </p>
+                    </Card>
+                  );
+                })}
+              </div>
+            </div>
+          </motion.section>
+        )}
+
         <Separator />
 
         {/* Challenges, Solutions, Learnings */}
@@ -591,6 +686,77 @@ export default function ProjectDetailClient({
             )}
           </div>
         </motion.section>
+
+        {/* Outcome & Impact */}
+        {(project.processStory?.outcome ||
+          project.processStory?.reflection) && (
+          <motion.section
+            className="space-y-6"
+            variants={VARIANTS_ITEM}
+            transition={TRANSITION_ITEM}
+          >
+            <div className="text-center space-y-2">
+              <p className="text-sm text-muted-foreground uppercase tracking-wide">
+                Results & Impact
+              </p>
+              <h2 className="text-3xl font-bold">Results That Matter</h2>
+            </div>
+            <div className="max-w-4xl mx-auto space-y-6">
+              {project.processStory.outcome && (
+                <Card className="p-6 md:p-8 border-muted hover:border-primary/30 transition-colors duration-200">
+                  <h3 className="text-xl font-semibold mb-4">The Outcome</h3>
+                  <p className="text-base leading-relaxed text-muted-foreground">
+                    {project.processStory.outcome}
+                  </p>
+                </Card>
+              )}
+
+              {/* Stakeholder Quotes */}
+              {project.processStory?.stakeholderQuotes && (
+                <div className="space-y-4">
+                  <h3 className="text-xl font-semibold text-center">
+                    Stakeholder Voices
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {project.processStory.stakeholderQuotes.map(
+                      (quote, index) => (
+                        <Card
+                          key={index}
+                          className="p-6 border-muted hover:border-primary/30 transition-colors duration-200 bg-gradient-to-br from-background to-muted/30"
+                        >
+                          <blockquote className="text-sm italic text-muted-foreground mb-4">
+                            &ldquo;{quote.quote}&rdquo;
+                          </blockquote>
+                          <div className="text-xs">
+                            <div className="font-semibold text-foreground">
+                              {quote.author}
+                            </div>
+                            <div className="text-muted-foreground">
+                              {quote.role}
+                            </div>
+                          </div>
+                        </Card>
+                      ),
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {project.processStory.reflection && (
+                <Card className="p-6 md:p-8 border-muted hover:border-primary/30 transition-colors duration-200">
+                  <h3 className="text-xl font-semibold mb-4">
+                    The Bigger Picture
+                  </h3>
+                  <p className="text-base leading-relaxed text-muted-foreground">
+                    {project.processStory.reflection}
+                  </p>
+                </Card>
+              )}
+            </div>
+          </motion.section>
+        )}
+
+        <Separator />
 
         {/* Image Gallery */}
         {project.images && project.images.length > 0 && (

@@ -23,6 +23,7 @@ import {
   extractUnicornStudioId,
 } from "@/lib/video-utils";
 import { UnicornStudioEmbed } from "@/components/ui/unicorn-studio-embed";
+import { HoverIframe } from "@/components/ui/hover-iframe";
 import { PROJECTS, PROJECT_CATEGORIES } from "../data";
 
 const VARIANTS_CONTAINER = {
@@ -87,13 +88,10 @@ function ProjectThumbnail({ project }: { project: (typeof PROJECTS)[0] }) {
   if (displaySrc) {
     return (
       <div className="aspect-video overflow-hidden">
-        <iframe
+        <HoverIframe
           src={displaySrc}
-          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-          frameBorder="0"
-          allow="autoplay; fullscreen; picture-in-picture"
-          allowFullScreen
           title={project.name}
+          className="h-full w-full"
         />
       </div>
     );
@@ -168,11 +166,11 @@ export default function ProjectsClient() {
                   variants={VARIANTS_ITEM}
                   className="h-full"
                 >
-                  <Card className="group relative overflow-hidden h-full flex flex-col">
+                  <Card className="group relative overflow-hidden h-full flex flex-col p-0 gap-0">
                     <Link href={`/projects/${project.slug}`} className="block">
                       <ProjectThumbnail project={project} />
                     </Link>
-                    <CardHeader>
+                    <CardHeader className="pt-4 pb-3 px-4">
                       <div className="flex items-start justify-between">
                         <div className="space-y-1">
                           <CardTitle className="group-hover:text-blue-600 transition-colors">
@@ -195,17 +193,17 @@ export default function ProjectsClient() {
                         </Badge>
                       </div>
                     </CardHeader>
-                    <CardContent className="flex-1 flex flex-col">
-                      <div className="space-y-4 flex-1">
+                    <CardContent className="flex-1 flex flex-col pt-0 px-4 pb-4">
+                      <div className="space-y-3 flex-1">
                         {/* Project Metrics */}
                         {project.metrics && (
-                          <div className="grid grid-cols-3 gap-2 text-center">
+                          <div className="grid grid-cols-3 gap-3 text-center">
                             {project.metrics.map((metric, index) => (
-                              <div key={index} className="space-y-1">
+                              <div key={index}>
                                 <div className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
                                   {metric.value}
                                 </div>
-                                <div className="text-xs text-zinc-500">
+                                <div className="text-xs text-zinc-500 mt-0.5">
                                   {metric.label}
                                 </div>
                               </div>
@@ -216,16 +214,16 @@ export default function ProjectsClient() {
                         {project.metrics && <Separator />}
 
                         {/* Project Details */}
-                        <div className="grid grid-cols-2 gap-4 text-sm">
-                          <div className="flex items-center gap-2">
-                            <Calendar className="h-4 w-4 text-zinc-500" />
+                        <div className="grid grid-cols-2 gap-3 text-sm">
+                          <div className="flex items-center gap-1.5">
+                            <Calendar className="h-3.5 w-3.5 text-zinc-500" />
                             <span className="text-zinc-600 dark:text-zinc-400">
                               {project.timeline}
                             </span>
                           </div>
                           {project.teamSize && (
-                            <div className="flex items-center gap-2">
-                              <Users className="h-4 w-4 text-zinc-500" />
+                            <div className="flex items-center gap-1.5">
+                              <Users className="h-3.5 w-3.5 text-zinc-500" />
                               <span className="text-zinc-600 dark:text-zinc-400">
                                 {project.teamSize} people
                               </span>
@@ -234,18 +232,21 @@ export default function ProjectsClient() {
                         </div>
 
                         {/* Technologies */}
-                        <div className="flex flex-wrap gap-1">
+                        <div className="flex flex-wrap gap-1.5">
                           {project.technologies.slice(0, 4).map((tech) => (
                             <Badge
                               key={tech}
                               variant="outline"
-                              className="text-xs"
+                              className="text-xs px-2 py-0.5"
                             >
                               {tech}
                             </Badge>
                           ))}
                           {project.technologies.length > 4 && (
-                            <Badge variant="outline" className="text-xs">
+                            <Badge
+                              variant="outline"
+                              className="text-xs px-2 py-0.5"
+                            >
                               +{project.technologies.length - 4} more
                             </Badge>
                           )}
@@ -253,20 +254,21 @@ export default function ProjectsClient() {
                       </div>
 
                       {/* Action Buttons - Always at bottom */}
-                      <div className="flex gap-2 pt-4">
-                        <Button asChild size="sm" className="flex-1">
+                      <div className="flex gap-2 pt-3">
+                        <Button
+                          asChild
+                          variant="ghost"
+                          size="sm"
+                          className="flex-1 border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-900 hover:text-white dark:hover:bg-zinc-100 dark:hover:text-zinc-900 transition-all duration-200"
+                        >
                           <Link href={`/projects/${project.slug}`}>
                             View Details
                           </Link>
                         </Button>
                         <Button asChild variant="outline" size="sm">
-                          <a
-                            href={project.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
+                          <Link href={`/projects/${project.slug}`}>
                             <ExternalLink className="h-4 w-4" />
-                          </a>
+                          </Link>
                         </Button>
                         {project.githubLink && (
                           <Button asChild variant="outline" size="sm">

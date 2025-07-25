@@ -37,7 +37,6 @@ export function AnimatedNumberBasic() {
                 duration: 2000,
               }}
               value={value1}
-              decimalPlaces={1}
             />
             <span className="font-mono text-2xl font-light text-zinc-800 dark:text-zinc-50 ml-0">
               M

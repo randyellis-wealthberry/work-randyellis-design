@@ -1,70 +1,31 @@
 "use client";
 
-import { motion, useInView, useMotionValue, useSpring } from "motion/react";
-import { useEffect, useRef, useState } from "react";
+import { motion, useInView, SpringOptions } from "motion/react";
+import { useRef } from "react";
+import { cn } from "@/lib/utils";
+import { AnimatedNumber } from "@/components/core/animated-number";
+import { parseMetricValue } from "@/lib/utils/parseMetricValue";
 import { Card, CardContent } from "@/components/ui/card";
 
-interface AnimatedMetricCardProps {
+export interface AnimatedMetricCardProps {
   label: string;
   value: string;
-  duration?: number;
-  delay?: number;
-}
-
-function extractNumber(value: string): number {
-  const match = value.match(/[\d,]+\.?\d*/);
-  if (!match) return 0;
-  return parseFloat(match[0].replace(/,/g, ""));
-}
-
-function formatValue(value: string, currentNumber: number): string {
-  const prefix = value.match(/^[^\d]*/)?.[0] || "";
-  const suffix = value.match(/[^\d,\.]*$/)?.[0] || "";
-
-  if (value.includes("$")) {
-    return `${prefix}${currentNumber.toFixed(1)}${suffix}`;
-  } else if (value.includes("K") || value.includes("M")) {
-    return `${prefix}${Math.round(currentNumber)}${suffix}`;
-  } else if (value.includes("%")) {
-    return `${prefix}${Math.round(currentNumber)}${suffix}`;
-  }
-
-  return `${prefix}${Math.round(currentNumber)}${suffix}`;
+  animationDelay?: number;
+  springOptions?: SpringOptions;
+  className?: string;
 }
 
 export function AnimatedMetricCard({
   label,
   value,
-  duration = 2000,
-  delay = 0,
+  animationDelay = 0,
+  springOptions = { bounce: 0, duration: 2000 },
+  className,
 }: AnimatedMetricCardProps) {
-  const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const [displayValue, setDisplayValue] = useState("0");
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
 
-  const targetNumber = extractNumber(value);
-  const motionValue = useMotionValue(0);
-  const springValue = useSpring(motionValue, {
-    duration: duration,
-    bounce: 0.1,
-  });
-
-  useEffect(() => {
-    if (isInView) {
-      const timer = setTimeout(() => {
-        motionValue.set(targetNumber);
-      }, delay);
-
-      return () => clearTimeout(timer);
-    }
-  }, [isInView, targetNumber, delay, motionValue]);
-
-  useEffect(() => {
-    const unsubscribe = springValue.on("change", (latest) => {
-      setDisplayValue(formatValue(value, latest));
-    });
-    return unsubscribe;
-  }, [springValue, value]);
+  const { number, prefix, suffix } = parseMetricValue(value);
 
   return (
     <motion.div
@@ -72,14 +33,25 @@ export function AnimatedMetricCard({
       initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
       animate={isInView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
       transition={{
-        duration: 0.6,
-        delay: delay / 1000,
+        duration: 0.4,
+        delay: animationDelay / 1000,
       }}
     >
-      <Card className="hover:shadow-lg transition-all duration-300 border-muted hover:border-primary/30 bg-gradient-to-br from-background to-muted/30">
+      <Card
+        className={cn(
+          "hover:shadow-lg transition-all duration-300 border-muted hover:border-primary/30 bg-gradient-to-br from-background to-muted/30",
+          className,
+        )}
+      >
         <CardContent className="pt-6 text-center">
           <div className="text-2xl md:text-3xl font-bold text-primary mb-2 min-h-[2.5rem] flex items-center justify-center">
-            {displayValue}
+            {prefix && <span className="mr-1">{prefix}</span>}
+            <AnimatedNumber
+              value={isInView ? number : 0}
+              springOptions={springOptions}
+              className="tabular-nums"
+            />
+            {suffix && <span className="ml-1">{suffix}</span>}
           </div>
           <div className="text-sm text-muted-foreground font-medium">
             {label}

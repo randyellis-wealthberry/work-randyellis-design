@@ -36,6 +36,19 @@ export type Project = {
     technical?: string[];
     location?: string[];
   };
+  processStory?: {
+    background?: string;
+    approach?: string;
+    methodology?: string;
+    keyInsights?: string[];
+    outcome?: string;
+    reflection?: string;
+    stakeholderQuotes?: {
+      quote: string;
+      author: string;
+      role: string;
+    }[];
+  };
 };
 
 type WorkExperience = {
@@ -82,6 +95,167 @@ export type ArchiveItem = {
 };
 
 export const PROJECTS: Project[] = [
+  {
+    id: "ledgeriq",
+    name: "LedgerIQ",
+    subtitle: "AI-Powered Payroll Fraud Detection Platform",
+    slug: "ledgeriq",
+    description:
+      "Transforming payroll integrity through AI-driven anomaly detection - achieving 78% error reduction and $180K annual savings in a 6-month enterprise validation sprint.",
+    longDescription:
+      "Most companies unknowingly hemorrhage money through payroll systems—billions lost annually to fraud and manual errors. Our target client was experiencing the perfect storm: 10 hours of manual audit work per pay cycle, persistent errors slipping through, growing fraud exposure, and damaged employee trust. LedgerIQ reimagined payroll integrity through intelligent AI that learns organizational patterns, detects anomalies in real-time, and integrates seamlessly with existing workflows.",
+    category: "Enterprise SaaS",
+    tags: [
+      "Artificial Intelligence",
+      "Machine Learning",
+      "Fraud Detection",
+      "Payroll Systems",
+      "Enterprise SaaS",
+      "Financial Technology",
+      "Anomaly Detection",
+      "Real-time Processing",
+    ],
+    link: "https://ledgeriq.example.com",
+    video: "https://player.vimeo.com/video/placeholder-ledgeriq",
+    thumbnail: "/projects/ledgeriq/hero-thumbnail.jpg",
+    images: [
+      "/projects/ledgeriq/dashboard-overview.jpg",
+      "/projects/ledgeriq/mobile-interface.jpg",
+      "/projects/ledgeriq/data-visualization.jpg",
+      "/projects/ledgeriq/design-system.jpg",
+      "/projects/ledgeriq/user-research.jpg",
+      "/projects/ledgeriq/before-after-comparison.jpg",
+    ],
+    timeline: "Q1 2023 - Q3 2023",
+    status: "completed",
+    technologies: [
+      "Python",
+      "TensorFlow",
+      "scikit-learn",
+      "React",
+      "TypeScript",
+      "Node.js",
+      "PostgreSQL",
+      "Apache Kafka",
+      "Docker",
+      "AWS",
+    ],
+    featured: true,
+    metrics: [
+      { label: "Payroll Error Reduction", value: "78%" },
+      { label: "Annual Cost Savings", value: "$180K" },
+      { label: "Anomaly Detection Rate", value: "92%" },
+      { label: "Time Savings Per Cycle", value: "65%" },
+      { label: "False Positive Rate", value: "<10%" },
+      { label: "ROI Achievement", value: "6 months" },
+    ],
+    challenges: [
+      "10 hours of manual audit work per pay cycle creating bottlenecks",
+      "Persistent small errors slipping through traditional rule-based systems",
+      "Growing fraud risk exposure with manual oversight limitations",
+      "Reactive problem-solving damaging employee trust and satisfaction",
+      "Legacy payroll systems with complex integration requirements",
+      "Balancing fraud detection accuracy with false positive minimization",
+    ],
+    solutions: [
+      "Developed hybrid AI models combining isolation forests and neural networks",
+      "Implemented real-time data pipeline for immediate anomaly detection",
+      "Created context-aware intelligence understanding payroll patterns",
+      "Built iterative feedback loops for continuous model improvement",
+      "Designed intuitive dashboard transforming complex data into actionable insights",
+      "Established microservice architecture for scalable enterprise deployment",
+    ],
+    learnings: [
+      "Human-centered AI amplifies rather than replaces human judgment in fraud detection",
+      "Context-aware machine learning is crucial for minimizing false positives in payroll",
+      "Real-time processing must be balanced with system performance for enterprise scale",
+      "Continuous feedback loops are essential for building user trust in AI systems",
+      "Enterprise AI platforms require modular architecture for white-label opportunities",
+    ],
+    teamSize: 8,
+    role: "AI Product Lead & Technical Architect",
+    overview: {
+      deliverables: [
+        "AI Model Development & Training",
+        "Real-time Anomaly Detection Pipeline",
+        "Enterprise Dashboard & Visualization",
+        "Machine Learning Operations (MLOps) Framework",
+        "API Integration & Microservices Architecture",
+        "White-label Platform Validation & Documentation",
+      ],
+      teamMembers: [
+        "AI Product Lead (Me)",
+        "Machine Learning Engineer",
+        "Data Scientist",
+        "Backend Engineers (2)",
+        "Frontend Engineer",
+        "DevOps Engineer",
+        "Product Manager",
+        "QA Engineer",
+      ],
+      timelineDuration: "6 months",
+      toolsUsed: [
+        "Python & TensorFlow (Model Development)",
+        "Apache Kafka (Real-time Processing)",
+        "PostgreSQL & Redis (Data Management)",
+        "React & TypeScript (Dashboard)",
+        "Docker & Kubernetes (Deployment)",
+        "AWS (Cloud Infrastructure)",
+      ],
+    },
+    constraints: {
+      technical: [
+        "Legacy payroll systems with complex integration requirements",
+        "Real-time processing demands balanced with system performance",
+        "Large financial datasets requiring optimized ML model inference",
+        "Strict security and compliance requirements for financial data",
+      ],
+      environmental: [
+        "Highly regulated payroll industry with SOX compliance requirements",
+        "Multi-tenant enterprise environment with varying data volumes",
+        "6-month validation timeline for white-label feasibility proof",
+        "Existing payroll workflows requiring seamless integration",
+      ],
+    },
+    processStory: {
+      background:
+        "What if I told you that most companies are unknowingly hemorrhaging money through their payroll systems? The numbers were stark: payroll fraud costs businesses billions annually, while manual errors create endless cycles of corrections, compliance headaches, and eroded employee trust. But here's what really got my attention—the traditional 'solutions' weren't working. Rule-based systems catch obvious problems but miss the subtle patterns. Manual audits are slow, expensive, and inevitably let things slip through. Our target client was experiencing the perfect storm: 10 hours of manual audit work per pay cycle, persistent small errors slipping through, growing fraud risk exposure, and reactive problem-solving that damaged employee trust.",
+      approach:
+        "I envisioned LedgerIQ as more than just another detection tool—it would be an intelligent companion that learns your organization's payroll DNA. The platform would learn continuously from historical patterns, flag anomalies in real-time before they become problems, integrate seamlessly with existing payroll workflows, and scale effortlessly as organizations grow. The technical architecture needed to be bulletproof: machine learning models trained on historical data, real-time processing capabilities, and a dashboard that transforms complex anomaly data into actionable insights.",
+      methodology:
+        "The first challenge? Teaching machines to understand 'normal' payroll behavior. We analyzed two years of historical data, cleaning and structuring it for analysis. Feature engineering became critical—calculating baseline patterns for each employee's hours, overtime, and pay amounts. We experimented with multiple approaches: Isolation Forests for statistical outliers, Neural network autoencoders for complex pattern recognition, and Supervised classification using known fraud cases. The winning combination? A hybrid approach that achieved 92% accuracy in detecting known anomalies with minimal false positives. The architecture had to be production-ready from day one: Microservice design for scalability and maintainability, Real-time data pipeline for immediate anomaly detection, Intuitive dashboard with drill-down capabilities, and Smart alerting that prioritizes critical issues.",
+      keyInsights: [
+        "Human-Centered AI: Instead of replacing human judgment, LedgerIQ amplifies it. The system handles the tedious scanning while humans focus on investigation and decision-making.",
+        "Context-Aware Intelligence: Early iterations flagged legitimate bonuses as anomalies. We solved this by teaching the system to understand payroll context—one-time payments, seasonal patterns, role-specific variations.",
+        "Iterative Feedback Loops: When users marked false positives, the system learned. This continuous improvement cycle was crucial for building trust and accuracy.",
+        "Real-Time + Batch Hybrid: Critical data (time entries) monitors in real-time, while complex payroll calculations process in batch. This balanced immediate detection with system performance.",
+      ],
+      outcome:
+        "Six months later, LedgerIQ wasn't just working—it was transforming how organizations think about payroll integrity. The platform achieved a 78% reduction in payroll errors and 65% time savings, reducing audit time from 10 hours to 3-4 hours per cycle. With a 92% detection rate for known anomalies and 90%+ precision with minimal false positives, the financial impact was substantial: $180,000 annual savings in year one, ROI achieved within 6 months, $50,000 in prevented fraud losses, and zero compliance penalties post-implementation. But perhaps most importantly, we saw a 15% increase in employee payroll satisfaction, dramatic reduction in payroll-related HR inquiries, and enhanced trust in organizational systems.",
+      reflection:
+        "This 6-month sprint proved something crucial: LedgerIQ isn't just a product—it's a platform. The modular architecture, proven ROI metrics, and positive stakeholder feedback validate the enterprise white-label opportunity. Organizations don't just want payroll error detection; they want intelligent financial oversight that scales with their complexity. Building LedgerIQ taught me that successful AI products solve human problems first, technical problems second. The most sophisticated algorithms mean nothing if users don't trust them or understand how to act on their insights. As organizations increasingly seek intelligent solutions for complex operational challenges, platforms like LedgerIQ point toward a future where AI and human insight work seamlessly together.",
+      stakeholderQuotes: [
+        {
+          quote:
+            "It's like having an extra analyst on the team who never gets tired or misses a detail.",
+          author: "Sarah Mitchell",
+          role: "Payroll Specialist",
+        },
+        {
+          quote:
+            "The ROI was evident in the first quarter. The risk reduction gives me confidence in our controls.",
+          author: "David Chen",
+          role: "CFO",
+        },
+        {
+          quote:
+            "Employees stopped asking why their paychecks were wrong—because they weren't wrong anymore.",
+          author: "Maria Rodriguez",
+          role: "HR Director",
+        },
+      ],
+    },
+  },
   {
     id: "echo-drive",
     name: "EchoDrive",
@@ -192,7 +366,7 @@ export const PROJECTS: Project[] = [
     link: "https://www.growit.com/",
     githubLink: "https://github.com/example/growit-app",
     video:
-      "https://player.vimeo.com/video/799152976?background=1&api=1&player_id=799152976_1676475040264&autopause=0&autoplay=1&mute=1&badge=0&loop=1&portrait=0&title=0&origin=https://work.randyellis.design",
+      "https://player.vimeo.com/video/799152976?background=1&api=1&player_id=799152976_1676475040264&autopause=0&autoplay=0&mute=1&badge=0&loop=1&portrait=0&title=0&origin=https://work.randyellis.design",
     thumbnail: "/images/projects/growit-thumbnail.jpg",
     images: [
       "/projects/growit/hero-mockup.jpg",
