@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   TrendingUp,
@@ -24,6 +25,11 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 // Custom Components
 import { TextEffect } from "@/components/ui/text-effect";
+import { HoverVideo } from "@/components/ui/hover-video";
+import { HoverIframe } from "@/components/ui/hover-iframe";
+
+// Data
+import { PROJECTS, type Project } from "@/app/data";
 
 // SpotlightCard Component
 const SpotlightCard = ({
@@ -64,6 +70,11 @@ const SpotlightCard = ({
       {children}
     </div>
   );
+};
+
+// Utility function to detect Vimeo URLs
+const isVimeoUrl = (url: string): boolean => {
+  return url.includes("vimeo.com");
 };
 
 // InView wrapper for animations
@@ -813,6 +824,129 @@ const FeaturesShowcaseSection = () => {
   );
 };
 
+// Related Projects Section Component
+const RelatedProjectsSection = ({
+  relatedProjects,
+}: {
+  relatedProjects: Project[];
+}) => {
+  if (relatedProjects.length === 0) return null;
+
+  return (
+    <section className="py-24 bg-gradient-to-b from-white to-slate-50">
+      <div className="container mx-auto px-6">
+        <InView>
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-slate-900 mb-4">
+              Related Projects
+            </h2>
+            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
+              Explore other enterprise solutions that showcase similar design
+              thinking and technical excellence
+            </p>
+          </div>
+        </InView>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+          {relatedProjects.map((project, index) => (
+            <InView key={project.id} delay={index * 0.2}>
+              <SpotlightCard className="group">
+                <Card className="h-full border-0 shadow-lg hover:shadow-xl transition-all duration-500 overflow-hidden bg-white">
+                  <div className="aspect-video overflow-hidden">
+                    {isVimeoUrl(project.video) ? (
+                      <HoverIframe
+                        src={project.video}
+                        title={`${project.name} Demo Video`}
+                        className="w-full h-full"
+                      />
+                    ) : (
+                      <HoverVideo
+                        src={project.video}
+                        poster={project.thumbnail}
+                        className="w-full h-full"
+                      />
+                    )}
+                  </div>
+                  <div className="p-8">
+                    <div className="mb-4">
+                      <Badge
+                        variant="secondary"
+                        className="mb-3 bg-slate-100 text-slate-700 hover:bg-slate-200"
+                      >
+                        {project.category}
+                      </Badge>
+                      <h3 className="text-2xl font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
+                        {project.name}
+                      </h3>
+                      <p className="text-slate-600 text-base leading-relaxed mb-6">
+                        {project.description}
+                      </p>
+                    </div>
+
+                    {/* Technologies */}
+                    <div className="mb-6">
+                      <div className="flex flex-wrap gap-2">
+                        {project.technologies.slice(0, 4).map((tech) => (
+                          <Badge
+                            key={tech}
+                            variant="outline"
+                            className="text-xs px-2 py-1 border-slate-200 text-slate-600"
+                          >
+                            {tech}
+                          </Badge>
+                        ))}
+                        {project.technologies.length > 4 && (
+                          <Badge
+                            variant="outline"
+                            className="text-xs px-2 py-1 border-slate-200 text-slate-600"
+                          >
+                            +{project.technologies.length - 4} more
+                          </Badge>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Metrics */}
+                    {project.metrics && project.metrics.length > 0 && (
+                      <div className="mb-6">
+                        <div className="grid grid-cols-2 gap-4">
+                          {project.metrics.slice(0, 2).map((metric, idx) => (
+                            <div
+                              key={idx}
+                              className="text-center p-3 bg-slate-50 rounded-lg"
+                            >
+                              <div className="font-bold text-slate-900 text-lg">
+                                {metric.value}
+                              </div>
+                              <div className="text-xs text-slate-600">
+                                {metric.label}
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    <Link href={`/projects/${project.slug}`}>
+                      <Button
+                        className="w-full group/btn bg-slate-900 hover:bg-slate-800 text-white"
+                        size="lg"
+                      >
+                        View Project
+                        <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                      </Button>
+                    </Link>
+                  </div>
+                </Card>
+              </SpotlightCard>
+            </InView>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
 // Results Visualization Section Component
 const ResultsSection = () => {
   const chartData = [
@@ -900,8 +1034,58 @@ const ResultsSection = () => {
   );
 };
 
+// Get related projects for LedgerIQ
+const getRelatedProjects = (): Project[] => {
+  const ledgeriqId = "ledgeriq";
+  const currentProject = PROJECTS.find((p) => p.id === ledgeriqId);
+
+  if (!currentProject) return [];
+
+  // Filter projects that are:
+  // 1. Not the current project
+  // 2. Different category (to show variety)
+  // 3. Have similar technologies or are enterprise-focused
+  const relatedProjects = PROJECTS.filter((project) => {
+    if (project.id === ledgeriqId) return false;
+
+    // Prioritize projects with shared technologies
+    const sharedTech = project.technologies.some((tech) =>
+      currentProject.technologies.includes(tech),
+    );
+
+    // Or projects that are enterprise/business focused
+    const isEnterprise =
+      project.category === "Mobile App" ||
+      project.category === "Web Application" ||
+      project.description.toLowerCase().includes("enterprise") ||
+      project.description.toLowerCase().includes("business") ||
+      project.description.toLowerCase().includes("platform");
+
+    return sharedTech || isEnterprise;
+  });
+
+  // Sort by relevance (shared technologies first, then by featured status)
+  return relatedProjects
+    .sort((a, b) => {
+      const aSharedTech = a.technologies.filter((tech) =>
+        currentProject.technologies.includes(tech),
+      ).length;
+      const bSharedTech = b.technologies.filter((tech) =>
+        currentProject.technologies.includes(tech),
+      ).length;
+
+      if (aSharedTech !== bSharedTech) {
+        return bSharedTech - aSharedTech;
+      }
+
+      return (b.featured ? 1 : 0) - (a.featured ? 1 : 0);
+    })
+    .slice(0, 2); // Limit to 2 related projects
+};
+
 // Main LedgerIQ Client Component
 export default function LedgerIQClient() {
+  const relatedProjects = getRelatedProjects();
   return (
     <main className="min-h-screen">
       <HeroSection />
@@ -910,6 +1094,7 @@ export default function LedgerIQClient() {
       <ProcessTimelineSection />
       <BeforeAfterSection />
       <FeaturesShowcaseSection />
+      <RelatedProjectsSection relatedProjects={relatedProjects} />
       <ResultsSection />
     </main>
   );
