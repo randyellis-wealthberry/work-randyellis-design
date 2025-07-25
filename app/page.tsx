@@ -17,6 +17,7 @@ import { AnimatedNumberBasic } from "@/components/core/animated-number-basic";
 import { TransitionPanel } from "@/components/motion-primitives/transition-panel";
 import { ScrambleSectionTitle } from "@/components/ui/scramble-section-title";
 import { isVideoUrl } from "@/lib/video-utils";
+import { HoverVideo } from "@/components/ui/hover-video";
 import {
   PROJECTS,
   WORK_EXPERIENCE,
@@ -250,19 +251,12 @@ function ProjectThumbnail({ project }: { project: (typeof PROJECTS)[0] }) {
     return (
       <Link href={`/projects/${project.slug}`}>
         <div className="aspect-video w-full max-h-48 rounded-lg overflow-hidden cursor-pointer hover:opacity-90 transition-opacity duration-200">
-          <video
-            autoPlay
-            muted
-            loop
-            playsInline
-            tabIndex={-1}
-            controls={false}
-            disablePictureInPicture
-            style={{ pointerEvents: "none" }}
-            className="w-full h-full object-cover"
-          >
-            <source src={project.video} type="video/mp4" />
-          </video>
+          <HoverVideo
+            src={project.video}
+            alt={project.name}
+            className="w-full h-full"
+            resetOnLeave={true}
+          />
         </div>
       </Link>
     );
@@ -389,24 +383,12 @@ export default function Personal() {
           <div className="space-y-4">
             <Link href="/metis">
               <div className="aspect-video w-full max-h-48 rounded-lg overflow-hidden cursor-pointer hover:opacity-90 transition-opacity duration-200">
-                <video
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  tabIndex={-1}
-                  controls={false}
-                  disablePictureInPicture
-                  preload="metadata"
-                  role="presentation"
-                  style={{ pointerEvents: "none" }}
-                  className="w-full h-full object-cover"
-                >
-                  <source
-                    src="/images/projects/metis-logomark-glitch.mp4"
-                    type="video/mp4"
-                  />
-                </video>
+                <HoverVideo
+                  src="/images/projects/metis-logomark-glitch.mp4"
+                  alt="METIS logomark glitch animation"
+                  className="w-full h-full"
+                  resetOnLeave={true}
+                />
               </div>
             </Link>
             <div className="px-1">

@@ -7,6 +7,7 @@ export type AnimatedNumberProps = {
   value: number;
   className?: string;
   springOptions?: SpringOptions;
+  as?: React.ElementType;
 };
 
 export function AnimatedNumber({

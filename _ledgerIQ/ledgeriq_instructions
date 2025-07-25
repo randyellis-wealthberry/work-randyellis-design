@@ -1,0 +1,781 @@
+# Level 99 Portfolio Project Detail Page Engineering Prompt
+
+Based on comprehensive research across cutting-edge frontend technologies and design best practices, here's your complete engineering prompt for creating a stunning, production-ready portfolio project detail page for the LedgerIQ case study.
+
+## Project Overview
+
+**Objective**: Create a world-class portfolio project detail page showcasing the LedgerIQ case study using the most advanced frontend development techniques available in 2024-2025. The page should demonstrate expert-level skills in modern CSS, React patterns, animation systems, and responsive design while maintaining exceptional performance and accessibility.
+
+## Core Technology Stack
+
+### Essential Dependencies
+```bash
+# Install required packages
+npm install @radix-ui/react-slot @radix-ui/react-dialog @radix-ui/react-tabs
+npm install framer-motion tailwindcss
+npm install lucide-react class-variance-authority clsx tailwind-merge
+npm install @next/font next/image next/link
+
+# Install Shadcn UI components
+npx shadcn-ui@latest add button card badge separator aspect-ratio
+npx shadcn-ui@latest add carousel tabs dialog sheet progress tooltip
+npx shadcn-ui@latest add sidebar chart
+
+# Install Motion Primitives
+npx motion-primitives@latest add text-effect in-view
+```
+
+## Page Architecture & Content Structure
+
+### 1. Hero Section - Impact-First Design
+```jsx
+const HeroSection = () => {
+  return (
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Spotlight Card Background Effect */}
+      <SpotlightCard className="absolute inset-0 opacity-30">
+        <div className="h-full w-full bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
+      </SpotlightCard>
+      
+      {/* Content Container */}
+      <div className="relative z-10 container mx-auto px-6">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Text Content */}
+          <div className="space-y-8">
+            <TextEffect 
+              per="char" 
+              preset="fade"
+              className="text-5xl lg:text-7xl font-bold text-white leading-tight"
+            >
+              LedgerIQ: Transforming Financial Intelligence
+            </TextEffect>
+            
+            <InView>
+              <div className="space-y-4">
+                <p className="text-xl text-slate-300">
+                  How I redesigned an enterprise financial platform to increase user productivity by <span className="text-emerald-400 font-bold">40%</span> and reduce processing time by <span className="text-emerald-400 font-bold">60%</span>
+                </p>
+                
+                <div className="flex flex-wrap gap-3">
+                  <Badge variant="outline" className="text-emerald-400 border-emerald-400">Product Design</Badge>
+                  <Badge variant="outline" className="text-blue-400 border-blue-400">UX Research</Badge>
+                  <Badge variant="outline" className="text-purple-400 border-purple-400">Enterprise SaaS</Badge>
+                </div>
+              </div>
+            </InView>
+          </div>
+          
+          {/* Project Preview */}
+          <InView>
+            <AspectRatio ratio={16/10} className="relative">
+              <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-blue-500/20 rounded-2xl backdrop-blur-sm" />
+              <Image 
+                src="/ledgeriq-hero.png"
+                alt="LedgerIQ Dashboard Preview"
+                fill
+                className="object-cover rounded-2xl shadow-2xl"
+                priority
+              />
+            </AspectRatio>
+          </InView>
+        </div>
+      </div>
+      
+      {/* Scroll Indicator */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+        <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
+          <div className="w-1 h-3 bg-white/60 rounded-full mt-2 animate-bounce" />
+        </div>
+      </div>
+    </section>
+  );
+};
+```
+
+### 2. Impact Overview Section - Results-First Approach
+```jsx
+const ImpactSection = () => {
+  const metrics = [
+    { value: "40%", label: "Increase in User Productivity", icon: TrendingUp },
+    { value: "60%", label: "Reduction in Processing Time", icon: Clock },
+    { value: "85%", label: "User Satisfaction Score", icon: Heart },
+    { value: "$2.3M", label: "Annual Cost Savings", icon: DollarSign }
+  ];
+
+  return (
+    <section className="py-24 bg-slate-50">
+      <div className="container mx-auto px-6">
+        <InView>
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-slate-900 mb-4">
+              Measurable Impact
+            </h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              By reimagining the user experience and streamlining complex financial workflows, 
+              LedgerIQ achieved significant improvements across all key performance indicators.
+            </p>
+          </div>
+        </InView>
+        
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {metrics.map((metric, index) => (
+            <InView key={index} delay={index * 0.1}>
+              <SpotlightCard>
+                <Card className="p-8 text-center h-full border-0 shadow-lg hover:shadow-xl transition-all duration-300">
+                  <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-br from-emerald-500 to-blue-500 flex items-center justify-center">
+                    <metric.icon className="w-8 h-8 text-white" />
+                  </div>
+                  <div className="space-y-2">
+                    <div className="text-4xl font-bold text-slate-900">{metric.value}</div>
+                    <p className="text-slate-600 font-medium">{metric.label}</p>
+                  </div>
+                </Card>
+              </SpotlightCard>
+            </InView>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+```
+
+### 3. Project Details with Advanced Tabs
+```jsx
+const ProjectDetailsSection = () => {
+  return (
+    <section className="py-24 bg-white">
+      <div className="container mx-auto px-6">
+        <InView>
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-slate-900 mb-4">
+              Project Deep Dive
+            </h2>
+            <p className="text-xl text-slate-600">
+              Explore the comprehensive design process and technical implementation
+            </p>
+          </div>
+        </InView>
+        
+        <Tabs defaultValue="overview" className="w-full">
+          <TabsList className="grid w-full grid-cols-5 mb-12">
+            <TabsTrigger value="overview">Overview</TabsTrigger>
+            <TabsTrigger value="research">Research</TabsTrigger>
+            <TabsTrigger value="design">Design</TabsTrigger>
+            <TabsTrigger value="development">Development</TabsTrigger>
+            <TabsTrigger value="results">Results</TabsTrigger>
+          </TabsList>
+          
+          <TabsContent value="overview" className="space-y-8">
+            <InView>
+              <div className="grid lg:grid-cols-2 gap-12 items-start">
+                <div className="space-y-6">
+                  <h3 className="text-2xl font-bold text-slate-900">
+                    The Challenge
+                  </h3>
+                  <p className="text-slate-600 leading-relaxed">
+                    LedgerIQ's existing platform suffered from complex navigation, 
+                    inefficient data visualization, and poor mobile responsiveness, 
+                    leading to user frustration and decreased productivity.
+                  </p>
+                  
+                  <div className="space-y-4">
+                    <h4 className="text-lg font-semibold text-slate-900">Key Problems:</h4>
+                    <ul className="space-y-2 text-slate-600">
+                      <li className="flex items-start gap-3">
+                        <X className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
+                        Complex multi-step workflows taking 15+ clicks
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <X className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
+                        Inconsistent information architecture
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <X className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
+                        Poor data visualization and reporting tools
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                
+                <SpotlightCard>
+                  <AspectRatio ratio={4/3}>
+                    <Image 
+                      src="/ledgeriq-before.png"
+                      alt="LedgerIQ Before Redesign"
+                      fill
+                      className="object-cover rounded-lg"
+                    />
+                  </AspectRatio>
+                </SpotlightCard>
+              </div>
+            </InView>
+          </TabsContent>
+          
+          {/* Additional tab content similar structure */}
+        </Tabs>
+      </div>
+    </section>
+  );
+};
+```
+
+### 4. Visual Process Timeline with Scroll Animations
+```jsx
+const ProcessTimelineSection = () => {
+  const timelineSteps = [
+    {
+      title: "Discovery & Research",
+      duration: "3 weeks",
+      description: "User interviews, stakeholder workshops, competitive analysis",
+      deliverables: ["User journey maps", "Persona definitions", "Research synthesis"],
+      color: "from-blue-500 to-cyan-500"
+    },
+    {
+      title: "Information Architecture",
+      duration: "2 weeks", 
+      description: "Restructuring navigation and content hierarchy",
+      deliverables: ["Site map", "User flows", "Content audit"],
+      color: "from-purple-500 to-pink-500"
+    },
+    {
+      title: "Design System",
+      duration: "4 weeks",
+      description: "Creating scalable components and design tokens",
+      deliverables: ["Component library", "Design tokens", "Usage guidelines"],
+      color: "from-emerald-500 to-teal-500"
+    },
+    {
+      title: "High-Fidelity Design",
+      duration: "6 weeks",
+      description: "Detailed interface design and prototyping",
+      deliverables: ["Desktop mockups", "Mobile designs", "Interactive prototype"],
+      color: "from-orange-500 to-red-500"
+    },
+    {
+      title: "Development & Testing",
+      duration: "8 weeks",
+      description: "Implementation with continuous user testing",
+      deliverables: ["Production code", "Test results", "Performance metrics"],
+      color: "from-indigo-500 to-purple-500"
+    }
+  ];
+
+  return (
+    <section className="py-24 bg-slate-900 text-white overflow-hidden">
+      <div className="container mx-auto px-6">
+        <InView>
+          <div className="text-center mb-20">
+            <h2 className="text-4xl font-bold mb-4">Design Process</h2>
+            <p className="text-xl text-slate-300">
+              A systematic approach to solving complex UX challenges
+            </p>
+          </div>
+        </InView>
+        
+        <div className="relative">
+          {/* Timeline Line */}
+          <div className="absolute left-1/2 transform -translate-x-px h-full w-0.5 bg-gradient-to-b from-blue-500 via-purple-500 to-emerald-500" />
+          
+          {timelineSteps.map((step, index) => (
+            <InView key={index} delay={index * 0.2}>
+              <div className={`flex items-center mb-20 ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}>
+                <div className={`w-1/2 ${index % 2 === 0 ? 'pr-12 text-right' : 'pl-12 text-left'}`}>
+                  <SpotlightCard>
+                    <Card className="p-8 bg-slate-800 border-slate-700">
+                      <div className="space-y-4">
+                        <div className="flex items-center justify-between">
+                          <h3 className="text-2xl font-bold">{step.title}</h3>
+                          <Badge variant="outline" className="text-slate-300">
+                            {step.duration}
+                          </Badge>
+                        </div>
+                        <p className="text-slate-300">{step.description}</p>
+                        <div className="space-y-2">
+                          <h4 className="font-semibold text-slate-200">Key Deliverables:</h4>
+                          <ul className="space-y-1">
+                            {step.deliverables.map((deliverable, i) => (
+                              <li key={i} className="text-sm text-slate-400 flex items-center gap-2">
+                                <Check className="w-4 h-4 text-emerald-400" />
+                                {deliverable}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                    </Card>
+                  </SpotlightCard>
+                </div>
+                
+                {/* Timeline Node */}
+                <div className="relative z-10 w-6 h-6 rounded-full bg-white flex items-center justify-center">
+                  <div className={`w-3 h-3 rounded-full bg-gradient-to-r ${step.color}`} />
+                </div>
+                
+                <div className="w-1/2" />
+              </div>
+            </InView>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+```
+
+### 5. Interactive Before/After Comparison
+```jsx
+const BeforeAfterSection = () => {
+  const [isAfter, setIsAfter] = useState(false);
+  
+  return (
+    <section className="py-24 bg-gradient-to-br from-slate-50 to-slate-100">
+      <div className="container mx-auto px-6">
+        <InView>
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-slate-900 mb-4">
+              Transformation Results
+            </h2>
+            <p className="text-xl text-slate-600">
+              See the dramatic improvement in user experience design
+            </p>
+          </div>
+        </InView>
+        
+        <div className="max-w-6xl mx-auto">
+          <div className="flex justify-center mb-8">
+            <div className="flex items-center space-x-4 bg-white rounded-full p-2 shadow-lg">
+              <Button 
+                variant={!isAfter ? "default" : "ghost"}
+                onClick={() => setIsAfter(false)}
+                className="rounded-full"
+              >
+                Before
+              </Button>
+              <Button 
+                variant={isAfter ? "default" : "ghost"}
+                onClick={() => setIsAfter(true)}
+                className="rounded-full"
+              >
+                After
+              </Button>
+            </div>
+          </div>
+          
+          <div className="relative overflow-hidden rounded-2xl shadow-2xl">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={isAfter ? 'after' : 'before'}
+                initial={{ opacity: 0, x: isAfter ? 100 : -100 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: isAfter ? -100 : 100 }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+              >
+                <AspectRatio ratio={16/10}>
+                  <Image 
+                    src={isAfter ? "/ledgeriq-after.png" : "/ledgeriq-before.png"}
+                    alt={`LedgerIQ ${isAfter ? 'After' : 'Before'} Redesign`}
+                    fill
+                    className="object-cover"
+                  />
+                </AspectRatio>
+              </motion.div>
+            </AnimatePresence>
+            
+            {/* Comparison Labels */}
+            <div className="absolute top-4 left-4">
+              <Badge variant={isAfter ? "default" : "secondary"} className="text-sm">
+                {isAfter ? "After Redesign" : "Before Redesign"}
+              </Badge>
+            </div>
+          </div>
+          
+          {/* Feature Comparison */}
+          <div className="mt-12 grid md:grid-cols-2 gap-8">
+            <Card className="p-6">
+              <h3 className="text-lg font-bold text-red-600 mb-4 flex items-center gap-2">
+                <X className="w-5 h-5" />
+                Before: Key Issues
+              </h3>
+              <ul className="space-y-3 text-slate-600">
+                <li>• Complex navigation with 5+ levels</li>
+                <li>• Inconsistent visual hierarchy</li>
+                <li>• Poor mobile experience</li>
+                <li>• Slow data loading times</li>
+                <li>• Limited customization options</li>
+              </ul>
+            </Card>
+            
+            <Card className="p-6">
+              <h3 className="text-lg font-bold text-emerald-600 mb-4 flex items-center gap-2">
+                <Check className="w-5 h-5" />
+                After: Improvements
+              </h3>
+              <ul className="space-y-3 text-slate-600">
+                <li>• Streamlined 2-level navigation</li>
+                <li>• Clear visual hierarchy with focus states</li>
+                <li>• Mobile-first responsive design</li>
+                <li>• 60% faster data visualization</li>
+                <li>• Extensive personalization features</li>
+              </ul>
+            </Card>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+```
+
+### 6. Interactive Features Showcase
+```jsx
+const FeaturesShowcaseSection = () => {
+  const features = [
+    {
+      title: "Smart Dashboard",
+      description: "AI-powered insights with customizable widgets",
+      image: "/feature-dashboard.png",
+      highlight: "40% faster data analysis"
+    },
+    {
+      title: "Mobile Experience", 
+      description: "Native-quality mobile interface with offline sync",
+      image: "/feature-mobile.png",
+      highlight: "Perfect mobile usability score"
+    },
+    {
+      title: "Advanced Reporting",
+      description: "Dynamic reports with real-time collaboration",
+      image: "/feature-reports.png", 
+      highlight: "300% increase in report generation"
+    }
+  ];
+
+  return (
+    <section className="py-24 bg-white">
+      <div className="container mx-auto px-6">
+        <InView>
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-slate-900 mb-4">
+              Key Features & Innovation
+            </h2>
+            <p className="text-xl text-slate-600">
+              Exploring the design solutions that drove measurable impact
+            </p>
+          </div>
+        </InView>
+        
+        <div className="space-y-20">
+          {features.map((feature, index) => (
+            <InView key={index} delay={index * 0.1}>
+              <div className={`grid lg:grid-cols-2 gap-12 items-center ${
+                index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''
+              }`}>
+                <div className={`space-y-6 ${index % 2 === 1 ? 'lg:col-start-2' : ''}`}>
+                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 text-emerald-700 rounded-full text-sm font-medium">
+                    <Sparkles className="w-4 h-4" />
+                    {feature.highlight}
+                  </div>
+                  
+                  <h3 className="text-3xl font-bold text-slate-900">
+                    {feature.title}
+                  </h3>
+                  
+                  <p className="text-lg text-slate-600 leading-relaxed">
+                    {feature.description}
+                  </p>
+                  
+                  <Button className="group">
+                    View Details
+                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                </div>
+                
+                <div className={index % 2 === 1 ? 'lg:col-start-1' : ''}>
+                  <SpotlightCard>
+                    <AspectRatio ratio={16/10} className="overflow-hidden rounded-xl">
+                      <Image 
+                        src={feature.image}
+                        alt={feature.title}
+                        fill
+                        className="object-cover transition-transform duration-500 hover:scale-105"
+                      />
+                    </AspectRatio>
+                  </SpotlightCard>
+                </div>
+              </div>
+            </InView>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+```
+
+### 7. Results & Impact Visualization
+```jsx
+const ResultsSection = () => {
+  const chartData = [
+    { metric: "User Productivity", before: 60, after: 84 },
+    { metric: "Task Completion", before: 45, after: 78 },
+    { metric: "User Satisfaction", before: 62, after: 85 },
+    { metric: "Processing Speed", before: 40, after: 88 }
+  ];
+
+  return (
+    <section className="py-24 bg-slate-50">
+      <div className="container mx-auto px-6">
+        <InView>
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-slate-900 mb-4">
+              Quantified Results
+            </h2>
+            <p className="text-xl text-slate-600">
+              Data-driven evidence of design impact and user value
+            </p>
+          </div>
+        </InView>
+        
+        <div className="max-w-4xl mx-auto space-y-12">
+          {chartData.map((item, index) => (
+            <InView key={index} delay={index * 0.1}>
+              <Card className="p-8">
+                <div className="flex items-center justify-between mb-6">
+                  <h3 className="text-xl font-bold text-slate-900">{item.metric}</h3>
+                  <div className="text-right">
+                    <div className="text-sm text-slate-500">Improvement</div>
+                    <div className="text-2xl font-bold text-emerald-600">
+                      +{item.after - item.before}%
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-slate-600">Before</span>
+                    <span className="font-semibold">{item.before}%</span>
+                  </div>
+                  <Progress value={item.before} className="h-2 bg-red-100" />
+                  
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-slate-600">After</span>
+                    <span className="font-semibold text-emerald-600">{item.after}%</span>
+                  </div>
+                  <Progress value={item.after} className="h-2" />
+                </div>
+              </Card>
+            </InView>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+```
+
+## Advanced Implementation Details
+
+### SpotlightCard Component Implementation
+```jsx
+const SpotlightCard = ({ children, className, ...props }) => {
+  const divRef = useRef(null);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [opacity, setOpacity] = useState(0);
+
+  const handleMouseMove = (e) => {
+    if (!divRef.current) return;
+    const rect = divRef.current.getBoundingClientRect();
+    setPosition({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top
+    });
+  };
+
+  return (
+    <div
+      ref={divRef}
+      className={cn("relative overflow-hidden", className)}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setOpacity(1)}
+      onMouseLeave={() => setOpacity(0)}
+      {...props}
+    >
+      <div
+        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 ease-in-out"
+        style={{
+          opacity,
+          background: `radial-gradient(400px circle at ${position.x}px ${position.y}px, rgba(255,255,255,0.08), transparent 40%)`
+        }}
+      />
+      {children}
+    </div>
+  );
+};
+```
+
+### Scroll-Driven CSS Animations
+```css
+/* Progressive scroll animations */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(50px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.scroll-reveal {
+  animation: reveal-up linear both;
+  animation-timeline: view();
+  animation-range: entry 25% entry 75%;
+}
+
+/* Parallax background effects */
+@keyframes parallax-bg {
+  to {
+    transform: translateY(-20%);
+  }
+}
+
+.parallax-element {
+  animation: parallax-bg linear both;
+  animation-timeline: scroll(root);
+  animation-range: 0% 100%;
+}
+
+/* Container query responsive layouts */
+.adaptive-container {
+  container-type: inline-size;
+}
+
+@container (min-width: 768px) {
+  .adaptive-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@container (min-width: 1024px) {
+  .adaptive-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+```
+
+### Performance Optimization
+```jsx
+// Lazy loading for images
+const OptimizedImage = ({ src, alt, ...props }) => {
+  return (
+    <Image
+      src={src}
+      alt={alt}
+      loading="lazy"
+      quality={90}
+      placeholder="blur"
+      blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=="
+      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+      {...props}
+    />
+  );
+};
+
+// Intersection observer for animations
+const useInViewAnimation = (options = {}) => {
+  const [ref, inView] = useInView({
+    threshold: 0.1,
+    triggerOnce: true,
+    ...options
+  });
+
+  return {
+    ref,
+    className: inView ? 'animate-in' : 'animate-out'
+  };
+};
+```
+
+## Accessibility & Performance Requirements
+
+### Essential Accessibility Features
+```jsx
+// Skip navigation for keyboard users
+const SkipNavigation = () => (
+  <a 
+    href="#main-content"
+    className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-white p-2 rounded shadow-lg z-50"
+  >
+    Skip to main content
+  </a>
+);
+
+// Reduced motion support
+const MotionWrapper = ({ children, ...props }) => {
+  const prefersReducedMotion = useReducedMotion();
+  
+  return (
+    <motion.div
+      {...props}
+      animate={prefersReducedMotion ? {} : props.animate}
+      transition={prefersReducedMotion ? { duration: 0 } : props.transition}
+    >
+      {children}
+    </motion.div>
+  );
+};
+```
+
+### Performance Monitoring
+```jsx
+// Core Web Vitals optimization
+const performanceConfig = {
+  images: {
+    domains: ['your-domain.com'],
+    formats: ['image/webp', 'image/avif'],
+    minimumCacheTTL: 31536000
+  },
+  experimental: {
+    scrollRestoration: true,
+    optimizeCss: true
+  }
+};
+
+// Bundle analysis and optimization
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
+```
+
+## Deployment & Technical Specifications
+
+### Build Configuration
+```javascript
+// next.config.js
+module.exports = {
+  experimental: {
+    optimizeCss: true,
+    scrollRestoration: true
+  },
+  images: {
+    formats: ['image/avif', 'image/webp'],
+    minimumCacheTTL: 31536000
+  },
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production'
+  }
+};
+```
+
+### Final Quality Checklist
+- [ ] **Performance**: Lighthouse score 95+ across all metrics
+- [ ] **Accessibility**: WCAG 2.1 AA compliance 
+- [ ] **SEO**: Semantic HTML with proper meta tags
+- [ ] **Mobile**: Perfect responsive design with touch optimization
+- [ ] **Animations**: Smooth 60fps animations with reduced motion support
+- [ ] **Loading**: Optimized images with lazy loading and proper sizing
+- [ ] **Testing**: Cross-browser compatibility and device testing
+
+This comprehensive engineering prompt provides everything needed to build a world-class portfolio project detail page that showcases expert-level frontend development skills while maintaining exceptional user experience, performance, and accessibility standards.

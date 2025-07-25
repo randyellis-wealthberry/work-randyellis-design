@@ -3,6 +3,8 @@ import { motion } from "motion/react";
 import Image from "next/image";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import { CometCard } from "@/components/ui/comet-card";
+import { CometCardDemo } from "@/components/ui/comet-card-demo";
 
 const VARIANTS_CONTAINER = {
   hidden: { opacity: 0 },
@@ -138,6 +140,34 @@ export default function MetisClient() {
           <br />
           AI Product Design Engineer
         </p>
+      </motion.section>
+
+      {/* Demo Grid Section */}
+      <motion.section
+        className="pb-16 flex justify-center"
+        variants={VARIANTS_SECTION}
+        transition={{ ...TRANSITION_SECTION, delay: 0.25 }}
+      >
+        <CometCardDemo />
+      </motion.section>
+
+      {/* Comet Card Section */}
+      <motion.section
+        className="flex justify-center pb-16"
+        variants={VARIANTS_SECTION}
+        transition={{ ...TRANSITION_SECTION, delay: 0.3 }}
+      >
+        <CometCard className="max-w-md">
+          <div className="relative aspect-[3/4] w-full">
+            <Image
+              src="/images/playercard-metis.png"
+              alt="METIS Player Card"
+              fill
+              className="object-cover rounded-2xl"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
+          </div>
+        </CometCard>
       </motion.section>
     </motion.main>
   );
