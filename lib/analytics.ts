@@ -33,12 +33,15 @@ export const trackEvent = (
   }
 
   // Vercel Analytics
-  track(action, {
+  const trackData: Record<string, string | number | boolean> = {
     category,
-    label,
-    value,
-    ...properties,
-  });
+  };
+
+  if (label) trackData.label = label;
+  if (value !== undefined) trackData.value = value;
+  if (properties) Object.assign(trackData, properties);
+
+  track(action, trackData);
 };
 
 // Track page views (useful for SPA navigation)
@@ -73,11 +76,26 @@ export const trackDownload = (fileName: string) => {
 
 // === NEW VERCEL ANALYTICS EVENTS ===
 
+// Helper function to create properties object without undefined values
+const createProperties = (
+  props: Record<string, string | number | boolean | undefined | null>
+): Record<string, string | number | boolean> => {
+  const filtered: Record<string, string | number | boolean> = {};
+  Object.entries(props).forEach(([key, value]) => {
+    if (value !== undefined && value !== null) {
+      filtered[key] = value;
+    }
+  });
+  return filtered;
+};
+
 // Project engagement tracking
 export const trackProjectHover = (projectName: string, projectId?: string) => {
-  trackEvent("project_hover", "project_engagement", projectName, undefined, {
-    project_id: projectId || projectName.toLowerCase().replace(/\s+/g, "-"),
-  });
+  trackEvent("project_hover", "project_engagement", projectName, undefined, 
+    createProperties({
+      project_id: projectId || projectName.toLowerCase().replace(/\s+/g, "-"),
+    })
+  );
 };
 
 export const trackProjectVideoPlay = (
@@ -89,9 +107,9 @@ export const trackProjectVideoPlay = (
     "project_engagement",
     projectName,
     undefined,
-    {
+    createProperties({
       video_type: videoType || "project_demo",
-    },
+    })
   );
 };
 
@@ -101,35 +119,43 @@ export const trackProjectLiveDemo = (projectName: string, demoUrl?: string) => {
     "project_engagement",
     projectName,
     undefined,
-    {
+    createProperties({
       demo_url: demoUrl,
-    },
+    })
   );
 };
 
 export const trackProjectGithub = (projectName: string, repoUrl?: string) => {
-  trackEvent("project_github", "project_engagement", projectName, undefined, {
-    repo_url: repoUrl,
-  });
+  trackEvent("project_github", "project_engagement", projectName, undefined, 
+    createProperties({
+      repo_url: repoUrl,
+    })
+  );
 };
 
 // Content consumption tracking
 export const trackBlogPostView = (postTitle: string, postSlug?: string) => {
-  trackEvent("blog_post_view", "content_engagement", postTitle, undefined, {
-    post_slug: postSlug,
-  });
+  trackEvent("blog_post_view", "content_engagement", postTitle, undefined, 
+    createProperties({
+      post_slug: postSlug,
+    })
+  );
 };
 
 export const trackBlogReadingTime = (postTitle: string, timeSpent: number) => {
-  trackEvent("blog_reading_time", "content_engagement", postTitle, timeSpent, {
-    reading_duration: timeSpent,
-  });
+  trackEvent("blog_reading_time", "content_engagement", postTitle, timeSpent, 
+    createProperties({
+      reading_duration: timeSpent,
+    })
+  );
 };
 
 export const trackSectionView = (sectionName: string, scrollDepth?: number) => {
-  trackEvent("section_view", "content_engagement", sectionName, scrollDepth, {
-    scroll_depth: scrollDepth,
-  });
+  trackEvent("section_view", "content_engagement", sectionName, scrollDepth, 
+    createProperties({
+      scroll_depth: scrollDepth,
+    })
+  );
 };
 
 // Professional interest tracking
@@ -142,10 +168,10 @@ export const trackContactIntent = (
     "professional_interest",
     contactType,
     undefined,
-    {
+    createProperties({
       contact_method: contactType,
       contact_value: contactValue,
-    },
+    })
   );
 };
 
@@ -166,9 +192,11 @@ export const trackDemoInteraction = (
   demoType: string,
   interactionType: string,
 ) => {
-  trackEvent("demo_interaction", "technical_interest", demoType, undefined, {
-    interaction_type: interactionType,
-  });
+  trackEvent("demo_interaction", "technical_interest", demoType, undefined, 
+    createProperties({
+      interaction_type: interactionType,
+    })
+  );
 };
 
 // User experience tracking
@@ -177,24 +205,30 @@ export const trackThemeToggle = (newTheme: string) => {
 };
 
 export const trackNewsletterAttempt = (step: string, success?: boolean) => {
-  trackEvent("newsletter_attempt", "engagement", step, undefined, {
-    success: success,
-    step: step,
-  });
+  trackEvent("newsletter_attempt", "engagement", step, undefined, 
+    createProperties({
+      success: success,
+      step: step,
+    })
+  );
 };
 
 export const trackScrollDepth = (depth: number, page: string) => {
-  trackEvent("scroll_depth", "user_experience", page, depth, {
-    scroll_percentage: depth,
-    page_type: page,
-  });
+  trackEvent("scroll_depth", "user_experience", page, depth, 
+    createProperties({
+      scroll_percentage: depth,
+      page_type: page,
+    })
+  );
 };
 
 // Performance tracking
 export const trackPageLoadTime = (loadTime: number, page: string) => {
-  trackEvent("page_load_time", "performance", page, loadTime, {
-    load_duration: loadTime,
-  });
+  trackEvent("page_load_time", "performance", page, loadTime, 
+    createProperties({
+      load_duration: loadTime,
+    })
+  );
 };
 
 const analytics = {
