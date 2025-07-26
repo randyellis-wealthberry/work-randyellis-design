@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { Play, Pause } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { trackProjectVideoPlay } from "@/lib/analytics";
 
 interface HoverVideoProps {
   src: string;
@@ -11,6 +12,7 @@ interface HoverVideoProps {
   className?: string;
   showControls?: boolean;
   resetOnLeave?: boolean;
+  projectName?: string;
 }
 
 export function HoverVideo({
@@ -20,6 +22,7 @@ export function HoverVideo({
   className,
   showControls = true,
   resetOnLeave = true,
+  projectName,
 }: HoverVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -31,6 +34,10 @@ export function HoverVideo({
       try {
         await videoRef.current.play();
         setIsPlaying(true);
+        // Track video play event
+        if (projectName) {
+          trackProjectVideoPlay(projectName, "hover_play");
+        }
       } catch (error) {
         console.warn("Video play failed:", error);
       }

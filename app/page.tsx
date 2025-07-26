@@ -25,6 +25,11 @@ import {
   getEmail,
   SOCIAL_LINKS,
 } from "./data";
+import {
+  trackProjectHover,
+  trackProjectView,
+  trackContactIntent,
+} from "@/lib/analytics";
 
 const VARIANTS_CONTAINER = {
   hidden: { opacity: 0 },
@@ -58,6 +63,7 @@ function MagneticSocialLink({
         href={link}
         target="_blank"
         rel="noopener noreferrer"
+        onClick={() => trackContactIntent("social_link", link)}
         className="group relative inline-flex shrink-0 items-center gap-[1px] rounded-full bg-zinc-100 px-2.5 py-1 text-sm text-black transition-colors duration-200 hover:bg-zinc-950 hover:text-zinc-50 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700"
       >
         {children}
@@ -250,12 +256,17 @@ function ProjectThumbnail({ project }: { project: (typeof PROJECTS)[0] }) {
   ) {
     return (
       <Link href={`/projects/${project.slug}`}>
-        <div className="aspect-video w-full max-h-48 rounded-lg overflow-hidden cursor-pointer hover:opacity-90 transition-opacity duration-200">
+        <div
+          className="aspect-video w-full max-h-48 rounded-lg overflow-hidden cursor-pointer hover:opacity-90 transition-opacity duration-200"
+          onMouseEnter={() => trackProjectHover(project.name, project.id)}
+          onClick={() => trackProjectView(project.name)}
+        >
           <HoverVideo
             src={project.video}
             alt={project.name}
             className="w-full h-full"
             resetOnLeave={true}
+            projectName={project.name}
           />
         </div>
       </Link>
@@ -268,7 +279,11 @@ function ProjectThumbnail({ project }: { project: (typeof PROJECTS)[0] }) {
   if (isVideoUrl(thumbnailSrc)) {
     return (
       <Link href={`/projects/${project.slug}`}>
-        <div className="aspect-video w-full max-h-48 rounded-lg overflow-hidden cursor-pointer hover:opacity-90 transition-opacity duration-200">
+        <div
+          className="aspect-video w-full max-h-48 rounded-lg overflow-hidden cursor-pointer hover:opacity-90 transition-opacity duration-200"
+          onMouseEnter={() => trackProjectHover(project.name, project.id)}
+          onClick={() => trackProjectView(project.name)}
+        >
           <iframe
             src={thumbnailSrc}
             className="w-full h-full"
@@ -287,6 +302,8 @@ function ProjectThumbnail({ project }: { project: (typeof PROJECTS)[0] }) {
       <Image
         src={thumbnailSrc}
         alt={project.name}
+        onMouseEnter={() => trackProjectHover(project.name, project.id)}
+        onClick={() => trackProjectView(project.name)}
         width={500}
         height={300}
         className="aspect-video w-full max-h-48 object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity duration-200"
@@ -353,6 +370,7 @@ export default function Personal() {
                 <Link
                   className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"
                   href={`/projects/${project.slug}`}
+                  onClick={() => trackProjectView(project.name)}
                 >
                   {project.name}
                   <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 dark:bg-zinc-50 transition-all duration-200 group-hover:max-w-full"></span>
@@ -518,6 +536,7 @@ export default function Personal() {
           <a
             className="underline dark:text-zinc-300"
             href={`mailto:${getEmail()}`}
+            onClick={() => trackContactIntent("email", getEmail())}
           >
             <DecodedEmail />
           </a>

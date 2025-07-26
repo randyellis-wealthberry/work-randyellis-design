@@ -7,6 +7,7 @@ import { z } from "zod";
 import { motion } from "motion/react";
 import { FloatingInput } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { trackNewsletterAttempt } from "@/lib/analytics";
 
 const emailSchema = z.object({
   email: z.string().email("Invalid email address").min(1, "Email is required"),
@@ -33,6 +34,9 @@ export function NewsletterSignup() {
     setIsSubmitting(true);
     setSubmitStatus("idle");
 
+    // Track the attempt
+    trackNewsletterAttempt("submit_start", false);
+
     try {
       const response = await fetch("/api/newsletter/subscribe", {
         method: "POST",
@@ -44,12 +48,15 @@ export function NewsletterSignup() {
 
       if (response.ok) {
         setSubmitStatus("success");
+        trackNewsletterAttempt("submit_success", true);
         reset();
       } else {
         setSubmitStatus("error");
+        trackNewsletterAttempt("submit_error", false);
       }
     } catch {
       setSubmitStatus("error");
+      trackNewsletterAttempt("submit_error", false);
     } finally {
       setIsSubmitting(false);
     }

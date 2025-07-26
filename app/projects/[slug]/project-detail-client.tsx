@@ -39,6 +39,7 @@ import {
 } from "@/components/ui/vimeo-embed";
 import { AnimatedMetricCard } from "@/components/ui/animated-metric-card";
 import type { Project } from "../../data";
+import { trackProjectLiveDemo, trackProjectGithub } from "@/lib/analytics";
 
 const VARIANTS_CONTAINER = {
   hidden: { opacity: 0 },
@@ -188,6 +189,9 @@ export default function ProjectDetailClient({
                     href={project.link}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() =>
+                      trackProjectLiveDemo(project.name, project.link)
+                    }
                     className="flex items-center gap-2"
                   >
                     <ExternalLink className="h-4 w-4" />
@@ -201,6 +205,9 @@ export default function ProjectDetailClient({
                       href={project.githubLink}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() =>
+                        trackProjectGithub(project.name, project.githubLink)
+                      }
                       className="flex items-center gap-2"
                     >
                       <Github className="h-4 w-4" />
