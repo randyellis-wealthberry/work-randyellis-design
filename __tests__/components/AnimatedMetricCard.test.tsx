@@ -12,13 +12,15 @@ jest.mock('motion/react', () => ({
 }));
 
 // Mock the AnimatedNumber component
-jest.mock('../../components/motion-primitives/animated-number', () => ({
-  AnimatedNumber: ({ value, className }: { value: number; className?: string }) => (
-    <span className={className} data-testid="animated-number">
-      {value}
-    </span>
-  ),
-}));
+jest.mock('../../components/core/animated-number', () => {
+  return {
+    AnimatedNumber: ({ value, className }: { value: number; className?: string }) => (
+      <span className={className} data-testid="animated-number">
+        {value}
+      </span>
+    ),
+  };
+});
 
 describe('AnimatedMetricCard', () => {
   beforeEach(() => {

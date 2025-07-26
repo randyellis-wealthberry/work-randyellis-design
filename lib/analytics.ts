@@ -78,7 +78,7 @@ export const trackDownload = (fileName: string) => {
 
 // Helper function to create properties object without undefined values
 const createProperties = (
-  props: Record<string, string | number | boolean | undefined | null>
+  props: Record<string, string | number | boolean | undefined | null>,
 ): Record<string, string | number | boolean> => {
   const filtered: Record<string, string | number | boolean> = {};
   Object.entries(props).forEach(([key, value]) => {
@@ -91,10 +91,14 @@ const createProperties = (
 
 // Project engagement tracking
 export const trackProjectHover = (projectName: string, projectId?: string) => {
-  trackEvent("project_hover", "project_engagement", projectName, undefined, 
+  trackEvent(
+    "project_hover",
+    "project_engagement",
+    projectName,
+    undefined,
     createProperties({
       project_id: projectId || projectName.toLowerCase().replace(/\s+/g, "-"),
-    })
+    }),
   );
 };
 
@@ -109,7 +113,7 @@ export const trackProjectVideoPlay = (
     undefined,
     createProperties({
       video_type: videoType || "project_demo",
-    })
+    }),
   );
 };
 
@@ -121,40 +125,56 @@ export const trackProjectLiveDemo = (projectName: string, demoUrl?: string) => {
     undefined,
     createProperties({
       demo_url: demoUrl,
-    })
+    }),
   );
 };
 
 export const trackProjectGithub = (projectName: string, repoUrl?: string) => {
-  trackEvent("project_github", "project_engagement", projectName, undefined, 
+  trackEvent(
+    "project_github",
+    "project_engagement",
+    projectName,
+    undefined,
     createProperties({
       repo_url: repoUrl,
-    })
+    }),
   );
 };
 
 // Content consumption tracking
 export const trackBlogPostView = (postTitle: string, postSlug?: string) => {
-  trackEvent("blog_post_view", "content_engagement", postTitle, undefined, 
+  trackEvent(
+    "blog_post_view",
+    "content_engagement",
+    postTitle,
+    undefined,
     createProperties({
       post_slug: postSlug,
-    })
+    }),
   );
 };
 
 export const trackBlogReadingTime = (postTitle: string, timeSpent: number) => {
-  trackEvent("blog_reading_time", "content_engagement", postTitle, timeSpent, 
+  trackEvent(
+    "blog_reading_time",
+    "content_engagement",
+    postTitle,
+    timeSpent,
     createProperties({
       reading_duration: timeSpent,
-    })
+    }),
   );
 };
 
 export const trackSectionView = (sectionName: string, scrollDepth?: number) => {
-  trackEvent("section_view", "content_engagement", sectionName, scrollDepth, 
+  trackEvent(
+    "section_view",
+    "content_engagement",
+    sectionName,
+    scrollDepth,
     createProperties({
       scroll_depth: scrollDepth,
-    })
+    }),
   );
 };
 
@@ -171,7 +191,7 @@ export const trackContactIntent = (
     createProperties({
       contact_method: contactType,
       contact_value: contactValue,
-    })
+    }),
   );
 };
 
@@ -192,10 +212,14 @@ export const trackDemoInteraction = (
   demoType: string,
   interactionType: string,
 ) => {
-  trackEvent("demo_interaction", "technical_interest", demoType, undefined, 
+  trackEvent(
+    "demo_interaction",
+    "technical_interest",
+    demoType,
+    undefined,
     createProperties({
       interaction_type: interactionType,
-    })
+    }),
   );
 };
 
@@ -205,29 +229,41 @@ export const trackThemeToggle = (newTheme: string) => {
 };
 
 export const trackNewsletterAttempt = (step: string, success?: boolean) => {
-  trackEvent("newsletter_attempt", "engagement", step, undefined, 
+  trackEvent(
+    "newsletter_attempt",
+    "engagement",
+    step,
+    undefined,
     createProperties({
       success: success,
       step: step,
-    })
+    }),
   );
 };
 
 export const trackScrollDepth = (depth: number, page: string) => {
-  trackEvent("scroll_depth", "user_experience", page, depth, 
+  trackEvent(
+    "scroll_depth",
+    "user_experience",
+    page,
+    depth,
     createProperties({
       scroll_percentage: depth,
       page_type: page,
-    })
+    }),
   );
 };
 
 // Performance tracking
 export const trackPageLoadTime = (loadTime: number, page: string) => {
-  trackEvent("page_load_time", "performance", page, loadTime, 
+  trackEvent(
+    "page_load_time",
+    "performance",
+    page,
+    loadTime,
     createProperties({
       load_duration: loadTime,
-    })
+    }),
   );
 };
 
