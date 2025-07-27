@@ -20,6 +20,11 @@ import { isVideoUrl } from "@/lib/video-utils";
 import { HoverVideo } from "@/components/ui/hover-video";
 import { getRandomProjects } from "@/lib/project-utils";
 import {
+  AnimatedSpan,
+  Terminal,
+  TypingAnimation,
+} from "@/components/magicui/terminal";
+import {
   PROJECTS,
   WORK_EXPERIENCE,
   BLOG_POSTS,
@@ -248,6 +253,184 @@ function DecodedEmail() {
   return email;
 }
 
+function TerminalDemo() {
+  const codeScenarios = [
+    {
+      command: "> npm run dev",
+      steps: [
+        {
+          delay: 1000,
+          text: "🚀 Starting Next.js development server...",
+          className: "text-blue-500",
+        },
+        {
+          delay: 1500,
+          text: "✓ Ready in 2.9s",
+          className: "text-green-500",
+        },
+        {
+          delay: 2000,
+          text: "- Local: http://localhost:3000",
+          className: "text-muted-foreground",
+        },
+        {
+          delay: 2500,
+          text: "○ Compiling /",
+          className: "text-yellow-500",
+        },
+        {
+          delay: 3000,
+          text: "✓ Compiled successfully",
+          className: "text-green-500",
+        },
+        {
+          delay: 3500,
+          text: "Portfolio loaded with 2.5M+ users impact",
+          className: "text-green-500",
+        },
+      ],
+    },
+    {
+      command: '> git commit -m "feat: add WebGL animations"',
+      steps: [
+        {
+          delay: 1000,
+          text: "[main 4159ad5] feat: add WebGL animations",
+          className: "text-green-500",
+        },
+        {
+          delay: 1500,
+          text: "3 files changed, 127 insertions(+)",
+          className: "text-muted-foreground",
+        },
+        {
+          delay: 2000,
+          text: "create mode 100644 components/ui/animated-webgl.tsx",
+          className: "text-green-500",
+        },
+        {
+          delay: 2500,
+          text: "modified   app/projects/[slug]/page.tsx",
+          className: "text-yellow-500",
+        },
+        {
+          delay: 3000,
+          text: "✓ AI-powered design components ready",
+          className: "text-blue-500",
+        },
+      ],
+    },
+    {
+      command: "> pnpm build",
+      steps: [
+        {
+          delay: 1000,
+          text: "▲ Next.js 15.4.4",
+          className: "text-blue-500",
+        },
+        {
+          delay: 1500,
+          text: "✓ Creating an optimized production build",
+          className: "text-green-500",
+        },
+        {
+          delay: 2000,
+          text: "✓ Compiled successfully",
+          className: "text-green-500",
+        },
+        {
+          delay: 2500,
+          text: "✓ Collecting page data",
+          className: "text-green-500",
+        },
+        {
+          delay: 3000,
+          text: "Generated static pages (8)",
+          className: "text-muted-foreground",
+        },
+        {
+          delay: 3500,
+          text: "Portfolio optimized for $50M product value",
+          className: "text-green-500",
+        },
+      ],
+    },
+    {
+      command: "> npm test",
+      steps: [
+        {
+          delay: 1000,
+          text: "PASS components/AnimatedMetricCard.test.tsx",
+          className: "text-green-500",
+        },
+        {
+          delay: 1500,
+          text: "PASS lib/project-utils.test.ts",
+          className: "text-green-500",
+        },
+        {
+          delay: 2000,
+          text: "PASS integration/selected-projects.test.tsx",
+          className: "text-green-500",
+        },
+        {
+          delay: 2500,
+          text: "Test Suites: 8 passed, 8 total",
+          className: "text-green-500",
+        },
+        {
+          delay: 3000,
+          text: "Tests: 24 passed, 24 total",
+          className: "text-green-500",
+        },
+        {
+          delay: 3500,
+          text: "AI Design System validated ✓",
+          className: "text-blue-500",
+        },
+      ],
+    },
+  ];
+
+  // Randomly select a scenario on each render
+  const [selectedScenario] = useState(
+    () => codeScenarios[Math.floor(Math.random() * codeScenarios.length)],
+  );
+
+  const handleTerminalClick = () => {
+    window.open("https://github.com/randyellis-wealthberry", "_blank");
+  };
+
+  return (
+    <div
+      className="cursor-pointer transition-transform hover:scale-[1.02] active:scale-[0.98]"
+      onClick={handleTerminalClick}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          handleTerminalClick();
+        }
+      }}
+      aria-label="View GitHub profile"
+    >
+      <Terminal className="hover:shadow-lg transition-shadow">
+        <TypingAnimation>{selectedScenario.command}</TypingAnimation>
+
+        {selectedScenario.steps.map((step, index) => (
+          <AnimatedSpan
+            key={index}
+            delay={step.delay}
+            className={step.className}
+          >
+            <span>{step.text}</span>
+          </AnimatedSpan>
+        ))}
+      </Terminal>
+    </div>
+  );
+}
+
 function ProjectThumbnail({ project }: { project: (typeof PROJECTS)[0] }) {
   // Check if project has a video and it's a local MP4 file for thumbnail display
   if (
@@ -445,6 +628,17 @@ export default function Personal() {
             </div>
           </div>
         </div>
+      </motion.section>
+
+      <motion.section
+        variants={VARIANTS_SECTION}
+        transition={TRANSITION_SECTION}
+        className="mt-40 sm:mt-32"
+      >
+        <ScrambleSectionTitle className="mb-5 text-lg font-medium">
+          Terminal Demo
+        </ScrambleSectionTitle>
+        <TerminalDemo />
       </motion.section>
 
       <motion.section
