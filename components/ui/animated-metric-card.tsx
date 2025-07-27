@@ -39,12 +39,12 @@ export function AnimatedMetricCard({
     >
       <Card
         className={cn(
-          "hover:shadow-lg transition-all duration-300 border-muted hover:border-primary/30 bg-gradient-to-br from-background to-muted/30",
+          "hover:shadow-lg transition-all duration-300 border-muted hover:border-primary/30 bg-gradient-to-br from-background to-muted/30 h-full",
           className,
         )}
       >
-        <CardContent className="pt-6 text-center">
-          <div className="text-2xl md:text-3xl font-bold text-primary mb-2 min-h-[2.5rem] flex items-center justify-center">
+        <CardContent className="pt-6 pb-6 text-center h-full flex flex-col justify-center">
+          <div className="text-2xl md:text-3xl font-bold text-primary mb-3 min-h-[3rem] flex items-center justify-center">
             {prefix && <span className="mr-1">{prefix}</span>}
             <AnimatedNumber
               value={isInView ? number : 0}
@@ -53,7 +53,7 @@ export function AnimatedMetricCard({
             />
             {suffix && <span className="ml-1">{suffix}</span>}
           </div>
-          <div className="text-sm text-muted-foreground font-medium">
+          <div className="text-sm text-muted-foreground font-medium leading-tight min-h-[2.5rem] flex items-center justify-center px-2">
             {label}
           </div>
         </CardContent>
