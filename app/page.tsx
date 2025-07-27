@@ -16,8 +16,10 @@ import {
 import { AnimatedNumberBasic } from "@/components/core/animated-number-basic";
 import { TransitionPanel } from "@/components/motion-primitives/transition-panel";
 import { ScrambleSectionTitle } from "@/components/ui/scramble-section-title";
+import { AudioPlayer } from "@/components/ui/audio-player";
 import { isVideoUrl } from "@/lib/video-utils";
 import { HoverVideo } from "@/components/ui/hover-video";
+import { getRandomProjects } from "@/lib/project-utils";
 import {
   PROJECTS,
   WORK_EXPERIENCE,
@@ -158,6 +160,19 @@ function AccordionIcons() {
       className="flex w-full flex-col divide-y divide-zinc-200 dark:divide-zinc-700"
       transition={{ duration: 0.2 }}
     >
+      <AccordionItem value="audio-story" className="py-2">
+        <AccordionTrigger className="w-full text-left text-zinc-950 dark:text-zinc-50">
+          <div className="flex items-center justify-between">
+            <div>Listen to Randy&apos;s Story</div>
+            <ChevronUp className="h-4 w-4 text-zinc-950 transition-transform duration-200 group-data-expanded:-rotate-180 dark:text-zinc-50" />
+          </div>
+        </AccordionTrigger>
+        <AccordionContent>
+          <div className="py-2">
+            <AudioPlayer />
+          </div>
+        </AccordionContent>
+      </AccordionItem>
       <AccordionItem value="ai-design-approach" className="py-2">
         <AccordionTrigger className="w-full text-left text-zinc-950 dark:text-zinc-50">
           <div className="flex items-center justify-between">
@@ -313,6 +328,13 @@ function ProjectThumbnail({ project }: { project: (typeof PROJECTS)[0] }) {
 }
 
 export default function Personal() {
+  // Randomly select 2 projects for display - selection persists during session
+  // Use state and useEffect to avoid hydration mismatch with Math.random()
+  const [selectedProjects, setSelectedProjects] = useState<typeof PROJECTS>([]);
+
+  useEffect(() => {
+    setSelectedProjects(getRandomProjects(PROJECTS, 2));
+  }, []);
   return (
     <motion.main
       className="space-y-32 sm:space-y-24"
@@ -363,29 +385,42 @@ export default function Personal() {
           Selected Projects
         </ScrambleSectionTitle>
         <div className="grid grid-cols-1 gap-12 sm:gap-8 sm:grid-cols-2">
-          {PROJECTS.slice(0, 2).map((project) => (
-            <div key={project.id} className="space-y-4">
-              <ProjectThumbnail project={project} />
-              <div className="px-1">
-                <Link
-                  className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"
-                  href={`/projects/${project.slug}`}
-                  onClick={() => trackProjectView(project.name)}
-                >
-                  {project.name}
-                  <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 dark:bg-zinc-50 transition-all duration-200 group-hover:max-w-full"></span>
-                </Link>
-                {project.subtitle && (
-                  <p className="text-sm text-zinc-500 dark:text-zinc-400">
-                    {project.subtitle}
-                  </p>
-                )}
-                <p className="text-base text-zinc-600 dark:text-zinc-400">
-                  {project.description}
-                </p>
-              </div>
-            </div>
-          ))}
+          {selectedProjects.length > 0
+            ? selectedProjects.map((project) => (
+                <div key={project.id} className="space-y-4">
+                  <ProjectThumbnail project={project} />
+                  <div className="px-1">
+                    <Link
+                      className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"
+                      href={`/projects/${project.slug}`}
+                      onClick={() => trackProjectView(project.name)}
+                    >
+                      {project.name}
+                      <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 dark:bg-zinc-50 transition-all duration-200 group-hover:max-w-full"></span>
+                    </Link>
+                    {project.subtitle && (
+                      <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                        {project.subtitle}
+                      </p>
+                    )}
+                    <p className="text-base text-zinc-600 dark:text-zinc-400">
+                      {project.description}
+                    </p>
+                  </div>
+                </div>
+              ))
+            : // Loading placeholder during hydration
+              Array.from({ length: 2 }).map((_, index) => (
+                <div key={`placeholder-${index}`} className="space-y-4">
+                  <div className="aspect-video w-full max-h-48 rounded-lg bg-zinc-100 dark:bg-zinc-800 animate-pulse" />
+                  <div className="px-1 space-y-2">
+                    <div className="h-6 bg-zinc-100 dark:bg-zinc-800 rounded animate-pulse" />
+                    <div className="h-4 bg-zinc-100 dark:bg-zinc-800 rounded w-3/4 animate-pulse" />
+                    <div className="h-4 bg-zinc-100 dark:bg-zinc-800 rounded animate-pulse" />
+                    <div className="h-4 bg-zinc-100 dark:bg-zinc-800 rounded w-5/6 animate-pulse" />
+                  </div>
+                </div>
+              ))}
         </div>
       </motion.section>
 
@@ -402,7 +437,7 @@ export default function Personal() {
             <Link href="/metis">
               <div className="aspect-video w-full max-h-48 rounded-lg overflow-hidden cursor-pointer hover:opacity-90 transition-opacity duration-200">
                 <HoverVideo
-                  src="/images/projects/metis-logomark-glitch.mp4"
+                  src="/images/projects/metis/metis-logomark-glitch.mp4"
                   alt="METIS logomark glitch animation"
                   className="w-full h-full"
                   resetOnLeave={true}

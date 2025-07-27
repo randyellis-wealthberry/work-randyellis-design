@@ -24,6 +24,7 @@ import {
 } from "@/lib/video-utils";
 import { UnicornStudioEmbed } from "@/components/ui/unicorn-studio-embed";
 import { HoverIframe } from "@/components/ui/hover-iframe";
+import { HoverVideo } from "@/components/ui/hover-video";
 import { PROJECTS, PROJECT_CATEGORIES } from "../data";
 
 const VARIANTS_CONTAINER = {
@@ -57,18 +58,30 @@ function ProjectThumbnail({ project }: { project: (typeof PROJECTS)[0] }) {
     : null;
   const unicornId = unicornVideoId || unicornThumbnailId;
 
-  // Check for regular video content
+  // Check for local MP4 files (second priority)
+  const isLocalMp4Video =
+    project.video &&
+    project.video.includes(".mp4") &&
+    project.video.startsWith("/");
+  const isLocalMp4Thumbnail =
+    project.thumbnail &&
+    project.thumbnail.includes(".mp4") &&
+    project.thumbnail.startsWith("/");
+
+  // Check for external video URLs (third priority)
   const videoSrc = isVideoUrl(project.video) ? project.video : null;
   const thumbnailSrc = isVideoUrl(project.thumbnail || "")
     ? project.thumbnail
     : null;
+
   const staticThumbnail =
     !isVideoUrl(project.thumbnail || "") &&
-    !isUnicornStudioId(project.thumbnail || "")
+    !isUnicornStudioId(project.thumbnail || "") &&
+    !isLocalMp4Thumbnail
       ? project.thumbnail || "/images/projects/placeholder-thumbnail.jpg"
       : "/images/projects/placeholder-thumbnail.jpg";
 
-  // Priority: UnicornStudio > Video > Static thumbnail
+  // Priority: UnicornStudio > Local MP4 > External Video > Static thumbnail
   if (unicornId) {
     return (
       <div className="aspect-video overflow-hidden">
@@ -82,16 +95,35 @@ function ProjectThumbnail({ project }: { project: (typeof PROJECTS)[0] }) {
     );
   }
 
-  // Prioritize video field, then thumbnail field, then static thumbnail
-  const displaySrc = videoSrc || thumbnailSrc;
+  // Handle local MP4 files with HoverVideo
+  const localMp4Src = isLocalMp4Thumbnail
+    ? project.thumbnail
+    : isLocalMp4Video
+      ? project.video
+      : null;
+  if (localMp4Src) {
+    return (
+      <div className="aspect-video overflow-hidden">
+        <HoverVideo
+          src={localMp4Src}
+          alt={project.name}
+          className="h-full w-full transition-transform duration-300 group-hover:scale-105"
+          resetOnLeave={true}
+          projectName={project.name}
+        />
+      </div>
+    );
+  }
 
+  // Handle external video URLs with HoverIframe
+  const displaySrc = videoSrc || thumbnailSrc;
   if (displaySrc) {
     return (
       <div className="aspect-video overflow-hidden">
         <HoverIframe
           src={displaySrc}
           title={project.name}
-          className="h-full w-full"
+          className="h-full w-full transition-transform duration-300 group-hover:scale-105"
         />
       </div>
     );
@@ -197,17 +229,41 @@ export default function ProjectsClient() {
                       <div className="space-y-3 flex-1">
                         {/* Project Metrics */}
                         {project.metrics && (
-                          <div className="grid grid-cols-3 gap-3 text-center">
-                            {project.metrics.map((metric, index) => (
-                              <div key={index}>
-                                <div className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
-                                  {metric.value}
+                          <div className="grid grid-cols-3 gap-3 text-center min-h-[60px]">
+                            {project.metrics
+                              .slice(0, 3)
+                              .map((metric, index) => (
+                                <div
+                                  key={index}
+                                  className="flex flex-col justify-center"
+                                >
+                                  <div className="text-lg font-semibold text-zinc-900 dark:text-zinc-100 leading-tight">
+                                    {metric.value}
+                                  </div>
+                                  <div className="text-xs text-zinc-500 mt-0.5 leading-tight">
+                                    {metric.label}
+                                  </div>
                                 </div>
-                                <div className="text-xs text-zinc-500 mt-0.5">
-                                  {metric.label}
-                                </div>
+                              ))}
+                            {project.metrics.length > 3 && (
+                              <div className="col-span-3 mt-2 grid grid-cols-3 gap-3 text-center">
+                                {project.metrics
+                                  .slice(3, 6)
+                                  .map((metric, index) => (
+                                    <div
+                                      key={index + 3}
+                                      className="flex flex-col justify-center"
+                                    >
+                                      <div className="text-lg font-semibold text-zinc-900 dark:text-zinc-100 leading-tight">
+                                        {metric.value}
+                                      </div>
+                                      <div className="text-xs text-zinc-500 mt-0.5 leading-tight">
+                                        {metric.label}
+                                      </div>
+                                    </div>
+                                  ))}
                               </div>
-                            ))}
+                            )}
                           </div>
                         )}
 

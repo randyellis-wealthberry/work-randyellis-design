@@ -229,11 +229,6 @@ export function VideoPlayer({
               <source src={src} type="video/mp4" />
               Your browser does not support the video tag.
             </video>
-            <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <div className="bg-white/90 dark:bg-black/90 rounded-full p-4">
-                <Play className="w-8 h-8 text-black dark:text-white" />
-              </div>
-            </div>
           </AspectRatio>
         </div>
       </DialogTrigger>

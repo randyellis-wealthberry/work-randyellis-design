@@ -1,0 +1,15 @@
+{
+  "status": "commited",
+  "type": "frontend",
+  "scope": "codebase",
+  "localEndpoint": "http://localhost:3000",
+  "executionArgs": {
+    "projectName": "work.randyellis.design",
+    "projectPath": "/Users/MacBook/Developer/work.randyellis.design",
+    "testIds": [],
+    "additionalInstruction": "Focus specifically on testing the Selected Projects section randomness and thumbnail display. Test the getRandomProjects function and verify that project thumbnails match their project data correctly. Check if LedgerIQ thumbnail is incorrectly showing for GrowIt project.",
+    "envs": {
+      "API_KEY": "sk-user-qZkM7YXKFzbG_RzZMiSrR1dRst1vUoRIt_HfluOxUe5fvTMm2GHy7lO0qFY-2xahZDDBxkLlFmUBgCUwAhkvUiHK7HNuYfk90RRkN64sG6uAUy3zjv_pATxM9RrGGhSAUhk"
+    }
+  }
+}

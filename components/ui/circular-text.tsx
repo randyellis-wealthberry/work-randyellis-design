@@ -30,6 +30,7 @@ interface CircularTextProps {
   spinDuration?: number;
   onHover?: "slowDown" | "speedUp" | "pause" | "goBonkers" | null;
   className?: string;
+  fontSize?: number;
 }
 
 const CircularText = ({
@@ -37,6 +38,7 @@ const CircularText = ({
   spinDuration = 20,
   onHover = "speedUp",
   className = "",
+  fontSize = 14,
 }: CircularTextProps) => {
   const letters = Array.from(text);
   const controls = useAnimation();
@@ -106,23 +108,32 @@ const CircularText = ({
       onMouseLeave={handleHoverEnd}
     >
       {letters.map((letter, i) => {
-        const rotationDeg = (360 / letters.length) * i;
-        const radius = 85; // Adjust radius for better positioning
+        // Even distribution with proper spacing
+        const angleStep = 360 / letters.length;
+        const rotationDeg = angleStep * i - 90; // Start from top
         const angle = (rotationDeg * Math.PI) / 180;
+
+        const radius = 90;
         const x = Math.cos(angle) * radius;
         const y = Math.sin(angle) * radius;
-        const transform = `translate(${x}px, ${y}px) rotate(${rotationDeg + 90}deg)`;
+
+        const transform = `translate(-50%, -50%) translate(${x}px, ${y}px) rotate(${
+          rotationDeg + 90
+        }deg)`;
 
         return (
           <span
             key={i}
-            className="absolute inline-block text-sm font-black transition-all duration-500 ease-[cubic-bezier(0,0,0,1)]"
+            className="absolute font-semibold tracking-wider text-zinc-600 dark:text-zinc-300"
             style={{
               transform,
-              WebkitTransform: transform,
               left: "50%",
               top: "50%",
-              transformOrigin: "0 0",
+              fontSize: `${Math.min(fontSize, 12)}px`,
+              fontWeight: 600,
+              textRendering: "optimizeLegibility",
+              WebkitFontSmoothing: "antialiased",
+              MozOsxFontSmoothing: "grayscale",
             }}
           >
             {letter}

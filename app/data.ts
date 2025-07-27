@@ -116,8 +116,8 @@ export const PROJECTS: Project[] = [
       "Real-time Processing",
     ],
     link: "https://ledgeriq.example.com",
-    video: "https://player.vimeo.com/video/placeholder-ledgeriq",
-    thumbnail: "/projects/ledgeriq/hero-thumbnail.jpg",
+    video: "/projects/ledgeriq/ledgeriq-glitch.mp4",
+    thumbnail: "/projects/ledgeriq/ledgeriq-glitch.mp4",
     images: [
       "/projects/ledgeriq/dashboard-overview.jpg",
       "/projects/ledgeriq/mobile-interface.jpg",
@@ -275,9 +275,8 @@ export const PROJECTS: Project[] = [
       "Android",
     ],
     link: "https://www.echo.com/",
-    video:
-      "/images/projects/85767a70-9b3f-477d-9991-277ac9a65690 - 01 - 01 - 01.mp4",
-    thumbnail: "/projects/echo/poster.png",
+    video: "/projects/echo/echodrive-mockup-video.mp4",
+    thumbnail: "/projects/echo/echodrive-mockup-video.mp4",
     images: [
       "/projects/echo/img1.jpg",
       "/projects/echo/img2.jpg",
@@ -365,9 +364,8 @@ export const PROJECTS: Project[] = [
     tags: ["React Native", "Social Platform", "Mobile Design", "Community"],
     link: "https://www.growit.com/",
     githubLink: "https://github.com/example/growit-app",
-    video:
-      "https://player.vimeo.com/video/799152976?background=1&api=1&player_id=799152976_1676475040264&autopause=0&autoplay=0&mute=1&badge=0&loop=1&portrait=0&title=0&origin=https://work.randyellis.design",
-    thumbnail: "/images/projects/growit-thumbnail.jpg",
+    video: "/projects/growit/growit-hero-video.mp4",
+    thumbnail: "/projects/growit/hero-thumbnail.jpg",
     images: [
       "/projects/growit/hero-mockup.jpg",
       "/projects/growit/app-screens-overview.jpg",

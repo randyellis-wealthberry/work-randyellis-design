@@ -49,7 +49,7 @@ export default function MetisClient() {
         {/* Hero Banner Image - Half Height */}
         <div className="relative w-full aspect-[16/4.5] max-w-4xl mx-auto mb-8 rounded-2xl overflow-hidden shadow-2xl">
           <Image
-            src="/images/hero-banner-metis.jpg"
+            src="/images/projects/metis/hero-banner-metis.jpg"
             alt="METIS:LAYER - A Business Strategy AI Agent for Digital Designers"
             fill
             className="object-cover"

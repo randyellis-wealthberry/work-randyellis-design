@@ -1,0 +1,235 @@
+{
+  "tech_stack": [
+    "TypeScript",
+    "Next.js 15",
+    "React 19",
+    "Tailwind CSS v4",
+    "Node.js",
+    "MDX",
+    "Motion (Framer Motion)",
+    "Three.js",
+    "Radix UI",
+    "Jest",
+    "Vercel Analytics",
+    "ESLint"
+  ],
+  "features": [
+    {
+      "name": "Audio Player Component",
+      "description": "Advanced audio player with interactive UI, script drawer, keyboard controls, and animations",
+      "files": [
+        "components/ui/audio-player.tsx",
+        "components/ui/drawer.tsx",
+        "components/ui/slider.tsx",
+        "components/ui/scroll-area.tsx"
+      ]
+    },
+    {
+      "name": "Project Management System",
+      "description": "Dynamic project showcase with random selection, video thumbnails, and detailed project pages",
+      "files": [
+        "app/data.ts",
+        "app/projects/page.tsx",
+        "app/projects/projects-client.tsx",
+        "app/projects/[slug]/page.tsx",
+        "app/projects/[slug]/project-detail-client.tsx",
+        "lib/project-utils.ts"
+      ]
+    },
+    {
+      "name": "Video Player Components",
+      "description": "Interactive video players with hover effects, autoplay, and custom controls",
+      "files": [
+        "components/ui/video-player.tsx",
+        "components/ui/hover-video.tsx",
+        "components/ui/hover-iframe.tsx",
+        "lib/video-utils.ts"
+      ]
+    },
+    {
+      "name": "Animation System",
+      "description": "Motion-driven UI components with sophisticated animations and transitions",
+      "files": [
+        "components/motion-primitives/transition-panel.tsx",
+        "components/motion-primitives/animated-number.tsx",
+        "components/core/animated-number.tsx",
+        "components/core/animated-number-basic.tsx",
+        "components/ui/animated-background.tsx",
+        "components/ui/animated-asset.tsx",
+        "components/ui/animated-metric-card.tsx"
+      ]
+    },
+    {
+      "name": "3D WebGL Components",
+      "description": "Three.js integration for 3D graphics and WebGL content",
+      "files": [
+        "components/ui/animated-webgl.tsx",
+        "components/ui/unicorn-webgl.tsx",
+        "components/ui/unicorn-studio-embed.tsx"
+      ]
+    },
+    {
+      "name": "Interactive UI Components",
+      "description": "Rich interactive components including carousels, accordions, and magnetic effects",
+      "files": [
+        "components/core/accordion.tsx",
+        "components/ui/carousel.tsx",
+        "components/ui/magnetic.tsx",
+        "components/core/tilt.tsx",
+        "components/ui/morphing-dialog.tsx"
+      ]
+    },
+    {
+      "name": "Text Effects System",
+      "description": "Advanced text animations including scrambling, morphing, and circular text",
+      "files": [
+        "components/core/text-scramble.tsx",
+        "components/ui/text-effect.tsx",
+        "components/ui/text-morph.tsx",
+        "components/ui/text-loop.tsx",
+        "components/ui/scramble-section-title.tsx",
+        "components/ui/circular-text.tsx",
+        "components/ui/avatar-circular-text.tsx"
+      ]
+    },
+    {
+      "name": "MDX Blog System",
+      "description": "MDX-based blog with custom components and structured metadata",
+      "files": [
+        "app/blog/layout.tsx",
+        "app/blog/example-mdx-metadata/page.mdx",
+        "app/blog/exploring-the-intersection-of-design-ai-and-design-engineering/page.mdx",
+        "app/blog/product-manager-guide-ai-evaluations/page.mdx",
+        "app/blog/profits-not-pixels/page.mdx",
+        "app/blog/when-ai-gets-it-right-phion/page.mdx",
+        "mdx-components.tsx",
+        "components/ui/article-template.tsx"
+      ]
+    },
+    {
+      "name": "Analytics Integration",
+      "description": "Comprehensive analytics tracking with Vercel Analytics and Google Analytics",
+      "files": [
+        "components/analytics/google-analytics.tsx",
+        "lib/analytics.ts"
+      ]
+    },
+    {
+      "name": "Newsletter Subscription",
+      "description": "Newsletter signup functionality with API integration",
+      "files": [
+        "components/ui/newsletter-signup.tsx",
+        "app/api/newsletter/subscribe/route.ts"
+      ]
+    },
+    {
+      "name": "Visual Effects",
+      "description": "Advanced visual effects including spotlight, borders, and backgrounds",
+      "files": [
+        "components/ui/spotlight.tsx",
+        "components/core/border-trail.tsx",
+        "components/ui/border-trail-card.tsx",
+        "components/ui/comet-card.tsx",
+        "components/ui/comet-card-demo.tsx"
+      ]
+    },
+    {
+      "name": "Navigation System",
+      "description": "Responsive header and footer navigation with theme switching",
+      "files": [
+        "app/header.tsx",
+        "app/footer.tsx",
+        "app/layout.tsx"
+      ]
+    },
+    {
+      "name": "Archive System",
+      "description": "Portfolio archive with filtering and categorization",
+      "files": [
+        "app/archive/page.tsx",
+        "app/archive/archive-client.tsx",
+        "components/ui/archive-thumbnail.tsx"
+      ]
+    },
+    {
+      "name": "Page Generation",
+      "description": "Dynamic page generation for metadata, icons, and SEO",
+      "files": [
+        "app/icon.tsx",
+        "app/apple-icon.tsx",
+        "app/opengraph-image.tsx",
+        "app/manifest.ts",
+        "app/robots.ts",
+        "app/sitemap.ts",
+        "components/seo/structured-data.tsx"
+      ]
+    },
+    {
+      "name": "Case Study Pages",
+      "description": "Dedicated case study pages with rich content and animations",
+      "files": [
+        "app/ledgeriq/page.tsx",
+        "app/ledgeriq/ledgeriq-client.tsx",
+        "app/metis/page.tsx",
+        "app/metis/metis-client.tsx"
+      ]
+    },
+    {
+      "name": "About Page System",
+      "description": "Personal about page with work experience and biography",
+      "files": [
+        "app/about/page.tsx",
+        "app/about/about-client.tsx",
+        "app/about/opengraph-image.tsx"
+      ]
+    },
+    {
+      "name": "Progress Tracking",
+      "description": "Visual progress indicators and scroll tracking",
+      "files": [
+        "components/ui/progress.tsx",
+        "components/ui/scroll-progress.tsx"
+      ]
+    },
+    {
+      "name": "Testing Infrastructure",
+      "description": "Jest testing setup with React Testing Library",
+      "files": [
+        "__tests__/components/audio-player-accordion.test.tsx",
+        "__tests__/components/audio-player-ui-fixes.test.tsx",
+        "__tests__/lib/get-random-projects.test.ts",
+        "__tests__/lib/project-data.test.ts",
+        "__tests__/newsletter-signup.test.tsx",
+        "__tests__/api/newsletter.test.ts",
+        "__tests__/integration/"
+      ]
+    },
+    {
+      "name": "Core UI Library",
+      "description": "Foundational UI components based on Radix UI primitives",
+      "files": [
+        "components/ui/button.tsx",
+        "components/ui/card.tsx",
+        "components/ui/dialog.tsx",
+        "components/ui/dropdown-menu.tsx",
+        "components/ui/input.tsx",
+        "components/ui/separator.tsx",
+        "components/ui/skeleton.tsx",
+        "components/ui/tabs.tsx",
+        "components/ui/tooltip.tsx",
+        "components/ui/avatar.tsx",
+        "components/ui/badge.tsx",
+        "components/ui/aspect-ratio.tsx"
+      ]
+    },
+    {
+      "name": "Utility Libraries",
+      "description": "Helper functions and utilities for common operations",
+      "files": [
+        "lib/utils.ts",
+        "lib/constants.ts",
+        "hooks/useClickOutside.tsx"
+      ]
+    }
+  ]
+}
