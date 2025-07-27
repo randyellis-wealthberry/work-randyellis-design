@@ -31,7 +31,6 @@ const formatTime = (seconds: number = 0) => {
   return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
 };
 
-
 interface AudioPlayerProps {
   src?: string;
   cover?: string;
