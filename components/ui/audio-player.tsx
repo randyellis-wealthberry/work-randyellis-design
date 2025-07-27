@@ -373,11 +373,12 @@ Because the future of design isn't just about making things work. It's about mak
             </DrawerClose>
           </DrawerHeader>
           <div className="px-6 py-6 overflow-y-auto flex justify-center">
-            <div className="prose prose-lg max-w-2xl dark:prose-invert text-left">
+            <div className="max-w-2xl text-left">
               {script?.split("\n\n").map((paragraph, index) => (
                 <p
                   key={index}
-                  className="mb-6 leading-loose text-foreground font-medium"
+                  className="mb-6 leading-relaxed text-foreground text-base selection:bg-primary/20 selection:text-foreground"
+                  style={{ backgroundColor: "transparent" }}
                 >
                   {paragraph}
                 </p>
