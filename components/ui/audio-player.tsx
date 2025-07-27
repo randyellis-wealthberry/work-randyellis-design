@@ -188,7 +188,7 @@ Because the future of design isn't just about making things work. It's about mak
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isScriptOpen, togglePlay]);
 
-  if (!src || !isMounted) return null;
+  if (!src) return null;
 
   return (
     <>
@@ -207,14 +207,16 @@ Because the future of design isn't just about making things work. It's about mak
           }}
           layout
         >
-          <audio
-            ref={audioRef}
-            onTimeUpdate={handleTimeUpdate}
-            onLoadedMetadata={handleTimeUpdate}
-            src={src}
-            className="hidden"
-            preload="metadata"
-          />
+          {isMounted && (
+            <audio
+              ref={audioRef}
+              onTimeUpdate={handleTimeUpdate}
+              onLoadedMetadata={handleTimeUpdate}
+              src={src}
+              className="hidden"
+              preload="metadata"
+            />
+          )}
 
           <motion.div
             className="flex flex-col relative space-y-4"
