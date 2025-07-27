@@ -18,7 +18,7 @@ const inputVariants = cva(
     variants: {
       variant: {
         default: "border-zinc-300 dark:border-zinc-600",
-        floating: "border-zinc-300 dark:border-zinc-600 pt-8 pb-3",
+        floating: "border-zinc-300 dark:border-zinc-600 pt-10 pb-3",
       },
       size: {
         default: "h-12 px-4 py-3",
@@ -81,9 +81,9 @@ function FloatingInput({
       <label
         htmlFor={inputId}
         className={cn(
-          "absolute left-4 top-2 text-xs font-semibold transition-all duration-200 tracking-wide",
+          "absolute left-4 top-1.5 text-xs font-semibold transition-all duration-200 tracking-wide",
           "peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:font-medium peer-placeholder-shown:tracking-normal",
-          "peer-focus:top-2.5 peer-focus:text-xs peer-focus:font-semibold peer-focus:translate-y-0 peer-focus:tracking-wide",
+          "peer-focus:top-3 peer-focus:text-xs peer-focus:font-semibold peer-focus:translate-y-0 peer-focus:tracking-wide",
           "text-zinc-700 dark:text-zinc-300",
           "peer-focus:text-blue-600 dark:peer-focus:text-blue-400",
           error && "text-red-600 dark:text-red-400",
