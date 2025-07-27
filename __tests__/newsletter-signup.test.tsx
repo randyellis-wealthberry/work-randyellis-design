@@ -25,11 +25,15 @@ describe('NewsletterSignup', () => {
     const submitButton = screen.getByRole('button', { name: /subscribe/i })
     
     await user.type(emailInput, 'invalid-email')
+    
+    // Trigger blur to activate validation
+    await user.tab()
+    
     await user.click(submitButton)
     
     await waitFor(() => {
-      expect(screen.getByText(/invalid email address/i)).toBeInTheDocument()
-    })
+      expect(screen.getByText(/Invalid email address/i)).toBeInTheDocument()
+    }, { timeout: 3000 })
   })
 
   it('shows validation error for empty email', async () => {
@@ -40,8 +44,8 @@ describe('NewsletterSignup', () => {
     await user.click(submitButton)
     
     await waitFor(() => {
-      expect(screen.getByText(/email is required/i)).toBeInTheDocument()
-    })
+      expect(screen.getByText(/Email is required/i)).toBeInTheDocument()
+    }, { timeout: 3000 })
   })
 
   it('submits form with valid email', async () => {

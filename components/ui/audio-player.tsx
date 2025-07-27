@@ -21,6 +21,7 @@ import {
   DrawerTitle,
   DrawerClose,
 } from "@/components/ui/drawer";
+import { Slider } from "@/components/ui/slider";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
@@ -30,38 +31,6 @@ const formatTime = (seconds: number = 0) => {
   return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
 };
 
-const CustomSlider = ({
-  value,
-  onChange,
-  className,
-}: {
-  value: number;
-  onChange: (value: number) => void;
-  className?: string;
-}) => {
-  return (
-    <motion.div
-      className={cn(
-        "relative w-full h-1 bg-white/20 rounded-full cursor-pointer",
-        className,
-      )}
-      onClick={(e) => {
-        const rect = e.currentTarget.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const percentage = (x / rect.width) * 100;
-        onChange(Math.min(Math.max(percentage, 0), 100));
-      }}
-    >
-      <motion.div
-        className="absolute top-0 left-0 h-full bg-white rounded-full"
-        style={{ width: `${value}%` }}
-        initial={{ width: 0 }}
-        animate={{ width: `${value}%` }}
-        transition={{ type: "spring", stiffness: 300, damping: 30 }}
-      />
-    </motion.div>
-  );
-};
 
 interface AudioPlayerProps {
   src?: string;
@@ -284,9 +253,11 @@ Because the future of design isn't just about making things work. It's about mak
 
             {/* Progress Slider */}
             <motion.div className="flex flex-col gap-y-2">
-              <CustomSlider
-                value={progress}
-                onChange={handleSeek}
+              <Slider
+                value={[progress]}
+                onValueChange={(values) => handleSeek(values[0])}
+                max={100}
+                step={0.1}
                 className="w-full"
               />
               <div className="flex items-center justify-between text-xs text-muted-foreground">

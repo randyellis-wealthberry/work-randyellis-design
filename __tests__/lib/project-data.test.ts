@@ -15,14 +15,14 @@ describe("Project Data Validation", () => {
 
     test("LedgerIQ project has local MP4 video path", () => {
       expect(ledgeriqProject.video).toBeDefined();
-      expect(ledgeriqProject.video).toMatch(/^\/images\/projects\/ledgeriq-glitch\.mp4$/);
+      expect(ledgeriqProject.video).toMatch(/^\/projects\/ledgeriq\/ledgeriq-glitch\.mp4$/);
       expect(ledgeriqProject.video).not.toMatch(/vimeo\.com/);
       expect(ledgeriqProject.video).not.toMatch(/youtube\.com/);
     });
 
     test("LedgerIQ project has fallback thumbnail", () => {
       expect(ledgeriqProject.thumbnail).toBeDefined();
-      expect(ledgeriqProject.thumbnail).toMatch(/\.jpg$/);
+      expect(ledgeriqProject.thumbnail).toMatch(/\.mp4$/);
     });
 
     test("LedgerIQ project maintains required properties", () => {

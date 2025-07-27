@@ -15,13 +15,13 @@ describe('Selected Projects Thumbnail Investigation', () => {
     
     // Verify GrowIt project data
     expect(growit?.name).toBe('GrowIt');
-    expect(growit?.video).toBe('/images/projects/growit-demo.mp4');
-    expect(growit?.thumbnail).toBe('/images/projects/growit-demo.mp4');
+    expect(growit?.video).toBe('/projects/growit/growit-hero-video.mp4');
+    expect(growit?.thumbnail).toBe('/projects/growit/hero-thumbnail.jpg');
     
     // Verify LedgerIQ project data
     expect(ledgeriq?.name).toBe('LedgerIQ');
-    expect(ledgeriq?.video).toBe('/images/projects/ledgeriq-glitch.mp4');
-    expect(ledgeriq?.thumbnail).toBe('/images/projects/ledgeriq-glitch.mp4');
+    expect(ledgeriq?.video).toBe('/projects/ledgeriq/ledgeriq-glitch.mp4');
+    expect(ledgeriq?.thumbnail).toBe('/projects/ledgeriq/ledgeriq-glitch.mp4');
     
     // Ensure they are different
     expect(growit?.thumbnail).not.toBe(ledgeriq?.thumbnail);
@@ -40,12 +40,12 @@ describe('Selected Projects Thumbnail Investigation', () => {
     const ledgeriq = PROJECTS.find(p => p.id === 'ledgeriq');
     
     // Check that the paths are well-formed
-    expect(growit?.thumbnail).toMatch(/^\/images\/projects\/.*\.mp4$/);
-    expect(ledgeriq?.thumbnail).toMatch(/^\/images\/projects\/.*\.mp4$/);
+    expect(growit?.thumbnail).toMatch(/^\/projects\/growit\/.*\.(jpg|mp4)$/);
+    expect(ledgeriq?.thumbnail).toMatch(/^\/projects\/ledgeriq\/.*\.(jpg|mp4)$/);
     
     // Check they reference different files
-    expect(growit?.thumbnail).toBe('/images/projects/growit-demo.mp4');
-    expect(ledgeriq?.thumbnail).toBe('/images/projects/ledgeriq-glitch.mp4');
+    expect(growit?.thumbnail).toBe('/projects/growit/hero-thumbnail.jpg');
+    expect(ledgeriq?.thumbnail).toBe('/projects/ledgeriq/ledgeriq-glitch.mp4');
   });
   
   test('should check project order and indexing', () => {

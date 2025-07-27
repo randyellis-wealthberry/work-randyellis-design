@@ -22,18 +22,26 @@ const MockAccordionItem = ({
 
 const MockAccordionTrigger = ({ 
   children,
-  className 
+  className,
+  'data-testid': testId = "accordion-trigger"
 }: { 
   children: React.ReactNode;
   className?: string;
+  'data-testid'?: string;
 }) => (
-  <button data-testid="accordion-trigger" className={className}>
+  <button data-testid={testId} className={className}>
     {children}
   </button>
 );
 
-const MockAccordionContent = ({ children }: { children: React.ReactNode }) => (
-  <div data-testid="accordion-content">{children}</div>
+const MockAccordionContent = ({ 
+  children,
+  'data-testid': testId = "accordion-content"
+}: { 
+  children: React.ReactNode;
+  'data-testid'?: string;
+}) => (
+  <div data-testid={testId}>{children}</div>
 );
 
 // Mock the AudioPlayer component for isolated testing
@@ -64,19 +72,19 @@ const FAQWithAudioPlayer = () => {
   return (
     <MockAccordion>
       <MockAccordionItem value="audio-story" className="py-2">
-        <MockAccordionTrigger className="w-full text-left">
+        <MockAccordionTrigger className="w-full text-left" data-testid="accordion-trigger-audio">
           <div>Listen to Randy&apos;s Story</div>
         </MockAccordionTrigger>
-        <MockAccordionContent>
+        <MockAccordionContent data-testid="accordion-content-audio">
           <MockAudioPlayer compact={true} />
         </MockAccordionContent>
       </MockAccordionItem>
       
       <MockAccordionItem value="ai-design-approach" className="py-2">
-        <MockAccordionTrigger className="w-full text-left">
+        <MockAccordionTrigger className="w-full text-left" data-testid="accordion-trigger-ai">
           <div>What&apos;s your approach to AI in design?</div>
         </MockAccordionTrigger>
-        <MockAccordionContent>
+        <MockAccordionContent data-testid="accordion-content-ai">
           <p>AI design approach content...</p>
         </MockAccordionContent>
       </MockAccordionItem>
@@ -160,9 +168,9 @@ describe("Audio Player in FAQ Accordion", () => {
     test("accordion trigger has proper accessibility attributes", () => {
       render(<FAQWithAudioPlayer />);
       
-      const trigger = screen.getByTestId("accordion-trigger");
-      expect(trigger).toBeInTheDocument();
-      expect(trigger.tagName).toBe("BUTTON");
+      const audioTrigger = screen.getByTestId("accordion-trigger-audio");
+      expect(audioTrigger).toBeInTheDocument();
+      expect(audioTrigger.tagName).toBe("BUTTON");
     });
 
     test("audio player maintains keyboard navigation", () => {
@@ -183,8 +191,8 @@ describe("Audio Player in FAQ Accordion", () => {
       render(<FAQWithAudioPlayer />);
       
       // Test that the structure is accessible
-      const accordionContent = screen.getByTestId("accordion-content");
-      expect(accordionContent).toBeInTheDocument();
+      const audioAccordionContent = screen.getByTestId("accordion-content-audio");
+      expect(audioAccordionContent).toBeInTheDocument();
     });
   });
 
