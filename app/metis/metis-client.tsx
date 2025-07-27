@@ -5,6 +5,7 @@ import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { CometCard } from "@/components/ui/comet-card";
 import { CometCardDemo } from "@/components/ui/comet-card-demo";
+import { ScrambleSectionTitle } from "@/components/ui/scramble-section-title";
 
 const VARIANTS_CONTAINER = {
   hidden: { opacity: 0 },
@@ -58,9 +59,12 @@ export default function MetisClient() {
           />
         </div>
 
-        <h1 className="text-4xl font-bold text-zinc-900 dark:text-zinc-100 tracking-tight mb-6">
+        <ScrambleSectionTitle
+          as="h1"
+          className="text-4xl font-bold text-zinc-900 dark:text-zinc-100 tracking-tight mb-6"
+        >
           METIS:LAYER: A Business Strategy AI Agent for Digital Designers
-        </h1>
+        </ScrambleSectionTitle>
 
         <p className="text-xl text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-2xl mx-auto">
           A humble announcement about what I&apos;m building and sharing with

@@ -3,6 +3,7 @@ import { motion } from "motion/react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { ScrambleSectionTitle } from "@/components/ui/scramble-section-title";
 import {
   Accordion,
   AccordionItem,
@@ -291,7 +292,7 @@ export default function AboutClient() {
         transition={TRANSITION_SECTION}
       >
         {/* Avatar with Circular Text */}
-        <div className="flex flex-col md:flex-row md:items-start md:gap-12">
+        <div className="flex flex-col md:flex-row md:items-center md:gap-12">
           <motion.div
             className="flex justify-center md:justify-start mb-8 md:mb-0"
             variants={VARIANTS_SECTION}
@@ -320,9 +321,12 @@ export default function AboutClient() {
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
-        <h2 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100">
+        <ScrambleSectionTitle
+          as="h2"
+          className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100"
+        >
           Career Impact
-        </h2>
+        </ScrambleSectionTitle>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {achievements.map((achievement, index) => (
             <Card key={index} className="text-center">
@@ -351,9 +355,12 @@ export default function AboutClient() {
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
-        <h2 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100">
+        <ScrambleSectionTitle
+          as="h2"
+          className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100"
+        >
           Career Journey
-        </h2>
+        </ScrambleSectionTitle>
         <div className="space-y-8">
           <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">
             My journey in product design began with a fascination for how
@@ -380,9 +387,12 @@ export default function AboutClient() {
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
-        <h2 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100">
+        <ScrambleSectionTitle
+          as="h2"
+          className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100"
+        >
           Professional Experience
-        </h2>
+        </ScrambleSectionTitle>
         <div className="space-y-8">
           {experience.map((role, index) => (
             <Card key={index}>
@@ -439,9 +449,12 @@ export default function AboutClient() {
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
-        <h2 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100">
+        <ScrambleSectionTitle
+          as="h2"
+          className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100"
+        >
           Adjunct Instructor Experience
-        </h2>
+        </ScrambleSectionTitle>
         <div className="space-y-8">
           {adjunctExperience.map((role, index) => (
             <Card key={index}>
@@ -498,9 +511,12 @@ export default function AboutClient() {
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
-        <h2 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100">
+        <ScrambleSectionTitle
+          as="h2"
+          className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100"
+        >
           Certifications
-        </h2>
+        </ScrambleSectionTitle>
         <CertificationsAccordion />
       </motion.section>
 
@@ -510,9 +526,12 @@ export default function AboutClient() {
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
-        <h2 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100">
+        <ScrambleSectionTitle
+          as="h2"
+          className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100"
+        >
           Areas of Expertise
-        </h2>
+        </ScrambleSectionTitle>
         <div className="flex flex-wrap gap-2">
           {skills.map((skill, index) => (
             <Badge key={index} variant="secondary" className="text-sm">
@@ -528,9 +547,12 @@ export default function AboutClient() {
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
-        <h2 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100">
+        <ScrambleSectionTitle
+          as="h2"
+          className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100"
+        >
           Design Philosophy
-        </h2>
+        </ScrambleSectionTitle>
         <Card>
           <CardContent className="pt-6">
             <blockquote className="text-lg italic text-zinc-600 dark:text-zinc-400 leading-relaxed">
@@ -553,9 +575,12 @@ export default function AboutClient() {
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
-        <h2 className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100">
+        <ScrambleSectionTitle
+          as="h2"
+          className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100"
+        >
           Let&apos;s Build Something Amazing
-        </h2>
+        </ScrambleSectionTitle>
         <p className="text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto">
           Interested in collaborating on AI-powered products or discussing
           design leadership? I&apos;m always excited to connect with fellow

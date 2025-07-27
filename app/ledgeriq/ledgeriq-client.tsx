@@ -27,6 +27,7 @@ import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { TextEffect } from "@/components/ui/text-effect";
 import { HoverVideo } from "@/components/ui/hover-video";
 import { HoverIframe } from "@/components/ui/hover-iframe";
+import { ScrambleSectionTitle } from "@/components/ui/scramble-section-title";
 
 // Data
 import { PROJECTS, type Project } from "@/app/data";
@@ -193,9 +194,12 @@ const ImpactSection = () => {
       <div className="container mx-auto px-6">
         <InView>
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-slate-900 mb-4">
+            <ScrambleSectionTitle
+              as="h2"
+              className="text-4xl font-bold text-slate-900 mb-4"
+            >
               Measurable Impact
-            </h2>
+            </ScrambleSectionTitle>
             <p className="text-xl text-slate-600 max-w-3xl mx-auto">
               By reimagining the user experience and streamlining complex
               financial workflows, LedgerIQ achieved significant improvements
@@ -235,9 +239,12 @@ const ProjectDetailsSection = () => {
       <div className="container mx-auto px-6">
         <InView>
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-slate-900 mb-4">
+            <ScrambleSectionTitle
+              as="h2"
+              className="text-4xl font-bold text-slate-900 mb-4"
+            >
               Project Deep Dive
-            </h2>
+            </ScrambleSectionTitle>
             <p className="text-xl text-slate-600">
               Explore the comprehensive design process and technical
               implementation
@@ -258,9 +265,12 @@ const ProjectDetailsSection = () => {
             <InView>
               <div className="grid lg:grid-cols-2 gap-12 items-start">
                 <div className="space-y-6">
-                  <h3 className="text-2xl font-bold text-slate-900">
+                  <ScrambleSectionTitle
+                    as="h3"
+                    className="text-2xl font-bold text-slate-900"
+                  >
                     The Challenge
-                  </h3>
+                  </ScrambleSectionTitle>
                   <p className="text-slate-600 leading-relaxed">
                     LedgerIQ&apos;s existing platform suffered from complex
                     navigation, inefficient data visualization, and poor mobile
@@ -307,9 +317,12 @@ const ProjectDetailsSection = () => {
             <InView>
               <div className="grid lg:grid-cols-2 gap-12 items-start">
                 <div className="space-y-6">
-                  <h3 className="text-2xl font-bold text-slate-900">
+                  <ScrambleSectionTitle
+                    as="h3"
+                    className="text-2xl font-bold text-slate-900"
+                  >
                     User Research & Discovery
-                  </h3>
+                  </ScrambleSectionTitle>
                   <p className="text-slate-600 leading-relaxed">
                     Conducted comprehensive user research including stakeholder
                     interviews, user journey mapping, and competitive analysis
@@ -355,9 +368,12 @@ const ProjectDetailsSection = () => {
             <InView>
               <div className="grid lg:grid-cols-2 gap-12 items-start">
                 <div className="space-y-6">
-                  <h3 className="text-2xl font-bold text-slate-900">
+                  <ScrambleSectionTitle
+                    as="h3"
+                    className="text-2xl font-bold text-slate-900"
+                  >
                     Design System & Interface
-                  </h3>
+                  </ScrambleSectionTitle>
                   <p className="text-slate-600 leading-relaxed">
                     Developed a comprehensive design system with reusable
                     components, consistent visual language, and scalable design
@@ -403,9 +419,12 @@ const ProjectDetailsSection = () => {
             <InView>
               <div className="grid lg:grid-cols-2 gap-12 items-start">
                 <div className="space-y-6">
-                  <h3 className="text-2xl font-bold text-slate-900">
+                  <ScrambleSectionTitle
+                    as="h3"
+                    className="text-2xl font-bold text-slate-900"
+                  >
                     Technical Implementation
-                  </h3>
+                  </ScrambleSectionTitle>
                   <p className="text-slate-600 leading-relaxed">
                     Collaborated closely with engineering teams to implement the
                     design system using modern web technologies, ensuring
@@ -451,9 +470,12 @@ const ProjectDetailsSection = () => {
             <InView>
               <div className="grid lg:grid-cols-2 gap-12 items-start">
                 <div className="space-y-6">
-                  <h3 className="text-2xl font-bold text-slate-900">
+                  <ScrambleSectionTitle
+                    as="h3"
+                    className="text-2xl font-bold text-slate-900"
+                  >
                     Measurable Outcomes
-                  </h3>
+                  </ScrambleSectionTitle>
                   <p className="text-slate-600 leading-relaxed">
                     The redesigned platform delivered significant improvements
                     across all key metrics, resulting in enhanced user
@@ -554,7 +576,9 @@ const ProcessTimelineSection = () => {
       <div className="container mx-auto px-6">
         <InView>
           <div className="text-center mb-20">
-            <h2 className="text-4xl font-bold mb-4">Design Process</h2>
+            <ScrambleSectionTitle as="h2" className="text-4xl font-bold mb-4">
+              Design Process
+            </ScrambleSectionTitle>
             <p className="text-xl text-slate-300">
               A systematic approach to solving complex UX challenges
             </p>
@@ -630,9 +654,12 @@ const BeforeAfterSection = () => {
       <div className="container mx-auto px-6">
         <InView>
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-slate-900 mb-4">
+            <ScrambleSectionTitle
+              as="h2"
+              className="text-4xl font-bold text-slate-900 mb-4"
+            >
               Transformation Results
-            </h2>
+            </ScrambleSectionTitle>
             <p className="text-xl text-slate-600">
               See the dramatic improvement in user experience design
             </p>
@@ -761,9 +788,12 @@ const FeaturesShowcaseSection = () => {
       <div className="container mx-auto px-6">
         <InView>
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-slate-900 mb-4">
+            <ScrambleSectionTitle
+              as="h2"
+              className="text-4xl font-bold text-slate-900 mb-4"
+            >
               Key Features & Innovation
-            </h2>
+            </ScrambleSectionTitle>
             <p className="text-xl text-slate-600">
               Exploring the design solutions that drove measurable impact
             </p>
@@ -786,9 +816,12 @@ const FeaturesShowcaseSection = () => {
                     {feature.highlight}
                   </div>
 
-                  <h3 className="text-3xl font-bold text-slate-900">
+                  <ScrambleSectionTitle
+                    as="h3"
+                    className="text-3xl font-bold text-slate-900"
+                  >
                     {feature.title}
-                  </h3>
+                  </ScrambleSectionTitle>
 
                   <p className="text-lg text-slate-600 leading-relaxed">
                     {feature.description}
@@ -837,9 +870,12 @@ const RelatedProjectsSection = ({
       <div className="container mx-auto px-6">
         <InView>
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-slate-900 mb-4">
+            <ScrambleSectionTitle
+              as="h2"
+              className="text-4xl font-bold text-slate-900 mb-4"
+            >
               Related Projects
-            </h2>
+            </ScrambleSectionTitle>
             <p className="text-xl text-slate-600 max-w-2xl mx-auto">
               Explore other enterprise solutions that showcase similar design
               thinking and technical excellence
@@ -961,9 +997,12 @@ const ResultsSection = () => {
       <div className="container mx-auto px-6">
         <InView>
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-slate-900 mb-4">
+            <ScrambleSectionTitle
+              as="h2"
+              className="text-4xl font-bold text-slate-900 mb-4"
+            >
               Quantified Results
-            </h2>
+            </ScrambleSectionTitle>
             <p className="text-xl text-slate-600">
               Data-driven evidence of design impact and user value
             </p>
@@ -1010,9 +1049,12 @@ const ResultsSection = () => {
         <InView>
           <div className="text-center mt-16">
             <div className="max-w-2xl mx-auto space-y-6">
-              <h3 className="text-2xl font-bold text-slate-900">
+              <ScrambleSectionTitle
+                as="h3"
+                className="text-2xl font-bold text-slate-900"
+              >
                 Ready to Transform Your Product?
-              </h3>
+              </ScrambleSectionTitle>
               <p className="text-lg text-slate-600">
                 Let&apos;s discuss how strategic UX design can drive measurable
                 business results for your platform.

@@ -16,7 +16,6 @@ import {
 import { AnimatedNumberBasic } from "@/components/core/animated-number-basic";
 import { TransitionPanel } from "@/components/motion-primitives/transition-panel";
 import { ScrambleSectionTitle } from "@/components/ui/scramble-section-title";
-import { AudioPlayer } from "@/components/ui/audio-player";
 import { isVideoUrl } from "@/lib/video-utils";
 import { HoverVideo } from "@/components/ui/hover-video";
 import { getRandomProjects } from "@/lib/project-utils";
@@ -160,19 +159,6 @@ function AccordionIcons() {
       className="flex w-full flex-col divide-y divide-zinc-200 dark:divide-zinc-700"
       transition={{ duration: 0.2 }}
     >
-      <AccordionItem value="audio-story" className="py-2">
-        <AccordionTrigger className="w-full text-left text-zinc-950 dark:text-zinc-50">
-          <div className="flex items-center justify-between">
-            <div>Listen to Randy&apos;s Story</div>
-            <ChevronUp className="h-4 w-4 text-zinc-950 transition-transform duration-200 group-data-expanded:-rotate-180 dark:text-zinc-50" />
-          </div>
-        </AccordionTrigger>
-        <AccordionContent>
-          <div className="py-2">
-            <AudioPlayer />
-          </div>
-        </AccordionContent>
-      </AccordionItem>
       <AccordionItem value="ai-design-approach" className="py-2">
         <AccordionTrigger className="w-full text-left text-zinc-950 dark:text-zinc-50">
           <div className="flex items-center justify-between">

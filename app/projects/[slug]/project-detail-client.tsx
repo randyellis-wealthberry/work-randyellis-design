@@ -26,6 +26,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { ScrambleSectionTitle } from "@/components/ui/scramble-section-title";
 import {
   AnimatedVideo,
   AnimatedImage,
@@ -144,9 +145,12 @@ export default function ProjectDetailClient({
                   </Badge>
                 </div>
 
-                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
+                <ScrambleSectionTitle
+                  as="h1"
+                  className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight"
+                >
                   {project.name}
-                </h1>
+                </ScrambleSectionTitle>
 
                 <p className="text-lg text-muted-foreground leading-relaxed">
                   {project.longDescription}
@@ -253,7 +257,9 @@ export default function ProjectDetailClient({
               <p className="text-sm text-muted-foreground uppercase tracking-wide">
                 Measurable Impact
               </p>
-              <h2 className="text-3xl font-bold">Project Results</h2>
+              <ScrambleSectionTitle as="h2" className="text-3xl font-bold">
+                Project Results
+              </ScrambleSectionTitle>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-6xl mx-auto">
               {project.metrics.map((metric, index) => (
@@ -284,9 +290,9 @@ export default function ProjectDetailClient({
               <p className="text-sm text-muted-foreground uppercase tracking-wide">
                 The Challenge
               </p>
-              <h2 className="text-3xl font-bold">
+              <ScrambleSectionTitle as="h2" className="text-3xl font-bold">
                 The Challenge That Started It All
-              </h2>
+              </ScrambleSectionTitle>
             </div>
             <div className="max-w-4xl mx-auto">
               <Card className="p-6 md:p-8 border-muted hover:border-primary/30 transition-colors duration-200">
@@ -306,7 +312,9 @@ export default function ProjectDetailClient({
           variants={VARIANTS_ITEM}
           transition={TRANSITION_ITEM}
         >
-          <h2 className="text-2xl font-bold">Technologies Used</h2>
+          <ScrambleSectionTitle as="h2" className="text-2xl font-bold">
+            Technologies Used
+          </ScrambleSectionTitle>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
             {project.technologies.map((tech) => (
               <Badge
@@ -333,7 +341,9 @@ export default function ProjectDetailClient({
               <p className="text-sm text-muted-foreground uppercase tracking-wide">
                 Role & Team
               </p>
-              <h2 className="text-3xl font-bold">Project Overview</h2>
+              <ScrambleSectionTitle as="h2" className="text-3xl font-bold">
+                Project Overview
+              </ScrambleSectionTitle>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -455,12 +465,19 @@ export default function ProjectDetailClient({
               <p className="text-sm text-muted-foreground uppercase tracking-wide">
                 Strategy & Process
               </p>
-              <h2 className="text-3xl font-bold">The Technical Journey</h2>
+              <ScrambleSectionTitle as="h2" className="text-3xl font-bold">
+                The Technical Journey
+              </ScrambleSectionTitle>
             </div>
             <div className="max-w-4xl mx-auto space-y-6">
               {project.processStory.approach && (
                 <Card className="p-6 md:p-8 border-muted hover:border-primary/30 transition-colors duration-200">
-                  <h3 className="text-xl font-semibold mb-4">The Vision</h3>
+                  <ScrambleSectionTitle
+                    as="h3"
+                    className="text-xl font-semibold mb-4"
+                  >
+                    The Vision
+                  </ScrambleSectionTitle>
                   <p className="text-base leading-relaxed text-muted-foreground">
                     {project.processStory.approach}
                   </p>
@@ -468,9 +485,12 @@ export default function ProjectDetailClient({
               )}
               {project.processStory.methodology && (
                 <Card className="p-6 md:p-8 border-muted hover:border-primary/30 transition-colors duration-200">
-                  <h3 className="text-xl font-semibold mb-4">
+                  <ScrambleSectionTitle
+                    as="h3"
+                    className="text-xl font-semibold mb-4"
+                  >
                     Building the Solution
-                  </h3>
+                  </ScrambleSectionTitle>
                   <p className="text-base leading-relaxed text-muted-foreground">
                     {project.processStory.methodology}
                   </p>
@@ -493,9 +513,9 @@ export default function ProjectDetailClient({
               <p className="text-sm text-muted-foreground uppercase tracking-wide">
                 Constraints
               </p>
-              <h2 className="text-3xl font-bold">
+              <ScrambleSectionTitle as="h2" className="text-3xl font-bold">
                 Constraints For The GrowIt App
-              </h2>
+              </ScrambleSectionTitle>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -632,7 +652,9 @@ export default function ProjectDetailClient({
               <p className="text-sm text-muted-foreground uppercase tracking-wide">
                 What Made This Work
               </p>
-              <h2 className="text-3xl font-bold">Key Design Decisions</h2>
+              <ScrambleSectionTitle as="h2" className="text-3xl font-bold">
+                Key Design Decisions
+              </ScrambleSectionTitle>
             </div>
             <div className="max-w-4xl mx-auto">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -644,9 +666,12 @@ export default function ProjectDetailClient({
                       key={index}
                       className="p-6 border-muted hover:border-primary/30 transition-colors duration-200"
                     >
-                      <h3 className="text-lg font-semibold mb-3 text-primary">
+                      <ScrambleSectionTitle
+                        as="h3"
+                        className="text-lg font-semibold mb-3 text-primary"
+                      >
                         {title}
-                      </h3>
+                      </ScrambleSectionTitle>
                       <p className="text-sm leading-relaxed text-muted-foreground">
                         {description}
                       </p>
@@ -666,7 +691,12 @@ export default function ProjectDetailClient({
           variants={VARIANTS_ITEM}
           transition={TRANSITION_ITEM}
         >
-          <h2 className="text-2xl font-bold text-center">Project Journey</h2>
+          <ScrambleSectionTitle
+            as="h2"
+            className="text-2xl font-bold text-center"
+          >
+            Project Journey
+          </ScrambleSectionTitle>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {project.challenges && (
               <SectionCard
@@ -706,12 +736,19 @@ export default function ProjectDetailClient({
               <p className="text-sm text-muted-foreground uppercase tracking-wide">
                 Results & Impact
               </p>
-              <h2 className="text-3xl font-bold">Results That Matter</h2>
+              <ScrambleSectionTitle as="h2" className="text-3xl font-bold">
+                Results That Matter
+              </ScrambleSectionTitle>
             </div>
             <div className="max-w-4xl mx-auto space-y-6">
               {project.processStory.outcome && (
                 <Card className="p-6 md:p-8 border-muted hover:border-primary/30 transition-colors duration-200">
-                  <h3 className="text-xl font-semibold mb-4">The Outcome</h3>
+                  <ScrambleSectionTitle
+                    as="h3"
+                    className="text-xl font-semibold mb-4"
+                  >
+                    The Outcome
+                  </ScrambleSectionTitle>
                   <p className="text-base leading-relaxed text-muted-foreground">
                     {project.processStory.outcome}
                   </p>
@@ -721,9 +758,12 @@ export default function ProjectDetailClient({
               {/* Stakeholder Quotes */}
               {project.processStory?.stakeholderQuotes && (
                 <div className="space-y-4">
-                  <h3 className="text-xl font-semibold text-center">
+                  <ScrambleSectionTitle
+                    as="h3"
+                    className="text-xl font-semibold text-center"
+                  >
                     Stakeholder Voices
-                  </h3>
+                  </ScrambleSectionTitle>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     {project.processStory.stakeholderQuotes.map(
                       (quote, index) => (
@@ -751,9 +791,12 @@ export default function ProjectDetailClient({
 
               {project.processStory.reflection && (
                 <Card className="p-6 md:p-8 border-muted hover:border-primary/30 transition-colors duration-200">
-                  <h3 className="text-xl font-semibold mb-4">
+                  <ScrambleSectionTitle
+                    as="h3"
+                    className="text-xl font-semibold mb-4"
+                  >
                     The Bigger Picture
-                  </h3>
+                  </ScrambleSectionTitle>
                   <p className="text-base leading-relaxed text-muted-foreground">
                     {project.processStory.reflection}
                   </p>
@@ -772,7 +815,9 @@ export default function ProjectDetailClient({
             variants={VARIANTS_ITEM}
             transition={TRANSITION_ITEM}
           >
-            <h2 className="text-2xl font-bold">Project Gallery</h2>
+            <ScrambleSectionTitle as="h2" className="text-2xl font-bold">
+              Project Gallery
+            </ScrambleSectionTitle>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {project.images.map((image, index) => (
                 <div key={index} className="aspect-video">
@@ -795,7 +840,9 @@ export default function ProjectDetailClient({
             variants={VARIANTS_ITEM}
             transition={TRANSITION_ITEM}
           >
-            <h2 className="text-2xl font-bold">Related Projects</h2>
+            <ScrambleSectionTitle as="h2" className="text-2xl font-bold">
+              Related Projects
+            </ScrambleSectionTitle>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {relatedProjects.map((relatedProject) => (
                 <Card
@@ -845,7 +892,9 @@ export default function ProjectDetailClient({
           variants={VARIANTS_ITEM}
           transition={TRANSITION_ITEM}
         >
-          <h2 className="text-3xl font-bold">Like what you see?</h2>
+          <ScrambleSectionTitle as="h2" className="text-3xl font-bold">
+            Like what you see?
+          </ScrambleSectionTitle>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             I&apos;m always excited to discuss new projects and opportunities.
             Let&apos;s create something amazing together.
