@@ -92,6 +92,12 @@ Because the future of design isn't just about making things work. It's about mak
   const [isShuffle, setIsShuffle] = useState(false);
   const [isRepeat, setIsRepeat] = useState(false);
   const [isScriptOpen, setIsScriptOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Prevent hydration mismatch by only rendering after client mount
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const togglePlay = useCallback(() => {
     if (audioRef.current) {
@@ -182,7 +188,7 @@ Because the future of design isn't just about making things work. It's about mak
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [isScriptOpen, togglePlay]);
 
-  if (!src) return null;
+  if (!src || !isMounted) return null;
 
   return (
     <>
