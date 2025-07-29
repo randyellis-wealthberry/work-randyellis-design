@@ -157,7 +157,7 @@ export default function MetisClient() {
         variants={VARIANTS_SECTION}
         transition={{ ...TRANSITION_SECTION, delay: 0.3 }}
       >
-        <CometCard className="max-w-md">
+        <CometCard className="max-w-md mx-auto">
           <div className="relative aspect-[3/4] w-full">
             <Image
               src="/images/playercard-metis.png"

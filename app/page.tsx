@@ -550,9 +550,18 @@ export default function Personal() {
         transition={TRANSITION_SECTION}
         className="mt-40 sm:mt-32"
       >
-        <ScrambleSectionTitle className="mb-5 text-lg font-medium">
-          Selected Projects
-        </ScrambleSectionTitle>
+        <div className="flex items-center justify-between mb-5">
+          <ScrambleSectionTitle className="text-lg font-medium">
+            Selected Projects
+          </ScrambleSectionTitle>
+          <Link
+            href="/projects"
+            className="group relative inline-flex items-center text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors duration-200"
+          >
+            View all projects
+            <span className="absolute bottom-0 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 dark:bg-zinc-50 transition-all duration-200 group-hover:max-w-full"></span>
+          </Link>
+        </div>
         <div className="grid grid-cols-1 gap-12 sm:gap-8 sm:grid-cols-2">
           {selectedProjects.length > 0
             ? selectedProjects.map((project) => (
@@ -636,7 +645,7 @@ export default function Personal() {
         className="mt-40 sm:mt-32"
       >
         <ScrambleSectionTitle className="mb-5 text-lg font-medium">
-          Terminal Demo
+          Github Projects
         </ScrambleSectionTitle>
         <TerminalDemo />
       </motion.section>

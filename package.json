@@ -11,7 +11,9 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
+    "@flags-sdk/statsig": "^0.2.2",
     "@hookform/resolvers": "^5.1.1",
+    "@lottiefiles/dotlottie-react": "^0.14.4",
     "@mdx-js/loader": "^3.0.1",
     "@mdx-js/react": "^3.0.1",
     "@next/mdx": "^15.4.3",
@@ -38,6 +40,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "embla-carousel-react": "^8.6.0",
+    "flags": "^4.0.1",
     "framer-motion": "^12.23.9",
     "loops": "^5.0.1",
     "lucide-react": "^0.468.0",
@@ -70,6 +73,7 @@
     "eslint-plugin-mdx": "^3.5.0",
     "eslint-plugin-prettier": "^5.5.1",
     "jest": "^30.0.5",
+    "jest-axe": "^10.0.0",
     "jest-environment-jsdom": "^30.0.5",
     "postcss": "^8",
     "prettier": "^3.6.2",

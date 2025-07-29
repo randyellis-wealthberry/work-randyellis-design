@@ -77,3 +77,4 @@ jspm_packages/
 # Claude AI files
 .claude/
 CLAUDE.md
+.env*.local

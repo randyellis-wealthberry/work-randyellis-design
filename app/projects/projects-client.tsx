@@ -145,9 +145,12 @@ function ProjectThumbnail({ project }: { project: (typeof PROJECTS)[0] }) {
 export default function ProjectsClient() {
   const [activeCategory, setActiveCategory] = useState("All");
 
-  const filteredProjects = PROJECTS.filter((project) =>
-    activeCategory === "All" ? true : project.category === activeCategory,
-  );
+  const filteredProjects = PROJECTS.filter((project) => {
+    if (activeCategory === "All") return true;
+    // Check both single category and multiple categories
+    const projectCategories = project.categories || [project.category];
+    return projectCategories.includes(activeCategory);
+  });
 
   return (
     <motion.main
@@ -177,7 +180,7 @@ export default function ProjectsClient() {
           onValueChange={setActiveCategory}
           className="w-full"
         >
-          <TabsList className="grid w-full grid-cols-3 lg:grid-cols-6">
+          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 lg:grid-cols-6">
             {PROJECT_CATEGORIES.map((category) => (
               <TabsTrigger key={category} value={category} className="text-xs">
                 {category}
@@ -198,7 +201,7 @@ export default function ProjectsClient() {
                   variants={VARIANTS_ITEM}
                   className="h-full"
                 >
-                  <Card className="group relative overflow-hidden h-full flex flex-col p-0 gap-0">
+                  <Card className="group relative overflow-hidden h-full flex flex-col gap-0 p-0 shadow-lg">
                     <Link href={`/projects/${project.slug}`} className="block">
                       <ProjectThumbnail project={project} />
                     </Link>

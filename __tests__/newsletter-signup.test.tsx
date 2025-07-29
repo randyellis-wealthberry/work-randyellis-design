@@ -5,6 +5,11 @@ import { NewsletterSignup } from '@/components/ui/newsletter-signup'
 // Mock fetch
 global.fetch = jest.fn()
 
+// Mock analytics
+jest.mock('@/lib/analytics', () => ({
+  trackNewsletterAttempt: jest.fn(),
+}))
+
 describe('NewsletterSignup', () => {
   beforeEach(() => {
     jest.resetAllMocks()
@@ -19,33 +24,56 @@ describe('NewsletterSignup', () => {
 
   it('shows validation error for invalid email', async () => {
     const user = userEvent.setup()
+    
+    // Mock fetch to not be called for invalid emails
+    const mockFetch = global.fetch as jest.MockedFunction<typeof fetch>
+    mockFetch.mockImplementation(() => {
+      throw new Error('Should not be called for invalid email')
+    })
+    
     render(<NewsletterSignup />)
     
     const emailInput = screen.getByLabelText(/email/i)
     const submitButton = screen.getByRole('button', { name: /subscribe/i })
     
-    await user.type(emailInput, 'invalid-email')
+    // Type an invalid email format (no @ symbol)
+    await user.type(emailInput, 'notanemail')
     
-    // Trigger blur to activate validation
-    await user.tab()
-    
+    // Submit the form - this should trigger validation BEFORE calling fetch
     await user.click(submitButton)
     
+    // Wait for validation error to appear (should happen before fetch is called)
     await waitFor(() => {
       expect(screen.getByText(/Invalid email address/i)).toBeInTheDocument()
     }, { timeout: 3000 })
+    
+    // Verify fetch was never called
+    expect(mockFetch).not.toHaveBeenCalled()
   })
 
   it('shows validation error for empty email', async () => {
     const user = userEvent.setup()
+    
+    // Mock fetch to not be called for empty email
+    const mockFetch = global.fetch as jest.MockedFunction<typeof fetch>
+    mockFetch.mockImplementation(() => {
+      throw new Error('Should not be called for empty email')
+    })
+    
     render(<NewsletterSignup />)
     
     const submitButton = screen.getByRole('button', { name: /subscribe/i })
+    
+    // Submit form without entering email
     await user.click(submitButton)
     
+    // Wait for validation error to appear
     await waitFor(() => {
       expect(screen.getByText(/Email is required/i)).toBeInTheDocument()
     }, { timeout: 3000 })
+    
+    // Verify fetch was never called
+    expect(mockFetch).not.toHaveBeenCalled()
   })
 
   it('submits form with valid email', async () => {
@@ -128,8 +156,38 @@ describe('NewsletterSignup', () => {
     await user.click(submitButton)
     
     await waitFor(() => {
-      expect(screen.getByText(/something went wrong/i)).toBeInTheDocument()
+      expect(screen.getByText(/server error/i)).toBeInTheDocument()
     })
+  })
+
+  it('shows rate limiting message on 429 response', async () => {
+    const user = userEvent.setup()
+    const mockFetch = global.fetch as jest.MockedFunction<typeof fetch>
+    mockFetch.mockResolvedValueOnce({
+      ok: false,
+      status: 429,
+      json: async () => ({ 
+        error: 'Too many requests',
+        message: 'Please wait a moment before trying again.',
+        retryAfter: 60
+      })
+    } as Response)
+    
+    render(<NewsletterSignup />)
+    
+    const emailInput = screen.getByLabelText(/email/i)
+    const submitButton = screen.getByRole('button', { name: /subscribe/i })
+    
+    await user.type(emailInput, 'test@example.com')
+    await user.click(submitButton)
+    
+    await waitFor(() => {
+      expect(screen.getByText(/please wait a moment before trying again/i)).toBeInTheDocument()
+    })
+
+    // Check that the error message has the orange styling for rate limiting
+    const errorDiv = screen.getByText(/please wait a moment before trying again/i).closest('div')
+    expect(errorDiv).toHaveClass('bg-orange-100')
   })
 
   it('has proper accessibility attributes', () => {

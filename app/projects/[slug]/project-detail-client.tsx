@@ -14,7 +14,6 @@ import {
   Target,
   Cloud,
   Cpu,
-  MapPin,
 } from "lucide-react";
 import {
   Card,
@@ -79,11 +78,13 @@ function SectionCard({
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <ul className="space-y-2">
+        <ul className="space-y-3">
           {items.map((item, index) => (
-            <li key={index} className="flex items-start gap-2">
-              <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 shrink-0" />
-              <span className="text-sm">{item}</span>
+            <li key={index} className="flex items-start gap-3">
+              <CheckCircle className="h-4 w-4 text-green-500 mt-1 shrink-0" />
+              <span className="text-sm leading-relaxed text-muted-foreground">
+                {item}
+              </span>
             </li>
           ))}
         </ul>
@@ -95,6 +96,61 @@ function SectionCard({
 interface ProjectDetailClientProps {
   project: Project;
   relatedProjects: Project[];
+}
+
+// Helper function to determine performance level based on metric value
+function getPerformanceLevel(
+  value: string,
+  label: string,
+): "excellent" | "good" | "needs-improvement" | "neutral" {
+  const numericValue = parseFloat(value.replace(/[^0-9.]/g, ""));
+
+  // Performance thresholds based on metric type
+  if (
+    label.toLowerCase().includes("success rate") ||
+    label.toLowerCase().includes("usability")
+  ) {
+    if (value.includes("%")) {
+      if (numericValue >= 90) return "excellent";
+      if (numericValue >= 70) return "good";
+      if (numericValue < 70) return "needs-improvement";
+    } else {
+      // Usability scores (typically out of 100)
+      if (numericValue >= 90) return "excellent";
+      if (numericValue >= 70) return "good";
+      if (numericValue < 70) return "needs-improvement";
+    }
+  }
+
+  // Special case for the 800% improvement - this is excellent
+  if (numericValue >= 500) return "excellent";
+
+  // Default to neutral for time-based and count metrics
+  return "neutral";
+}
+
+// Helper function to group metrics
+function groupMetrics(metrics: { label: string; value: string }[]) {
+  const successRates = metrics.filter(
+    (m) =>
+      m.label.toLowerCase().includes("success rate") ||
+      m.label.toLowerCase().includes("improvement") ||
+      m.label.toLowerCase().includes("direct success"),
+  );
+
+  const userExperience = metrics.filter((m) =>
+    m.label.toLowerCase().includes("usability"),
+  );
+
+  const researchContext = metrics.filter(
+    (m) =>
+      m.label.toLowerCase().includes("duration") ||
+      m.label.toLowerCase().includes("participants") ||
+      m.label.toLowerCase().includes("sprint") ||
+      m.label.toLowerCase().includes("testing"),
+  );
+
+  return { successRates, userExperience, researchContext };
 }
 
 export default function ProjectDetailClient({
@@ -249,7 +305,7 @@ export default function ProjectDetailClient({
         {/* Metrics */}
         {project.metrics && (
           <motion.section
-            className="space-y-6"
+            className="space-y-8"
             variants={VARIANTS_ITEM}
             transition={TRANSITION_ITEM}
           >
@@ -261,21 +317,152 @@ export default function ProjectDetailClient({
                 Project Results
               </ScrambleSectionTitle>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 max-w-6xl mx-auto">
-              {project.metrics.map((metric, index) => (
-                <div key={index} className="w-full">
-                  <AnimatedMetricCard
-                    label={metric.label}
-                    value={metric.value}
-                    animationDelay={index * 200}
-                    springOptions={{
-                      bounce: 0,
-                      duration: 2000 + index * 300,
-                    }}
-                  />
+
+            {(() => {
+              const grouped = groupMetrics(project.metrics);
+              const heroMetric = project.metrics.find(
+                (m) =>
+                  m.value.includes("800%") ||
+                  m.label.toLowerCase().includes("direct success"),
+              );
+
+              return (
+                <div className="max-w-7xl mx-auto space-y-8">
+                  {/* Hero Metric */}
+                  {heroMetric && (
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                      <div className="lg:col-span-2">
+                        <AnimatedMetricCard
+                          label={heroMetric.label}
+                          value={heroMetric.value}
+                          variant="hero"
+                          performanceLevel={getPerformanceLevel(
+                            heroMetric.value,
+                            heroMetric.label,
+                          )}
+                          animationDelay={0}
+                          springOptions={{
+                            bounce: 0,
+                            duration: 2500,
+                          }}
+                        />
+                      </div>
+                      <div className="lg:col-span-1 flex items-center">
+                        <div className="bg-muted/30 rounded-lg p-6 w-full">
+                          <h4 className="font-semibold text-lg mb-2">
+                            Key Achievement
+                          </h4>
+                          <p className="text-sm text-muted-foreground leading-relaxed">
+                            This represents the most significant improvement
+                            achieved through the optimization of user pathways
+                            and enhanced design patterns.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Performance Metrics Group */}
+                  {grouped.successRates.length > 0 && (
+                    <div className="space-y-4">
+                      <div className="flex items-center gap-3">
+                        <span className="text-2xl">📈</span>
+                        <h3 className="text-xl font-semibold">Performance</h3>
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {grouped.successRates
+                          .filter((metric) => !metric.value.includes("800%"))
+                          .map((metric, index) => (
+                            <AnimatedMetricCard
+                              key={`success-${index}`}
+                              label={metric.label}
+                              value={metric.value}
+                              performanceLevel={getPerformanceLevel(
+                                metric.value,
+                                metric.label,
+                              )}
+                              animationDelay={(index + 1) * 200}
+                              springOptions={{
+                                bounce: 0,
+                                duration: 2000 + index * 300,
+                              }}
+                            />
+                          ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* User Experience Group */}
+                  {grouped.userExperience.length > 0 && (
+                    <>
+                      <Separator />
+                      <div className="space-y-4">
+                        <div className="flex items-center gap-3">
+                          <span className="text-2xl">👤</span>
+                          <h3 className="text-xl font-semibold">
+                            User Experience
+                          </h3>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                          {grouped.userExperience.map((metric, index) => (
+                            <AnimatedMetricCard
+                              key={`ux-${index}`}
+                              label={metric.label}
+                              value={metric.value}
+                              performanceLevel={getPerformanceLevel(
+                                metric.value,
+                                metric.label,
+                              )}
+                              animationDelay={
+                                (grouped.successRates.length + index + 1) * 200
+                              }
+                              springOptions={{
+                                bounce: 0,
+                                duration: 2000 + index * 300,
+                              }}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    </>
+                  )}
+
+                  {/* Research Context Group */}
+                  {grouped.researchContext.length > 0 && (
+                    <>
+                      <Separator />
+                      <div className="space-y-4">
+                        <div className="flex items-center gap-3">
+                          <span className="text-2xl">🔬</span>
+                          <h3 className="text-xl font-semibold">Research</h3>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl">
+                          {grouped.researchContext.map((metric, index) => (
+                            <AnimatedMetricCard
+                              key={`research-${index}`}
+                              label={metric.label}
+                              value={metric.value}
+                              performanceLevel="neutral"
+                              animationDelay={
+                                (grouped.successRates.length +
+                                  grouped.userExperience.length +
+                                  index +
+                                  1) *
+                                200
+                              }
+                              springOptions={{
+                                bounce: 0,
+                                duration: 2000 + index * 300,
+                              }}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    </>
+                  )}
                 </div>
-              ))}
-            </div>
+              );
+            })()}
           </motion.section>
         )}
 
@@ -514,7 +701,7 @@ export default function ProjectDetailClient({
                 Constraints
               </p>
               <ScrambleSectionTitle as="h2" className="text-3xl font-bold">
-                Constraints For The GrowIt App
+                {`Constraints For The ${project.name} Project`}
               </ScrambleSectionTitle>
             </div>
 
@@ -534,8 +721,8 @@ export default function ProjectDetailClient({
                 <CardContent className="flex-1 space-y-4">
                   <div className="aspect-video rounded-lg overflow-hidden">
                     <AnimatedImage
-                      src="/projects/growit/scene-mockup.jpg"
-                      alt="GrowIt app in natural garden environment showing environmental considerations"
+                      src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=600&fit=crop&crop=center"
+                      alt="Environmental considerations and constraints for project development"
                       objectFit="cover"
                       hoverScale={1.02}
                     />
@@ -573,8 +760,8 @@ export default function ProjectDetailClient({
                 <CardContent className="flex-1 space-y-4">
                   <div className="aspect-video rounded-lg overflow-hidden">
                     <AnimatedImage
-                      src="/projects/growit/technical-concepts.png"
-                      alt="GrowIt technical architecture and beacon signal concepts"
+                      src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&h=600&fit=crop&crop=center"
+                      alt="Technical architecture and system constraints for project implementation"
                       objectFit="cover"
                       hoverScale={1.02}
                     />
@@ -593,47 +780,6 @@ export default function ProjectDetailClient({
                         </li>
                       ))}
                     </ul>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Location - Spans full width on large screens */}
-              <Card className="lg:col-span-2 h-full flex flex-col border-muted hover:border-primary/30 transition-colors duration-200">
-                <CardHeader>
-                  <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-primary/10 rounded-lg">
-                      <MapPin className="h-5 w-5 text-primary" />
-                    </div>
-                    <CardTitle className="text-base font-semibold">
-                      Location
-                    </CardTitle>
-                  </div>
-                </CardHeader>
-                <CardContent className="flex-1 space-y-4">
-                  <div className="grid lg:grid-cols-2 gap-6">
-                    <div className="aspect-video rounded-lg overflow-hidden">
-                      <AnimatedImage
-                        src="/projects/growit/location-features.png"
-                        alt="GrowIt location-based features and community mapping"
-                        objectFit="cover"
-                        hoverScale={1.02}
-                      />
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium mb-3">
-                        Things to consider:
-                      </p>
-                      <ul className="space-y-2">
-                        {project.constraints.location?.map((item, index) => (
-                          <li key={index} className="flex items-start">
-                            <span className="text-primary mr-2 mt-1">•</span>
-                            <span className="text-sm text-muted-foreground leading-relaxed">
-                              {item}
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
                   </div>
                 </CardContent>
               </Card>

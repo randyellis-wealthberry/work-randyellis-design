@@ -1,0 +1,82 @@
+[
+  {
+    "id": "email_1753761945978_sro6cwbw4",
+    "email": "randy.ellis.pro@gmail.com",
+    "status": "subscribed",
+    "source": "website",
+    "subscribedAt": "2025-07-29T04:05:45.978Z",
+    "metadata": {
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+      "referer": "http://localhost:3000/",
+      "consentGiven": true,
+      "consentTimestamp": "2025-07-29T04:05:45.978Z",
+      "emailProvider": "Gmail",
+      "signupSource": "Newsletter form"
+    }
+  },
+  {
+    "id": "email_1753762226114_0t26cs2kc",
+    "email": "ceo@wealthbrry.com",
+    "status": "subscribed",
+    "source": "website",
+    "subscribedAt": "2025-07-29T04:10:26.114Z",
+    "metadata": {
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+      "referer": "http://localhost:3000/",
+      "consentGiven": true,
+      "consentTimestamp": "2025-07-29T04:10:26.114Z",
+      "emailProvider": "wealthbrry.com",
+      "signupSource": "Newsletter form"
+    }
+  },
+  {
+    "id": "email_1753762252492_waqz2zxw7",
+    "email": "randy@wealthbrry.com",
+    "status": "subscribed",
+    "source": "website",
+    "subscribedAt": "2025-07-29T04:10:52.492Z",
+    "metadata": {
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+      "referer": "http://localhost:3000/",
+      "consentGiven": true,
+      "consentTimestamp": "2025-07-29T04:10:52.492Z",
+      "emailProvider": "wealthbrry.com",
+      "signupSource": "Newsletter form"
+    }
+  },
+  {
+    "id": "email_1753762708602_pvfkc5pul",
+    "email": "randy.ellis.pro+test@gmail.com",
+    "status": "subscribed",
+    "source": "website",
+    "subscribedAt": "2025-07-29T04:18:28.602Z",
+    "metadata": {
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+      "referer": "http://localhost:3000/",
+      "consentGiven": true,
+      "consentTimestamp": "2025-07-29T04:18:28.602Z",
+      "emailProvider": "Gmail",
+      "signupSource": "Newsletter form"
+    }
+  },
+  {
+    "id": "email_1753763045739_0s4r2ndhx",
+    "email": "hi@wealthbrry.com",
+    "status": "subscribed",
+    "source": "website",
+    "subscribedAt": "2025-07-29T04:24:05.739Z",
+    "metadata": {
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+      "referer": "http://localhost:3000/",
+      "consentGiven": true,
+      "consentTimestamp": "2025-07-29T04:24:05.739Z",
+      "emailProvider": "wealthbrry.com",
+      "signupSource": "Newsletter form"
+    }
+  }
+]

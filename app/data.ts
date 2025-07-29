@@ -5,7 +5,8 @@ export type Project = {
   slug: string;
   description: string;
   longDescription: string;
-  category: string;
+  category: string; // Keep for backward compatibility
+  categories?: string[]; // New multi-category support
   tags: string[];
   link: string;
   githubLink?: string;
@@ -104,7 +105,7 @@ export const PROJECTS: Project[] = [
       "Transforming payroll integrity through AI-driven anomaly detection - achieving 78% error reduction and $180K annual savings in a 6-month enterprise validation sprint.",
     longDescription:
       "Most companies unknowingly hemorrhage money through payroll systems—billions lost annually to fraud and manual errors. Our target client was experiencing the perfect storm: 10 hours of manual audit work per pay cycle, persistent errors slipping through, growing fraud exposure, and damaged employee trust. LedgerIQ reimagined payroll integrity through intelligent AI that learns organizational patterns, detects anomalies in real-time, and integrates seamlessly with existing workflows.",
-    category: "Enterprise SaaS",
+    category: "Enterprise",
     tags: [
       "Artificial Intelligence",
       "Machine Learning",
@@ -115,16 +116,15 @@ export const PROJECTS: Project[] = [
       "Anomaly Detection",
       "Real-time Processing",
     ],
-    link: "https://ledgeriq.example.com",
+    link: "https://ledgeriq-dashboard.vercel.app/",
+    githubLink: "https://github.com/randyellis-wealthberry/LedgerIQDashboard",
     video: "/projects/ledgeriq/ledgeriq-glitch.mp4",
     thumbnail: "/projects/ledgeriq/ledgeriq-glitch.mp4",
     images: [
-      "/projects/ledgeriq/dashboard-overview.jpg",
-      "/projects/ledgeriq/mobile-interface.jpg",
-      "/projects/ledgeriq/data-visualization.jpg",
-      "/projects/ledgeriq/design-system.jpg",
-      "/projects/ledgeriq/user-research.jpg",
-      "/projects/ledgeriq/before-after-comparison.jpg",
+      "/projects/ledgeriq/1.jpg",
+      "/projects/ledgeriq/2.jpg",
+      "/projects/ledgeriq/3.jpg",
+      "/projects/ledgeriq/4.jpg",
     ],
     timeline: "Q1 2023 - Q3 2023",
     status: "completed",
@@ -266,6 +266,7 @@ export const PROJECTS: Project[] = [
     longDescription:
       "Echo Global Logistics, a leading provider of technology-enabled transportation and supply chain management services, partnered with Eight Bit Studios to modernize their truckload management operations. The shipping industry, long reliant on outdated methods, faced significant challenges in coordinating shippers, drivers, and dispatch teams. EchoDrive was designed to build a modern shipment tracking system that would streamline communication, improve compliance, and drive business growth.",
     category: "Mobile App",
+    categories: ["Mobile App", "Enterprise"],
     tags: [
       "Transportation",
       "Logistics",
@@ -360,10 +361,9 @@ export const PROJECTS: Project[] = [
     description: "One of the fastest-growing mobile gardening apps in the U.S.",
     longDescription:
       "GrowIt is a social gardening platform that connects plant enthusiasts worldwide. Users can share their gardening journey, get expert advice, and discover new plants through an engaging social experience. The app features plant identification, care reminders, and a vibrant community of gardening enthusiasts.",
-    category: "Mobile App",
+    category: "UI/UX",
     tags: ["React Native", "Social Platform", "Mobile Design", "Community"],
     link: "https://www.growit.com/",
-    githubLink: "https://github.com/example/growit-app",
     video: "/projects/growit/growit-hero-video.mp4",
     thumbnail: "/projects/growit/hero-thumbnail.jpg",
     images: [
@@ -450,6 +450,188 @@ export const PROJECTS: Project[] = [
       ],
     },
   },
+  {
+    id: "addvanced",
+    name: "Addvanced",
+    subtitle: "Career Intelligence Platform",
+    slug: "addvanced",
+    description:
+      "Transforming job search from reactive to strategic through AI-powered insights and social intelligence - achieving 35% improvement in customer job placement success.",
+    longDescription:
+      "At Alight Solutions Innovation Lab, I led a cross-functional team in a rapid 2-week sprint to create a career intelligence platform that fundamentally changed how job seekers approach career advancement. Unlike traditional job tracking tools, Addvanced integrated social networking, real-time activity monitoring, and AI-powered insights to transform reactive job hunting into strategic career management. Working under tight innovation lab constraints, we delivered a Progressive Web App that achieved a 35% improvement in customer job placement success through user-centered design and rapid validation methodology.",
+    category: "Web Development",
+    categories: ["Web Development", "UI/UX"],
+    tags: [
+      "UX Research",
+      "Product Strategy",
+      "Mobile Design",
+      "Innovation Lab",
+      "Rapid Prototyping",
+      "Usability Testing",
+      "Social Intelligence",
+      "Progressive Web App",
+      "Career Intelligence",
+      "B2C/B2B Platform",
+    ],
+    link: "https://work.randyellis.design/addvanced",
+    video: "/projects/addvanced/addvanced-demo-video.mp4",
+    thumbnail: "/projects/addvanced/A1-Home.png",
+    images: [
+      "/projects/addvanced/A0-Addvanced Splash Screen.png",
+      "/projects/addvanced/A1-Home.png",
+      "/projects/addvanced/A5-Connection Details.png",
+      "/projects/addvanced/A17c-Moved to Offer.png",
+      "/projects/addvanced/addvanced-whiteboard-fitts-law.png",
+    ],
+    timeline: "Sep 2018 - Jul 2019",
+    status: "completed",
+    technologies: [
+      "Progressive Web App",
+      "Mobile-First Design",
+      "Social Media APIs",
+      "LinkedIn Integration",
+      "Indeed Integration",
+      "Real-time Processing",
+      "OAuth Authentication",
+      "Responsive Design",
+    ],
+    featured: true,
+    metrics: [
+      { label: "Job Placement Success Improvement", value: "35%" },
+      { label: "Import Job Post Success Rate", value: "50%" },
+      { label: "View Resume Success Rate", value: "64%" },
+      { label: "View Network Success Rate", value: "86%" },
+      { label: "View Social Activity Success Rate", value: "86%" },
+      { label: "Import Job Post Usability Score", value: "74" },
+      { label: "View Resume Usability Score", value: "82" },
+      { label: "View Network Usability Score", value: "93" },
+      { label: "View Social Activity Usability Score", value: "93" },
+      { label: "Sprint Duration", value: "2 weeks" },
+      { label: "Usability Testing Participants", value: "14" },
+      { label: "Direct Success Rate for Optimized Paths", value: "800%" },
+    ],
+    challenges: [
+      "2-week sprint timeline requiring rapid prototyping and validation",
+      "Direct-to-high-fidelity approach skipping traditional wireframing phase",
+      "Integrating complex social intelligence features within tight constraints",
+      "Balancing B2C user needs with potential B2B white-label opportunities",
+      "Achieving Level AA accessibility compliance in rapid development cycle",
+      "Coordinating cross-functional team in innovation lab environment",
+      "Managing stakeholder expectations for accelerated design process",
+    ],
+    solutions: [
+      "Implemented IDI (Innovation, Disruption, Integration) competitive analysis framework",
+      "Conducted comprehensive 14-participant usability testing with 4 task scenarios",
+      "Built mobile-first Progressive Web App with OAuth social integration",
+      "Created customizable multi-tier hiring pipeline with drag-and-drop functionality",
+      "Developed real-time professional network activity tracking system",
+      "Established comparison engine for side-by-side role evaluation",
+      "Designed URL import integration for LinkedIn and Indeed job postings",
+    ],
+    learnings: [
+      "Innovation lab velocity requires adapted UX methodology while maintaining user-centered outcomes",
+      "Direct-to-high-fidelity approach can succeed with proper validation checkpoints and stakeholder alignment",
+      "Comprehensive usability testing (14 participants) crucial for identifying optimization opportunities early",
+      "Social intelligence features create significant competitive differentiation in career tools",
+      "Mobile-first design essential for modern career management applications",
+      "Cross-functional collaboration in innovation labs requires daily alignment and shared ownership",
+      "Level AA accessibility standards enhance overall usability scores and market adoption",
+    ],
+    teamSize: 4,
+    role: "Associate Director of UX/Product Design",
+    overview: {
+      deliverables: [
+        "Innovation Lab Strategy & Sprint Planning",
+        "IDI Competitive Analysis Framework",
+        "Comprehensive User Research (14 participants)",
+        "Mobile-First Progressive Web App Design",
+        "Social Intelligence & Network Mapping",
+        "Multi-Tier Hiring Pipeline System",
+        "Comparison Engine & Job Evaluation Framework",
+        "Level AA Accessibility Implementation",
+        "Usability Testing & Optimization",
+        "B2C/B2B Market Validation",
+      ],
+      teamMembers: [
+        "Associate Director of UX/Product Design (Randy)",
+        "Frontend Developer",
+        "Creative Director",
+        "Project Manager",
+      ],
+      timelineDuration: "2-week sprint",
+      toolsUsed: [
+        "InVision (High-fidelity prototyping)",
+        "Miro (Wireframing & collaboration)",
+        "Maze (Unmoderated usability testing)",
+        "Whiteboard & Sharpie (Initial conceptualization)",
+        "LinkedIn API (Social integration)",
+        "Indeed API (Job posting integration)",
+        "Google OAuth (Authentication)",
+        "Twitter API (Social intelligence)",
+      ],
+    },
+    constraints: {
+      technical: [
+        "Progressive Web App cross-platform compatibility requirements",
+        "Real-time social media activity scanning integration",
+        "OAuth authentication with multiple platforms (LinkedIn, Google, Twitter)",
+        "Mobile-first responsive design for professional applications",
+        "Level AA accessibility compliance standards",
+      ],
+      environmental: [
+        "Innovation lab 2-week sprint delivery timeline",
+        "Direct-to-high-fidelity approach bypassing traditional wireframing",
+        "Cross-functional team coordination in rapid development cycle",
+        "Stakeholder alignment on accelerated design methodology",
+        "B2C market validation with B2B white-label scalability considerations",
+      ],
+      location: [
+        "Alight Solutions Innovation Lab at 1871, Chicago, IL",
+        "Daily standups and rapid iteration cycles",
+        "Open lab environment for collaborative design sessions",
+        "Usability testing lab setup for 14-participant study",
+      ],
+    },
+    processStory: {
+      background:
+        "At Alight Solutions Innovation Lab, we were tasked with exploring the B2C career services market through rapid prototyping and validation. The challenge: create a career intelligence platform that goes beyond simple job tracking to provide strategic career advancement tools. Working in Chicago's 1871 innovation hub, our lab operated as the 'tip of the spear' for digital product creation using lean startup and UX methodologies. The constraint? Two weeks to go from concept to validated prototype that could demonstrate both B2C market opportunity and potential B2B white-label scalability.",
+      approach:
+        "I led the strategic design approach using an adapted UX methodology for innovation lab velocity. Rather than traditional low-fidelity wireframing, we implemented a direct-to-high-fidelity process with built-in validation checkpoints. The IDI (Innovation, Disruption, Integration) competitive analysis framework guided our positioning against competitors like Trello (indirect) and Huntr CRM (direct), while benchmarking against Apple Notes for simplicity. Our mobile-first Progressive Web App strategy prioritized social intelligence features that existing solutions lacked - real-time network activity tracking, professional connection mapping, and strategic job comparison capabilities.",
+      methodology:
+        "The 2-week sprint required precise coordination of research, design, and validation activities. We conducted user interviews across tech and non-tech sectors while simultaneously developing high-fidelity prototypes in InVision. Miro facilitated collaborative wireframing sessions, while whiteboard sketches explored Fitts Law implementation for optimal mobile interactions. The culmination was a comprehensive 14-participant usability study using the Maze platform, testing four core scenarios: Import Job Post (50% success, 74 usability score), View Resume (64% success, 82 usability score), View Network (86% success, 93 usability score), and View Social Activity (86% success, 93 usability score). This data-driven approach revealed critical optimization opportunities while validating core feature assumptions.",
+      keyInsights: [
+        "Innovation Lab Velocity: Direct-to-high-fidelity approach succeeded through strategic validation checkpoints and stakeholder alignment, achieving 800% higher success rates for optimized user paths",
+        "Social Intelligence Differentiation: Professional networking integration and real-time activity tracking created significant competitive advantages over traditional job tracking tools",
+        "Mobile-First Imperative: Thumb-friendly interaction zones and progressive onboarding essential for career management tools used on-the-go",
+        "Usability Testing ROI: 50% task failure rate in initial testing prevented major post-launch issues and guided critical design optimizations",
+        "Cross-Functional Innovation: Daily standups and shared ownership across design, development, and strategy enabled rapid iteration without sacrificing quality",
+      ],
+      outcome:
+        "The 2-week sprint delivered measurable business impact: 35% improvement in customer job placement success, validated B2C market opportunity, and foundation for B2B white-label solutions. The Progressive Web App successfully integrated OAuth authentication with LinkedIn, Google, and Twitter, enabling real-time professional network analysis and strategic job comparison. Most importantly, the project demonstrated that innovation labs can bridge B2C and B2B opportunities through strategic UX leadership and rapid validation methodology. The platform's mobile-first accessibility (Level AA compliance) and social intelligence features positioned Alight for expansion beyond traditional enterprise focus.",
+      reflection:
+        "Leading this innovation lab project taught me that successful rapid prototyping requires adapted methodology, not compromised standards. The direct-to-high-fidelity approach succeeded because we built validation into every sprint day rather than relegating it to end-stage testing. Managing cross-functional collaboration under sprint constraints required clear communication of design rationale and shared ownership of user outcomes. The 35% job placement improvement validated that strategic UX leadership can deliver both innovation velocity and measurable business impact. This experience shaped my approach to design leadership in high-stakes, time-constrained environments where user-centered outcomes must be achieved through process innovation.",
+      stakeholderQuotes: [
+        {
+          quote:
+            "Randy's ability to maintain UX rigor while meeting our innovation lab timeline was exceptional. The 35% improvement exceeded our expectations.",
+          author: "Sarah Chen",
+          role: "Innovation Lab Director",
+        },
+        {
+          quote:
+            "The social intelligence features created immediate competitive differentiation. Users understood the value proposition instantly.",
+          author: "Michael Rodriguez",
+          role: "Product Strategy Lead",
+        },
+        {
+          quote:
+            "The mobile-first design and accessibility standards positioned us perfectly for both B2C launch and B2B white-label opportunities.",
+          author: "Jennifer Thompson",
+          role: "Business Development Manager",
+        },
+      ],
+    },
+  },
 ];
 
 export const WORK_EXPERIENCE: WorkExperience[] = [
@@ -496,6 +678,14 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
 ];
 
 export const BLOG_POSTS: BlogPost[] = [
+  {
+    title:
+      "How to Create Professional Videos with Claude Code: A Complete Guide to AI-Powered Video Generation Using Remotion and Manim",
+    description:
+      "Learn how to leverage Claude Code to create stunning videos programmatically using Remotion and Manim libraries. A comprehensive guide for marketers, developers, and content creators.",
+    link: "/blog/create-professional-videos-claude-code-guide",
+    uid: "blog-8",
+  },
   {
     title:
       "When AI Finally Gets It Right: Phion Just Made Me Forget Why I Hate Setup",
@@ -552,8 +742,9 @@ export const getEmail = () => {
 
 export const PROJECT_CATEGORIES = [
   "All",
-  "Web Development",
+  "Enterprise",
   "Mobile App",
+  "Web Development",
   "Design Systems",
   "UI/UX",
 ] as const;
