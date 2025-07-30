@@ -520,7 +520,12 @@ export default function Personal() {
             Randy Ellis - AI Product Design Engineer Portfolio
           </h1>
           <p className="text-zinc-600 dark:text-zinc-400">
-            I'm a product design strategist who's generated $50M in product value while scaling design teams for Fortune 500 companies. With recent AI leadership training and 15+ years bridging design, technology, and business strategy, I help organizations build design capabilities that drive measurable business outcomes. Also a decent cook.
+            I&rsquo;m a product design strategist who&rsquo;s generated $50M in
+            product value while scaling design teams for Fortune 500 companies.
+            With recent AI leadership training and 15+ years bridging design,
+            technology, and business strategy, I help organizations build design
+            capabilities that drive measurable business outcomes. Also a decent
+            cook.
           </p>
         </div>
       </motion.section>
