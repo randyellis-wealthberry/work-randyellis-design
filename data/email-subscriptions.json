@@ -4,13 +4,13 @@
     "email": "randy.ellis.pro@gmail.com",
     "status": "subscribed",
     "source": "website",
-    "subscribedAt": "2025-07-29T04:05:45.978Z",
+    "subscribedAt": "2025-07-30T01:24:14.810Z",
     "metadata": {
       "ipAddress": "::1",
       "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
       "referer": "http://localhost:3000/",
       "consentGiven": true,
-      "consentTimestamp": "2025-07-29T04:05:45.978Z",
+      "consentTimestamp": "2025-07-30T01:24:14.809Z",
       "emailProvider": "Gmail",
       "signupSource": "Newsletter form"
     }

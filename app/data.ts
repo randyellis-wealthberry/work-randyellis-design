@@ -105,7 +105,7 @@ export const PROJECTS: Project[] = [
       "Transforming payroll integrity through AI-driven anomaly detection - achieving 78% error reduction and $180K annual savings in a 6-month enterprise validation sprint.",
     longDescription:
       "Most companies unknowingly hemorrhage money through payroll systems—billions lost annually to fraud and manual errors. Our target client was experiencing the perfect storm: 10 hours of manual audit work per pay cycle, persistent errors slipping through, growing fraud exposure, and damaged employee trust. LedgerIQ reimagined payroll integrity through intelligent AI that learns organizational patterns, detects anomalies in real-time, and integrates seamlessly with existing workflows.",
-    category: "Enterprise",
+    category: "Enterprise (SaaS)",
     tags: [
       "Artificial Intelligence",
       "Machine Learning",
@@ -266,7 +266,7 @@ export const PROJECTS: Project[] = [
     longDescription:
       "Echo Global Logistics, a leading provider of technology-enabled transportation and supply chain management services, partnered with Eight Bit Studios to modernize their truckload management operations. The shipping industry, long reliant on outdated methods, faced significant challenges in coordinating shippers, drivers, and dispatch teams. EchoDrive was designed to build a modern shipment tracking system that would streamline communication, improve compliance, and drive business growth.",
     category: "Mobile App",
-    categories: ["Mobile App", "Enterprise"],
+    categories: ["Mobile App", "Enterprise (SaaS)"],
     tags: [
       "Transportation",
       "Logistics",
@@ -362,6 +362,7 @@ export const PROJECTS: Project[] = [
     longDescription:
       "GrowIt is a social gardening platform that connects plant enthusiasts worldwide. Users can share their gardening journey, get expert advice, and discover new plants through an engaging social experience. The app features plant identification, care reminders, and a vibrant community of gardening enthusiasts.",
     category: "UI/UX",
+    categories: ["Mobile App", "UI/UX"],
     tags: ["React Native", "Social Platform", "Mobile Design", "Community"],
     link: "https://www.growit.com/",
     video: "/projects/growit/growit-hero-video.mp4",
@@ -682,7 +683,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title:
       "How to Create Professional Videos with Claude Code: A Complete Guide to AI-Powered Video Generation Using Remotion and Manim",
     description:
-      "Learn how to leverage Claude Code to create stunning videos programmatically using Remotion and Manim libraries. A comprehensive guide for marketers, developers, and content creators.",
+      "A comprehensive guide to creating professional videos with Claude Code using Remotion and Manim.",
     link: "/blog/create-professional-videos-claude-code-guide",
     uid: "blog-8",
   },
@@ -690,7 +691,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title:
       "When AI Finally Gets It Right: Phion Just Made Me Forget Why I Hate Setup",
     description:
-      "How Phion revolutionized the development experience by eliminating setup friction and letting developers focus on creation.",
+      "How Phion revolutionized development by eliminating setup friction.",
     link: "/blog/when-ai-gets-it-right-phion",
     uid: "blog-7",
   },
@@ -698,7 +699,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title:
       "PROFITS, NOT PIXELS: The story of world's most expensive (yet, valuable?) cup of coffee",
     description:
-      "How the design job market has shifted from aesthetics to business impact and ROI-driven decisions.",
+      "How the design job market shifted from aesthetics to business impact and ROI.",
     link: "/blog/profits-not-pixels",
     uid: "blog-6",
   },
@@ -706,7 +707,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title:
       "The Product Manager's Guide to AI Evaluations: Building Better AI Products",
     description:
-      "A practical framework for product managers to evaluate and improve generative AI systems.",
+      "A practical framework for evaluating and improving generative AI systems.",
     link: "/blog/product-manager-guide-ai-evaluations",
     uid: "blog-5",
   },
@@ -742,7 +743,7 @@ export const getEmail = () => {
 
 export const PROJECT_CATEGORIES = [
   "All",
-  "Enterprise",
+  "Enterprise (SaaS)",
   "Mobile App",
   "Web Development",
   "Design Systems",

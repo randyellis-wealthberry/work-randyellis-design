@@ -62,5 +62,21 @@
       "emailProvider": "Gmail",
       "signupSource": "Newsletter form"
     }
+  },
+  {
+    "id": "email_1753763045739_0s4r2ndhx",
+    "email": "hi@wealthbrry.com",
+    "status": "subscribed",
+    "source": "website",
+    "subscribedAt": "2025-07-29T04:24:05.739Z",
+    "metadata": {
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+      "referer": "http://localhost:3000/",
+      "consentGiven": true,
+      "consentTimestamp": "2025-07-29T04:24:05.739Z",
+      "emailProvider": "wealthbrry.com",
+      "signupSource": "Newsletter form"
+    }
   }
 ]

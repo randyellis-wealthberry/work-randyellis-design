@@ -520,10 +520,7 @@ export default function Personal() {
             Randy Ellis - AI Product Design Engineer Portfolio
           </h1>
           <p className="text-zinc-600 dark:text-zinc-400">
-            AI Product Design Engineer specializing in generative AI, design
-            systems, and product leadership. Currently Head of Product at
-            Wealthberry Labs, with 2.5M+ users impacted and $50M in product
-            value delivered.
+            I'm a product design strategist who's generated $50M in product value while scaling design teams for Fortune 500 companies. With recent AI leadership training and 15+ years bridging design, technology, and business strategy, I help organizations build design capabilities that drive measurable business outcomes. Also a decent cook.
           </p>
         </div>
       </motion.section>
