@@ -18,7 +18,7 @@ const inputVariants = cva(
     variants: {
       variant: {
         default: "border-zinc-300 dark:border-zinc-600",
-        floating: "border-zinc-300 dark:border-zinc-600 pt-10 pb-3",
+        floating: "border-zinc-300 dark:border-zinc-600 py-6",
       },
       size: {
         default: "h-12 px-4 py-3",
@@ -81,7 +81,7 @@ function FloatingInput({
       <label
         htmlFor={inputId}
         className={cn(
-          "absolute left-4 top-1.5 text-xs font-semibold transition-all duration-200 tracking-wide",
+          "absolute left-4 top-2 text-xs font-semibold transition-all duration-200 tracking-wide",
           "peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:text-base peer-placeholder-shown:font-medium peer-placeholder-shown:tracking-normal peer-placeholder-shown:opacity-100",
           "peer-focus:opacity-0 peer-focus:invisible",
           "peer-[:not(:placeholder-shown)]:opacity-0 peer-[:not(:placeholder-shown)]:invisible",
