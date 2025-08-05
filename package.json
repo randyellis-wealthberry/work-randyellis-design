@@ -3,15 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "node scripts/dev-clean.js",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
-    "test:watch": "jest --watch",
-    "health:check": "node scripts/build-health-check.js",
-    "health:fix": "node scripts/build-health-check.js --fix",
-    "predev": "node scripts/build-health-check.js --fix"
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "@flags-sdk/statsig": "^0.2.2",
