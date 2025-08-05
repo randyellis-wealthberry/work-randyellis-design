@@ -13,6 +13,7 @@ import {
   ProfessionalServiceStructuredData,
   OrganizationStructuredData,
 } from "@/components/seo/structured-data";
+import TargetCursor from "@/components/ui/target-cursor";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -118,6 +119,7 @@ export default function RootLayout({
             </div>
           </div>
         </ThemeProvider>
+        <TargetCursor />
         <Analytics />
         {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
           <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />

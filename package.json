@@ -8,7 +8,10 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "health:check": "node scripts/build-health-check.js",
+    "health:fix": "node scripts/build-health-check.js --fix",
+    "predev": "node scripts/build-health-check.js --fix"
   },
   "dependencies": {
     "@flags-sdk/statsig": "^0.2.2",
@@ -42,6 +45,7 @@
     "embla-carousel-react": "^8.6.0",
     "flags": "^4.0.1",
     "framer-motion": "^12.23.9",
+    "gsap": "^3.13.0",
     "loops": "^5.0.1",
     "lucide-react": "^0.468.0",
     "motion": "^12.23.9",
