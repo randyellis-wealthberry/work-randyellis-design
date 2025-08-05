@@ -57,10 +57,16 @@ const TargetCursor = ({
 
     const cleanupTarget = (target: Element) => {
       if (currentTargetMove) {
-        target.removeEventListener("mousemove", currentTargetMove as EventListener);
+        target.removeEventListener(
+          "mousemove",
+          currentTargetMove as EventListener,
+        );
       }
       if (currentLeaveHandler) {
-        target.removeEventListener("mouseleave", currentLeaveHandler as EventListener);
+        target.removeEventListener(
+          "mouseleave",
+          currentLeaveHandler as EventListener,
+        );
       }
       currentTargetMove = null;
       currentLeaveHandler = null;
