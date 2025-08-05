@@ -67,7 +67,11 @@ describe('SuccessConfetti Component', () => {
     // Should render the container with proper styling
     const container = document.querySelector('.fixed.inset-0.pointer-events-none.z-50');
     expect(container).toBeInTheDocument();
-    expect(container).toHaveClass('fixed', 'inset-0', 'pointer-events-none', 'z-50', 'overflow-hidden');
+    expect(container).toHaveClass('fixed');
+    expect(container).toHaveClass('inset-0');
+    expect(container).toHaveClass('pointer-events-none');
+    expect(container).toHaveClass('z-50');
+    expect(container).toHaveClass('overflow-hidden');
   });
 
   it('should not show particles when trigger is false', () => {
@@ -195,13 +199,11 @@ describe('SuccessConfetti Component', () => {
     
     const container = document.querySelector('.fixed.inset-0');
     
-    expect(container).toHaveClass(
-      'fixed',
-      'inset-0', 
-      'pointer-events-none',
-      'z-50',
-      'overflow-hidden'
-    );
+    expect(container).toHaveClass('fixed');
+    expect(container).toHaveClass('inset-0');
+    expect(container).toHaveClass('pointer-events-none');
+    expect(container).toHaveClass('z-50');
+    expect(container).toHaveClass('overflow-hidden');
   });
 
   it('should clean up properly on unmount', async () => {

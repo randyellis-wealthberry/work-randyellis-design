@@ -3,7 +3,12 @@ import { AnimatedBackground } from "@/components/ui/animated-background";
 import { TextLoop } from "@/components/ui/text-loop";
 import { MonitorIcon, MoonIcon, SunIcon } from "lucide-react";
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
+import {
+  AnimationStart,
+  AnimationVariant,
+  createAnimation,
+} from "@/components/ui/theme-animations";
 
 const THEMES_OPTIONS = [
   {
@@ -26,6 +31,43 @@ const THEMES_OPTIONS = [
 function ThemeSwitch() {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
+  
+  // Animation configuration
+  const animationVariant: AnimationVariant = "circle-blur";
+  const animationStart: AnimationStart = "top-left";
+  const styleId = "theme-transition-styles";
+
+  const updateStyles = useCallback((css: string) => {
+    if (typeof window === "undefined") return;
+
+    let styleElement = document.getElementById(styleId) as HTMLStyleElement;
+
+    if (!styleElement) {
+      styleElement = document.createElement("style");
+      styleElement.id = styleId;
+      document.head.appendChild(styleElement);
+    }
+
+    styleElement.textContent = css;
+  }, []);
+
+  const handleThemeChange = useCallback((newTheme: string) => {
+    const animation = createAnimation(animationVariant, animationStart);
+    updateStyles(animation.css);
+
+    if (typeof window === "undefined") return;
+
+    const switchTheme = () => {
+      setTheme(newTheme);
+    };
+
+    if (!document.startViewTransition) {
+      switchTheme();
+      return;
+    }
+
+    document.startViewTransition(switchTheme);
+  }, [setTheme, updateStyles]);
 
   useEffect(() => {
     setMounted(true);
@@ -46,7 +88,7 @@ function ThemeSwitch() {
       }}
       enableHover={false}
       onValueChange={(id) => {
-        setTheme(id as string);
+        handleThemeChange(id as string);
       }}
     >
       {THEMES_OPTIONS.map((theme) => {

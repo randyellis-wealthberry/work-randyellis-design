@@ -4,7 +4,7 @@ import "./globals.css";
 import { Header } from "./header";
 import { Footer } from "./footer";
 import { NewsletterSignup } from "@/components/ui/newsletter-signup";
-import { ThemeProvider } from "next-themes";
+import { ThemeProvider } from "@/components/ui/theme-provider";
 import { Analytics } from "@vercel/analytics/next";
 import { GoogleAnalytics } from "@/components/analytics/google-analytics";
 import {
@@ -12,6 +12,7 @@ import {
   WebsiteStructuredData,
   ProfessionalServiceStructuredData,
   OrganizationStructuredData,
+  FAQStructuredData,
 } from "@/components/seo/structured-data";
 import TargetCursor from "@/components/ui/target-cursor";
 
@@ -99,6 +100,7 @@ export default function RootLayout({
         <WebsiteStructuredData />
         <ProfessionalServiceStructuredData />
         <OrganizationStructuredData />
+        <FAQStructuredData />
       </head>
       <body
         className={`${geist.variable} ${geistMono.variable} bg-white tracking-tight antialiased dark:bg-zinc-950`}

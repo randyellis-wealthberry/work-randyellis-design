@@ -107,7 +107,7 @@ function ProjectThumbnail({ project }: { project: (typeof PROJECTS)[0] }) {
       <div className="aspect-video overflow-hidden">
         <HoverVideo
           src={localMp4Src}
-          alt={project.name}
+          alt={`${project.name} - ${project.subtitle || project.description} showcasing ${project.technologies.slice(0, 3).join(", ")} implementation`}
           className="h-full w-full transition-transform duration-300 group-hover:scale-105"
           resetOnLeave={true}
           projectName={project.name}
@@ -134,9 +134,10 @@ function ProjectThumbnail({ project }: { project: (typeof PROJECTS)[0] }) {
     <div className="aspect-video overflow-hidden">
       <Image
         src={staticThumbnail}
-        alt={project.name}
+        alt={`${project.name} - ${project.subtitle || project.description} showcasing ${project.technologies.slice(0, 3).join(", ")} implementation`}
         width={500}
         height={300}
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
       />
     </div>

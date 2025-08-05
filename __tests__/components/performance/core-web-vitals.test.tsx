@@ -3,19 +3,44 @@ import React from 'react';
 
 // Mock web-vitals - uses __mocks__/web-vitals.ts
 jest.mock('web-vitals');
-import { getCLS, getFID, getFCP, getLCP, getTTFB } from 'web-vitals';
+
+// Import mocked functions
+const mockWebVitals = require('web-vitals');
+const getCLS = mockWebVitals.getCLS;
+const getFID = mockWebVitals.getFID;
+const getFCP = mockWebVitals.getFCP;
+const getLCP = mockWebVitals.getLCP;
+const getTTFB = mockWebVitals.getTTFB;
+
+// Define metric interface for TypeScript
+interface Metric {
+  name: string;
+  value: number;
+  rating: 'good' | 'needs-improvement' | 'poor';
+  delta?: number;
+  entries?: any[];
+  id?: string;
+}
+
+interface MetricState {
+  cls?: Metric;
+  fid?: Metric;
+  fcp?: Metric;
+  lcp?: Metric;
+  ttfb?: Metric;
+}
 
 // Mock component that uses Core Web Vitals
 function MockPerformanceComponent() {
-  const [metrics, setMetrics] = React.useState<any>({});
+  const [metrics, setMetrics] = React.useState<MetricState>({});
 
   React.useEffect(() => {
     // Simulate collecting Core Web Vitals
-    getCLS((metric) => setMetrics(prev => ({ ...prev, cls: metric })));
-    getFID((metric) => setMetrics(prev => ({ ...prev, fid: metric })));
-    getFCP((metric) => setMetrics(prev => ({ ...prev, fcp: metric })));
-    getLCP((metric) => setMetrics(prev => ({ ...prev, lcp: metric })));
-    getTTFB((metric) => setMetrics(prev => ({ ...prev, ttfb: metric })));
+    getCLS((metric: Metric) => setMetrics(prev => ({ ...prev, cls: metric })));
+    getFID((metric: Metric) => setMetrics(prev => ({ ...prev, fid: metric })));
+    getFCP((metric: Metric) => setMetrics(prev => ({ ...prev, fcp: metric })));
+    getLCP((metric: Metric) => setMetrics(prev => ({ ...prev, lcp: metric })));
+    getTTFB((metric: Metric) => setMetrics(prev => ({ ...prev, ttfb: metric })));
   }, []);
 
   return (

@@ -33,9 +33,10 @@ export function ArchiveThumbnail({ item }: ArchiveThumbnailProps) {
     <div className="aspect-video overflow-hidden">
       <Image
         src={thumbnailSrc}
-        alt={item.title}
+        alt={`${item.title} - ${item.year} portfolio project showcasing ${item.type} design and development work`}
         width={500}
         height={300}
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
       />
     </div>

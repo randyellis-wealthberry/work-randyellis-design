@@ -16,14 +16,14 @@ jest.mock('../../components/ui/carousel', () => ({
     // Handle setApi separately to avoid passing it to DOM
     React.useEffect(() => {
       if (setApi) {
-        const mockApi = {
+        const mockApi: any = {
           scrollPrev: jest.fn(),
           scrollNext: jest.fn(),
           canScrollPrev: false,
           canScrollNext: false,
           scrollSnapList: jest.fn(() => [0, 1, 2]), // Mock returning 3 items
           selectedScrollSnap: jest.fn(() => 0), // Mock returning first item selected
-          on: jest.fn((event, callback) => {
+          on: jest.fn((event: string, callback: () => void): any => {
             // Mock event listener - could be enhanced to simulate events
             return mockApi;
           }),

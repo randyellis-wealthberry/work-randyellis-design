@@ -32,7 +32,7 @@ const AvatarCircularText = ({ className = "" }: AvatarCircularTextProps) => {
         <div className="relative w-[140px] h-[140px] md:w-[160px] md:h-[160px] rounded-full overflow-hidden border-4 border-white dark:border-zinc-800 shadow-xl">
           <Image
             src="/images/randyellis-official-avatar.png"
-            alt="Randy Ellis"
+            alt="Randy Ellis - AI Product Design Engineer and Innovation Leader specializing in generative AI design tools and systems"
             fill
             className="object-cover"
             priority

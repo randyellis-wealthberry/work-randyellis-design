@@ -284,3 +284,211 @@ export function ProfessionalServiceStructuredData() {
     />
   );
 }
+
+export function FAQStructuredData() {
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "What's your approach to AI in design?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "I believe AI should enhance human creativity, not replace it. My work on the AI Design System Generator demonstrates how AI can accelerate the design process while maintaining design quality and accessibility. I focus on leveraging AI to automate repetitive tasks, generate intelligent suggestions, and help designers make more informed decisions based on data and user behavior patterns.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "How do you bridge design and development?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "With a background spanning both design leadership and hands-on development, I understand the challenges on both sides. I create design systems that are technically feasible, write production-ready React code, and ensure designs translate seamlessly to implementation. My approach involves early technical validation, component-driven design, and close collaboration between design and engineering teams throughout the product development lifecycle.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "What's your experience with scaling products?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "I've led product design for applications serving 2.5M+ users, including the GrowIt gardening platform that reached 1M+ users across 25K+ cities. My experience spans from startup MVP validation to enterprise-scale design systems. I focus on building scalable design foundations, establishing design processes that grow with teams, and ensuring user experience quality remains consistent as products expand globally.",
+        },
+      },
+    ],
+  };
+
+  return (
+    <Script
+      id="faq-structured-data"
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(faqSchema),
+      }}
+    />
+  );
+}
+
+export function ArticleStructuredData({
+  title,
+  description,
+  datePublished,
+  dateModified,
+  url,
+  imageUrl,
+  keywords = [],
+}: {
+  title: string;
+  description: string;
+  datePublished: string;
+  dateModified?: string;
+  url: string;
+  imageUrl?: string;
+  keywords?: string[];
+}) {
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: title,
+    description: description,
+    author: {
+      "@type": "Person",
+      name: "Randy Ellis",
+      url: "https://work.randyellis.design",
+      jobTitle: "AI Product Design Engineer",
+      worksFor: {
+        "@type": "Organization",
+        name: "Wealthberry Labs",
+      },
+    },
+    publisher: {
+      "@type": "Person",
+      name: "Randy Ellis",
+      url: "https://work.randyellis.design",
+    },
+    datePublished: datePublished,
+    dateModified: dateModified || datePublished,
+    url: url,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": url,
+    },
+    ...(imageUrl && {
+      image: {
+        "@type": "ImageObject",
+        url: imageUrl,
+        width: 1200,
+        height: 630,
+      },
+    }),
+    ...(keywords.length > 0 && { keywords: keywords.join(", ") }),
+    articleSection: "AI Product Design",
+    inLanguage: "en-US",
+    isAccessibleForFree: true,
+    genre: ["Technology", "Design", "AI", "Product Design"],
+  };
+
+  return (
+    <Script
+      id="article-structured-data"
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(articleSchema),
+      }}
+    />
+  );
+}
+
+export function CreativeWorkStructuredData({
+  name,
+  description,
+  url,
+  dateCreated,
+  technologies,
+  category,
+  metrics,
+  imageUrl,
+  teamSize,
+  role,
+}: {
+  name: string;
+  description: string;
+  url: string;
+  dateCreated: string;
+  technologies: string[];
+  category: string;
+  metrics?: Array<{ label: string; value: string }>;
+  imageUrl?: string;
+  teamSize?: number;
+  role?: string;
+}) {
+  const creativeWorkSchema = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: name,
+    description: description,
+    url: url,
+    creator: {
+      "@type": "Person",
+      name: "Randy Ellis",
+      url: "https://work.randyellis.design",
+      jobTitle: "AI Product Design Engineer",
+      worksFor: {
+        "@type": "Organization",
+        name: "Wealthberry Labs",
+      },
+    },
+    dateCreated: dateCreated,
+    genre: category,
+    keywords: technologies.join(", "),
+    inLanguage: "en-US",
+    ...(imageUrl && {
+      image: {
+        "@type": "ImageObject",
+        url: imageUrl,
+        width: 1200,
+        height: 630,
+      },
+    }),
+    ...(role && {
+      contributor: {
+        "@type": "Person",
+        name: "Randy Ellis",
+        roleName: role,
+      },
+    }),
+    ...(metrics &&
+      metrics.length > 0 && {
+        additionalProperty: metrics.map((metric) => ({
+          "@type": "PropertyValue",
+          name: metric.label,
+          value: metric.value,
+        })),
+      }),
+    ...(teamSize && {
+      about: {
+        "@type": "Thing",
+        name: "Team Collaboration",
+        description: `Collaborative project with ${teamSize} team members`,
+      },
+    }),
+    license: "All Rights Reserved",
+    copyrightHolder: {
+      "@type": "Person",
+      name: "Randy Ellis",
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": url,
+    },
+  };
+
+  return (
+    <Script
+      id="creative-work-structured-data"
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(creativeWorkSchema),
+      }}
+    />
+  );
+}
