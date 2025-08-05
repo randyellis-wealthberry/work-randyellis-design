@@ -31,7 +31,7 @@ const THEMES_OPTIONS = [
 function ThemeSwitch() {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
-  
+
   // Animation configuration
   const animationVariant: AnimationVariant = "circle-blur";
   const animationStart: AnimationStart = "top-left";
@@ -51,23 +51,26 @@ function ThemeSwitch() {
     styleElement.textContent = css;
   }, []);
 
-  const handleThemeChange = useCallback((newTheme: string) => {
-    const animation = createAnimation(animationVariant, animationStart);
-    updateStyles(animation.css);
+  const handleThemeChange = useCallback(
+    (newTheme: string) => {
+      const animation = createAnimation(animationVariant, animationStart);
+      updateStyles(animation.css);
 
-    if (typeof window === "undefined") return;
+      if (typeof window === "undefined") return;
 
-    const switchTheme = () => {
-      setTheme(newTheme);
-    };
+      const switchTheme = () => {
+        setTheme(newTheme);
+      };
 
-    if (!document.startViewTransition) {
-      switchTheme();
-      return;
-    }
+      if (!document.startViewTransition) {
+        switchTheme();
+        return;
+      }
 
-    document.startViewTransition(switchTheme);
-  }, [setTheme, updateStyles]);
+      document.startViewTransition(switchTheme);
+    },
+    [setTheme, updateStyles],
+  );
 
   useEffect(() => {
     setMounted(true);

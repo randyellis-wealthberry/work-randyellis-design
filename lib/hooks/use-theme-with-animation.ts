@@ -17,10 +17,10 @@ export function useThemeWithAnimation(
   options: UseThemeWithAnimationOptions = {
     variant: "circle-blur",
     start: "top-left",
-  }
+  },
 ) {
   const { theme, setTheme, resolvedTheme, ...rest } = useNextTheme();
-  
+
   const styleId = "theme-transition-styles";
 
   const updateStyles = useCallback((css: string) => {
@@ -41,7 +41,7 @@ export function useThemeWithAnimation(
     (newTheme: string) => {
       const animation = createAnimation(
         options.variant || "circle-blur",
-        options.start || "top-left"
+        options.start || "top-left",
       );
       updateStyles(animation.css);
 
@@ -59,7 +59,7 @@ export function useThemeWithAnimation(
 
       document.startViewTransition(switchTheme);
     },
-    [setTheme, updateStyles, options.variant, options.start]
+    [setTheme, updateStyles, options.variant, options.start],
   );
 
   const toggleTheme = useCallback(() => {

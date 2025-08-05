@@ -19,7 +19,7 @@ export function ThemeToggle({
   className,
   size = "icon",
 }: ThemeToggleProps) {
-  const { theme, toggleTheme } = useThemeWithAnimation({ variant, start });
+  const { toggleTheme } = useThemeWithAnimation({ variant, start });
   const [mounted, setMounted] = React.useState(false);
 
   React.useEffect(() => {
@@ -28,12 +28,7 @@ export function ThemeToggle({
 
   if (!mounted) {
     return (
-      <Button
-        variant="ghost"
-        size={size}
-        className={className}
-        disabled
-      >
+      <Button variant="ghost" size={size} className={className} disabled>
         <SunIcon className="h-[1.2rem] w-[1.2rem]" />
         <span className="sr-only">Toggle theme</span>
       </Button>
