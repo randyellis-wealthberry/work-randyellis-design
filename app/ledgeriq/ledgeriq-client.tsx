@@ -30,7 +30,8 @@ import { HoverIframe } from "@/components/ui/hover-iframe";
 import { ScrambleSectionTitle } from "@/components/ui/scramble-section-title";
 
 // Data
-import { PROJECTS, type Project } from "@/app/data";
+import { PROJECTS } from "@/lib/data/projects";
+import type { Project } from "@/lib/data/types";
 
 // SpotlightCard Component
 const SpotlightCard = ({

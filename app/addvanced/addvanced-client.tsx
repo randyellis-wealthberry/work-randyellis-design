@@ -37,7 +37,7 @@ import { ScrambleSectionTitle } from "@/components/ui/scramble-section-title";
 import { AnimatedMetricCard } from "@/components/ui/animated-metric-card";
 
 // Data
-import { PROJECTS } from "@/app/data";
+import { PROJECTS } from "@/lib/data/projects";
 
 // SpotlightCard Component (reused from existing projects)
 const SpotlightCard = ({

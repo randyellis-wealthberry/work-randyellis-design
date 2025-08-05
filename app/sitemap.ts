@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next";
 import { WEBSITE_URL } from "@/lib/constants";
-import { PROJECTS, BLOG_POSTS } from "./data";
+import { BLOG_POSTS } from "@/lib/data";
+import { PROJECTS } from "@/lib/data/projects";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const currentDate = new Date();

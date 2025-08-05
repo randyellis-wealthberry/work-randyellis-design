@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { ArchiveItem } from "@/app/data";
+import type { ArchiveItem } from "@/lib/data/types";
 
 interface ArchiveThumbnailProps {
   item: ArchiveItem;

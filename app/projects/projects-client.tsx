@@ -25,7 +25,8 @@ import {
 import { UnicornStudioEmbed } from "@/components/ui/unicorn-studio-embed";
 import { HoverIframe } from "@/components/ui/hover-iframe";
 import { HoverVideo } from "@/components/ui/hover-video";
-import { PROJECTS, PROJECT_CATEGORIES } from "../data";
+import { PROJECTS } from "@/lib/data/projects";
+import { PROJECT_CATEGORIES } from "@/lib/data";
 
 const VARIANTS_CONTAINER = {
   hidden: { opacity: 0 },
@@ -180,7 +181,7 @@ export default function ProjectsClient() {
           onValueChange={setActiveCategory}
           className="w-full"
         >
-          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 lg:grid-cols-6">
+          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 lg:grid-cols-7">
             {PROJECT_CATEGORIES.map((category) => (
               <TabsTrigger key={category} value={category} className="text-xs">
                 {category}
@@ -206,61 +207,63 @@ export default function ProjectsClient() {
                       <ProjectThumbnail project={project} />
                     </Link>
                     <CardHeader className="pt-4 pb-3 px-4">
-                      <div className="flex items-start justify-between">
-                        <div className="space-y-1">
+                      <div className="space-y-2">
+                        <div className="flex items-start justify-between">
                           <CardTitle className="group-hover:text-blue-600 transition-colors">
                             {project.name}
                           </CardTitle>
-                          <CardDescription>
-                            {project.description}
-                          </CardDescription>
+                          <Badge
+                            variant={
+                              project.status === "completed"
+                                ? "default"
+                                : project.status === "in-progress"
+                                  ? "secondary"
+                                  : "outline"
+                            }
+                          >
+                            {project.status}
+                          </Badge>
                         </div>
-                        <Badge
-                          variant={
-                            project.status === "completed"
-                              ? "default"
-                              : project.status === "in-progress"
-                                ? "secondary"
-                                : "outline"
-                          }
-                        >
-                          {project.status}
-                        </Badge>
+                        <CardDescription className="w-full">
+                          {project.description}
+                        </CardDescription>
                       </div>
                     </CardHeader>
                     <CardContent className="flex-1 flex flex-col pt-0 px-4 pb-4">
                       <div className="space-y-3 flex-1">
                         {/* Project Metrics */}
                         {project.metrics && (
-                          <div className="grid grid-cols-3 gap-3 text-center min-h-[60px]">
-                            {project.metrics
-                              .slice(0, 3)
-                              .map((metric, index) => (
-                                <div
-                                  key={index}
-                                  className="flex flex-col justify-center"
-                                >
-                                  <div className="text-lg font-semibold text-zinc-900 dark:text-zinc-100 leading-tight">
-                                    {metric.value}
+                          <div className="space-y-3">
+                            <div className="grid grid-cols-3 gap-3 text-center">
+                              {project.metrics
+                                .slice(0, 3)
+                                .map((metric, index) => (
+                                  <div
+                                    key={index}
+                                    className="flex flex-col justify-between h-14 p-2"
+                                  >
+                                    <div className="text-lg font-semibold text-zinc-900 dark:text-zinc-100 leading-tight">
+                                      {metric.value}
+                                    </div>
+                                    <div className="text-xs text-zinc-500 leading-tight break-words">
+                                      {metric.label}
+                                    </div>
                                   </div>
-                                  <div className="text-xs text-zinc-500 mt-0.5 leading-tight">
-                                    {metric.label}
-                                  </div>
-                                </div>
-                              ))}
+                                ))}
+                            </div>
                             {project.metrics.length > 3 && (
-                              <div className="col-span-3 mt-2 grid grid-cols-3 gap-3 text-center">
+                              <div className="grid grid-cols-3 gap-3 text-center">
                                 {project.metrics
                                   .slice(3, 6)
                                   .map((metric, index) => (
                                     <div
                                       key={index + 3}
-                                      className="flex flex-col justify-center"
+                                      className="flex flex-col justify-between h-14 p-2"
                                     >
                                       <div className="text-lg font-semibold text-zinc-900 dark:text-zinc-100 leading-tight">
                                         {metric.value}
                                       </div>
-                                      <div className="text-xs text-zinc-500 mt-0.5 leading-tight">
+                                      <div className="text-xs text-zinc-500 leading-tight break-words">
                                         {metric.label}
                                       </div>
                                     </div>

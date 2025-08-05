@@ -1,4 +1,4 @@
-import { Project } from "@/app/data";
+import type { Project } from "@/lib/data/types";
 
 export interface ValidationError {
   projectName: string;

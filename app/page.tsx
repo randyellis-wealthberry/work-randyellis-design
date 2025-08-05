@@ -17,7 +17,7 @@ import { AnimatedNumberBasic } from "@/components/core/animated-number-basic";
 import { TransitionPanel } from "@/components/motion-primitives/transition-panel";
 import { ScrambleSectionTitle } from "@/components/ui/scramble-section-title";
 import { isVideoUrl } from "@/lib/video-utils";
-import { HoverVideo } from "@/components/ui/hover-video";
+import { LazyHoverVideo } from "@/components/ui/lazy-hover-video";
 import { getRandomProjects } from "@/lib/project-utils";
 import {
   AnimatedSpan,
@@ -25,12 +25,12 @@ import {
   TypingAnimation,
 } from "@/components/magicui/terminal";
 import {
-  PROJECTS,
   WORK_EXPERIENCE,
   BLOG_POSTS,
   getEmail,
   SOCIAL_LINKS,
-} from "./data";
+} from "@/lib/data";
+import { PROJECTS } from "@/lib/data/projects";
 import {
   trackProjectHover,
   trackProjectView,
@@ -445,7 +445,7 @@ function ProjectThumbnail({ project }: { project: (typeof PROJECTS)[0] }) {
           onMouseEnter={() => trackProjectHover(project.name, project.id)}
           onClick={() => trackProjectView(project.name)}
         >
-          <HoverVideo
+          <LazyHoverVideo
             src={project.video}
             alt={project.name}
             className="w-full h-full"
@@ -506,6 +506,7 @@ export default function Personal() {
   }, []);
   return (
     <motion.main
+      id="main-content"
       className="space-y-32 sm:space-y-24"
       variants={VARIANTS_CONTAINER}
       initial="hidden"
@@ -560,18 +561,20 @@ export default function Personal() {
             href="/projects"
             className="group relative inline-flex items-center text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors duration-200"
           >
-            View all projects
+            View all projects ({PROJECTS.length})
             <span className="absolute bottom-0 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 dark:bg-zinc-50 transition-all duration-200 group-hover:max-w-full"></span>
           </Link>
         </div>
         <div className="grid grid-cols-1 gap-12 sm:gap-8 sm:grid-cols-2">
           {selectedProjects.length > 0
             ? selectedProjects.map((project) => (
-                <div key={project.id} className="space-y-4">
-                  <ProjectThumbnail project={project} />
-                  <div className="px-1">
+                <div key={project.id} className="h-full flex flex-col">
+                  <div className="flex-shrink-0 mb-4">
+                    <ProjectThumbnail project={project} />
+                  </div>
+                  <div className="px-1 flex flex-col flex-grow">
                     <Link
-                      className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"
+                      className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50 mb-2"
                       href={`/projects/${project.slug}`}
                       onClick={() => trackProjectView(project.name)}
                     >
@@ -579,11 +582,11 @@ export default function Personal() {
                       <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 dark:bg-zinc-50 transition-all duration-200 group-hover:max-w-full"></span>
                     </Link>
                     {project.subtitle && (
-                      <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                      <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-2">
                         {project.subtitle}
                       </p>
                     )}
-                    <p className="text-base text-zinc-600 dark:text-zinc-400">
+                    <p className="text-base text-zinc-600 dark:text-zinc-400 flex-grow">
                       {project.description}
                     </p>
                   </div>
@@ -591,13 +594,17 @@ export default function Personal() {
               ))
             : // Loading placeholder during hydration
               Array.from({ length: 2 }).map((_, index) => (
-                <div key={`placeholder-${index}`} className="space-y-4">
-                  <div className="aspect-video w-full max-h-48 rounded-lg bg-zinc-100 dark:bg-zinc-800 animate-pulse" />
-                  <div className="px-1 space-y-2">
+                <div
+                  key={`placeholder-${index}`}
+                  className="h-full flex flex-col"
+                >
+                  <div className="flex-shrink-0 mb-4">
+                    <div className="aspect-video w-full max-h-48 rounded-lg bg-zinc-100 dark:bg-zinc-800 animate-pulse" />
+                  </div>
+                  <div className="px-1 flex flex-col flex-grow space-y-2">
                     <div className="h-6 bg-zinc-100 dark:bg-zinc-800 rounded animate-pulse" />
                     <div className="h-4 bg-zinc-100 dark:bg-zinc-800 rounded w-3/4 animate-pulse" />
-                    <div className="h-4 bg-zinc-100 dark:bg-zinc-800 rounded animate-pulse" />
-                    <div className="h-4 bg-zinc-100 dark:bg-zinc-800 rounded w-5/6 animate-pulse" />
+                    <div className="h-4 bg-zinc-100 dark:bg-zinc-800 rounded animate-pulse flex-grow" />
                   </div>
                 </div>
               ))}
@@ -616,7 +623,7 @@ export default function Personal() {
           <div className="space-y-4">
             <Link href="/metis">
               <div className="aspect-video w-full max-h-48 rounded-lg overflow-hidden cursor-pointer hover:opacity-90 transition-opacity duration-200">
-                <HoverVideo
+                <LazyHoverVideo
                   src="/images/projects/metis/metis-logomark-glitch.mp4"
                   alt="METIS logomark glitch animation"
                   className="w-full h-full"
