@@ -3,18 +3,18 @@
  * This test specifically checks if GrowIt shows LedgerIQ thumbnail
  */
 
-import { PROJECTS } from '@/app/data';
+import { PROJECTS } from '@/lib/data/projects';
 
 describe('Selected Projects Thumbnail Investigation', () => {
   test('should have correct project data mapping', () => {
     const ledgeriq = PROJECTS.find(p => p.id === 'ledgeriq');
-    const growit = PROJECTS.find(p => p.id === 'project2'); // GrowIt has id "project2"
+    const growit = PROJECTS.find(p => p.id === 'growit');
     
     expect(ledgeriq).toBeDefined();
     expect(growit).toBeDefined();
     
     // Verify GrowIt project data
-    expect(growit?.name).toBe('GrowIt');
+    expect(growit?.name).toBe('GrowIt!');
     expect(growit?.video).toBe('/projects/growit/growit-hero-video.mp4');
     expect(growit?.thumbnail).toBe('/projects/growit/hero-thumbnail.jpg');
     
@@ -36,7 +36,7 @@ describe('Selected Projects Thumbnail Investigation', () => {
   });
   
   test('should verify project file references exist conceptually', () => {
-    const growit = PROJECTS.find(p => p.id === 'project2');
+    const growit = PROJECTS.find(p => p.id === 'growit');
     const ledgeriq = PROJECTS.find(p => p.id === 'ledgeriq');
     
     // Check that the paths are well-formed
@@ -53,7 +53,7 @@ describe('Selected Projects Thumbnail Investigation', () => {
     
     // Find projects by index to ensure no array confusion
     const ledgeriqIndex = projectsArray.findIndex(p => p.id === 'ledgeriq');
-    const growitIndex = projectsArray.findIndex(p => p.id === 'project2');
+    const growitIndex = projectsArray.findIndex(p => p.id === 'growit');
     
     expect(ledgeriqIndex).toBeGreaterThanOrEqual(0);
     expect(growitIndex).toBeGreaterThanOrEqual(0);

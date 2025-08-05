@@ -14,6 +14,7 @@ const customJestConfig = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/$1',
     '^@vercel/analytics$': '<rootDir>/__mocks__/@vercel/analytics.js',
+    '^motion/react$': '<rootDir>/__mocks__/motion/react.js',
   },
 }
 

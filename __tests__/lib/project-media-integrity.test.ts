@@ -1,4 +1,4 @@
-import { PROJECTS } from '@/app/data';
+import { PROJECTS } from '@/lib/data/projects';
 
 describe('Project Media Integrity', () => {
   describe('Unique Media Paths', () => {

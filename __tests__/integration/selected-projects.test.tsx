@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { PROJECTS } from "@/app/data";
+import { PROJECTS } from "@/lib/data/projects";
 import { getRandomProjects } from "@/lib/project-utils";
 
 // Mock the getRandomProjects function for predictable testing

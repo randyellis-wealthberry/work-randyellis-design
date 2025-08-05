@@ -1,4 +1,5 @@
-import { PROJECTS, Project } from "@/app/data";
+import { PROJECTS } from "@/lib/data/projects";
+import type { Project } from "@/lib/data/types";
 
 describe("Project Data Validation", () => {
   describe("LedgerIQ Project", () => {

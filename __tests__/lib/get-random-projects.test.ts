@@ -1,5 +1,5 @@
 import { getRandomProjects } from "@/lib/project-utils";
-import { Project } from "@/app/data";
+import type { Project } from "@/lib/data/types";
 
 // Mock projects for testing
 const mockProjects: Project[] = [
