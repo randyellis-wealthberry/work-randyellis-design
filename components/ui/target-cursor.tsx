@@ -57,10 +57,10 @@ const TargetCursor = ({
 
     const cleanupTarget = (target: Element) => {
       if (currentTargetMove) {
-        target.removeEventListener("mousemove", currentTargetMove);
+        target.removeEventListener("mousemove", currentTargetMove as EventListener);
       }
       if (currentLeaveHandler) {
-        target.removeEventListener("mouseleave", currentLeaveHandler);
+        target.removeEventListener("mouseleave", currentLeaveHandler as EventListener);
       }
       currentTargetMove = null;
       currentLeaveHandler = null;
@@ -307,8 +307,8 @@ const TargetCursor = ({
       currentTargetMove = targetMove;
       currentLeaveHandler = leaveHandler;
 
-      target.addEventListener("mousemove", targetMove);
-      target.addEventListener("mouseleave", leaveHandler);
+      target.addEventListener("mousemove", targetMove as EventListener);
+      target.addEventListener("mouseleave", leaveHandler as EventListener);
     };
 
     window.addEventListener("mouseover", enterHandler, { passive: true });
