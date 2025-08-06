@@ -1,6 +1,7 @@
-// Mock for motion/react
+// Complete mock for motion/react
 import React from 'react';
 
+// Mock motion value
 const mockMotionValue = {
   set: jest.fn(),
   get: jest.fn(() => 0),
@@ -9,56 +10,95 @@ const mockMotionValue = {
   clearListeners: jest.fn(),
 };
 
-const mockUseSpring = jest.fn((initialValue, options) => {
+// Mock hooks
+export const useSpring = jest.fn((initialValue) => {
   const motionValue = { ...mockMotionValue };
   motionValue.get = jest.fn(() => initialValue || 0);
   return motionValue;
 });
 
-const mockUseTransform = jest.fn((spring, transform) => {
-  // Return the transformed value directly for testing
+export const useTransform = jest.fn((spring, transform) => {
   const value = typeof spring === 'object' && spring.get ? spring.get() : (typeof spring === 'number' ? spring : 0);
-  return transform(value);
+  return transform ? transform(value) : value;
 });
 
-const mockMotion = {
-  main: React.forwardRef(({ children, ...props }, ref) => 
-    React.createElement('main', { ...props, ref }, children)
-  ),
-  section: React.forwardRef(({ children, ...props }, ref) => 
-    React.createElement('section', { ...props, ref }, children)
-  ),
-  span: React.forwardRef(({ children, ...props }, ref) => 
-    React.createElement('span', { ...props, ref }, children)
-  ),
-  div: React.forwardRef(({ children, ...props }, ref) => 
-    React.createElement('div', { ...props, ref }, children)
-  ),
-  button: React.forwardRef(({ children, ...props }, ref) => 
-    React.createElement('button', { ...props, ref }, children)
-  ),
-  a: React.forwardRef(({ children, ...props }, ref) => 
-    React.createElement('a', { ...props, ref }, children)
-  ),
-  p: React.forwardRef(({ children, ...props }, ref) => 
-    React.createElement('p', { ...props, ref }, children)
-  ),
-  h3: React.forwardRef(({ children, ...props }, ref) => 
-    React.createElement('h3', { ...props, ref }, children)
-  ),
-  svg: React.forwardRef(({ children, ...props }, ref) => 
-    React.createElement('svg', { ...props, ref }, children)
-  ),
-};
-
-export const motion = mockMotion;
-export const useSpring = mockUseSpring;
-export const useTransform = mockUseTransform;
 export const useMotionValue = jest.fn(() => ({ ...mockMotionValue }));
+
 export const useAnimation = jest.fn(() => ({
   start: jest.fn(),
   stop: jest.fn(),
 }));
 
-// Export commonly used animation values
-export const AnimatePresence = ({ children }) => children;
+// Create motion components for all HTML elements - simplified version
+const createMotionComponent = (element) => {
+  return React.forwardRef(({ 
+    children, 
+    variants, 
+    initial, 
+    animate, 
+    exit, 
+    transition,
+    onAnimationComplete,
+    onAnimationStart,
+    ...props 
+  }, ref) => {
+    // Filter out animation props that don't belong on DOM elements
+    const { 
+      variants: _, 
+      initial: __, 
+      animate: ___, 
+      exit: ____, 
+      transition: _____, 
+      onAnimationComplete: ______,
+      onAnimationStart: _______,
+      ...domProps 
+    } = props;
+
+    return React.createElement(element, {
+      ...domProps,
+      ref,
+      'data-motion-component': element,
+    }, children);
+  });
+};
+
+// Create all the motion components
+export const motion = {
+  div: createMotionComponent('div'),
+  span: createMotionComponent('span'),
+  p: createMotionComponent('p'),
+  h1: createMotionComponent('h1'),
+  h2: createMotionComponent('h2'),
+  h3: createMotionComponent('h3'),
+  h4: createMotionComponent('h4'),
+  h5: createMotionComponent('h5'),
+  h6: createMotionComponent('h6'),
+  a: createMotionComponent('a'),
+  button: createMotionComponent('button'),
+  img: createMotionComponent('img'),
+  svg: createMotionComponent('svg'),
+  main: createMotionComponent('main'),
+  section: createMotionComponent('section'),
+  article: createMotionComponent('article'),
+  aside: createMotionComponent('aside'),
+  header: createMotionComponent('header'),
+  footer: createMotionComponent('footer'),
+  nav: createMotionComponent('nav'),
+  ul: createMotionComponent('ul'),
+  ol: createMotionComponent('ol'),
+  li: createMotionComponent('li'),
+};
+
+// AnimatePresence component
+export const AnimatePresence = ({ children, mode, ...props }) => {
+  return React.createElement('div', { 
+    'data-animate-presence': true, 
+    ...props 
+  }, children);
+};
+
+// Export TypeScript types (these are just for runtime compatibility)
+export const Variants = {};
+export const Transition = {};
+export const Variant = {};
+export const TargetAndTransition = {};

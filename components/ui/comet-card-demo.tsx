@@ -4,7 +4,7 @@ import Image from "next/image";
 export function CometCardDemo() {
   return (
     <CometCard className="[&>div>div:last-child]:hidden">
-      <div className="relative aspect-[3/4] w-96 cursor-pointer rounded-2xl overflow-hidden">
+      <div className="relative aspect-[3/4] w-full max-w-sm md:max-w-md lg:max-w-lg cursor-pointer rounded-2xl overflow-hidden mx-auto">
         <Image
           loading="lazy"
           className="h-full w-full object-cover"
