@@ -35,27 +35,39 @@ export default function NotFound() {
     setMousePosition({ x: e.clientX, y: e.clientY });
   };
 
+  // Generate stable particle positions to avoid hydration mismatch
+  const [particlePositions, setParticlePositions] = useState<
+    Array<{ x: number; y: number; offsetX: number; offsetY: number }>
+  >([]);
+
+  useEffect(() => {
+    // Generate random positions only on client side
+    const positions = Array.from({ length: 20 }).map(() => ({
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      offsetX: (Math.random() - 0.5) * 200,
+      offsetY: (Math.random() - 0.5) * 200,
+    }));
+    setParticlePositions(positions);
+  }, []);
+
   return (
     <div
       className="min-h-screen flex items-center justify-center bg-gradient-to-br from-zinc-50 to-zinc-100 dark:from-zinc-950 dark:to-zinc-900 relative overflow-hidden"
       onMouseMove={handleMouseMove}
     >
       {/* Floating particles */}
-      {Array.from({ length: 20 }).map((_, i) => (
+      {particlePositions.map((pos, i) => (
         <motion.div
           key={i}
           className="absolute w-2 h-2 bg-blue-400/30 rounded-full"
           initial={{
-            x:
-              Math.random() *
-              (typeof window !== "undefined" ? window.innerWidth : 1200),
-            y:
-              Math.random() *
-              (typeof window !== "undefined" ? window.innerHeight : 800),
+            x: pos.x,
+            y: pos.y,
           }}
           animate={{
-            x: mousePosition.x + (Math.random() - 0.5) * 200,
-            y: mousePosition.y + (Math.random() - 0.5) * 200,
+            x: mousePosition.x + pos.offsetX,
+            y: mousePosition.y + pos.offsetY,
           }}
           transition={{
             duration: 2,

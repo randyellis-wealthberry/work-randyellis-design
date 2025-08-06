@@ -7,7 +7,7 @@ import {
   Variants,
   AnimatePresenceProps,
 } from "motion/react";
-import { useState, useEffect, Children } from "react";
+import { useState, useEffect, Children, useMemo } from "react";
 
 export type TextLoopProps = {
   children: React.ReactNode[];
@@ -31,7 +31,8 @@ export function TextLoop({
   mode = "popLayout",
 }: TextLoopProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const items = Children.toArray(children);
+  // Memoize items to prevent recreation on every render
+  const items = useMemo(() => Children.toArray(children), [children]);
 
   useEffect(() => {
     if (!trigger) return;
@@ -45,7 +46,9 @@ export function TextLoop({
       });
     }, intervalMs);
     return () => clearInterval(timer);
-  }, [items.length, interval, onIndexChange, trigger]);
+    // Use stable itemsLength instead of items.length to avoid unnecessary re-runs
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [items.length, interval, trigger]);
 
   const motionVariants: Variants = {
     initial: { y: 20, opacity: 0 },

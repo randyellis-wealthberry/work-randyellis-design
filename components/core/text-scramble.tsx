@@ -24,14 +24,15 @@ export function TextScramble({
   onScrambleComplete,
 }: TextScrambleProps) {
   const [displayText, setDisplayText] = useState(children);
-  const [isScrambling, setIsScrambling] = useState(false);
+  // Use ref instead of state to avoid circular dependencies
+  const isScrambling = useRef(false);
   const animationRef = useRef<number | undefined>(undefined);
   const iterationRef = useRef(0);
 
   const scramble = useCallback(() => {
-    if (isScrambling) return;
+    if (isScrambling.current) return;
 
-    setIsScrambling(true);
+    isScrambling.current = true;
     iterationRef.current = 0;
 
     const animate = () => {
@@ -50,7 +51,7 @@ export function TextScramble({
       );
 
       if (iteration >= children.length) {
-        setIsScrambling(false);
+        isScrambling.current = false;
         onScrambleComplete?.();
         return;
       }
@@ -60,7 +61,7 @@ export function TextScramble({
     };
 
     animationRef.current = requestAnimationFrame(animate);
-  }, [children, isScrambling, onScrambleComplete]);
+  }, [children, onScrambleComplete]);
 
   useEffect(() => {
     if (trigger) {
