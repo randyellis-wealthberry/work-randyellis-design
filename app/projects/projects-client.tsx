@@ -182,15 +182,19 @@ export default function ProjectsClient() {
           onValueChange={setActiveCategory}
           className="w-full"
         >
-          <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 lg:grid-cols-7">
+          <TabsList className="grid w-full grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-2 sm:gap-1">
             {PROJECT_CATEGORIES.map((category) => (
-              <TabsTrigger key={category} value={category} className="text-xs">
+              <TabsTrigger
+                key={category}
+                value={category}
+                className="text-xs py-2.5 px-3 min-h-[44px] sm:py-1 sm:min-h-[36px]"
+              >
                 {category}
               </TabsTrigger>
             ))}
           </TabsList>
 
-          <TabsContent value={activeCategory} className="mt-8">
+          <TabsContent value={activeCategory} className="mt-6 sm:mt-8">
             <motion.div
               className="grid gap-6 md:grid-cols-2"
               variants={VARIANTS_CONTAINER}

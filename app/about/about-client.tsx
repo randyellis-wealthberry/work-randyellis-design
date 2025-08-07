@@ -17,6 +17,7 @@ import {
   TrendingUp,
   Lightbulb,
   ChevronUp,
+  GraduationCap,
 } from "lucide-react";
 import { getEmail } from "../data";
 import AvatarCircularText from "@/components/ui/avatar-circular-text";
@@ -57,24 +58,23 @@ const experience = [
     description:
       "Leading product strategy and development for AI-powered financial planning tools. Driving innovation in generative AI applications for wealth management.",
     achievements: [
-      "Launched AI-powered financial planning platform",
-      "Led product team of 12+ engineers and designers",
-      "Implemented design system used across 5+ products",
-      "Achieved 40% improvement in user engagement metrics",
+      "Lead product vision and manage teams for fintech platform aiding underserved communities",
+      "Achieved 22% weekly retention and 18% conversion from signups to paid waitlist in closed beta",
+      "Conducted 50+ UX sessions, gathering 900+ feedback events to refine product features",
+      "Enhanced onboarding via A/B tests, boosting task completion by 34% and halving time",
     ],
   },
   {
     company: "Clockwork",
     companyUrl: "https://www.clockwork.com",
-    title: "Lead UX Researcher (Consultant)",
+    title: "Lead UX Researcher",
     period: "2023",
     description:
-      "Provided strategic UX research and design leadership for enterprise software solutions. Specialized in AI-human interaction design patterns.",
+      "Provided strategic UX research and design leadership for financial client non-profit programs. Specialized in financial planning tools and inventory management optimization.",
     achievements: [
-      "Conducted comprehensive UX audit for enterprise platform",
-      "Developed AI interaction design guidelines",
-      "Improved user task completion rate by 35%",
-      "Created research methodology for AI product testing",
+      "Produced mid-fidelity wireframes and user journey flows for a financial client to reduce onboarding time for their non-profit financial literacy banking program by 12%",
+      "Interviewed more than 30 internal financial planners and advocates to analyze the user experience and enhance their financial planning tools",
+      "Conducted internal user interviews to recommend a best-in-class PIM solution, resulting in a 23% reduction in inventory management bottlenecks",
     ],
   },
   {
@@ -82,13 +82,64 @@ const experience = [
     companyUrl: "https://www.nagarro.com",
     title: "Head of Design",
     period: "2020 - 2022",
+    promotion: true,
     description:
-      "Built and led global design organization across multiple markets. Established design operations and culture for 200+ person design team.",
+      "Orchestrated the IT firm's design evangelism strategy roadmap, aligning with the firm's vision and goals while building global design organization.",
     achievements: [
-      "Scaled design team from 50 to 200+ designers globally",
-      "Implemented design ops framework across 15+ countries",
-      "Launched internal design system adopted by 100+ projects",
-      "Mentored 800+ designers through training programs",
+      "Orchestrated the IT firm's design evangelism strategy roadmap, aligning with the firm's vision and goals; grew brand recognition by 50% and generated 100+ leads via design events and webinars",
+      "Facilitated 1:1 coaching sessions with 15+ junior-senior level designers to enhance user-centered design skills, resulting in a 100% positive impact from team members and a 40% increase in junior designer retention rate",
+      "Produced and disseminated 15+ leadership articles on industry trends and design best practices to 10k+ subscribers; drove a 40% improvement in website traffic and a 25% boost in lead generation",
+    ],
+  },
+  {
+    company: "Nagarro DV",
+    companyUrl: "https://www.nagarro.com",
+    title: "Director of DesignOps",
+    period: "Feb 2020 - Mar 2022",
+    description:
+      "Guided a design ops strategy that streamlined design processes and collaboration across teams. Collaborated with product and engineering teams to establish design and development roadmaps.",
+    achievements: [
+      "Guided a design ops strategy that streamlined design processes and collaboration across teams, dropping design cycle time by 35% and growing design quality by 40%",
+      "Collaborated with product and engineering teams to establish design and development roadmap; ensured continuous feedback and alignment between design and development phases, reduced design and development time by 30%",
+      "Defined weekly design reviews with cross-functional teams and provided in-depth feedback on design quality and adherence to design principles, with product usability up by 23% and customer satisfaction by 38%",
+    ],
+  },
+  {
+    company: "Alight Solutions",
+    companyUrl: "https://www.alight.com",
+    title: "Associate Director of UX/Product Design",
+    period: "Sep 2018 - Jul 2019",
+    description:
+      "Led product launch for AI anomaly payroll detection system and supervised team to launch analytics-focused career-tracking mobile app. Conducted comprehensive user research through multiple methodologies.",
+    achievements: [
+      "Guided product launch for an AI anomaly payroll detection system for the internal accounting team that improved the detection of errors by 60%. Leading to B2B white-label solutions for resale opportunities",
+      "Authored and managed UX design documentation, including wireframes, prototypes, interaction models, and design guidelines",
+      "Conducted user research through surveys, heat maps, and A/B testing, improving user engagement by 50% and a drop in bounce rates by 25% with the innovation lab products",
+      "Supervised a team of junior designers/developers to launch an analytics-focused career-tracking mobile app for the platform audience. Improving customer success of job placement by 35%",
+    ],
+  },
+  {
+    company: "DigitasLBi",
+    companyUrl: "https://www.digitas.com/en-us/offices/chicago",
+    title: "Lead Product Designer",
+    period: "Jul 2018 - Sep 2019",
+    description:
+      "Prepared UX deliverables and planned collaboration with visual designers to align UI design with overall UX strategy, usability standards, and accessibility guidelines.",
+    achievements: [
+      "Prepared UX deliverables, such as wireframes, prototypes, user flows, and interactive mockups that communicated design concepts and interactions to clients and team members",
+      "Planned collaboration with visual designers to align UI design with overall UX strategy, usability standards, accessibility guidelines, and brand requirements, growing website engagement by 25%",
+    ],
+  },
+  {
+    company: "Eight Bit Studios",
+    companyUrl: "https://eightbitstudios.com",
+    title: "User Experience Strategist",
+    period: "Mar 2016 - Jun 2018",
+    description:
+      "Designed and executed mobile app usability testing using comprehensive metrics. Analyzed user behavior data and feedback to optimize essential user journeys.",
+    achievements: [
+      "Designed and executed mobile app usability testing using metrics, including task completion rate and user satisfaction rating; identified and resolved 50+ usability issues and increased user retention by 15%",
+      "Analyzed user behavior data and feedback via heatmaps, surveys, and interviews; used insights to optimize seven essential user journeys, lowering drop-off rates by 25%",
     ],
   },
 ];
@@ -101,6 +152,12 @@ const adjunctExperience = [
     period: "May 2021 - Nov 2022",
     description:
       "Conducted lectures, led discussions, and facilitated activities on product design principles, processes, and methodologies.",
+    colleges: [
+      "University of Wisconsin",
+      "Institute of Technology of New Jersey",
+      "University of Miami",
+      "University of Kansas",
+    ],
     achievements: [
       "Conducted lectures, led discussions, and facilitated activities on product design principles, processes, and methodologies",
       "Developed and led workshops on effective writing techniques and provided personalized feedback to 20+ students, improving writing skills by 25% and increasing overall satisfaction by 30%",
@@ -399,7 +456,17 @@ export default function AboutClient() {
               <CardHeader>
                 <div className="flex justify-between items-start">
                   <div>
-                    <CardTitle className="text-lg">{role.title}</CardTitle>
+                    <div className="flex items-center gap-2">
+                      <CardTitle className="text-lg">{role.title}</CardTitle>
+                      {role.promotion && (
+                        <Badge
+                          variant="secondary"
+                          className="bg-yellow-100 text-yellow-800 border-yellow-200 dark:bg-yellow-900/20 dark:text-yellow-400 dark:border-yellow-700 text-xs"
+                        >
+                          ⭐ Promotion
+                        </Badge>
+                      )}
+                    </div>
                     <div className="flex items-center gap-2 mt-1">
                       <a
                         href={role.companyUrl}
@@ -481,6 +548,25 @@ export default function AboutClient() {
                 <p className="text-zinc-600 dark:text-zinc-400">
                   {role.description}
                 </p>
+                {role.colleges && (
+                  <div className="space-y-2">
+                    <h4 className="text-sm font-medium text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
+                      <GraduationCap className="h-4 w-4" />
+                      Partner Universities:
+                    </h4>
+                    <div className="flex flex-wrap gap-2">
+                      {role.colleges.map((college, collegeIndex) => (
+                        <Badge
+                          key={collegeIndex}
+                          variant="outline"
+                          className="text-xs"
+                        >
+                          {college}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                )}
                 <div className="space-y-2">
                   <h4 className="text-sm font-medium text-zinc-900 dark:text-zinc-100">
                     Key Achievements:

@@ -7,7 +7,7 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
     title: "Head of Product",
     start: "Oct 2022",
     end: "Present",
-    link: "https://www.wealthberry.com",
+    link: "https://www.buildyourlegacywithai.com",
     id: "work1",
     description: [
       "Leading product strategy for wealth management platform serving HNW clients",
@@ -16,16 +16,16 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
     ],
   },
   {
-    company: "Konsole Group",
-    title: "Product Design Strategist",
-    start: "Oct 2022",
-    end: "Jan 2023",
-    link: "https://www.konsolegroup.com",
+    company: "Clockwork",
+    title: "Lead UX Researcher",
+    start: "Apr 2023",
+    end: "Oct 2023",
+    link: "https://www.clockwork.com",
     id: "work2",
     description: [
-      "Consulted on product strategy for Fortune 500 companies",
-      "Led design thinking workshops and product discovery sessions",
-      "Developed design systems and component libraries",
+      "Developed wireframes, reducing onboarding time",
+      "Interviewed planners to optimize financial tools",
+      "Suggested PIM, improving inventory efficiency",
     ],
   },
   {

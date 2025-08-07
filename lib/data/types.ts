@@ -22,6 +22,7 @@ export type Project = {
   metrics?: {
     label: string;
     value: string;
+    performanceLevel?: "excellent" | "good" | "needs-improvement" | "neutral";
   }[];
   challenges?: string[];
   solutions?: string[];
