@@ -61,7 +61,9 @@ describe('TextScramble', () => {
     // Should not throw or cause infinite loop
     expect(() => {
       if (animationFrameCallback) {
-        animationFrameCallback(0);
+        act(() => {
+          animationFrameCallback!(0);
+        });
       }
     }).not.toThrow();
   });

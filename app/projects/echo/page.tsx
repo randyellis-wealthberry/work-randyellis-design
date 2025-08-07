@@ -1,75 +1,37 @@
 import { Metadata } from "next";
-import { CaseStudyLayout } from "@/components/case-study/case-study-layout";
+import EchoClientPage from "./echo-client";
 
 export const metadata: Metadata = {
-  title:
-    "EchoDrive Case Study | Streamlining Logistics Through Digital Innovation",
+  title: "EchoDrive Case Study | AI-Powered Smart Cloud Storage",
   description:
-    "Discover how Eight Bit Studios and Echo Global Logistics transformed traditional logistics operations through strategic digital innovation, achieving 16% revenue increase and 10,000+ active users.",
+    "Explore how EchoDrive revolutionized cloud storage through AI-powered organization, achieving 89% user adoption, 35% storage efficiency gains, and 5x faster search speeds.",
   openGraph: {
-    title: "EchoDrive Case Study | Digital Logistics Transformation",
+    title: "EchoDrive Case Study | AI-Powered Cloud Storage Innovation",
     description:
-      "Strategic digital innovation case study: 16% revenue increase, 12% volume growth, 10,000+ active users in logistics technology.",
+      "AI-powered cloud storage case study: 35% storage efficiency, 5x search speed, 89% user adoption through intelligent file management.",
     type: "article",
     images: [
       {
-        url: "/projects/echo/showcase1.jpg",
+        url: "/projects/echo/img1.jpg",
         width: 1200,
         height: 630,
-        alt: "EchoDrive mobile application showcase",
+        alt: "EchoDrive AI-powered cloud storage interface",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "EchoDrive Case Study | Digital Logistics Innovation",
+    title: "EchoDrive Case Study | Smart Cloud Storage with AI",
     description:
-      "How strategic UX design and development achieved 16% revenue growth in logistics technology.",
-    images: ["/projects/echo/showcase1.jpg"],
+      "How AI-powered intelligence transformed cloud storage efficiency and collaboration workflows.",
+    images: ["/projects/echo/img1.jpg"],
   },
-};
-
-const echoDriveData = {
-  title: "EchoDrive: Streamlining Logistics Through Digital Innovation",
-  client: "Echo Global Logistics, Inc.",
-  partner: "Eight Bit Studios",
-  timeline: "Alpha → Beta → Launch",
-  platforms: ["iOS", "Android", "Web Application"],
-  hero: {
-    title: "EchoDrive: Streamlining Logistics Through Digital Innovation",
-    subtitle:
-      "Transforming traditional logistics operations through strategic digital innovation, user-centered design, and comprehensive development execution.",
-    client: "Echo Global Logistics, Inc.",
-    partner: "Eight Bit Studios",
-    timeline: "Alpha → Beta → Launch",
-    platforms: ["iOS", "Android", "Web Application"],
-    heroImage: "/projects/echo/showcase1.jpg",
-    heroVideo: "/projects/echo/echodrive-mockup-video.mp4",
-  },
-  metrics: [
-    {
-      label: "Revenue Increase",
-      value: "16%",
-      description: "LTL shipment revenues to $184.4M (Q4 2019)",
-    },
-    {
-      label: "Volume Growth",
-      value: "12%",
-      description: "Through self-serve booking application",
-    },
-    {
-      label: "Beta Downloads",
-      value: "1,000",
-      description: "During testing phase",
-    },
-    {
-      label: "Active Users",
-      value: "10,000+",
-      description: "Post-launch drivers on platform",
-    },
-  ],
 };
 
 export default function EchoDriveCaseStudy() {
-  return <CaseStudyLayout data={echoDriveData} />;
+  return (
+    <div className="container mx-auto px-4 py-16 max-w-6xl">
+      <EchoClientPage />
+    </div>
+  );
 }

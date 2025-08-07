@@ -18,8 +18,16 @@ export const useSpring = jest.fn((initialValue) => {
 });
 
 export const useTransform = jest.fn((spring, transform) => {
-  const value = typeof spring === 'object' && spring.get ? spring.get() : (typeof spring === 'number' ? spring : 0);
-  return transform ? transform(value) : value;
+  const mockValue = { ...mockMotionValue };
+  mockValue.get = jest.fn(() => {
+    try {
+      const value = typeof spring === 'object' && spring.get ? spring.get() : (typeof spring === 'number' ? spring : 0);
+      return transform && typeof transform === 'function' ? transform(value) : value;
+    } catch (e) {
+      return 0; // Fallback for mock safety
+    }
+  });
+  return mockValue;
 });
 
 export const useMotionValue = jest.fn(() => ({ ...mockMotionValue }));
@@ -40,6 +48,18 @@ const createMotionComponent = (element) => {
     transition,
     onAnimationComplete,
     onAnimationStart,
+    whileHover,
+    whileTap,
+    whileInView,
+    whileFocus,
+    whileDrag,
+    drag,
+    dragConstraints,
+    dragElastic,
+    dragMomentum,
+    style,
+    layoutId,
+    layout,
     ...props 
   }, ref) => {
     // Filter out animation props that don't belong on DOM elements
@@ -51,11 +71,23 @@ const createMotionComponent = (element) => {
       transition: _____, 
       onAnimationComplete: ______,
       onAnimationStart: _______,
+      whileHover: ________,
+      whileTap: _________,
+      whileInView: __________,
+      whileFocus: ___________,
+      whileDrag: ____________,
+      drag: _____________,
+      dragConstraints: ______________,
+      dragElastic: _______________,
+      dragMomentum: ________________,
+      layoutId: _________________,
+      layout: __________________,
       ...domProps 
     } = props;
 
     return React.createElement(element, {
       ...domProps,
+      style,
       ref,
       'data-motion-component': element,
     }, children);

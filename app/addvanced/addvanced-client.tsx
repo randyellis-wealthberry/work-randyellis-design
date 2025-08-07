@@ -31,9 +31,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
 // Custom Components
-import { TextEffect } from "@/components/ui/text-effect";
 import { HoverVideo } from "@/components/ui/hover-video";
-import { ScrambleSectionTitle } from "@/components/ui/scramble-section-title";
 import { AnimatedMetricCard } from "@/components/ui/animated-metric-card";
 
 // Data
@@ -130,9 +128,7 @@ export default function AddvancedClient() {
                 className="space-y-4"
               >
                 <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-                  <TextEffect per="char" preset="fade">
-                    {`${name}: Career Intelligence Platform`}
-                  </TextEffect>
+                  {`${name}: Career Intelligence Platform`}
                 </h1>
                 <p className="text-xl text-muted-foreground lg:text-2xl">
                   {subtitle && `${subtitle} - `}Transforming job search from
@@ -249,9 +245,9 @@ export default function AddvancedClient() {
       {/* Quick Stats Grid */}
       <section className="px-6 py-12 lg:px-8">
         <div className="mx-auto max-w-6xl">
-          <ScrambleSectionTitle className="mb-8 text-center">
+          <h3 className="mb-8 text-center text-2xl font-semibold">
             Key Achievements
-          </ScrambleSectionTitle>
+          </h3>
 
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {metrics?.slice(0, 8).map((metric, index) => (
@@ -271,9 +267,7 @@ export default function AddvancedClient() {
         <div className="mx-auto max-w-6xl">
           <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
             <div>
-              <ScrambleSectionTitle className="mb-6">
-                The Challenge
-              </ScrambleSectionTitle>
+              <h3 className="mb-6 text-2xl font-semibold">The Challenge</h3>
               <div className="space-y-4 text-lg text-muted-foreground">
                 <p>
                   <strong className="text-foreground">
@@ -312,9 +306,9 @@ export default function AddvancedClient() {
       {/* Research & Discovery Section */}
       <section className="px-6 py-16 lg:px-8">
         <div className="mx-auto max-w-6xl">
-          <ScrambleSectionTitle className="mb-12 text-center">
+          <h3 className="mb-12 text-center text-2xl font-semibold">
             Research & Discovery
-          </ScrambleSectionTitle>
+          </h3>
 
           {/* IDI Framework */}
           <div className="mb-16">
@@ -620,9 +614,9 @@ export default function AddvancedClient() {
       {/* Validation & Testing Section */}
       <section className="px-6 py-16 lg:px-8 bg-muted/30">
         <div className="mx-auto max-w-6xl">
-          <ScrambleSectionTitle className="mb-12 text-center">
+          <h3 className="mb-12 text-center text-2xl font-semibold">
             Validation & Testing
-          </ScrambleSectionTitle>
+          </h3>
 
           {/* Testing Methodology */}
           <div className="mb-16">
@@ -851,9 +845,9 @@ export default function AddvancedClient() {
       {/* Impact & Outcomes Section */}
       <section className="px-6 py-16 lg:px-8">
         <div className="mx-auto max-w-6xl">
-          <ScrambleSectionTitle className="mb-12 text-center">
+          <h3 className="mb-12 text-center text-2xl font-semibold">
             Impact & Outcomes
-          </ScrambleSectionTitle>
+          </h3>
 
           {/* Business Impact */}
           <div className="mb-16">
@@ -981,9 +975,9 @@ export default function AddvancedClient() {
       {/* Reflection & Learnings Section */}
       <section className="px-6 py-16 lg:px-8 bg-muted/30">
         <div className="mx-auto max-w-6xl">
-          <ScrambleSectionTitle className="mb-12 text-center">
+          <h3 className="mb-12 text-center text-2xl font-semibold">
             Reflection & Learnings
-          </ScrambleSectionTitle>
+          </h3>
 
           {/* Innovation Lab Context */}
           <div className="mb-16">

@@ -34,6 +34,21 @@ global.cancelAnimationFrame = jest.fn().mockImplementation((id) => {
   clearTimeout(id);
 });
 
+// Ensure timer functions are available globally - force override for Jest environment
+global.setInterval = jest.fn((callback, delay) => {
+  return setTimeout(callback, delay);
+});
+
+global.clearInterval = jest.fn((intervalId) => {
+  clearTimeout(intervalId);
+});
+
+// Also ensure they're available on the window object in jsdom
+if (typeof window !== 'undefined') {
+  window.setInterval = global.setInterval;
+  window.clearInterval = global.clearInterval;
+}
+
 // Mock ResizeObserver
 global.ResizeObserver = jest.fn().mockImplementation(() => ({
   observe: jest.fn(),

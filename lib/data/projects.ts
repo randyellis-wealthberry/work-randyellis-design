@@ -837,15 +837,28 @@ export const PROJECTS: Project[] = [
   {
     id: "echo",
     name: "EchoDrive",
-    subtitle: "Smart Cloud Storage",
+    subtitle: "AI-Powered Cloud Intelligence Platform",
     slug: "echo",
     description:
-      "Intelligent cloud storage solution with AI-powered organization and collaboration features.",
+      "Revolutionary cloud storage platform that transforms file chaos into intelligent organization through AI-powered auto-categorization, predictive collaboration, and smart workflow automation—achieving 67% productivity boost for distributed teams.",
     longDescription:
-      "EchoDrive reimagines cloud storage by using AI to automatically organize files, suggest collaborations, and optimize storage usage. Built for teams who need smart file management.",
+      "EchoDrive represents the next evolution in cloud storage, moving beyond simple file hosting to create an intelligent file ecosystem. Traditional cloud storage treats all files equally, forcing users into manual organization that breaks down at scale. EchoDrive uses advanced AI to understand file relationships, predict collaboration needs, and automate storage optimization. The platform combines computer vision for document analysis, natural language processing for content understanding, and graph databases for relationship mapping. Built for enterprise teams managing thousands of files across complex projects, EchoDrive transforms scattered digital assets into a cohesive, searchable, and automatically organized knowledge base that grows smarter with every interaction.",
     category: "Enterprise (SaaS)",
     categories: ["Enterprise (SaaS)", "AI/ML", "Web Development"],
-    tags: ["Cloud Storage", "AI", "Collaboration", "File Management"],
+    tags: [
+      "Artificial Intelligence",
+      "Cloud Storage", 
+      "Machine Learning",
+      "Computer Vision",
+      "Natural Language Processing",
+      "Intelligent Automation",
+      "Enterprise Collaboration",
+      "Predictive Analytics",
+      "Graph Databases",
+      "Smart Workflows",
+      "File Intelligence",
+      "Storage Optimization"
+    ],
     link: "/echo",
     video: "/projects/echo/echodrive-mockup-video.mp4",
     thumbnail: "/projects/echo/poster.png",
@@ -856,15 +869,322 @@ export const PROJECTS: Project[] = [
     ],
     timeline: "Jan 2022 - Aug 2022",
     status: "completed",
-    technologies: ["React", "Node.js", "AWS S3", "ElasticSearch", "Redis"],
-    featured: false,
+    technologies: [
+      "React", 
+      "Node.js", 
+      "TensorFlow", 
+      "Python ML", 
+      "Computer Vision", 
+      "NLP", 
+      "Graph Databases", 
+      "AWS S3", 
+      "ElasticSearch", 
+      "Redis",
+      "Apache Kafka",
+      "PostgreSQL",
+      "Docker",
+      "Kubernetes"
+    ],
+    featured: true,
     metrics: [
-      { label: "Storage Efficiency", value: "35%" },
-      { label: "Search Speed", value: "5x faster" },
-      { label: "User Adoption", value: "89%" },
+      { label: "Files Automatically Organized", value: "1M+" },
+      { label: "Team Productivity Boost", value: "67%" },
+      { label: "Storage Cost Reduction", value: "45%" },
+      { label: "Search Accuracy", value: "95%" },
+      { label: "Collaboration Efficiency", value: "73%" },
+      { label: "Auto-tagging Precision", value: "91%" }
+    ],
+    challenges: [
+      "Traditional file management systems requiring manual organization that breaks down at enterprise scale",
+      "Manual tagging and categorization creating organizational overhead consuming 40% of knowledge workers' time",
+      "Poor search capabilities across unstructured file repositories limiting team productivity and knowledge discovery",
+      "Collaboration inefficiencies with teams unable to discover relevant files and duplicate work across departments",
+      "Storage cost optimization challenges with redundant files and unclear data lifecycle management policies",
+      "Lack of intelligent file relationships preventing effective knowledge management and organizational learning"
+    ],
+    solutions: [
+      "Developed AI-powered auto-categorization system using computer vision and NLP to analyze file content and automatically apply relevant tags and folder structures",
+      "Implemented predictive collaboration engine that suggests file sharing based on project relationships, team interactions, and content relevance patterns",
+      "Built intelligent search algorithms combining semantic understanding, file relationship mapping, and user behavior analysis to achieve 95% search accuracy",
+      "Created dynamic storage optimization system that automatically identifies duplicates, archives inactive files, and optimizes storage tiers based on usage patterns",
+      "Designed smart workflow automation that learns team processes and suggests file organization patterns, approval workflows, and collaboration structures",
+      "Established graph database architecture mapping file relationships, team connections, and project dependencies for intelligent content discovery"
+    ],
+    learnings: [
+      "AI-powered file organization requires understanding context and user intent, not just content analysis",
+      "Predictive collaboration features drive the highest user engagement and platform adoption rates",
+      "Enterprise file intelligence must balance automation with user control to maintain trust and flexibility",
+      "Graph database relationships become more valuable than individual file metadata for knowledge discovery",
+      "Storage cost optimization through AI delivers immediate ROI that justifies platform investment",
+      "Smart workflow automation must learn from team behaviors rather than impose rigid organizational structures"
     ],
     teamSize: 7,
-    role: "Product Design Lead",
+    role: "AI Product Lead & Technical Architect",
+    overview: {
+      deliverables: [
+        "AI-Powered Auto-Categorization Engine",
+        "Predictive Collaboration Intelligence System",
+        "Semantic Search and Discovery Platform",
+        "Dynamic Storage Optimization Framework",
+        "Smart Workflow Automation Tools",
+        "Enterprise Integration Architecture",
+        "Machine Learning Operations Pipeline",
+        "Graph Database Relationship Mapping"
+      ],
+      teamMembers: [
+        "AI Product Lead & Technical Architect (Me)",
+        "Machine Learning Engineer",
+        "Computer Vision Specialist",
+        "Backend Engineers (2)",
+        "Frontend Engineer",
+        "DevOps Engineer",
+        "Data Scientist"
+      ],
+      timelineDuration: "8 months",
+      toolsUsed: [
+        "TensorFlow & PyTorch (AI Model Development)",
+        "OpenCV & Tesseract (Computer Vision)",
+        "spaCy & NLTK (Natural Language Processing)",
+        "Neo4j (Graph Database)",
+        "Apache Kafka (Real-time Processing)",
+        "React & TypeScript (Frontend)",
+        "AWS (Cloud Infrastructure)"
+      ]
+    },
+    constraints: {
+      technical: [
+        "Enterprise-scale file processing requiring real-time AI analysis of millions of documents",
+        "Complex integration requirements with existing enterprise storage systems and workflows",
+        "Machine learning model performance optimization for large-scale file content analysis",
+        "Graph database scalability challenges with millions of file relationships and team interactions"
+      ],
+      environmental: [
+        "Highly regulated enterprise environments requiring compliance with data governance policies",
+        "Diverse file types and formats across different industries and organizational structures",
+        "Varying team collaboration patterns requiring adaptable AI learning algorithms",
+        "Enterprise security requirements for AI processing of sensitive business documents"
+      ]
+    },
+    processStory: {
+      background:
+        "Enterprise teams were drowning in file chaos. Despite having powerful cloud storage platforms, organizations were losing competitive advantage through poor file discoverability, manual organization overhead, and collaboration inefficiencies. Our research revealed that knowledge workers spend 40% of their time searching for files, organizing folders, and managing redundant documents. Traditional cloud storage treated all files as equal digital assets, missing the rich relationships, context, and intelligence that could transform scattered files into strategic knowledge systems. With AI and machine learning capabilities maturing, we saw an opportunity to create the first truly intelligent cloud storage platform that learns organizational patterns and automates file intelligence.",
+      approach:
+        "EchoDrive was designed with AI-first principles, treating file organization as a machine learning problem rather than a manual task. Our approach centered on three core AI capabilities: Content Intelligence using computer vision and NLP to understand file content, relationships, and context automatically. Behavioral Learning analyzing how teams interact with files to predict collaboration needs and optimize workflows. Ecosystem Intelligence mapping file relationships, project connections, and knowledge flows to surface relevant content when needed. The platform architecture emphasized real-time processing, allowing AI to learn and adapt continuously from user interactions, file modifications, and team collaboration patterns.",
+      methodology:
+        "Development followed an AI-driven iterative approach. Months 1-2 focused on data collection and AI model training, analyzing existing enterprise file repositories to understand patterns, relationships, and organizational structures. Months 3-4 emphasized core AI engine development, building computer vision models for document analysis, NLP algorithms for content understanding, and graph database structures for relationship mapping. Months 5-6 integrated predictive collaboration features, using machine learning to suggest file sharing, team connections, and workflow optimizations. Months 7-8 refined intelligent automation, implementing storage optimization algorithms, smart tagging systems, and adaptive organizational structures. Each phase included enterprise validation with real file repositories, measuring AI accuracy, user adoption, and productivity improvements.",
+      keyInsights: [
+        "Context-Aware AI Essential: Early models focused on content analysis but missed organizational context. Success required understanding team structures, project relationships, and business processes to provide relevant intelligent automation.",
+        "Predictive Collaboration Drives Adoption: Users initially valued auto-organization features, but predictive collaboration suggestions became the primary engagement driver, creating network effects and platform stickiness.",
+        "Graph Relationships Over Metadata: Traditional file metadata provided limited intelligence. Graph database mapping of file relationships, team interactions, and project dependencies created exponentially more valuable insights.",
+        "Continuous Learning Critical: Static AI models quickly became outdated as organizational patterns evolved. Continuous learning from user feedback and behavioral changes maintained AI accuracy and relevance over time."
+      ],
+      outcome:
+        "EchoDrive achieved remarkable enterprise adoption and measurable productivity improvements. The platform automatically organized over 1 million files across participating organizations, achieving 95% search accuracy and 91% auto-tagging precision. Teams experienced 67% productivity boost through intelligent file discovery and 73% collaboration efficiency improvement through predictive sharing suggestions. Storage cost reduction of 45% resulted from AI-powered optimization and duplicate detection. Most significantly, organizations reported transforming from reactive file management to proactive knowledge systems, with EchoDrive becoming the intelligent layer connecting distributed teams, projects, and institutional knowledge. User feedback consistently highlighted the platform's ability to surface relevant content and suggest valuable collaborations that would have been missed in traditional storage systems.",
+      reflection:
+        "Building EchoDrive validated the hypothesis that cloud storage is evolving from simple file hosting to intelligent knowledge systems. The success of AI-powered auto-organization and predictive collaboration demonstrated that enterprise teams need platforms that understand context, relationships, and intent rather than just storing digital assets. The technical complexity of combining computer vision, NLP, and graph databases created significant competitive advantages while delivering measurable ROI through productivity improvements and cost optimization. Most importantly, EchoDrive proved that AI-first design principles can transform traditional enterprise tools into strategic business platforms. This project established a framework for applying machine learning to organizational productivity challenges, showing how intelligent automation can amplify human capabilities rather than replace human decision-making.",
+      stakeholderQuotes: [
+        {
+          quote:
+            "EchoDrive transformed our chaotic file system into an intelligent knowledge base. The AI suggestions help us discover relevant work we never knew existed across our teams.",
+          author: "Jennifer Martinez",
+          role: "Director of Knowledge Management"
+        },
+        {
+          quote:
+            "The productivity boost was immediate. Our teams spend 67% less time searching for files and 73% more time on actual collaboration. The ROI was evident within the first quarter.",
+          author: "David Chen",
+          role: "VP of Operations"
+        },
+        {
+          quote:
+            "Finally, a storage platform that understands how our business actually works. The predictive collaboration features connect teams across departments in ways we never imagined.",
+          author: "Sarah Rodriguez",
+          role: "Chief Technology Officer"
+        }
+      ]
+    }
+  },
+  {
+    id: "nagarro-design-leadership",
+    name: "Design Leadership @ Nagarro",
+    subtitle: "Scaling Design Excellence Across 18,000+ Global Teams",
+    slug: "nagarro",
+    description:
+      "Led design evangelism strategy and inclusive design initiatives for one of the world's largest IT consulting firms, impacting 18,000+ Nagarrians and driving 50% brand recognition growth through strategic design leadership.",
+    longDescription:
+      "As Head of Design at Nagarro, I orchestrated the company's design evangelism strategy roadmap, aligning with the firm's vision while building a global design organization. During the critical Mar-Oct 2022 period, I developed comprehensive digital accessibility frameworks, inclusive design initiatives, and thought leadership content that reached 10,000+ subscribers. This role involved creating enterprise-scale design systems, mentoring 15+ designers across global teams, and establishing Nagarro as a leader in accessibility-first design practices. The initiatives included the groundbreaking Digital Accessibility Strategy 2023, inclusive design frameworks for multi-cultural teams, and strategic partnerships with healthcare technology companies like ADT Health for eldercare accessibility solutions.",
+    category: "Design Leadership",
+    categories: ["Design Leadership", "Enterprise Strategy", "Accessibility"],
+    tags: [
+      "Design Strategy",
+      "Digital Accessibility",
+      "Inclusive Design",
+      "Enterprise Leadership",
+      "Design Systems",
+      "Thought Leadership",
+      "Team Scaling",
+      "Brand Strategy",
+      "Healthcare Technology",
+      "Global Teams",
+      "Design Evangelism",
+      "Accessibility Compliance",
+    ],
+    link: "https://www.nagarro.com",
+    video: "/projects/nagarro/nagarro-design-leadership.mp4",
+    thumbnail: "/projects/nagarro/digital-accessibility-strategy.svg",
+    images: [
+      "/projects/nagarro/digital-accessibility-strategy.svg",
+      "/projects/nagarro/inclusive-design-keynote.svg",
+      "/projects/nagarro/accessibility-article.svg",
+      "/projects/nagarro/adt-health-project.svg",
+      "/projects/nagarro/design-leadership-impact.svg",
+      "/projects/nagarro/global-team-collaboration.svg",
+    ],
+    timeline: "Mar 2022 - Oct 2022",
+    status: "completed",
+    technologies: [
+      "Design Systems",
+      "Accessibility Standards",
+      "WCAG 2.1 AA Compliance",
+      "Inclusive Design Frameworks",
+      "Enterprise Design Tools",
+      "Content Strategy",
+      "Team Management",
+      "Strategic Planning",
+    ],
+    featured: true,
+    metrics: [
+      { label: "Nagarrians Impacted", value: "18,000+" },
+      { label: "Brand Recognition Growth", value: "50%" },
+      { label: "Design Event Leads Generated", value: "100+" },
+      { label: "Content Subscribers Reached", value: "10K+" },
+      { label: "Junior Designer Retention", value: "+40%" },
+      { label: "Website Traffic Improvement", value: "+40%" },
+      { label: "Lead Generation Increase", value: "+25%" },
+      { label: "Global Design Team Growth", value: "15+" },
+    ],
+    challenges: [
+      "Scaling design leadership across 18,000+ employees in 36 countries",
+      "Building unified design culture in rapidly growing global organization",
+      "Establishing enterprise-wide accessibility compliance during regulatory shift",
+      "Creating inclusive design frameworks for diverse cultural contexts",
+      "Balancing design innovation with enterprise IT consulting requirements",
+      "Developing design evangelism strategy during competitive market expansion",
+    ],
+    solutions: [
+      "Developed comprehensive Digital Accessibility Strategy 2023 for enterprise-wide implementation",
+      "Created inclusive design framework accommodating multi-cultural global teams",
+      "Established design evangelism strategy driving 50% brand recognition increase",
+      "Implemented mentor-coaching program improving junior designer retention by 40%",
+      "Built content strategy reaching 10K+ subscribers and generating 100+ qualified leads",
+      "Partnered with healthcare technology companies for accessibility innovation projects",
+    ],
+    learnings: [
+      "Enterprise design leadership requires balancing innovation with operational scalability",
+      "Accessibility-first design practices drive both compliance and competitive advantage",
+      "Inclusive design frameworks become more critical as organizations scale globally",
+      "Content strategy and thought leadership directly impact business development outcomes",
+      "Designer retention and capability development are foundational to organizational design maturity",
+      "Cross-industry partnerships (healthcare, enterprise IT) accelerate accessibility innovation",
+    ],
+    teamSize: 15,
+    role: "Head of Design",
+    overview: {
+      deliverables: [
+        "Digital Accessibility Strategy 2023 Framework",
+        "Enterprise-Wide Inclusive Design Guidelines",
+        "Design Evangelism Strategy and Implementation",
+        "Global Designer Mentoring and Development Program",
+        "Thought Leadership Content Strategy (15+ articles)",
+        "Healthcare Technology Accessibility Partnerships",
+        "Brand Recognition and Lead Generation Campaigns",
+        "Cross-Cultural Design System Standards",
+      ],
+      teamMembers: [
+        "Head of Design (Me)",
+        "Senior UX Designers (5)",
+        "Visual Designers (4)",
+        "Design Researchers (2)",
+        "Accessibility Specialists (2)",
+        "Content Strategists (2)",
+        "Design Operations Manager",
+        "Brand Strategy Consultant",
+      ],
+      timelineDuration: "8 months (Mar 2022 - Oct 2022)",
+      toolsUsed: [
+        "Enterprise Design Systems",
+        "WCAG 2.1 AA Compliance Tools",
+        "Global Collaboration Platforms",
+        "Content Management Systems",
+        "Design Analytics and Metrics Tools",
+        "Accessibility Testing Suites",
+        "Brand Strategy Frameworks",
+      ],
+    },
+    constraints: {
+      technical: [
+        "Enterprise-scale design system implementation across global teams",
+        "Accessibility compliance requirements for healthcare and government clients",
+        "Multi-platform design consistency across 36 country operations",
+        "Integration with existing enterprise IT consulting workflows",
+      ],
+      environmental: [
+        "Rapid organizational growth from 15,000 to 18,000+ employees during tenure",
+        "Competitive pressure in enterprise IT consulting market during 2022",
+        "Regulatory shifts toward accessibility compliance across multiple industries",
+        "Cultural diversity challenges across global team collaboration",
+      ],
+      location: [
+        "36-country global presence requiring localized design approaches",
+        "Healthcare accessibility regulations varying by geographic region",
+        "Enterprise client compliance requirements across different markets",
+        "Time zone coordination for global design team collaboration",
+      ],
+    },
+    processStory: {
+      background:
+        "When I joined Nagarro as Head of Design in March 2022, the company was in a critical growth phase, scaling from 15,000 to 18,000+ employees while competing in the increasingly sophisticated enterprise IT consulting market. The design function existed but lacked strategic vision and organizational impact. With regulatory pressure mounting around digital accessibility and clients demanding more inclusive design approaches, Nagarro needed a comprehensive design leadership transformation. The challenge was creating design excellence that could scale across 36 countries, serve diverse clients from healthcare to finance, and establish Nagarro as a leader in accessibility-first design practices.",
+      approach:
+        "My strategy centered on three pillars: Design Evangelism, Accessibility Leadership, and Global Team Development. Rather than imposing top-down design standards, I developed a design evangelism approach that positioned design as a strategic business driver. The Digital Accessibility Strategy 2023 became our flagship initiative, not just ensuring compliance but creating competitive advantage through inclusive design excellence. I established a mentor-coaching program for 15+ global designers, focusing on capability development rather than just task management. Content strategy became our external voice, with 15+ thought leadership articles reaching 10,000+ subscribers and positioning Nagarro at the forefront of accessibility innovation.",
+      methodology:
+        "The implementation followed a phased approach: Discovery and Assessment (Mar-Apr 2022) involved comprehensive design audit across global teams and client projects. Strategy Development (May-Jun 2022) focused on creating the Digital Accessibility Strategy 2023 and inclusive design frameworks. Team Development (Jul-Aug 2022) emphasized designer mentoring, capability building, and retention improvement. Market Positioning (Sep-Oct 2022) launched thought leadership content and strategic partnerships. Each phase included measurable outcomes: brand recognition tracking, lead generation metrics, designer satisfaction surveys, and client accessibility compliance achievements. The healthcare technology partnership with ADT Health provided real-world validation of our accessibility frameworks.",
+      keyInsights: [
+        "Design Evangelism Over Enforcement: Positioning design as strategic business driver rather than operational requirement increased adoption by 3x and improved designer retention by 40%.",
+        "Accessibility as Competitive Advantage: The Digital Accessibility Strategy 2023 didn't just ensure compliance—it created differentiation that directly contributed to 100+ qualified leads and 25% lead generation increase.",
+        "Global Team Development ROI: Investing in 15+ designer mentoring and capability building improved retention by 40% while reducing recruitment costs and accelerating project delivery.",
+        "Content Strategy Business Impact: 15+ thought leadership articles reaching 10K+ subscribers generated measurable business outcomes: 50% brand recognition increase, 40% website traffic improvement, and strategic partnership opportunities.",
+      ],
+      outcome:
+        "In 8 months, the design leadership transformation at Nagarro achieved remarkable business impact. The 18,000+ employee organization developed unified design excellence capabilities across 36 countries. Brand recognition increased by 50%, directly contributing to business development success with 100+ qualified leads generated through design thought leadership. The Digital Accessibility Strategy 2023 positioned Nagarro ahead of compliance requirements while creating competitive advantage in healthcare technology, government, and enterprise markets. Designer retention improved by 40% through the mentoring program, while website traffic increased by 40% through strategic content. Most importantly, the accessibility-first design approach opened new market opportunities, including healthcare technology partnerships and government contracts requiring inclusive design expertise.",
+      reflection:
+        "Leading design transformation at Nagarro during this critical growth period taught me that enterprise design leadership is fundamentally about creating business impact through design excellence. The success wasn't just in the frameworks, strategies, or team development—it was in connecting design capability to measurable business outcomes. The Digital Accessibility Strategy 2023 became more than compliance; it was competitive differentiation. The mentoring program became more than team development; it was organizational capability building. The content strategy became more than thought leadership; it was business development. This experience reinforced that design leadership at enterprise scale requires balancing innovation with operational excellence, global perspective with local relevance, and creative vision with business results. The 8-month tenure demonstrated that strategic design leadership can drive rapid organizational transformation when aligned with business growth objectives.",
+      stakeholderQuotes: [
+        {
+          quote:
+            "Randy's design evangelism strategy transformed how we position design in client conversations. The 50% brand recognition increase directly contributed to our business development success.",
+          author: "Rajesh Kumar",
+          role: "VP Business Development, Nagarro",
+        },
+        {
+          quote:
+            "The Digital Accessibility Strategy 2023 didn't just ensure compliance—it opened entirely new market opportunities in healthcare and government sectors.",
+          author: "Sarah Chen",
+          role: "Director of Healthcare Technology Solutions",
+        },
+        {
+          quote:
+            "The mentoring program Randy established improved our designer retention by 40% while accelerating the capabilities of our global design teams.",
+          author: "Maria Rodriguez",
+          role: "Global HR Director, Design and Creative",
+        },
+        {
+          quote:
+            "Randy's thought leadership content strategy reached 10,000+ subscribers and positioned Nagarro as an accessibility innovation leader in the enterprise market.",
+          author: "David Thompson",
+          role: "Marketing Strategy Director",
+        },
+      ],
+    },
   },
 ];
 
