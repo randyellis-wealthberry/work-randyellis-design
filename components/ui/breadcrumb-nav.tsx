@@ -25,7 +25,7 @@ export function BreadcrumbNav({ items, className }: BreadcrumbNavProps) {
       )}
     >
       <Link
-        href="/"
+        href="https://work.randyellis.design"
         className="hover:text-zinc-700 dark:hover:text-zinc-200 transition-colors p-1 rounded"
         aria-label="Home"
       >
