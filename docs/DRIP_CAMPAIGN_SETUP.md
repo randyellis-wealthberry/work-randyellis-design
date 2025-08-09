@@ -21,17 +21,20 @@ This guide provides step-by-step instructions for setting up automated email dri
 Your email capture system now sends enhanced data to Loops.so, giving you multiple trigger options:
 
 ### Option A: Contact Created Trigger (Recommended)
+
 - **Trigger**: "Contact created"
 - **Why**: Fires immediately when someone subscribes
 - **Best for**: Welcome sequences and immediate onboarding
 
 ### Option B: Event-Based Trigger (Advanced)
+
 - **Trigger**: "Event received"
 - **Event name**: `newsletter_signup`
 - **Why**: More specific trigger with additional event data
 - **Best for**: Behavioral-based campaigns with conditions
 
 ### Option C: Contact Property Trigger
+
 - **Trigger**: "Contact property updated"
 - **Property**: `subscribed` becomes `true`
 - **Why**: Triggers when subscription status changes
@@ -55,6 +58,7 @@ Contact Properties Available:
 ```
 
 ### Example Conditions:
+
 - **Has first name**: `firstName` is not empty
 - **Specific signup page**: `referer` contains "/projects"
 - **Recent signups**: `signupDate` is within last 7 days
@@ -66,7 +70,7 @@ Contact Properties Available:
 
 ```
 📧 Email 1: Welcome (Immediate)
-Subject: Welcome to [Your Newsletter Name]! 
+Subject: Welcome to [Your Newsletter Name]!
 Content: Thank them, set expectations, deliver promised value
 
 ⏰ Wait: 2 days
@@ -119,29 +123,32 @@ Content: Survey/feedback request, segment for future campaigns
 Use contact properties for personalization:
 
 ### Basic Personalization:
+
 ```
 Hi {{firstName}},
 
-Welcome to the newsletter! 
+Welcome to the newsletter!
 
 [If firstName is empty, use: "Hi there," or "Hello,"]
 ```
 
 ### Advanced Personalization:
+
 ```
 Subject: Welcome to [Newsletter], {{firstName}}!
 
 Hi {{firstName}},
 
-I noticed you found us through {{signupPage}} - great choice! 
+I noticed you found us through {{signupPage}} - great choice!
 
-Since you're interested in [topic related to signup page], 
+Since you're interested in [topic related to signup page],
 I wanted to share...
 
 [Conditional content based on referrer/signup source]
 ```
 
 ### Conditional Content Examples:
+
 ```
 {% if signupPage contains "/projects" %}
 Since you were checking out my projects, you might enjoy this case study...
@@ -155,12 +162,14 @@ Welcome! Here's what you can expect from this newsletter...
 ## Step 6: Set Email Timing
 
 ### Best Practices:
+
 - **Email 1**: Immediate (within 5 minutes)
 - **Email 2**: 2-3 days later
 - **Email 3**: 5-7 days after Email 2
 - **Subsequent emails**: 7-14 day intervals
 
 ### Timing Considerations:
+
 - **B2B audience**: Tuesday-Thursday, 10 AM - 2 PM
 - **Consumer audience**: Weekends and evenings often work well
 - **Global audience**: Consider time zones of your primary audience
@@ -170,6 +179,7 @@ Welcome! Here's what you can expect from this newsletter...
 Test different elements of your campaign:
 
 ### Subject Lines:
+
 ```
 Version A: "Welcome to [Newsletter Name]!"
 Version B: "Your [benefit/resource] is ready!"
@@ -177,6 +187,7 @@ Version C: "Hi {{firstName}}, welcome aboard!"
 ```
 
 ### Send Times:
+
 ```
 Version A: Immediate
 Version B: 1 hour delay
@@ -184,6 +195,7 @@ Version C: 24 hour delay
 ```
 
 ### Content Approaches:
+
 ```
 Version A: Formal, professional tone
 Version B: Casual, personal tone
@@ -200,12 +212,14 @@ Version C: Story-driven approach
 ## Step 9: Monitoring and Optimization
 
 ### Key Metrics to Track:
+
 - **Open Rate**: Aim for 20-25% for welcome emails
 - **Click Rate**: Aim for 3-5% average
 - **Unsubscribe Rate**: Should be <1% for welcome series
 - **Conversion Rate**: Track based on your goals
 
 ### Optimization Tips:
+
 - **A/B test subject lines** regularly
 - **Monitor drop-off points** in your sequence
 - **Update content** based on feedback and performance
@@ -214,19 +228,25 @@ Version C: Story-driven approach
 ## Advanced Campaign Ideas
 
 ### 1. Onboarding by Interest
+
 Create different sequences based on `referer` or signup source:
+
 - **Project-focused**: For visitors from /projects
 - **Blog-focused**: For visitors from /blog posts
 - **General**: For direct visitors
 
 ### 2. Engagement-Based Progression
+
 Use email engagement to determine next steps:
+
 - **High engagement**: Move to premium content
 - **Medium engagement**: Continue standard sequence
 - **Low engagement**: Send re-engagement campaign
 
 ### 3. Time-Based Campaigns
+
 Leverage `signupDate` for special occasions:
+
 - **Anniversary emails**: 6 months, 1 year after signup
 - **Seasonal content**: Holiday-themed campaigns
 - **Milestone celebrations**: When you reach subscriber goals
@@ -234,18 +254,21 @@ Leverage `signupDate` for special occasions:
 ## Troubleshooting Common Issues
 
 ### Campaign Not Triggering
+
 1. **Check trigger conditions**: Ensure they match your contact data
 2. **Verify campaign is active**: Toggle status in dashboard
 3. **Review contact properties**: Confirm contacts have required properties
 4. **Test with known contact**: Use `/admin/email-test` tool
 
 ### Low Open Rates
+
 1. **Improve subject lines**: Make them more compelling/personal
 2. **Check sender reputation**: Monitor deliverability metrics
 3. **Review send timing**: Test different times of day
 4. **Clean your list**: Remove inactive subscribers
 
 ### High Unsubscribe Rates
+
 1. **Review expectations**: Ensure you're delivering on promises
 2. **Check email frequency**: You might be sending too often
 3. **Improve content relevance**: Better segmentation needed
@@ -254,6 +277,7 @@ Leverage `signupDate` for special occasions:
 ## Integration with Your Website
 
 ### Newsletter Form Enhancement
+
 You can enhance your newsletter form to collect more data for better segmentation:
 
 ```typescript
@@ -267,6 +291,7 @@ const extendedSchema = z.object({
 ```
 
 ### Event Tracking for Advanced Campaigns
+
 Track additional events to trigger more sophisticated campaigns:
 
 ```typescript

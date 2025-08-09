@@ -15,21 +15,25 @@ The animation testing framework provides deterministic control over animations i
 ## Key Features
 
 ### ✅ Deterministic Animation Control
+
 - Controlled execution of animation frames
 - No infinite loops or test timeouts
 - Predictable timing for assertions
 
 ### ✅ React Integration
+
 - Proper `act()` wrapping for state updates
 - Support for useEffect hooks
 - Compatible with React Testing Library
 
 ### ✅ Performance Testing
+
 - Animation performance measurement
 - Frame rate validation
 - Memory usage monitoring
 
 ### ✅ Cleanup Management
+
 - Automatic cleanup of animation frames
 - Memory leak prevention
 - Component lifecycle testing
@@ -150,22 +154,22 @@ describe('FadeIn Component', () => {
 
   it('should fade in over time', async () => {
     render(<FadeIn duration={1000} />);
-    
+
     // Initial state
     const element = screen.getByTestId('fade-element');
     expect(element).toHaveStyle('opacity: 0');
-    
+
     // Halfway through animation
     await advanceTimersWithAct(500);
     await runSingleAnimationFrame();
-    
+
     // Should be partially faded in
     expect(element).toHaveStyle('opacity: 0.5');
-    
+
     // Complete animation
     await advanceTimersWithAct(500);
     await runSingleAnimationFrame();
-    
+
     expect(element).toHaveStyle('opacity: 1');
   });
 });
@@ -176,21 +180,21 @@ describe('FadeIn Component', () => {
 ```typescript
 it('should handle complex animation sequence', async () => {
   const timeline = new AnimationTimeline();
-  
+
   render(<ComplexAnimation />);
-  
+
   timeline.addCheckpoint(0, () => {
     expect(screen.getByTestId('stage1')).toBeVisible();
   });
-  
+
   timeline.addCheckpoint(300, () => {
     expect(screen.getByTestId('stage2')).toBeVisible();
   });
-  
+
   timeline.addCheckpoint(600, () => {
     expect(screen.getByTestId('stage3')).toBeVisible();
   });
-  
+
   await timeline.execute();
 });
 ```
@@ -200,9 +204,9 @@ it('should handle complex animation sequence', async () => {
 ```typescript
 it('should complete animation within performance budget', async () => {
   render(<HeavyAnimation />);
-  
+
   const performance = await measureAnimationPerformance(60); // 60 frames
-  
+
   expect(performance.averageFrameTime).toBeLessThan(16); // 60fps
   expect(performance.framesExecuted).toBeGreaterThan(50);
 });
@@ -214,16 +218,20 @@ For components using motion/framer-motion, the framework provides mocking utilit
 
 ```typescript
 // Mock motion components for testing
-jest.mock('motion/react', () => ({
+jest.mock("motion/react", () => ({
   motion: {
     div: ({ children, ...props }) => {
       const { initial, animate, exit, transition, ...restProps } = props;
-      return React.createElement('div', {
-        ...restProps,
-        'data-motion-component': 'div',
-        'data-initial': JSON.stringify(initial),
-        'data-animate': JSON.stringify(animate),
-      }, children);
+      return React.createElement(
+        "div",
+        {
+          ...restProps,
+          "data-motion-component": "div",
+          "data-initial": JSON.stringify(initial),
+          "data-animate": JSON.stringify(animate),
+        },
+        children,
+      );
     },
   },
   AnimatePresence: ({ children }) => children,
@@ -233,6 +241,7 @@ jest.mock('motion/react', () => ({
 ## Best Practices
 
 ### 1. Always Use Fake Timers
+
 ```typescript
 beforeEach(() => {
   jest.useFakeTimers();
@@ -246,6 +255,7 @@ afterEach(() => {
 ```
 
 ### 2. Wrap State Updates in act()
+
 ```typescript
 // Good
 await act(async () => {
@@ -257,33 +267,36 @@ fireEvent.click(triggerButton);
 ```
 
 ### 3. Test Animation Cleanup
+
 ```typescript
 it('should clean up on unmount', async () => {
   const { unmount } = render(<AnimatedComponent />);
-  
+
   // Start animation
   fireEvent.click(startButton);
-  
+
   // Unmount during animation
   unmount();
-  
+
   // Should not throw or leave hanging timers
   expect(() => jest.runOnlyPendingTimers()).not.toThrow();
 });
 ```
 
 ### 4. Use Specific Selectors
+
 ```typescript
 // Good - specific DOM queries
-const particles = document.querySelectorAll('.particle');
+const particles = document.querySelectorAll(".particle");
 
 // Bad - relies on accessibility roles that may not exist
-const particles = screen.getAllByRole('presentation');
+const particles = screen.getAllByRole("presentation");
 ```
 
 ## Common Issues and Solutions
 
 ### Issue: "act() warnings"
+
 **Solution**: Always wrap state updates that occur in timers or animation frames:
 
 ```typescript
@@ -292,6 +305,7 @@ await advanceTimersWithAct(1000);
 ```
 
 ### Issue: "Infinite animation loops in tests"
+
 **Solution**: Use controlled execution with `runSingleAnimationFrame()` instead of letting animations run freely:
 
 ```typescript
@@ -303,6 +317,7 @@ jest.advanceTimersByTime(1000);
 ```
 
 ### Issue: "Tests are flaky or timeout"
+
 **Solution**: Use deterministic timing and proper cleanup:
 
 ```typescript

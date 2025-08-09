@@ -1,13 +1,15 @@
 # Accessibility Implementation - Next Steps
+
 **WCAG 2.1 AA Compliance for Randy Ellis Portfolio**
 
-*Priority Actions for EAA 2025 Compliance*
+_Priority Actions for EAA 2025 Compliance_
 
 ---
 
 ## Immediate Actions Required (Next 24-48 Hours)
 
 ### 1. Update Layout with Motion Configuration
+
 **File:** `/app/layout.tsx`
 **Action:** Add MotionConfig wrapper to existing layout
 
@@ -16,12 +18,11 @@
 import { MotionConfig } from "motion/react";
 
 // Wrap ThemeProvider content with:
-<MotionConfig reducedMotion="user">
-  {/* existing content */}
-</MotionConfig>
+<MotionConfig reducedMotion="user">{/* existing content */}</MotionConfig>;
 ```
 
 ### 2. Update Header Component
+
 **File:** `/app/header.tsx`
 **Action:** Import and implement FocusTrap component
 
@@ -33,6 +34,7 @@ import { FocusTrap } from "@/components/ui/focus-trap";
 ```
 
 ### 3. Test Motion Accessibility
+
 **Action:** Run the created test to verify implementation
 
 ```bash
@@ -44,20 +46,23 @@ npm test __tests__/accessibility/motion-reduced.test.tsx
 ## Week 1 Priority Tasks
 
 ### Day 1-2: Motion Accessibility Implementation
+
 - [x] Created `useReducedMotion` hook
-- [x] Created `FocusTrap` component  
+- [x] Created `FocusTrap` component
 - [x] Created motion accessibility tests
 - [ ] Update all motion components to use hook
 - [ ] Add MotionConfig to layout
 - [ ] Test with actual reduced motion settings
 
 ### Day 3-4: Focus Management
+
 - [ ] Update Header with FocusTrap
 - [ ] Add focus indicators to Footer theme switch
 - [ ] Update all interactive components with proper focus styles
 - [ ] Test keyboard navigation flows
 
 ### Day 5-7: ARIA Enhancement
+
 - [ ] Add semantic landmarks to main page
 - [ ] Update newsletter form with comprehensive ARIA
 - [ ] Add live regions for dynamic content
@@ -68,6 +73,7 @@ npm test __tests__/accessibility/motion-reduced.test.tsx
 ## Critical Implementation Files Created
 
 ### Core Accessibility Infrastructure
+
 1. **`/lib/hooks/use-reduced-motion.ts`** ✅
    - Motion preference detection
    - Dynamic updates
@@ -84,6 +90,7 @@ npm test __tests__/accessibility/motion-reduced.test.tsx
    - Legacy browser support
 
 ### Documentation
+
 1. **`/ACCESSIBILITY_AUDIT_REPORT.md`** ✅
    - Complete WCAG 2.1 AA audit
    - Critical findings and recommendations
@@ -99,6 +106,7 @@ npm test __tests__/accessibility/motion-reduced.test.tsx
 ## Testing Strategy
 
 ### Automated Testing
+
 ```bash
 # Install accessibility testing dependencies
 npm install --save-dev jest-axe @axe-core/react @testing-library/jest-dom
@@ -111,6 +119,7 @@ npm run test:a11y:watch
 ```
 
 ### Manual Testing Checklist
+
 - [ ] Test with screen reader (NVDA/JAWS/VoiceOver)
 - [ ] Keyboard-only navigation
 - [ ] Reduced motion preferences
@@ -118,6 +127,7 @@ npm run test:a11y:watch
 - [ ] Mobile touch targets (44px minimum)
 
 ### Browser Testing
+
 - [ ] Chrome with axe DevTools extension
 - [ ] Firefox with accessibility inspector
 - [ ] Safari with VoiceOver
@@ -130,6 +140,7 @@ npm run test:a11y:watch
 ### WCAG 2.1 AA Requirements Status
 
 #### Level A (Must Fix)
+
 - [x] **1.1.1 Non-text Content** - Mostly compliant
 - [ ] **1.3.1 Info and Relationships** - Needs ARIA enhancement
 - [x] **1.4.1 Use of Color** - Compliant
@@ -138,6 +149,7 @@ npm run test:a11y:watch
 - [ ] **4.1.2 Name, Role, Value** - Needs ARIA implementation
 
 #### Level AA (Critical for EAA 2025)
+
 - [ ] **1.4.3 Contrast (Minimum)** - Needs verification
 - [ ] **2.4.3 Focus Order** - Needs focus management
 - [ ] **2.4.7 Focus Visible** - Needs enhanced indicators
@@ -145,6 +157,7 @@ npm run test:a11y:watch
 - [x] **3.2.2 On Input** - Compliant
 
 ### European Accessibility Act (EAA) 2025 Readiness
+
 **Deadline:** June 28, 2025
 **Current Status:** 68% compliant
 **Target:** 100% compliant by implementation completion
@@ -154,12 +167,14 @@ npm run test:a11y:watch
 ## Performance Impact Assessment
 
 ### Bundle Size Changes
+
 - `useReducedMotion` hook: +1KB gzipped
 - `FocusTrap` component: +2KB gzipped
 - ARIA enhancements: +1KB gzipped
 - **Total Impact:** ~4KB gzipped (acceptable for accessibility gains)
 
 ### Runtime Performance
+
 - Motion detection: One-time setup cost
 - Focus management: Minimal ongoing overhead
 - No impact on Core Web Vitals expected
@@ -169,6 +184,7 @@ npm run test:a11y:watch
 ## Team Training Requirements
 
 ### Developer Education Topics
+
 1. **WCAG 2.1 AA Guidelines Overview**
 2. **Motion Sensitivity and Vestibular Disorders**
 3. **Screen Reader Navigation Patterns**
@@ -176,6 +192,7 @@ npm run test:a11y:watch
 5. **ARIA Implementation Guidelines**
 
 ### Design Team Considerations
+
 1. **Color Contrast Requirements (4.5:1 ratio)**
 2. **Touch Target Sizes (44px minimum)**
 3. **Focus Indicator Design**
@@ -187,6 +204,7 @@ npm run test:a11y:watch
 ## Quality Assurance Process
 
 ### Pre-Launch Checklist
+
 - [ ] Axe-core automated testing passes
 - [ ] Manual keyboard navigation complete
 - [ ] Screen reader testing verified
@@ -197,6 +215,7 @@ npm run test:a11y:watch
 - [ ] ARIA landmarks tested
 
 ### Post-Launch Monitoring
+
 - [ ] Accessibility monitoring tools configured
 - [ ] User feedback system for accessibility issues
 - [ ] Regular audit schedule established
@@ -207,16 +226,19 @@ npm run test:a11y:watch
 ## Risk Mitigation
 
 ### Legal Compliance Risks
+
 - **EAA 2025 Deadline:** 149 days remaining
 - **Penalty Avoidance:** Up to 4% annual revenue
 - **Market Access:** EU accessibility compliance required
 
 ### Technical Implementation Risks
+
 - **Motion Sickness:** Critical for user safety
 - **Screen Reader Compatibility:** Essential for blind users
 - **Keyboard Navigation:** Required for motor disabilities
 
 ### Mitigation Strategies
+
 1. **Early Implementation:** Start immediately
 2. **Incremental Testing:** Test each phase thoroughly
 3. **Expert Review:** Consider third-party accessibility audit
@@ -227,12 +249,14 @@ npm run test:a11y:watch
 ## Success Metrics
 
 ### Quantitative Targets
+
 - **WCAG Compliance:** 100% AA level
 - **Automated Test Coverage:** 95%+
 - **Performance Impact:** <5% bundle increase
 - **Implementation Timeline:** 4 weeks maximum
 
 ### Qualitative Goals
+
 - **User Experience:** No degradation for any user group
 - **Team Capability:** Accessibility-first development culture
 - **Industry Leadership:** Model for accessible design portfolios
@@ -243,12 +267,14 @@ npm run test:a11y:watch
 ## Emergency Contingency Plan
 
 ### If Timeline at Risk
+
 1. **Prioritize Critical Issues:** Focus on motion and focus management
 2. **Parallel Implementation:** Run development and testing concurrently
 3. **External Support:** Engage accessibility consultant
 4. **Scope Reduction:** Implement core compliance first, enhance later
 
 ### If Technical Challenges Arise
+
 1. **Alternative Approaches:** Multiple implementation strategies available
 2. **Community Support:** Leverage accessibility community expertise
 3. **Vendor Solutions:** Consider accessibility overlay as temporary measure
@@ -259,17 +285,20 @@ npm run test:a11y:watch
 ## Contact and Resources
 
 ### Internal Team
+
 - **Lead Developer:** Implement core changes
 - **UX Researcher:** Validate accessibility improvements
 - **QA Engineer:** Execute comprehensive testing
 
 ### External Resources
+
 - **WebAIM:** Free accessibility checking tools
 - **A11y Project:** Community guidelines and resources
 - **Deque University:** Training and certification
 - **ARIA Authoring Practices:** Implementation patterns
 
 ### Emergency Support
+
 - **Accessibility Consultants:** On-demand expert review
 - **Legal Counsel:** EAA compliance verification
 - **User Testing Services:** Real user validation

@@ -17,6 +17,7 @@ This guide covers the complete email automation system including drip campaigns,
 ## System Overview
 
 The portfolio site includes a comprehensive email automation system built for:
+
 - Newsletter subscriptions with GDPR compliance
 - Automated drip campaigns for new subscribers
 - Behavioral tracking and segmentation
@@ -29,12 +30,15 @@ The portfolio site includes a comprehensive email automation system built for:
 For comprehensive setup instructions, see the individual guides:
 
 ### [Drip Campaign Setup](./DRIP_CAMPAIGN_SETUP.md)
+
 Complete guide for setting up automated email sequences for new subscribers.
 
-### [Email Flow Configuration](./EMAIL_FLOW_GUIDE.md) 
+### [Email Flow Configuration](./EMAIL_FLOW_GUIDE.md)
+
 Step-by-step instructions for configuring email workflows and automation rules.
 
 ### [Tag Management](./TAG_CONNECTIONS.md)
+
 Documentation for managing subscriber tags, segmentation, and targeting rules.
 
 ---
@@ -58,4 +62,4 @@ Documentation for managing subscriber tags, segmentation, and targeting rules.
 
 ---
 
-*For technical details and API documentation, see the individual guide files listed above.*
+_For technical details and API documentation, see the individual guide files listed above._

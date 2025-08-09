@@ -14,7 +14,9 @@ const mockMotionValue = {
 jest.mock("motion/react", () => ({
   motion: {
     main: ({ children, ...props }: any) => <main {...props}>{children}</main>,
-    section: ({ children, ...props }: any) => <section {...props}>{children}</section>,
+    section: ({ children, ...props }: any) => (
+      <section {...props}>{children}</section>
+    ),
     div: ({ children, ...props }: any) => <div {...props}>{children}</div>,
     p: ({ children, ...props }: any) => <p {...props}>{children}</p>,
     h3: ({ children, ...props }: any) => <h3 {...props}>{children}</h3>,
@@ -28,7 +30,12 @@ jest.mock("motion/react", () => ({
     return motionValue;
   }),
   useTransform: jest.fn((spring: any, transform: any) => {
-    const value = typeof spring === 'object' && spring.get ? spring.get() : (typeof spring === 'number' ? spring : 0);
+    const value =
+      typeof spring === "object" && spring.get
+        ? spring.get()
+        : typeof spring === "number"
+          ? spring
+          : 0;
     return transform(value);
   }),
   useMotionValue: jest.fn(() => ({ ...mockMotionValue })),
@@ -49,7 +56,9 @@ jest.mock("@/lib/analytics", () => ({
 
 // Mock complex components that might cause issues
 jest.mock("@/components/ui/lazy-hover-video", () => ({
-  LazyHoverVideo: ({ alt }: { alt: string }) => <div data-testid="mock-video">{alt}</div>,
+  LazyHoverVideo: ({ alt }: { alt: string }) => (
+    <div data-testid="mock-video">{alt}</div>
+  ),
 }));
 
 jest.mock("@/components/ui/enhanced-hover-cards", () => ({
@@ -79,7 +88,7 @@ describe("Personal Page Component", () => {
 
   test("renders main content with proper structure", () => {
     render(<Personal />);
-    
+
     const mainContent = screen.getByRole("main");
     expect(mainContent).toBeInTheDocument();
     expect(mainContent).toHaveAttribute("id", "main-content");
@@ -87,13 +96,13 @@ describe("Personal Page Component", () => {
 
   test("displays the main introduction text", () => {
     render(<Personal />);
-    
+
     expect(screen.getByText(/product design strategist/)).toBeInTheDocument();
   });
 
   test("handles project data loading correctly", () => {
     render(<Personal />);
-    
+
     // Should not throw errors when loading project data
     expect(screen.getByRole("main")).toBeInTheDocument();
   });

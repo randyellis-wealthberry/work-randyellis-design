@@ -109,10 +109,7 @@
     {
       "name": "Analytics Integration",
       "description": "Comprehensive analytics tracking with Vercel Analytics and Google Analytics",
-      "files": [
-        "components/analytics/google-analytics.tsx",
-        "lib/analytics.ts"
-      ]
+      "files": ["components/analytics/google-analytics.tsx", "lib/analytics.ts"]
     },
     {
       "name": "Newsletter Subscription",
@@ -136,11 +133,7 @@
     {
       "name": "Navigation System",
       "description": "Responsive header and footer navigation with theme switching",
-      "files": [
-        "app/header.tsx",
-        "app/footer.tsx",
-        "app/layout.tsx"
-      ]
+      "files": ["app/header.tsx", "app/footer.tsx", "app/layout.tsx"]
     },
     {
       "name": "Archive System",
@@ -225,11 +218,7 @@
     {
       "name": "Utility Libraries",
       "description": "Helper functions and utilities for common operations",
-      "files": [
-        "lib/utils.ts",
-        "lib/constants.ts",
-        "hooks/useClickOutside.tsx"
-      ]
+      "files": ["lib/utils.ts", "lib/constants.ts", "hooks/useClickOutside.tsx"]
     }
   ]
 }

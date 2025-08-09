@@ -5,7 +5,7 @@
  * Automatically kills processes on port 3000 before starting the dev server
  */
 
-const { exec, spawn } = require('child_process');
+const { exec, spawn } = require("child_process");
 
 // Simple color logging without external dependencies
 const colors = {
@@ -17,7 +17,7 @@ const colors = {
 
 const PORT = 3000;
 
-console.log(colors.blue('🔧 Starting development server with port cleanup...'));
+console.log(colors.blue("🔧 Starting development server with port cleanup..."));
 
 /**
  * Kill processes running on specified port
@@ -25,7 +25,7 @@ console.log(colors.blue('🔧 Starting development server with port cleanup...')
 function killPort(port) {
   return new Promise((resolve) => {
     console.log(colors.yellow(`🔍 Checking for processes on port ${port}...`));
-    
+
     // Find processes using the port
     exec(`lsof -ti:${port}`, (error, stdout) => {
       if (error || !stdout.trim()) {
@@ -34,17 +34,27 @@ function killPort(port) {
         return;
       }
 
-      const pids = stdout.trim().split('\n');
-      console.log(colors.red(`⚠️  Found ${pids.length} process(es) on port ${port}: ${pids.join(', ')}`));
-      
+      const pids = stdout.trim().split("\n");
+      console.log(
+        colors.red(
+          `⚠️  Found ${pids.length} process(es) on port ${port}: ${pids.join(", ")}`,
+        ),
+      );
+
       // Kill the processes
-      exec(`kill -9 ${pids.join(' ')}`, (killError) => {
+      exec(`kill -9 ${pids.join(" ")}`, (killError) => {
         if (killError) {
-          console.log(colors.red(`❌ Failed to kill processes: ${killError.message}`));
+          console.log(
+            colors.red(`❌ Failed to kill processes: ${killError.message}`),
+          );
         } else {
-          console.log(colors.green(`✅ Successfully killed ${pids.length} process(es) on port ${port}`));
+          console.log(
+            colors.green(
+              `✅ Successfully killed ${pids.length} process(es) on port ${port}`,
+            ),
+          );
         }
-        
+
         // Wait a moment for cleanup
         setTimeout(resolve, 1000);
       });
@@ -57,17 +67,24 @@ function killPort(port) {
  */
 function cleanupNextProcesses() {
   return new Promise((resolve) => {
-    console.log(colors.yellow('🧹 Cleaning up any remaining Next.js processes...'));
-    
+    console.log(
+      colors.yellow("🧹 Cleaning up any remaining Next.js processes..."),
+    );
+
     // Kill any lingering next dev processes
-    exec('pkill -f "next.*dev" 2>/dev/null || pkill -f "node.*next" 2>/dev/null || true', (error) => {
-      if (error) {
-        console.log(colors.yellow('⚠️  No Next.js processes found to clean up'));
-      } else {
-        console.log(colors.green('✅ Next.js process cleanup complete'));
-      }
-      resolve();
-    });
+    exec(
+      'pkill -f "next.*dev" 2>/dev/null || pkill -f "node.*next" 2>/dev/null || true',
+      (error) => {
+        if (error) {
+          console.log(
+            colors.yellow("⚠️  No Next.js processes found to clean up"),
+          );
+        } else {
+          console.log(colors.green("✅ Next.js process cleanup complete"));
+        }
+        resolve();
+      },
+    );
   });
 }
 
@@ -75,27 +92,27 @@ function cleanupNextProcesses() {
  * Start the Next.js development server
  */
 function startDevServer() {
-  console.log(colors.blue('🚀 Starting Next.js development server...'));
-  
-  const devProcess = spawn('npx', ['next', 'dev'], {
-    stdio: 'inherit',
-    env: { ...process.env, FORCE_COLOR: '1' }
+  console.log(colors.blue("🚀 Starting Next.js development server..."));
+
+  const devProcess = spawn("npx", ["next", "dev"], {
+    stdio: "inherit",
+    env: { ...process.env, FORCE_COLOR: "1" },
   });
 
   // Handle process termination
-  process.on('SIGINT', () => {
-    console.log(colors.yellow('\n🛑 Shutting down development server...'));
-    devProcess.kill('SIGTERM');
+  process.on("SIGINT", () => {
+    console.log(colors.yellow("\n🛑 Shutting down development server..."));
+    devProcess.kill("SIGTERM");
     process.exit(0);
   });
 
-  process.on('SIGTERM', () => {
-    console.log(colors.yellow('\n🛑 Received SIGTERM, shutting down...'));
-    devProcess.kill('SIGTERM');
+  process.on("SIGTERM", () => {
+    console.log(colors.yellow("\n🛑 Received SIGTERM, shutting down..."));
+    devProcess.kill("SIGTERM");
     process.exit(0);
   });
 
-  devProcess.on('exit', (code) => {
+  devProcess.on("exit", (code) => {
     if (code !== 0) {
       console.log(colors.red(`❌ Development server exited with code ${code}`));
     }

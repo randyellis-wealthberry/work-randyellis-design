@@ -847,7 +847,7 @@ export const PROJECTS: Project[] = [
     categories: ["Enterprise (SaaS)", "AI/ML", "Web Development"],
     tags: [
       "Artificial Intelligence",
-      "Cloud Storage", 
+      "Cloud Storage",
       "Machine Learning",
       "Computer Vision",
       "Natural Language Processing",
@@ -857,7 +857,7 @@ export const PROJECTS: Project[] = [
       "Graph Databases",
       "Smart Workflows",
       "File Intelligence",
-      "Storage Optimization"
+      "Storage Optimization",
     ],
     link: "/echo",
     video: "/projects/echo/echodrive-mockup-video.mp4",
@@ -870,20 +870,20 @@ export const PROJECTS: Project[] = [
     timeline: "Jan 2022 - Aug 2022",
     status: "completed",
     technologies: [
-      "React", 
-      "Node.js", 
-      "TensorFlow", 
-      "Python ML", 
-      "Computer Vision", 
-      "NLP", 
-      "Graph Databases", 
-      "AWS S3", 
-      "ElasticSearch", 
+      "React",
+      "Node.js",
+      "TensorFlow",
+      "Python ML",
+      "Computer Vision",
+      "NLP",
+      "Graph Databases",
+      "AWS S3",
+      "ElasticSearch",
       "Redis",
       "Apache Kafka",
       "PostgreSQL",
       "Docker",
-      "Kubernetes"
+      "Kubernetes",
     ],
     featured: true,
     metrics: [
@@ -892,7 +892,7 @@ export const PROJECTS: Project[] = [
       { label: "Storage Cost Reduction", value: "45%" },
       { label: "Search Accuracy", value: "95%" },
       { label: "Collaboration Efficiency", value: "73%" },
-      { label: "Auto-tagging Precision", value: "91%" }
+      { label: "Auto-tagging Precision", value: "91%" },
     ],
     challenges: [
       "Traditional file management systems requiring manual organization that breaks down at enterprise scale",
@@ -900,7 +900,7 @@ export const PROJECTS: Project[] = [
       "Poor search capabilities across unstructured file repositories limiting team productivity and knowledge discovery",
       "Collaboration inefficiencies with teams unable to discover relevant files and duplicate work across departments",
       "Storage cost optimization challenges with redundant files and unclear data lifecycle management policies",
-      "Lack of intelligent file relationships preventing effective knowledge management and organizational learning"
+      "Lack of intelligent file relationships preventing effective knowledge management and organizational learning",
     ],
     solutions: [
       "Developed AI-powered auto-categorization system using computer vision and NLP to analyze file content and automatically apply relevant tags and folder structures",
@@ -908,7 +908,7 @@ export const PROJECTS: Project[] = [
       "Built intelligent search algorithms combining semantic understanding, file relationship mapping, and user behavior analysis to achieve 95% search accuracy",
       "Created dynamic storage optimization system that automatically identifies duplicates, archives inactive files, and optimizes storage tiers based on usage patterns",
       "Designed smart workflow automation that learns team processes and suggests file organization patterns, approval workflows, and collaboration structures",
-      "Established graph database architecture mapping file relationships, team connections, and project dependencies for intelligent content discovery"
+      "Established graph database architecture mapping file relationships, team connections, and project dependencies for intelligent content discovery",
     ],
     learnings: [
       "AI-powered file organization requires understanding context and user intent, not just content analysis",
@@ -916,7 +916,7 @@ export const PROJECTS: Project[] = [
       "Enterprise file intelligence must balance automation with user control to maintain trust and flexibility",
       "Graph database relationships become more valuable than individual file metadata for knowledge discovery",
       "Storage cost optimization through AI delivers immediate ROI that justifies platform investment",
-      "Smart workflow automation must learn from team behaviors rather than impose rigid organizational structures"
+      "Smart workflow automation must learn from team behaviors rather than impose rigid organizational structures",
     ],
     teamSize: 7,
     role: "AI Product Lead & Technical Architect",
@@ -929,7 +929,7 @@ export const PROJECTS: Project[] = [
         "Smart Workflow Automation Tools",
         "Enterprise Integration Architecture",
         "Machine Learning Operations Pipeline",
-        "Graph Database Relationship Mapping"
+        "Graph Database Relationship Mapping",
       ],
       teamMembers: [
         "AI Product Lead & Technical Architect (Me)",
@@ -938,7 +938,7 @@ export const PROJECTS: Project[] = [
         "Backend Engineers (2)",
         "Frontend Engineer",
         "DevOps Engineer",
-        "Data Scientist"
+        "Data Scientist",
       ],
       timelineDuration: "8 months",
       toolsUsed: [
@@ -948,22 +948,22 @@ export const PROJECTS: Project[] = [
         "Neo4j (Graph Database)",
         "Apache Kafka (Real-time Processing)",
         "React & TypeScript (Frontend)",
-        "AWS (Cloud Infrastructure)"
-      ]
+        "AWS (Cloud Infrastructure)",
+      ],
     },
     constraints: {
       technical: [
         "Enterprise-scale file processing requiring real-time AI analysis of millions of documents",
         "Complex integration requirements with existing enterprise storage systems and workflows",
         "Machine learning model performance optimization for large-scale file content analysis",
-        "Graph database scalability challenges with millions of file relationships and team interactions"
+        "Graph database scalability challenges with millions of file relationships and team interactions",
       ],
       environmental: [
         "Highly regulated enterprise environments requiring compliance with data governance policies",
         "Diverse file types and formats across different industries and organizational structures",
         "Varying team collaboration patterns requiring adaptable AI learning algorithms",
-        "Enterprise security requirements for AI processing of sensitive business documents"
-      ]
+        "Enterprise security requirements for AI processing of sensitive business documents",
+      ],
     },
     processStory: {
       background:
@@ -976,7 +976,7 @@ export const PROJECTS: Project[] = [
         "Context-Aware AI Essential: Early models focused on content analysis but missed organizational context. Success required understanding team structures, project relationships, and business processes to provide relevant intelligent automation.",
         "Predictive Collaboration Drives Adoption: Users initially valued auto-organization features, but predictive collaboration suggestions became the primary engagement driver, creating network effects and platform stickiness.",
         "Graph Relationships Over Metadata: Traditional file metadata provided limited intelligence. Graph database mapping of file relationships, team interactions, and project dependencies created exponentially more valuable insights.",
-        "Continuous Learning Critical: Static AI models quickly became outdated as organizational patterns evolved. Continuous learning from user feedback and behavioral changes maintained AI accuracy and relevance over time."
+        "Continuous Learning Critical: Static AI models quickly became outdated as organizational patterns evolved. Continuous learning from user feedback and behavioral changes maintained AI accuracy and relevance over time.",
       ],
       outcome:
         "EchoDrive achieved remarkable enterprise adoption and measurable productivity improvements. The platform automatically organized over 1 million files across participating organizations, achieving 95% search accuracy and 91% auto-tagging precision. Teams experienced 67% productivity boost through intelligent file discovery and 73% collaboration efficiency improvement through predictive sharing suggestions. Storage cost reduction of 45% resulted from AI-powered optimization and duplicate detection. Most significantly, organizations reported transforming from reactive file management to proactive knowledge systems, with EchoDrive becoming the intelligent layer connecting distributed teams, projects, and institutional knowledge. User feedback consistently highlighted the platform's ability to surface relevant content and suggest valuable collaborations that would have been missed in traditional storage systems.",
@@ -987,22 +987,22 @@ export const PROJECTS: Project[] = [
           quote:
             "EchoDrive transformed our chaotic file system into an intelligent knowledge base. The AI suggestions help us discover relevant work we never knew existed across our teams.",
           author: "Jennifer Martinez",
-          role: "Director of Knowledge Management"
+          role: "Director of Knowledge Management",
         },
         {
           quote:
             "The productivity boost was immediate. Our teams spend 67% less time searching for files and 73% more time on actual collaboration. The ROI was evident within the first quarter.",
           author: "David Chen",
-          role: "VP of Operations"
+          role: "VP of Operations",
         },
         {
           quote:
             "Finally, a storage platform that understands how our business actually works. The predictive collaboration features connect teams across departments in ways we never imagined.",
           author: "Sarah Rodriguez",
-          role: "Chief Technology Officer"
-        }
-      ]
-    }
+          role: "Chief Technology Officer",
+        },
+      ],
+    },
   },
   {
     id: "nagarro-design-leadership",
@@ -1031,7 +1031,7 @@ export const PROJECTS: Project[] = [
     ],
     link: "https://www.nagarro.com",
     video: "/projects/nagarro/nagarro-design-leadership.mp4",
-    thumbnail: "/projects/nagarro/digital-accessibility-strategy.svg",
+    thumbnail: "/projects/nagarro/nagarro-logo.png",
     images: [
       "/projects/nagarro/digital-accessibility-strategy.svg",
       "/projects/nagarro/inclusive-design-keynote.svg",

@@ -105,19 +105,21 @@ ANALYTICS_ENDPOINT=https://your-analytics.com/api
 ### Local Development
 
 1. **Install PostgreSQL**
+
    ```bash
    # macOS with Homebrew
    brew install postgresql
    brew services start postgresql
-   
+
    # Ubuntu/Debian
    sudo apt-get install postgresql postgresql-contrib
-   
+
    # Windows
    # Download from postgresql.org
    ```
 
 2. **Create Database**
+
    ```sql
    createdb portfolio
    ```
@@ -136,6 +138,7 @@ ANALYTICS_ENDPOINT=https://your-analytics.com/api
    - **Railway/PlanetScale**: PostgreSQL-compatible services
 
 2. **Connection Configuration**
+
    ```bash
    DATABASE_HOST=your-production-host
    DATABASE_SSL=true
@@ -210,7 +213,7 @@ Different endpoints have different rate limits:
 
 ```typescript
 // Newsletter endpoints: 5 requests/minute
-// General API: 100 requests/minute  
+// General API: 100 requests/minute
 // Health checks: 60 requests/minute
 // Auth endpoints: 5 requests/15 minutes
 ```
@@ -218,6 +221,7 @@ Different endpoints have different rate limits:
 ### Security Headers
 
 Automatically applied via middleware:
+
 - Content Security Policy (CSP)
 - HSTS headers
 - X-Frame-Options
@@ -227,6 +231,7 @@ Automatically applied via middleware:
 ### Input Validation
 
 All API endpoints use Zod schemas for:
+
 - Type-safe input validation
 - SQL injection prevention
 - XSS protection
@@ -237,12 +242,14 @@ All API endpoints use Zod schemas for:
 ### Database Optimization
 
 1. **Connection Pooling**
+
    ```bash
    DATABASE_POOL_MIN=2    # Minimum connections
    DATABASE_POOL_MAX=20   # Maximum connections
    ```
 
 2. **Read Replicas**
+
    ```bash
    DATABASE_READ_HOST=read-replica-host
    DATABASE_READ_PORT=5432
@@ -265,6 +272,7 @@ All API endpoints use Zod schemas for:
 ### Vercel Deployment
 
 1. **Environment Variables**
+
    ```bash
    # Add all required environment variables in Vercel dashboard
    # Database connection strings
@@ -285,11 +293,13 @@ All API endpoints use Zod schemas for:
 ### Self-Hosted Deployment
 
 1. **Build Application**
+
    ```bash
    npm run build:production
    ```
 
 2. **Database Migration**
+
    ```bash
    npm run db:migrate
    ```
@@ -319,6 +329,7 @@ npm run db:validate
 ### Performance Monitoring
 
 Built-in metrics tracking:
+
 - API response times
 - Database query performance
 - Memory usage
@@ -328,6 +339,7 @@ Built-in metrics tracking:
 ### Alerts and Notifications
 
 Configure webhooks for:
+
 - Database connection failures
 - High error rates
 - Performance degradation
@@ -372,36 +384,40 @@ npm run backup:create        # Create system backup
 ### Common Issues
 
 1. **Database Connection Failed**
+
    ```bash
    # Check connection string
    npm run db:status
-   
+
    # Verify PostgreSQL is running
    pg_isready -h localhost
    ```
 
 2. **Rate Limiting Not Working**
+
    ```bash
    # Check Redis connection
    curl https://your-redis.upstash.io/ping
-   
+
    # Falls back to in-memory if Redis unavailable
    ```
 
 3. **Migration Errors**
+
    ```bash
    # Check current migration status
    npm run db:status
-   
+
    # Validate migrations
    npm run db:validate
    ```
 
 4. **Performance Issues**
+
    ```bash
    # Check system health
    curl https://your-domain.com/api/health
-   
+
    # Monitor performance
    npm run performance:monitor
    ```

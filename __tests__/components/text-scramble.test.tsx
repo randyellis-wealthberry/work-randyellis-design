@@ -1,9 +1,9 @@
-import React from 'react';
-import { render, waitFor, act } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import { TextScramble } from '@/components/core/text-scramble';
+import React from "react";
+import { render, waitFor, act } from "@testing-library/react";
+import "@testing-library/jest-dom";
+import { TextScramble } from "@/components/core/text-scramble";
 
-describe('TextScramble', () => {
+describe("TextScramble", () => {
   let renderCount = 0;
   let animationFrameCallback: FrameRequestCallback | null = null;
 
@@ -25,7 +25,7 @@ describe('TextScramble', () => {
     jest.restoreAllMocks();
   });
 
-  it('should not cause infinite re-renders when scrambling', async () => {
+  it("should not cause infinite re-renders when scrambling", async () => {
     const TestWrapper = () => {
       renderCount++;
       return <TextScramble trigger={true}>Test Text</TextScramble>;
@@ -42,17 +42,20 @@ describe('TextScramble', () => {
       });
     }
 
-    await waitFor(() => {
-      // Should not render excessively
-      expect(renderCount).toBeLessThan(10);
-    }, { timeout: 1000 });
+    await waitFor(
+      () => {
+        // Should not render excessively
+        expect(renderCount).toBeLessThan(10);
+      },
+      { timeout: 1000 },
+    );
 
     unmount();
   });
 
-  it('should not create circular dependencies with isScrambling state', () => {
+  it("should not create circular dependencies with isScrambling state", () => {
     const { rerender } = render(
-      <TextScramble trigger={false}>Initial Text</TextScramble>
+      <TextScramble trigger={false}>Initial Text</TextScramble>,
     );
 
     // Trigger scramble
@@ -68,13 +71,13 @@ describe('TextScramble', () => {
     }).not.toThrow();
   });
 
-  it('should complete animation without infinite loops', async () => {
+  it("should complete animation without infinite loops", async () => {
     const onComplete = jest.fn();
-    
+
     render(
       <TextScramble trigger={true} onScrambleComplete={onComplete}>
         Short
-      </TextScramble>
+      </TextScramble>,
     );
 
     // Simulate animation frames until completion
@@ -87,14 +90,17 @@ describe('TextScramble', () => {
     });
 
     // Animation should complete without infinite loops
-    await waitFor(() => {
-      expect(onComplete).toHaveBeenCalled();
-    }, { timeout: 2000 });
+    await waitFor(
+      () => {
+        expect(onComplete).toHaveBeenCalled();
+      },
+      { timeout: 2000 },
+    );
   });
 
-  it('should cleanup animation on unmount', () => {
+  it("should cleanup animation on unmount", () => {
     const { unmount } = render(
-      <TextScramble trigger={true}>Test</TextScramble>
+      <TextScramble trigger={true}>Test</TextScramble>,
     );
 
     unmount();
@@ -103,9 +109,9 @@ describe('TextScramble', () => {
     expect(global.cancelAnimationFrame).toHaveBeenCalled();
   });
 
-  it('should handle rapid trigger changes without loops', async () => {
+  it("should handle rapid trigger changes without loops", async () => {
     const { rerender } = render(
-      <TextScramble trigger={false}>Test</TextScramble>
+      <TextScramble trigger={false}>Test</TextScramble>,
     );
 
     // Rapidly change trigger
@@ -117,26 +123,26 @@ describe('TextScramble', () => {
     expect(renderCount).toBeLessThan(20);
   });
 
-  it('should only scramble once per trigger', () => {
+  it("should only scramble once per trigger", () => {
     const onStart = jest.fn();
     const { rerender } = render(
       <TextScramble trigger={false} onHoverStart={onStart}>
         Test
-      </TextScramble>
+      </TextScramble>,
     );
 
     // Trigger scramble
     rerender(
       <TextScramble trigger={true} onHoverStart={onStart}>
         Test
-      </TextScramble>
+      </TextScramble>,
     );
 
     // Trigger again with same value - should not re-scramble
     rerender(
       <TextScramble trigger={true} onHoverStart={onStart}>
         Test
-      </TextScramble>
+      </TextScramble>,
     );
 
     // requestAnimationFrame should be called minimally

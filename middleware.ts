@@ -2,12 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 
 /**
  * Rate Limiting Middleware
- * 
+ *
  * Protects the newsletter subscription endpoint from abuse by limiting requests to:
  * - 5 requests per minute per IP address
  * - Returns 429 status with Retry-After header when limit exceeded
  * - Adds rate limit headers to all responses
- * 
+ *
  * Currently uses in-memory storage. For production scale or multiple server instances,
  * consider upgrading to Redis/Upstash for distributed rate limiting.
  */
@@ -31,12 +31,12 @@ const RATE_LIMIT_CONFIG = {
 
 function getRateLimitKey(request: NextRequest): string {
   // Use IP address as the key, with fallback to forwarded headers
-  const ip = 
+  const ip =
     request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
     request.headers.get("x-real-ip") ||
     request.headers.get("cf-connecting-ip") || // Cloudflare
     "unknown";
-  
+
   return `ratelimit:${ip}:${request.nextUrl.pathname}`;
 }
 
@@ -59,7 +59,8 @@ function checkRateLimit(key: string): {
   const entry = rateLimitStore.get(key);
 
   // Clean up expired entries periodically
-  if (Math.random() < 0.01) { // 1% chance to cleanup
+  if (Math.random() < 0.01) {
+    // 1% chance to cleanup
     cleanupExpiredEntries();
   }
 
@@ -89,7 +90,10 @@ function checkRateLimit(key: string): {
 
 export function middleware(request: NextRequest) {
   // Only apply rate limiting to newsletter subscription endpoint
-  if (request.nextUrl.pathname === "/api/newsletter/subscribe" && request.method === "POST") {
+  if (
+    request.nextUrl.pathname === "/api/newsletter/subscribe" &&
+    request.method === "POST"
+  ) {
     const key = getRateLimitKey(request);
     const { allowed, count, remaining, resetTime } = checkRateLimit(key);
 
@@ -108,18 +112,26 @@ export function middleware(request: NextRequest) {
             "X-RateLimit-Limit": RATE_LIMIT_CONFIG.maxRequests.toString(),
             "X-RateLimit-Remaining": remaining.toString(),
             "X-RateLimit-Reset": Math.ceil(resetTime / 1000).toString(),
-            "Retry-After": Math.ceil((resetTime - Date.now()) / 1000).toString(),
+            "Retry-After": Math.ceil(
+              (resetTime - Date.now()) / 1000,
+            ).toString(),
           },
-        }
+        },
       );
     }
 
     // Add rate limit headers to successful responses
     const response = NextResponse.next();
-    response.headers.set("X-RateLimit-Limit", RATE_LIMIT_CONFIG.maxRequests.toString());
+    response.headers.set(
+      "X-RateLimit-Limit",
+      RATE_LIMIT_CONFIG.maxRequests.toString(),
+    );
     response.headers.set("X-RateLimit-Remaining", remaining.toString());
-    response.headers.set("X-RateLimit-Reset", Math.ceil(resetTime / 1000).toString());
-    
+    response.headers.set(
+      "X-RateLimit-Reset",
+      Math.ceil(resetTime / 1000).toString(),
+    );
+
     return response;
   }
 

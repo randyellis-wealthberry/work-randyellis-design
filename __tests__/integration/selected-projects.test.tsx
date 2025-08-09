@@ -7,7 +7,9 @@ jest.mock("@/lib/project-utils", () => ({
   getRandomProjects: jest.fn(),
 }));
 
-const mockGetRandomProjects = getRandomProjects as jest.MockedFunction<typeof getRandomProjects>;
+const mockGetRandomProjects = getRandomProjects as jest.MockedFunction<
+  typeof getRandomProjects
+>;
 
 // Mock the main page component - we'll need to extract the Selected Projects section
 // For now, let's test the logic independently
@@ -44,7 +46,7 @@ describe("Selected Projects Integration", () => {
       mockGetRandomProjects.mockReturnValueOnce([PROJECTS[0], PROJECTS[1]]);
       const selection1 = getRandomProjects(PROJECTS, 2);
 
-      // Second call  
+      // Second call
       mockGetRandomProjects.mockReturnValueOnce([PROJECTS[1], PROJECTS[2]]);
       const selection2 = getRandomProjects(PROJECTS, 2);
 

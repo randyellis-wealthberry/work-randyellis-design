@@ -1,29 +1,29 @@
-import React from 'react';
-import { render, waitFor, act } from '@testing-library/react';
-import '@testing-library/jest-dom';
+import React from "react";
+import { render, waitFor, act } from "@testing-library/react";
+import "@testing-library/jest-dom";
 
 // Polyfill clearInterval for jsdom environment if needed
-if (typeof global.clearInterval === 'undefined') {
+if (typeof global.clearInterval === "undefined") {
   global.clearInterval = jest.fn();
 }
 
-import { TextLoop } from '@/components/ui/text-loop';
+import { TextLoop } from "@/components/ui/text-loop";
 
-describe('TextLoop', () => {
+describe("TextLoop", () => {
   let renderCount = 0;
 
   beforeEach(() => {
     renderCount = 0;
     jest.clearAllMocks();
     // Use modern Jest timers which properly mock all timer functions
-    jest.useFakeTimers('modern');
+    jest.useFakeTimers();
   });
 
   afterEach(() => {
     jest.useRealTimers();
   });
 
-  it('should not cause infinite re-renders', async () => {
+  it("should not cause infinite re-renders", async () => {
     const TestWrapper = () => {
       renderCount++;
       return (
@@ -48,14 +48,14 @@ describe('TextLoop', () => {
     unmount();
   });
 
-  it('should not reset timer on every render', () => {
+  it("should not reset timer on every render", () => {
     const onIndexChange = jest.fn();
-    
+
     const { rerender } = render(
       <TextLoop interval={1} onIndexChange={onIndexChange}>
         <span>Item 1</span>
         <span>Item 2</span>
-      </TextLoop>
+      </TextLoop>,
     );
 
     // Advance timer halfway
@@ -68,7 +68,7 @@ describe('TextLoop', () => {
       <TextLoop interval={1} onIndexChange={onIndexChange}>
         <span>Item 1</span>
         <span>Item 2</span>
-      </TextLoop>
+      </TextLoop>,
     );
 
     // Advance timer to complete interval
@@ -81,7 +81,7 @@ describe('TextLoop', () => {
     expect(onIndexChange).toHaveBeenCalledWith(1);
   });
 
-  it('should handle unmemoized onIndexChange without infinite loops', () => {
+  it("should handle unmemoized onIndexChange without infinite loops", () => {
     const ParentComponent = () => {
       // Unmemoized callback - new function every render
       const handleIndexChange = (index: number) => {
@@ -97,7 +97,7 @@ describe('TextLoop', () => {
     };
 
     const { rerender } = render(<ParentComponent />);
-    
+
     // Force re-renders
     for (let i = 0; i < 5; i++) {
       rerender(<ParentComponent />);
@@ -107,14 +107,14 @@ describe('TextLoop', () => {
     expect(renderCount).toBeLessThan(15);
   });
 
-  it('should properly cleanup intervals on unmount', () => {
-    const clearIntervalSpy = jest.spyOn(global, 'clearInterval');
+  it("should properly cleanup intervals on unmount", () => {
+    const clearIntervalSpy = jest.spyOn(global, "clearInterval");
 
     const { unmount } = render(
       <TextLoop interval={1}>
         <span>Item 1</span>
         <span>Item 2</span>
-      </TextLoop>
+      </TextLoop>,
     );
 
     unmount();
@@ -122,15 +122,15 @@ describe('TextLoop', () => {
     expect(clearIntervalSpy).toHaveBeenCalled();
   });
 
-  it.skip('should handle children changes without resetting timer unnecessarily (jsdom clearInterval issue)', () => {
+  it.skip("should handle children changes without resetting timer unnecessarily (jsdom clearInterval issue)", () => {
     // TODO: Fix jsdom clearInterval environment issue
     const onIndexChange = jest.fn();
-    
+
     const { rerender } = render(
       <TextLoop interval={1} onIndexChange={onIndexChange}>
         <span>Item 1</span>
         <span>Item 2</span>
-      </TextLoop>
+      </TextLoop>,
     );
 
     // Advance timer
@@ -145,7 +145,7 @@ describe('TextLoop', () => {
       <TextLoop interval={1} onIndexChange={onIndexChange}>
         <span>Item A</span>
         <span>Item B</span>
-      </TextLoop>
+      </TextLoop>,
     );
 
     // Timer should continue normally
@@ -156,14 +156,14 @@ describe('TextLoop', () => {
     expect(onIndexChange).toHaveBeenCalledWith(0);
   });
 
-  it('should stop loop when trigger is false', () => {
+  it("should stop loop when trigger is false", () => {
     const onIndexChange = jest.fn();
-    
+
     const { rerender } = render(
       <TextLoop interval={1} trigger={true} onIndexChange={onIndexChange}>
         <span>Item 1</span>
         <span>Item 2</span>
-      </TextLoop>
+      </TextLoop>,
     );
 
     act(() => {
@@ -177,7 +177,7 @@ describe('TextLoop', () => {
       <TextLoop interval={1} trigger={false} onIndexChange={onIndexChange}>
         <span>Item 1</span>
         <span>Item 2</span>
-      </TextLoop>
+      </TextLoop>,
     );
 
     // Advance time - should not trigger more changes
@@ -188,15 +188,15 @@ describe('TextLoop', () => {
     expect(onIndexChange).toHaveBeenCalledTimes(1);
   });
 
-  it.skip('should handle interval prop changes correctly (jsdom clearInterval issue)', () => {
+  it.skip("should handle interval prop changes correctly (jsdom clearInterval issue)", () => {
     // TODO: Fix jsdom clearInterval environment issue
     const onIndexChange = jest.fn();
-    
+
     const { rerender } = render(
       <TextLoop interval={1} onIndexChange={onIndexChange}>
         <span>Item 1</span>
         <span>Item 2</span>
-      </TextLoop>
+      </TextLoop>,
     );
 
     act(() => {
@@ -210,7 +210,7 @@ describe('TextLoop', () => {
       <TextLoop interval={2} onIndexChange={onIndexChange}>
         <span>Item 1</span>
         <span>Item 2</span>
-      </TextLoop>
+      </TextLoop>,
     );
 
     // Should use new interval

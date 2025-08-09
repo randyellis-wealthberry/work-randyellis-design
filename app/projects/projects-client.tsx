@@ -50,6 +50,25 @@ const VARIANTS_ITEM = {
 };
 
 function ProjectThumbnail({ project }: { project: (typeof PROJECTS)[0] }) {
+  // Special handling for Nagarro project - always show the logo
+  if (
+    project.slug === "nagarro" &&
+    project.thumbnail?.includes("nagarro-logo.png")
+  ) {
+    return (
+      <div className="aspect-video overflow-hidden">
+        <Image
+          src={project.thumbnail}
+          alt={`${project.name} - ${project.subtitle || project.description} showcasing ${project.technologies.slice(0, 3).join(", ")} implementation`}
+          width={500}
+          height={300}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+        />
+      </div>
+    );
+  }
+
   // Check for UnicornStudio content first (highest priority)
   const unicornVideoId = isUnicornStudioId(project.video)
     ? extractUnicornStudioId(project.video)
@@ -78,8 +97,9 @@ function ProjectThumbnail({ project }: { project: (typeof PROJECTS)[0] }) {
   const staticThumbnail =
     !isVideoUrl(project.thumbnail || "") &&
     !isUnicornStudioId(project.thumbnail || "") &&
-    !isLocalMp4Thumbnail
-      ? project.thumbnail || "/images/projects/placeholder-thumbnail.jpg"
+    !isLocalMp4Thumbnail &&
+    project.thumbnail
+      ? project.thumbnail
       : "/images/projects/placeholder-thumbnail.jpg";
 
   // Priority: UnicornStudio > Local MP4 > External Video > Static thumbnail

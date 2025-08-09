@@ -1,20 +1,23 @@
 # WCAG 2.1 AA Implementation Roadmap
+
 **Randy Ellis Portfolio - Level 99 Accessibility Enhancement**
 
-*Implementation Guide with Code Examples*
+_Implementation Guide with Code Examples_
 
 ---
 
 ## Implementation Phases
 
 ### Phase 1: Motion Accessibility (Days 1-3)
+
 **Priority: CRITICAL | WCAG: 2.3.3 | Effort: Medium**
 
 #### 1.1 Create Motion Preference Hook
 
 **File: `/lib/hooks/use-reduced-motion.ts`**
+
 ```typescript
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 /**
  * Custom hook to detect user's motion preferences
@@ -26,12 +29,12 @@ export function useReducedMotion(): boolean {
 
   useEffect(() => {
     // Check if window is available (SSR safety)
-    if (typeof window === 'undefined') {
+    if (typeof window === "undefined") {
       return;
     }
 
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+
     // Set initial value
     setPrefersReducedMotion(mediaQuery.matches);
 
@@ -42,8 +45,8 @@ export function useReducedMotion(): boolean {
 
     // Modern browsers
     if (mediaQuery.addEventListener) {
-      mediaQuery.addEventListener('change', handleChange);
-      return () => mediaQuery.removeEventListener('change', handleChange);
+      mediaQuery.addEventListener("change", handleChange);
+      return () => mediaQuery.removeEventListener("change", handleChange);
     } else {
       // Fallback for older browsers
       mediaQuery.addListener(handleChange);
@@ -63,7 +66,7 @@ export function useMotionConfig() {
 
   return {
     duration: prefersReducedMotion ? 0.01 : 0.3,
-    ease: prefersReducedMotion ? 'linear' : 'easeInOut',
+    ease: prefersReducedMotion ? "linear" : "easeInOut",
     stagger: prefersReducedMotion ? 0 : 0.1,
     scale: prefersReducedMotion ? 1 : undefined,
     y: prefersReducedMotion ? 0 : undefined,
@@ -75,6 +78,7 @@ export function useMotionConfig() {
 #### 1.2 Update Global Motion Configuration
 
 **File: `/app/layout.tsx`** (Add to existing layout)
+
 ```typescript
 // Add these imports
 import { MotionConfig } from "motion/react";
@@ -129,6 +133,7 @@ export default function RootLayout({
 #### 1.3 Update Text Effect Component
 
 **File: `/components/ui/text-effect.tsx`** (Create accessible version)
+
 ```typescript
 "use client";
 
@@ -166,8 +171,8 @@ export function TextEffect({
   }
 
   // Split text based on preference
-  const splitText = per === "char" 
-    ? children.split("") 
+  const splitText = per === "char"
+    ? children.split("")
     : children.split(" ");
 
   const containerVariants = {
@@ -182,12 +187,12 @@ export function TextEffect({
   };
 
   const itemVariants = {
-    hidden: { 
+    hidden: {
       opacity: 0,
       y: preset === "slide" ? 20 : 0,
       filter: preset === "blur" ? "blur(4px)" : "blur(0px)",
     },
-    visible: { 
+    visible: {
       opacity: 1,
       y: 0,
       filter: "blur(0px)",
@@ -229,15 +234,16 @@ export function TextEffect({
 #### 1.4 Update Terminal Component
 
 **File: `/components/magicui/terminal.tsx`** (Enhance existing)
+
 ```typescript
 // Add to existing imports
 import { useReducedMotion } from "@/lib/hooks/use-reduced-motion";
 
 // Update AnimatedSpan component
-export function AnimatedSpan({ 
-  children, 
-  delay = 0, 
-  className = "" 
+export function AnimatedSpan({
+  children,
+  delay = 0,
+  className = ""
 }: {
   children: React.ReactNode;
   delay?: number;
@@ -278,11 +284,13 @@ export function TypingAnimation({ children }: { children: string }) {
 ```
 
 ### Phase 2: Focus Management (Days 3-5)
+
 **Priority: CRITICAL | WCAG: 2.4.3, 2.4.7 | Effort: High**
 
 #### 2.1 Enhanced Focus Trap Component
 
 **File: `/components/ui/focus-trap.tsx`** (New file)
+
 ```typescript
 "use client";
 
@@ -308,7 +316,7 @@ export function FocusTrap({
 
   const getFocusableElements = useCallback(() => {
     if (!containerRef.current) return [];
-    
+
     const focusableSelectors = [
       'button:not([disabled])',
       '[href]',
@@ -373,7 +381,7 @@ export function FocusTrap({
 
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
-      
+
       // Restore focus to previously focused element
       if (restoreFocus && previousActiveElementRef.current) {
         previousActiveElementRef.current.focus();
@@ -396,6 +404,7 @@ export function FocusTrap({
 #### 2.2 Update Header with Focus Management
 
 **File: `/app/header.tsx`** (Update existing)
+
 ```typescript
 // Add imports
 import { FocusTrap } from "@/components/ui/focus-trap";
@@ -415,20 +424,20 @@ export function Header() {
   return (
     <>
       {/* Skip Navigation Link for Screen Readers */}
-      <a 
-        href="#main-content" 
+      <a
+        href="#main-content"
         className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded-md z-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
       >
         Skip to main content
       </a>
-      
-      <header 
+
+      <header
         className="mb-12 sm:mb-10 flex items-center justify-between gap-8 sm:gap-6"
         role="banner"
       >
         <div className="pt-20 sm:pt-24">
-          <Link 
-            href="/" 
+          <Link
+            href="/"
             className="font-medium text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-md px-2 py-1"
           >
             Randy Ellis
@@ -445,7 +454,7 @@ export function Header() {
         </div>
 
         {/* Desktop Navigation */}
-        <nav 
+        <nav
           className="hidden sm:flex items-center gap-8 sm:gap-10 md:gap-12 lg:gap-16"
           role="navigation"
           aria-label="Main navigation"
@@ -488,7 +497,7 @@ export function Header() {
         {/* Mobile Navigation Menu with Focus Trap */}
         {isMobileMenuOpen && (
           <FocusTrap active={isMobileMenuOpen} onEscape={closeMobileMenu}>
-            <div 
+            <div
               id="mobile-menu"
               className="sm:hidden absolute top-full left-0 right-0 bg-white dark:bg-zinc-950 border-t border-zinc-200 dark:border-zinc-800 shadow-lg z-50"
               role="navigation"
@@ -529,6 +538,7 @@ export function Header() {
 #### 2.3 Update Footer Theme Switch with Focus
 
 **File: `/app/footer.tsx`** (Update ThemeSwitch)
+
 ```typescript
 // Update ThemeSwitch component
 function ThemeSwitch() {
@@ -582,11 +592,13 @@ function ThemeSwitch() {
 ```
 
 ### Phase 3: ARIA Enhancement (Days 5-7)
+
 **Priority: HIGH | WCAG: 4.1.2 | Effort: Medium**
 
 #### 3.1 Update Main Page with Semantic Structure
 
 **File: `/app/page.tsx`** (Add ARIA landmarks)
+
 ```typescript
 // Update the main component structure
 export default function Personal() {
@@ -613,7 +625,7 @@ export default function Personal() {
         transition={TRANSITION_SECTION}
         aria-labelledby="intro-heading"
       >
-        <h1 
+        <h1
           id="intro-heading"
           className="sr-only"
         >
@@ -649,7 +661,7 @@ export default function Personal() {
         transition={TRANSITION_SECTION}
         aria-labelledby="ideologies-heading"
       >
-        <ScrambleSectionTitle 
+        <ScrambleSectionTitle
           id="ideologies-heading"
           className="mb-5 text-lg font-medium"
         >
@@ -668,13 +680,13 @@ export default function Personal() {
       >
         <div className="flex items-center justify-between mb-5">
           <div className="space-y-1">
-            <ScrambleSectionTitle 
+            <ScrambleSectionTitle
               id="featured-work-heading"
               className="text-lg font-medium"
             >
               Featured Work
             </ScrambleSectionTitle>
-            <p 
+            <p
               className="text-sm text-zinc-500 dark:text-zinc-400"
               aria-describedby="featured-work-heading"
             >
@@ -682,7 +694,7 @@ export default function Personal() {
             </p>
           </div>
           <div className="flex items-center gap-3">
-            <span 
+            <span
               className="text-xs text-zinc-400 dark:text-zinc-500"
               aria-label={`Showing 2 of ${PROJECTS.filter(p => p.featured).length} featured projects`}
             >
@@ -694,10 +706,10 @@ export default function Personal() {
               aria-label="View all projects page"
             >
               View all projects
-              <svg 
-                className="ml-1 h-3 w-3" 
-                fill="none" 
-                stroke="currentColor" 
+              <svg
+                className="ml-1 h-3 w-3"
+                fill="none"
+                stroke="currentColor"
                 viewBox="0 0 24 24"
                 aria-hidden="true"
               >
@@ -707,16 +719,16 @@ export default function Personal() {
             </Link>
           </div>
         </div>
-        
-        <div 
+
+        <div
           className="grid grid-cols-1 gap-12 sm:gap-8 sm:grid-cols-2"
           role="list"
           aria-label="Featured projects"
         >
           {selectedProjects.length > 0
             ? selectedProjects.map((project) => (
-                <article 
-                  key={project.id} 
+                <article
+                  key={project.id}
                   className="space-y-4"
                   role="listitem"
                   aria-labelledby={`project-${project.id}-title`}
@@ -738,21 +750,21 @@ export default function Personal() {
                         {project.subtitle}
                       </p>
                     )}
-                    <p 
+                    <p
                       id={`project-${project.id}-description`}
                       className="text-base text-zinc-600 dark:text-zinc-400 mb-3"
                     >
                       {project.description}
                     </p>
                     {project.metrics && (
-                      <div 
+                      <div
                         className="flex items-center gap-4 text-xs text-zinc-500 dark:text-zinc-400"
                         role="list"
                         aria-label="Project metrics"
                       >
                         {project.metrics.slice(0, 2).map((metric, idx) => (
-                          <div 
-                            key={idx} 
+                          <div
+                            key={idx}
                             className="flex items-center gap-1"
                             role="listitem"
                           >
@@ -769,8 +781,8 @@ export default function Personal() {
               ))
             : // Loading placeholder during hydration
               Array.from({ length: 2 }).map((_, index) => (
-                <div 
-                  key={`placeholder-${index}`} 
+                <div
+                  key={`placeholder-${index}`}
                   className="space-y-4"
                   role="listitem"
                   aria-label="Loading project"
@@ -794,7 +806,7 @@ export default function Personal() {
         aria-labelledby="connect-heading"
         role="region"
       >
-        <ScrambleSectionTitle 
+        <ScrambleSectionTitle
           id="connect-heading"
           className="mb-5 text-lg font-medium"
         >
@@ -811,7 +823,7 @@ export default function Personal() {
             <DecodedEmail />
           </a>
         </p>
-        <div 
+        <div
           className="flex items-center justify-start space-x-3"
           role="list"
           aria-label="Social media links"
@@ -833,6 +845,7 @@ export default function Personal() {
 #### 3.2 Enhanced Newsletter Form Accessibility
 
 **File: `/components/ui/newsletter-signup.tsx`** (Update existing)
+
 ```typescript
 // Add ARIA enhancements to the newsletter signup form
 export function NewsletterSignup() {
@@ -897,7 +910,7 @@ export function NewsletterSignup() {
               <div className="w-1 h-1 rounded-full bg-blue-400"></div>
               <div className="w-0.5 h-0.5 rounded-full bg-blue-300"></div>
             </div>
-            <h3 
+            <h3
               id="newsletter-heading"
               className="text-2xl font-bold text-zinc-900 dark:text-zinc-100"
             >
@@ -905,7 +918,7 @@ export function NewsletterSignup() {
               <br />
               for Product Designers
             </h3>
-            <p 
+            <p
               className="text-zinc-600 dark:text-zinc-400 leading-relaxed mb-4"
               id="newsletter-description"
             >
@@ -913,19 +926,19 @@ export function NewsletterSignup() {
               strategy. Transform from pixel-pusher to strategic partner in the
               boardroom.
             </p>
-            
+
             {/* Value Preview */}
-            <div 
+            <div
               className="bg-zinc-50 dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 rounded-lg p-5 mt-6"
               aria-labelledby="examples-heading"
             >
-              <h4 
+              <h4
                 id="examples-heading"
                 className="font-medium text-zinc-900 dark:text-zinc-100 mb-2 text-sm"
               >
                 Recent prompt examples:
               </h4>
-              <ul 
+              <ul
                 className="space-y-1 text-sm text-zinc-600 dark:text-zinc-400"
                 role="list"
               >
@@ -960,9 +973,9 @@ export function NewsletterSignup() {
               aria-describedby="newsletter-description"
             >
               {/* Live region for form status announcements */}
-              <div 
-                role="status" 
-                aria-live="polite" 
+              <div
+                role="status"
+                aria-live="polite"
                 aria-atomic="true"
                 className="sr-only"
               >
@@ -983,8 +996,8 @@ export function NewsletterSignup() {
                 error={errors.email?.message}
               />
 
-              <div 
-                id="email-help" 
+              <div
+                id="email-help"
                 className="sr-only"
               >
                 Enter your email address to receive weekly business strategy insights for designers
@@ -1003,23 +1016,23 @@ export function NewsletterSignup() {
                     aria-required="true"
                   />
                   <div className="flex-1">
-                    <label 
-                      htmlFor="newsletter-consent" 
+                    <label
+                      htmlFor="newsletter-consent"
                       className="block text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed cursor-pointer"
                     >
                       <span className="font-medium text-zinc-900 dark:text-zinc-100">
                         Yes, send me weekly strategy insights!
                       </span>
                     </label>
-                    <p 
+                    <p
                       id="consent-description"
                       className="mt-1 text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed"
                     >
                       Free to unsubscribe anytime. Read our{" "}
-                      <a 
-                        href="/privacy-policy" 
-                        className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline decoration-1 underline-offset-2 hover:decoration-2 transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-sm" 
-                        target="_blank" 
+                      <a
+                        href="/privacy-policy"
+                        className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 underline decoration-1 underline-offset-2 hover:decoration-2 transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-sm"
+                        target="_blank"
                         rel="noopener"
                         aria-label="Privacy Policy (opens in new tab)"
                       >
@@ -1098,23 +1111,25 @@ export function NewsletterSignup() {
 ```
 
 ### Phase 4: Testing Implementation (Days 7-10)
+
 **Priority: HIGH | Testing Coverage | Effort: Medium**
 
 #### 4.1 Accessibility Testing Setup
 
 **File: `/jest.setup.js`** (Update existing)
+
 ```javascript
-import '@testing-library/jest-dom';
-import 'jest-axe/extend-expect';
+import "@testing-library/jest-dom";
+import "jest-axe/extend-expect";
 
 // Mock Next.js router
-jest.mock('next/router', () => ({
+jest.mock("next/router", () => ({
   useRouter() {
     return {
-      route: '/',
-      pathname: '/',
+      route: "/",
+      pathname: "/",
       query: {},
-      asPath: '/',
+      asPath: "/",
       push: jest.fn(),
       pop: jest.fn(),
       reload: jest.fn(),
@@ -1132,10 +1147,10 @@ jest.mock('next/router', () => ({
 }));
 
 // Mock motion preferences
-Object.defineProperty(window, 'matchMedia', {
+Object.defineProperty(window, "matchMedia", {
   writable: true,
-  value: jest.fn().mockImplementation(query => ({
-    matches: query === '(prefers-reduced-motion: reduce)' ? false : true,
+  value: jest.fn().mockImplementation((query) => ({
+    matches: query === "(prefers-reduced-motion: reduce)" ? false : true,
     media: query,
     onchange: null,
     addListener: jest.fn(), // deprecated
@@ -1164,6 +1179,7 @@ global.IntersectionObserver = jest.fn().mockImplementation(() => ({
 #### 4.2 Component Accessibility Tests
 
 **File: `/__tests__/accessibility/header.test.tsx`** (New file)
+
 ```typescript
 import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -1190,7 +1206,7 @@ describe('Header Accessibility', () => {
   it('should have proper skip navigation link', () => {
     render(<Header />);
     const skipLink = screen.getByText('Skip to main content');
-    
+
     expect(skipLink).toBeInTheDocument();
     expect(skipLink).toHaveAttribute('href', '#main-content');
     expect(skipLink).toHaveClass('sr-only');
@@ -1199,43 +1215,43 @@ describe('Header Accessibility', () => {
   it('should support keyboard navigation for desktop menu', async () => {
     const user = userEvent.setup();
     render(<Header />);
-    
+
     const homeLink = screen.getByRole('link', { name: /home/i });
     const aboutLink = screen.getByRole('link', { name: /about/i });
     const projectsLink = screen.getByRole('link', { name: /projects/i });
-    
+
     // Tab through navigation links
     await user.tab();
     expect(homeLink).toHaveFocus();
-    
+
     await user.tab();
     expect(aboutLink).toHaveFocus();
-    
+
     await user.tab();
     expect(projectsLink).toHaveFocus();
   });
 
   it('should support keyboard navigation for mobile menu', async () => {
     const user = userEvent.setup();
-    
+
     // Mock mobile viewport
     Object.defineProperty(window, 'innerWidth', {
       writable: true,
       configurable: true,
       value: 640,
     });
-    
+
     render(<Header />);
-    
+
     const menuButton = screen.getByRole('button', { name: /open menu/i });
     expect(menuButton).toBeInTheDocument();
-    
+
     // Open mobile menu with keyboard
     await user.click(menuButton);
-    
+
     const mobileHomeLink = screen.getAllByRole('link', { name: /home/i })[1];
     expect(mobileHomeLink).toBeVisible();
-    
+
     // Test focus trap
     await user.tab();
     expect(mobileHomeLink).toHaveFocus();
@@ -1244,29 +1260,29 @@ describe('Header Accessibility', () => {
   it('should handle escape key in mobile menu', async () => {
     const user = userEvent.setup();
     render(<Header />);
-    
+
     const menuButton = screen.getByRole('button', { name: /open menu/i });
     await user.click(menuButton);
-    
+
     // Menu should be open
     expect(screen.getByRole('navigation', { name: /mobile navigation/i })).toBeVisible();
-    
+
     // Press escape
     await user.keyboard('{Escape}');
-    
+
     // Menu should be closed
     expect(screen.queryByRole('navigation', { name: /mobile navigation/i })).not.toBeInTheDocument();
   });
 
   it('should have proper ARIA attributes', () => {
     render(<Header />);
-    
+
     const header = screen.getByRole('banner');
     expect(header).toBeInTheDocument();
-    
+
     const mainNav = screen.getByRole('navigation', { name: /main navigation/i });
     expect(mainNav).toBeInTheDocument();
-    
+
     const menuButton = screen.getByRole('button', { name: /open menu/i });
     expect(menuButton).toHaveAttribute('aria-expanded', 'false');
     expect(menuButton).toHaveAttribute('aria-controls', 'mobile-menu');
@@ -1275,13 +1291,13 @@ describe('Header Accessibility', () => {
   it('should announce mobile menu state changes', async () => {
     const user = userEvent.setup();
     render(<Header />);
-    
+
     const menuButton = screen.getByRole('button', { name: /open menu/i });
-    
+
     // Initially closed
     expect(menuButton).toHaveAttribute('aria-expanded', 'false');
     expect(menuButton).toHaveAttribute('aria-label', 'Open menu');
-    
+
     // Open menu
     await user.click(menuButton);
     expect(menuButton).toHaveAttribute('aria-expanded', 'true');
@@ -1293,6 +1309,7 @@ describe('Header Accessibility', () => {
 #### 4.3 Motion Accessibility Tests
 
 **File: `/__tests__/accessibility/motion.test.tsx`** (New file)
+
 ```typescript
 import { render, screen } from '@testing-library/react';
 import { TextEffect } from '@/components/ui/text-effect';
@@ -1310,13 +1327,13 @@ describe('Motion Accessibility', () => {
 
   it('should render static text when reduced motion is preferred', () => {
     mockUseReducedMotion.mockReturnValue(true);
-    
+
     render(
       <TextEffect preset="fade" per="char">
         Test text content
       </TextEffect>
     );
-    
+
     const text = screen.getByText('Test text content');
     expect(text).toBeInTheDocument();
     expect(text.tagName).toBe('P'); // Should render as static element
@@ -1324,36 +1341,36 @@ describe('Motion Accessibility', () => {
 
   it('should render animated text when motion is allowed', () => {
     mockUseReducedMotion.mockReturnValue(false);
-    
+
     render(
       <TextEffect preset="fade" per="char">
         Test text content
       </TextEffect>
     );
-    
+
     // Should have motion wrapper and hidden text for screen readers
-    const hiddenText = screen.getByText('Test text content', { 
-      selector: '.sr-only' 
+    const hiddenText = screen.getByText('Test text content', {
+      selector: '.sr-only'
     });
     expect(hiddenText).toBeInTheDocument();
   });
 
   it('should provide proper ARIA labels for animated content', () => {
     mockUseReducedMotion.mockReturnValue(false);
-    
+
     const { container } = render(
       <TextEffect preset="fade" per="char">
         Animated content
       </TextEffect>
     );
-    
+
     const motionElement = container.querySelector('[aria-label]');
     expect(motionElement).toHaveAttribute('aria-label', 'Animated content');
   });
 
   it('should handle prefers-reduced-motion media query changes', () => {
     let mediaQueryCallback: ((event: MediaQueryListEvent) => void) | null = null;
-    
+
     const mockMatchMedia = jest.fn().mockImplementation(query => ({
       matches: false,
       media: query,
@@ -1366,23 +1383,23 @@ describe('Motion Accessibility', () => {
       removeEventListener: jest.fn(),
       dispatchEvent: jest.fn(),
     }));
-    
+
     Object.defineProperty(window, 'matchMedia', {
       writable: true,
       value: mockMatchMedia,
     });
-    
+
     const { rerender } = render(
       <TextEffect>Test content</TextEffect>
     );
-    
+
     // Simulate media query change
     if (mediaQueryCallback) {
       mediaQueryCallback({ matches: true } as MediaQueryListEvent);
     }
-    
+
     rerender(<TextEffect>Test content</TextEffect>);
-    
+
     expect(mockMatchMedia).toHaveBeenCalledWith('(prefers-reduced-motion: reduce)');
   });
 });
@@ -1391,6 +1408,7 @@ describe('Motion Accessibility', () => {
 #### 4.4 Form Accessibility Tests
 
 **File: `/__tests__/accessibility/newsletter-form.test.tsx`** (New file)
+
 ```typescript
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -1415,11 +1433,11 @@ describe('Newsletter Form Accessibility', () => {
 
   it('should have proper form labels and descriptions', () => {
     render(<NewsletterSignup />);
-    
+
     const emailInput = screen.getByRole('textbox', { name: /email address/i });
     expect(emailInput).toHaveAttribute('aria-describedby');
     expect(emailInput).toHaveAttribute('aria-required', 'true');
-    
+
     const consentCheckbox = screen.getByRole('checkbox');
     expect(consentCheckbox).toHaveAttribute('aria-describedby', 'consent-description');
     expect(consentCheckbox).toHaveAttribute('aria-required', 'true');
@@ -1428,12 +1446,12 @@ describe('Newsletter Form Accessibility', () => {
   it('should announce form validation errors', async () => {
     const user = userEvent.setup();
     render(<NewsletterSignup />);
-    
+
     const submitButton = screen.getByRole('button', { name: /subscribe/i });
-    
+
     // Try to submit without filling form
     await user.click(submitButton);
-    
+
     await waitFor(() => {
       const emailError = screen.getByRole('alert');
       expect(emailError).toBeInTheDocument();
@@ -1443,10 +1461,10 @@ describe('Newsletter Form Accessibility', () => {
 
   it('should have proper fieldset for consent checkbox', () => {
     render(<NewsletterSignup />);
-    
+
     const fieldset = screen.getByRole('group');
     expect(fieldset.tagName).toBe('FIELDSET');
-    
+
     const legend = fieldset.querySelector('legend');
     expect(legend).toHaveTextContent('Newsletter consent');
     expect(legend).toHaveClass('sr-only');
@@ -1454,23 +1472,23 @@ describe('Newsletter Form Accessibility', () => {
 
   it('should announce form submission status', async () => {
     const user = userEvent.setup();
-    
+
     (fetch as jest.Mock).mockResolvedValueOnce({
       ok: true,
       json: async () => ({ success: true }),
     });
-    
+
     render(<NewsletterSignup />);
-    
+
     const emailInput = screen.getByRole('textbox', { name: /email address/i });
     const consentCheckbox = screen.getByRole('checkbox');
     const submitButton = screen.getByRole('button', { name: /subscribe/i });
-    
+
     // Fill and submit form
     await user.type(emailInput, 'test@example.com');
     await user.click(consentCheckbox);
     await user.click(submitButton);
-    
+
     // Should announce submission status
     await waitFor(() => {
       const statusRegion = screen.getByRole('status');
@@ -1481,22 +1499,22 @@ describe('Newsletter Form Accessibility', () => {
   it('should handle keyboard navigation properly', async () => {
     const user = userEvent.setup();
     render(<NewsletterSignup />);
-    
+
     const emailInput = screen.getByRole('textbox', { name: /email address/i });
     const consentCheckbox = screen.getByRole('checkbox');
     const submitButton = screen.getByRole('button', { name: /subscribe/i });
     const privacyLink = screen.getByRole('link', { name: /privacy policy/i });
-    
+
     // Tab through form elements
     await user.tab();
     expect(emailInput).toHaveFocus();
-    
+
     await user.tab();
     expect(consentCheckbox).toHaveFocus();
-    
+
     await user.tab();
     expect(privacyLink).toHaveFocus();
-    
+
     await user.tab();
     expect(submitButton).toHaveFocus();
   });
@@ -1504,14 +1522,14 @@ describe('Newsletter Form Accessibility', () => {
   it('should provide clear error messages', async () => {
     const user = userEvent.setup();
     render(<NewsletterSignup />);
-    
+
     const emailInput = screen.getByRole('textbox', { name: /email address/i });
     const submitButton = screen.getByRole('button', { name: /subscribe/i });
-    
+
     // Enter invalid email
     await user.type(emailInput, 'invalid-email');
     await user.click(submitButton);
-    
+
     await waitFor(() => {
       const errorMessage = screen.getByText(/invalid email address/i);
       expect(errorMessage).toBeInTheDocument();
@@ -1522,14 +1540,14 @@ describe('Newsletter Form Accessibility', () => {
   it('should mark invalid fields appropriately', async () => {
     const user = userEvent.setup();
     render(<NewsletterSignup />);
-    
+
     const emailInput = screen.getByRole('textbox', { name: /email address/i });
     const submitButton = screen.getByRole('button', { name: /subscribe/i });
-    
+
     // Trigger validation
     await user.type(emailInput, 'invalid');
     await user.click(submitButton);
-    
+
     await waitFor(() => {
       expect(emailInput).toHaveAttribute('aria-invalid', 'true');
     });
@@ -1540,64 +1558,67 @@ describe('Newsletter Form Accessibility', () => {
 #### 4.5 E2E Accessibility Tests
 
 **File: `/__tests__/e2e/accessibility.spec.ts`** (New file)
-```typescript
-import { test, expect } from '@playwright/test';
-import AxeBuilder from '@axe-core/playwright';
 
-test.describe('Full Page Accessibility', () => {
-  test('homepage should not have accessibility violations', async ({ page }) => {
-    await page.goto('/');
-    
+```typescript
+import { test, expect } from "@playwright/test";
+import AxeBuilder from "@axe-core/playwright";
+
+test.describe("Full Page Accessibility", () => {
+  test("homepage should not have accessibility violations", async ({
+    page,
+  }) => {
+    await page.goto("/");
+
     const accessibilityScanResults = await new AxeBuilder({ page })
-      .withTags(['wcag2a', 'wcag2aa', 'wcag21aa'])
+      .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
       .analyze();
-    
+
     expect(accessibilityScanResults.violations).toEqual([]);
   });
 
-  test('should respect reduced motion preferences', async ({ page }) => {
+  test("should respect reduced motion preferences", async ({ page }) => {
     // Enable reduced motion
-    await page.emulateMedia({ reducedMotion: 'reduce' });
-    await page.goto('/');
-    
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto("/");
+
     // Check that animations are disabled or minimal
-    const animatedElements = await page.locator('[data-motion]').count();
-    
+    const animatedElements = await page.locator("[data-motion]").count();
+
     // Verify motion elements respect preferences
     if (animatedElements > 0) {
-      const firstAnimated = page.locator('[data-motion]').first();
-      await expect(firstAnimated).toHaveCSS('animation-duration', '0.01s');
+      const firstAnimated = page.locator("[data-motion]").first();
+      await expect(firstAnimated).toHaveCSS("animation-duration", "0.01s");
     }
   });
 
-  test('should support keyboard navigation', async ({ page }) => {
-    await page.goto('/');
-    
+  test("should support keyboard navigation", async ({ page }) => {
+    await page.goto("/");
+
     // Start keyboard navigation
-    await page.keyboard.press('Tab');
-    
+    await page.keyboard.press("Tab");
+
     // Should focus skip link first
-    const skipLink = page.getByText('Skip to main content');
+    const skipLink = page.getByText("Skip to main content");
     await expect(skipLink).toBeFocused();
-    
+
     // Continue tabbing through interactive elements
-    await page.keyboard.press('Tab');
-    const firstNavLink = page.getByRole('link', { name: /home/i }).first();
+    await page.keyboard.press("Tab");
+    const firstNavLink = page.getByRole("link", { name: /home/i }).first();
     await expect(firstNavLink).toBeFocused();
   });
 
-  test('should have proper heading hierarchy', async ({ page }) => {
-    await page.goto('/');
-    
-    const headings = await page.locator('h1, h2, h3, h4, h5, h6').all();
+  test("should have proper heading hierarchy", async ({ page }) => {
+    await page.goto("/");
+
+    const headings = await page.locator("h1, h2, h3, h4, h5, h6").all();
     const headingLevels: number[] = [];
-    
+
     for (const heading of headings) {
-      const tagName = await heading.evaluate(el => el.tagName);
+      const tagName = await heading.evaluate((el) => el.tagName);
       const level = parseInt(tagName.charAt(1));
       headingLevels.push(level);
     }
-    
+
     // Verify logical heading progression
     for (let i = 1; i < headingLevels.length; i++) {
       const diff = headingLevels[i] - headingLevels[i - 1];
@@ -1605,84 +1626,84 @@ test.describe('Full Page Accessibility', () => {
     }
   });
 
-  test('should announce dynamic content changes', async ({ page }) => {
-    await page.goto('/');
-    
+  test("should announce dynamic content changes", async ({ page }) => {
+    await page.goto("/");
+
     // Find newsletter form
-    const emailInput = page.getByRole('textbox', { name: /email address/i });
-    const submitButton = page.getByRole('button', { name: /subscribe/i });
-    
+    const emailInput = page.getByRole("textbox", { name: /email address/i });
+    const submitButton = page.getByRole("button", { name: /subscribe/i });
+
     // Submit invalid form to trigger error announcement
-    await emailInput.fill('invalid-email');
+    await emailInput.fill("invalid-email");
     await submitButton.click();
-    
+
     // Check for live region announcement
     const liveRegion = page.locator('[role="alert"], [aria-live]');
     await expect(liveRegion).toBeVisible();
   });
 
-  test('should have sufficient color contrast', async ({ page }) => {
-    await page.goto('/');
-    
+  test("should have sufficient color contrast", async ({ page }) => {
+    await page.goto("/");
+
     const accessibilityScanResults = await new AxeBuilder({ page })
-      .withTags(['wcag2aa'])
-      .include('body')
+      .withTags(["wcag2aa"])
+      .include("body")
       .analyze();
-    
+
     const contrastViolations = accessibilityScanResults.violations.filter(
-      violation => violation.id === 'color-contrast'
+      (violation) => violation.id === "color-contrast",
     );
-    
+
     expect(contrastViolations).toHaveLength(0);
   });
 
-  test('should work with high contrast mode', async ({ page }) => {
+  test("should work with high contrast mode", async ({ page }) => {
     // Enable high contrast
-    await page.emulateMedia({ 
-      colorScheme: 'dark',
-      forcedColors: 'active'
+    await page.emulateMedia({
+      colorScheme: "dark",
+      forcedColors: "active",
     });
-    
-    await page.goto('/');
-    
+
+    await page.goto("/");
+
     // Verify page still functions and is readable
-    const mainContent = page.getByRole('main');
+    const mainContent = page.getByRole("main");
     await expect(mainContent).toBeVisible();
-    
+
     // Check for proper focus indicators in high contrast
-    await page.keyboard.press('Tab');
-    const focusedElement = page.locator(':focus');
+    await page.keyboard.press("Tab");
+    const focusedElement = page.locator(":focus");
     await expect(focusedElement).toBeVisible();
   });
 
-  test('should support screen reader navigation', async ({ page }) => {
-    await page.goto('/');
-    
+  test("should support screen reader navigation", async ({ page }) => {
+    await page.goto("/");
+
     // Check for proper landmarks
-    const main = page.getByRole('main');
-    const navigation = page.getByRole('navigation');
-    const banner = page.getByRole('banner');
-    
+    const main = page.getByRole("main");
+    const navigation = page.getByRole("navigation");
+    const banner = page.getByRole("banner");
+
     await expect(main).toBeVisible();
     await expect(navigation).toBeVisible();
     await expect(banner).toBeVisible();
-    
+
     // Verify landmark labels
-    await expect(main).toHaveAttribute('aria-label');
-    await expect(navigation.first()).toHaveAttribute('aria-label');
+    await expect(main).toHaveAttribute("aria-label");
+    await expect(navigation.first()).toHaveAttribute("aria-label");
   });
 });
 
-test.describe('Mobile Accessibility', () => {
+test.describe("Mobile Accessibility", () => {
   test.use({ viewport: { width: 375, height: 667 } });
 
-  test('should have adequate touch targets on mobile', async ({ page }) => {
-    await page.goto('/');
-    
-    const interactiveElements = await page.locator(
-      'button, a, input, [tabindex]:not([tabindex="-1"])'
-    ).all();
-    
+  test("should have adequate touch targets on mobile", async ({ page }) => {
+    await page.goto("/");
+
+    const interactiveElements = await page
+      .locator('button, a, input, [tabindex]:not([tabindex="-1"])')
+      .all();
+
     for (const element of interactiveElements) {
       const box = await element.boundingBox();
       if (box) {
@@ -1693,24 +1714,24 @@ test.describe('Mobile Accessibility', () => {
     }
   });
 
-  test('should handle mobile menu accessibility', async ({ page }) => {
-    await page.goto('/');
-    
-    const menuButton = page.getByRole('button', { name: /menu/i });
+  test("should handle mobile menu accessibility", async ({ page }) => {
+    await page.goto("/");
+
+    const menuButton = page.getByRole("button", { name: /menu/i });
     await expect(menuButton).toBeVisible();
-    
+
     // Open mobile menu
     await menuButton.click();
-    
+
     // Check for proper ARIA attributes
-    await expect(menuButton).toHaveAttribute('aria-expanded', 'true');
-    
-    const mobileNav = page.getByRole('navigation', { name: /mobile/i });
+    await expect(menuButton).toHaveAttribute("aria-expanded", "true");
+
+    const mobileNav = page.getByRole("navigation", { name: /mobile/i });
     await expect(mobileNav).toBeVisible();
-    
+
     // Test focus trap
-    await page.keyboard.press('Tab');
-    const firstLink = mobileNav.getByRole('link').first();
+    await page.keyboard.press("Tab");
+    const firstLink = mobileNav.getByRole("link").first();
     await expect(firstLink).toBeFocused();
   });
 });
@@ -1723,51 +1744,52 @@ test.describe('Mobile Accessibility', () => {
 ### Continuous Integration Setup
 
 **File: `/.github/workflows/accessibility.yml`** (New file)
+
 ```yaml
 name: Accessibility Testing
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main, develop]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   accessibility:
     runs-on: ubuntu-latest
-    
+
     steps:
-    - uses: actions/checkout@v3
-    
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
-        cache: 'npm'
-    
-    - name: Install dependencies
-      run: npm ci
-    
-    - name: Run accessibility tests
-      run: npm run test:a11y
-    
-    - name: Build application
-      run: npm run build
-    
-    - name: Install Playwright
-      run: npx playwright install --with-deps
-    
-    - name: Run E2E accessibility tests
-      run: npm run test:e2e:a11y
-    
-    - name: Upload test results
-      uses: actions/upload-artifact@v3
-      if: failure()
-      with:
-        name: accessibility-test-results
-        path: |
-          test-results/
-          playwright-report/
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run accessibility tests
+        run: npm run test:a11y
+
+      - name: Build application
+        run: npm run build
+
+      - name: Install Playwright
+        run: npx playwright install --with-deps
+
+      - name: Run E2E accessibility tests
+        run: npm run test:e2e:a11y
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: accessibility-test-results
+          path: |
+            test-results/
+            playwright-report/
 ```
 
 ### Package.json Scripts
@@ -1786,25 +1808,24 @@ jobs:
 ### ESLint Accessibility Configuration
 
 **File: `/.eslintrc.a11y.js`** (New file)
+
 ```javascript
 module.exports = {
-  extends: [
-    'plugin:jsx-a11y/recommended'
-  ],
-  plugins: ['jsx-a11y'],
+  extends: ["plugin:jsx-a11y/recommended"],
+  plugins: ["jsx-a11y"],
   rules: {
-    'jsx-a11y/no-static-element-interactions': 'error',
-    'jsx-a11y/click-events-have-key-events': 'error',
-    'jsx-a11y/no-noninteractive-element-interactions': 'error',
-    'jsx-a11y/aria-role': 'error',
-    'jsx-a11y/aria-props': 'error',
-    'jsx-a11y/aria-proptypes': 'error',
-    'jsx-a11y/aria-unsupported-elements': 'error',
-    'jsx-a11y/alt-text': 'error',
-    'jsx-a11y/img-redundant-alt': 'error',
-    'jsx-a11y/label-has-associated-control': 'error',
-    'jsx-a11y/form-control-has-label': 'error',
-  }
+    "jsx-a11y/no-static-element-interactions": "error",
+    "jsx-a11y/click-events-have-key-events": "error",
+    "jsx-a11y/no-noninteractive-element-interactions": "error",
+    "jsx-a11y/aria-role": "error",
+    "jsx-a11y/aria-props": "error",
+    "jsx-a11y/aria-proptypes": "error",
+    "jsx-a11y/aria-unsupported-elements": "error",
+    "jsx-a11y/alt-text": "error",
+    "jsx-a11y/img-redundant-alt": "error",
+    "jsx-a11y/label-has-associated-control": "error",
+    "jsx-a11y/form-control-has-label": "error",
+  },
 };
 ```
 
@@ -1823,24 +1844,28 @@ module.exports = {
 ### Validation Checkpoints
 
 #### Week 1 Checkpoint
+
 - [ ] Motion preferences implemented
 - [ ] Focus management enhanced
 - [ ] Basic ARIA structure added
 - [ ] Initial automated tests passing
 
 #### Week 2 Checkpoint
+
 - [ ] Complete ARIA implementation
 - [ ] Form accessibility enhanced
 - [ ] Color contrast optimized
 - [ ] Manual testing 80% complete
 
 #### Week 3 Checkpoint
+
 - [ ] E2E tests implemented
 - [ ] CI/CD pipeline configured
 - [ ] Documentation complete
 - [ ] Team training delivered
 
 #### Final Validation
+
 - [ ] Third-party accessibility audit
 - [ ] Screen reader user testing
 - [ ] Performance benchmarks met

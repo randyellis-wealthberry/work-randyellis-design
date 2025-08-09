@@ -27,19 +27,18 @@ function TestPage() {
 }
 
 describe("TDD PHASE 1: Runtime Error Detection", () => {
-  
   describe("SSR vs Client Hydration", () => {
     test("should render consistently on server and client", () => {
       // This test will expose hydration mismatches
       const { container } = render(<TestPage />);
-      
+
       expect(container.firstChild).toBeDefined();
       expect(screen.getByText("Test Page")).toBeInTheDocument();
     });
 
     test("should handle window object dependencies gracefully", () => {
       // Test components that depend on window - skip if window is not redefinable
-      if (typeof window !== 'undefined') {
+      if (typeof window !== "undefined") {
         expect(() => {
           render(<TestPage />);
         }).not.toThrow();
@@ -53,17 +52,17 @@ describe("TDD PHASE 1: Runtime Error Detection", () => {
 
     test("should handle localStorage dependencies", () => {
       const originalLocalStorage = global.localStorage;
-      
+
       // Simulate environment without localStorage
-      Object.defineProperty(global, 'localStorage', {
+      Object.defineProperty(global, "localStorage", {
         value: undefined,
-        writable: true
+        writable: true,
       });
-      
+
       expect(() => {
         render(<TestPage />);
       }).not.toThrow();
-      
+
       // Restore localStorage
       global.localStorage = originalLocalStorage;
     });
@@ -78,7 +77,7 @@ describe("TDD PHASE 1: Runtime Error Detection", () => {
             {[].map((project: any) => (
               <div key={project.id}>{project.name}</div>
             ))}
-          </div>
+          </div>,
         );
       }).not.toThrow();
     });
@@ -90,13 +89,13 @@ describe("TDD PHASE 1: Runtime Error Detection", () => {
         description: "",
         video: null,
       };
-      
+
       expect(() => {
         render(
           <div>
             <h2>{malformedProject.name || "Unknown"}</h2>
             <p>{malformedProject.description || "No description"}</p>
-          </div>
+          </div>,
         );
       }).not.toThrow();
     });
@@ -107,7 +106,7 @@ describe("TDD PHASE 1: Runtime Error Detection", () => {
         video: undefined,
         thumbnail: undefined,
       };
-      
+
       expect(() => {
         render(
           <div>
@@ -117,7 +116,7 @@ describe("TDD PHASE 1: Runtime Error Detection", () => {
             {projectWithUndefinedMedia.thumbnail && (
               <img src={projectWithUndefinedMedia.thumbnail} alt="thumbnail" />
             )}
-          </div>
+          </div>,
         );
       }).not.toThrow();
     });
@@ -127,7 +126,7 @@ describe("TDD PHASE 1: Runtime Error Detection", () => {
     test("should handle failed dynamic imports gracefully", async () => {
       // Mock a failed import
       const originalImport = window.eval;
-      
+
       expect(() => {
         // This should not crash the app
         render(<TestPage />);
@@ -147,18 +146,20 @@ describe("TDD PHASE 1: Runtime Error Detection", () => {
       const ErrorComponent = () => {
         throw new Error("Test error for error boundary");
       };
-      
+
       // This will help us verify error boundaries are working
-      const consoleSpy = jest.spyOn(console, "error").mockImplementation(() => {});
-      
+      const consoleSpy = jest
+        .spyOn(console, "error")
+        .mockImplementation(() => {});
+
       expect(() => {
         render(
           <div>
             <ErrorComponent />
-          </div>
+          </div>,
         );
       }).toThrow(); // We expect this to throw since we don't have error boundary here
-      
+
       consoleSpy.mockRestore();
     });
 
@@ -171,10 +172,10 @@ describe("TDD PHASE 1: Runtime Error Detection", () => {
             // Error should be handled gracefully
           });
         }, []);
-        
+
         return <div>Async Component</div>;
       };
-      
+
       expect(() => {
         render(<AsyncComponent />);
       }).not.toThrow();
@@ -184,11 +185,11 @@ describe("TDD PHASE 1: Runtime Error Detection", () => {
   describe("Build System Integration", () => {
     test("should have all expected static assets referenced", () => {
       // Check that projects reference valid asset paths
-      const projectsWithAssets = PROJECTS.filter(p => p.video || p.thumbnail);
-      
+      const projectsWithAssets = PROJECTS.filter((p) => p.video || p.thumbnail);
+
       expect(projectsWithAssets.length).toBeGreaterThan(0);
-      
-      projectsWithAssets.forEach(project => {
+
+      projectsWithAssets.forEach((project) => {
         if (project.video) {
           // Should be a valid path format
           expect(project.video).toMatch(/^(\/|https?:\/\/)/);
@@ -206,13 +207,13 @@ describe("TDD PHASE 1: Runtime Error Detection", () => {
         video: "/non-existent/video.mp4",
         thumbnail: "/non-existent/image.jpg",
       };
-      
+
       expect(() => {
         render(
           <div>
             <video src={testProject.video} />
             <img src={testProject.thumbnail} alt="test" />
-          </div>
+          </div>,
         );
       }).not.toThrow();
     });
@@ -224,14 +225,14 @@ describe("TDD PHASE 1: Runtime Error Detection", () => {
       expect(() => {
         render(
           <div>
-            {PROJECTS.map(project => (
+            {PROJECTS.map((project) => (
               <div key={project.id}>
                 <h3>{project.name}</h3>
                 <p>{project.description}</p>
                 <small>{project.technologies.join(", ")}</small>
               </div>
             ))}
-          </div>
+          </div>,
         );
       }).not.toThrow();
     });
@@ -239,17 +240,18 @@ describe("TDD PHASE 1: Runtime Error Detection", () => {
     test("should handle rapid state changes", () => {
       const RapidChangeComponent = () => {
         const [count, setCount] = React.useState(0);
-        
+
         React.useEffect(() => {
           // Simulate rapid state changes
-          for (let i = 0; i < 10; i++) { // Reduced for testing
+          for (let i = 0; i < 10; i++) {
+            // Reduced for testing
             setTimeout(() => setCount(i), i * 10);
           }
         }, []);
-        
+
         return <div>Count: {count}</div>;
       };
-      
+
       expect(() => {
         render(<RapidChangeComponent />);
       }).not.toThrow();
@@ -260,15 +262,15 @@ describe("TDD PHASE 1: Runtime Error Detection", () => {
     test("should handle missing modern browser APIs", () => {
       const originalIntersectionObserver = global.IntersectionObserver;
       const originalRequestAnimationFrame = global.requestAnimationFrame;
-      
+
       // Simulate older browser
       global.IntersectionObserver = undefined as any;
       global.requestAnimationFrame = undefined as any;
-      
+
       expect(() => {
         render(<TestPage />);
       }).not.toThrow();
-      
+
       // Restore APIs
       global.IntersectionObserver = originalIntersectionObserver;
       global.requestAnimationFrame = originalRequestAnimationFrame;
@@ -280,7 +282,7 @@ describe("TDD PHASE 1: Runtime Error Detection", () => {
         render(
           <div className="grid grid-cols-1 gap-4 backdrop-blur supports-[backdrop-filter]:bg-white/90">
             <div>Modern CSS Test</div>
-          </div>
+          </div>,
         );
       }).not.toThrow();
     });
@@ -296,13 +298,13 @@ describe("TDD PHASE 1: Runtime Error Detection", () => {
         // Add unexpected field
         unexpectedField: "test",
       };
-      
+
       expect(() => {
         render(
           <div>
             <h2>{modifiedProject.name}</h2>
             <p>{modifiedProject.description || "No description available"}</p>
-          </div>
+          </div>,
         );
       }).not.toThrow();
     });
@@ -311,12 +313,12 @@ describe("TDD PHASE 1: Runtime Error Detection", () => {
       // Test with data that might have circular references
       const circularData: any = { name: "Test" };
       circularData.self = circularData;
-      
+
       expect(() => {
         render(
           <div>
             <span>{circularData.name}</span>
-          </div>
+          </div>,
         );
       }).not.toThrow();
     });

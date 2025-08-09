@@ -20,7 +20,7 @@ describe("Rate Limiting Logic", () => {
   beforeEach(() => {
     // Reset the rate limit store
     rateLimitStore = new Map();
-    
+
     // Implement the rate limiting logic for testing
     checkRateLimit = (key: string) => {
       const now = Date.now();
@@ -53,7 +53,7 @@ describe("Rate Limiting Logic", () => {
 
   it("allows first request", () => {
     const result = checkRateLimit("test-key");
-    
+
     expect(result.allowed).toBe(true);
     expect(result.count).toBe(1);
     expect(result.remaining).toBe(4);
@@ -61,7 +61,7 @@ describe("Rate Limiting Logic", () => {
 
   it("allows requests up to the limit", () => {
     const key = "test-key";
-    
+
     // Make 5 requests (the limit)
     for (let i = 1; i <= 5; i++) {
       const result = checkRateLimit(key);
@@ -73,12 +73,12 @@ describe("Rate Limiting Logic", () => {
 
   it("blocks requests over the limit", () => {
     const key = "test-key";
-    
+
     // Make 5 requests (up to limit)
     for (let i = 1; i <= 5; i++) {
       checkRateLimit(key);
     }
-    
+
     // 6th request should be blocked
     const result = checkRateLimit(key);
     expect(result.allowed).toBe(false);
@@ -89,12 +89,12 @@ describe("Rate Limiting Logic", () => {
   it("handles different keys separately", () => {
     const key1 = "user1";
     const key2 = "user2";
-    
+
     // Each key should have independent limits
     for (let i = 1; i <= 5; i++) {
       const result1 = checkRateLimit(key1);
       const result2 = checkRateLimit(key2);
-      
+
       expect(result1.allowed).toBe(true);
       expect(result2.allowed).toBe(true);
       expect(result1.count).toBe(i);
@@ -104,21 +104,21 @@ describe("Rate Limiting Logic", () => {
 
   it("resets after time window expires", () => {
     const key = "test-key";
-    
+
     // Exhaust the limit
     for (let i = 1; i <= 6; i++) {
       checkRateLimit(key);
     }
-    
+
     // Verify it's blocked
     let result = checkRateLimit(key);
     expect(result.allowed).toBe(false);
-    
+
     // Simulate time passing by manipulating the store directly
     const entry = rateLimitStore.get(key)!;
     entry.resetTime = Date.now() - 1000; // Set reset time to past
     rateLimitStore.set(key, entry);
-    
+
     // Next request should be allowed (new window)
     result = checkRateLimit(key);
     expect(result.allowed).toBe(true);
@@ -128,7 +128,7 @@ describe("Rate Limiting Logic", () => {
 
   it("calculates remaining requests correctly", () => {
     const key = "test-key";
-    
+
     // Test remaining count decreases properly
     expect(checkRateLimit(key).remaining).toBe(4); // 1st request
     expect(checkRateLimit(key).remaining).toBe(3); // 2nd request
@@ -142,9 +142,13 @@ describe("Rate Limiting Logic", () => {
     const beforeTime = Date.now();
     const result = checkRateLimit("test-key");
     const afterTime = Date.now();
-    
+
     // Reset time should be approximately now + windowMs
-    expect(result.resetTime).toBeGreaterThan(beforeTime + RATE_LIMIT_CONFIG.windowMs - 100);
-    expect(result.resetTime).toBeLessThan(afterTime + RATE_LIMIT_CONFIG.windowMs + 100);
+    expect(result.resetTime).toBeGreaterThan(
+      beforeTime + RATE_LIMIT_CONFIG.windowMs - 100,
+    );
+    expect(result.resetTime).toBeLessThan(
+      afterTime + RATE_LIMIT_CONFIG.windowMs + 100,
+    );
   });
 });

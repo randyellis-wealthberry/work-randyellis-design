@@ -16,7 +16,9 @@ describe("Project Data Validation", () => {
 
     test("LedgerIQ project has local MP4 video path", () => {
       expect(ledgeriqProject.video).toBeDefined();
-      expect(ledgeriqProject.video).toMatch(/^\/projects\/ledgeriq\/ledgeriq-glitch\.mp4$/);
+      expect(ledgeriqProject.video).toMatch(
+        /^\/projects\/ledgeriq\/ledgeriq-glitch\.mp4$/,
+      );
       expect(ledgeriqProject.video).not.toMatch(/vimeo\.com/);
       expect(ledgeriqProject.video).not.toMatch(/youtube\.com/);
     });
@@ -38,7 +40,7 @@ describe("Project Data Validation", () => {
       // Should be a local path starting with "/" for HoverVideo component
       expect(ledgeriqProject.video.startsWith("/")).toBe(true);
       expect(ledgeriqProject.video.endsWith(".mp4")).toBe(true);
-      
+
       // Should not be an external URL (which would use iframe)
       expect(ledgeriqProject.video).not.toMatch(/^https?:\/\//);
     });
@@ -55,16 +57,20 @@ describe("Project Data Validation", () => {
 
     test("video paths are either local MP4 or external URLs", () => {
       PROJECTS.forEach((project) => {
-        const isLocalVideo = project.video.startsWith("/") && project.video.endsWith(".mp4");
-        const isExternalVideo = project.video.startsWith("http") || project.video.includes("vimeo.com") || project.video.includes("youtube.com");
-        
+        const isLocalVideo =
+          project.video.startsWith("/") && project.video.endsWith(".mp4");
+        const isExternalVideo =
+          project.video.startsWith("http") ||
+          project.video.includes("vimeo.com") ||
+          project.video.includes("youtube.com");
+
         expect(isLocalVideo || isExternalVideo).toBe(true);
       });
     });
 
     test("all featured projects are valid", () => {
       const featuredProjects = PROJECTS.filter((p) => p.featured);
-      
+
       expect(featuredProjects.length).toBeGreaterThan(0);
       featuredProjects.forEach((project) => {
         expect(project.id).toBeDefined();

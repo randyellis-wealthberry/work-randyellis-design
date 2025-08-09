@@ -193,11 +193,7 @@
       {
         "name": "Navigation System",
         "description": "Responsive header and footer navigation with theme switching",
-        "files": [
-          "app/header.tsx",
-          "app/footer.tsx",
-          "app/layout.tsx"
-        ]
+        "files": ["app/header.tsx", "app/footer.tsx", "app/layout.tsx"]
       },
       {
         "name": "Archive System",

@@ -138,14 +138,8 @@ const MetricCard = memo(function MetricCard({
         setShowHeartbeat(true);
         setTimeout(() => setShowHeartbeat(false), 600);
         // Add delightful surprise for metric interaction
-        const surpriseMessages = [
-          `🏆 Great choice! This ${metric.label} improvement shows real AI impact!`,
-          `✨ You clicked on ${metric.value} ${metric.label} - impressive results from machine learning!`,
-          `🤖 The AI algorithms behind this ${metric.label} metric are quite sophisticated!`,
-          `📈 This ${metric.value} represents thousands of hours of AI training and optimization!`
-        ];
-        const randomMessage = surpriseMessages[Math.floor(Math.random() * surpriseMessages.length)];
-        // Note: This would connect to parent component's setSurpriseMessages if passed as prop
+        // Note: surpriseMessages would be used if connected to parent component
+        console.log(`🏆 Clicked on ${metric.label}: ${metric.value}`);
       }}
     >
       <Spotlight
@@ -183,8 +177,8 @@ const MetricCard = memo(function MetricCard({
 
         <div className="text-center relative z-10">
           {/* Achievement badge for excellent metrics - Enhanced */}
-          {((metric.value.includes("%") && parseInt(metric.value) >= 30) || 
-            metric.value.includes("x") || 
+          {((metric.value.includes("%") && parseInt(metric.value) >= 30) ||
+            metric.value.includes("x") ||
             metric.value.includes("faster")) && (
             <motion.div
               className="absolute -top-2 -right-2 bg-gradient-to-r from-emerald-400 to-blue-500 rounded-full p-1 shadow-lg"
@@ -196,22 +190,26 @@ const MetricCard = memo(function MetricCard({
                 type: "spring",
                 bounce: 0.5,
               }}
-              whileHover={{ 
-                scale: 1.2, 
+              whileHover={{
+                scale: 1.2,
                 rotate: 360,
-                boxShadow: "0 0 20px rgba(16, 185, 129, 0.6)"
+                boxShadow: "0 0 20px rgba(16, 185, 129, 0.6)",
               }}
             >
               <motion.div
-                animate={hasAnimated ? {
-                  rotate: [0, 360],
-                  scale: [1, 1.1, 1]
-                } : {}}
+                animate={
+                  hasAnimated
+                    ? {
+                        rotate: [0, 360],
+                        scale: [1, 1.1, 1],
+                      }
+                    : {}
+                }
                 transition={{
                   delay: 2.5 + index * 0.1,
                   duration: 1,
                   repeat: Infinity,
-                  repeatDelay: 3
+                  repeatDelay: 3,
                 }}
               >
                 <Star className="h-3 w-3 text-white" />
@@ -275,8 +273,10 @@ const ProjectCard = memo(function ProjectCard({
 
   // Performance optimization: Memoize icon selection for AI/cloud theme
   const projectIcon = useMemo(() => {
-    if (title.includes("AI") || title.includes("Intelligence")) return <Brain className="h-4 w-4" />;
-    if (title.includes("Organization") || title.includes("File")) return <FileText className="h-4 w-4" />;
+    if (title.includes("AI") || title.includes("Intelligence"))
+      return <Brain className="h-4 w-4" />;
+    if (title.includes("Organization") || title.includes("File"))
+      return <FileText className="h-4 w-4" />;
     if (title.includes("Collaboration")) return <Users className="h-4 w-4" />;
     if (title.includes("Search")) return <Search className="h-4 w-4" />;
     if (title.includes("Optimization")) return <Zap className="h-4 w-4" />;
@@ -288,7 +288,7 @@ const ProjectCard = memo(function ProjectCard({
       className="relative overflow-hidden rounded-2xl bg-zinc-300/30 p-[1px] dark:bg-zinc-600/30 group cursor-pointer"
       role="button"
       tabIndex={0}
-      aria-label={`${title} feature. ${isExpanded ? 'Collapse' : 'Expand'} to ${isExpanded ? 'hide' : 'show'} more details.`}
+      aria-label={`${title} feature. ${isExpanded ? "Collapse" : "Expand"} to ${isExpanded ? "hide" : "show"} more details.`}
       aria-expanded={isExpanded}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {
@@ -413,7 +413,7 @@ export default function EchoClientPage() {
   const [hasScrolled, setHasScrolled] = useState(false);
   const [konamiActivated, setKonamiActivated] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-  
+
   // New delightful states
   const [sectionsExplored, setSectionsExplored] = useState(new Set<string>());
   const [achievementsBadges, setAchievementsBadges] = useState<string[]>([]);
@@ -440,18 +440,24 @@ export default function EchoClientPage() {
 
   // Achievement system for section exploration
   const markSectionExplored = useCallback((sectionId: string) => {
-    setSectionsExplored(prev => {
+    setSectionsExplored((prev) => {
       const newSet = new Set(prev);
       if (!newSet.has(sectionId)) {
         newSet.add(sectionId);
-        
+
         // Award achievements based on exploration
         if (newSet.size === 3) {
-          setAchievementsBadges(prev => [...prev, 'explorer']);
-          setSurpriseMessages(prev => [...prev, '🎯 Explorer Badge Earned! You\'re discovering EchoDrive\'s intelligence!']);
+          setAchievementsBadges((prev) => [...prev, "explorer"]);
+          setSurpriseMessages((prev) => [
+            ...prev,
+            "🎯 Explorer Badge Earned! You're discovering EchoDrive's intelligence!",
+          ]);
         } else if (newSet.size === 6) {
-          setAchievementsBadges(prev => [...prev, 'completionist']);
-          setSurpriseMessages(prev => [...prev, '🏆 Completionist! You\'ve explored every aspect of our AI journey!']);
+          setAchievementsBadges((prev) => [...prev, "completionist"]);
+          setSurpriseMessages((prev) => [
+            ...prev,
+            "🏆 Completionist! You've explored every aspect of our AI journey!",
+          ]);
         }
       }
       return newSet;
@@ -461,49 +467,55 @@ export default function EchoClientPage() {
   // Scroll milestone tracker for surprise moments
   useEffect(() => {
     const handleScroll = () => {
-      const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+      const scrollPercent =
+        (window.scrollY /
+          (document.documentElement.scrollHeight - window.innerHeight)) *
+        100;
       setHasScrolled(window.scrollY > 100);
-      
+
       // Award milestones
       const milestones = [25, 50, 75, 100];
-      milestones.forEach(milestone => {
+      milestones.forEach((milestone) => {
         if (scrollPercent >= milestone && !scrollMilestones.has(milestone)) {
-          setScrollMilestones(prev => {
+          setScrollMilestones((prev) => {
             const newSet = new Set(prev);
             newSet.add(milestone);
-            
+
             // Surprise messages at milestones
             const messages = {
-              25: '☁️ AI is learning from your reading patterns...',
-              50: '🧠 You\'re halfway through our intelligent journey!',
-              75: '⚡ Almost there! The AI is impressed by your engagement!',
-              100: '🎉 Achievement Unlocked: Master Explorer of AI Innovation!'
+              25: "☁️ AI is learning from your reading patterns...",
+              50: "🧠 You're halfway through our intelligent journey!",
+              75: "⚡ Almost there! The AI is impressed by your engagement!",
+              100: "🎉 Achievement Unlocked: Master Explorer of AI Innovation!",
             };
-            
-            setSurpriseMessages(prev => [...prev, messages[milestone as keyof typeof messages]]);
-            
+
+            setSurpriseMessages((prev) => [
+              ...prev,
+              messages[milestone as keyof typeof messages],
+            ]);
+
             if (milestone === 100) {
-              setAchievementsBadges(prev => [...prev, 'master-explorer']);
+              setAchievementsBadges((prev) => [...prev, "master-explorer"]);
               setCelebrationMode(true);
               setTimeout(() => setCelebrationMode(false), 2000);
             }
-            
+
             return newSet;
           });
         }
       });
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [scrollMilestones]);
 
   // AI thinking mode for engaged users
   useEffect(() => {
     const handleActivity = () => {
-      setInteractionCount(prev => prev + 1);
+      setInteractionCount((prev) => prev + 1);
       setLastInteractionTime(Date.now());
-      
+
       // Show AI thinking after significant interaction
       if (interactionCount > 0 && interactionCount % 5 === 0) {
         setAiThinking(true);
@@ -511,28 +523,32 @@ export default function EchoClientPage() {
         setTimeout(() => {
           setAiThinking(false);
           setShowThinkingBubble(false);
-          setSurpriseMessages(prev => [
-            ...prev, 
-            `🤖 AI Analysis: You\'ve interacted ${interactionCount} times! The system is learning from your behavior...`
+          setSurpriseMessages((prev) => [
+            ...prev,
+            `🤖 AI Analysis: You\'ve interacted ${interactionCount} times! The system is learning from your behavior...`,
           ]);
         }, 2000);
       }
     };
 
-    const events = ['click', 'scroll', 'keydown', 'mousemove'];
-    events.forEach(event => document.addEventListener(event, handleActivity));
-    return () => events.forEach(event => document.removeEventListener(event, handleActivity));
+    const events = ["click", "scroll", "keydown", "mousemove"];
+    events.forEach((event) => document.addEventListener(event, handleActivity));
+    return () =>
+      events.forEach((event) =>
+        document.removeEventListener(event, handleActivity),
+      );
   }, [interactionCount]);
 
   // Idle state personality
   useEffect(() => {
     const checkIdle = () => {
       const now = Date.now();
-      if (now - lastInteractionTime > 30000 && !personalityMode) { // 30 seconds idle
+      if (now - lastInteractionTime > 30000 && !personalityMode) {
+        // 30 seconds idle
         setPersonalityMode(true);
-        setSurpriseMessages(prev => [
-          ...prev, 
-          '💭 The AI is wondering if you\'d like to explore more features... Try hovering around!'
+        setSurpriseMessages((prev) => [
+          ...prev,
+          "💭 The AI is wondering if you'd like to explore more features... Try hovering around!",
         ]);
         setTimeout(() => setPersonalityMode(false), 10000);
       }
@@ -546,7 +562,7 @@ export default function EchoClientPage() {
   useEffect(() => {
     if (surpriseMessages.length > 0) {
       const timer = setTimeout(() => {
-        setSurpriseMessages(prev => prev.slice(1));
+        setSurpriseMessages((prev) => prev.slice(1));
       }, 4000);
       return () => clearTimeout(timer);
     }
@@ -617,7 +633,7 @@ export default function EchoClientPage() {
       if (konamiSequence.join(",") === konamiCode.join(",")) {
         setKonamiActivated(true);
         setCelebrationMode(true);
-        
+
         // Announce to screen readers
         const announcement = document.createElement("div");
         announcement.setAttribute("role", "status");
@@ -626,7 +642,7 @@ export default function EchoClientPage() {
         announcement.textContent =
           "Secret designer mode activated! Celebration animation is playing.";
         document.body.appendChild(announcement);
-        
+
         setTimeout(() => {
           setCelebrationMode(false);
           setKonamiActivated(false);
@@ -662,7 +678,8 @@ export default function EchoClientPage() {
     {
       title: "EchoDrive Architecture Documentation",
       url: "#",
-      description: "Technical architecture and scalability considerations for cloud storage",
+      description:
+        "Technical architecture and scalability considerations for cloud storage",
     },
   ];
 
@@ -781,22 +798,28 @@ export default function EchoClientPage() {
                   boxShadow: [
                     "0 4px 14px 0 rgba(16, 185, 129, 0.3)",
                     "0 6px 20px 0 rgba(16, 185, 129, 0.4)",
-                    "0 4px 14px 0 rgba(16, 185, 129, 0.3)"
-                  ]
+                    "0 4px 14px 0 rgba(16, 185, 129, 0.3)",
+                  ],
                 }}
                 transition={{ duration: 2, repeat: Infinity }}
               >
                 {aiThinking ? (
                   <motion.div
                     animate={{ rotate: 360 }}
-                    transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                    transition={{
+                      duration: 1,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }}
                   >
                     <Brain className="h-4 w-4" />
                   </motion.div>
                 ) : (
                   <Cloud className="h-4 w-4" />
                 )}
-                <span className="text-sm font-medium">{surpriseMessages[0]}</span>
+                <span className="text-sm font-medium">
+                  {surpriseMessages[0]}
+                </span>
               </motion.div>
             </motion.div>
           )}
@@ -816,27 +839,29 @@ export default function EchoClientPage() {
                   <motion.div
                     animate={{
                       scale: [1, 1.2, 1],
-                      opacity: [0.5, 1, 0.5]
+                      opacity: [0.5, 1, 0.5],
                     }}
                     transition={{ duration: 1.5, repeat: Infinity }}
                   >
                     <Brain className="h-4 w-4" />
                   </motion.div>
-                  <span className="font-medium">AI is processing your engagement...</span>
+                  <span className="font-medium">
+                    AI is processing your engagement...
+                  </span>
                 </div>
                 <div className="flex justify-center mt-2 gap-1">
-                  {[0, 1, 2].map(i => (
+                  {[0, 1, 2].map((i) => (
                     <motion.div
                       key={i}
                       className="w-2 h-2 bg-emerald-400 rounded-full"
                       animate={{
                         y: [0, -8, 0],
-                        opacity: [0.4, 1, 0.4]
+                        opacity: [0.4, 1, 0.4],
                       }}
                       transition={{
                         duration: 0.8,
                         repeat: Infinity,
-                        delay: i * 0.2
+                        delay: i * 0.2,
                       }}
                     />
                   ))}
@@ -855,15 +880,31 @@ export default function EchoClientPage() {
               exit={{ opacity: 0, x: -100 }}
               className="fixed top-1/2 left-4 z-50 flex flex-col gap-2"
             >
-              {achievementsBadges.map((badge, index) => {
+              {achievementsBadges.map((badge) => {
                 const badgeConfig = {
-                  explorer: { icon: '🎯', label: 'Explorer', color: 'from-emerald-500 to-green-600' },
-                  completionist: { icon: '🏆', label: 'Completionist', color: 'from-yellow-500 to-orange-600' },
-                  'master-explorer': { icon: '👑', label: 'Master Explorer', color: 'from-purple-500 to-pink-600' },
-                  'power-user': { icon: '🚀', label: 'Power User', color: 'from-blue-500 to-cyan-600' }
+                  explorer: {
+                    icon: "🎯",
+                    label: "Explorer",
+                    color: "from-emerald-500 to-green-600",
+                  },
+                  completionist: {
+                    icon: "🏆",
+                    label: "Completionist",
+                    color: "from-yellow-500 to-orange-600",
+                  },
+                  "master-explorer": {
+                    icon: "👑",
+                    label: "Master Explorer",
+                    color: "from-purple-500 to-pink-600",
+                  },
+                  "power-user": {
+                    icon: "🚀",
+                    label: "Power User",
+                    color: "from-blue-500 to-cyan-600",
+                  },
                 };
                 const config = badgeConfig[badge as keyof typeof badgeConfig];
-                
+
                 return (
                   <motion.div
                     key={badge}
@@ -886,7 +927,7 @@ export default function EchoClientPage() {
           variants={VARIANTS_SECTION}
           transition={TRANSITION_SECTION}
           className="space-y-8"
-          onViewportEnter={() => markSectionExplored('hero')}
+          onViewportEnter={() => markSectionExplored("hero")}
         >
           <div className="space-y-6">
             <motion.h1
@@ -925,9 +966,10 @@ export default function EchoClientPage() {
               </motion.span>
             </motion.h1>
             <p className="text-xl text-zinc-600 dark:text-zinc-400 max-w-3xl">
-              Intelligent cloud storage solution powered by AI that automatically 
-              organizes files, predicts collaboration needs, and optimizes storage 
-              usage. Transforming chaotic file management into seamless, intelligent workflows.
+              Intelligent cloud storage solution powered by AI that
+              automatically organizes files, predicts collaboration needs, and
+              optimizes storage usage. Transforming chaotic file management into
+              seamless, intelligent workflows.
             </p>
             <div className="flex flex-wrap gap-3">
               <motion.div
@@ -979,7 +1021,7 @@ export default function EchoClientPage() {
           variants={VARIANTS_SECTION}
           transition={TRANSITION_SECTION}
           className="relative"
-          onViewportEnter={() => markSectionExplored('metrics')}
+          onViewportEnter={() => markSectionExplored("metrics")}
         >
           {/* Cloud celebration animation */}
           <AnimatePresence>
@@ -1029,14 +1071,14 @@ export default function EchoClientPage() {
           </AnimatePresence>
 
           <div className="flex items-center justify-between mb-5">
-            <motion.div 
-              id="metrics-heading" 
-              data-cursor-hover 
+            <motion.div
+              id="metrics-heading"
+              data-cursor-hover
               data-cursor-text={personalityMode ? "🤖" : "📈"}
               whileHover={{ scale: 1.02 }}
             >
               <ScrambleSectionTitle className="text-lg font-medium">
-                {personalityMode ? "🧠 AI-Powered" : ""} Performance Metrics
+                {`${personalityMode ? "🧠 AI-Powered " : ""}Performance Metrics`}
               </ScrambleSectionTitle>
               {personalityMode && (
                 <motion.p
@@ -1065,11 +1107,15 @@ export default function EchoClientPage() {
               data-cursor-text="☁️"
             >
               <motion.div
-                animate={{ 
+                animate={{
                   y: [0, -2, 0],
-                  scale: [1, 1.05, 1]
+                  scale: [1, 1.05, 1],
                 }}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
               >
                 <Cloud className="h-4 w-4" />
               </motion.div>
@@ -1119,11 +1165,13 @@ export default function EchoClientPage() {
                     ease: "easeInOut",
                   }}
                 >
-                  🎉 Incredible! These metrics showcase AI-powered transformation! ☁️
+                  🎉 Incredible! These metrics showcase AI-powered
+                  transformation! ☁️
                 </motion.p>
                 <div className="sr-only">
-                  Celebration activated! All performance metrics have been animated,
-                  showing the incredible impact of AI-powered cloud storage optimization.
+                  Celebration activated! All performance metrics have been
+                  animated, showing the incredible impact of AI-powered cloud
+                  storage optimization.
                 </div>
               </motion.div>
             )}
@@ -1136,18 +1184,22 @@ export default function EchoClientPage() {
           aria-labelledby="ai-features-heading"
           variants={VARIANTS_SECTION}
           transition={TRANSITION_SECTION}
-          onViewportEnter={() => markSectionExplored('ai-features')}
+          onViewportEnter={() => markSectionExplored("ai-features")}
         >
           <div className="flex items-center gap-3 mb-5">
-            <div id="ai-features-heading" data-cursor-hover data-cursor-text="🧠">
+            <div
+              id="ai-features-heading"
+              data-cursor-hover
+              data-cursor-text="🧠"
+            >
               <ScrambleSectionTitle className="text-lg font-medium">
                 AI-Powered Features
               </ScrambleSectionTitle>
             </div>
             <motion.div
-              animate={{ 
+              animate={{
                 scale: [1, 1.1, 1],
-                rotate: [0, 5, -5, 0]
+                rotate: [0, 5, -5, 0],
               }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
               className="text-emerald-500"
@@ -1182,44 +1234,47 @@ export default function EchoClientPage() {
             role="note"
             aria-label="AI accessibility commitment"
           >
-            These AI-powered features are designed with accessibility-first principles,
-            ensuring that artificial intelligence enhances the user experience for
-            everyone, regardless of technical expertise or ability. Each AI feature
-            includes human oversight and transparent decision-making processes.
+            These AI-powered features are designed with accessibility-first
+            principles, ensuring that artificial intelligence enhances the user
+            experience for everyone, regardless of technical expertise or
+            ability. Each AI feature includes human oversight and transparent
+            decision-making processes.
           </div>
 
           {/* Hidden message for engaged users - Enhanced */}
           <motion.div
             className="mt-8 text-center text-xs text-zinc-500 dark:text-zinc-400 opacity-0 hover:opacity-100 transition-opacity duration-1000"
-            whileHover={{ 
+            whileHover={{
               scale: 1.05,
-              textShadow: "0 0 10px rgba(16, 185, 129, 0.5)"
+              textShadow: "0 0 10px rgba(16, 185, 129, 0.5)",
             }}
             data-cursor-hover
             data-cursor-text={interactionCount > 10 ? "🚀" : "🤖"}
             onClick={() => {
               if (interactionCount > 10) {
-                setSurpriseMessages(prev => [
-                  ...prev, 
-                  '🚀 Power User Detected! You\'ve discovered the secret AI interaction counter!'
+                setSurpriseMessages((prev) => [
+                  ...prev,
+                  "🚀 Power User Detected! You've discovered the secret AI interaction counter!",
                 ]);
-                setAchievementsBadges(prev => [...prev, 'power-user']);
+                setAchievementsBadges((prev) => [...prev, "power-user"]);
               }
             }}
           >
             <motion.div
-              animate={{ 
-                rotate: personalityMode ? [0, 10, -10, 0] : 0
+              animate={{
+                rotate: personalityMode ? [0, 10, -10, 0] : 0,
               }}
-              transition={{ duration: 0.5, repeat: personalityMode ? Infinity : 0 }}
+              transition={{
+                duration: 0.5,
+                repeat: personalityMode ? Infinity : 0,
+              }}
             >
               <Brain className="h-3 w-3 inline mr-1" />
             </motion.div>
             <span role="img" aria-label="Hidden AI message for engaged users">
-              {interactionCount > 10 
-                ? `🚀 Wow! ${interactionCount} interactions and counting! The AI is amazed by your engagement!` 
-                : "The AI learns from every interaction to make EchoDrive smarter for everyone! ✨"
-              }
+              {interactionCount > 10
+                ? `🚀 Wow! ${interactionCount} interactions and counting! The AI is amazed by your engagement!`
+                : "The AI learns from every interaction to make EchoDrive smarter for everyone! ✨"}
             </span>
             {interactionCount > 15 && (
               <motion.div
@@ -1238,7 +1293,7 @@ export default function EchoClientPage() {
         <motion.section
           variants={VARIANTS_SECTION}
           transition={TRANSITION_SECTION}
-          onViewportEnter={() => markSectionExplored('process')}
+          onViewportEnter={() => markSectionExplored("process")}
         >
           <ScrambleSectionTitle className="mb-5 text-lg font-medium">
             The Innovation Journey
@@ -1320,7 +1375,7 @@ export default function EchoClientPage() {
         <motion.section
           variants={VARIANTS_SECTION}
           transition={TRANSITION_SECTION}
-          onViewportEnter={() => markSectionExplored('insights')}
+          onViewportEnter={() => markSectionExplored("insights")}
         >
           <ScrambleSectionTitle className="mb-5 text-lg font-medium">
             AI Development Insights
@@ -1342,7 +1397,7 @@ export default function EchoClientPage() {
         <motion.section
           variants={VARIANTS_SECTION}
           transition={TRANSITION_SECTION}
-          onViewportEnter={() => markSectionExplored('testimonials')}
+          onViewportEnter={() => markSectionExplored("testimonials")}
         >
           <ScrambleSectionTitle className="mb-5 text-lg font-medium">
             User Experience Impact
@@ -1459,10 +1514,18 @@ export default function EchoClientPage() {
               </Badge>
             ))}
             {/* Additional AI/ML technologies */}
-            <Badge variant="outline" className="text-sm">TensorFlow</Badge>
-            <Badge variant="outline" className="text-sm">Natural Language Processing</Badge>
-            <Badge variant="outline" className="text-sm">Machine Learning</Badge>
-            <Badge variant="outline" className="text-sm">Computer Vision</Badge>
+            <Badge variant="outline" className="text-sm">
+              TensorFlow
+            </Badge>
+            <Badge variant="outline" className="text-sm">
+              Natural Language Processing
+            </Badge>
+            <Badge variant="outline" className="text-sm">
+              Machine Learning
+            </Badge>
+            <Badge variant="outline" className="text-sm">
+              Computer Vision
+            </Badge>
           </div>
         </motion.section>
 
@@ -1507,7 +1570,9 @@ export default function EchoClientPage() {
                   >
                     ←
                   </motion.span>
-                  {sectionsExplored.size > 3 ? "⬅️ Explore More AI Projects" : "Back to Projects"}
+                  {sectionsExplored.size > 3
+                    ? "⬅️ Explore More AI Projects"
+                    : "Back to Projects"}
                 </Link>
               </motion.div>
             </Magnetic>
@@ -1523,10 +1588,9 @@ export default function EchoClientPage() {
                   data-cursor-hover
                   data-cursor-text={achievementsBadges.length > 0 ? "🚀" : "🤖"}
                 >
-                  {achievementsBadges.length > 0 
-                    ? `🚀 Discover ${achievementsBadges.length > 2 ? "Advanced" : "More"} AI Innovation` 
-                    : "Explore More AI Projects"
-                  }
+                  {achievementsBadges.length > 0
+                    ? `🚀 Discover ${achievementsBadges.length > 2 ? "Advanced" : "More"} AI Innovation`
+                    : "Explore More AI Projects"}
                   <motion.div
                     whileHover={{ rotate: 45, scale: 1.1 }}
                     transition={{ duration: 0.2 }}
@@ -1550,16 +1614,16 @@ export default function EchoClientPage() {
               className="text-xs text-zinc-500 dark:text-zinc-400 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-opacity-50 rounded-lg px-2 py-1"
               onClick={() => {
                 setCelebrationMode(true);
-                setInteractionCount(prev => prev + 1);
-                setSurpriseMessages(prev => [
-                  ...prev, 
-                  `🎉 Thanks for clicking! This is interaction #${interactionCount + 1} - you're truly engaged with EchoDrive!`
+                setInteractionCount((prev) => prev + 1);
+                setSurpriseMessages((prev) => [
+                  ...prev,
+                  `🎉 Thanks for clicking! This is interaction #${interactionCount + 1} - you're truly engaged with EchoDrive!`,
                 ]);
                 setTimeout(() => setCelebrationMode(false), 3000);
               }}
-              whileHover={{ 
+              whileHover={{
                 scale: 1.05,
-                textShadow: "0 0 10px rgba(16, 185, 129, 0.5)"
+                textShadow: "0 0 10px rgba(16, 185, 129, 0.5)",
               }}
               whileTap={{ scale: 0.95 }}
               data-cursor-hover
@@ -1579,19 +1643,27 @@ export default function EchoClientPage() {
               >
                 <Cloud className="h-3 w-3" />
                 <span>
-                  {achievementsBadges.length > 2 
+                  {achievementsBadges.length > 2
                     ? `🏆 Master Explorer! You've earned ${achievementsBadges.length} achievements!`
                     : sectionsExplored.size > 4
-                    ? `🎯 Impressive! You've explored ${sectionsExplored.size} sections of our AI journey!`
-                    : "Thank you for exploring EchoDrive's AI-powered innovation!"
-                  }
+                      ? `🎯 Impressive! You've explored ${sectionsExplored.size} sections of our AI journey!`
+                      : "Thank you for exploring EchoDrive's AI-powered innovation!"}
                 </span>
                 <motion.div
-                  animate={{ 
-                    rotate: achievementsBadges.includes('master-explorer') ? 360 : 0,
-                    scale: achievementsBadges.includes('master-explorer') ? [1, 1.2, 1] : 1
+                  animate={{
+                    rotate: achievementsBadges.includes("master-explorer")
+                      ? 360
+                      : 0,
+                    scale: achievementsBadges.includes("master-explorer")
+                      ? [1, 1.2, 1]
+                      : 1,
                   }}
-                  transition={{ duration: 2, repeat: achievementsBadges.includes('master-explorer') ? Infinity : 0 }}
+                  transition={{
+                    duration: 2,
+                    repeat: achievementsBadges.includes("master-explorer")
+                      ? Infinity
+                      : 0,
+                  }}
                 >
                   <Brain className="h-3 w-3 opacity-0 hover:opacity-100 transition-opacity" />
                 </motion.div>

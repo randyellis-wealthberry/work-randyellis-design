@@ -10,7 +10,9 @@ interface User {
 interface DatabaseConnection {
   query: (sql: string, params?: any[]) => Promise<any[]>;
   execute: (sql: string, params?: any[]) => Promise<any>;
-  transaction: (callback: (connection: DatabaseConnection) => Promise<any>) => Promise<any>;
+  transaction: (
+    callback: (connection: DatabaseConnection) => Promise<any>,
+  ) => Promise<any>;
   close: () => Promise<void>;
 }
 
@@ -25,8 +27,8 @@ class MockUserRepository {
   async findById(id: string): Promise<User | null> {
     try {
       const result = await this.connection.query(
-        'SELECT * FROM users WHERE id = ?',
-        [id]
+        "SELECT * FROM users WHERE id = ?",
+        [id],
       );
       return result.length > 0 ? this.mapToUser(result[0]) : null;
     } catch (error) {
@@ -37,8 +39,8 @@ class MockUserRepository {
   async findByEmail(email: string): Promise<User | null> {
     try {
       const result = await this.connection.query(
-        'SELECT * FROM users WHERE email = ?',
-        [email]
+        "SELECT * FROM users WHERE email = ?",
+        [email],
       );
       return result.length > 0 ? this.mapToUser(result[0]) : null;
     } catch (error) {
@@ -46,14 +48,16 @@ class MockUserRepository {
     }
   }
 
-  async create(userData: Omit<User, 'id' | 'createdAt' | 'updatedAt'>): Promise<User> {
+  async create(
+    userData: Omit<User, "id" | "createdAt" | "updatedAt">,
+  ): Promise<User> {
     try {
       const id = this.generateId();
       const now = new Date();
-      
+
       await this.connection.execute(
-        'INSERT INTO users (id, email, name, created_at, updated_at) VALUES (?, ?, ?, ?, ?)',
-        [id, userData.email, userData.name, now, now]
+        "INSERT INTO users (id, email, name, created_at, updated_at) VALUES (?, ?, ?, ?, ?)",
+        [id, userData.email, userData.name, now, now],
       );
 
       return {
@@ -68,7 +72,10 @@ class MockUserRepository {
     }
   }
 
-  async update(id: string, userData: Partial<Omit<User, 'id' | 'createdAt'>>): Promise<User | null> {
+  async update(
+    id: string,
+    userData: Partial<Omit<User, "id" | "createdAt">>,
+  ): Promise<User | null> {
     try {
       const existingUser = await this.findById(id);
       if (!existingUser) {
@@ -80,21 +87,21 @@ class MockUserRepository {
       const updateValues = [];
 
       if (userData.email) {
-        updateFields.push('email = ?');
+        updateFields.push("email = ?");
         updateValues.push(userData.email);
       }
       if (userData.name) {
-        updateFields.push('name = ?');
+        updateFields.push("name = ?");
         updateValues.push(userData.name);
       }
-      
-      updateFields.push('updated_at = ?');
+
+      updateFields.push("updated_at = ?");
       updateValues.push(updatedAt);
       updateValues.push(id);
 
       await this.connection.execute(
-        `UPDATE users SET ${updateFields.join(', ')} WHERE id = ?`,
-        updateValues
+        `UPDATE users SET ${updateFields.join(", ")} WHERE id = ?`,
+        updateValues,
       );
 
       return {
@@ -110,8 +117,8 @@ class MockUserRepository {
   async delete(id: string): Promise<boolean> {
     try {
       const result = await this.connection.execute(
-        'DELETE FROM users WHERE id = ?',
-        [id]
+        "DELETE FROM users WHERE id = ?",
+        [id],
       );
       return result.affectedRows > 0;
     } catch (error) {
@@ -122,10 +129,10 @@ class MockUserRepository {
   async findAll(limit = 50, offset = 0): Promise<User[]> {
     try {
       const result = await this.connection.query(
-        'SELECT * FROM users ORDER BY created_at DESC LIMIT ? OFFSET ?',
-        [limit, offset]
+        "SELECT * FROM users ORDER BY created_at DESC LIMIT ? OFFSET ?",
+        [limit, offset],
       );
-      return result.map(row => this.mapToUser(row));
+      return result.map((row) => this.mapToUser(row));
     } catch (error) {
       throw new Error(`Failed to find all users: ${error}`);
     }
@@ -133,21 +140,25 @@ class MockUserRepository {
 
   async count(): Promise<number> {
     try {
-      const result = await this.connection.query('SELECT COUNT(*) as count FROM users');
+      const result = await this.connection.query(
+        "SELECT COUNT(*) as count FROM users",
+      );
       return result[0].count;
     } catch (error) {
       throw new Error(`Failed to count users: ${error}`);
     }
   }
 
-  async createWithTransaction(userData: Omit<User, 'id' | 'createdAt' | 'updatedAt'>): Promise<User> {
+  async createWithTransaction(
+    userData: Omit<User, "id" | "createdAt" | "updatedAt">,
+  ): Promise<User> {
     return this.connection.transaction(async (connection) => {
       const repository = new MockUserRepository(connection);
-      
+
       // Check if email already exists
       const existingUser = await repository.findByEmail(userData.email);
       if (existingUser) {
-        throw new Error('User with this email already exists');
+        throw new Error("User with this email already exists");
       }
 
       // Create user
@@ -178,7 +189,7 @@ const createMockConnection = (): jest.Mocked<DatabaseConnection> => ({
   close: jest.fn(),
 });
 
-describe('Database Repository', () => {
+describe("Database Repository", () => {
   let mockConnection: jest.Mocked<DatabaseConnection>;
   let userRepository: MockUserRepository;
 
@@ -187,127 +198,135 @@ describe('Database Repository', () => {
     userRepository = new MockUserRepository(mockConnection);
   });
 
-  describe('findById', () => {
-    it('should find user by id', async () => {
+  describe("findById", () => {
+    it("should find user by id", async () => {
       const userData = {
-        id: 'user-123',
-        email: 'test@example.com',
-        name: 'Test User',
+        id: "user-123",
+        email: "test@example.com",
+        name: "Test User",
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
       };
 
       mockConnection.query.mockResolvedValueOnce([userData]);
 
-      const result = await userRepository.findById('user-123');
+      const result = await userRepository.findById("user-123");
 
       expect(mockConnection.query).toHaveBeenCalledWith(
-        'SELECT * FROM users WHERE id = ?',
-        ['user-123']
+        "SELECT * FROM users WHERE id = ?",
+        ["user-123"],
       );
       expect(result).toEqual({
-        id: 'user-123',
-        email: 'test@example.com',
-        name: 'Test User',
+        id: "user-123",
+        email: "test@example.com",
+        name: "Test User",
         createdAt: new Date(userData.created_at),
         updatedAt: new Date(userData.updated_at),
       });
     });
 
-    it('should return null when user not found', async () => {
+    it("should return null when user not found", async () => {
       mockConnection.query.mockResolvedValueOnce([]);
 
-      const result = await userRepository.findById('nonexistent');
+      const result = await userRepository.findById("nonexistent");
 
       expect(result).toBeNull();
     });
 
-    it('should handle database errors', async () => {
-      mockConnection.query.mockRejectedValueOnce(new Error('Database error'));
+    it("should handle database errors", async () => {
+      mockConnection.query.mockRejectedValueOnce(new Error("Database error"));
 
-      await expect(userRepository.findById('user-123')).rejects.toThrow('Failed to find user by id');
+      await expect(userRepository.findById("user-123")).rejects.toThrow(
+        "Failed to find user by id",
+      );
     });
   });
 
-  describe('findByEmail', () => {
-    it('should find user by email', async () => {
+  describe("findByEmail", () => {
+    it("should find user by email", async () => {
       const userData = {
-        id: 'user-123',
-        email: 'test@example.com',
-        name: 'Test User',
+        id: "user-123",
+        email: "test@example.com",
+        name: "Test User",
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
       };
 
       mockConnection.query.mockResolvedValueOnce([userData]);
 
-      const result = await userRepository.findByEmail('test@example.com');
+      const result = await userRepository.findByEmail("test@example.com");
 
       expect(mockConnection.query).toHaveBeenCalledWith(
-        'SELECT * FROM users WHERE email = ?',
-        ['test@example.com']
+        "SELECT * FROM users WHERE email = ?",
+        ["test@example.com"],
       );
-      expect(result?.email).toBe('test@example.com');
+      expect(result?.email).toBe("test@example.com");
     });
 
-    it('should return null when email not found', async () => {
+    it("should return null when email not found", async () => {
       mockConnection.query.mockResolvedValueOnce([]);
 
-      const result = await userRepository.findByEmail('nonexistent@example.com');
+      const result = await userRepository.findByEmail(
+        "nonexistent@example.com",
+      );
 
       expect(result).toBeNull();
     });
   });
 
-  describe('create', () => {
-    it('should create new user', async () => {
+  describe("create", () => {
+    it("should create new user", async () => {
       mockConnection.execute.mockResolvedValueOnce({ affectedRows: 1 });
 
       const userData = {
-        email: 'new@example.com',
-        name: 'New User',
+        email: "new@example.com",
+        name: "New User",
       };
 
       const result = await userRepository.create(userData);
 
       expect(mockConnection.execute).toHaveBeenCalledWith(
-        'INSERT INTO users (id, email, name, created_at, updated_at) VALUES (?, ?, ?, ?, ?)',
+        "INSERT INTO users (id, email, name, created_at, updated_at) VALUES (?, ?, ?, ?, ?)",
         expect.arrayContaining([
           expect.any(String),
-          'new@example.com',
-          'New User',
+          "new@example.com",
+          "New User",
           expect.any(Date),
           expect.any(Date),
-        ])
+        ]),
       );
 
       expect(result).toMatchObject({
         id: expect.any(String),
-        email: 'new@example.com',
-        name: 'New User',
+        email: "new@example.com",
+        name: "New User",
         createdAt: expect.any(Date),
         updatedAt: expect.any(Date),
       });
     });
 
-    it('should handle creation errors', async () => {
-      mockConnection.execute.mockRejectedValueOnce(new Error('Duplicate email'));
+    it("should handle creation errors", async () => {
+      mockConnection.execute.mockRejectedValueOnce(
+        new Error("Duplicate email"),
+      );
 
       const userData = {
-        email: 'existing@example.com',
-        name: 'Test User',
+        email: "existing@example.com",
+        name: "Test User",
       };
 
-      await expect(userRepository.create(userData)).rejects.toThrow('Failed to create user');
+      await expect(userRepository.create(userData)).rejects.toThrow(
+        "Failed to create user",
+      );
     });
   });
 
-  describe('update', () => {
-    it('should update existing user', async () => {
+  describe("update", () => {
+    it("should update existing user", async () => {
       const existingUser = {
-        id: 'user-123',
-        email: 'old@example.com',
-        name: 'Old Name',
+        id: "user-123",
+        email: "old@example.com",
+        name: "Old Name",
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
       };
@@ -316,71 +335,73 @@ describe('Database Repository', () => {
       mockConnection.execute.mockResolvedValueOnce({ affectedRows: 1 });
 
       const updateData = {
-        email: 'new@example.com',
-        name: 'New Name',
+        email: "new@example.com",
+        name: "New Name",
       };
 
-      const result = await userRepository.update('user-123', updateData);
+      const result = await userRepository.update("user-123", updateData);
 
       expect(mockConnection.execute).toHaveBeenCalledWith(
-        'UPDATE users SET email = ?, name = ?, updated_at = ? WHERE id = ?',
-        ['new@example.com', 'New Name', expect.any(Date), 'user-123']
+        "UPDATE users SET email = ?, name = ?, updated_at = ? WHERE id = ?",
+        ["new@example.com", "New Name", expect.any(Date), "user-123"],
       );
 
       expect(result).toMatchObject({
-        id: 'user-123',
-        email: 'new@example.com',
-        name: 'New Name',
+        id: "user-123",
+        email: "new@example.com",
+        name: "New Name",
         updatedAt: expect.any(Date),
       });
     });
 
-    it('should return null when user not found', async () => {
+    it("should return null when user not found", async () => {
       mockConnection.query.mockResolvedValueOnce([]);
 
-      const result = await userRepository.update('nonexistent', { name: 'New Name' });
+      const result = await userRepository.update("nonexistent", {
+        name: "New Name",
+      });
 
       expect(result).toBeNull();
       expect(mockConnection.execute).not.toHaveBeenCalled();
     });
   });
 
-  describe('delete', () => {
-    it('should delete user', async () => {
+  describe("delete", () => {
+    it("should delete user", async () => {
       mockConnection.execute.mockResolvedValueOnce({ affectedRows: 1 });
 
-      const result = await userRepository.delete('user-123');
+      const result = await userRepository.delete("user-123");
 
       expect(mockConnection.execute).toHaveBeenCalledWith(
-        'DELETE FROM users WHERE id = ?',
-        ['user-123']
+        "DELETE FROM users WHERE id = ?",
+        ["user-123"],
       );
       expect(result).toBe(true);
     });
 
-    it('should return false when user not found', async () => {
+    it("should return false when user not found", async () => {
       mockConnection.execute.mockResolvedValueOnce({ affectedRows: 0 });
 
-      const result = await userRepository.delete('nonexistent');
+      const result = await userRepository.delete("nonexistent");
 
       expect(result).toBe(false);
     });
   });
 
-  describe('findAll', () => {
-    it('should find all users with pagination', async () => {
+  describe("findAll", () => {
+    it("should find all users with pagination", async () => {
       const users = [
         {
-          id: 'user-1',
-          email: 'user1@example.com',
-          name: 'User 1',
+          id: "user-1",
+          email: "user1@example.com",
+          name: "User 1",
           created_at: new Date().toISOString(),
           updated_at: new Date().toISOString(),
         },
         {
-          id: 'user-2',
-          email: 'user2@example.com',
-          name: 'User 2',
+          id: "user-2",
+          email: "user2@example.com",
+          name: "User 2",
           created_at: new Date().toISOString(),
           updated_at: new Date().toISOString(),
         },
@@ -391,93 +412,101 @@ describe('Database Repository', () => {
       const result = await userRepository.findAll(10, 0);
 
       expect(mockConnection.query).toHaveBeenCalledWith(
-        'SELECT * FROM users ORDER BY created_at DESC LIMIT ? OFFSET ?',
-        [10, 0]
+        "SELECT * FROM users ORDER BY created_at DESC LIMIT ? OFFSET ?",
+        [10, 0],
       );
       expect(result).toHaveLength(2);
-      expect(result[0].email).toBe('user1@example.com');
+      expect(result[0].email).toBe("user1@example.com");
     });
 
-    it('should use default pagination', async () => {
+    it("should use default pagination", async () => {
       mockConnection.query.mockResolvedValueOnce([]);
 
       await userRepository.findAll();
 
       expect(mockConnection.query).toHaveBeenCalledWith(
-        'SELECT * FROM users ORDER BY created_at DESC LIMIT ? OFFSET ?',
-        [50, 0]
+        "SELECT * FROM users ORDER BY created_at DESC LIMIT ? OFFSET ?",
+        [50, 0],
       );
     });
   });
 
-  describe('count', () => {
-    it('should return user count', async () => {
+  describe("count", () => {
+    it("should return user count", async () => {
       mockConnection.query.mockResolvedValueOnce([{ count: 42 }]);
 
       const result = await userRepository.count();
 
-      expect(mockConnection.query).toHaveBeenCalledWith('SELECT COUNT(*) as count FROM users');
+      expect(mockConnection.query).toHaveBeenCalledWith(
+        "SELECT COUNT(*) as count FROM users",
+      );
       expect(result).toBe(42);
     });
   });
 
-  describe('createWithTransaction', () => {
-    it('should create user within transaction', async () => {
+  describe("createWithTransaction", () => {
+    it("should create user within transaction", async () => {
       mockConnection.transaction.mockImplementation(async (callback) => {
         const transactionConnection = createMockConnection();
         transactionConnection.query.mockResolvedValueOnce([]); // No existing user
-        transactionConnection.execute.mockResolvedValueOnce({ affectedRows: 1 });
-        
+        transactionConnection.execute.mockResolvedValueOnce({
+          affectedRows: 1,
+        });
+
         return callback(transactionConnection);
       });
 
       const userData = {
-        email: 'transaction@example.com',
-        name: 'Transaction User',
+        email: "transaction@example.com",
+        name: "Transaction User",
       };
 
       const result = await userRepository.createWithTransaction(userData);
 
       expect(mockConnection.transaction).toHaveBeenCalled();
       expect(result).toMatchObject({
-        email: 'transaction@example.com',
-        name: 'Transaction User',
+        email: "transaction@example.com",
+        name: "Transaction User",
       });
     });
 
-    it('should rollback transaction on duplicate email', async () => {
+    it("should rollback transaction on duplicate email", async () => {
       mockConnection.transaction.mockImplementation(async (callback) => {
         const transactionConnection = createMockConnection();
-        transactionConnection.query.mockResolvedValueOnce([{
-          id: 'existing-user',
-          email: 'existing@example.com',
-          name: 'Existing User',
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString(),
-        }]);
-        
+        transactionConnection.query.mockResolvedValueOnce([
+          {
+            id: "existing-user",
+            email: "existing@example.com",
+            name: "Existing User",
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
+          },
+        ]);
+
         return callback(transactionConnection);
       });
 
       const userData = {
-        email: 'existing@example.com',
-        name: 'Duplicate User',
+        email: "existing@example.com",
+        name: "Duplicate User",
       };
 
-      await expect(userRepository.createWithTransaction(userData)).rejects.toThrow(
-        'User with this email already exists'
-      );
+      await expect(
+        userRepository.createWithTransaction(userData),
+      ).rejects.toThrow("User with this email already exists");
     });
   });
 
-  describe('connection management', () => {
-    it('should handle connection errors gracefully', async () => {
-      mockConnection.query.mockRejectedValueOnce(new Error('Connection lost'));
+  describe("connection management", () => {
+    it("should handle connection errors gracefully", async () => {
+      mockConnection.query.mockRejectedValueOnce(new Error("Connection lost"));
 
-      await expect(userRepository.findById('user-123')).rejects.toThrow('Failed to find user by id');
+      await expect(userRepository.findById("user-123")).rejects.toThrow(
+        "Failed to find user by id",
+      );
     });
 
-    it('should close connection properly', async () => {
+    it("should close connection properly", async () => {
       await mockConnection.close();
 
       expect(mockConnection.close).toHaveBeenCalled();

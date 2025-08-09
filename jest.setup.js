@@ -1,9 +1,9 @@
-import '@testing-library/jest-dom';
+import "@testing-library/jest-dom";
 
 // Mock window.matchMedia
-Object.defineProperty(window, 'matchMedia', {
+Object.defineProperty(window, "matchMedia", {
   writable: true,
-  value: jest.fn().mockImplementation(query => ({
+  value: jest.fn().mockImplementation((query) => ({
     matches: false,
     media: query,
     onchange: null,
@@ -16,14 +16,16 @@ Object.defineProperty(window, 'matchMedia', {
 });
 
 // Mock IntersectionObserver
-global.IntersectionObserver = jest.fn().mockImplementation((callback, options) => ({
-  observe: jest.fn(),
-  unobserve: jest.fn(),
-  disconnect: jest.fn(),
-  root: null,
-  rootMargin: '',
-  thresholds: [],  
-}));
+global.IntersectionObserver = jest
+  .fn()
+  .mockImplementation((callback, options) => ({
+    observe: jest.fn(),
+    unobserve: jest.fn(),
+    disconnect: jest.fn(),
+    root: null,
+    rootMargin: "",
+    thresholds: [],
+  }));
 
 // Mock requestAnimationFrame
 global.requestAnimationFrame = jest.fn().mockImplementation((cb) => {
@@ -44,7 +46,7 @@ global.clearInterval = jest.fn((intervalId) => {
 });
 
 // Also ensure they're available on the window object in jsdom
-if (typeof window !== 'undefined') {
+if (typeof window !== "undefined") {
   window.setInterval = global.setInterval;
   window.clearInterval = global.clearInterval;
 }
@@ -57,45 +59,45 @@ global.ResizeObserver = jest.fn().mockImplementation(() => ({
 }));
 
 // Mock getComputedStyle for motion preferences
-Object.defineProperty(window, 'getComputedStyle', {
+Object.defineProperty(window, "getComputedStyle", {
   value: jest.fn(() => ({
-    getPropertyValue: jest.fn(() => 'no-preference'),
+    getPropertyValue: jest.fn(() => "no-preference"),
   })),
-  writable: true
+  writable: true,
 });
 
 // Mock performance.now for motion library
-Object.defineProperty(window, 'performance', {
+Object.defineProperty(window, "performance", {
   value: {
     now: jest.fn(() => Date.now()),
   },
-  writable: true
+  writable: true,
 });
 
 // Manual mock for motion/react
-jest.mock('motion/react', () => {
-  const React = require('react');
-  
+jest.mock("motion/react", () => {
+  const React = require("react");
+
   const mockSpring = {
     set: jest.fn(),
     get: jest.fn(() => 0),
   };
-  
+
   const mockUseSpring = jest.fn(() => mockSpring);
   const mockUseTransform = jest.fn((spring, transform) => {
-    const value = typeof spring === 'number' ? spring : 0;
+    const value = typeof spring === "number" ? spring : 0;
     return transform(value);
   });
-  
+
   const mockMotion = {
-    span: React.forwardRef(({ children, ...props }, ref) => 
-      React.createElement('span', { ...props, ref }, children)
+    span: React.forwardRef(({ children, ...props }, ref) =>
+      React.createElement("span", { ...props, ref }, children),
     ),
-    div: React.forwardRef(({ children, ...props }, ref) => 
-      React.createElement('div', { ...props, ref }, children)
+    div: React.forwardRef(({ children, ...props }, ref) =>
+      React.createElement("div", { ...props, ref }, children),
     ),
   };
-  
+
   return {
     motion: mockMotion,
     useSpring: mockUseSpring,

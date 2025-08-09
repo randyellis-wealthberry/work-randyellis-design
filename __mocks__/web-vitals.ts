@@ -14,7 +14,7 @@ const onTTFB = jest.fn();
 interface Metric {
   name: string;
   value: number;
-  rating: 'good' | 'needs-improvement' | 'poor';
+  rating: "good" | "needs-improvement" | "poor";
   delta: number;
   entries: any[];
   id: string;

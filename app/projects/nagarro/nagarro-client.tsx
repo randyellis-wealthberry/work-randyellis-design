@@ -1,6 +1,7 @@
 "use client";
 import { motion, useInView, AnimatePresence } from "motion/react";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrambleSectionTitle } from "@/components/ui/scramble-section-title";
 import { Magnetic } from "@/components/ui/magnetic";
@@ -10,7 +11,6 @@ import {
   Award,
   Target,
   Globe,
-  BookOpen,
   Lightbulb,
   Sparkles,
   Heart,
@@ -21,6 +21,7 @@ import {
   PartyPopper,
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { PROJECTS } from "@/lib/data/projects";
 import { useRef, useState, useEffect, useCallback, memo, useMemo } from "react";
 import { AnimatedNumber } from "@/components/core/animated-number";
@@ -350,7 +351,6 @@ const ProjectCard = memo(function ProjectCard({
 export default function NagarroClientPage() {
   const [celebrationMode, setCelebrationMode] = useState(false);
   const [, setGlobalCelebrationCount] = useState(0);
-  const [showGlobalTeamAnimation, setShowGlobalTeamAnimation] = useState(false);
   const [showCustomCursor, setShowCustomCursor] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
   const [konamiActivated, setKonamiActivated] = useState(false);
@@ -399,10 +399,8 @@ export default function NagarroClientPage() {
       if (newCount === 4) {
         // All 4 metrics have animated
         setCelebrationMode(true);
-        setShowGlobalTeamAnimation(true);
         setTimeout(() => {
           setCelebrationMode(false);
-          setShowGlobalTeamAnimation(false);
         }, 3000);
       }
       return newCount;
@@ -449,26 +447,27 @@ export default function NagarroClientPage() {
   const externalLinks = [
     {
       title: "Digital Accessibility Strategy 2023",
-      url: "https://www.scribd.com/document/572839472/Digital-Accessibility-Strategy-2023",
+      url: "https://www.scribd.com/document/608106646/Nagarro-Digital-Accessibility-Strategy#fullscreen=1",
       description:
         "Comprehensive framework for enterprise accessibility implementation",
     },
     {
-      title: "Inclusive Design for Multi-Cultural Teams",
-      url: "https://www.scribd.com/document/572839473/Inclusive-Design-Keynote-Mar-2022",
+      title: "Inclusive Design Keynote",
+      url: "https://www.scribd.com/document/608112855/Inclusive-Design-Keynote#fullscreen=1",
       description:
         "Keynote presentation on global design collaboration strategies",
     },
     {
-      title: "Healthcare UX: Designing for Accessibility",
-      url: "https://medium.com/@randyellis/healthcare-ux-designing-for-accessibility-in-eldercare-technology-8f2a1b9c4e7d",
+      title: "Medium Publications & Articles",
+      url: "https://medium.com/@randyellis",
       description:
-        "Medium article on eldercare technology and inclusive design",
+        "Published articles and insights on design leadership, accessibility, and healthcare UX",
     },
     {
-      title: "Building Design Culture at Enterprise Scale",
-      url: "https://www.scribd.com/document/572839474/Design-Leadership-Enterprise-Scale",
-      description: "Strategic guide for scaling design organizations globally",
+      title: "ADT Health Partnership Case Study",
+      url: "https://www.scribd.com/document/640248976/Adt-Health#fullscreen=1",
+      description:
+        "Healthcare technology accessibility collaboration and eldercare solutions",
     },
   ];
 
@@ -558,6 +557,28 @@ export default function NagarroClientPage() {
                 @NAGARRO
               </motion.span>
             </motion.h1>
+
+            {/* Nagarro Logo */}
+            <motion.div
+              className="my-8 relative"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+              whileHover={{ scale: 1.02 }}
+              data-cursor-hover
+              data-cursor-text="🚀"
+            >
+              <Image
+                src="/projects/nagarro/nagarro-logo.png"
+                alt="Nagarro company logo - Global digital engineering leader"
+                width={800}
+                height={400}
+                className="w-full max-w-2xl mx-auto rounded-xl shadow-2xl dark:shadow-blue-500/20"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-blue-600/10 to-transparent rounded-xl pointer-events-none" />
+            </motion.div>
+
             <p className="text-xl text-zinc-600 dark:text-zinc-400 max-w-3xl">
               Scaling design excellence across 18,000+ Nagarrians in 36
               countries through strategic design evangelism, accessibility
@@ -670,37 +691,10 @@ export default function NagarroClientPage() {
             </ScrambleSectionTitle>
 
             {/* Global team celebration */}
-            <motion.div
-              className="flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400"
-              animate={
-                showGlobalTeamAnimation
-                  ? {
-                      scale: [1, 1.1, 1],
-                      rotate: [0, 5, -5, 0],
-                    }
-                  : {}
-              }
-              transition={{ duration: 0.8, repeat: 3 }}
-              data-cursor-hover
-              data-cursor-text="🌍"
-            >
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-              >
-                <Globe className="h-4 w-4" />
-              </motion.div>
+            <div className="flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400">
+              <Globe className="h-4 w-4" />
               <span>Celebrating 18,000+ Nagarrians</span>
-              {showGlobalTeamAnimation && (
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  className="text-yellow-500"
-                >
-                  <Sparkles className="h-4 w-4" />
-                </motion.div>
-              )}
-            </motion.div>
+            </div>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -725,20 +719,10 @@ export default function NagarroClientPage() {
                 role="status"
                 aria-live="polite"
               >
-                <motion.p
-                  className="text-lg font-medium text-transparent bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text"
-                  animate={{
-                    backgroundPosition: ["0%", "100%", "0%"],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: 2,
-                    ease: "easeInOut",
-                  }}
-                >
+                <p className="text-lg font-medium text-blue-600">
                   🎉 Amazing! These metrics represent real impact on 18,000+
                   lives! 🎉
-                </motion.p>
+                </p>
                 <div className="sr-only">
                   Celebration activated! All design metrics have been animated,
                   showing the incredible impact of design leadership at Nagarro
@@ -974,10 +958,7 @@ export default function NagarroClientPage() {
               >
                 {" "}
                 {/* Reduced intensity for performance */}
-                <motion.a
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <motion.div
                   className="block group"
                   whileHover={{ y: -2 }}
                   whileTap={{ scale: 0.98 }}
@@ -994,39 +975,57 @@ export default function NagarroClientPage() {
                       className="from-zinc-900 via-zinc-800 to-zinc-700 blur-2xl dark:from-zinc-100 dark:via-zinc-200 dark:to-zinc-50"
                       size={64}
                     />
-                    <div className="relative h-full w-full rounded-[15px] bg-white p-6 dark:bg-zinc-950">
-                      <div className="flex items-start justify-between">
-                        <div className="space-y-2 flex-1">
-                          <motion.h4
-                            className="font-medium text-zinc-900 dark:text-zinc-100 flex items-center gap-2"
-                            whileHover={{ x: 2 }}
+                    <div className="relative h-full w-full rounded-[15px] bg-white p-6 dark:bg-zinc-950 flex flex-col">
+                      <div className="flex-1 space-y-3">
+                        <motion.h4
+                          className="font-medium text-zinc-900 dark:text-zinc-100 flex items-center gap-2"
+                          whileHover={{ x: 2 }}
+                        >
+                          {link.title}
+                          <motion.div
+                            whileHover={{ rotate: 45, scale: 1.1 }}
+                            transition={{ duration: 0.2 }}
                           >
-                            {link.title}
+                            <ExternalLink className="h-4 w-4 text-zinc-400 group-hover:text-blue-500 transition-colors" />
+                          </motion.div>
+                        </motion.h4>
+                        <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                          {link.description}
+                        </p>
+                      </div>
+
+                      {/* Large "Open" CTA Button */}
+                      <motion.div
+                        className="mt-4 pt-4 border-t border-zinc-200 dark:border-zinc-700"
+                        initial={{ opacity: 0.8 }}
+                        whileHover={{ opacity: 1 }}
+                      >
+                        <Button
+                          asChild
+                          className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-[1.02]"
+                          size="lg"
+                        >
+                          <motion.a
+                            href={link.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center justify-center gap-2"
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                          >
+                            <span className="font-semibold">Open</span>
                             <motion.div
                               whileHover={{ rotate: 45, scale: 1.1 }}
                               transition={{ duration: 0.2 }}
                             >
-                              <ExternalLink className="h-4 w-4 text-zinc-400 group-hover:text-blue-500 transition-colors" />
+                              <ExternalLink className="h-4 w-4" />
                             </motion.div>
-                          </motion.h4>
-                          <p className="text-sm text-zinc-600 dark:text-zinc-400">
-                            {link.description}
-                          </p>
-
-                          {/* Subtle hover indicator */}
-                          <motion.div
-                            className="flex items-center gap-1 text-xs text-blue-600 dark:text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                            initial={{ x: -10 }}
-                            whileHover={{ x: 0 }}
-                          >
-                            <BookOpen className="h-3 w-3" />
-                            <span>Explore this resource</span>
-                          </motion.div>
-                        </div>
-                      </div>
+                          </motion.a>
+                        </Button>
+                      </motion.div>
                     </div>
                   </div>
-                </motion.a>
+                </motion.div>
               </Magnetic>
             ))}
           </div>
@@ -1114,49 +1113,15 @@ export default function NagarroClientPage() {
             </Magnetic>
           </div>
 
-          {/* Interactive footer with celebration */}
-          <motion.div
-            className="text-center mt-8"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ delay: 2, duration: 1 }}
-            viewport={{ once: true }}
-          >
-            <motion.button
-              className="text-xs text-zinc-500 dark:text-zinc-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 rounded-lg px-2 py-1"
-              onClick={() => {
-                setCelebrationMode(true);
-                setTimeout(() => setCelebrationMode(false), 3000);
-              }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              data-cursor-hover
-              data-cursor-text="🎉"
-              aria-label="Trigger celebration animation"
-            >
-              <motion.div
-                animate={{
-                  rotate: [0, 10, -10, 0],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-                className="inline-flex items-center gap-1"
-              >
-                <Heart className="h-3 w-3" />
-                <span>
-                  Thank you for exploring this design leadership journey!
-                </span>
-                <Sparkles className="h-3 w-3 opacity-0 hover:opacity-100 transition-opacity" />
-              </motion.div>
-            </motion.button>
-            <div className="sr-only">
-              Click to trigger a celebration animation as a thank you for
-              engaging with this case study!
+          {/* Static footer message */}
+          <div className="text-center mt-8">
+            <div className="text-xs text-zinc-500 dark:text-zinc-400 inline-flex items-center gap-1">
+              <Heart className="h-3 w-3" />
+              <span>
+                Thank you for exploring this design leadership journey!
+              </span>
             </div>
-          </motion.div>
+          </div>
         </motion.section>
       </motion.main>
     </>

@@ -5,6 +5,7 @@ This document provides comprehensive guidance for managing the infrastructure, d
 ## 🏗️ Infrastructure Overview
 
 ### Architecture
+
 - **Frontend**: Next.js 15 with App Router
 - **Hosting**: Vercel (Production & Preview environments)
 - **CDN**: Vercel Edge Network
@@ -15,6 +16,7 @@ This document provides comprehensive guidance for managing the infrastructure, d
 - **CI/CD**: GitHub Actions
 
 ### Performance Specifications
+
 - **Target Load Time**: < 2.5s (LCP)
 - **Uptime SLA**: 99.9%
 - **Error Rate Budget**: < 0.5%
@@ -23,6 +25,7 @@ This document provides comprehensive guidance for managing the infrastructure, d
 ## 🚀 Deployment Process
 
 ### Automated Deployment
+
 ```bash
 # Run complete automated deployment with health checks
 npm run deploy:automated
@@ -35,6 +38,7 @@ npm run build:analyze && vercel deploy --prod
 ```
 
 ### Deployment Pipeline Stages
+
 1. **Pre-deployment Checks**
    - Git status validation
    - Test suite execution
@@ -59,6 +63,7 @@ npm run build:analyze && vercel deploy --prod
    - Team notifications
 
 ### Rollback Procedures
+
 ```bash
 # Automatic rollback (triggered on deployment failure)
 # Manual rollback to previous deployment
@@ -71,6 +76,7 @@ npm run health:check
 ## 📊 Monitoring and Observability
 
 ### Health Monitoring
+
 ```bash
 # Check application health
 npm run health:check
@@ -81,6 +87,7 @@ npm run monitor:performance
 ```
 
 ### Key Metrics Tracked
+
 - **Performance**: LCP, FID, CLS, TTFB
 - **Availability**: Uptime, response times
 - **Errors**: Error rates, exception tracking
@@ -88,6 +95,7 @@ npm run monitor:performance
 - **Security**: Vulnerabilities, failed attempts
 
 ### Monitoring Dashboards
+
 1. **Infrastructure Overview** (`/infrastructure/monitoring/dashboard-config.json`)
    - Uptime status
    - Response times
@@ -113,6 +121,7 @@ npm run monitor:performance
    - Device/browser breakdown
 
 ### Alerting Configuration
+
 - **Critical (P1)**: Site down, high error rate
 - **Warning (P3)**: Slow response time, poor Core Web Vitals
 - **Anomaly Detection**: Traffic patterns, performance changes
@@ -120,6 +129,7 @@ npm run monitor:performance
 ## 🔒 Security and Compliance
 
 ### Security Audit
+
 ```bash
 # Run comprehensive security audit
 npm run security:audit
@@ -132,6 +142,7 @@ npm run security:fix
 ```
 
 ### Security Features Implemented
+
 - **Headers**: CSP, HSTS, X-Frame-Options, etc.
 - **Rate Limiting**: API endpoint protection
 - **Input Validation**: Zod schema validation
@@ -139,6 +150,7 @@ npm run security:fix
 - **SSL/TLS**: Automatic certificate management
 
 ### Compliance Standards
+
 - **GDPR**: Privacy policy, cookie consent, data rights
 - **Accessibility**: WCAG 2.1 AA compliance
 - **Performance**: Core Web Vitals optimization
@@ -147,6 +159,7 @@ npm run security:fix
 ## 💾 Backup and Disaster Recovery
 
 ### Automated Backups
+
 ```bash
 # Create comprehensive backup
 npm run backup:create
@@ -160,10 +173,12 @@ npm run backup:create
 ```
 
 ### Disaster Recovery Plan
+
 - **RTO (Recovery Time Objective)**: 15 minutes
 - **RPO (Recovery Point Objective)**: 24 hours
 
 ### Recovery Procedures
+
 1. **Repository Recovery**: Clone from GitHub
 2. **Environment Setup**: Restore encrypted environment variables
 3. **Deployment**: Deploy to Vercel production
@@ -173,6 +188,7 @@ npm run backup:create
 ## 🔧 Infrastructure as Code
 
 ### Terraform Configuration
+
 ```bash
 # Plan infrastructure changes
 npm run infra:plan
@@ -185,6 +201,7 @@ npm run infra:destroy
 ```
 
 ### Managed Resources
+
 - Vercel project configuration
 - DataDog dashboards and monitors
 - GitHub repository settings
@@ -194,6 +211,7 @@ npm run infra:destroy
 ## 📈 Performance Optimization
 
 ### Current Optimizations
+
 - **Image Optimization**: WebP/AVIF formats, responsive images
 - **Code Splitting**: Dynamic imports, lazy loading
 - **Caching**: CDN caching, browser caching
@@ -201,6 +219,7 @@ npm run infra:destroy
 - **Critical CSS**: Above-fold CSS inlining
 
 ### Performance Monitoring
+
 ```bash
 # Initialize performance monitoring
 npm run monitor:performance
@@ -210,6 +229,7 @@ npm run build:analyze
 ```
 
 ### Optimization Scripts
+
 ```bash
 # Optimize images
 npm run optimize:images
@@ -221,16 +241,19 @@ npm run optimize:videos
 ## 🔄 CI/CD Pipeline
 
 ### GitHub Actions Workflow
+
 - **Triggers**: Push to main/develop, Pull Requests
 - **Stages**: Lint → Test → Security → Build → Deploy → Validate
 - **Features**: Parallel execution, caching, notifications
 
 ### Environment Strategy
+
 - **Production**: `main` branch → `work.randyellis.design`
 - **Preview**: Feature branches → Vercel preview URLs
 - **Development**: Local development with hot reload
 
 ### Quality Gates
+
 - All tests must pass
 - Security audit must pass
 - Build must succeed
@@ -239,11 +262,13 @@ npm run optimize:videos
 ## 🚨 Incident Response
 
 ### Incident Classification
+
 - **P1**: Site down, critical functionality broken
 - **P2**: Performance degradation, minor functionality issues
 - **P3**: Non-critical issues, optimization opportunities
 
 ### Response Procedures
+
 1. **Detection**: Automated monitoring alerts
 2. **Assessment**: Determine severity and impact
 3. **Response**: Immediate mitigation steps
@@ -252,6 +277,7 @@ npm run optimize:videos
 6. **Post-mortem**: Root cause analysis and prevention
 
 ### Emergency Contacts
+
 - **Primary**: Randy Ellis (hello@randyellis.design)
 - **Infrastructure**: Vercel Support, GitHub Support
 - **Monitoring**: DataDog Support (if applicable)
@@ -259,6 +285,7 @@ npm run optimize:videos
 ## 🔐 Environment Management
 
 ### Environment Variables
+
 ```bash
 # Development setup
 cp .env.example .env.local
@@ -272,6 +299,7 @@ cp .env.example .env.local
 ```
 
 ### Secret Management
+
 - **Development**: `.env.local` (not committed)
 - **Production**: Vercel environment variables
 - **CI/CD**: GitHub Secrets
@@ -280,18 +308,21 @@ cp .env.example .env.local
 ## 📋 Operational Runbooks
 
 ### Daily Operations
+
 - Monitor dashboard for anomalies
 - Review error logs and alerts
 - Check performance metrics
 - Validate backup completion
 
 ### Weekly Operations
+
 - Security vulnerability scan
 - Performance optimization review
 - Backup validation and cleanup
 - Dependency updates review
 
 ### Monthly Operations
+
 - Comprehensive security audit
 - Performance budget review
 - Infrastructure cost optimization
@@ -300,6 +331,7 @@ cp .env.example .env.local
 ## 🛠️ Development Workflow
 
 ### Local Development
+
 ```bash
 # Start development server
 npm run dev
@@ -315,6 +347,7 @@ npm run security:audit
 ```
 
 ### Feature Development
+
 1. Create feature branch from `main`
 2. Develop with automated testing
 3. Submit PR with preview deployment
@@ -322,6 +355,7 @@ npm run security:audit
 5. Merge to `main` for production deployment
 
 ### Hotfix Process
+
 1. Create hotfix branch from `main`
 2. Implement minimal fix
 3. Fast-track review and deployment
@@ -330,16 +364,19 @@ npm run security:audit
 ## 📞 Support and Maintenance
 
 ### Monitoring Dashboards
+
 - **Primary**: Internal monitoring dashboard
 - **Secondary**: Vercel Analytics dashboard
 - **Backup**: Google Analytics
 
 ### Log Access
+
 - **Application Logs**: Vercel Functions logs
 - **Error Tracking**: Console errors + Sentry (if configured)
 - **Performance**: RUM data + Lighthouse CI
 
 ### Maintenance Windows
+
 - **Preferred**: Sunday 2-4 AM EST (low traffic)
 - **Emergency**: Anytime with proper communication
 - **Notification**: Advance notice for planned maintenance

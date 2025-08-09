@@ -1,20 +1,20 @@
-import { render, screen, act, waitFor } from '@testing-library/react';
-import { useReducedMotion } from '@/lib/hooks/use-reduced-motion';
+import { render, screen, act, waitFor } from "@testing-library/react";
+import { useReducedMotion } from "@/lib/hooks/use-reduced-motion";
 
 // Mock component to test the hook
 function TestComponent() {
   const prefersReducedMotion = useReducedMotion();
-  
+
   return (
     <div data-testid="test-component">
       <span data-testid="motion-preference">
-        {prefersReducedMotion ? 'reduced' : 'full'}
+        {prefersReducedMotion ? "reduced" : "full"}
       </span>
-      <div 
+      <div
         data-testid="animated-element"
         style={{
-          transition: prefersReducedMotion ? 'none' : 'transform 0.3s ease',
-          transform: prefersReducedMotion ? 'none' : 'translateX(100px)'
+          transition: prefersReducedMotion ? "none" : "transform 0.3s ease",
+          transform: prefersReducedMotion ? "none" : "translateX(100px)",
         }}
       >
         Animated content
@@ -25,7 +25,7 @@ function TestComponent() {
 
 // Mock matchMedia
 const createMockMatchMedia = (matches: boolean) => {
-  return jest.fn().mockImplementation(query => ({
+  return jest.fn().mockImplementation((query) => ({
     matches,
     media: query,
     onchange: null,
@@ -37,7 +37,7 @@ const createMockMatchMedia = (matches: boolean) => {
   }));
 };
 
-describe('Reduced Motion Hook', () => {
+describe("Reduced Motion Hook", () => {
   let originalMatchMedia: typeof window.matchMedia;
 
   beforeEach(() => {
@@ -49,58 +49,60 @@ describe('Reduced Motion Hook', () => {
     jest.clearAllMocks();
   });
 
-  it('should detect when user prefers reduced motion', () => {
+  it("should detect when user prefers reduced motion", () => {
     // Mock matchMedia to return true for reduced motion
     window.matchMedia = createMockMatchMedia(true);
 
     render(<TestComponent />);
 
-    const motionPreference = screen.getByTestId('motion-preference');
-    expect(motionPreference).toHaveTextContent('reduced');
+    const motionPreference = screen.getByTestId("motion-preference");
+    expect(motionPreference).toHaveTextContent("reduced");
 
     // Verify matchMedia was called with correct query
-    expect(window.matchMedia).toHaveBeenCalledWith('(prefers-reduced-motion: reduce)');
+    expect(window.matchMedia).toHaveBeenCalledWith(
+      "(prefers-reduced-motion: reduce)",
+    );
   });
 
-  it('should detect when user allows full motion', () => {
+  it("should detect when user allows full motion", () => {
     // Mock matchMedia to return false for reduced motion
     window.matchMedia = createMockMatchMedia(false);
 
     render(<TestComponent />);
 
-    const motionPreference = screen.getByTestId('motion-preference');
-    expect(motionPreference).toHaveTextContent('full');
+    const motionPreference = screen.getByTestId("motion-preference");
+    expect(motionPreference).toHaveTextContent("full");
   });
 
-  it('should apply appropriate styles based on motion preference', async () => {
+  it("should apply appropriate styles based on motion preference", async () => {
     // Test with reduced motion first
     window.matchMedia = createMockMatchMedia(true);
     render(<TestComponent />);
 
     await waitFor(() => {
-      const animatedElement = screen.getByTestId('animated-element');
-      expect(animatedElement.style.transition).toBe('none');
-      expect(animatedElement.style.transform).toBe('none');
+      const animatedElement = screen.getByTestId("animated-element");
+      expect(animatedElement.style.transition).toBe("none");
+      expect(animatedElement.style.transform).toBe("none");
     });
   });
 
-  it('should apply full motion styles when not reduced', async () => {
+  it("should apply full motion styles when not reduced", async () => {
     // Test with full motion
     window.matchMedia = createMockMatchMedia(false);
     render(<TestComponent />);
 
     await waitFor(() => {
-      const animatedElement = screen.getByTestId('animated-element');
-      expect(animatedElement.style.transition).toBe('transform 0.3s ease');
-      expect(animatedElement.style.transform).toBe('translateX(100px)');
+      const animatedElement = screen.getByTestId("animated-element");
+      expect(animatedElement.style.transition).toBe("transform 0.3s ease");
+      expect(animatedElement.style.transform).toBe("translateX(100px)");
     });
   });
 
-  it('should handle SSR safely', () => {
+  it("should handle SSR safely", () => {
     // Test that the hook returns false (no reduced motion) as default
     // We simulate the hook's behavior during SSR by testing with no matchMedia
     const originalMatchMedia = window.matchMedia;
-    
+
     // Remove matchMedia to simulate SSR-like environment
     // @ts-ignore
     delete window.matchMedia;
@@ -112,21 +114,22 @@ describe('Reduced Motion Hook', () => {
 
     // Restore matchMedia
     window.matchMedia = originalMatchMedia || createMockMatchMedia(false);
-    
+
     // Should default to no reduced motion (false) when matchMedia is unavailable
-    const motionPreference = screen.getByTestId('motion-preference');
-    expect(motionPreference).toHaveTextContent('full');
+    const motionPreference = screen.getByTestId("motion-preference");
+    expect(motionPreference).toHaveTextContent("full");
   });
 
-  it('should listen for media query changes', async () => {
-    let mediaQueryCallback: ((event: MediaQueryListEvent) => void) | null = null;
+  it("should listen for media query changes", async () => {
+    let mediaQueryCallback: ((event: MediaQueryListEvent) => void) | null =
+      null;
     const addEventListener = jest.fn((event, callback) => {
-      if (event === 'change') {
+      if (event === "change") {
         mediaQueryCallback = callback;
       }
     });
-    
-    const mockMatchMedia = jest.fn().mockImplementation(query => ({
+
+    const mockMatchMedia = jest.fn().mockImplementation((query) => ({
       matches: false,
       media: query,
       onchange: null,
@@ -140,30 +143,35 @@ describe('Reduced Motion Hook', () => {
     const { rerender } = render(<TestComponent />);
 
     // Initial state should be full motion
-    expect(screen.getByTestId('motion-preference')).toHaveTextContent('full');
+    expect(screen.getByTestId("motion-preference")).toHaveTextContent("full");
 
     // Simulate media query change to reduced motion
-    if (mediaQueryCallback && typeof mediaQueryCallback === 'function') {
+    if (mediaQueryCallback && typeof mediaQueryCallback === "function") {
       act(() => {
         mediaQueryCallback!({ matches: true } as MediaQueryListEvent);
       });
     }
 
     await waitFor(() => {
-      expect(screen.getByTestId('motion-preference')).toHaveTextContent('reduced');
+      expect(screen.getByTestId("motion-preference")).toHaveTextContent(
+        "reduced",
+      );
     });
 
     // Verify event listener was added
-    expect(addEventListener).toHaveBeenCalledWith('change', expect.any(Function));
+    expect(addEventListener).toHaveBeenCalledWith(
+      "change",
+      expect.any(Function),
+    );
   });
 
-  it('should clean up event listeners on unmount', () => {
+  it("should clean up event listeners on unmount", () => {
     const removeEventListener = jest.fn();
     const addEventListener = jest.fn();
 
     window.matchMedia = jest.fn().mockImplementation(() => ({
       matches: false,
-      media: '(prefers-reduced-motion: reduce)',
+      media: "(prefers-reduced-motion: reduce)",
       addEventListener,
       removeEventListener,
     }));
@@ -171,23 +179,29 @@ describe('Reduced Motion Hook', () => {
     const { unmount } = render(<TestComponent />);
 
     // Verify event listener was added
-    expect(addEventListener).toHaveBeenCalledWith('change', expect.any(Function));
+    expect(addEventListener).toHaveBeenCalledWith(
+      "change",
+      expect.any(Function),
+    );
 
     // Unmount component
     unmount();
 
     // Verify event listener was removed
-    expect(removeEventListener).toHaveBeenCalledWith('change', expect.any(Function));
+    expect(removeEventListener).toHaveBeenCalledWith(
+      "change",
+      expect.any(Function),
+    );
   });
 
-  it('should handle legacy browser addListener fallback', () => {
+  it("should handle legacy browser addListener fallback", () => {
     const addListener = jest.fn();
     const removeListener = jest.fn();
 
     // Mock old browser without addEventListener
     window.matchMedia = jest.fn().mockImplementation(() => ({
       matches: false,
-      media: '(prefers-reduced-motion: reduce)',
+      media: "(prefers-reduced-motion: reduce)",
       addListener,
       removeListener,
       // No addEventListener to trigger fallback

@@ -82,15 +82,15 @@ describe("getRandomProjects", () => {
     test("returns different results on multiple calls", () => {
       // Mock Math.random to return predictable sequences
       const mockRandom = jest.spyOn(Math, "random");
-      
+
       // First call - returns first sequence
       mockRandom.mockReturnValueOnce(0.1).mockReturnValueOnce(0.5);
       const result1 = getRandomProjects(mockProjects, 2);
-      
+
       // Second call - returns different sequence
       mockRandom.mockReturnValueOnce(0.8).mockReturnValueOnce(0.3);
       const result2 = getRandomProjects(mockProjects, 2);
-      
+
       expect(result1).not.toEqual(result2);
       mockRandom.mockRestore();
     });
@@ -135,7 +135,7 @@ describe("getRandomProjects", () => {
     test("each project should be selected roughly equally over many iterations", () => {
       const iterations = 1000;
       const selectionCounts = new Map<string, number>();
-      
+
       // Initialize counts
       mockProjects.forEach((project) => {
         selectionCounts.set(project.id, 0);
@@ -183,7 +183,7 @@ describe("getRandomProjects", () => {
       for (let i = 0; i < 1000; i++) {
         getRandomProjects(mockProjects, 2);
       }
-      
+
       // If we get here without running out of memory, the test passes
       expect(true).toBe(true);
     });
@@ -192,7 +192,7 @@ describe("getRandomProjects", () => {
   describe("Type Safety", () => {
     test("maintains proper TypeScript types", () => {
       const result = getRandomProjects(mockProjects, 2);
-      
+
       // This test ensures TypeScript compilation and proper typing
       expect(result[0]).toHaveProperty("id");
       expect(result[0]).toHaveProperty("name");
