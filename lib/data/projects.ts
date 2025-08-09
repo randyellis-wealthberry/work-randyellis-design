@@ -1030,7 +1030,7 @@ export const PROJECTS: Project[] = [
       "Accessibility Compliance",
     ],
     link: "https://www.nagarro.com",
-    video: "/projects/nagarro/nagarro-design-leadership.mp4",
+    video: "", // No video available for this project - falls back to thumbnail
     thumbnail: "/projects/nagarro/nagarro-logo.png",
     images: [
       "/projects/nagarro/digital-accessibility-strategy.svg",
