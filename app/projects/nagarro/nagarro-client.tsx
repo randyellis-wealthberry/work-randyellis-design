@@ -381,7 +381,6 @@ export default function NagarroClientPage() {
     return () => window.removeEventListener("resize", checkDevice);
   }, []);
 
-
   // Celebration handler for metrics
   const handleCelebration = useCallback(() => {
     setGlobalCelebrationCount((prev) => {
