@@ -677,6 +677,80 @@ describe("Nagarro Case Study - Responsive Design Tests", () => {
     });
   });
 
+  describe("Navigation-Footer Spacing", () => {
+    it("should have adequate bottom spacing on mobile to prevent footer overlap", () => {
+      // Set mobile viewport
+      mockViewport(375, 667);
+      render(<MockResponsiveNagarroLayout />);
+
+      // Find the navigation section containing "Back to Projects"
+      const navigationSection = screen.getByText("Back to Projects").closest('section, [class*="border-t"]');
+      expect(navigationSection).toBeInTheDocument();
+
+      // On mobile, navigation section should have mb-16 (64px) bottom margin
+      expect(navigationSection).toHaveClass(
+        expect.stringContaining("mb-16")
+      );
+    });
+
+    it("should scale spacing appropriately on tablet viewport", () => {
+      // Test tablet viewport
+      mockViewport(768, 1024);
+      render(<MockResponsiveNagarroLayout />);
+
+      const navigationSection = screen.getByText("Back to Projects").closest('section, [class*="border-t"]');
+      
+      // Should have responsive bottom margin that scales up on tablet
+      expect(navigationSection).toHaveClass(
+        expect.stringMatching(/mb-16.*sm:mb-20/)
+      );
+    });
+
+    it("should have maximum spacing on desktop viewport", () => {
+      // Test desktop viewport
+      mockViewport(1200, 800);
+      render(<MockResponsiveNagarroLayout />);
+
+      const navigationSection = screen.getByText("Back to Projects").closest('section, [class*="border-t"]');
+      
+      // Should have full responsive bottom margin classes
+      expect(navigationSection).toHaveClass(
+        expect.stringMatching(/mb-16.*sm:mb-20.*lg:mb-24/)
+      );
+    });
+
+    it("should prevent visual overlap with footer content", () => {
+      render(<MockResponsiveNagarroLayout />);
+      
+      const navigationSection = screen.getByText("Back to Projects").closest('section');
+      
+      // Navigation section should have adequate bottom spacing to prevent footer overlap
+      // The exact spacing should be at least mb-16 (64px) on mobile
+      expect(navigationSection).toHaveClass(
+        expect.stringContaining("mb-")
+      );
+      
+      // Should not have any conflicting negative margins or positioning
+      expect(navigationSection).not.toHaveClass(
+        expect.stringMatching(/-mb-|absolute|fixed/)
+      );
+    });
+
+    it("should maintain consistent spacing with other page elements", () => {
+      render(<MockResponsiveNagarroLayout />);
+      
+      const navigationSection = screen.getByText("Back to Projects").closest('section');
+      
+      // Navigation should have both top and bottom spacing for visual balance
+      expect(navigationSection).toHaveClass(
+        expect.stringMatching(/(pt-8|py-8)/) // Top spacing
+      );
+      expect(navigationSection).toHaveClass(
+        expect.stringMatching(/mb-(16|20|24)/) // Bottom spacing
+      );
+    });
+  });
+
   describe("Breadcrumb Navigation Responsive Behavior", () => {
     it("should have proper padding on mobile viewport to prevent edge-to-edge layout", () => {
       // Set mobile viewport

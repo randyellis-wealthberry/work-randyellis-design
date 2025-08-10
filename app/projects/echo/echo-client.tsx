@@ -450,7 +450,7 @@ export default function EchoClientPage() {
       </section>
 
       {/* Navigation */}
-      <section className="border-t border-zinc-200 dark:border-zinc-700 pt-8 px-4 sm:px-6 lg:px-8">
+      <section className="border-t border-zinc-200 dark:border-zinc-700 pt-8 px-4 sm:px-6 lg:px-8 mb-16 sm:mb-20 lg:mb-24">
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
           <Link
             href="/projects"
