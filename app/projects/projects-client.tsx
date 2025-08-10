@@ -202,7 +202,7 @@ export default function ProjectsClient() {
           onValueChange={setActiveCategory}
           className="w-full"
         >
-          <TabsList className="grid w-full grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-2 sm:gap-1">
+          <TabsList className="grid h-auto w-full grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-2 p-2">
             {PROJECT_CATEGORIES.map((category) => (
               <TabsTrigger
                 key={category}
@@ -214,7 +214,7 @@ export default function ProjectsClient() {
             ))}
           </TabsList>
 
-          <TabsContent value={activeCategory} className="mt-6 sm:mt-8">
+          <TabsContent value={activeCategory} className="mt-8 sm:mt-10">
             <motion.div
               className="grid gap-6 md:grid-cols-2"
               variants={VARIANTS_CONTAINER}

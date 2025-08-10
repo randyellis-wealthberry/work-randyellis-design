@@ -676,4 +676,71 @@ describe("Nagarro Case Study - Responsive Design Tests", () => {
       });
     });
   });
+
+  describe("Breadcrumb Navigation Responsive Behavior", () => {
+    it("should have proper padding on mobile viewport to prevent edge-to-edge layout", () => {
+      // Set mobile viewport
+      mockViewport(375, 667);
+      render(<MockResponsiveNagarroLayout />);
+
+      // Find the breadcrumb navigation section
+      const breadcrumbSection = screen.getByText("Back to Projects").closest('div');
+      expect(breadcrumbSection).toBeInTheDocument();
+
+      // On mobile, the breadcrumb container should have horizontal padding
+      // to prevent buttons from touching viewport edges
+      const breadcrumbContainer = breadcrumbSection?.parentElement;
+      expect(breadcrumbContainer).toHaveClass(
+        expect.stringContaining("px-4")
+      );
+    });
+
+    it("should have adequate spacing on tablet and desktop viewports", () => {
+      // Test tablet viewport
+      mockViewport(768, 1024);
+      render(<MockResponsiveNagarroLayout />);
+
+      const breadcrumbSection = screen.getByText("Back to Projects").closest('div');
+      const breadcrumbContainer = breadcrumbSection?.parentElement;
+      
+      // Should maintain consistent padding with responsive design
+      expect(breadcrumbContainer).toHaveClass(
+        expect.stringMatching(/px-(4|6|8)/)
+      );
+
+      // Test desktop viewport  
+      mockViewport(1200, 800);
+      render(<MockResponsiveNagarroLayout />);
+
+      const desktopBreadcrumbSection = screen.getByText("Back to Projects").closest('div');
+      const desktopBreadcrumbContainer = desktopBreadcrumbSection?.parentElement;
+      
+      expect(desktopBreadcrumbContainer).toHaveClass(
+        expect.stringMatching(/px-(6|8)/)
+      );
+    });
+
+    it("should maintain proper button sizing on all viewports", () => {
+      // Mobile test
+      mockViewport(375, 667);
+      render(<MockResponsiveNagarroLayout />);
+      
+      const backToProjectsLink = screen.getByText("Back to Projects");
+      expect(backToProjectsLink).toHaveClass("px-6 py-3");
+      
+      // The link should have proper spacing and not extend to viewport edges
+      expect(backToProjectsLink.closest('div')).not.toHaveClass("w-full");
+    });
+
+    it("should have consistent navigation spacing across different project pages", () => {
+      render(<MockResponsiveNagarroLayout />);
+      
+      const navigationSection = screen.getByText("Back to Projects").closest('[data-testid*="navigation"], section');
+      
+      // Navigation section should have consistent spacing patterns
+      expect(navigationSection).toHaveClass(
+        expect.stringMatching(/(pt-8|py-8|border-t)/)
+      );
+    });
+  });
 });

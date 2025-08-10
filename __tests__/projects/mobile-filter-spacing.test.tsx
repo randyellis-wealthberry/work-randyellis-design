@@ -47,7 +47,7 @@ describe("Projects Page Mobile Filter Spacing", () => {
 
       // Check that the TabsList has the updated responsive classes
       expect(tabsList).toHaveClass(
-        "grid w-full grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-2 sm:gap-1",
+        "grid h-auto w-full grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-2 p-2",
       );
     });
 
@@ -87,7 +87,7 @@ describe("Projects Page Mobile Filter Spacing", () => {
 
     it("should have proper spacing between filter and content", () => {
       const tabContent = screen.getByRole("tabpanel");
-      expect(tabContent).toHaveClass("mt-6 sm:mt-8");
+      expect(tabContent).toHaveClass("mt-8 sm:mt-10");
     });
   });
 

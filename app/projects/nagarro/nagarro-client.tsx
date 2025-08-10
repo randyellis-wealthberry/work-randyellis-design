@@ -1069,7 +1069,7 @@ export default function NagarroClientPage() {
         <motion.section
           variants={VARIANTS_SECTION}
           transition={TRANSITION_SECTION}
-          className="border-t border-zinc-200 dark:border-zinc-700 pt-8"
+          className="border-t border-zinc-200 dark:border-zinc-700 pt-8 px-4 sm:px-6 lg:px-8"
         >
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
             <Magnetic springOptions={{ bounce: 0 }} intensity={0.3}>
