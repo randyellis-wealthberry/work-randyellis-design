@@ -36,6 +36,7 @@ import {
   trackProjectView,
   trackContactIntent,
 } from "@/lib/analytics";
+import { FeatureFlagDemo } from "@/components/feature-flag-demo";
 
 const VARIANTS_CONTAINER = {
   hidden: { opacity: 0 },
@@ -789,6 +790,9 @@ export default function Personal() {
           ))}
         </div>
       </motion.section>
+      
+      {/* Feature Flag Demo - Development Only */}
+      <FeatureFlagDemo />
     </motion.main>
   );
 }

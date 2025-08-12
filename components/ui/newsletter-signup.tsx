@@ -9,6 +9,7 @@ import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { FloatingInput } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { trackNewsletterAttempt } from "@/lib/analytics";
+import { useFeatureFlag } from "@/hooks/use-feature-flag";
 
 const emailSchema = z.object({
   email: z.string().min(1, "Email is required").email("Invalid email address"),
@@ -17,6 +18,12 @@ const emailSchema = z.object({
 type EmailForm = z.infer<typeof emailSchema>;
 
 export function NewsletterSignup() {
+  const isNewsletterEnabled = useFeatureFlag('newsletterEnabled');
+  
+  // Return null if newsletter is disabled via feature flag
+  if (!isNewsletterEnabled) {
+    return null;
+  }
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<
     "idle" | "success" | "error" | "rate_limited"
