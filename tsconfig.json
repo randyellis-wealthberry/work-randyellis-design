@@ -30,5 +30,5 @@
     "next.config.mjs",
     "types/**/*.ts"
   ],
-  "exclude": ["node_modules", "react-email-starter", "email-list"]
+  "exclude": ["node_modules", "react-email-starter", "email-list", "claude-remotion-demo", "portfolio-feature-flags"]
 }
