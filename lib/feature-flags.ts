@@ -20,23 +20,18 @@ export interface FeatureFlags {
  * Get all feature flags from environment variables
  */
 export function getFlags(): FeatureFlags {
-  const isDevelopment = process.env.NODE_ENV === 'development';
-  
+  const isDevelopment = process.env.NODE_ENV === "development";
+
   return {
-    experimentalAnimations: 
-      process.env.NEXT_PUBLIC_EXPERIMENTAL_ANIMATIONS === 'true',
-    maintenanceMode: 
-      process.env.NEXT_PUBLIC_MAINTENANCE_MODE === 'true',
-    newProjectShowcase: 
-      process.env.NEXT_PUBLIC_NEW_PROJECT_SHOWCASE === 'true',
-    newsletterEnabled: 
-      process.env.NEXT_PUBLIC_NEWSLETTER_ENABLED !== 'false',
-    analyticsEnhanced: 
-      process.env.NEXT_PUBLIC_ANALYTICS_ENHANCED === 'true',
-    betaFeatures: 
-      process.env.NEXT_PUBLIC_BETA_FEATURES === 'true' || isDevelopment,
-    performanceMode: 
-      process.env.NEXT_PUBLIC_PERFORMANCE_MODE !== 'false'
+    experimentalAnimations:
+      process.env.NEXT_PUBLIC_EXPERIMENTAL_ANIMATIONS === "true",
+    maintenanceMode: process.env.NEXT_PUBLIC_MAINTENANCE_MODE === "true",
+    newProjectShowcase: process.env.NEXT_PUBLIC_NEW_PROJECT_SHOWCASE === "true",
+    newsletterEnabled: process.env.NEXT_PUBLIC_NEWSLETTER_ENABLED !== "false",
+    analyticsEnhanced: process.env.NEXT_PUBLIC_ANALYTICS_ENHANCED === "true",
+    betaFeatures:
+      process.env.NEXT_PUBLIC_BETA_FEATURES === "true" || isDevelopment,
+    performanceMode: process.env.NEXT_PUBLIC_PERFORMANCE_MODE !== "false",
   };
 }
 

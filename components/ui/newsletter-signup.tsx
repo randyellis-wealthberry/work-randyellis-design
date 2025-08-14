@@ -18,12 +18,7 @@ const emailSchema = z.object({
 type EmailForm = z.infer<typeof emailSchema>;
 
 export function NewsletterSignup() {
-  const isNewsletterEnabled = useFeatureFlag('newsletterEnabled');
-  
-  // Return null if newsletter is disabled via feature flag
-  if (!isNewsletterEnabled) {
-    return null;
-  }
+  const isNewsletterEnabled = useFeatureFlag("newsletterEnabled");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<
     "idle" | "success" | "error" | "rate_limited"
@@ -38,6 +33,11 @@ export function NewsletterSignup() {
   } = useForm<EmailForm>({
     resolver: zodResolver(emailSchema),
   });
+
+  // Return null if newsletter is disabled via feature flag
+  if (!isNewsletterEnabled) {
+    return null;
+  }
 
   const onSubmit = async (data: EmailForm) => {
     setIsSubmitting(true);
