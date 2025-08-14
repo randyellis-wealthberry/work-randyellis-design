@@ -25,6 +25,7 @@ const TRANSITION_SECTION = {
   duration: 0.3,
 };
 
+
 export default function MetisClient() {
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -160,7 +161,7 @@ export default function MetisClient() {
         <CometCard className="max-w-md mx-auto">
           <div className="relative aspect-[3/4] w-full">
             <Image
-              src="/images/playercard-metis.png"
+              src="/images/projects/metis/playercard-metis.png"
               alt="METIS Player Card"
               fill
               className="object-cover rounded-2xl"
@@ -169,6 +170,7 @@ export default function MetisClient() {
           </div>
         </CometCard>
       </motion.section>
+
     </motion.main>
   );
 }

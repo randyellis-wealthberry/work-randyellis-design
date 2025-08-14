@@ -2,6 +2,19 @@
 @plugin '@tailwindcss/typography';
 @custom-variant dark (&:is(.dark *));
 
+/* Motion and interaction utilities */
+@utility motion-safe {
+  @media (prefers-reduced-motion: no-preference) {
+    @slot;
+  }
+}
+
+@utility motion-reduce {
+  @media (prefers-reduced-motion: reduce) {
+    @slot;
+  }
+}
+
 /*
   The default border color has changed to `currentColor` in Tailwind CSS v4,
   so we've added these compatibility styles to make sure everything still
