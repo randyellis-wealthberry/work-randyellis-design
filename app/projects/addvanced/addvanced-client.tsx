@@ -87,146 +87,144 @@ export default function AddvancedClient() {
   }
 
   const {
-    name,
-    subtitle,
+    // name,
+    // subtitle,
     description,
     metrics,
     challenges,
     images,
     video,
-    timeline,
-    role,
-    overview,
+    // timeline,
+    // role,
+    // overview,
     processStory,
   } = addvancedProject;
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-background via-background to-muted/30">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden px-6 pt-24 pb-12 lg:px-8">
-        <div className="mx-auto max-w-6xl">
-          <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
-            {/* Hero Content */}
-            <div className="flex flex-col justify-center space-y-8">
-              {/* Context Badge */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                <Badge variant="outline" className="w-fit text-sm">
-                  <Award className="mr-2 h-4 w-4" />
-                  Innovation Lab Case Study
-                </Badge>
-              </motion.div>
+      {/* Hero Section - Professional Redesign */}
+      <section className="relative overflow-hidden px-6 pt-20 pb-16 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          {/* Title Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-8"
+          >
+            <Badge variant="outline" className="mb-4 text-xs">
+              <Award className="mr-1.5 h-3 w-3" />
+              Innovation Lab Case Study
+            </Badge>
+            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl mb-3">
+              AI-Enhanced Career Intelligence Platform
+            </h1>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+              Transforming job search from reactive to strategic through
+              AI-powered insights
+            </p>
+          </motion.div>
 
-              {/* Title & Subtitle */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-                className="space-y-4"
-              >
-                <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-                  {`${name}: Career Intelligence Platform`}
-                </h1>
-                <p className="text-xl text-muted-foreground lg:text-2xl">
-                  {subtitle && `${subtitle} - `}Transforming job search from
-                  reactive to strategic through AI-powered insights
-                </p>
-              </motion.div>
-
-              {/* Key Details */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="grid grid-cols-2 gap-4 text-sm"
-              >
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2">
-                    <Users className="h-4 w-4 text-muted-foreground" />
-                    <span className="font-medium">{role}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Clock className="h-4 w-4 text-muted-foreground" />
-                    <span>{timeline}</span>
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2">
-                    <Target className="h-4 w-4 text-muted-foreground" />
-                    <span>Alight Solutions Innovation Lab</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Zap className="h-4 w-4 text-muted-foreground" />
-                    <span>{overview?.timelineDuration}</span>
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* Hero Metrics */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                className="grid grid-cols-2 gap-4"
-              >
-                <AnimatedMetricCard
-                  label="Job Placement Success Improvement"
-                  value="35%"
-                  animationDelay={500}
-                />
-                <AnimatedMetricCard
-                  label="Usability Testing Participants"
-                  value="14"
-                  animationDelay={700}
-                />
-              </motion.div>
+          {/* Professional Metadata Bar */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="mb-10"
+          >
+            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 py-4 px-6 bg-muted/30 rounded-lg border text-sm">
+              <div className="flex items-center gap-2">
+                <Users className="h-3.5 w-3.5 text-muted-foreground" />
+                <span className="font-medium">
+                  Product Design Director & Strategic UX Lead
+                </span>
+              </div>
+              <div className="hidden sm:block w-px h-4 bg-border" />
+              <div className="flex items-center gap-2">
+                <Target className="h-3.5 w-3.5 text-muted-foreground" />
+                <span>Alight Solutions Innovation Lab</span>
+              </div>
+              <div className="hidden sm:block w-px h-4 bg-border" />
+              <div className="flex items-center gap-2">
+                <Clock className="h-3.5 w-3.5 text-muted-foreground" />
+                <span>2 weeks (Sprint)</span>
+              </div>
+              <div className="hidden sm:block w-px h-4 bg-border" />
+              <div className="flex items-center gap-2">
+                <Brain className="h-3.5 w-3.5 text-muted-foreground" />
+                <span>1871, Chicago, IL</span>
+              </div>
             </div>
+          </motion.div>
 
-            {/* Hero Media */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="relative"
-            >
-              <div className="aspect-video overflow-hidden rounded-2xl border bg-card shadow-2xl">
-                {video && (
-                  <HoverVideo
-                    src={video}
-                    className="h-full w-full object-cover"
-                    poster={images?.[1]}
-                  />
-                )}
+          {/* Hero Media - Full Width */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mb-10"
+          >
+            <div className="aspect-[16/9] overflow-hidden rounded-xl border bg-card shadow-xl">
+              {video && (
+                <HoverVideo
+                  src={video}
+                  className="h-full w-full object-cover"
+                  poster={images?.[1]}
+                />
+              )}
+            </div>
+          </motion.div>
+
+          {/* Professional Metrics Strip */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {/* Success Metric */}
+              <div className="flex items-center justify-between p-4 bg-card rounded-lg border">
+                <div>
+                  <div className="text-2xl font-bold text-primary">35%</div>
+                  <div className="text-xs text-muted-foreground mt-1">
+                    Job Placement Success
+                  </div>
+                  <div className="text-xs text-green-600 dark:text-green-400 mt-0.5">
+                    ↑ Improvement
+                  </div>
+                </div>
+                <TrendingUp className="h-8 w-8 text-muted-foreground/20" />
               </div>
 
-              {/* Floating Context Card */}
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: 0.6 }}
-                className="absolute -bottom-6 -right-6 hidden lg:block"
-              >
-                <Card className="border-2 bg-background/80 backdrop-blur-md">
-                  <CardContent className="p-4">
-                    <div className="flex items-center gap-3">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
-                        <Brain className="h-5 w-5 text-primary" />
-                      </div>
-                      <div>
-                        <p className="text-sm font-semibold">Innovation Lab</p>
-                        <p className="text-xs text-muted-foreground">
-                          1871, Chicago, IL
-                        </p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            </motion.div>
-          </div>
+              {/* Testing Metric */}
+              <div className="flex items-center justify-between p-4 bg-card rounded-lg border">
+                <div>
+                  <div className="text-2xl font-bold text-primary">14</div>
+                  <div className="text-xs text-muted-foreground mt-1">
+                    Usability Testing
+                  </div>
+                  <div className="text-xs text-muted-foreground mt-0.5">
+                    Participants
+                  </div>
+                </div>
+                <Users className="h-8 w-8 text-muted-foreground/20" />
+              </div>
+
+              {/* Sprint Metric */}
+              <div className="flex items-center justify-between p-4 bg-card rounded-lg border">
+                <div>
+                  <div className="text-2xl font-bold text-primary">2</div>
+                  <div className="text-xs text-muted-foreground mt-1">
+                    Week Sprint
+                  </div>
+                  <div className="text-xs text-muted-foreground mt-0.5">
+                    Rapid Delivery
+                  </div>
+                </div>
+                <Zap className="h-8 w-8 text-muted-foreground/20" />
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 

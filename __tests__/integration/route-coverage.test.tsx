@@ -15,7 +15,7 @@ const EXPECTED_ROUTES = [
   { path: "/archive", name: "Archive" },
   { path: "/metis", name: "METIS" },
   { path: "/ledgeriq", name: "LedgerIQ" },
-  { path: "/addvanced", name: "Addvanced" },
+  { path: "/projects/addvanced", name: "Addvanced" },
   { path: "/privacy-policy", name: "Privacy Policy" },
   { path: "/terms-of-service", name: "Terms of Service" },
 
@@ -130,7 +130,7 @@ describe("TDD PHASE 1: Route Coverage Analysis", () => {
         "/archive/page",
         "/metis/page",
         "/ledgeriq/page",
-        "/addvanced/page",
+        "/projects/addvanced/page",
         "/privacy-policy/page",
         "/terms-of-service/page",
       ];

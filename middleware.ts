@@ -89,6 +89,14 @@ function checkRateLimit(key: string): {
 }
 
 export function middleware(request: NextRequest) {
+  // Handle route redirects for backward compatibility
+  if (request.nextUrl.pathname === "/addvanced") {
+    return NextResponse.redirect(
+      new URL("/projects/addvanced", request.url),
+      301
+    );
+  }
+
   // Only apply rate limiting to newsletter subscription endpoint
   if (
     request.nextUrl.pathname === "/api/newsletter/subscribe" &&
@@ -142,5 +150,7 @@ export const config = {
   matcher: [
     // Apply to API routes
     "/api/:path*",
+    // Apply to routes that need redirects
+    "/addvanced",
   ],
 };

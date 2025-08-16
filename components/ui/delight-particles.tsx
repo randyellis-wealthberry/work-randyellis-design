@@ -39,10 +39,10 @@ interface DelightParticlesProps {
 
 /**
  * Delightful Particle System
- * 
+ *
  * Creates a burst of colorful particles for celebration moments.
  * Perfect for achievements, button clicks, and other joyful interactions.
- * 
+ *
  * Features:
  * - Configurable particle count, colors, and sizes
  * - Physics-based movement with gravity
@@ -84,7 +84,7 @@ export const DelightParticles: React.FC<DelightParticlesProps> = ({
     const angle = Math.random() * Math.PI * 2;
     const velocity = 100 + Math.random() * 100;
     const size = sizeRange[0] + Math.random() * (sizeRange[1] - sizeRange[0]);
-    
+
     return {
       id: Math.random().toString(36).substr(2, 9),
       x: 0,
@@ -121,34 +121,42 @@ export const DelightParticles: React.FC<DelightParticlesProps> = ({
         return;
       }
 
-      setParticles(prevParticles =>
-        prevParticles.map(particle => ({
+      setParticles((prevParticles) =>
+        prevParticles.map((particle) => ({
           ...particle,
           x: particle.x + particle.velocity.x * 0.016, // ~60fps
-          y: particle.y + particle.velocity.y * 0.016 + (elapsed * 0.0001), // gravity
+          y: particle.y + particle.velocity.y * 0.016 + elapsed * 0.0001, // gravity
           velocity: {
             ...particle.velocity,
             y: particle.velocity.y + 300 * 0.016, // gravity acceleration
           },
           life: Math.max(0, 1 - elapsed / duration),
-        }))
+        })),
       );
 
       requestAnimationFrame(animate);
     };
 
     requestAnimationFrame(animate);
-  }, [trigger, prefersReducedMotion, isAnimating, particleCount, createParticle, duration, onComplete]);
+  }, [
+    trigger,
+    prefersReducedMotion,
+    isAnimating,
+    particleCount,
+    createParticle,
+    duration,
+    onComplete,
+  ]);
 
   if (prefersReducedMotion || !trigger) {
     return null;
   }
 
   return (
-    <div 
+    <div
       className={cn(
         "absolute inset-0 pointer-events-none overflow-hidden z-50",
-        className
+        className,
       )}
       role="presentation"
       aria-hidden="true"
@@ -165,7 +173,7 @@ export const DelightParticles: React.FC<DelightParticlesProps> = ({
               left: `calc(50% + ${particle.x}px)`,
               top: `calc(50% + ${particle.y}px)`,
             }}
-            initial={{ 
+            initial={{
               scale: 0,
               opacity: 0,
             }}
@@ -190,7 +198,7 @@ export const DelightParticles: React.FC<DelightParticlesProps> = ({
 
 /**
  * Confetti Burst Hook
- * 
+ *
  * Provides a simple trigger function for particle effects
  */
 export const useConfetti = () => {
@@ -214,7 +222,7 @@ export const useConfetti = () => {
 
 /**
  * Achievement Toast Component
- * 
+ *
  * Shows a delightful achievement notification with particles
  */
 interface AchievementToastProps {
@@ -265,7 +273,7 @@ export const AchievementToast: React.FC<AchievementToastProps> = ({
                 {message}
               </span>
             </div>
-            
+
             <DelightParticles
               trigger={trigger}
               particleCount={15}

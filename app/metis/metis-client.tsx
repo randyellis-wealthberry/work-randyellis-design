@@ -25,7 +25,6 @@ const TRANSITION_SECTION = {
   duration: 0.3,
 };
 
-
 export default function MetisClient() {
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -170,7 +169,6 @@ export default function MetisClient() {
           </div>
         </CometCard>
       </motion.section>
-
     </motion.main>
   );
 }

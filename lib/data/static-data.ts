@@ -45,6 +45,13 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    title: "Claude + Obsidian: The Ultimate Knowledge Management System",
+    description:
+      "Transform two tools into a knowledge management system that revolutionizes how you capture, connect, and leverage information.",
+    link: "/blog/claude-obsidian-workflows",
+    uid: "blog-9",
+  },
+  {
     title:
       "How to Create Professional Videos with Claude Code: A Complete Guide to AI-Powered Video Generation Using Remotion and Manim",
     description:
@@ -54,27 +61,11 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     title:
-      "When AI Finally Gets It Right: Phion Just Made Me Forget Why I Hate Setup",
-    description:
-      "How Phion revolutionized development by eliminating setup friction.",
-    link: "/blog/when-ai-gets-it-right-phion",
-    uid: "blog-7",
-  },
-  {
-    title:
       "PROFITS, NOT PIXELS: The story of world's most expensive (yet, valuable?) cup of coffee",
     description:
       "How the design job market shifted from aesthetics to business impact and ROI.",
     link: "/blog/profits-not-pixels",
     uid: "blog-6",
-  },
-  {
-    title:
-      "The Product Manager's Guide to AI Evaluations: Building Better AI Products",
-    description:
-      "A practical framework for evaluating and improving generative AI systems.",
-    link: "/blog/product-manager-guide-ai-evaluations",
-    uid: "blog-5",
   },
 ];
 

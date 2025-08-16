@@ -1,0 +1,24 @@
+{
+  "timestamp": "2025-08-14T03:16:43.322Z",
+  "summary": {
+    "overallScore": 0,
+    "overallGrade": "F",
+    "passedDevices": 0,
+    "totalDevices": 0,
+    "critical": [],
+    "warnings": [],
+    "recommendations": []
+  },
+  "devices": {
+    "desktop": {
+      "error": "page.waitForTimeout is not a function"
+    },
+    "tablet": {
+      "error": "page.waitForTimeout is not a function"
+    },
+    "mobile": {
+      "error": "Protocol error (Network.emulateNetworkConditions): Invalid parameters Failed to deserialize params.downloadThroughput - BINDINGS: mandatory field missing at position 27"
+    }
+  },
+  "recommendations": []
+}

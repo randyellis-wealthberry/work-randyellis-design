@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     title: "Addvanced Career Tracker Case Study - Randy Ellis",
     description:
       "Innovation lab leadership delivering 35% improvement in customer job placement success through strategic UX design and rapid prototyping methodology.",
-    url: "https://work.randyellis.design/addvanced",
+    url: "https://work.randyellis.design/projects/addvanced",
     images: [
       {
         url: "https://work.randyellis.design/projects/addvanced/A1-Home.png",
@@ -51,9 +51,10 @@ export const metadata: Metadata = {
 export default function AddvancedPage() {
   const breadcrumbItems = [
     { name: "Home", url: "https://work.randyellis.design" },
+    { name: "Projects", url: "https://work.randyellis.design/projects" },
     {
       name: "Addvanced Career Tracker",
-      url: "https://work.randyellis.design/addvanced",
+      url: "https://work.randyellis.design/projects/addvanced",
     },
   ];
 
