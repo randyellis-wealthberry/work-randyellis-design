@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  serena-mcp:
+    build:
+      context: .
+      dockerfile: Dockerfile.serena
+    volumes:
+      - .:/workspace
+    ports:
+      - "8000:8000"
+      - "24282:24282"  # Web dashboard port
+    environment:
+      - SERENA_LOG_LEVEL=INFO
+    command: serena-mcp-server --context ide-assistant --project /workspace
+    restart: unless-stopped
+    stdin_open: true
+    tty: true

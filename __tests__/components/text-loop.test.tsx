@@ -2,9 +2,18 @@ import React from "react";
 import { render, waitFor, act } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
-// Polyfill clearInterval for jsdom environment if needed
+// Enhanced timer polyfills for jsdom environment
+if (typeof global.setInterval === "undefined") {
+  global.setInterval = jest.fn();
+}
 if (typeof global.clearInterval === "undefined") {
   global.clearInterval = jest.fn();
+}
+if (typeof global.setTimeout === "undefined") {
+  global.setTimeout = jest.fn();
+}
+if (typeof global.clearTimeout === "undefined") {
+  global.clearTimeout = jest.fn();
 }
 
 import { TextLoop } from "@/components/ui/text-loop";
@@ -122,8 +131,8 @@ describe("TextLoop", () => {
     expect(clearIntervalSpy).toHaveBeenCalled();
   });
 
-  it.skip("should handle children changes without resetting timer unnecessarily (jsdom clearInterval issue)", () => {
-    // TODO: Fix jsdom clearInterval environment issue
+  it.skip("should handle children changes without resetting timer unnecessarily", () => {
+    // Skipped: clearInterval issue in component needs investigation
     const onIndexChange = jest.fn();
 
     const { rerender } = render(
@@ -188,8 +197,8 @@ describe("TextLoop", () => {
     expect(onIndexChange).toHaveBeenCalledTimes(1);
   });
 
-  it.skip("should handle interval prop changes correctly (jsdom clearInterval issue)", () => {
-    // TODO: Fix jsdom clearInterval environment issue
+  it.skip("should handle interval prop changes correctly", () => {
+    // Skipped: clearInterval issue in component needs investigation
     const onIndexChange = jest.fn();
 
     const { rerender } = render(

@@ -1,0 +1,16 @@
+FROM python:3.11-slim
+
+# Install git for cloning the repository
+RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
+
+# Install Serena from GitHub
+RUN pip install git+https://github.com/oraios/serena
+
+# Set working directory
+WORKDIR /workspace
+
+# Expose port for MCP server
+EXPOSE 8000
+
+# Default command to run Serena MCP server
+CMD ["serena-mcp-server", "--context", "ide-assistant", "--project", "/workspace"]

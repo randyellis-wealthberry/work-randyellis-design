@@ -62,8 +62,7 @@ export const AnimatedAsset = ({
             </div>
           </MorphingDialogContent>
           {showCloseButton && (
-            <MorphingDialogClose
-              className="fixed top-6 right-6 h-fit w-fit rounded-full bg-white p-1 dark:bg-zinc-900"
+            <motion.div
               variants={{
                 initial: { opacity: 0 },
                 animate: {
@@ -73,8 +72,10 @@ export const AnimatedAsset = ({
                 exit: { opacity: 0, transition: { duration: 0 } },
               }}
             >
-              <XIcon className="h-5 w-5 text-zinc-500" />
-            </MorphingDialogClose>
+              <MorphingDialogClose className="fixed top-6 right-6 h-fit w-fit rounded-full bg-white p-1 dark:bg-zinc-900">
+                <XIcon className="h-5 w-5 text-zinc-500" />
+              </MorphingDialogClose>
+            </motion.div>
           )}
         </MorphingDialogContainer>
       </MorphingDialog>

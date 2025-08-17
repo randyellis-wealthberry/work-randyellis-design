@@ -352,11 +352,18 @@ export default function ProjectsClient() {
                             View Details
                           </Link>
                         </Button>
-                        <Button asChild variant="outline" size="sm">
-                          <Link href={`/projects/${project.slug}`}>
-                            <ExternalLink className="h-4 w-4" />
-                          </Link>
-                        </Button>
+                        {project.link && (
+                          <Button asChild variant="outline" size="sm">
+                            <a
+                              href={project.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              aria-label={`View ${project.name} live project`}
+                            >
+                              <ExternalLink className="h-4 w-4" />
+                            </a>
+                          </Button>
+                        )}
                         {project.githubLink && (
                           <Button asChild variant="outline" size="sm">
                             <a
