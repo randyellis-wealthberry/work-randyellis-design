@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 interface PWAContextType {
   isInstalled: boolean;
@@ -19,13 +19,16 @@ export default function PWAProvider({ children }: PWAProviderProps) {
   const [isInstalled, setIsInstalled] = useState(false);
   const [canInstall, setCanInstall] = useState(false);
   const [isOnline, setIsOnline] = useState(true);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
 
   useEffect(() => {
     // Check if app is installed
     const checkInstallStatus = () => {
-      const standalone = window.matchMedia('(display-mode: standalone)').matches ||
-        (window.navigator as any).standalone === true;
+      const standalone =
+        window.matchMedia("(display-mode: standalone)").matches ||
+        (window.navigator as unknown as { standalone?: boolean }).standalone ===
+          true;
       setIsInstalled(standalone);
     };
 
@@ -55,16 +58,19 @@ export default function PWAProvider({ children }: PWAProviderProps) {
     const handleOnline = () => setIsOnline(true);
     const handleOffline = () => setIsOnline(false);
 
-    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-    window.addEventListener('appinstalled', handleAppInstalled);
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
+    window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+    window.addEventListener("appinstalled", handleAppInstalled);
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
 
     return () => {
-      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-      window.removeEventListener('appinstalled', handleAppInstalled);
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
+      window.removeEventListener(
+        "beforeinstallprompt",
+        handleBeforeInstallPrompt,
+      );
+      window.removeEventListener("appinstalled", handleAppInstalled);
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
     };
   }, []);
 
@@ -74,15 +80,15 @@ export default function PWAProvider({ children }: PWAProviderProps) {
     try {
       await deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
-      
-      if (outcome === 'accepted') {
+
+      if (outcome === "accepted") {
         setIsInstalled(true);
       }
-      
+
       setDeferredPrompt(null);
       setCanInstall(false);
     } catch (error) {
-      console.error('Installation failed:', error);
+      console.error("Installation failed:", error);
     }
   };
 
@@ -90,20 +96,18 @@ export default function PWAProvider({ children }: PWAProviderProps) {
     isInstalled,
     canInstall,
     isOnline,
-    installApp
+    installApp,
   };
 
-  return (
-    <PWAContext.Provider value={value}>
-      {children}
-    </PWAContext.Provider>
-  );
+  return <PWAContext.Provider value={value}>{children}</PWAContext.Provider>;
 }
 
 export function usePWA() {
   const context = useContext(PWAContext);
   if (context === undefined) {
-    throw new Error('usePWA must be used within a PWAProvider');
+    throw new Error("usePWA must be used within a PWAProvider");
   }
   return context;
 }
+
+PWAProvider.displayName = "PWAProvider";

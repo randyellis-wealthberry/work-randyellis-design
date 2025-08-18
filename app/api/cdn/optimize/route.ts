@@ -80,7 +80,7 @@ export async function POST(request: NextRequest) {
 
     // Apply cache headers to the response
     Object.entries(cacheHeaders).forEach(([key, value]) => {
-      response.headers.set(key, value);
+      response.headers.set(key, String(value));
     });
 
     return response;

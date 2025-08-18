@@ -65,7 +65,7 @@ export function AnimatedCursorCard({
     <div
       className={cn(
         "group relative overflow-hidden rounded-xl p-8",
-        "min-h-[200px] flex flex-col justify-between",
+        "flex min-h-[200px] flex-col justify-between",
         "transition-all duration-300",
         "hover:scale-105 hover:shadow-2xl",
         "abstract-card cursor-pointer",
@@ -95,11 +95,11 @@ export function AnimatedCursorCard({
           ease: "easeInOut",
           duration: 0.15,
         }}
-        className="left-12 top-4"
+        className="top-4 left-12"
       >
         <div className="flex items-start gap-2">
           <MouseIcon className="h-6 w-6" />
-          <div className="cursor-label ml-2 mt-1 rounded-md bg-green-500 px-3 py-1 text-sm font-medium text-white shadow-lg">
+          <div className="cursor-label mt-1 ml-2 rounded-md bg-green-500 px-3 py-1 text-sm font-medium text-white shadow-lg">
             {label}
           </div>
         </div>
@@ -107,8 +107,8 @@ export function AnimatedCursorCard({
 
       {/* Content */}
       <div className="relative z-10">
-        <div className="text-4xl mb-4">{icon}</div>
-        <h3 className="text-xl font-bold text-white mb-2">{title}</h3>
+        <div className="mb-4 text-4xl">{icon}</div>
+        <h3 className="mb-2 text-xl font-bold text-white">{title}</h3>
       </div>
 
       {/* Hover gradient overlay */}

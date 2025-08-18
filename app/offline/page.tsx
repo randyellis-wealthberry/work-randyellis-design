@@ -1,62 +1,74 @@
-import React from 'react';
-import { Metadata } from 'next';
-import { Wifi, RefreshCw } from 'lucide-react';
+"use client";
 
-export const metadata: Metadata = {
-  title: 'Offline - Randy Ellis',
-  description: 'You are currently offline. Please check your internet connection.',
-  robots: 'noindex'
-};
+import React, { useEffect } from "react";
+import { Wifi, RefreshCw } from "lucide-react";
 
 export default function OfflinePage() {
+  useEffect(() => {
+    document.title = "Offline - Randy Ellis";
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute(
+        "content",
+        "You are currently offline. Please check your internet connection.",
+      );
+    }
+    const metaRobots = document.querySelector('meta[name="robots"]');
+    if (metaRobots) {
+      metaRobots.setAttribute("content", "noindex");
+    }
+  }, []);
   const handleRefresh = () => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       window.location.reload();
     }
   };
 
   const handleGoHome = () => {
-    if (typeof window !== 'undefined') {
-      window.location.href = '/';
+    if (typeof window !== "undefined") {
+      window.location.href = "/";
     }
   };
 
   return (
-    <div className="min-h-screen bg-black text-white flex items-center justify-center px-4">
-      <div className="text-center max-w-md mx-auto">
+    <div className="flex min-h-screen items-center justify-center bg-black px-4 text-white">
+      <div className="mx-auto max-w-md text-center">
         <div className="mb-8">
-          <Wifi 
-            className="w-16 h-16 mx-auto text-gray-400 mb-4" 
+          <Wifi
+            className="mx-auto mb-4 h-16 w-16 text-gray-400"
             strokeDasharray="4 4"
           />
-          <h1 className="text-2xl font-bold mb-2">You're offline</h1>
-          <p className="text-gray-400 mb-6">
-            It looks like you've lost your internet connection. Don't worry, you can still browse previously visited pages.
+          <h1 className="mb-2 text-2xl font-bold">You&apos;re offline</h1>
+          <p className="mb-6 text-gray-400">
+            It looks like you&apos;ve lost your internet connection. Don&apos;t
+            worry, you can still browse previously visited pages.
           </p>
         </div>
 
         <div className="space-y-4">
           <button
             onClick={handleRefresh}
-            className="w-full bg-white text-black py-3 px-6 rounded-lg font-medium hover:bg-gray-100 transition-colors flex items-center justify-center gap-2"
+            className="flex w-full items-center justify-center gap-2 rounded-lg bg-white px-6 py-3 font-medium text-black transition-colors hover:bg-gray-100"
             aria-label="Try again"
           >
-            <RefreshCw className="w-4 h-4" />
+            <RefreshCw className="h-4 w-4" />
             Try again
           </button>
-          
+
           <button
             onClick={handleGoHome}
-            className="w-full border border-gray-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-gray-900 transition-colors"
+            className="w-full rounded-lg border border-gray-600 px-6 py-3 font-medium text-white transition-colors hover:bg-gray-900"
             aria-label="Go to homepage"
           >
             Go to homepage
           </button>
         </div>
 
-        <div className="mt-8 p-4 bg-gray-900 rounded-lg">
-          <h2 className="text-sm font-medium mb-2 text-gray-300">Offline features</h2>
-          <ul className="text-sm text-gray-400 space-y-1">
+        <div className="mt-8 rounded-lg bg-gray-900 p-4">
+          <h2 className="mb-2 text-sm font-medium text-gray-300">
+            Offline features
+          </h2>
+          <ul className="space-y-1 text-sm text-gray-400">
             <li>• Browse previously visited pages</li>
             <li>• View cached project details</li>
             <li>• Access offline-ready content</li>

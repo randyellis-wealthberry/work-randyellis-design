@@ -208,13 +208,13 @@ export function VideoPlayer({
       <DialogTrigger asChild>
         <div
           className={cn(
-            "relative cursor-pointer group overflow-hidden rounded-lg",
+            "group relative cursor-pointer overflow-hidden rounded-lg",
             thumbnailClassName,
           )}
         >
           <AspectRatio ratio={16 / 9}>
             <video
-              className="w-full h-full object-cover"
+              className="h-full w-full object-cover"
               poster={poster}
               muted
               loop
@@ -233,12 +233,12 @@ export function VideoPlayer({
         </div>
       </DialogTrigger>
       <DialogContent
-        className="max-w-7xl w-[95vw] h-[90vh] p-0 bg-black border-zinc-800"
+        className="h-[90vh] w-[95vw] max-w-7xl border-zinc-800 bg-black p-0"
         showCloseButton={false}
       >
         <motion.div
           className={cn(
-            "relative bg-black rounded-lg overflow-hidden h-full flex flex-col",
+            "relative flex h-full flex-col overflow-hidden rounded-lg bg-black",
             className,
           )}
           onMouseMove={showControlsTemporarily}
@@ -249,7 +249,7 @@ export function VideoPlayer({
         >
           <video
             ref={videoRef}
-            className="w-full h-full object-contain"
+            className="h-full w-full object-contain"
             poster={poster}
             autoPlay={autoPlay}
             loop={loop}
@@ -271,7 +271,7 @@ export function VideoPlayer({
           <AnimatePresence>
             {showControls && (
               <motion.div
-                className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-6"
+                className="absolute right-0 bottom-0 left-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-6"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 20 }}
@@ -295,21 +295,21 @@ export function VideoPlayer({
                       variant="ghost"
                       size="sm"
                       onClick={() => skipTime(-10)}
-                      className="text-white hover:text-white hover:bg-white/20 transition-all duration-200"
+                      className="text-white transition-all duration-200 hover:bg-white/20 hover:text-white"
                     >
-                      <SkipBack className="w-5 h-5" />
+                      <SkipBack className="h-5 w-5" />
                     </Button>
 
                     <Button
                       variant="ghost"
                       size="lg"
                       onClick={togglePlay}
-                      className="text-white hover:text-white hover:bg-white/20 hover:scale-110 transition-all duration-200"
+                      className="text-white transition-all duration-200 hover:scale-110 hover:bg-white/20 hover:text-white"
                     >
                       {isPlaying ? (
-                        <Pause className="w-6 h-6" />
+                        <Pause className="h-6 w-6" />
                       ) : (
-                        <Play className="w-6 h-6" />
+                        <Play className="h-6 w-6" />
                       )}
                     </Button>
 
@@ -317,9 +317,9 @@ export function VideoPlayer({
                       variant="ghost"
                       size="sm"
                       onClick={() => skipTime(10)}
-                      className="text-white hover:text-white hover:bg-white/20 transition-all duration-200"
+                      className="text-white transition-all duration-200 hover:bg-white/20 hover:text-white"
                     >
-                      <SkipForward className="w-5 h-5" />
+                      <SkipForward className="h-5 w-5" />
                     </Button>
 
                     <div className="flex items-center space-x-2">
@@ -327,12 +327,12 @@ export function VideoPlayer({
                         variant="ghost"
                         size="sm"
                         onClick={toggleMute}
-                        className="text-white hover:text-white hover:bg-white/20 transition-all duration-200"
+                        className="text-white transition-all duration-200 hover:bg-white/20 hover:text-white"
                       >
                         {isMuted ? (
-                          <VolumeX className="w-5 h-5" />
+                          <VolumeX className="h-5 w-5" />
                         ) : (
-                          <Volume2 className="w-5 h-5" />
+                          <Volume2 className="h-5 w-5" />
                         )}
                       </Button>
                       <div className="w-20">
@@ -346,7 +346,7 @@ export function VideoPlayer({
                       </div>
                     </div>
 
-                    <span className="text-white text-sm font-mono">
+                    <span className="font-mono text-sm text-white">
                       {formatTime(currentTime)} / {formatTime(duration)}
                     </span>
                   </div>
@@ -357,21 +357,21 @@ export function VideoPlayer({
                         <Button
                           variant="ghost"
                           size="sm"
-                          className="text-white hover:text-white hover:bg-white/20 transition-all duration-200"
+                          className="text-white transition-all duration-200 hover:bg-white/20 hover:text-white"
                         >
-                          <Settings className="w-5 h-5" />
+                          <Settings className="h-5 w-5" />
                           <span className="ml-1 text-xs">{playbackRate}x</span>
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent
                         align="end"
-                        className="bg-black/90 border-zinc-700"
+                        className="border-zinc-700 bg-black/90"
                       >
                         {[0.5, 0.75, 1, 1.25, 1.5, 2].map((rate) => (
                           <DropdownMenuItem
                             key={rate}
                             onClick={() => changePlaybackRate(rate)}
-                            className="text-white hover:bg-white/20 cursor-pointer"
+                            className="cursor-pointer text-white hover:bg-white/20"
                           >
                             {rate}x Speed
                           </DropdownMenuItem>
@@ -383,9 +383,9 @@ export function VideoPlayer({
                       variant="ghost"
                       size="sm"
                       onClick={toggleFullscreen}
-                      className="text-white hover:text-white hover:bg-white/20 transition-all duration-200"
+                      className="text-white transition-all duration-200 hover:bg-white/20 hover:text-white"
                     >
-                      <Maximize className="w-5 h-5" />
+                      <Maximize className="h-5 w-5" />
                     </Button>
                   </div>
                 </div>
@@ -407,9 +407,9 @@ export function VideoPlayer({
                   variant="ghost"
                   size="sm"
                   onClick={() => setIsOpen(false)}
-                  className="text-white hover:text-white hover:bg-white/20 hover:scale-110 transition-all duration-200 backdrop-blur-sm bg-black/30"
+                  className="bg-black/30 text-white backdrop-blur-sm transition-all duration-200 hover:scale-110 hover:bg-white/20 hover:text-white"
                 >
-                  <X className="w-5 h-5" />
+                  <X className="h-5 w-5" />
                 </Button>
               </motion.div>
             )}

@@ -127,8 +127,8 @@ export function PerformanceBudget() {
   };
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-lg p-3 shadow-lg text-xs font-mono">
-      <div className="font-semibold mb-2 text-zinc-900 dark:text-zinc-100">
+    <div className="fixed right-4 bottom-4 z-50 rounded-lg border border-zinc-200 bg-white p-3 font-mono text-xs shadow-lg dark:border-zinc-700 dark:bg-zinc-900">
+      <div className="mb-2 font-semibold text-zinc-900 dark:text-zinc-100">
         Performance Budget
       </div>
       {Object.entries(budgets).map(([key, { budget, label }]) => {
@@ -138,9 +138,9 @@ export function PerformanceBudget() {
           value !== undefined ? Math.min((value / budget) * 100, 100) : 0;
 
         return (
-          <div key={key} className="flex items-center gap-2 mb-1">
+          <div key={key} className="mb-1 flex items-center gap-2">
             <div className="w-8 text-zinc-600 dark:text-zinc-400">{label}</div>
-            <div className="flex-1 bg-zinc-200 dark:bg-zinc-700 rounded-full h-2 relative overflow-hidden">
+            <div className="relative h-2 flex-1 overflow-hidden rounded-full bg-zinc-200 dark:bg-zinc-700">
               <div
                 className={`h-full transition-all duration-300 ${
                   isOverBudget

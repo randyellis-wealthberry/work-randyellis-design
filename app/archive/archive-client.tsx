@@ -85,10 +85,10 @@ export default function ArchiveClient() {
           <TabsContent value={activeCategory} className="mt-8">
             {/* BorderTrail Cards Grid */}
             <motion.div className="mb-12" variants={VARIANTS_ITEM}>
-              <h2 className="text-xl font-semibold mb-6 text-zinc-900 dark:text-zinc-100">
+              <h2 className="mb-6 text-xl font-semibold text-zinc-900 dark:text-zinc-100">
                 Featured Components
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 place-items-center">
+              <div className="grid grid-cols-1 place-items-center gap-6 md:grid-cols-2">
                 <BorderTrailCard />
                 <BorderTrailCard />
                 <BorderTrailCard />
@@ -98,7 +98,7 @@ export default function ArchiveClient() {
 
             {/* Archive Items Grid */}
             <motion.div
-              className="grid gap-6 grid-cols-1 md:grid-cols-2"
+              className="grid grid-cols-1 gap-6 md:grid-cols-2"
               variants={VARIANTS_CONTAINER}
               initial="hidden"
               animate="visible"
@@ -109,7 +109,7 @@ export default function ArchiveClient() {
                   variants={VARIANTS_ITEM}
                   className="h-full"
                 >
-                  <Card className="group relative overflow-hidden h-full flex flex-col">
+                  <Card className="group relative flex h-full flex-col overflow-hidden">
                     <a
                       href={item.link}
                       target="_blank"
@@ -121,7 +121,7 @@ export default function ArchiveClient() {
                     <CardHeader>
                       <div className="flex items-start justify-between">
                         <div className="space-y-1">
-                          <CardTitle className="group-hover:text-blue-600 transition-colors">
+                          <CardTitle className="transition-colors group-hover:text-blue-600">
                             {item.title}
                           </CardTitle>
                           <CardDescription className="text-base font-medium">
@@ -134,8 +134,8 @@ export default function ArchiveClient() {
                         <Badge variant="outline">{item.category}</Badge>
                       </div>
                     </CardHeader>
-                    <CardContent className="flex-1 flex flex-col">
-                      <div className="space-y-4 flex-1">
+                    <CardContent className="flex flex-1 flex-col">
+                      <div className="flex-1 space-y-4">
                         {/* Item Details */}
                         <div className="flex items-center gap-4 text-sm">
                           <div className="flex items-center gap-2">
@@ -183,7 +183,7 @@ export default function ArchiveClient() {
                             target="_blank"
                             rel="noopener noreferrer"
                           >
-                            <ExternalLink className="h-4 w-4 mr-2" />
+                            <ExternalLink className="mr-2 h-4 w-4" />
                             {item.type === "video"
                               ? "Watch Video"
                               : "Read Article"}

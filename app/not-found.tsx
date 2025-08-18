@@ -53,14 +53,14 @@ export default function NotFound() {
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center bg-gradient-to-br from-zinc-50 to-zinc-100 dark:from-zinc-950 dark:to-zinc-900 relative overflow-hidden"
+      className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-zinc-50 to-zinc-100 dark:from-zinc-950 dark:to-zinc-900"
       onMouseMove={handleMouseMove}
     >
       {/* Floating particles */}
       {particlePositions.map((pos, i) => (
         <motion.div
           key={i}
-          className="absolute w-2 h-2 bg-blue-400/30 rounded-full"
+          className="absolute h-2 w-2 rounded-full bg-blue-400/30"
           initial={{
             x: pos.x,
             y: pos.y,
@@ -77,7 +77,7 @@ export default function NotFound() {
         />
       ))}
 
-      <div className="text-center space-y-8 px-4 max-w-2xl relative z-10">
+      <div className="relative z-10 max-w-2xl space-y-8 px-4 text-center">
         {/* 404 Animation */}
         <motion.div
           initial={{ scale: 0 }}
@@ -90,7 +90,7 @@ export default function NotFound() {
           }}
         >
           <motion.h1
-            className="text-8xl md:text-9xl font-bold text-zinc-800 dark:text-zinc-200 select-none"
+            className="text-8xl font-bold text-zinc-800 select-none md:text-9xl dark:text-zinc-200"
             whileHover={{
               scale: 1.1,
               rotate: [0, -5, 5, 0],
@@ -121,14 +121,14 @@ export default function NotFound() {
 
         {/* Dynamic Message */}
         <motion.div
-          className="h-16 flex items-center justify-center"
+          className="flex h-16 items-center justify-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
         >
           <motion.p
             key={currentMessage}
-            className="text-xl md:text-2xl text-zinc-600 dark:text-zinc-400 font-medium"
+            className="text-xl font-medium text-zinc-600 md:text-2xl dark:text-zinc-400"
             initial={{ opacity: 0, y: 20, rotateX: -90 }}
             animate={{
               opacity: isAnimating ? 0 : 1,
@@ -152,7 +152,7 @@ export default function NotFound() {
             While you&apos;re here, why not:
           </h3>
 
-          <div className="flex flex-wrap gap-3 justify-center">
+          <div className="flex flex-wrap justify-center gap-3">
             {[
               { text: "Go Home", href: "/", primary: true },
               { text: "View Projects", href: "/projects" },
@@ -186,7 +186,7 @@ export default function NotFound() {
           transition={{ delay: 1.5 }}
         >
           <motion.p
-            className="text-sm text-zinc-500 dark:text-zinc-400 cursor-pointer select-none"
+            className="cursor-pointer text-sm text-zinc-500 select-none dark:text-zinc-400"
             whileHover={{
               scale: 1.05,
               color: "rgb(59, 130, 246)",

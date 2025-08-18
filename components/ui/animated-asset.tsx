@@ -41,7 +41,7 @@ export const AnimatedAsset = ({
         <MorphingDialogTrigger>
           <motion.div
             className={cn(
-              "aspect-video w-full cursor-zoom-in rounded-xl overflow-hidden",
+              "aspect-video w-full cursor-zoom-in overflow-hidden rounded-xl",
               className,
             )}
             whileHover={{ scale: hoverScale }}
@@ -57,7 +57,7 @@ export const AnimatedAsset = ({
               expandedClassName,
             )}
           >
-            <div className="aspect-video h-[50vh] w-full rounded-xl md:h-[70vh] overflow-hidden">
+            <div className="aspect-video h-[50vh] w-full overflow-hidden rounded-xl md:h-[70vh]">
               {expandedChildren || children}
             </div>
           </MorphingDialogContent>
@@ -109,7 +109,7 @@ export const AnimatedVideo = ({
       loop={loop}
       muted={muted}
       poster={poster}
-      className={cn("aspect-video w-full h-full object-cover", className)}
+      className={cn("aspect-video h-full w-full object-cover", className)}
     />
   );
 
@@ -140,7 +140,7 @@ export const AnimatedImage = ({
       alt={alt}
       layout="fill"
       objectFit={objectFit}
-      className={cn("aspect-video w-full h-full", className)}
+      className={cn("aspect-video h-full w-full", className)}
     />
   );
 
@@ -164,7 +164,7 @@ export const AnimatedIframe = ({
       src={src}
       title={title}
       className={cn(
-        "aspect-video w-full h-full border-0 rounded-xl",
+        "aspect-video h-full w-full rounded-xl border-0",
         className,
       )}
       allowFullScreen

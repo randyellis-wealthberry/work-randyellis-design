@@ -161,10 +161,10 @@ export const UserTestingSection: React.FC<UserTestingSectionProps> = ({
               <Card>
                 <CardContent className="pt-6">
                   <div className="space-y-2">
-                    <div className="text-2xl font-bold text-primary">
+                    <div className="text-primary text-2xl font-bold">
                       {result.value}
                     </div>
-                    <div className="text-sm text-muted-foreground">
+                    <div className="text-muted-foreground text-sm">
                       {result.label}
                     </div>
                   </div>
@@ -187,7 +187,7 @@ export const UserTestingSection: React.FC<UserTestingSectionProps> = ({
               </div>
             </AccordionTrigger>
             <AccordionContent className="space-y-3">
-              <p className="text-sm text-muted-foreground leading-relaxed">
+              <p className="text-muted-foreground text-sm leading-relaxed">
                 Our user testing methodology focused on authentic environments
                 where student athletes naturally use mobile apps. By conducting
                 tests in school libraries and hallways rather than controlled
@@ -212,7 +212,7 @@ export const UserTestingSection: React.FC<UserTestingSectionProps> = ({
               </div>
             </AccordionTrigger>
             <AccordionContent className="space-y-3">
-              <p className="text-sm text-muted-foreground leading-relaxed">
+              <p className="text-muted-foreground text-sm leading-relaxed">
                 Student athletes prioritized speed and simplicity over advanced
                 features. The most successful interactions occurred when users
                 could complete their highlight reel creation in under 3 minutes.
@@ -244,7 +244,7 @@ export const UserTestingSection: React.FC<UserTestingSectionProps> = ({
                 <Card>
                   <CardContent className="pt-6">
                     <blockquote className="space-y-4">
-                      <p className="text-sm italic text-muted-foreground leading-relaxed">
+                      <p className="text-muted-foreground text-sm leading-relaxed italic">
                         &ldquo;{testimonial.quote}&rdquo;
                       </p>
                       <footer className="flex items-center gap-2">

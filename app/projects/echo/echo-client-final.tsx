@@ -219,7 +219,7 @@ const MetricCard = memo(function MetricCard({
   return (
     <motion.div
       ref={ref}
-      className="relative overflow-hidden rounded-2xl bg-zinc-300/30 p-[1px] dark:bg-zinc-600/30 group cursor-pointer"
+      className="group relative cursor-pointer overflow-hidden rounded-2xl bg-zinc-300/30 p-[1px] dark:bg-zinc-600/30"
       role="button"
       tabIndex={0}
       aria-label={`${metric.label} metric: ${metric.value}`}
@@ -238,7 +238,7 @@ const MetricCard = memo(function MetricCard({
             parseInt(metric.value) >= 30 &&
             !reducedAnimations && (
               <motion.div
-                className="absolute -top-2 -right-2 bg-gradient-to-r from-emerald-400 to-blue-500 rounded-full p-1"
+                className="absolute -top-2 -right-2 rounded-full bg-gradient-to-r from-emerald-400 to-blue-500 p-1"
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ delay: 0.5, duration: 0.3, type: "spring" }}
@@ -247,7 +247,7 @@ const MetricCard = memo(function MetricCard({
               </motion.div>
             )}
 
-          <div className="text-3xl font-bold text-zinc-900 dark:text-zinc-100 mb-2 flex items-center justify-center gap-1">
+          <div className="mb-2 flex items-center justify-center gap-1 text-3xl font-bold text-zinc-900 dark:text-zinc-100">
             {parsedMetric.prefix && <span>{parsedMetric.prefix}</span>}
             <AnimatedNumber
               value={isInView ? parsedMetric.number : 0}
@@ -312,7 +312,7 @@ const ProjectCard = memo(function ProjectCard({
 
   return (
     <motion.div
-      className="relative overflow-hidden rounded-2xl bg-zinc-300/30 p-[1px] dark:bg-zinc-600/30 group cursor-pointer"
+      className="group relative cursor-pointer overflow-hidden rounded-2xl bg-zinc-300/30 p-[1px] dark:bg-zinc-600/30"
       onClick={() => setIsExpanded(!isExpanded)}
       {...animationProps}
       viewport={{ once: true, margin: "-5%" }}
@@ -324,7 +324,7 @@ const ProjectCard = memo(function ProjectCard({
 
       <div className="relative h-full w-full rounded-[15px] bg-white p-6 dark:bg-zinc-950">
         <div className="flex items-start gap-4">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-r from-emerald-600 to-blue-600 text-white flex-shrink-0">
+          <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-emerald-600 to-blue-600 text-white">
             <IconComponent className="h-4 w-4" />
           </div>
 
@@ -333,7 +333,7 @@ const ProjectCard = memo(function ProjectCard({
               {title}
             </h4>
 
-            <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+            <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
               {description}
             </p>
 
@@ -344,7 +344,7 @@ const ProjectCard = memo(function ProjectCard({
                   animate={{ opacity: 1, height: "auto" }}
                   exit={{ opacity: 0, height: 0 }}
                   transition={{ duration: 0.2 }}
-                  className="text-xs text-emerald-600 dark:text-emerald-400 font-medium flex items-center gap-1 pt-2"
+                  className="flex items-center gap-1 pt-2 text-xs font-medium text-emerald-600 dark:text-emerald-400"
                 >
                   <PartyPopper className="h-3 w-3" />
                   Impact: Intelligent cloud storage transformation
@@ -361,7 +361,7 @@ const ProjectCard = memo(function ProjectCard({
 // 🚀 PERFORMANCE: Component loading fallbacks
 const ComponentFallback = ({ className }: { className?: string }) => (
   <div
-    className={`animate-pulse bg-zinc-200 dark:bg-zinc-800 rounded ${className}`}
+    className={`animate-pulse rounded bg-zinc-200 dark:bg-zinc-800 ${className}`}
   />
 );
 
@@ -447,7 +447,7 @@ export default function EchoClientPageFinal() {
       <div className="sr-only focus-within:not-sr-only">
         <a
           href="#main-content"
-          className="fixed top-4 left-4 z-[100] bg-emerald-600 text-white px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-300"
+          className="fixed top-4 left-4 z-[100] rounded-lg bg-emerald-600 px-4 py-2 text-white focus:ring-2 focus:ring-emerald-300 focus:outline-none"
         >
           Skip to main content
         </a>
@@ -469,7 +469,7 @@ export default function EchoClientPageFinal() {
       {hasScrolled && (
         <Suspense
           fallback={
-            <ComponentFallback className="fixed top-0 left-0 w-full h-1" />
+            <ComponentFallback className="fixed top-0 left-0 h-1 w-full" />
           }
         >
           <ReadingProgress />
@@ -478,7 +478,7 @@ export default function EchoClientPageFinal() {
 
       <motion.main
         id="main-content"
-        className="space-y-20 relative"
+        className="relative space-y-20"
         variants={ANIMATION_CONFIG.container}
         initial="hidden"
         animate="visible"
@@ -490,7 +490,7 @@ export default function EchoClientPageFinal() {
         >
           <div className="space-y-6">
             <motion.h1
-              className="text-4xl md:text-6xl font-bold text-zinc-900 dark:text-zinc-100"
+              className="text-4xl font-bold text-zinc-900 md:text-6xl dark:text-zinc-100"
               id="page-title"
               whileHover={
                 !prefersReducedMotion
@@ -530,7 +530,7 @@ export default function EchoClientPageFinal() {
               </motion.span>
             </motion.h1>
 
-            <p className="text-xl text-zinc-600 dark:text-zinc-400 max-w-3xl">
+            <p className="max-w-3xl text-xl text-zinc-600 dark:text-zinc-400">
               Intelligent cloud storage solution powered by AI that
               automatically organizes files, predicts collaboration needs, and
               optimizes storage usage. Transforming chaotic file management into
@@ -572,7 +572,7 @@ export default function EchoClientPageFinal() {
           variants={ANIMATION_CONFIG.section}
           className="relative"
         >
-          <div className="flex items-center justify-between mb-5">
+          <div className="mb-5 flex items-center justify-between">
             <div id="metrics-heading">
               <ScrambleSectionTitle className="text-lg font-medium">
                 Performance Metrics
@@ -585,7 +585,7 @@ export default function EchoClientPageFinal() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
             {enhancedMetrics.map((metric, index) => (
               <MetricCard
                 key={`${metric.label}-${index}`}
@@ -607,7 +607,7 @@ export default function EchoClientPageFinal() {
                 role="status"
                 aria-live="polite"
               >
-                <p className="text-lg font-medium text-transparent bg-gradient-to-r from-emerald-600 via-blue-600 to-cyan-600 bg-clip-text">
+                <p className="bg-gradient-to-r from-emerald-600 via-blue-600 to-cyan-600 bg-clip-text text-lg font-medium text-transparent">
                   🎉 Incredible! These metrics showcase AI-powered
                   transformation! ☁️
                 </p>
@@ -621,7 +621,7 @@ export default function EchoClientPageFinal() {
           id="ai-features-section"
           variants={ANIMATION_CONFIG.section}
         >
-          <div className="flex items-center gap-3 mb-5">
+          <div className="mb-5 flex items-center gap-3">
             <div id="ai-features-heading">
               <ScrambleSectionTitle className="text-lg font-medium">
                 AI-Powered Features
@@ -631,7 +631,7 @@ export default function EchoClientPageFinal() {
           </div>
 
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 gap-6"
+            className="grid grid-cols-1 gap-6 md:grid-cols-2"
             variants={{
               visible: {
                 transition: {
@@ -667,7 +667,7 @@ export default function EchoClientPageFinal() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                <p className="leading-relaxed text-zinc-600 dark:text-zinc-400">
                   EchoDrive transformed how teams interact with their digital
                   assets, achieving exceptional adoption and performance
                   metrics. The platform reached 89% user adoption rate within
@@ -709,19 +709,19 @@ export default function EchoClientPageFinal() {
         {/* Navigation */}
         <motion.section
           variants={ANIMATION_CONFIG.section}
-          className="border-t border-zinc-200 dark:border-zinc-700 pt-8 px-4 sm:px-6 lg:px-8 mb-16 sm:mb-20 lg:mb-24"
+          className="mb-16 border-t border-zinc-200 px-4 pt-8 sm:mb-20 sm:px-6 lg:mb-24 lg:px-8 dark:border-zinc-700"
         >
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+          <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
             <Link
               href="/projects"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-900 dark:text-zinc-100 transition-all duration-200"
+              className="inline-flex items-center gap-2 rounded-lg bg-zinc-100 px-6 py-3 text-zinc-900 transition-all duration-200 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700"
             >
               ← Back to Projects
             </Link>
 
             <Link
               href="/about"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-gradient-to-r from-emerald-600 to-blue-600 hover:from-emerald-700 hover:to-blue-700 text-white transition-all duration-200"
+              className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-emerald-600 to-blue-600 px-6 py-3 text-white transition-all duration-200 hover:from-emerald-700 hover:to-blue-700"
             >
               Explore More AI Projects
               <ExternalLink className="h-4 w-4" />

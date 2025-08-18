@@ -80,8 +80,8 @@ function SectionCard({
         <ul className="space-y-3">
           {items.map((item, index) => (
             <li key={index} className="flex items-start gap-3">
-              <CheckCircle className="h-4 w-4 text-green-500 mt-1 shrink-0" />
-              <span className="text-sm leading-relaxed text-muted-foreground">
+              <CheckCircle className="mt-1 h-4 w-4 shrink-0 text-green-500" />
+              <span className="text-muted-foreground text-sm leading-relaxed">
                 {item}
               </span>
             </li>
@@ -179,10 +179,10 @@ export default function ProjectDetailClient({
           variants={VARIANTS_ITEM}
           transition={TRANSITION_ITEM}
         >
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+          <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-2">
             <div className="space-y-4">
               <div className="space-y-3">
-                <div className="flex items-center flex-wrap gap-2">
+                <div className="flex flex-wrap items-center gap-2">
                   <Badge variant="outline">{project.category}</Badge>
                   <Badge
                     variant={
@@ -201,12 +201,12 @@ export default function ProjectDetailClient({
 
                 <ScrambleSectionTitle
                   as="h1"
-                  className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight"
+                  className="text-3xl leading-tight font-bold md:text-4xl lg:text-5xl"
                 >
                   {project.name}
                 </ScrambleSectionTitle>
 
-                <p className="text-lg text-muted-foreground leading-relaxed">
+                <p className="text-muted-foreground text-lg leading-relaxed">
                   {project.longDescription}
                 </p>
               </div>
@@ -220,13 +220,13 @@ export default function ProjectDetailClient({
               </div>
 
               {/* Compact Metadata Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 py-2">
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <div className="grid grid-cols-1 gap-3 py-2 sm:grid-cols-2">
+                <div className="text-muted-foreground flex items-center gap-2 text-sm">
                   <Calendar className="h-4 w-4 shrink-0" />
                   <span>{project.timeline}</span>
                 </div>
                 {project.teamSize && (
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <div className="text-muted-foreground flex items-center gap-2 text-sm">
                     <Users className="h-4 w-4 shrink-0" />
                     <span>
                       {project.teamSize}{" "}
@@ -235,7 +235,7 @@ export default function ProjectDetailClient({
                   </div>
                 )}
                 {project.role && (
-                  <div className="sm:col-span-2 text-sm font-medium text-foreground">
+                  <div className="text-foreground text-sm font-medium sm:col-span-2">
                     Role: {project.role}
                   </div>
                 )}
@@ -307,8 +307,8 @@ export default function ProjectDetailClient({
             variants={VARIANTS_ITEM}
             transition={TRANSITION_ITEM}
           >
-            <div className="text-center space-y-2">
-              <p className="text-sm text-muted-foreground uppercase tracking-wide">
+            <div className="space-y-2 text-center">
+              <p className="text-muted-foreground text-sm tracking-wide uppercase">
                 Measurable Impact
               </p>
               <ScrambleSectionTitle as="h2" className="text-3xl font-bold">
@@ -325,10 +325,10 @@ export default function ProjectDetailClient({
               );
 
               return (
-                <div className="max-w-7xl mx-auto space-y-8">
+                <div className="mx-auto max-w-7xl space-y-8">
                   {/* Hero Metric */}
                   {heroMetric && (
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
                       <div className="lg:col-span-2">
                         <AnimatedMetricCard
                           label={heroMetric.label}
@@ -345,12 +345,12 @@ export default function ProjectDetailClient({
                           }}
                         />
                       </div>
-                      <div className="lg:col-span-1 flex items-center">
-                        <div className="bg-muted/30 rounded-lg p-6 w-full">
-                          <h4 className="font-semibold text-lg mb-2">
+                      <div className="flex items-center lg:col-span-1">
+                        <div className="bg-muted/30 w-full rounded-lg p-6">
+                          <h4 className="mb-2 text-lg font-semibold">
                             Key Achievement
                           </h4>
-                          <p className="text-sm text-muted-foreground leading-relaxed">
+                          <p className="text-muted-foreground text-sm leading-relaxed">
                             This represents the most significant improvement
                             achieved through the optimization of user pathways
                             and enhanced design patterns.
@@ -367,7 +367,7 @@ export default function ProjectDetailClient({
                         <span className="text-2xl">📈</span>
                         <h3 className="text-xl font-semibold">Performance</h3>
                       </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                         {grouped.successRates
                           .filter((metric) => !metric.value.includes("800%"))
                           .map((metric, index) => (
@@ -401,7 +401,7 @@ export default function ProjectDetailClient({
                             User Experience
                           </h3>
                         </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
                           {grouped.userExperience.map((metric, index) => (
                             <AnimatedMetricCard
                               key={`ux-${index}`}
@@ -434,7 +434,7 @@ export default function ProjectDetailClient({
                           <span className="text-2xl">🔬</span>
                           <h3 className="text-xl font-semibold">Research</h3>
                         </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl">
+                        <div className="grid max-w-2xl grid-cols-1 gap-6 sm:grid-cols-2">
                           {grouped.researchContext.map((metric, index) => (
                             <AnimatedMetricCard
                               key={`research-${index}`}
@@ -471,17 +471,17 @@ export default function ProjectDetailClient({
             variants={VARIANTS_ITEM}
             transition={TRANSITION_ITEM}
           >
-            <div className="text-center space-y-2">
-              <p className="text-sm text-muted-foreground uppercase tracking-wide">
+            <div className="space-y-2 text-center">
+              <p className="text-muted-foreground text-sm tracking-wide uppercase">
                 The Challenge
               </p>
               <ScrambleSectionTitle as="h2" className="text-3xl font-bold">
                 The Challenge That Started It All
               </ScrambleSectionTitle>
             </div>
-            <div className="max-w-4xl mx-auto">
-              <Card className="p-6 md:p-8 border-muted hover:border-primary/30 transition-colors duration-200">
-                <p className="text-base leading-relaxed text-muted-foreground">
+            <div className="mx-auto max-w-4xl">
+              <Card className="border-muted hover:border-primary/30 p-6 transition-colors duration-200 md:p-8">
+                <p className="text-muted-foreground text-base leading-relaxed">
                   {project.processStory.background}
                 </p>
               </Card>
@@ -500,7 +500,7 @@ export default function ProjectDetailClient({
           <ScrambleSectionTitle as="h2" className="text-2xl font-bold">
             Technologies Used
           </ScrambleSectionTitle>
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
+          <div className="grid grid-cols-2 gap-2 md:grid-cols-4 lg:grid-cols-6">
             {project.technologies.map((tech) => (
               <Badge
                 key={tech}
@@ -522,8 +522,8 @@ export default function ProjectDetailClient({
             variants={VARIANTS_ITEM}
             transition={TRANSITION_ITEM}
           >
-            <div className="text-center space-y-2">
-              <p className="text-sm text-muted-foreground uppercase tracking-wide">
+            <div className="space-y-2 text-center">
+              <p className="text-muted-foreground text-sm tracking-wide uppercase">
                 Role & Team
               </p>
               <ScrambleSectionTitle as="h2" className="text-3xl font-bold">
@@ -531,13 +531,13 @@ export default function ProjectDetailClient({
               </ScrambleSectionTitle>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
               {/* My Role & Deliverables */}
-              <Card className="h-full flex flex-col border-muted hover:border-primary/30 transition-colors duration-200">
+              <Card className="border-muted hover:border-primary/30 flex h-full flex-col transition-colors duration-200">
                 <CardHeader>
                   <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-primary/10 rounded-lg">
-                      <Briefcase className="h-5 w-5 text-primary" />
+                    <div className="bg-primary/10 rounded-lg p-2">
+                      <Briefcase className="text-primary h-5 w-5" />
                     </div>
                     <CardTitle className="text-base font-semibold">
                       My Role/Deliverables
@@ -548,8 +548,8 @@ export default function ProjectDetailClient({
                   <ul className="space-y-3">
                     {project.overview.deliverables.map((item, index) => (
                       <li key={index} className="flex items-start">
-                        <span className="text-primary mr-2 mt-1">•</span>
-                        <span className="text-sm text-muted-foreground leading-relaxed">
+                        <span className="text-primary mt-1 mr-2">•</span>
+                        <span className="text-muted-foreground text-sm leading-relaxed">
                           {item}
                         </span>
                       </li>
@@ -559,11 +559,11 @@ export default function ProjectDetailClient({
               </Card>
 
               {/* Team & Collaboration */}
-              <Card className="h-full flex flex-col border-muted hover:border-primary/30 transition-colors duration-200">
+              <Card className="border-muted hover:border-primary/30 flex h-full flex-col transition-colors duration-200">
                 <CardHeader>
                   <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-primary/10 rounded-lg">
-                      <Users className="h-5 w-5 text-primary" />
+                    <div className="bg-primary/10 rounded-lg p-2">
+                      <Users className="text-primary h-5 w-5" />
                     </div>
                     <CardTitle className="text-base font-semibold">
                       Who I worked with
@@ -574,8 +574,8 @@ export default function ProjectDetailClient({
                   <ul className="space-y-3">
                     {project.overview.teamMembers.map((item, index) => (
                       <li key={index} className="flex items-start">
-                        <span className="text-primary mr-2 mt-1">•</span>
-                        <span className="text-sm text-muted-foreground leading-relaxed">
+                        <span className="text-primary mt-1 mr-2">•</span>
+                        <span className="text-muted-foreground text-sm leading-relaxed">
                           {item}
                         </span>
                       </li>
@@ -585,18 +585,18 @@ export default function ProjectDetailClient({
               </Card>
 
               {/* Timeline */}
-              <Card className="h-full flex flex-col border-muted hover:border-primary/30 transition-colors duration-200">
+              <Card className="border-muted hover:border-primary/30 flex h-full flex-col transition-colors duration-200">
                 <CardHeader>
                   <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-primary/10 rounded-lg">
-                      <Clock className="h-5 w-5 text-primary" />
+                    <div className="bg-primary/10 rounded-lg p-2">
+                      <Clock className="text-primary h-5 w-5" />
                     </div>
                     <CardTitle className="text-base font-semibold">
                       Timeline
                     </CardTitle>
                   </div>
                 </CardHeader>
-                <CardContent className="flex-1 flex items-start">
+                <CardContent className="flex flex-1 items-start">
                   <div className="flex items-center space-x-2">
                     <span className="text-primary">•</span>
                     <Badge
@@ -610,11 +610,11 @@ export default function ProjectDetailClient({
               </Card>
 
               {/* Tools Used */}
-              <Card className="h-full flex flex-col border-muted hover:border-primary/30 transition-colors duration-200">
+              <Card className="border-muted hover:border-primary/30 flex h-full flex-col transition-colors duration-200">
                 <CardHeader>
                   <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-primary/10 rounded-lg">
-                      <Target className="h-5 w-5 text-primary" />
+                    <div className="bg-primary/10 rounded-lg p-2">
+                      <Target className="text-primary h-5 w-5" />
                     </div>
                     <CardTitle className="text-base font-semibold">
                       Tools Used
@@ -625,8 +625,8 @@ export default function ProjectDetailClient({
                   <ul className="space-y-3">
                     {project.overview.toolsUsed.map((item, index) => (
                       <li key={index} className="flex items-start">
-                        <span className="text-primary mr-2 mt-1">•</span>
-                        <span className="text-sm text-muted-foreground leading-relaxed">
+                        <span className="text-primary mt-1 mr-2">•</span>
+                        <span className="text-muted-foreground text-sm leading-relaxed">
                           {item}
                         </span>
                       </li>
@@ -646,37 +646,37 @@ export default function ProjectDetailClient({
             variants={VARIANTS_ITEM}
             transition={TRANSITION_ITEM}
           >
-            <div className="text-center space-y-2">
-              <p className="text-sm text-muted-foreground uppercase tracking-wide">
+            <div className="space-y-2 text-center">
+              <p className="text-muted-foreground text-sm tracking-wide uppercase">
                 Strategy & Process
               </p>
               <ScrambleSectionTitle as="h2" className="text-3xl font-bold">
                 The Technical Journey
               </ScrambleSectionTitle>
             </div>
-            <div className="max-w-4xl mx-auto space-y-6">
+            <div className="mx-auto max-w-4xl space-y-6">
               {project.processStory.approach && (
-                <Card className="p-6 md:p-8 border-muted hover:border-primary/30 transition-colors duration-200">
+                <Card className="border-muted hover:border-primary/30 p-6 transition-colors duration-200 md:p-8">
                   <ScrambleSectionTitle
                     as="h3"
-                    className="text-xl font-semibold mb-4"
+                    className="mb-4 text-xl font-semibold"
                   >
                     The Vision
                   </ScrambleSectionTitle>
-                  <p className="text-base leading-relaxed text-muted-foreground">
+                  <p className="text-muted-foreground text-base leading-relaxed">
                     {project.processStory.approach}
                   </p>
                 </Card>
               )}
               {project.processStory.methodology && (
-                <Card className="p-6 md:p-8 border-muted hover:border-primary/30 transition-colors duration-200">
+                <Card className="border-muted hover:border-primary/30 p-6 transition-colors duration-200 md:p-8">
                   <ScrambleSectionTitle
                     as="h3"
-                    className="text-xl font-semibold mb-4"
+                    className="mb-4 text-xl font-semibold"
                   >
                     Building the Solution
                   </ScrambleSectionTitle>
-                  <p className="text-base leading-relaxed text-muted-foreground">
+                  <p className="text-muted-foreground text-base leading-relaxed">
                     {project.processStory.methodology}
                   </p>
                 </Card>
@@ -694,8 +694,8 @@ export default function ProjectDetailClient({
             variants={VARIANTS_ITEM}
             transition={TRANSITION_ITEM}
           >
-            <div className="text-center space-y-2">
-              <p className="text-sm text-muted-foreground uppercase tracking-wide">
+            <div className="space-y-2 text-center">
+              <p className="text-muted-foreground text-sm tracking-wide uppercase">
                 Constraints
               </p>
               <ScrambleSectionTitle as="h2" className="text-3xl font-bold">
@@ -703,13 +703,13 @@ export default function ProjectDetailClient({
               </ScrambleSectionTitle>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
               {/* Environmental */}
-              <Card className="h-full flex flex-col border-muted hover:border-primary/30 transition-colors duration-200">
+              <Card className="border-muted hover:border-primary/30 flex h-full flex-col transition-colors duration-200">
                 <CardHeader>
                   <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-primary/10 rounded-lg">
-                      <Cloud className="h-5 w-5 text-primary" />
+                    <div className="bg-primary/10 rounded-lg p-2">
+                      <Cloud className="text-primary h-5 w-5" />
                     </div>
                     <CardTitle className="text-base font-semibold">
                       Environmental
@@ -717,7 +717,7 @@ export default function ProjectDetailClient({
                   </div>
                 </CardHeader>
                 <CardContent className="flex-1 space-y-4">
-                  <div className="aspect-video rounded-lg overflow-hidden">
+                  <div className="aspect-video overflow-hidden rounded-lg">
                     <AnimatedImage
                       src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=600&fit=crop&crop=center"
                       alt="Environmental considerations and constraints for project development"
@@ -726,14 +726,14 @@ export default function ProjectDetailClient({
                     />
                   </div>
                   <div>
-                    <p className="text-sm font-medium mb-3">
+                    <p className="mb-3 text-sm font-medium">
                       Things to consider:
                     </p>
                     <ul className="space-y-2">
                       {project.constraints.environmental?.map((item, index) => (
                         <li key={index} className="flex items-start">
-                          <span className="text-primary mr-2 mt-1">•</span>
-                          <span className="text-sm text-muted-foreground leading-relaxed">
+                          <span className="text-primary mt-1 mr-2">•</span>
+                          <span className="text-muted-foreground text-sm leading-relaxed">
                             {item}
                           </span>
                         </li>
@@ -744,11 +744,11 @@ export default function ProjectDetailClient({
               </Card>
 
               {/* Technical */}
-              <Card className="h-full flex flex-col border-muted hover:border-primary/30 transition-colors duration-200">
+              <Card className="border-muted hover:border-primary/30 flex h-full flex-col transition-colors duration-200">
                 <CardHeader>
                   <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-primary/10 rounded-lg">
-                      <Cpu className="h-5 w-5 text-primary" />
+                    <div className="bg-primary/10 rounded-lg p-2">
+                      <Cpu className="text-primary h-5 w-5" />
                     </div>
                     <CardTitle className="text-base font-semibold">
                       Technical
@@ -756,7 +756,7 @@ export default function ProjectDetailClient({
                   </div>
                 </CardHeader>
                 <CardContent className="flex-1 space-y-4">
-                  <div className="aspect-video rounded-lg overflow-hidden">
+                  <div className="aspect-video overflow-hidden rounded-lg">
                     <AnimatedImage
                       src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&h=600&fit=crop&crop=center"
                       alt="Technical architecture and system constraints for project implementation"
@@ -765,14 +765,14 @@ export default function ProjectDetailClient({
                     />
                   </div>
                   <div>
-                    <p className="text-sm font-medium mb-3">
+                    <p className="mb-3 text-sm font-medium">
                       Things to consider:
                     </p>
                     <ul className="space-y-2">
                       {project.constraints.technical?.map((item, index) => (
                         <li key={index} className="flex items-start">
-                          <span className="text-primary mr-2 mt-1">•</span>
-                          <span className="text-sm text-muted-foreground leading-relaxed">
+                          <span className="text-primary mt-1 mr-2">•</span>
+                          <span className="text-muted-foreground text-sm leading-relaxed">
                             {item}
                           </span>
                         </li>
@@ -792,31 +792,31 @@ export default function ProjectDetailClient({
             variants={VARIANTS_ITEM}
             transition={TRANSITION_ITEM}
           >
-            <div className="text-center space-y-2">
-              <p className="text-sm text-muted-foreground uppercase tracking-wide">
+            <div className="space-y-2 text-center">
+              <p className="text-muted-foreground text-sm tracking-wide uppercase">
                 What Made This Work
               </p>
               <ScrambleSectionTitle as="h2" className="text-3xl font-bold">
                 Key Design Decisions
               </ScrambleSectionTitle>
             </div>
-            <div className="max-w-4xl mx-auto">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="mx-auto max-w-4xl">
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 {project.processStory.keyInsights.map((insight, index) => {
                   const [title, ...descriptionParts] = insight.split(": ");
                   const description = descriptionParts.join(": ");
                   return (
                     <Card
                       key={index}
-                      className="p-6 border-muted hover:border-primary/30 transition-colors duration-200"
+                      className="border-muted hover:border-primary/30 p-6 transition-colors duration-200"
                     >
                       <ScrambleSectionTitle
                         as="h3"
-                        className="text-lg font-semibold mb-3 text-primary"
+                        className="text-primary mb-3 text-lg font-semibold"
                       >
                         {title}
                       </ScrambleSectionTitle>
-                      <p className="text-sm leading-relaxed text-muted-foreground">
+                      <p className="text-muted-foreground text-sm leading-relaxed">
                         {description}
                       </p>
                     </Card>
@@ -837,11 +837,11 @@ export default function ProjectDetailClient({
         >
           <ScrambleSectionTitle
             as="h2"
-            className="text-2xl font-bold text-center"
+            className="text-center text-2xl font-bold"
           >
             Project Journey
           </ScrambleSectionTitle>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             {project.challenges && (
               <SectionCard
                 title="Challenges"
@@ -876,24 +876,24 @@ export default function ProjectDetailClient({
             variants={VARIANTS_ITEM}
             transition={TRANSITION_ITEM}
           >
-            <div className="text-center space-y-2">
-              <p className="text-sm text-muted-foreground uppercase tracking-wide">
+            <div className="space-y-2 text-center">
+              <p className="text-muted-foreground text-sm tracking-wide uppercase">
                 Results & Impact
               </p>
               <ScrambleSectionTitle as="h2" className="text-3xl font-bold">
                 Results That Matter
               </ScrambleSectionTitle>
             </div>
-            <div className="max-w-4xl mx-auto space-y-6">
+            <div className="mx-auto max-w-4xl space-y-6">
               {project.processStory.outcome && (
-                <Card className="p-6 md:p-8 border-muted hover:border-primary/30 transition-colors duration-200">
+                <Card className="border-muted hover:border-primary/30 p-6 transition-colors duration-200 md:p-8">
                   <ScrambleSectionTitle
                     as="h3"
-                    className="text-xl font-semibold mb-4"
+                    className="mb-4 text-xl font-semibold"
                   >
                     The Outcome
                   </ScrambleSectionTitle>
-                  <p className="text-base leading-relaxed text-muted-foreground">
+                  <p className="text-muted-foreground text-base leading-relaxed">
                     {project.processStory.outcome}
                   </p>
                 </Card>
@@ -904,22 +904,22 @@ export default function ProjectDetailClient({
                 <div className="space-y-4">
                   <ScrambleSectionTitle
                     as="h3"
-                    className="text-xl font-semibold text-center"
+                    className="text-center text-xl font-semibold"
                   >
                     Stakeholder Voices
                   </ScrambleSectionTitle>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
+                  <div className="mx-auto grid max-w-4xl grid-cols-1 gap-4 md:grid-cols-2">
                     {project.processStory.stakeholderQuotes.map(
                       (quote, index) => (
                         <Card
                           key={index}
-                          className="p-6 border-muted hover:border-primary/30 transition-colors duration-200 bg-gradient-to-br from-background to-muted/30"
+                          className="border-muted hover:border-primary/30 from-background to-muted/30 bg-gradient-to-br p-6 transition-colors duration-200"
                         >
-                          <blockquote className="text-sm italic text-muted-foreground mb-4">
+                          <blockquote className="text-muted-foreground mb-4 text-sm italic">
                             &ldquo;{quote.quote}&rdquo;
                           </blockquote>
                           <div className="text-xs">
-                            <div className="font-semibold text-foreground">
+                            <div className="text-foreground font-semibold">
                               {quote.author}
                             </div>
                             <div className="text-muted-foreground">
@@ -934,14 +934,14 @@ export default function ProjectDetailClient({
               )}
 
               {project.processStory.reflection && (
-                <Card className="p-6 md:p-8 border-muted hover:border-primary/30 transition-colors duration-200">
+                <Card className="border-muted hover:border-primary/30 p-6 transition-colors duration-200 md:p-8">
                   <ScrambleSectionTitle
                     as="h3"
-                    className="text-xl font-semibold mb-4"
+                    className="mb-4 text-xl font-semibold"
                   >
                     The Bigger Picture
                   </ScrambleSectionTitle>
-                  <p className="text-base leading-relaxed text-muted-foreground">
+                  <p className="text-muted-foreground text-base leading-relaxed">
                     {project.processStory.reflection}
                   </p>
                 </Card>
@@ -962,7 +962,7 @@ export default function ProjectDetailClient({
             <ScrambleSectionTitle as="h2" className="text-2xl font-bold">
               Project Gallery
             </ScrambleSectionTitle>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               {project.images.map((image, index) => (
                 <div key={index} className="aspect-video">
                   <AnimatedImage
@@ -987,11 +987,11 @@ export default function ProjectDetailClient({
             <ScrambleSectionTitle as="h2" className="text-2xl font-bold">
               Related Projects
             </ScrambleSectionTitle>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               {relatedProjects.map((relatedProject) => (
                 <Card
                   key={relatedProject.id}
-                  className="group hover:shadow-lg transition-all duration-300"
+                  className="group transition-all duration-300 hover:shadow-lg"
                 >
                   <div className="aspect-video overflow-hidden">
                     {isVimeoUrl(relatedProject.video) ? (
@@ -1009,7 +1009,7 @@ export default function ProjectDetailClient({
                     )}
                   </div>
                   <CardHeader>
-                    <CardTitle className="group-hover:text-blue-600 transition-colors">
+                    <CardTitle className="transition-colors group-hover:text-blue-600">
                       {relatedProject.name}
                     </CardTitle>
                     <CardDescription>
@@ -1019,7 +1019,7 @@ export default function ProjectDetailClient({
                   <CardContent>
                     <Link
                       href={`/projects/${relatedProject.slug}`}
-                      className="inline-flex items-center justify-center gap-2 px-6 py-3 w-full bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                      className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-6 py-3 text-white transition-colors hover:bg-blue-700"
                     >
                       View Project
                     </Link>
@@ -1032,20 +1032,20 @@ export default function ProjectDetailClient({
 
         {/* CTA */}
         <motion.section
-          className="text-center space-y-4 py-8"
+          className="space-y-4 py-8 text-center"
           variants={VARIANTS_ITEM}
           transition={TRANSITION_ITEM}
         >
           <ScrambleSectionTitle as="h2" className="text-3xl font-bold">
             Like what you see?
           </ScrambleSectionTitle>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-muted-foreground mx-auto max-w-2xl">
             I&apos;m always excited to discuss new projects and opportunities.
             Let&apos;s create something amazing together.
           </p>
           <Link
             href="/#connect"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-6 py-3 text-white transition-colors hover:bg-blue-700"
           >
             Get in Touch
           </Link>

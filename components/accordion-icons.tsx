@@ -43,7 +43,7 @@ export function AccordionIcons() {
               </p>
             </div>
             <div>
-              <h4 className="font-semibold text-zinc-950 dark:text-zinc-50 mb-2">
+              <h4 className="mb-2 font-semibold text-zinc-950 dark:text-zinc-50">
                 Summary
               </h4>
               <p className="mb-3">
@@ -54,7 +54,7 @@ export function AccordionIcons() {
               </p>
               <div className="mb-3">
                 <span className="font-medium">Key Topics:</span>
-                <ul className="list-disc list-inside mt-1 space-y-1">
+                <ul className="mt-1 list-inside list-disc space-y-1">
                   <li>Educational journey and self-taught UX design</li>
                   <li>Workplace challenges and navigating corporate culture</li>
                   <li>The lack of Black representation in design</li>
@@ -66,7 +66,7 @@ export function AccordionIcons() {
                 href="https://medium.com/@5by5conversations/a-5by5-conversation-with-randy-ellis-being-a-black-designer-in-america-1a4c5bb6c793"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
+                className="inline-flex items-center text-blue-600 transition-colors hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
               >
                 Read Full Article →
               </a>
@@ -105,7 +105,7 @@ export function AccordionIcons() {
               </p>
             </div>
             <div>
-              <h4 className="font-semibold text-zinc-950 dark:text-zinc-50 mb-2">
+              <h4 className="mb-2 font-semibold text-zinc-950 dark:text-zinc-50">
                 Summary
               </h4>
               <p className="mb-3">
@@ -116,7 +116,7 @@ export function AccordionIcons() {
               </p>
               <div className="mb-3">
                 <span className="font-medium">Topics Covered:</span>
-                <ul className="list-disc list-inside mt-1 space-y-1">
+                <ul className="mt-1 list-inside list-disc space-y-1">
                   <li>UX strategy and consulting work</li>
                   <li>5ivehat UX Agency business</li>
                   <li>Diversity in the design community</li>
@@ -130,7 +130,7 @@ export function AccordionIcons() {
                   href="https://www.youtube.com/watch?v=OprQOPmeB7w"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
+                  className="inline-flex items-center text-blue-600 transition-colors hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
                 >
                   Watch Video →
                 </a>
@@ -139,7 +139,7 @@ export function AccordionIcons() {
                   href="https://revisionpath.com/randy-ellis/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
+                  className="inline-flex items-center text-blue-600 transition-colors hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
                 >
                   Episode Page →
                 </a>
@@ -182,7 +182,7 @@ export function AccordionIcons() {
               </p>
             </div>
             <div>
-              <h4 className="font-semibold text-zinc-950 dark:text-zinc-50 mb-2">
+              <h4 className="mb-2 font-semibold text-zinc-950 dark:text-zinc-50">
                 About
               </h4>
               <p className="mb-3">
@@ -195,7 +195,7 @@ export function AccordionIcons() {
                 href="https://vimeo.com/283187480"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
+                className="inline-flex items-center text-blue-600 transition-colors hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
               >
                 Watch Video →
               </a>
@@ -228,7 +228,7 @@ export function AccordionIcons() {
               </p>
             </div>
             <div>
-              <h4 className="font-semibold text-zinc-950 dark:text-zinc-50 mb-2">
+              <h4 className="mb-2 font-semibold text-zinc-950 dark:text-zinc-50">
                 About
               </h4>
               <p className="mb-3">
@@ -239,7 +239,7 @@ export function AccordionIcons() {
                 href="https://vimeo.com/360664847"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
+                className="inline-flex items-center text-blue-600 transition-colors hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
               >
                 Watch Video →
               </a>
@@ -282,7 +282,7 @@ export function AccordionIcons() {
               </p>
             </div>
             <div>
-              <h4 className="font-semibold text-zinc-950 dark:text-zinc-50 mb-2">
+              <h4 className="mb-2 font-semibold text-zinc-950 dark:text-zinc-50">
                 About
               </h4>
               <p className="mb-3">
@@ -295,7 +295,7 @@ export function AccordionIcons() {
                 href="https://vimeo.com/133075973"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
+                className="inline-flex items-center text-blue-600 transition-colors hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
               >
                 Watch Video →
               </a>
@@ -338,7 +338,7 @@ export function AccordionIcons() {
               </p>
             </div>
             <div>
-              <h4 className="font-semibold text-zinc-950 dark:text-zinc-50 mb-2">
+              <h4 className="mb-2 font-semibold text-zinc-950 dark:text-zinc-50">
                 About
               </h4>
               <p className="mb-3">
@@ -350,7 +350,7 @@ export function AccordionIcons() {
                 href="https://vimeo.com/133075972"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
+                className="inline-flex items-center text-blue-600 transition-colors hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
               >
                 Watch Video →
               </a>

@@ -8,10 +8,7 @@ import {
   PlaneGeometry,
   Mesh,
   Group,
-  MeshPhongMaterial,
-  MeshBasicMaterial,
-  PointsMaterial,
-  DoubleSide
+  DoubleSide,
 } from "three";
 
 type OrganicSceneProps = {
@@ -62,7 +59,6 @@ export function OrganicScene({
 
       // Create organic bumps and waves
       const noise = Math.sin(x * 3) * Math.cos(y * 2) * Math.sin(z * 4) * 0.3;
-      const distance = Math.sqrt(x * x + y * y + z * z);
       const factor = 1 + noise * intensity * 0.5;
 
       vertices[i] = x * factor;
@@ -110,12 +106,7 @@ export function OrganicScene({
       <group ref={particlesRef}>
         <points>
           <primitive object={createParticles()} />
-          <pointsMaterial
-            size={0.05}
-            color={color}
-            transparent
-            opacity={0.6}
-          />
+          <pointsMaterial size={0.05} color={color} transparent opacity={0.6} />
         </points>
       </group>
 
@@ -148,16 +139,10 @@ export function OrganicScene({
 
       {/* Lighting */}
       <ambientLight intensity={0.4} />
-      <directionalLight
-        position={[10, 10, 5]}
-        intensity={0.8}
-        color={color}
-      />
-      <pointLight
-        position={[-10, -10, -5]}
-        intensity={0.5}
-        color={color}
-      />
+      <directionalLight position={[10, 10, 5]} intensity={0.8} color={color} />
+      <pointLight position={[-10, -10, -5]} intensity={0.5} color={color} />
     </>
   );
 }
+
+OrganicScene.displayName = "OrganicScene";

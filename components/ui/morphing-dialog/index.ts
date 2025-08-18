@@ -11,7 +11,10 @@ export {
 } from "./components";
 
 // Hook exports
-export { useMorphingDialog, useMorphingDialogState } from "@/hooks/useMorphingDialog";
+export {
+  useMorphingDialog,
+  useMorphingDialogState,
+} from "@/hooks/useMorphingDialog";
 
 // Type exports
 export type { MorphingDialogContextType } from "@/hooks/useMorphingDialog";

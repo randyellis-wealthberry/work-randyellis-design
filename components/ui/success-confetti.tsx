@@ -70,12 +70,12 @@ export function SuccessConfetti({
   }, [trigger, particleCount, colors, onComplete]);
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-50 overflow-hidden">
+    <div className="pointer-events-none fixed inset-0 z-50 overflow-hidden">
       <AnimatePresence>
         {particles.map((particle) => (
           <motion.div
             key={particle.id}
-            className={`absolute w-3 h-3 ${particle.color} rounded-sm`}
+            className={`absolute h-3 w-3 ${particle.color} rounded-sm`}
             initial={{
               x: particle.x,
               y: particle.y,
@@ -128,10 +128,10 @@ export function CelebrationBurst({
   if (!isActive) return null;
 
   return (
-    <div className="fixed pointer-events-none z-50" style={{ left: x, top: y }}>
+    <div className="pointer-events-none fixed z-50" style={{ left: x, top: y }}>
       {/* Central burst */}
       <motion.div
-        className="absolute w-4 h-4 bg-yellow-400 rounded-full -translate-x-1/2 -translate-y-1/2"
+        className="absolute h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-yellow-400"
         initial={{ scale: 0 }}
         animate={{ scale: [0, 1.5, 0] }}
         transition={{ duration: 0.6 }}
@@ -145,7 +145,7 @@ export function CelebrationBurst({
         return (
           <motion.div
             key={i}
-            className="absolute w-2 h-2 bg-blue-500 rounded-full -translate-x-1/2 -translate-y-1/2"
+            className="absolute h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-500"
             initial={{ x: 0, y: 0, scale: 0 }}
             animate={{
               x: Math.cos(angle) * distance,
@@ -203,13 +203,13 @@ export function SuccessCheckmark({
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none"
+          className="pointer-events-none fixed inset-0 z-50 flex items-center justify-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
           <motion.div
-            className={`${sizeClasses[size]} bg-green-500 rounded-full flex items-center justify-center shadow-lg`}
+            className={`${sizeClasses[size]} flex items-center justify-center rounded-full bg-green-500 shadow-lg`}
             initial={{ scale: 0, rotate: -180 }}
             animate={{ scale: 1, rotate: 0 }}
             exit={{ scale: 0, opacity: 0 }}

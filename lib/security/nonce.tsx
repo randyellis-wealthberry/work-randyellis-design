@@ -1,10 +1,11 @@
 /**
  * CSP Nonce Utilities for Next.js
- * 
+ *
  * Provides utilities to access and use CSP nonces in React components.
  */
 
-import { headers } from 'next/headers';
+import { headers } from "next/headers";
+import Script from "next/script";
 
 /**
  * Get the CSP nonce for the current request (server-side only)
@@ -12,7 +13,7 @@ import { headers } from 'next/headers';
 export async function getNonce(): Promise<string | null> {
   try {
     const headersList = await headers();
-    return headersList.get('x-nonce');
+    return headersList.get("x-nonce");
   } catch {
     // Return null if headers are not available (client-side)
     return null;
@@ -24,12 +25,12 @@ export async function getNonce(): Promise<string | null> {
  * This reads from a meta tag that should be set by the server
  */
 export function getClientNonce(): string | null {
-  if (typeof window === 'undefined') {
+  if (typeof window === "undefined") {
     return null;
   }
 
   const metaTag = document.querySelector('meta[name="csp-nonce"]');
-  return metaTag?.getAttribute('content') || null;
+  return metaTag?.getAttribute("content") || null;
 }
 
 /**
@@ -38,24 +39,22 @@ export function getClientNonce(): string | null {
 interface NonceScriptProps {
   id?: string;
   src?: string;
-  strategy?: 'beforeInteractive' | 'afterInteractive' | 'lazyOnload';
+  strategy?: "beforeInteractive" | "afterInteractive" | "lazyOnload";
   children?: string;
   dangerouslySetInnerHTML?: {
     __html: string;
   };
 }
 
-export function NonceScript({ 
-  id, 
-  src, 
-  strategy = 'afterInteractive', 
-  children, 
-  dangerouslySetInnerHTML 
+export function NonceScript({
+  id,
+  src,
+  strategy = "afterInteractive",
+  children,
+  dangerouslySetInnerHTML,
 }: NonceScriptProps) {
   // This will be handled by Next.js Script component which should automatically
   // include the nonce when CSP headers are detected
-  const Script = require('next/script').default;
-  
   return (
     <Script
       id={id}
@@ -67,3 +66,5 @@ export function NonceScript({
     </Script>
   );
 }
+
+NonceScript.displayName = "NonceScript";

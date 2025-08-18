@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React, { useEffect, useState } from 'react';
-import { Wifi, WifiOff, Download } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useEffect, useState } from "react";
+import { Wifi, WifiOff, Download } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface PWAStatusProps {
   className?: string;
@@ -17,9 +17,9 @@ export default function PWAStatus({ className }: PWAStatusProps) {
     const updateOnlineStatus = () => {
       const online = navigator.onLine;
       const wasOffline = !isOnline;
-      
+
       setIsOnline(online);
-      
+
       if (!online) {
         setShowOfflineToast(true);
         setTimeout(() => setShowOfflineToast(false), 5000);
@@ -33,12 +33,12 @@ export default function PWAStatus({ className }: PWAStatusProps) {
     setIsOnline(navigator.onLine);
 
     // Listen for online/offline events
-    window.addEventListener('online', updateOnlineStatus);
-    window.addEventListener('offline', updateOnlineStatus);
+    window.addEventListener("online", updateOnlineStatus);
+    window.addEventListener("offline", updateOnlineStatus);
 
     return () => {
-      window.removeEventListener('online', updateOnlineStatus);
-      window.removeEventListener('offline', updateOnlineStatus);
+      window.removeEventListener("online", updateOnlineStatus);
+      window.removeEventListener("offline", updateOnlineStatus);
     };
   }, [isOnline]);
 
@@ -49,17 +49,17 @@ export default function PWAStatus({ className }: PWAStatusProps) {
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          className={`p-2 rounded-full transition-colors ${
-            isOnline 
-              ? 'bg-green-500/20 text-green-400' 
-              : 'bg-red-500/20 text-red-400'
+          className={`rounded-full p-2 transition-colors ${
+            isOnline
+              ? "bg-green-500/20 text-green-400"
+              : "bg-red-500/20 text-red-400"
           }`}
-          title={isOnline ? 'Online' : 'Offline - Using cached content'}
+          title={isOnline ? "Online" : "Offline - Using cached content"}
         >
           {isOnline ? (
-            <Wifi className="w-4 h-4" />
+            <Wifi className="h-4 w-4" />
           ) : (
-            <WifiOff className="w-4 h-4" />
+            <WifiOff className="h-4 w-4" />
           )}
         </motion.div>
       </div>
@@ -68,13 +68,13 @@ export default function PWAStatus({ className }: PWAStatusProps) {
       <AnimatePresence>
         {showOfflineToast && (
           <motion.div
-            initial={{ opacity: 0, y: -50, x: '-50%' }}
-            animate={{ opacity: 1, y: 0, x: '-50%' }}
-            exit={{ opacity: 0, y: -50, x: '-50%' }}
-            className="fixed top-4 left-1/2 transform z-50 bg-red-500 text-white px-4 py-2 rounded-lg shadow-lg flex items-center gap-2"
+            initial={{ opacity: 0, y: -50, x: "-50%" }}
+            animate={{ opacity: 1, y: 0, x: "-50%" }}
+            exit={{ opacity: 0, y: -50, x: "-50%" }}
+            className="fixed top-4 left-1/2 z-50 flex transform items-center gap-2 rounded-lg bg-red-500 px-4 py-2 text-white shadow-lg"
           >
-            <WifiOff className="w-4 h-4" />
-            <span className="text-sm font-medium">You're offline</span>
+            <WifiOff className="h-4 w-4" />
+            <span className="text-sm font-medium">You&apos;re offline</span>
           </motion.div>
         )}
       </AnimatePresence>
@@ -83,12 +83,12 @@ export default function PWAStatus({ className }: PWAStatusProps) {
       <AnimatePresence>
         {showOnlineToast && (
           <motion.div
-            initial={{ opacity: 0, y: -50, x: '-50%' }}
-            animate={{ opacity: 1, y: 0, x: '-50%' }}
-            exit={{ opacity: 0, y: -50, x: '-50%' }}
-            className="fixed top-4 left-1/2 transform z-50 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg flex items-center gap-2"
+            initial={{ opacity: 0, y: -50, x: "-50%" }}
+            animate={{ opacity: 1, y: 0, x: "-50%" }}
+            exit={{ opacity: 0, y: -50, x: "-50%" }}
+            className="fixed top-4 left-1/2 z-50 flex transform items-center gap-2 rounded-lg bg-green-500 px-4 py-2 text-white shadow-lg"
           >
-            <Wifi className="w-4 h-4" />
+            <Wifi className="h-4 w-4" />
             <span className="text-sm font-medium">Back online</span>
           </motion.div>
         )}
@@ -108,12 +108,12 @@ export function useOnlineStatus() {
 
     setIsOnline(navigator.onLine);
 
-    window.addEventListener('online', updateOnlineStatus);
-    window.addEventListener('offline', updateOnlineStatus);
+    window.addEventListener("online", updateOnlineStatus);
+    window.addEventListener("offline", updateOnlineStatus);
 
     return () => {
-      window.removeEventListener('online', updateOnlineStatus);
-      window.removeEventListener('offline', updateOnlineStatus);
+      window.removeEventListener("online", updateOnlineStatus);
+      window.removeEventListener("offline", updateOnlineStatus);
     };
   }, []);
 
@@ -123,10 +123,11 @@ export function useOnlineStatus() {
 // Component that shows when service worker is updating
 export function ServiceWorkerUpdatePrompt() {
   const [showUpdatePrompt, setShowUpdatePrompt] = useState(false);
-  const [registration, setRegistration] = useState<ServiceWorkerRegistration | null>(null);
+  const [registration, setRegistration] =
+    useState<ServiceWorkerRegistration | null>(null);
 
   useEffect(() => {
-    if ('serviceWorker' in navigator) {
+    if ("serviceWorker" in navigator) {
       navigator.serviceWorker.ready.then((reg) => {
         setRegistration(reg);
 
@@ -135,11 +136,14 @@ export function ServiceWorkerUpdatePrompt() {
           setShowUpdatePrompt(true);
         }
 
-        reg.addEventListener('updatefound', () => {
+        reg.addEventListener("updatefound", () => {
           const newWorker = reg.installing;
           if (newWorker) {
-            newWorker.addEventListener('statechange', () => {
-              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+            newWorker.addEventListener("statechange", () => {
+              if (
+                newWorker.state === "installed" &&
+                navigator.serviceWorker.controller
+              ) {
                 setShowUpdatePrompt(true);
               }
             });
@@ -151,7 +155,7 @@ export function ServiceWorkerUpdatePrompt() {
 
   const handleUpdate = () => {
     if (registration?.waiting) {
-      registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+      registration.waiting.postMessage({ type: "SKIP_WAITING" });
       setShowUpdatePrompt(false);
       window.location.reload();
     }
@@ -168,26 +172,27 @@ export function ServiceWorkerUpdatePrompt() {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 50 }}
-          className="fixed bottom-4 left-4 right-4 z-50 max-w-sm mx-auto"
+          className="fixed right-4 bottom-4 left-4 z-50 mx-auto max-w-sm"
         >
-          <div className="bg-blue-500 text-white p-4 rounded-lg shadow-lg">
-            <div className="flex items-center gap-3 mb-2">
-              <Download className="w-5 h-5" />
+          <div className="rounded-lg bg-blue-500 p-4 text-white shadow-lg">
+            <div className="mb-2 flex items-center gap-3">
+              <Download className="h-5 w-5" />
               <h3 className="font-semibold">Update Available</h3>
             </div>
-            <p className="text-sm mb-3 opacity-90">
-              A new version of the app is available. Update now to get the latest features.
+            <p className="mb-3 text-sm opacity-90">
+              A new version of the app is available. Update now to get the
+              latest features.
             </p>
             <div className="flex gap-2">
               <button
                 onClick={handleUpdate}
-                className="bg-white text-blue-500 px-4 py-2 rounded font-medium text-sm hover:bg-gray-100 transition-colors"
+                className="rounded bg-white px-4 py-2 text-sm font-medium text-blue-500 transition-colors hover:bg-gray-100"
               >
                 Update
               </button>
               <button
                 onClick={handleDismiss}
-                className="text-white px-4 py-2 text-sm hover:bg-white/20 rounded transition-colors"
+                className="rounded px-4 py-2 text-sm text-white transition-colors hover:bg-white/20"
               >
                 Later
               </button>
@@ -198,3 +203,6 @@ export function ServiceWorkerUpdatePrompt() {
     </AnimatePresence>
   );
 }
+
+ServiceWorkerUpdatePrompt.displayName = "ServiceWorkerUpdatePrompt";
+PWAStatus.displayName = "PWAStatus";

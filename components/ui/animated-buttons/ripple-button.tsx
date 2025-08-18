@@ -78,10 +78,10 @@ export function RippleButton({
         "relative px-8 py-3",
         "font-semibold",
         "bg-gradient-to-r from-teal-500 to-cyan-600 text-white",
-        "rounded-xl overflow-hidden",
+        "overflow-hidden rounded-xl",
         "transition-all duration-200",
         "hover:shadow-lg hover:shadow-cyan-500/25",
-        "focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2",
+        "focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:outline-none",
         "transform-gpu",
         className,
       )}
@@ -118,7 +118,7 @@ export function RippleButton({
       <AnimatePresence>
         {isClicked && (
           <motion.div
-            className="absolute inset-0 border-2 border-white rounded-xl"
+            className="absolute inset-0 rounded-xl border-2 border-white"
             initial={{ opacity: 0, scale: 1 }}
             animate={{
               opacity: [0, 1, 0],
@@ -134,7 +134,7 @@ export function RippleButton({
         {ripples.map((ripple) => (
           <motion.span
             key={ripple.id}
-            className="ripple-effect absolute pointer-events-none"
+            className="ripple-effect pointer-events-none absolute"
             initial={{
               width: 0,
               height: 0,
@@ -183,7 +183,7 @@ export function RippleButton({
               stiffness: 200,
             }}
           >
-            <Check className="w-6 h-6 text-white" strokeWidth={3} />
+            <Check className="h-6 w-6 text-white" strokeWidth={3} />
           </motion.div>
         )}
       </AnimatePresence>

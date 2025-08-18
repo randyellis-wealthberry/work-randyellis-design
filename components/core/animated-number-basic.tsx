@@ -18,48 +18,48 @@ export function AnimatedNumberBasic() {
   return (
     <div className="w-full">
       <h3 className="mb-5 text-lg font-medium">Career Highlights and Impact</h3>
-      <div className="grid grid-cols-2 md:grid-cols-4 w-full gap-6 items-end">
+      <div className="grid w-full grid-cols-2 items-end gap-6 md:grid-cols-4">
         <div className="flex flex-col items-center py-1">
-          <div className="flex items-center justify-center w-6 h-6 mb-2">
+          <div className="mb-2 flex h-6 w-6 items-center justify-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 16 16"
-              className="w-5 h-5 fill-transparent stroke-zinc-800 stroke-[1.5] dark:stroke-zinc-50"
+              className="h-5 w-5 fill-transparent stroke-zinc-800 stroke-[1.5] dark:stroke-zinc-50"
             >
               <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.751.751 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path>
             </svg>
           </div>
-          <div className="flex items-baseline justify-center h-8">
+          <div className="flex h-8 items-baseline justify-center">
             <AnimatedNumber
-              className="font-mono text-2xl font-light text-zinc-800 dark:text-zinc-50 leading-none tabular-nums"
+              className="font-mono text-2xl leading-none font-light text-zinc-800 tabular-nums dark:text-zinc-50"
               springOptions={{
                 bounce: 0,
                 duration: 2000,
               }}
               value={value1}
             />
-            <span className="font-mono text-2xl font-light text-zinc-800 dark:text-zinc-50 ml-0">
+            <span className="ml-0 font-mono text-2xl font-light text-zinc-800 dark:text-zinc-50">
               M
             </span>
           </div>
-          <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400 mt-1 text-center h-6 flex items-end justify-center leading-tight">
+          <p className="mt-1 flex h-6 items-end justify-center text-center text-sm leading-tight font-medium text-zinc-500 dark:text-zinc-400">
             Users Impacted
           </p>
         </div>
 
         <div className="flex flex-col items-center py-1">
-          <div className="flex items-center justify-center w-6 h-6 mb-2">
+          <div className="mb-2 flex h-6 w-6 items-center justify-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 16 16"
-              className="w-5 h-5 fill-transparent stroke-zinc-800 stroke-[1.5] dark:stroke-zinc-50"
+              className="h-5 w-5 fill-transparent stroke-zinc-800 stroke-[1.5] dark:stroke-zinc-50"
             >
               <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.751.751 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path>
             </svg>
           </div>
-          <div className="flex items-baseline justify-center h-8">
+          <div className="flex h-8 items-baseline justify-center">
             <AnimatedNumber
-              className="font-mono text-2xl font-light text-zinc-800 dark:text-zinc-50 leading-none tabular-nums"
+              className="font-mono text-2xl leading-none font-light text-zinc-800 tabular-nums dark:text-zinc-50"
               springOptions={{
                 bounce: 0,
                 duration: 2000,
@@ -67,55 +67,55 @@ export function AnimatedNumberBasic() {
               value={value2}
             />
           </div>
-          <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400 mt-1 text-center h-6 flex items-end justify-center leading-tight">
+          <p className="mt-1 flex h-6 items-end justify-center text-center text-sm leading-tight font-medium text-zinc-500 dark:text-zinc-400">
             Design Awards
           </p>
         </div>
 
         <div className="flex flex-col items-center py-1">
-          <div className="flex items-center justify-center w-6 h-6 mb-2">
+          <div className="mb-2 flex h-6 w-6 items-center justify-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 16 16"
-              className="w-5 h-5 fill-transparent stroke-zinc-800 stroke-[1.5] dark:stroke-zinc-50"
+              className="h-5 w-5 fill-transparent stroke-zinc-800 stroke-[1.5] dark:stroke-zinc-50"
             >
               <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.751.751 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path>
             </svg>
           </div>
-          <div className="flex items-baseline justify-center h-8">
-            <span className="font-mono text-2xl font-light text-zinc-800 dark:text-zinc-50 mr-0">
+          <div className="flex h-8 items-baseline justify-center">
+            <span className="mr-0 font-mono text-2xl font-light text-zinc-800 dark:text-zinc-50">
               $
             </span>
             <AnimatedNumber
-              className="font-mono text-2xl font-light text-zinc-800 dark:text-zinc-50 leading-none tabular-nums"
+              className="font-mono text-2xl leading-none font-light text-zinc-800 tabular-nums dark:text-zinc-50"
               springOptions={{
                 bounce: 0,
                 duration: 2000,
               }}
               value={value3}
             />
-            <span className="font-mono text-2xl font-light text-zinc-800 dark:text-zinc-50 ml-0">
+            <span className="ml-0 font-mono text-2xl font-light text-zinc-800 dark:text-zinc-50">
               M
             </span>
           </div>
-          <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400 mt-1 text-center h-6 flex items-end justify-center leading-tight">
+          <p className="mt-1 flex h-6 items-end justify-center text-center text-sm leading-tight font-medium text-zinc-500 dark:text-zinc-400">
             in product value
           </p>
         </div>
 
         <div className="flex flex-col items-center py-1">
-          <div className="flex items-center justify-center w-6 h-6 mb-2">
+          <div className="mb-2 flex h-6 w-6 items-center justify-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 16 16"
-              className="w-5 h-5 fill-transparent stroke-zinc-800 stroke-[1.5] dark:stroke-zinc-50"
+              className="h-5 w-5 fill-transparent stroke-zinc-800 stroke-[1.5] dark:stroke-zinc-50"
             >
               <path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.751.751 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"></path>
             </svg>
           </div>
-          <div className="flex items-baseline justify-center h-8">
+          <div className="flex h-8 items-baseline justify-center">
             <AnimatedNumber
-              className="font-mono text-2xl font-light text-zinc-800 dark:text-zinc-50 leading-none tabular-nums"
+              className="font-mono text-2xl leading-none font-light text-zinc-800 tabular-nums dark:text-zinc-50"
               springOptions={{
                 bounce: 0,
                 duration: 2000,
@@ -123,7 +123,7 @@ export function AnimatedNumberBasic() {
               value={value4}
             />
           </div>
-          <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400 mt-1 text-center h-6 flex items-end justify-center leading-tight">
+          <p className="mt-1 flex h-6 items-end justify-center text-center text-sm leading-tight font-medium text-zinc-500 dark:text-zinc-400">
             Designers Mentored
           </p>
         </div>

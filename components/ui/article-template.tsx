@@ -74,11 +74,11 @@ export const ArticleTemplate: React.FC<ArticleTemplateProps> = ({
         />
       )}
       <header className="mb-6">
-        <h1 className="text-3xl font-bold leading-tight tracking-tight md:text-4xl mb-2">
+        <h1 className="mb-2 text-3xl leading-tight font-bold tracking-tight md:text-4xl">
           {title}
         </h1>
         {subtitle && (
-          <p className="text-lg text-zinc-500 dark:text-zinc-400 mb-2">
+          <p className="mb-2 text-lg text-zinc-500 dark:text-zinc-400">
             {subtitle}
           </p>
         )}
@@ -115,7 +115,7 @@ export const ArticleTemplate: React.FC<ArticleTemplateProps> = ({
           {tags.map((tag) => (
             <Badge
               key={tag}
-              className="bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300"
+              className="bg-zinc-100 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300"
             >
               {tag}
             </Badge>

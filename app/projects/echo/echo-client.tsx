@@ -32,7 +32,7 @@ function MetricCard({ metric }: { metric: { label: string; value: string } }) {
     <div className="relative overflow-hidden rounded-2xl bg-zinc-300/30 p-[1px] dark:bg-zinc-600/30">
       <div className="relative h-full w-full rounded-[15px] bg-white p-6 dark:bg-zinc-950">
         <div className="text-center">
-          <div className="text-3xl font-bold text-zinc-900 dark:text-zinc-100 mb-2">
+          <div className="mb-2 text-3xl font-bold text-zinc-900 dark:text-zinc-100">
             {metric.value}
           </div>
           <div className="text-sm font-medium text-zinc-600 dark:text-zinc-400">
@@ -66,14 +66,14 @@ function ProjectCard({
     <div className="relative overflow-hidden rounded-2xl bg-zinc-300/30 p-[1px] dark:bg-zinc-600/30">
       <div className="relative h-full w-full rounded-[15px] bg-white p-6 dark:bg-zinc-950">
         <div className="flex items-start gap-4">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-r from-emerald-600 to-blue-600 text-white text-sm font-medium flex-shrink-0">
+          <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-emerald-600 to-blue-600 text-sm font-medium text-white">
             {getProjectIcon()}
           </div>
-          <div className="space-y-2 flex-1">
+          <div className="flex-1 space-y-2">
             <h4 className="font-medium text-zinc-900 dark:text-zinc-100">
               {title}
             </h4>
-            <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+            <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
               {description}
             </p>
           </div>
@@ -180,27 +180,27 @@ export default function EchoClientPage() {
   };
 
   return (
-    <main className="space-y-32 sm:space-y-24 relative">
+    <main className="relative space-y-32 sm:space-y-24">
       {/* Hero Section */}
       <section className="space-y-8">
         <div className="space-y-6">
-          <h1 className="text-4xl md:text-6xl font-bold text-zinc-900 dark:text-zinc-100">
+          <h1 className="text-4xl font-bold text-zinc-900 md:text-6xl dark:text-zinc-100">
             ECHO <span className="text-emerald-600">DRIVE</span>
           </h1>
-          <p className="text-xl text-zinc-600 dark:text-zinc-400 max-w-3xl">
+          <p className="max-w-3xl text-xl text-zinc-600 dark:text-zinc-400">
             Intelligent cloud storage solution powered by AI that automatically
             organizes files, predicts collaboration needs, and optimizes storage
             usage. Transforming chaotic file management into seamless,
             intelligent workflows.
           </p>
           <div className="flex flex-wrap gap-3">
-            <span className="bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-100 px-3 py-1 rounded-full text-sm font-medium">
+            <span className="rounded-full bg-emerald-100 px-3 py-1 text-sm font-medium text-emerald-800 dark:bg-emerald-900 dark:text-emerald-100">
               Jan 2022 - Aug 2022
             </span>
-            <span className="bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100 px-3 py-1 rounded-full text-sm font-medium">
+            <span className="rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-100">
               Product Design Lead
             </span>
-            <span className="bg-zinc-100 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-100 px-3 py-1 rounded-full text-sm font-medium">
+            <span className="rounded-full bg-zinc-100 px-3 py-1 text-sm font-medium text-zinc-800 dark:bg-zinc-800 dark:text-zinc-100">
               AI-Powered
             </span>
           </div>
@@ -209,7 +209,7 @@ export default function EchoClientPage() {
 
       {/* Metrics Section */}
       <section>
-        <div className="flex items-center justify-between mb-5">
+        <div className="mb-5 flex items-center justify-between">
           <h2 className="text-lg font-medium text-zinc-900 dark:text-zinc-100">
             Performance Metrics
           </h2>
@@ -219,7 +219,7 @@ export default function EchoClientPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
           {enhancedMetrics.map((metric, index) => (
             <MetricCard key={index} metric={metric} />
           ))}
@@ -228,14 +228,14 @@ export default function EchoClientPage() {
 
       {/* AI Initiatives */}
       <section>
-        <div className="flex items-center gap-3 mb-5">
+        <div className="mb-5 flex items-center gap-3">
           <h2 className="text-lg font-medium text-zinc-900 dark:text-zinc-100">
             AI-Powered Features
           </h2>
           <Brain className="h-5 w-5 text-emerald-500" />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {aiInitiatives.map((initiative, index) => (
             <ProjectCard
               key={index}
@@ -260,7 +260,7 @@ export default function EchoClientPage() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">
+              <p className="leading-relaxed text-zinc-600 dark:text-zinc-400">
                 {enhancedProcessStory.background}
               </p>
             </CardContent>
@@ -274,7 +274,7 @@ export default function EchoClientPage() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">
+              <p className="leading-relaxed text-zinc-600 dark:text-zinc-400">
                 {enhancedProcessStory.approach}
               </p>
             </CardContent>
@@ -289,28 +289,28 @@ export default function EchoClientPage() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                <p className="leading-relaxed text-zinc-600 dark:text-zinc-400">
                   {enhancedProcessStory.outcome}
                 </p>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
-                  <div className="text-center p-4 rounded-lg bg-zinc-50 dark:bg-zinc-900/50">
-                    <div className="text-2xl font-bold text-emerald-600 mb-1">
+                <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
+                  <div className="rounded-lg bg-zinc-50 p-4 text-center dark:bg-zinc-900/50">
+                    <div className="mb-1 text-2xl font-bold text-emerald-600">
                       89%
                     </div>
                     <div className="text-sm text-zinc-600 dark:text-zinc-400">
                       User Adoption Rate
                     </div>
                   </div>
-                  <div className="text-center p-4 rounded-lg bg-zinc-50 dark:bg-zinc-900/50">
-                    <div className="text-2xl font-bold text-blue-600 mb-1">
+                  <div className="rounded-lg bg-zinc-50 p-4 text-center dark:bg-zinc-900/50">
+                    <div className="mb-1 text-2xl font-bold text-blue-600">
                       5x
                     </div>
                     <div className="text-sm text-zinc-600 dark:text-zinc-400">
                       Faster Search Speeds
                     </div>
                   </div>
-                  <div className="text-center p-4 rounded-lg bg-zinc-50 dark:bg-zinc-900/50">
-                    <div className="text-2xl font-bold text-cyan-600 mb-1">
+                  <div className="rounded-lg bg-zinc-50 p-4 text-center dark:bg-zinc-900/50">
+                    <div className="mb-1 text-2xl font-bold text-cyan-600">
                       67%
                     </div>
                     <div className="text-sm text-zinc-600 dark:text-zinc-400">
@@ -329,11 +329,11 @@ export default function EchoClientPage() {
         <h2 className="mb-5 text-lg font-medium text-zinc-900 dark:text-zinc-100">
           AI Development Insights
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {enhancedProcessStory.keyInsights?.map((insight, index) => (
             <Card key={index}>
               <CardContent className="pt-6">
-                <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed font-medium">
+                <p className="leading-relaxed font-medium text-zinc-600 dark:text-zinc-400">
                   {insight}
                 </p>
               </CardContent>
@@ -347,11 +347,11 @@ export default function EchoClientPage() {
         <h2 className="mb-5 text-lg font-medium text-zinc-900 dark:text-zinc-100">
           User Experience Impact
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {enhancedProcessStory.stakeholderQuotes?.map((quote, index) => (
             <Card key={index}>
               <CardContent className="pt-6">
-                <blockquote className="text-zinc-600 dark:text-zinc-400 italic leading-relaxed mb-4">
+                <blockquote className="mb-4 leading-relaxed text-zinc-600 italic dark:text-zinc-400">
                   &ldquo;{quote.quote}&rdquo;
                 </blockquote>
                 <div className="text-sm">
@@ -373,27 +373,27 @@ export default function EchoClientPage() {
         <h2 className="mb-5 text-lg font-medium text-zinc-900 dark:text-zinc-100">
           Technical Resources & Documentation
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {externalLinks.map((link, index) => (
             <a
               key={index}
               href={link.url}
-              className="block group focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 rounded-2xl"
+              className="group block rounded-2xl focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:outline-none"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <div className="relative overflow-hidden rounded-2xl bg-zinc-300/30 p-[1px] dark:bg-zinc-600/30 hover:bg-zinc-400/40 dark:hover:bg-zinc-500/40 transition-colors duration-200">
+              <div className="relative overflow-hidden rounded-2xl bg-zinc-300/30 p-[1px] transition-colors duration-200 hover:bg-zinc-400/40 dark:bg-zinc-600/30 dark:hover:bg-zinc-500/40">
                 <div className="relative h-full w-full rounded-[15px] bg-white p-6 dark:bg-zinc-950">
                   <div className="flex items-start justify-between">
-                    <div className="space-y-2 flex-1">
-                      <h4 className="font-medium text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
+                    <div className="flex-1 space-y-2">
+                      <h4 className="flex items-center gap-2 font-medium text-zinc-900 dark:text-zinc-100">
                         {link.title}
-                        <ExternalLink className="h-4 w-4 text-zinc-400 group-hover:text-emerald-500 transition-colors" />
+                        <ExternalLink className="h-4 w-4 text-zinc-400 transition-colors group-hover:text-emerald-500" />
                       </h4>
                       <p className="text-sm text-zinc-600 dark:text-zinc-400">
                         {link.description}
                       </p>
-                      <div className="flex items-center gap-1 text-xs text-emerald-600 dark:text-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="flex items-center gap-1 text-xs text-emerald-600 opacity-0 transition-opacity duration-300 group-hover:opacity-100 dark:text-emerald-400">
                         <BookOpen className="h-3 w-3" />
                         <span>Explore this resource</span>
                       </div>
@@ -415,21 +415,21 @@ export default function EchoClientPage() {
           {echoProject.technologies?.map((tech, index) => (
             <span
               key={index}
-              className="border border-zinc-300 dark:border-zinc-700 px-3 py-1 rounded-full text-sm text-zinc-700 dark:text-zinc-300"
+              className="rounded-full border border-zinc-300 px-3 py-1 text-sm text-zinc-700 dark:border-zinc-700 dark:text-zinc-300"
             >
               {tech}
             </span>
           ))}
-          <span className="border border-zinc-300 dark:border-zinc-700 px-3 py-1 rounded-full text-sm text-zinc-700 dark:text-zinc-300">
+          <span className="rounded-full border border-zinc-300 px-3 py-1 text-sm text-zinc-700 dark:border-zinc-700 dark:text-zinc-300">
             TensorFlow
           </span>
-          <span className="border border-zinc-300 dark:border-zinc-700 px-3 py-1 rounded-full text-sm text-zinc-700 dark:text-zinc-300">
+          <span className="rounded-full border border-zinc-300 px-3 py-1 text-sm text-zinc-700 dark:border-zinc-700 dark:text-zinc-300">
             Natural Language Processing
           </span>
-          <span className="border border-zinc-300 dark:border-zinc-700 px-3 py-1 rounded-full text-sm text-zinc-700 dark:text-zinc-300">
+          <span className="rounded-full border border-zinc-300 px-3 py-1 text-sm text-zinc-700 dark:border-zinc-700 dark:text-zinc-300">
             Machine Learning
           </span>
-          <span className="border border-zinc-300 dark:border-zinc-700 px-3 py-1 rounded-full text-sm text-zinc-700 dark:text-zinc-300">
+          <span className="rounded-full border border-zinc-300 px-3 py-1 text-sm text-zinc-700 dark:border-zinc-700 dark:text-zinc-300">
             Computer Vision
           </span>
         </div>
@@ -442,7 +442,7 @@ export default function EchoClientPage() {
         </h2>
         <Card>
           <CardContent className="pt-6">
-            <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed text-lg">
+            <p className="text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
               {enhancedProcessStory.reflection}
             </p>
           </CardContent>
@@ -450,25 +450,25 @@ export default function EchoClientPage() {
       </section>
 
       {/* Navigation */}
-      <section className="border-t border-zinc-200 dark:border-zinc-700 pt-8 px-4 sm:px-6 lg:px-8 mb-16 sm:mb-20 lg:mb-24">
-        <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+      <section className="mb-16 border-t border-zinc-200 px-4 pt-8 sm:mb-20 sm:px-6 lg:mb-24 lg:px-8 dark:border-zinc-700">
+        <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
           <Link
             href="/projects"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-900 dark:text-zinc-100 transition-all duration-200"
+            className="inline-flex items-center gap-2 rounded-lg bg-zinc-100 px-6 py-3 text-zinc-900 transition-all duration-200 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700"
           >
             ← Back to Projects
           </Link>
 
           <Link
             href="/about"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-gradient-to-r from-emerald-600 to-blue-600 hover:from-emerald-700 hover:to-blue-700 text-white transition-all duration-200"
+            className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-emerald-600 to-blue-600 px-6 py-3 text-white transition-all duration-200 hover:from-emerald-700 hover:to-blue-700"
           >
             Explore More AI Projects
             <ExternalLink className="h-4 w-4" />
           </Link>
         </div>
 
-        <div className="text-center mt-8">
+        <div className="mt-8 text-center">
           <p className="text-xs text-zinc-500 dark:text-zinc-400">
             Thank you for exploring EchoDrive&apos;s AI-powered innovation!
           </p>

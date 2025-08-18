@@ -45,7 +45,7 @@ const StatusIcon = ({ status }: { status: TestResultStatus }) => {
           role="img"
           aria-label="Error status"
         >
-          <span className="text-xs font-bold leading-none">✕</span>
+          <span className="text-xs leading-none font-bold">✕</span>
         </div>
       );
     case "success":
@@ -55,7 +55,7 @@ const StatusIcon = ({ status }: { status: TestResultStatus }) => {
           role="img"
           aria-label="Success status"
         >
-          <span className="text-xs font-bold leading-none">✓</span>
+          <span className="text-xs leading-none font-bold">✓</span>
         </div>
       );
     default:
@@ -146,7 +146,7 @@ const TestResultItem = React.memo(({ result }: TestResultItemProps) => {
 
     return (
       <pre
-        className="text-xs text-gray-800 whitespace-pre-wrap overflow-auto max-h-96"
+        className="max-h-96 overflow-auto text-xs whitespace-pre-wrap text-gray-800"
         dangerouslySetInnerHTML={{ __html: highlightJson(content) }}
       />
     );
@@ -198,7 +198,7 @@ const TestResultItem = React.memo(({ result }: TestResultItemProps) => {
             <button
               onClick={handleToggle}
               onKeyDown={handleKeyDown}
-              className="flex items-center gap-1 text-sm text-blue-600 hover:text-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors rounded-sm"
+              className="flex items-center gap-1 rounded-sm text-sm text-blue-600 transition-colors hover:text-blue-800 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none"
               aria-expanded={isExpanded}
               aria-label={`${isExpanded ? "Hide" : "Show"} details for ${result.title}`}
             >
@@ -231,7 +231,7 @@ const TestResultItem = React.memo(({ result }: TestResultItemProps) => {
               return formatted.isJson ? (
                 <JsonHighlighter content={formatted.content} />
               ) : (
-                <pre className="text-xs text-gray-800 whitespace-pre-wrap overflow-auto max-h-96">
+                <pre className="max-h-96 overflow-auto text-xs whitespace-pre-wrap text-gray-800">
                   {formatted.content}
                 </pre>
               );
@@ -252,7 +252,7 @@ export const TestResults = React.memo(
       return (
         <div className={cn("space-y-4", className)}>
           <h2 className="text-2xl font-bold text-gray-900">Test Results</h2>
-          <div className="text-gray-500 text-center py-8">
+          <div className="py-8 text-center text-gray-500">
             No test results available
           </div>
         </div>

@@ -81,7 +81,7 @@ function InteractiveCursorCard({ card }: { card: (typeof cardData)[0] }) {
   };
 
   return (
-    <div className="flex h-[300px] w-full items-center justify-center relative">
+    <div className="relative flex h-[300px] w-full items-center justify-center">
       <Cursor
         attachToParent
         variants={{
@@ -105,7 +105,7 @@ function InteractiveCursorCard({ card }: { card: (typeof cardData)[0] }) {
             paddingLeft: isHovering ? 12 : 0,
             paddingRight: isHovering ? 12 : 0,
           }}
-          className="flex items-center justify-center rounded-[24px] bg-gray-500/40 backdrop-blur-md dark:bg-gray-300/40 min-w-4"
+          className="flex min-w-4 items-center justify-center rounded-[24px] bg-gray-500/40 backdrop-blur-md dark:bg-gray-300/40"
         >
           <AnimatePresence>
             {isHovering ? (
@@ -129,23 +129,23 @@ function InteractiveCursorCard({ card }: { card: (typeof cardData)[0] }) {
         className="relative cursor-pointer"
         onClick={handleClick}
       >
-        <div className="relative group">
+        <div className="group relative">
           <Image
             src={card.imageUrl}
             alt={card.imageAlt}
             width={288}
             height={192}
-            className="h-48 w-full max-w-72 rounded-xl border border-border object-cover transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl"
+            className="border-border h-48 w-full max-w-72 rounded-xl border object-cover transition-all duration-300 group-hover:scale-105 group-hover:shadow-xl"
           />
 
           {/* Overlay with title and icon */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-xl" />
-          <div className="absolute bottom-4 left-4 right-4">
-            <div className="flex items-center gap-3 mb-2">
+          <div className="absolute inset-0 rounded-xl bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+          <div className="absolute right-4 bottom-4 left-4">
+            <div className="mb-2 flex items-center gap-3">
               <span className="text-2xl">{card.icon}</span>
-              <h3 className="text-white font-semibold text-lg">{card.title}</h3>
+              <h3 className="text-lg font-semibold text-white">{card.title}</h3>
             </div>
-            <p className="text-white/80 text-sm">
+            <p className="text-sm text-white/80">
               {card.id === "sitemap" &&
                 "Interactive wireframes and information architecture"}
               {card.id === "usability-test" &&
@@ -164,20 +164,20 @@ function InteractiveCursorCard({ card }: { card: (typeof cardData)[0] }) {
 
 export function PrototypeScenarioGrid() {
   return (
-    <section className="py-16 px-6 lg:px-8">
+    <section className="px-6 py-16 lg:px-8">
       <div className="mx-auto max-w-6xl">
         <div className="mb-12">
-          <h2 className="text-3xl font-bold mb-4 text-center">
+          <h2 className="mb-4 text-center text-3xl font-bold">
             Design Artifacts & Testing Resources
           </h2>
-          <p className="text-lg text-muted-foreground text-center max-w-3xl mx-auto">
+          <p className="text-muted-foreground mx-auto max-w-3xl text-center text-lg">
             Explore the interactive prototypes and testing materials from the
             Innovation Lab. Each resource provides insight into the design
             process and user research methodology.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:gap-12">
           {cardData.map((card) => (
             <InteractiveCursorCard key={card.id} card={card} />
           ))}

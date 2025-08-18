@@ -2,6 +2,7 @@
 
 import React from "react";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 import { useMorphingDialog } from "@/hooks/useMorphingDialog";
 
 export type MorphingDialogTitleProps = {
@@ -35,9 +36,7 @@ export function MorphingDialogSubtitle({
   className,
 }: MorphingDialogSubtitleProps) {
   return (
-    <p className={cn("text-sm text-muted-foreground", className)}>
-      {children}
-    </p>
+    <p className={cn("text-muted-foreground text-sm", className)}>{children}</p>
   );
 }
 
@@ -65,19 +64,30 @@ export function MorphingDialogDescription({
 export type MorphingDialogImageProps = {
   src: string;
   alt: string;
+  width?: number;
+  height?: number;
   className?: string;
 };
 
 export function MorphingDialogImage({
   src,
   alt,
+  width = 400,
+  height = 300,
   className,
 }: MorphingDialogImageProps) {
   return (
-    <img
+    <Image
       src={src}
       alt={alt}
+      width={width}
+      height={height}
       className={cn("h-full w-full object-cover", className)}
     />
   );
 }
+
+MorphingDialogTitle.displayName = "MorphingDialogTitle";
+MorphingDialogSubtitle.displayName = "MorphingDialogSubtitle";
+MorphingDialogDescription.displayName = "MorphingDialogDescription";
+MorphingDialogImage.displayName = "MorphingDialogImage";

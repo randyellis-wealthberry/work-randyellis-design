@@ -18,7 +18,7 @@ export function EnhancedMetricsGrid({
 
   return (
     <div
-      className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 ${className}`}
+      className={`grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 ${className}`}
     >
       {metrics.map((metric, index) => (
         <AnimatedMetricCard
@@ -58,10 +58,10 @@ export function ThematicMetricsSection({
 
   return (
     <section className={`space-y-6 ${className}`}>
-      <div className="text-center space-y-2">
-        <h3 className="text-xl font-semibold text-foreground">{title}</h3>
+      <div className="space-y-2 text-center">
+        <h3 className="text-foreground text-xl font-semibold">{title}</h3>
         {description && (
-          <p className="text-sm text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-muted-foreground mx-auto max-w-2xl text-sm">
             {description}
           </p>
         )}

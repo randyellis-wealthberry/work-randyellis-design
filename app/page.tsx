@@ -128,7 +128,7 @@ function TransitionPanelExample() {
           <button
             key={index}
             onClick={() => setActiveIndex(index)}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 ${
+            className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors duration-200 ${
               activeIndex === index
                 ? "bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900"
                 : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:bg-zinc-700"
@@ -149,7 +149,7 @@ function TransitionPanelExample() {
             <h4 className="text-lg font-medium text-zinc-900 dark:text-zinc-100">
               {panel.title}
             </h4>
-            <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">
+            <p className="leading-relaxed text-zinc-600 dark:text-zinc-400">
               {panel.content}
             </p>
           </div>
@@ -422,7 +422,7 @@ function TerminalDemo() {
       }}
       aria-label="View GitHub profile"
     >
-      <Terminal className="hover:shadow-lg transition-shadow">
+      <Terminal className="transition-shadow hover:shadow-lg">
         <TypingAnimation>{selectedScenario.command}</TypingAnimation>
 
         {selectedScenario.steps.map((step, index) => (
@@ -449,14 +449,14 @@ function ProjectThumbnail({ project }: { project: (typeof PROJECTS)[0] }) {
     return (
       <Link href={`/projects/${project.slug}`}>
         <div
-          className="aspect-video w-full max-h-48 rounded-lg overflow-hidden cursor-pointer hover:opacity-90 transition-opacity duration-200"
+          className="aspect-video max-h-48 w-full cursor-pointer overflow-hidden rounded-lg transition-opacity duration-200 hover:opacity-90"
           onMouseEnter={() => trackProjectHover(project.name, project.id)}
           onClick={() => trackProjectView(project.name)}
         >
           <LazyHoverVideo
             src={project.video}
             alt={project.name}
-            className="w-full h-full"
+            className="h-full w-full"
             resetOnLeave={true}
             projectName={project.name}
           />
@@ -472,13 +472,13 @@ function ProjectThumbnail({ project }: { project: (typeof PROJECTS)[0] }) {
     return (
       <Link href={`/projects/${project.slug}`}>
         <div
-          className="aspect-video w-full max-h-48 rounded-lg overflow-hidden cursor-pointer hover:opacity-90 transition-opacity duration-200"
+          className="aspect-video max-h-48 w-full cursor-pointer overflow-hidden rounded-lg transition-opacity duration-200 hover:opacity-90"
           onMouseEnter={() => trackProjectHover(project.name, project.id)}
           onClick={() => trackProjectView(project.name)}
         >
           <iframe
             src={thumbnailSrc}
-            className="w-full h-full"
+            className="h-full w-full"
             frameBorder="0"
             allow="autoplay; fullscreen; picture-in-picture"
             allowFullScreen
@@ -498,7 +498,7 @@ function ProjectThumbnail({ project }: { project: (typeof PROJECTS)[0] }) {
         onClick={() => trackProjectView(project.name)}
         width={500}
         height={300}
-        className="aspect-video w-full max-h-48 object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity duration-200"
+        className="aspect-video max-h-48 w-full cursor-pointer rounded-lg object-cover transition-opacity duration-200 hover:opacity-90"
       />
     </Link>
   );
@@ -561,40 +561,40 @@ export default function Personal() {
         transition={TRANSITION_SECTION}
         className="mt-40 sm:mt-32"
       >
-        <div className="flex items-center justify-between mb-5">
+        <div className="mb-5 flex items-center justify-between">
           <ScrambleSectionTitle className="text-lg font-medium">
             Selected Projects
           </ScrambleSectionTitle>
           <Link
             href="/projects"
-            className="group relative inline-flex items-center text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors duration-200"
+            className="group relative inline-flex items-center text-sm text-zinc-600 transition-colors duration-200 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
           >
             View all projects ({PROJECTS.length})
-            <span className="absolute bottom-0 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 dark:bg-zinc-50 transition-all duration-200 group-hover:max-w-full"></span>
+            <span className="absolute bottom-0 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 transition-all duration-200 group-hover:max-w-full dark:bg-zinc-50"></span>
           </Link>
         </div>
-        <div className="grid grid-cols-1 gap-12 sm:gap-8 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 sm:gap-8">
           {selectedProjects.length > 0
             ? selectedProjects.map((project) => (
-                <div key={project.id} className="h-full flex flex-col">
-                  <div className="flex-shrink-0 mb-4">
+                <div key={project.id} className="flex h-full flex-col">
+                  <div className="mb-4 flex-shrink-0">
                     <ProjectThumbnail project={project} />
                   </div>
-                  <div className="px-1 flex flex-col flex-grow">
+                  <div className="flex flex-grow flex-col px-1">
                     <Link
-                      className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50 mb-2"
+                      className="font-base group relative mb-2 inline-block font-[450] text-zinc-900 dark:text-zinc-50"
                       href={`/projects/${project.slug}`}
                       onClick={() => trackProjectView(project.name)}
                     >
                       {project.name}
-                      <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 dark:bg-zinc-50 transition-all duration-200 group-hover:max-w-full"></span>
+                      <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 transition-all duration-200 group-hover:max-w-full dark:bg-zinc-50"></span>
                     </Link>
                     {project.subtitle && (
-                      <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-2">
+                      <p className="mb-2 text-sm text-zinc-500 dark:text-zinc-400">
                         {project.subtitle}
                       </p>
                     )}
-                    <p className="text-base text-zinc-600 dark:text-zinc-400 flex-grow">
+                    <p className="flex-grow text-base text-zinc-600 dark:text-zinc-400">
                       {project.description}
                     </p>
                   </div>
@@ -604,15 +604,15 @@ export default function Personal() {
               Array.from({ length: 2 }).map((_, index) => (
                 <div
                   key={`placeholder-${index}`}
-                  className="h-full flex flex-col"
+                  className="flex h-full flex-col"
                 >
-                  <div className="flex-shrink-0 mb-4">
-                    <div className="aspect-video w-full max-h-48 rounded-lg bg-zinc-100 dark:bg-zinc-800 animate-pulse" />
+                  <div className="mb-4 flex-shrink-0">
+                    <div className="aspect-video max-h-48 w-full animate-pulse rounded-lg bg-zinc-100 dark:bg-zinc-800" />
                   </div>
-                  <div className="px-1 flex flex-col flex-grow space-y-2">
-                    <div className="h-6 bg-zinc-100 dark:bg-zinc-800 rounded animate-pulse" />
-                    <div className="h-4 bg-zinc-100 dark:bg-zinc-800 rounded w-3/4 animate-pulse" />
-                    <div className="h-4 bg-zinc-100 dark:bg-zinc-800 rounded animate-pulse flex-grow" />
+                  <div className="flex flex-grow flex-col space-y-2 px-1">
+                    <div className="h-6 animate-pulse rounded bg-zinc-100 dark:bg-zinc-800" />
+                    <div className="h-4 w-3/4 animate-pulse rounded bg-zinc-100 dark:bg-zinc-800" />
+                    <div className="h-4 flex-grow animate-pulse rounded bg-zinc-100 dark:bg-zinc-800" />
                   </div>
                 </div>
               ))}
@@ -630,11 +630,11 @@ export default function Personal() {
         <div className="grid grid-cols-1 gap-12 sm:gap-8">
           <div className="space-y-4">
             <Link href="/metis">
-              <div className="aspect-video w-full max-h-48 rounded-lg overflow-hidden cursor-pointer hover:opacity-90 transition-opacity duration-200">
+              <div className="aspect-video max-h-48 w-full cursor-pointer overflow-hidden rounded-lg transition-opacity duration-200 hover:opacity-90">
                 <LazyHoverVideo
                   src="/images/projects/metis/metis-logomark-glitch.mp4"
                   alt="METIS logomark glitch animation"
-                  className="w-full h-full"
+                  className="h-full w-full"
                   resetOnLeave={true}
                 />
               </div>
@@ -645,7 +645,7 @@ export default function Personal() {
                 href="/metis"
               >
                 METIS:LAYER - AI BUSINESS STRATEGY FOR DIGITAL DESIGNERS
-                <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 dark:bg-zinc-50 transition-all duration-200 group-hover:max-w-full"></span>
+                <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 transition-all duration-200 group-hover:max-w-full dark:bg-zinc-50"></span>
               </Link>
               <p className="text-base text-zinc-600 dark:text-zinc-400">
                 My new project to bridge the gap between design excellence and
@@ -672,16 +672,16 @@ export default function Personal() {
         transition={TRANSITION_SECTION}
         className="mt-40 sm:mt-32"
       >
-        <div className="flex items-center justify-between mb-5">
+        <div className="mb-5 flex items-center justify-between">
           <ScrambleSectionTitle className="text-lg font-medium">
             Recent Work Experience
           </ScrambleSectionTitle>
           <Link
             href="/about"
-            className="group relative inline-flex items-center text-sm text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors duration-200"
+            className="group relative inline-flex items-center text-sm text-zinc-600 transition-colors duration-200 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
           >
             View all
-            <span className="absolute bottom-0 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 dark:bg-zinc-50 transition-all duration-200 group-hover:max-w-full"></span>
+            <span className="absolute bottom-0 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 transition-all duration-200 group-hover:max-w-full dark:bg-zinc-50"></span>
           </Link>
         </div>
         <div className="flex flex-col space-y-2">

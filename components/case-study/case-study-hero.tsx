@@ -33,26 +33,26 @@ export function CaseStudyHero({
     setIsClient(true);
   }, []);
   return (
-    <section className="relative bg-gradient-to-b from-background to-muted/20 py-16 md:py-24">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+    <section className="from-background to-muted/20 relative bg-gradient-to-b py-16 md:py-24">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="grid items-center gap-12 lg:grid-cols-2">
           {/* Content */}
           <div className="space-y-8">
             <div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-tight">
+              <h1 className="text-4xl leading-tight font-bold tracking-tight md:text-5xl lg:text-6xl">
                 {title}
               </h1>
-              <p className="mt-6 text-lg md:text-xl text-muted-foreground leading-relaxed">
+              <p className="text-muted-foreground mt-6 text-lg leading-relaxed md:text-xl">
                 {subtitle}
               </p>
             </div>
 
             {/* Metadata */}
             <div className="space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <Card>
                   <CardContent className="p-4">
-                    <div className="text-sm text-muted-foreground mb-1">
+                    <div className="text-muted-foreground mb-1 text-sm">
                       Client
                     </div>
                     <div className="font-semibold">{client}</div>
@@ -60,7 +60,7 @@ export function CaseStudyHero({
                 </Card>
                 <Card>
                   <CardContent className="p-4">
-                    <div className="text-sm text-muted-foreground mb-1">
+                    <div className="text-muted-foreground mb-1 text-sm">
                       Partner
                     </div>
                     <div className="font-semibold">{partner}</div>
@@ -70,7 +70,7 @@ export function CaseStudyHero({
 
               <Card>
                 <CardContent className="p-4">
-                  <div className="text-sm text-muted-foreground mb-1">
+                  <div className="text-muted-foreground mb-1 text-sm">
                     Timeline
                   </div>
                   <div className="font-semibold">{timeline}</div>
@@ -80,7 +80,7 @@ export function CaseStudyHero({
 
             {/* Platform Badges */}
             <div className="space-y-2">
-              <div className="text-sm text-muted-foreground">Platforms</div>
+              <div className="text-muted-foreground text-sm">Platforms</div>
               <div className="flex flex-wrap gap-2">
                 {platforms.map((platform) => (
                   <Badge key={platform} variant="secondary" className="text-sm">
@@ -98,7 +98,7 @@ export function CaseStudyHero({
                 <AspectRatio ratio={16 / 10}>
                   {heroVideo && isClient ? (
                     <video
-                      className="w-full h-full object-cover"
+                      className="h-full w-full object-cover"
                       autoPlay
                       muted
                       loop

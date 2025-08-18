@@ -321,7 +321,7 @@ function CertificationsAccordion() {
                 href={cert.validationLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm text-zinc-600 hover:text-blue-600 dark:text-zinc-400 dark:hover:text-blue-400 transition-colors"
+                className="inline-flex items-center gap-2 text-sm text-zinc-600 transition-colors hover:text-blue-600 dark:text-zinc-400 dark:hover:text-blue-400"
               >
                 Verify Certificate
                 <ExternalLink className="h-3 w-3" />
@@ -351,7 +351,7 @@ export default function AboutClient() {
         {/* Avatar with Circular Text */}
         <div className="flex flex-col md:flex-row md:items-center md:gap-12">
           <motion.div
-            className="flex justify-center md:justify-start mb-8 md:mb-0"
+            className="mb-8 flex justify-center md:mb-0 md:justify-start"
             variants={VARIANTS_SECTION}
             transition={{ ...TRANSITION_SECTION, delay: 0.1 }}
           >
@@ -359,10 +359,10 @@ export default function AboutClient() {
           </motion.div>
 
           <div className="flex-1 space-y-6">
-            <h1 className="text-4xl font-bold text-zinc-900 dark:text-zinc-100 text-center md:text-left">
+            <h1 className="text-center text-4xl font-bold text-zinc-900 md:text-left dark:text-zinc-100">
               Randy Ellis
             </h1>
-            <p className="text-xl text-zinc-600 dark:text-zinc-400 leading-relaxed text-center md:text-left">
+            <p className="text-center text-xl leading-relaxed text-zinc-600 md:text-left dark:text-zinc-400">
               AI Product Design Engineer bridging the gap between cutting-edge
               artificial intelligence and human-centered design. Passionate
               about creating products that amplify human potential through
@@ -384,15 +384,15 @@ export default function AboutClient() {
         >
           Career Impact
         </ScrambleSectionTitle>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
           {achievements.map((achievement, index) => (
             <Card key={index} className="text-center">
               <CardContent className="pt-6">
-                <achievement.icon className="h-8 w-8 mx-auto mb-3 text-blue-600" />
-                <div className="text-2xl font-bold text-zinc-900 dark:text-zinc-100 mb-1">
+                <achievement.icon className="mx-auto mb-3 h-8 w-8 text-blue-600" />
+                <div className="mb-1 text-2xl font-bold text-zinc-900 dark:text-zinc-100">
                   {achievement.value}
                 </div>
-                <div className="text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1 flex justify-center">
+                <div className="mb-1 flex justify-center text-sm font-medium text-zinc-700 dark:text-zinc-300">
                   <span className="whitespace-nowrap">{achievement.label}</span>
                 </div>
                 <div className="text-xs text-zinc-500 dark:text-zinc-400">
@@ -419,7 +419,7 @@ export default function AboutClient() {
           Career Journey
         </ScrambleSectionTitle>
         <div className="space-y-8">
-          <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">
+          <p className="leading-relaxed text-zinc-600 dark:text-zinc-400">
             My journey in product design began with a fascination for how
             technology can solve real human problems. Over the past decade,
             I&apos;ve evolved from a traditional designer to an AI-powered
@@ -427,7 +427,7 @@ export default function AboutClient() {
             at the center of technological innovation.
           </p>
 
-          <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">
+          <p className="leading-relaxed text-zinc-600 dark:text-zinc-400">
             The emergence of generative AI has fundamentally changed how I
             approach product design. Rather than replacing human creativity, I
             believe AI amplifies our ability to create more personalized,
@@ -454,25 +454,25 @@ export default function AboutClient() {
           {experience.map((role, index) => (
             <Card key={index}>
               <CardHeader>
-                <div className="flex justify-between items-start">
+                <div className="flex items-start justify-between">
                   <div>
                     <div className="flex items-center gap-2">
                       <CardTitle className="text-lg">{role.title}</CardTitle>
                       {role.promotion && (
                         <Badge
                           variant="secondary"
-                          className="bg-yellow-100 text-yellow-800 border-yellow-200 dark:bg-yellow-900/20 dark:text-yellow-400 dark:border-yellow-700 text-xs"
+                          className="border-yellow-200 bg-yellow-100 text-xs text-yellow-800 dark:border-yellow-700 dark:bg-yellow-900/20 dark:text-yellow-400"
                         >
                           ⭐ Promotion
                         </Badge>
                       )}
                     </div>
-                    <div className="flex items-center gap-2 mt-1">
+                    <div className="mt-1 flex items-center gap-2">
                       <a
                         href={role.companyUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="font-medium text-blue-600 hover:text-blue-700 transition-colors flex items-center gap-1"
+                        className="flex items-center gap-1 font-medium text-blue-600 transition-colors hover:text-blue-700"
                       >
                         {role.company}
                         <ExternalLink className="h-4 w-4" />
@@ -494,9 +494,9 @@ export default function AboutClient() {
                     {role.achievements.map((achievement, achievementIndex) => (
                       <li
                         key={achievementIndex}
-                        className="text-sm text-zinc-600 dark:text-zinc-400 flex items-start gap-2"
+                        className="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400"
                       >
-                        <span className="text-blue-600 mt-1">•</span>
+                        <span className="mt-1 text-blue-600">•</span>
                         {achievement}
                       </li>
                     ))}
@@ -526,15 +526,15 @@ export default function AboutClient() {
           {adjunctExperience.map((role, index) => (
             <Card key={index}>
               <CardHeader>
-                <div className="flex justify-between items-start">
+                <div className="flex items-start justify-between">
                   <div>
                     <CardTitle className="text-lg">{role.title}</CardTitle>
-                    <div className="flex items-center gap-2 mt-1">
+                    <div className="mt-1 flex items-center gap-2">
                       <a
                         href={role.companyUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="font-medium text-blue-600 hover:text-blue-700 transition-colors flex items-center gap-1"
+                        className="flex items-center gap-1 font-medium text-blue-600 transition-colors hover:text-blue-700"
                       >
                         {role.company}
                         <ExternalLink className="h-4 w-4" />
@@ -550,7 +550,7 @@ export default function AboutClient() {
                 </p>
                 {role.colleges && (
                   <div className="space-y-2">
-                    <h4 className="text-sm font-medium text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
+                    <h4 className="flex items-center gap-2 text-sm font-medium text-zinc-900 dark:text-zinc-100">
                       <GraduationCap className="h-4 w-4" />
                       Partner Universities:
                     </h4>
@@ -575,9 +575,9 @@ export default function AboutClient() {
                     {role.achievements.map((achievement, achievementIndex) => (
                       <li
                         key={achievementIndex}
-                        className="text-sm text-zinc-600 dark:text-zinc-400 flex items-start gap-2"
+                        className="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400"
                       >
-                        <span className="text-blue-600 mt-1">•</span>
+                        <span className="mt-1 text-blue-600">•</span>
                         {achievement}
                       </li>
                     ))}
@@ -641,14 +641,14 @@ export default function AboutClient() {
         </ScrambleSectionTitle>
         <Card>
           <CardContent className="pt-6">
-            <blockquote className="text-lg italic text-zinc-600 dark:text-zinc-400 leading-relaxed">
+            <blockquote className="text-lg leading-relaxed text-zinc-600 italic dark:text-zinc-400">
               &quot;The best AI products don&apos;t feel like AI products—they
               feel like magic. They anticipate needs, remove friction, and
               amplify human capabilities without getting in the way. My goal is
               to create these magical experiences where technology serves
               humanity, not the other way around.&quot;
             </blockquote>
-            <footer className="text-sm text-zinc-500 dark:text-zinc-400 mt-4">
+            <footer className="mt-4 text-sm text-zinc-500 dark:text-zinc-400">
               — Randy Ellis, on AI Product Design
             </footer>
           </CardContent>
@@ -657,7 +657,7 @@ export default function AboutClient() {
 
       {/* Contact CTA */}
       <motion.section
-        className="space-y-6 text-center py-8"
+        className="space-y-6 py-8 text-center"
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
@@ -667,7 +667,7 @@ export default function AboutClient() {
         >
           Let&apos;s Build Something Amazing
         </ScrambleSectionTitle>
-        <p className="text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto">
+        <p className="mx-auto max-w-2xl text-zinc-600 dark:text-zinc-400">
           Interested in collaborating on AI-powered products or discussing
           design leadership? I&apos;m always excited to connect with fellow
           innovators and explore new opportunities.
@@ -675,7 +675,7 @@ export default function AboutClient() {
         <div className="flex justify-center gap-4">
           <a
             href={`mailto:${getEmail()}`}
-            className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-6 py-3 text-white transition-colors hover:bg-blue-700"
           >
             Get in Touch
             <ExternalLink className="h-4 w-4" />

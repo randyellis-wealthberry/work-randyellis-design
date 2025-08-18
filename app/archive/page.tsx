@@ -10,10 +10,10 @@ export const metadata: Metadata = {
 export default function ArchivePage() {
   return (
     <div className="container mx-auto px-4 py-8">
-      <ScrambleSectionTitle as="h1" className="text-3xl font-bold mb-8">
+      <ScrambleSectionTitle as="h1" className="mb-8 text-3xl font-bold">
         Archive
       </ScrambleSectionTitle>
-      <p className="text-zinc-600 dark:text-zinc-400 mb-8">
+      <p className="mb-8 text-zinc-600 dark:text-zinc-400">
         A collection of old articles and career footage will be displayed here.
       </p>
       <AccordionIcons />

@@ -41,10 +41,10 @@ const WireframesSectionComponent = ({
       <section
         data-testid="wireframes-section"
         aria-labelledby="wireframes-title"
-        className={`py-16 px-4 md:px-6 lg:px-8 ${className}`}
+        className={`px-4 py-16 md:px-6 lg:px-8 ${className}`}
       >
-        <div className="max-w-6xl mx-auto text-center">
-          <h2 id="wireframes-title" className="text-2xl font-bold mb-4">
+        <div className="mx-auto max-w-6xl text-center">
+          <h2 id="wireframes-title" className="mb-4 text-2xl font-bold">
             HIGH-FIDELITY WIREFRAMES
           </h2>
           <p className="text-gray-600 dark:text-gray-400">
@@ -61,29 +61,24 @@ const WireframesSectionComponent = ({
       data-testid="wireframes-section"
       aria-labelledby="wireframes-title"
       aria-label="Wireframes showcase"
-      className={`
-        py-16 px-4 md:px-6 lg:px-8
-        bg-gradient-to-br from-gray-50 via-white to-gray-100
-        dark:from-gray-950 dark:via-gray-900 dark:to-gray-800
-        ${className}
-      `}
+      className={`bg-gradient-to-br from-gray-50 via-white to-gray-100 px-4 py-16 md:px-6 lg:px-8 dark:from-gray-950 dark:via-gray-900 dark:to-gray-800 ${className} `}
     >
-      <div className="max-w-6xl mx-auto">
+      <div className="mx-auto max-w-6xl">
         <InView once={true} margin="-10%" data-in-view={isInView}>
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            className="text-center mb-12"
+            className="mb-12 text-center"
           >
             <motion.h2
               id="wireframes-title"
-              className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4"
+              className="mb-4 text-3xl font-bold text-gray-900 md:text-4xl dark:text-white"
             >
               HIGH-FIDELITY WIREFRAMES
             </motion.h2>
 
-            <motion.p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
+            <motion.p className="mx-auto max-w-3xl text-lg leading-relaxed text-gray-600 dark:text-gray-400">
               Detailed wireframes showcasing key user flows and interactions
               from our intensive 2-week design sprint, focusing on optimal user
               experience and seamless navigation patterns.
@@ -102,11 +97,7 @@ const WireframesSectionComponent = ({
           >
             <div
               data-testid="wireframes-grid"
-              className="
-                grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2
-                gap-6 md:gap-8
-                auto-rows-fr
-              "
+              className="grid auto-rows-fr grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-2"
             >
               {memoizedWireframes.map((wireframe, index) => {
                 const delay = index * (animationConfig.staggerDelay || 100);

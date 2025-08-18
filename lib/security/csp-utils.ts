@@ -41,27 +41,27 @@ export function isValidNonce(nonce: unknown): boolean {
   }
 
   // Trim whitespace
-  nonce = nonce.trim();
+  const trimmedNonce = nonce.trim();
 
-  if (nonce.length < 16) {
+  if (trimmedNonce.length < 16) {
     return false;
   }
 
   // Reject obviously invalid strings
-  if (nonce.length > 200) {
+  if (trimmedNonce.length > 200) {
     // Reasonable upper limit
     return false;
   }
 
   // Check if it's valid base64
   const base64Regex = /^[A-Za-z0-9+/]+=*$/;
-  if (!base64Regex.test(nonce)) {
+  if (!base64Regex.test(trimmedNonce)) {
     return false;
   }
 
   try {
     // Try to decode to ensure it's valid base64
-    const decoded = Buffer.from(nonce, "base64");
+    const decoded = Buffer.from(trimmedNonce, "base64");
     return decoded.length >= 12; // Minimum 96 bits
   } catch {
     return false;

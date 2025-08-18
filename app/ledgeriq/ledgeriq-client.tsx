@@ -102,7 +102,7 @@ const InView = ({
 // Hero Section Component
 const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-slate-900">
+    <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-slate-900">
       {/* Spotlight Card Background Effect */}
       <SpotlightCard className="absolute inset-0 opacity-30">
         <div className="h-full w-full bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" />
@@ -110,13 +110,13 @@ const HeroSection = () => {
 
       {/* Content Container */}
       <div className="relative z-10 container mx-auto px-6">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid items-center gap-12 lg:grid-cols-2">
           {/* Text Content */}
           <div className="space-y-8">
             <TextEffect
               per="char"
               preset="fade"
-              className="text-5xl lg:text-7xl font-bold text-white leading-tight"
+              className="text-5xl leading-tight font-bold text-white lg:text-7xl"
             >
               LedgerIQ: Transforming Financial Intelligence
             </TextEffect>
@@ -126,27 +126,27 @@ const HeroSection = () => {
                 <p className="text-xl text-slate-300">
                   How I redesigned an enterprise financial platform to increase
                   user productivity by{" "}
-                  <span className="text-emerald-400 font-bold">40%</span> and
+                  <span className="font-bold text-emerald-400">40%</span> and
                   reduce processing time by{" "}
-                  <span className="text-emerald-400 font-bold">60%</span>
+                  <span className="font-bold text-emerald-400">60%</span>
                 </p>
 
                 <div className="flex flex-wrap gap-3">
                   <Badge
                     variant="outline"
-                    className="text-emerald-400 border-emerald-400"
+                    className="border-emerald-400 text-emerald-400"
                   >
                     Product Design
                   </Badge>
                   <Badge
                     variant="outline"
-                    className="text-blue-400 border-blue-400"
+                    className="border-blue-400 text-blue-400"
                   >
                     UX Research
                   </Badge>
                   <Badge
                     variant="outline"
-                    className="text-purple-400 border-purple-400"
+                    className="border-purple-400 text-purple-400"
                   >
                     Enterprise SaaS
                   </Badge>
@@ -158,12 +158,12 @@ const HeroSection = () => {
           {/* Project Preview */}
           <InView>
             <AspectRatio ratio={16 / 10} className="relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-blue-500/20 rounded-2xl backdrop-blur-sm" />
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-blue-500/20 backdrop-blur-sm" />
               <Image
                 src="/ledgeriq/dashboard-overview.jpg"
                 alt="LedgerIQ Dashboard Preview"
                 fill
-                className="object-cover rounded-2xl shadow-2xl"
+                className="rounded-2xl object-cover shadow-2xl"
                 priority
               />
             </AspectRatio>
@@ -172,9 +172,9 @@ const HeroSection = () => {
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-        <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-white/60 rounded-full mt-2 animate-bounce" />
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 transform">
+        <div className="flex h-10 w-6 justify-center rounded-full border-2 border-white/30">
+          <div className="mt-2 h-3 w-1 animate-bounce rounded-full bg-white/60" />
         </div>
       </div>
     </section>
@@ -191,17 +191,17 @@ const ImpactSection = () => {
   ];
 
   return (
-    <section className="py-24 bg-slate-50">
+    <section className="bg-slate-50 py-24">
       <div className="container mx-auto px-6">
         <InView>
-          <div className="text-center mb-16">
+          <div className="mb-16 text-center">
             <ScrambleSectionTitle
               as="h2"
-              className="text-4xl font-bold text-slate-900 mb-4"
+              className="mb-4 text-4xl font-bold text-slate-900"
             >
               Measurable Impact
             </ScrambleSectionTitle>
-            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+            <p className="mx-auto max-w-3xl text-xl text-slate-600">
               By reimagining the user experience and streamlining complex
               financial workflows, LedgerIQ achieved significant improvements
               across all key performance indicators.
@@ -209,19 +209,19 @@ const ImpactSection = () => {
           </div>
         </InView>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           {metrics.map((metric, index) => (
             <InView key={index} delay={index * 0.1}>
               <SpotlightCard>
-                <Card className="p-8 text-center h-full border-0 shadow-lg hover:shadow-xl transition-all duration-300">
-                  <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-br from-emerald-500 to-blue-500 flex items-center justify-center">
-                    <metric.icon className="w-8 h-8 text-white" />
+                <Card className="h-full border-0 p-8 text-center shadow-lg transition-all duration-300 hover:shadow-xl">
+                  <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500 to-blue-500">
+                    <metric.icon className="h-8 w-8 text-white" />
                   </div>
                   <div className="space-y-2">
                     <div className="text-4xl font-bold text-slate-900">
                       {metric.value}
                     </div>
-                    <p className="text-slate-600 font-medium">{metric.label}</p>
+                    <p className="font-medium text-slate-600">{metric.label}</p>
                   </div>
                 </Card>
               </SpotlightCard>
@@ -236,13 +236,13 @@ const ImpactSection = () => {
 // Project Details Section Component
 const ProjectDetailsSection = () => {
   return (
-    <section className="py-24 bg-white">
+    <section className="bg-white py-24">
       <div className="container mx-auto px-6">
         <InView>
-          <div className="text-center mb-16">
+          <div className="mb-16 text-center">
             <ScrambleSectionTitle
               as="h2"
-              className="text-4xl font-bold text-slate-900 mb-4"
+              className="mb-4 text-4xl font-bold text-slate-900"
             >
               Project Deep Dive
             </ScrambleSectionTitle>
@@ -254,7 +254,7 @@ const ProjectDetailsSection = () => {
         </InView>
 
         <Tabs defaultValue="overview" className="w-full">
-          <TabsList className="grid w-full grid-cols-5 mb-12">
+          <TabsList className="mb-12 grid w-full grid-cols-5">
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="research">Research</TabsTrigger>
             <TabsTrigger value="design">Design</TabsTrigger>
@@ -264,7 +264,7 @@ const ProjectDetailsSection = () => {
 
           <TabsContent value="overview" className="space-y-8">
             <InView>
-              <div className="grid lg:grid-cols-2 gap-12 items-start">
+              <div className="grid items-start gap-12 lg:grid-cols-2">
                 <div className="space-y-6">
                   <ScrambleSectionTitle
                     as="h3"
@@ -272,7 +272,7 @@ const ProjectDetailsSection = () => {
                   >
                     The Challenge
                   </ScrambleSectionTitle>
-                  <p className="text-slate-600 leading-relaxed">
+                  <p className="leading-relaxed text-slate-600">
                     LedgerIQ&apos;s existing platform suffered from complex
                     navigation, inefficient data visualization, and poor mobile
                     responsiveness, leading to user frustration and decreased
@@ -285,15 +285,15 @@ const ProjectDetailsSection = () => {
                     </h4>
                     <ul className="space-y-2 text-slate-600">
                       <li className="flex items-start gap-3">
-                        <X className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
+                        <X className="mt-0.5 h-5 w-5 flex-shrink-0 text-red-500" />
                         Complex multi-step workflows taking 15+ clicks
                       </li>
                       <li className="flex items-start gap-3">
-                        <X className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
+                        <X className="mt-0.5 h-5 w-5 flex-shrink-0 text-red-500" />
                         Inconsistent information architecture
                       </li>
                       <li className="flex items-start gap-3">
-                        <X className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
+                        <X className="mt-0.5 h-5 w-5 flex-shrink-0 text-red-500" />
                         Poor data visualization and reporting tools
                       </li>
                     </ul>
@@ -306,7 +306,7 @@ const ProjectDetailsSection = () => {
                       src="/ledgeriq/before-redesign.jpg"
                       alt="LedgerIQ Before Redesign"
                       fill
-                      className="object-cover rounded-lg"
+                      className="rounded-lg object-cover"
                     />
                   </AspectRatio>
                 </SpotlightCard>
@@ -316,7 +316,7 @@ const ProjectDetailsSection = () => {
 
           <TabsContent value="research" className="space-y-8">
             <InView>
-              <div className="grid lg:grid-cols-2 gap-12 items-start">
+              <div className="grid items-start gap-12 lg:grid-cols-2">
                 <div className="space-y-6">
                   <ScrambleSectionTitle
                     as="h3"
@@ -324,7 +324,7 @@ const ProjectDetailsSection = () => {
                   >
                     User Research & Discovery
                   </ScrambleSectionTitle>
-                  <p className="text-slate-600 leading-relaxed">
+                  <p className="leading-relaxed text-slate-600">
                     Conducted comprehensive user research including stakeholder
                     interviews, user journey mapping, and competitive analysis
                     to understand pain points and opportunities for improvement.
@@ -336,15 +336,15 @@ const ProjectDetailsSection = () => {
                     </h4>
                     <ul className="space-y-2 text-slate-600">
                       <li className="flex items-start gap-3">
-                        <Check className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0" />
+                        <Check className="mt-0.5 h-5 w-5 flex-shrink-0 text-emerald-500" />
                         25+ stakeholder interviews across different roles
                       </li>
                       <li className="flex items-start gap-3">
-                        <Check className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0" />
+                        <Check className="mt-0.5 h-5 w-5 flex-shrink-0 text-emerald-500" />
                         Comprehensive user journey mapping
                       </li>
                       <li className="flex items-start gap-3">
-                        <Check className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0" />
+                        <Check className="mt-0.5 h-5 w-5 flex-shrink-0 text-emerald-500" />
                         Competitive analysis of 8 financial platforms
                       </li>
                     </ul>
@@ -357,7 +357,7 @@ const ProjectDetailsSection = () => {
                       src="/ledgeriq/user-research.jpg"
                       alt="User Research Process"
                       fill
-                      className="object-cover rounded-lg"
+                      className="rounded-lg object-cover"
                     />
                   </AspectRatio>
                 </SpotlightCard>
@@ -367,7 +367,7 @@ const ProjectDetailsSection = () => {
 
           <TabsContent value="design" className="space-y-8">
             <InView>
-              <div className="grid lg:grid-cols-2 gap-12 items-start">
+              <div className="grid items-start gap-12 lg:grid-cols-2">
                 <div className="space-y-6">
                   <ScrambleSectionTitle
                     as="h3"
@@ -375,7 +375,7 @@ const ProjectDetailsSection = () => {
                   >
                     Design System & Interface
                   </ScrambleSectionTitle>
-                  <p className="text-slate-600 leading-relaxed">
+                  <p className="leading-relaxed text-slate-600">
                     Developed a comprehensive design system with reusable
                     components, consistent visual language, and scalable design
                     tokens that could support the platform&apos;s growth.
@@ -387,15 +387,15 @@ const ProjectDetailsSection = () => {
                     </h4>
                     <ul className="space-y-2 text-slate-600">
                       <li className="flex items-start gap-3">
-                        <Check className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0" />
+                        <Check className="mt-0.5 h-5 w-5 flex-shrink-0 text-emerald-500" />
                         Component library with 50+ reusable elements
                       </li>
                       <li className="flex items-start gap-3">
-                        <Check className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0" />
+                        <Check className="mt-0.5 h-5 w-5 flex-shrink-0 text-emerald-500" />
                         High-fidelity desktop and mobile prototypes
                       </li>
                       <li className="flex items-start gap-3">
-                        <Check className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0" />
+                        <Check className="mt-0.5 h-5 w-5 flex-shrink-0 text-emerald-500" />
                         Interactive prototypes for usability testing
                       </li>
                     </ul>
@@ -408,7 +408,7 @@ const ProjectDetailsSection = () => {
                       src="/ledgeriq/design-system.jpg"
                       alt="Design System Components"
                       fill
-                      className="object-cover rounded-lg"
+                      className="rounded-lg object-cover"
                     />
                   </AspectRatio>
                 </SpotlightCard>
@@ -418,7 +418,7 @@ const ProjectDetailsSection = () => {
 
           <TabsContent value="development" className="space-y-8">
             <InView>
-              <div className="grid lg:grid-cols-2 gap-12 items-start">
+              <div className="grid items-start gap-12 lg:grid-cols-2">
                 <div className="space-y-6">
                   <ScrambleSectionTitle
                     as="h3"
@@ -426,7 +426,7 @@ const ProjectDetailsSection = () => {
                   >
                     Technical Implementation
                   </ScrambleSectionTitle>
-                  <p className="text-slate-600 leading-relaxed">
+                  <p className="leading-relaxed text-slate-600">
                     Collaborated closely with engineering teams to implement the
                     design system using modern web technologies, ensuring
                     performance and accessibility standards.
@@ -438,15 +438,15 @@ const ProjectDetailsSection = () => {
                     </h4>
                     <ul className="space-y-2 text-slate-600">
                       <li className="flex items-start gap-3">
-                        <Check className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0" />
+                        <Check className="mt-0.5 h-5 w-5 flex-shrink-0 text-emerald-500" />
                         React & TypeScript for component development
                       </li>
                       <li className="flex items-start gap-3">
-                        <Check className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0" />
+                        <Check className="mt-0.5 h-5 w-5 flex-shrink-0 text-emerald-500" />
                         Tailwind CSS for responsive styling
                       </li>
                       <li className="flex items-start gap-3">
-                        <Check className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0" />
+                        <Check className="mt-0.5 h-5 w-5 flex-shrink-0 text-emerald-500" />
                         Storybook for component documentation
                       </li>
                     </ul>
@@ -459,7 +459,7 @@ const ProjectDetailsSection = () => {
                       src="/ledgeriq/development.jpg"
                       alt="Development Process"
                       fill
-                      className="object-cover rounded-lg"
+                      className="rounded-lg object-cover"
                     />
                   </AspectRatio>
                 </SpotlightCard>
@@ -469,7 +469,7 @@ const ProjectDetailsSection = () => {
 
           <TabsContent value="results" className="space-y-8">
             <InView>
-              <div className="grid lg:grid-cols-2 gap-12 items-start">
+              <div className="grid items-start gap-12 lg:grid-cols-2">
                 <div className="space-y-6">
                   <ScrambleSectionTitle
                     as="h3"
@@ -477,7 +477,7 @@ const ProjectDetailsSection = () => {
                   >
                     Measurable Outcomes
                   </ScrambleSectionTitle>
-                  <p className="text-slate-600 leading-relaxed">
+                  <p className="leading-relaxed text-slate-600">
                     The redesigned platform delivered significant improvements
                     across all key metrics, resulting in enhanced user
                     satisfaction and business value.
@@ -489,15 +489,15 @@ const ProjectDetailsSection = () => {
                     </h4>
                     <ul className="space-y-2 text-slate-600">
                       <li className="flex items-start gap-3">
-                        <Check className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0" />
+                        <Check className="mt-0.5 h-5 w-5 flex-shrink-0 text-emerald-500" />
                         40% increase in user productivity
                       </li>
                       <li className="flex items-start gap-3">
-                        <Check className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0" />
+                        <Check className="mt-0.5 h-5 w-5 flex-shrink-0 text-emerald-500" />
                         60% reduction in task completion time
                       </li>
                       <li className="flex items-start gap-3">
-                        <Check className="w-5 h-5 text-emerald-500 mt-0.5 flex-shrink-0" />
+                        <Check className="mt-0.5 h-5 w-5 flex-shrink-0 text-emerald-500" />
                         85% user satisfaction score
                       </li>
                     </ul>
@@ -510,7 +510,7 @@ const ProjectDetailsSection = () => {
                       src="/ledgeriq/results-dashboard.jpg"
                       alt="Results Dashboard"
                       fill
-                      className="object-cover rounded-lg"
+                      className="rounded-lg object-cover"
                     />
                   </AspectRatio>
                 </SpotlightCard>
@@ -573,11 +573,11 @@ const ProcessTimelineSection = () => {
   ];
 
   return (
-    <section className="py-24 bg-slate-900 text-white overflow-hidden">
+    <section className="overflow-hidden bg-slate-900 py-24 text-white">
       <div className="container mx-auto px-6">
         <InView>
-          <div className="text-center mb-20">
-            <ScrambleSectionTitle as="h2" className="text-4xl font-bold mb-4">
+          <div className="mb-20 text-center">
+            <ScrambleSectionTitle as="h2" className="mb-4 text-4xl font-bold">
               Design Process
             </ScrambleSectionTitle>
             <p className="text-xl text-slate-300">
@@ -588,18 +588,18 @@ const ProcessTimelineSection = () => {
 
         <div className="relative">
           {/* Timeline Line */}
-          <div className="absolute left-1/2 transform -translate-x-px h-full w-0.5 bg-gradient-to-b from-blue-500 via-purple-500 to-emerald-500" />
+          <div className="absolute left-1/2 h-full w-0.5 -translate-x-px transform bg-gradient-to-b from-blue-500 via-purple-500 to-emerald-500" />
 
           {timelineSteps.map((step, index) => (
             <InView key={index} delay={index * 0.2}>
               <div
-                className={`flex items-center mb-20 ${index % 2 === 0 ? "flex-row" : "flex-row-reverse"}`}
+                className={`mb-20 flex items-center ${index % 2 === 0 ? "flex-row" : "flex-row-reverse"}`}
               >
                 <div
                   className={`w-1/2 ${index % 2 === 0 ? "pr-12 text-right" : "pl-12 text-left"}`}
                 >
                   <SpotlightCard>
-                    <Card className="p-8 bg-slate-800 border-slate-700">
+                    <Card className="border-slate-700 bg-slate-800 p-8">
                       <div className="space-y-4">
                         <div className="flex items-center justify-between">
                           <h3 className="text-2xl font-bold">{step.title}</h3>
@@ -616,9 +616,9 @@ const ProcessTimelineSection = () => {
                             {step.deliverables.map((deliverable, i) => (
                               <li
                                 key={i}
-                                className="text-sm text-slate-400 flex items-center gap-2"
+                                className="flex items-center gap-2 text-sm text-slate-400"
                               >
-                                <Check className="w-4 h-4 text-emerald-400" />
+                                <Check className="h-4 w-4 text-emerald-400" />
                                 {deliverable}
                               </li>
                             ))}
@@ -630,9 +630,9 @@ const ProcessTimelineSection = () => {
                 </div>
 
                 {/* Timeline Node */}
-                <div className="relative z-10 w-6 h-6 rounded-full bg-white flex items-center justify-center">
+                <div className="relative z-10 flex h-6 w-6 items-center justify-center rounded-full bg-white">
                   <div
-                    className={`w-3 h-3 rounded-full bg-gradient-to-r ${step.color}`}
+                    className={`h-3 w-3 rounded-full bg-gradient-to-r ${step.color}`}
                   />
                 </div>
 
@@ -651,13 +651,13 @@ const BeforeAfterSection = () => {
   const [isAfter, setIsAfter] = useState(false);
 
   return (
-    <section className="py-24 bg-gradient-to-br from-slate-50 to-slate-100">
+    <section className="bg-gradient-to-br from-slate-50 to-slate-100 py-24">
       <div className="container mx-auto px-6">
         <InView>
-          <div className="text-center mb-16">
+          <div className="mb-16 text-center">
             <ScrambleSectionTitle
               as="h2"
-              className="text-4xl font-bold text-slate-900 mb-4"
+              className="mb-4 text-4xl font-bold text-slate-900"
             >
               Transformation Results
             </ScrambleSectionTitle>
@@ -667,9 +667,9 @@ const BeforeAfterSection = () => {
           </div>
         </InView>
 
-        <div className="max-w-6xl mx-auto">
-          <div className="flex justify-center mb-8">
-            <div className="flex items-center space-x-4 bg-white rounded-full p-2 shadow-lg">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-8 flex justify-center">
+            <div className="flex items-center space-x-4 rounded-full bg-white p-2 shadow-lg">
               <Button
                 variant={!isAfter ? "default" : "ghost"}
                 onClick={() => setIsAfter(false)}
@@ -723,10 +723,10 @@ const BeforeAfterSection = () => {
           </div>
 
           {/* Feature Comparison */}
-          <div className="mt-12 grid md:grid-cols-2 gap-8">
+          <div className="mt-12 grid gap-8 md:grid-cols-2">
             <Card className="p-6">
-              <h3 className="text-lg font-bold text-red-600 mb-4 flex items-center gap-2">
-                <X className="w-5 h-5" />
+              <h3 className="mb-4 flex items-center gap-2 text-lg font-bold text-red-600">
+                <X className="h-5 w-5" />
                 Before: Key Issues
               </h3>
               <ul className="space-y-3 text-slate-600">
@@ -739,8 +739,8 @@ const BeforeAfterSection = () => {
             </Card>
 
             <Card className="p-6">
-              <h3 className="text-lg font-bold text-emerald-600 mb-4 flex items-center gap-2">
-                <Check className="w-5 h-5" />
+              <h3 className="mb-4 flex items-center gap-2 text-lg font-bold text-emerald-600">
+                <Check className="h-5 w-5" />
                 After: Improvements
               </h3>
               <ul className="space-y-3 text-slate-600">
@@ -785,13 +785,13 @@ const FeaturesShowcaseSection = () => {
   ];
 
   return (
-    <section className="py-24 bg-white">
+    <section className="bg-white py-24">
       <div className="container mx-auto px-6">
         <InView>
-          <div className="text-center mb-16">
+          <div className="mb-16 text-center">
             <ScrambleSectionTitle
               as="h2"
-              className="text-4xl font-bold text-slate-900 mb-4"
+              className="mb-4 text-4xl font-bold text-slate-900"
             >
               Key Features & Innovation
             </ScrambleSectionTitle>
@@ -805,15 +805,15 @@ const FeaturesShowcaseSection = () => {
           {features.map((feature, index) => (
             <InView key={index} delay={index * 0.1}>
               <div
-                className={`grid lg:grid-cols-2 gap-12 items-center ${
+                className={`grid items-center gap-12 lg:grid-cols-2 ${
                   index % 2 === 1 ? "lg:grid-flow-col-dense" : ""
                 }`}
               >
                 <div
                   className={`space-y-6 ${index % 2 === 1 ? "lg:col-start-2" : ""}`}
                 >
-                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-50 text-emerald-700 rounded-full text-sm font-medium">
-                    <Sparkles className="w-4 h-4" />
+                  <div className="inline-flex items-center gap-2 rounded-full bg-emerald-50 px-4 py-2 text-sm font-medium text-emerald-700">
+                    <Sparkles className="h-4 w-4" />
                     {feature.highlight}
                   </div>
 
@@ -824,13 +824,13 @@ const FeaturesShowcaseSection = () => {
                     {feature.title}
                   </ScrambleSectionTitle>
 
-                  <p className="text-lg text-slate-600 leading-relaxed">
+                  <p className="text-lg leading-relaxed text-slate-600">
                     {feature.description}
                   </p>
 
                   <Button className="group">
                     View Details
-                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </Button>
                 </div>
 
@@ -867,40 +867,40 @@ const RelatedProjectsSection = ({
   if (relatedProjects.length === 0) return null;
 
   return (
-    <section className="py-24 bg-gradient-to-b from-white to-slate-50">
+    <section className="bg-gradient-to-b from-white to-slate-50 py-24">
       <div className="container mx-auto px-6">
         <InView>
-          <div className="text-center mb-16">
+          <div className="mb-16 text-center">
             <ScrambleSectionTitle
               as="h2"
-              className="text-4xl font-bold text-slate-900 mb-4"
+              className="mb-4 text-4xl font-bold text-slate-900"
             >
               Related Projects
             </ScrambleSectionTitle>
-            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
+            <p className="mx-auto max-w-2xl text-xl text-slate-600">
               Explore other enterprise solutions that showcase similar design
               thinking and technical excellence
             </p>
           </div>
         </InView>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 md:grid-cols-2">
           {relatedProjects.map((project, index) => (
             <InView key={project.id} delay={index * 0.2}>
               <SpotlightCard className="group">
-                <Card className="h-full border-0 shadow-lg hover:shadow-xl transition-all duration-500 overflow-hidden bg-white">
+                <Card className="h-full overflow-hidden border-0 bg-white shadow-lg transition-all duration-500 hover:shadow-xl">
                   <div className="aspect-video overflow-hidden">
                     {isVimeoUrl(project.video) ? (
                       <HoverIframe
                         src={project.video}
                         title={`${project.name} Demo Video`}
-                        className="w-full h-full"
+                        className="h-full w-full"
                       />
                     ) : (
                       <HoverVideo
                         src={project.video}
                         poster={project.thumbnail}
-                        className="w-full h-full"
+                        className="h-full w-full"
                       />
                     )}
                   </div>
@@ -912,10 +912,10 @@ const RelatedProjectsSection = ({
                       >
                         {project.category}
                       </Badge>
-                      <h3 className="text-2xl font-bold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
+                      <h3 className="mb-2 text-2xl font-bold text-slate-900 transition-colors group-hover:text-blue-600">
                         {project.name}
                       </h3>
-                      <p className="text-slate-600 text-base leading-relaxed mb-6">
+                      <p className="mb-6 text-base leading-relaxed text-slate-600">
                         {project.description}
                       </p>
                     </div>
@@ -927,7 +927,7 @@ const RelatedProjectsSection = ({
                           <Badge
                             key={tech}
                             variant="outline"
-                            className="text-xs px-2 py-1 border-slate-200 text-slate-600"
+                            className="border-slate-200 px-2 py-1 text-xs text-slate-600"
                           >
                             {tech}
                           </Badge>
@@ -935,7 +935,7 @@ const RelatedProjectsSection = ({
                         {project.technologies.length > 4 && (
                           <Badge
                             variant="outline"
-                            className="text-xs px-2 py-1 border-slate-200 text-slate-600"
+                            className="border-slate-200 px-2 py-1 text-xs text-slate-600"
                           >
                             +{project.technologies.length - 4} more
                           </Badge>
@@ -950,9 +950,9 @@ const RelatedProjectsSection = ({
                           {project.metrics.slice(0, 2).map((metric, idx) => (
                             <div
                               key={idx}
-                              className="text-center p-3 bg-slate-50 rounded-lg"
+                              className="rounded-lg bg-slate-50 p-3 text-center"
                             >
-                              <div className="font-bold text-slate-900 text-lg">
+                              <div className="text-lg font-bold text-slate-900">
                                 {metric.value}
                               </div>
                               <div className="text-xs text-slate-600">
@@ -966,11 +966,11 @@ const RelatedProjectsSection = ({
 
                     <Link href={`/projects/${project.slug}`}>
                       <Button
-                        className="w-full group/btn bg-slate-900 hover:bg-slate-800 text-white"
+                        className="group/btn w-full bg-slate-900 text-white hover:bg-slate-800"
                         size="lg"
                       >
                         View Project
-                        <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                        <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
                       </Button>
                     </Link>
                   </div>
@@ -994,13 +994,13 @@ const ResultsSection = () => {
   ];
 
   return (
-    <section className="py-24 bg-slate-50">
+    <section className="bg-slate-50 py-24">
       <div className="container mx-auto px-6">
         <InView>
-          <div className="text-center mb-16">
+          <div className="mb-16 text-center">
             <ScrambleSectionTitle
               as="h2"
-              className="text-4xl font-bold text-slate-900 mb-4"
+              className="mb-4 text-4xl font-bold text-slate-900"
             >
               Quantified Results
             </ScrambleSectionTitle>
@@ -1010,11 +1010,11 @@ const ResultsSection = () => {
           </div>
         </InView>
 
-        <div className="max-w-4xl mx-auto space-y-12">
+        <div className="mx-auto max-w-4xl space-y-12">
           {chartData.map((item, index) => (
             <InView key={index} delay={index * 0.1}>
               <Card className="p-8">
-                <div className="flex items-center justify-between mb-6">
+                <div className="mb-6 flex items-center justify-between">
                   <h3 className="text-xl font-bold text-slate-900">
                     {item.metric}
                   </h3>
@@ -1048,8 +1048,8 @@ const ResultsSection = () => {
 
         {/* Call to Action */}
         <InView>
-          <div className="text-center mt-16">
-            <div className="max-w-2xl mx-auto space-y-6">
+          <div className="mt-16 text-center">
+            <div className="mx-auto max-w-2xl space-y-6">
               <ScrambleSectionTitle
                 as="h3"
                 className="text-2xl font-bold text-slate-900"
@@ -1060,10 +1060,10 @@ const ResultsSection = () => {
                 Let&apos;s discuss how strategic UX design can drive measurable
                 business results for your platform.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <div className="flex flex-col justify-center gap-4 sm:flex-row">
                 <Button size="lg" className="group">
                   Start a Project
-                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Button>
                 <Button variant="outline" size="lg">
                   View More Case Studies

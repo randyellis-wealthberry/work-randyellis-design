@@ -65,7 +65,7 @@ export function ScrollProgressIndicator({
       {/* Percentage Display */}
       {showPercentage && percentage > 5 && (
         <motion.div
-          className="fixed bottom-4 right-4 z-50 bg-black/80 text-white px-3 py-1.5 rounded-full text-sm font-medium backdrop-blur-sm"
+          className="fixed right-4 bottom-4 z-50 rounded-full bg-black/80 px-3 py-1.5 text-sm font-medium text-white backdrop-blur-sm"
           initial={{ opacity: 0, scale: 0.8, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.8, y: 20 }}
@@ -109,13 +109,13 @@ export function ReadingTimeIndicator({
 
   return (
     <motion.div
-      className="fixed bottom-4 left-4 z-50 bg-white/90 dark:bg-zinc-900/90 border border-zinc-200 dark:border-zinc-700 px-3 py-2 rounded-lg text-sm font-medium backdrop-blur-sm shadow-lg"
+      className="fixed bottom-4 left-4 z-50 rounded-lg border border-zinc-200 bg-white/90 px-3 py-2 text-sm font-medium shadow-lg backdrop-blur-sm dark:border-zinc-700 dark:bg-zinc-900/90"
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ delay: 1 }}
     >
       <div className="flex items-center gap-2 text-zinc-700 dark:text-zinc-300">
-        <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+        <div className="h-2 w-2 animate-pulse rounded-full bg-blue-500" />
         {timeRemaining > 0 ? (
           <span>{timeRemaining} min left</span>
         ) : (

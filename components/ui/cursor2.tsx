@@ -48,11 +48,11 @@ export function Cursor2() {
             ease: "easeInOut",
             duration: 0.15,
           }}
-          className="left-12 top-4"
+          className="top-4 left-12"
         >
           <div>
             <MouseIcon className="h-6 w-6" />
-            <div className="ml-4 mt-1 rounded-[4px] bg-green-500 px-2 py-0.5 text-neutral-50">
+            <div className="mt-1 ml-4 rounded-[4px] bg-green-500 px-2 py-0.5 text-neutral-50">
               The city below
             </div>
           </div>

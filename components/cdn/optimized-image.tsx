@@ -6,7 +6,6 @@
 import Image, { ImageProps } from "next/image";
 import {
   generateOptimizedImageUrl,
-  generateSrcSet,
   getImageQuality,
   isAllowedImageSource,
   calculateOptimalImageSize,
@@ -26,7 +25,7 @@ interface OptimizedImageProps extends Omit<ImageProps, "quality"> {
   blurDataURL?: string;
 }
 
-export default function OptimizedImage({
+function OptimizedImage({
   src,
   alt,
   width,
@@ -89,6 +88,10 @@ export default function OptimizedImage({
   );
 }
 
+OptimizedImage.displayName = "OptimizedImage";
+
+export default OptimizedImage;
+
 /**
  * Optimized Background Image Component
  * For decorative background images with CDN optimization
@@ -102,7 +105,7 @@ interface OptimizedBackgroundImageProps {
   priority?: boolean;
 }
 
-export function OptimizedBackgroundImage({
+function OptimizedBackgroundImage({
   src,
   alt = "",
   className = "",
@@ -136,6 +139,10 @@ export function OptimizedBackgroundImage({
   );
 }
 
+OptimizedBackgroundImage.displayName = "OptimizedBackgroundImage";
+
+export { OptimizedBackgroundImage };
+
 /**
  * Avatar Component with CDN Optimization
  * Specialized for profile/avatar images
@@ -148,7 +155,7 @@ interface OptimizedAvatarProps {
   priority?: boolean;
 }
 
-export function OptimizedAvatar({
+function OptimizedAvatar({
   src,
   alt,
   size = 64,
@@ -173,6 +180,10 @@ export function OptimizedAvatar({
   );
 }
 
+OptimizedAvatar.displayName = "OptimizedAvatar";
+
+export { OptimizedAvatar };
+
 /**
  * Hero Image Component with CDN Optimization
  * Specialized for large hero/banner images
@@ -188,7 +199,7 @@ interface OptimizedHeroImageProps {
   children?: React.ReactNode;
 }
 
-export function OptimizedHeroImage({
+function OptimizedHeroImage({
   src,
   alt,
   width,
@@ -214,7 +225,7 @@ export function OptimizedHeroImage({
           objectFit: "cover",
         }}
       />
-      {overlay && <div className="absolute inset-0 bg-black bg-opacity-40" />}
+      {overlay && <div className="bg-opacity-40 absolute inset-0 bg-black" />}
       {children && (
         <div className="absolute inset-0 flex items-center justify-center">
           {children}
@@ -223,6 +234,10 @@ export function OptimizedHeroImage({
     </div>
   );
 }
+
+OptimizedHeroImage.displayName = "OptimizedHeroImage";
+
+export { OptimizedHeroImage };
 
 /**
  * Gallery Image Component with CDN Optimization
@@ -238,7 +253,7 @@ interface OptimizedGalleryImageProps {
   loading?: "lazy" | "eager";
 }
 
-export function OptimizedGalleryImage({
+function OptimizedGalleryImage({
   src,
   alt,
   width,
@@ -269,3 +284,7 @@ export function OptimizedGalleryImage({
     </div>
   );
 }
+
+OptimizedGalleryImage.displayName = "OptimizedGalleryImage";
+
+export { OptimizedGalleryImage };

@@ -104,38 +104,38 @@ export function CookieConsent() {
               damping: 25,
               stiffness: 200,
             }}
-            className="fixed bottom-0 left-0 right-0 z-50 p-4 bg-white dark:bg-zinc-900 border-t border-zinc-200 dark:border-zinc-800 shadow-2xl"
+            className="fixed right-0 bottom-0 left-0 z-50 border-t border-zinc-200 bg-white p-4 shadow-2xl dark:border-zinc-800 dark:bg-zinc-900"
           >
-            <div className="max-w-6xl mx-auto">
-              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+            <div className="mx-auto max-w-6xl">
+              <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
                 <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Shield className="w-5 h-5 text-blue-600" />
+                  <div className="mb-2 flex items-center gap-2">
+                    <Shield className="h-5 w-5 text-blue-600" />
                     <h3 className="font-semibold text-zinc-900 dark:text-zinc-100">
                       Cookie Preferences
                     </h3>
                   </div>
-                  <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                  <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
                     We use cookies to enhance your experience, analyze website
                     performance, and remember your preferences. You can
                     customize your choices or accept all cookies to continue.{" "}
                     <a
                       href="/privacy-policy"
-                      className="text-blue-600 hover:text-blue-800 dark:text-blue-400 underline"
+                      className="text-blue-600 underline hover:text-blue-800 dark:text-blue-400"
                     >
                       Learn more
                     </a>
                   </p>
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-2 min-w-fit">
+                <div className="flex min-w-fit flex-col gap-2 sm:flex-row">
                   <Button
                     variant="outline"
                     size="sm"
                     onClick={() => setShowSettings(true)}
                     className="flex items-center gap-2"
                   >
-                    <Settings className="w-4 h-4" />
+                    <Settings className="h-4 w-4" />
                     Customize
                   </Button>
                   <Button variant="outline" size="sm" onClick={acceptNecessary}>
@@ -144,7 +144,7 @@ export function CookieConsent() {
                   <Button
                     size="sm"
                     onClick={acceptAll}
-                    className="bg-blue-600 hover:bg-blue-700 text-white"
+                    className="bg-blue-600 text-white hover:bg-blue-700"
                   >
                     Accept All
                   </Button>
@@ -162,7 +162,7 @@ export function CookieConsent() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/50 z-50"
+              className="fixed inset-0 z-50 bg-black/50"
               onClick={() => setShowSettings(false)}
             />
             <motion.div
@@ -174,10 +174,10 @@ export function CookieConsent() {
                 damping: 25,
                 stiffness: 200,
               }}
-              className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-lg mx-4 bg-white dark:bg-zinc-900 rounded-lg shadow-2xl z-50 border border-zinc-200 dark:border-zinc-800"
+              className="fixed top-1/2 left-1/2 z-50 mx-4 w-full max-w-lg -translate-x-1/2 -translate-y-1/2 rounded-lg border border-zinc-200 bg-white shadow-2xl dark:border-zinc-800 dark:bg-zinc-900"
             >
               <div className="p-6">
-                <div className="flex items-center justify-between mb-6">
+                <div className="mb-6 flex items-center justify-between">
                   <h2 className="text-xl font-semibold text-zinc-900 dark:text-zinc-100">
                     Cookie Settings
                   </h2>
@@ -186,7 +186,7 @@ export function CookieConsent() {
                     size="sm"
                     onClick={() => setShowSettings(false)}
                   >
-                    <X className="w-4 h-4" />
+                    <X className="h-4 w-4" />
                   </Button>
                 </div>
 
@@ -194,8 +194,8 @@ export function CookieConsent() {
                   {/* Necessary Cookies */}
                   <div className="flex items-start justify-between">
                     <div className="flex-1 pr-4">
-                      <div className="flex items-center gap-2 mb-2">
-                        <Shield className="w-4 h-4 text-green-600" />
+                      <div className="mb-2 flex items-center gap-2">
+                        <Shield className="h-4 w-4 text-green-600" />
                         <h3 className="font-medium text-zinc-900 dark:text-zinc-100">
                           Necessary Cookies
                         </h3>
@@ -206,8 +206,8 @@ export function CookieConsent() {
                       </p>
                     </div>
                     <div className="flex items-center">
-                      <div className="w-10 h-6 bg-green-600 rounded-full relative">
-                        <div className="w-4 h-4 bg-white rounded-full absolute top-1 right-1 shadow-sm" />
+                      <div className="relative h-6 w-10 rounded-full bg-green-600">
+                        <div className="absolute top-1 right-1 h-4 w-4 rounded-full bg-white shadow-sm" />
                       </div>
                     </div>
                   </div>
@@ -215,8 +215,8 @@ export function CookieConsent() {
                   {/* Analytics Cookies */}
                   <div className="flex items-start justify-between">
                     <div className="flex-1 pr-4">
-                      <div className="flex items-center gap-2 mb-2">
-                        <BarChart3 className="w-4 h-4 text-blue-600" />
+                      <div className="mb-2 flex items-center gap-2">
+                        <BarChart3 className="h-4 w-4 text-blue-600" />
                         <h3 className="font-medium text-zinc-900 dark:text-zinc-100">
                           Analytics Cookies
                         </h3>
@@ -233,14 +233,14 @@ export function CookieConsent() {
                       className="flex items-center"
                     >
                       <div
-                        className={`w-10 h-6 rounded-full relative transition-colors ${
+                        className={`relative h-6 w-10 rounded-full transition-colors ${
                           preferences.analytics
                             ? "bg-blue-600"
                             : "bg-zinc-300 dark:bg-zinc-600"
                         }`}
                       >
                         <div
-                          className={`w-4 h-4 bg-white rounded-full absolute top-1 shadow-sm transition-transform ${
+                          className={`absolute top-1 h-4 w-4 rounded-full bg-white shadow-sm transition-transform ${
                             preferences.analytics ? "right-1" : "left-1"
                           }`}
                         />
@@ -251,8 +251,8 @@ export function CookieConsent() {
                   {/* Functional Cookies */}
                   <div className="flex items-start justify-between">
                     <div className="flex-1 pr-4">
-                      <div className="flex items-center gap-2 mb-2">
-                        <Settings className="w-4 h-4 text-purple-600" />
+                      <div className="mb-2 flex items-center gap-2">
+                        <Settings className="h-4 w-4 text-purple-600" />
                         <h3 className="font-medium text-zinc-900 dark:text-zinc-100">
                           Functional Cookies
                         </h3>
@@ -269,14 +269,14 @@ export function CookieConsent() {
                       className="flex items-center"
                     >
                       <div
-                        className={`w-10 h-6 rounded-full relative transition-colors ${
+                        className={`relative h-6 w-10 rounded-full transition-colors ${
                           preferences.functional
                             ? "bg-purple-600"
                             : "bg-zinc-300 dark:bg-zinc-600"
                         }`}
                       >
                         <div
-                          className={`w-4 h-4 bg-white rounded-full absolute top-1 shadow-sm transition-transform ${
+                          className={`absolute top-1 h-4 w-4 rounded-full bg-white shadow-sm transition-transform ${
                             preferences.functional ? "right-1" : "left-1"
                           }`}
                         />
@@ -285,7 +285,7 @@ export function CookieConsent() {
                   </div>
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-3 mt-8">
+                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                   <Button
                     variant="outline"
                     onClick={acceptNecessary}
@@ -301,7 +301,7 @@ export function CookieConsent() {
                   </Button>
                 </div>
 
-                <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-4 text-center">
+                <p className="mt-4 text-center text-xs text-zinc-500 dark:text-zinc-400">
                   You can change these settings anytime in your browser or by
                   revisiting this page.
                 </p>

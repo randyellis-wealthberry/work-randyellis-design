@@ -8,9 +8,9 @@ import * as React from "react";
 export function ComponentSkeleton({ className }: { className?: string }) {
   return (
     <div className={`animate-pulse ${className || ""}`}>
-      <div className="h-4 bg-zinc-200 dark:bg-zinc-700 rounded w-3/4 mb-2" />
-      <div className="h-4 bg-zinc-200 dark:bg-zinc-700 rounded w-1/2 mb-2" />
-      <div className="h-4 bg-zinc-200 dark:bg-zinc-700 rounded w-5/6" />
+      <div className="mb-2 h-4 w-3/4 rounded bg-zinc-200 dark:bg-zinc-700" />
+      <div className="mb-2 h-4 w-1/2 rounded bg-zinc-200 dark:bg-zinc-700" />
+      <div className="h-4 w-5/6 rounded bg-zinc-200 dark:bg-zinc-700" />
     </div>
   );
 }
@@ -18,7 +18,7 @@ export function ComponentSkeleton({ className }: { className?: string }) {
 export function ImageSkeleton({ className }: { className?: string }) {
   return (
     <div
-      className={`animate-pulse bg-zinc-200 dark:bg-zinc-700 rounded ${className || "w-full h-48"}`}
+      className={`animate-pulse rounded bg-zinc-200 dark:bg-zinc-700 ${className || "h-48 w-full"}`}
     />
   );
 }
@@ -26,12 +26,12 @@ export function ImageSkeleton({ className }: { className?: string }) {
 export function VideoSkeleton({ className }: { className?: string }) {
   return (
     <div
-      className={`animate-pulse bg-zinc-200 dark:bg-zinc-700 rounded ${className || "aspect-video w-full"}`}
+      className={`animate-pulse rounded bg-zinc-200 dark:bg-zinc-700 ${className || "aspect-video w-full"}`}
     >
-      <div className="flex items-center justify-center h-full">
-        <div className="w-16 h-16 bg-zinc-300 dark:bg-zinc-600 rounded-full flex items-center justify-center">
+      <div className="flex h-full items-center justify-center">
+        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-zinc-300 dark:bg-zinc-600">
           <svg
-            className="w-8 h-8 text-zinc-400 dark:text-zinc-500"
+            className="h-8 w-8 text-zinc-400 dark:text-zinc-500"
             fill="currentColor"
             viewBox="0 0 20 20"
           >
@@ -220,6 +220,10 @@ export function withIntersectionObserver<T extends object>(
     );
   };
 }
+
+ComponentSkeleton.displayName = "ComponentSkeleton";
+ImageSkeleton.displayName = "ImageSkeleton";
+VideoSkeleton.displayName = "VideoSkeleton";
 
 // Wrapper for Suspense boundaries with error boundaries
 export function SuspenseWrapper({

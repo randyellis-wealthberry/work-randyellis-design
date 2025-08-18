@@ -4,14 +4,20 @@
 export { MorphingDialogProvider } from "./morphing-dialog/provider";
 export { MorphingDialogTrigger } from "./morphing-dialog/trigger";
 export { MorphingDialogContent } from "./morphing-dialog/content";
-export { MorphingDialogContainer, MorphingDialogClose } from "./morphing-dialog/container";
+export {
+  MorphingDialogContainer,
+  MorphingDialogClose,
+} from "./morphing-dialog/container";
 export {
   MorphingDialogTitle,
   MorphingDialogSubtitle,
   MorphingDialogDescription,
   MorphingDialogImage,
 } from "./morphing-dialog/components";
-export { useMorphingDialog, useMorphingDialogState } from "@/hooks/useMorphingDialog";
+export {
+  useMorphingDialog,
+  useMorphingDialogState,
+} from "@/hooks/useMorphingDialog";
 
 export type { MorphingDialogContextType } from "@/hooks/useMorphingDialog";
 

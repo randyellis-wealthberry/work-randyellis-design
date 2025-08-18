@@ -155,7 +155,7 @@ export const DelightParticles: React.FC<DelightParticlesProps> = ({
   return (
     <div
       className={cn(
-        "absolute inset-0 pointer-events-none overflow-hidden z-50",
+        "pointer-events-none absolute inset-0 z-50 overflow-hidden",
         className,
       )}
       role="presentation"
@@ -264,7 +264,7 @@ export const AchievementToast: React.FC<AchievementToastProps> = ({
             stiffness: 300,
           }}
         >
-          <div className="relative bg-white dark:bg-zinc-800 rounded-lg shadow-lg border border-zinc-200 dark:border-zinc-700 p-4 min-w-[280px]">
+          <div className="relative min-w-[280px] rounded-lg border border-zinc-200 bg-white p-4 shadow-lg dark:border-zinc-700 dark:bg-zinc-800">
             <div className="flex items-center gap-3">
               <span className="text-2xl" role="img" aria-label="Achievement">
                 {icon}

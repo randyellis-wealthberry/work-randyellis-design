@@ -2,7 +2,10 @@
 
 import React from "react";
 import { MotionConfig, Transition } from "motion/react";
-import { MorphingDialogContext, useMorphingDialogState } from "@/hooks/useMorphingDialog";
+import {
+  MorphingDialogContext,
+  useMorphingDialogState,
+} from "@/hooks/useMorphingDialog";
 
 export type MorphingDialogProviderProps = {
   children: React.ReactNode;
@@ -31,3 +34,5 @@ export function MorphingDialogProvider({
     </MorphingDialogContext.Provider>
   );
 }
+
+MorphingDialogProvider.displayName = "MorphingDialogProvider";

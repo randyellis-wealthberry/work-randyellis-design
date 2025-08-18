@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function Component() {
   return (
-    <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded-full shadow-sm">
+    <div className="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-3 py-1.5 shadow-sm dark:border-zinc-700 dark:bg-zinc-900">
       <Image
         className="rounded-full"
         src="/images/randyellis-official-avatar.png"

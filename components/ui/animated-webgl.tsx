@@ -7,9 +7,17 @@ import { useWebGLRenderer } from "@/hooks/useWebGLRenderer";
 import type { SceneType } from "./webgl-scenes/scene-factory";
 
 // Dynamic imports for heavy 3D libraries
-const Canvas = lazy(() => import("@react-three/fiber").then(m => ({ default: m.Canvas })));
-const WebGLSceneFactory = lazy(() => import("./webgl-scenes/scene-factory").then(m => ({ default: m.WebGLSceneFactory })));
-const UnicornWebGL = lazy(() => import("./unicorn-webgl").then(m => ({ default: m.UnicornWebGL })));
+const Canvas = lazy(() =>
+  import("@react-three/fiber").then((m) => ({ default: m.Canvas })),
+);
+const WebGLSceneFactory = lazy(() =>
+  import("./webgl-scenes/scene-factory").then((m) => ({
+    default: m.WebGLSceneFactory,
+  })),
+);
+const UnicornWebGL = lazy(() =>
+  import("./unicorn-webgl").then((m) => ({ default: m.UnicornWebGL })),
+);
 
 type AnimatedWebGLProps = {
   sceneType: SceneType;
@@ -41,7 +49,6 @@ export const AnimatedWebGL = ({
   const {
     containerRef,
     capabilities,
-    hasError,
     isInView,
     shouldRenderWebGL,
     shouldUseLowQuality,
@@ -58,20 +65,28 @@ export const AnimatedWebGL = ({
     }
 
     const webglContent = (
-      <div className={cn("aspect-video w-full h-full", className)}>
-        <Suspense fallback={
-          <div className="w-full h-full bg-muted/20 animate-pulse flex items-center justify-center">
-            <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin" />
-          </div>
-        }>
+      <div className={cn("aspect-video h-full w-full", className)}>
+        <Suspense
+          fallback={
+            <div className="bg-muted/20 flex h-full w-full animate-pulse items-center justify-center">
+              <div className="border-primary h-6 w-6 animate-spin rounded-full border-2 border-t-transparent" />
+            </div>
+          }
+        >
           <Canvas
             camera={{ position: [0, 0, 8], fov: 45 }}
             style={{ width: "100%", height: "100%" }}
-            dpr={dpr || (shouldUseLowQuality ? 1 : Math.min(2, window?.devicePixelRatio || 1))}
+            dpr={
+              dpr ||
+              (shouldUseLowQuality
+                ? 1
+                : Math.min(2, window?.devicePixelRatio || 1))
+            }
             performance={{ min: shouldUseLowQuality ? 0.2 : 0.5 }}
             onError={handleError}
             gl={{
-              antialias: antialias !== undefined ? antialias : !shouldUseLowQuality,
+              antialias:
+                antialias !== undefined ? antialias : !shouldUseLowQuality,
               alpha: true,
               powerPreference: shouldUseLowQuality ? "low-power" : "default",
             }}
@@ -102,11 +117,13 @@ export const AnimatedWebGL = ({
           showCloseButton={showCloseButton}
         >
           {isInView && (
-            <Suspense fallback={
-              <div className="w-full h-full bg-muted/20 animate-pulse flex items-center justify-center">
-                <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin" />
-              </div>
-            }>
+            <Suspense
+              fallback={
+                <div className="bg-muted/20 flex h-full w-full animate-pulse items-center justify-center">
+                  <div className="border-primary h-6 w-6 animate-spin rounded-full border-2 border-t-transparent" />
+                </div>
+              }
+            >
               <UnicornWebGL />
             </Suspense>
           )}
@@ -119,7 +136,12 @@ export const AnimatedWebGL = ({
   if (!shouldRenderWebGL || !capabilities?.hasWebGL) {
     if (!fallbackSrc) {
       return (
-        <div className={cn("aspect-video w-full h-full bg-muted/50 flex items-center justify-center", className)}>
+        <div
+          className={cn(
+            "bg-muted/50 flex aspect-video h-full w-full items-center justify-center",
+            className,
+          )}
+        >
           <p className="text-muted-foreground text-sm">WebGL not supported</p>
         </div>
       );
@@ -127,14 +149,17 @@ export const AnimatedWebGL = ({
 
     if (disableZoom) {
       return (
-        <div ref={containerRef} className={cn("aspect-video", containerClassName)}>
+        <div
+          ref={containerRef}
+          className={cn("aspect-video", containerClassName)}
+        >
           <video
             src={fallbackSrc}
             autoPlay
             loop
             muted
             playsInline
-            className={cn("aspect-video w-full h-full object-cover", className)}
+            className={cn("aspect-video h-full w-full object-cover", className)}
           />
         </div>
       );
@@ -155,7 +180,7 @@ export const AnimatedWebGL = ({
             loop
             muted
             playsInline
-            className="aspect-video w-full h-full object-cover"
+            className="aspect-video h-full w-full object-cover"
           />
         </AnimatedAsset>
       </div>
@@ -168,7 +193,12 @@ export const AnimatedWebGL = ({
     return (
       <div ref={containerRef} className={containerClassName}>
         {webglContent || (
-          <div className={cn("aspect-video w-full h-full bg-muted/50 flex items-center justify-center", className)}>
+          <div
+            className={cn(
+              "bg-muted/50 flex aspect-video h-full w-full items-center justify-center",
+              className,
+            )}
+          >
             <p className="text-muted-foreground text-sm">Loading...</p>
           </div>
         )}
@@ -186,7 +216,12 @@ export const AnimatedWebGL = ({
         showCloseButton={showCloseButton}
       >
         {webglContent || (
-          <div className={cn("aspect-video w-full h-full bg-muted/50 flex items-center justify-center", className)}>
+          <div
+            className={cn(
+              "bg-muted/50 flex aspect-video h-full w-full items-center justify-center",
+              className,
+            )}
+          >
             <p className="text-muted-foreground text-sm">Loading...</p>
           </div>
         )}
@@ -194,3 +229,5 @@ export const AnimatedWebGL = ({
     </div>
   );
 };
+
+AnimatedWebGL.displayName = "AnimatedWebGL";

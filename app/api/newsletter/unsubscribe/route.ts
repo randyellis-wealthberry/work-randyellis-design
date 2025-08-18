@@ -42,20 +42,26 @@ export async function POST(request: NextRequest) {
     // Unsubscribe from Loops.so if API key is available
     if (process.env.LOOPS_API_KEY) {
       try {
-        const loopsResponse = await fetch("https://app.loops.so/api/v1/contacts/update", {
-          method: "PUT",
-          headers: {
-            "Authorization": `Bearer ${process.env.LOOPS_API_KEY}`,
-            "Content-Type": "application/json",
+        const loopsResponse = await fetch(
+          "https://app.loops.so/api/v1/contacts/update",
+          {
+            method: "PUT",
+            headers: {
+              Authorization: `Bearer ${process.env.LOOPS_API_KEY}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email,
+              subscribed: false,
+            }),
           },
-          body: JSON.stringify({
-            email,
-            subscribed: false,
-          }),
-        });
+        );
 
         if (!loopsResponse.ok) {
-          console.warn("Failed to unsubscribe from Loops.so:", loopsResponse.statusText);
+          console.warn(
+            "Failed to unsubscribe from Loops.so:",
+            loopsResponse.statusText,
+          );
         }
       } catch (loopsError) {
         console.warn("Error unsubscribing from Loops.so:", loopsError);

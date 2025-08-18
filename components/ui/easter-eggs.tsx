@@ -54,7 +54,7 @@ export function KonamiEasterEgg() {
             onClick={() => setShowEasterEgg(false)}
           >
             <motion.div
-              className="bg-white dark:bg-zinc-900 p-8 rounded-2xl shadow-2xl max-w-md text-center"
+              className="max-w-md rounded-2xl bg-white p-8 text-center shadow-2xl dark:bg-zinc-900"
               initial={{ scale: 0, rotate: -180 }}
               animate={{ scale: 1, rotate: 0 }}
               exit={{ scale: 0, rotate: 180 }}
@@ -66,21 +66,21 @@ export function KonamiEasterEgg() {
               onClick={(e) => e.stopPropagation()}
             >
               <motion.div
-                className="text-6xl mb-4"
+                className="mb-4 text-6xl"
                 animate={{ rotate: [0, 10, -10, 0] }}
                 transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 2 }}
               >
                 🎮
               </motion.div>
-              <h3 className="text-2xl font-bold mb-2 text-zinc-900 dark:text-zinc-100">
+              <h3 className="mb-2 text-2xl font-bold text-zinc-900 dark:text-zinc-100">
                 Konami Code Activated!
               </h3>
-              <p className="text-zinc-600 dark:text-zinc-400 mb-4">
+              <p className="mb-4 text-zinc-600 dark:text-zinc-400">
                 You&apos;ve unlocked the classic gaming easter egg! Welcome to
                 the exclusive club of retro gamers.
               </p>
               <motion.button
-                className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+                className="rounded-lg bg-blue-500 px-6 py-2 text-white transition-colors hover:bg-blue-600"
                 onClick={() => setShowEasterEgg(false)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -137,7 +137,7 @@ export function ClickCounterEasterEgg({
       <AnimatePresence>
         {showReward && (
           <motion.div
-            className="fixed bottom-4 right-4 z-50 bg-gradient-to-r from-purple-500 to-pink-500 text-white p-4 rounded-lg shadow-lg"
+            className="fixed right-4 bottom-4 z-50 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 p-4 text-white shadow-lg"
             initial={{ opacity: 0, x: 100, scale: 0.8 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
             exit={{ opacity: 0, x: 100, scale: 0.8 }}
@@ -206,7 +206,7 @@ export function TimeBasedEasterEgg({
     <AnimatePresence>
       {showMessage && (
         <motion.div
-          className="fixed top-4 right-4 z-50 bg-blue-500 text-white p-4 rounded-lg shadow-lg max-w-sm"
+          className="fixed top-4 right-4 z-50 max-w-sm rounded-lg bg-blue-500 p-4 text-white shadow-lg"
           initial={{ opacity: 0, y: -50, scale: 0.9 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: -50, scale: 0.9 }}
@@ -221,13 +221,13 @@ export function TimeBasedEasterEgg({
               ☕
             </motion.span>
             <div className="flex-1">
-              <div className="font-bold mb-1">Still here?</div>
-              <div className="text-sm opacity-90 mb-2">
+              <div className="mb-1 font-bold">Still here?</div>
+              <div className="mb-2 text-sm opacity-90">
                 You&apos;ve been exploring for {Math.floor(timeSpent / 60)}{" "}
                 minutes! Want to grab a coffee and chat about a project?
               </div>
               <motion.button
-                className="text-xs bg-white/20 px-3 py-1 rounded hover:bg-white/30 transition-colors"
+                className="rounded bg-white/20 px-3 py-1 text-xs transition-colors hover:bg-white/30"
                 onClick={() => setShowMessage(false)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -237,7 +237,7 @@ export function TimeBasedEasterEgg({
             </div>
             <button
               onClick={() => setShowMessage(false)}
-              className="text-white/60 hover:text-white text-lg leading-none"
+              className="text-lg leading-none text-white/60 hover:text-white"
             >
               ×
             </button>

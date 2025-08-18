@@ -103,7 +103,7 @@ export function EnhancedButton({
   return (
     <motion.button
       className={cn(
-        "relative inline-flex items-center justify-center rounded-lg border font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none overflow-hidden",
+        "relative inline-flex items-center justify-center overflow-hidden rounded-lg border font-medium transition-all duration-200 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50",
         baseClasses[variant],
         sizeClasses[size],
         glowEffect,
@@ -119,7 +119,7 @@ export function EnhancedButton({
       {/* Shimmer effect for primary buttons */}
       {variant === "primary" && delightLevel !== "subtle" && (
         <motion.div
-          className="absolute inset-0 -top-2 -left-2 bg-gradient-to-r from-transparent via-white/20 to-transparent w-4 h-full transform -skew-x-12"
+          className="absolute inset-0 -top-2 -left-2 h-full w-4 -skew-x-12 transform bg-gradient-to-r from-transparent via-white/20 to-transparent"
           initial={{ x: "-100%" }}
           whileHover={{ x: "100%" }}
           transition={{ duration: 0.6, ease: "easeInOut" }}

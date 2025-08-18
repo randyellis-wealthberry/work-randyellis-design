@@ -63,7 +63,11 @@ export function GeometricScene({
       {/* Lighting */}
       <ambientLight intensity={0.6} />
       <directionalLight position={[10, 10, 5]} intensity={intensity} />
-      <pointLight position={[-5, -5, 5]} intensity={intensity * 0.5} color={color} />
+      <pointLight
+        position={[-5, -5, 5]}
+        intensity={intensity * 0.5}
+        color={color}
+      />
 
       {/* Main geometric shape */}
       <mesh ref={geometryRef}>
@@ -77,7 +81,10 @@ export function GeometricScene({
       </mesh>
 
       {/* Inner solid core */}
-      <mesh position={[0, 0, 0]} rotation={[time * speed * 0.3, time * speed * 0.2, 0]}>
+      <mesh
+        position={[0, 0, 0]}
+        rotation={[time * speed * 0.3, time * speed * 0.2, 0]}
+      >
         <dodecahedronGeometry args={[0.8]} />
         <meshStandardMaterial
           color={color}
@@ -92,7 +99,9 @@ export function GeometricScene({
       <group ref={orbitingGroupRef}>
         {geometricShapes.map((shape, i) => (
           <group key={`shape-${i}`} position={[shape.x, shape.y, shape.z]}>
-            <mesh rotation={[shape.angle, shape.angle * 0.7, shape.angle * 0.3]}>
+            <mesh
+              rotation={[shape.angle, shape.angle * 0.7, shape.angle * 0.3]}
+            >
               {i % 3 === 0 && <octahedronGeometry args={[0.2]} />}
               {i % 3 === 1 && <tetrahedronGeometry args={[0.25]} />}
               {i % 3 === 2 && <boxGeometry args={[0.3, 0.3, 0.3]} />}
@@ -134,9 +143,9 @@ export function GeometricScene({
       </group>
 
       {/* Geometric grid lines - simplified for build compatibility */}
-      <group>
-        {/* Grid rendered using simple line segments */}
-      </group>
+      <group>{/* Grid rendered using simple line segments */}</group>
     </>
   );
 }
+
+GeometricScene.displayName = "GeometricScene";

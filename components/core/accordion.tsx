@@ -139,7 +139,7 @@ export function AccordionContent({
           transition={transition || { duration: 0.2 }}
           className={cn("overflow-hidden", className)}
         >
-          <div className="pb-2 pt-2">{children}</div>
+          <div className="pt-2 pb-2">{children}</div>
         </motion.div>
       )}
     </AnimatePresence>

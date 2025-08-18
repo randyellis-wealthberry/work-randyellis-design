@@ -35,19 +35,19 @@ export default function MetisClient() {
 
   return (
     <motion.main
-      className="max-w-5xl mx-auto space-y-16 px-4"
+      className="mx-auto max-w-5xl space-y-16 px-4"
       variants={VARIANTS_CONTAINER}
       initial="hidden"
       animate="visible"
     >
       {/* Hero Banner */}
       <motion.section
-        className="text-center space-y-8 pt-16"
+        className="space-y-8 pt-16 text-center"
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
         {/* Hero Banner Image - Half Height */}
-        <div className="relative w-full aspect-[16/4.5] max-w-4xl mx-auto mb-8 rounded-2xl overflow-hidden shadow-2xl">
+        <div className="relative mx-auto mb-8 aspect-[16/4.5] w-full max-w-4xl overflow-hidden rounded-2xl shadow-2xl">
           <Image
             src="/images/projects/metis/hero-banner-metis.jpg"
             alt="METIS:LAYER - A Business Strategy AI Agent for Digital Designers"
@@ -58,11 +58,11 @@ export default function MetisClient() {
           />
         </div>
 
-        <h1 className="text-4xl font-bold text-zinc-900 dark:text-zinc-100 tracking-tight mb-6">
+        <h1 className="mb-6 text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
           METIS:LAYER: A Business Strategy AI Agent for Digital Designers
         </h1>
 
-        <p className="text-xl text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-2xl mx-auto">
+        <p className="mx-auto max-w-2xl text-xl leading-relaxed text-zinc-600 dark:text-zinc-400">
           A humble announcement about what I&apos;m building and sharing with
           our design community
         </p>
@@ -70,7 +70,7 @@ export default function MetisClient() {
 
       {/* Main Content */}
       <motion.section
-        className="space-y-8 max-w-3xl mx-auto"
+        className="mx-auto max-w-3xl space-y-8"
         variants={VARIANTS_SECTION}
         transition={{ ...TRANSITION_SECTION, delay: 0.1 }}
       >
@@ -79,7 +79,7 @@ export default function MetisClient() {
             Dear Design Community,
           </p>
 
-          <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-400 mt-6">
+          <p className="mt-6 text-base leading-relaxed text-zinc-600 dark:text-zinc-400">
             I&apos;m excited to share something I&apos;ve been working on—a
             project that bridges the gap between design excellence and boardroom
             fluency. METIS represents my commitment to elevating our profession
@@ -110,7 +110,7 @@ export default function MetisClient() {
 
       {/* Signature Section */}
       <motion.section
-        className="text-left space-y-6 pb-16 max-w-3xl mx-auto"
+        className="mx-auto max-w-3xl space-y-6 pb-16 text-left"
         variants={VARIANTS_SECTION}
         transition={{ ...TRANSITION_SECTION, delay: 0.2 }}
       >
@@ -118,7 +118,7 @@ export default function MetisClient() {
 
         {/* Signature Image with Left Tilt */}
         <div className="flex justify-start">
-          <div className="transform -rotate-2">
+          <div className="-rotate-2 transform">
             {mounted && (
               <Image
                 src={
@@ -135,7 +135,7 @@ export default function MetisClient() {
           </div>
         </div>
 
-        <p className="text-sm text-zinc-500 dark:text-zinc-400 font-medium">
+        <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
           Randy Ellis
           <br />
           AI Product Design Engineer
@@ -144,7 +144,7 @@ export default function MetisClient() {
 
       {/* Demo Grid Section */}
       <motion.section
-        className="pb-16 flex justify-center"
+        className="flex justify-center pb-16"
         variants={VARIANTS_SECTION}
         transition={{ ...TRANSITION_SECTION, delay: 0.25 }}
       >
@@ -157,13 +157,13 @@ export default function MetisClient() {
         variants={VARIANTS_SECTION}
         transition={{ ...TRANSITION_SECTION, delay: 0.3 }}
       >
-        <CometCard className="max-w-md mx-auto">
+        <CometCard className="mx-auto max-w-md">
           <div className="relative aspect-[3/4] w-full">
             <Image
               src="/images/projects/metis/playercard-metis.png"
               alt="METIS Player Card"
               fill
-              className="object-cover rounded-2xl"
+              className="rounded-2xl object-cover"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           </div>

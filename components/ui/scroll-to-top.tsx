@@ -83,7 +83,7 @@ export function ScrollToTop({
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          className={`fixed ${positionClasses[position]} z-40 pointer-events-none`}
+          className={`fixed ${positionClasses[position]} pointer-events-none z-40`}
           initial={{ opacity: 0, scale: 0, y: 50 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0, y: 50 }}
@@ -96,19 +96,14 @@ export function ScrollToTop({
           <Magnetic intensity={0.3}>
             <motion.button
               onClick={scrollToTop}
-              className={`
-                relative w-12 h-12 rounded-full shadow-lg transition-all duration-300 
-                pointer-events-auto group overflow-hidden
-                ${config.bgClass}
-                hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
-              `}
+              className={`group pointer-events-auto relative h-12 w-12 overflow-hidden rounded-full shadow-lg transition-all duration-300 ${config.bgClass} hover:shadow-xl focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none`}
               whileHover={config.animation.hover}
               whileTap={config.animation.tap}
               aria-label="Scroll to top"
             >
               {/* Background pulse effect */}
               <motion.div
-                className="absolute inset-0 bg-white/20 rounded-full"
+                className="absolute inset-0 rounded-full bg-white/20"
                 initial={{ scale: 0, opacity: 0 }}
                 animate={
                   isClicked
@@ -123,7 +118,7 @@ export function ScrollToTop({
 
               {/* Icon */}
               <motion.div
-                className="relative z-10 flex items-center justify-center w-full h-full"
+                className="relative z-10 flex h-full w-full items-center justify-center"
                 animate={
                   isClicked && personality === "rocket"
                     ? {
@@ -133,13 +128,13 @@ export function ScrollToTop({
                     : {}
                 }
               >
-                <IconComponent className={`w-5 h-5 ${config.iconClass}`} />
+                <IconComponent className={`h-5 w-5 ${config.iconClass}`} />
               </motion.div>
 
               {/* Rocket trail effect */}
               {personality === "rocket" && isClicked && (
                 <motion.div
-                  className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 bg-orange-400 rounded-full"
+                  className="absolute bottom-0 left-1/2 w-1 -translate-x-1/2 rounded-full bg-orange-400"
                   initial={{ height: 0, opacity: 0 }}
                   animate={{
                     height: [0, 20, 0],
@@ -164,12 +159,12 @@ export function ScrollToTop({
 
           {/* Tooltip */}
           <motion.div
-            className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap"
+            className="pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 rounded bg-zinc-900 px-2 py-1 text-xs whitespace-nowrap text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100 dark:bg-zinc-100 dark:text-zinc-900"
             initial={{ y: 10, opacity: 0 }}
             whileHover={{ y: 0, opacity: 1 }}
           >
             {personality === "rocket" ? "Blast off!" : "Back to top"}
-            <div className="absolute top-full left-1/2 -translate-x-1/2 w-2 h-2 bg-zinc-900 dark:bg-zinc-100 rotate-45" />
+            <div className="absolute top-full left-1/2 h-2 w-2 -translate-x-1/2 rotate-45 bg-zinc-900 dark:bg-zinc-100" />
           </motion.div>
         </motion.div>
       )}

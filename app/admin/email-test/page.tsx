@@ -181,10 +181,10 @@ export default function EmailTestPage() {
   };
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-900 py-12 px-4">
-      <div className="max-w-4xl mx-auto">
+    <div className="min-h-screen bg-zinc-50 px-4 py-12 dark:bg-zinc-900">
+      <div className="mx-auto max-w-4xl">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100 mb-4">
+          <h1 className="mb-4 text-3xl font-bold text-zinc-900 dark:text-zinc-100">
             Email Flow Testing Tool
           </h1>
           <p className="text-zinc-600 dark:text-zinc-400">
@@ -194,8 +194,8 @@ export default function EmailTestPage() {
           </p>
         </div>
 
-        <Card className="p-6 mb-8">
-          <h2 className="text-xl font-semibold mb-4">Test Configuration</h2>
+        <Card className="mb-8 p-6">
+          <h2 className="mb-4 text-xl font-semibold">Test Configuration</h2>
           <div className="space-y-4">
             <FloatingInput
               type="email"
@@ -235,12 +235,12 @@ export default function EmailTestPage() {
 
         {results.length > 0 && (
           <Card className="p-6">
-            <h2 className="text-xl font-semibold mb-4">Test Results</h2>
+            <h2 className="mb-4 text-xl font-semibold">Test Results</h2>
             <div className="space-y-4">
               {results.map((result, index) => (
                 <div
                   key={index}
-                  className="border-l-4 border-zinc-200 dark:border-zinc-700 pl-4 py-2"
+                  className="border-l-4 border-zinc-200 py-2 pl-4 dark:border-zinc-700"
                   style={{
                     borderLeftColor:
                       result.status === "success"
@@ -255,7 +255,7 @@ export default function EmailTestPage() {
                       {getStatusIcon(result.status)}
                     </span>
                     <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-1">
+                      <div className="mb-1 flex items-center gap-2">
                         <h3 className="font-medium text-zinc-900 dark:text-zinc-100">
                           {result.step.charAt(0).toUpperCase() +
                             result.step.slice(1).replace("_", " ")}
@@ -266,7 +266,7 @@ export default function EmailTestPage() {
                           {result.status.toUpperCase()}
                         </span>
                       </div>
-                      <p className="text-zinc-600 dark:text-zinc-400 mb-2">
+                      <p className="mb-2 text-zinc-600 dark:text-zinc-400">
                         {result.message}
                       </p>
                       <p className="text-xs text-zinc-500 dark:text-zinc-500">
@@ -274,10 +274,10 @@ export default function EmailTestPage() {
                       </p>
                       {result.data != null && (
                         <details className="mt-2">
-                          <summary className="cursor-pointer text-sm text-blue-600 dark:text-blue-400 hover:underline">
+                          <summary className="cursor-pointer text-sm text-blue-600 hover:underline dark:text-blue-400">
                             View Details
                           </summary>
-                          <pre className="mt-2 p-2 bg-zinc-100 dark:bg-zinc-800 rounded text-xs overflow-auto">
+                          <pre className="mt-2 overflow-auto rounded bg-zinc-100 p-2 text-xs dark:bg-zinc-800">
                             {typeof result.data === "string"
                               ? result.data
                               : JSON.stringify(result.data, null, 2)}
@@ -292,29 +292,29 @@ export default function EmailTestPage() {
           </Card>
         )}
 
-        <Card className="p-6 mt-8">
-          <h2 className="text-xl font-semibold mb-4">
+        <Card className="mt-8 p-6">
+          <h2 className="mb-4 text-xl font-semibold">
             Manual Verification Steps
           </h2>
           <div className="space-y-4 text-sm">
             <div>
-              <h3 className="font-medium text-zinc-900 dark:text-zinc-100 mb-2">
+              <h3 className="mb-2 font-medium text-zinc-900 dark:text-zinc-100">
                 1. Local Data Storage
               </h3>
-              <p className="text-zinc-600 dark:text-zinc-400 mb-2">
+              <p className="mb-2 text-zinc-600 dark:text-zinc-400">
                 Check that email was stored locally:
               </p>
-              <code className="block bg-zinc-100 dark:bg-zinc-800 p-2 rounded">
+              <code className="block rounded bg-zinc-100 p-2 dark:bg-zinc-800">
                 cat data/email-subscriptions.json | jq &apos;.[].email&apos; |
                 grep &quot;{testEmail}&quot;
               </code>
             </div>
 
             <div>
-              <h3 className="font-medium text-zinc-900 dark:text-zinc-100 mb-2">
+              <h3 className="mb-2 font-medium text-zinc-900 dark:text-zinc-100">
                 2. Loops.so Contact Creation
               </h3>
-              <ul className="text-zinc-600 dark:text-zinc-400 space-y-1">
+              <ul className="space-y-1 text-zinc-600 dark:text-zinc-400">
                 <li>
                   • Visit{" "}
                   <a
@@ -332,10 +332,10 @@ export default function EmailTestPage() {
             </div>
 
             <div>
-              <h3 className="font-medium text-zinc-900 dark:text-zinc-100 mb-2">
+              <h3 className="mb-2 font-medium text-zinc-900 dark:text-zinc-100">
                 3. Event Tracking
               </h3>
-              <ul className="text-zinc-600 dark:text-zinc-400 space-y-1">
+              <ul className="space-y-1 text-zinc-600 dark:text-zinc-400">
                 <li>
                   • Check contact&apos;s activity timeline for
                   &quot;newsletter_signup&quot; event
@@ -345,10 +345,10 @@ export default function EmailTestPage() {
             </div>
 
             <div>
-              <h3 className="font-medium text-zinc-900 dark:text-zinc-100 mb-2">
+              <h3 className="mb-2 font-medium text-zinc-900 dark:text-zinc-100">
                 4. Drip Campaign Enrollment
               </h3>
-              <ul className="text-zinc-600 dark:text-zinc-400 space-y-1">
+              <ul className="space-y-1 text-zinc-600 dark:text-zinc-400">
                 <li>
                   • Visit{" "}
                   <a

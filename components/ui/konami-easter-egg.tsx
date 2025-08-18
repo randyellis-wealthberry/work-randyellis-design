@@ -68,7 +68,7 @@ export function KonamiEasterEgg({ isActive }: KonamiEasterEggProps) {
             return (
               <motion.div
                 key={particle.id}
-                className={`fixed pointer-events-none z-50 ${particle.color}`}
+                className={`pointer-events-none fixed z-50 ${particle.color}`}
                 style={{
                   left: particle.x,
                   top: particle.y,
@@ -94,13 +94,13 @@ export function KonamiEasterEgg({ isActive }: KonamiEasterEggProps) {
 
           {/* Message */}
           <motion.div
-            className="fixed inset-0 flex items-center justify-center z-50 pointer-events-none"
+            className="pointer-events-none fixed inset-0 z-50 flex items-center justify-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
             <motion.div
-              className="bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-2xl shadow-2xl text-center"
+              className="rounded-2xl bg-gradient-to-r from-purple-600 to-pink-600 px-8 py-4 text-center text-white shadow-2xl"
               initial={{ scale: 0, rotate: -10 }}
               animate={{ scale: 1, rotate: 0 }}
               exit={{ scale: 0, rotate: 10 }}
@@ -120,7 +120,7 @@ export function KonamiEasterEgg({ isActive }: KonamiEasterEggProps) {
                 🎉 Secret Designer Mode Activated! 🎉
               </motion.div>
               <motion.p
-                className="text-sm mt-2 opacity-90"
+                className="mt-2 text-sm opacity-90"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}

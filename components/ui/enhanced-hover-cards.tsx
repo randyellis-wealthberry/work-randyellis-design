@@ -139,8 +139,8 @@ export function EnhancedHoverCard({
   const cardContent = (
     <motion.div
       className={cn(
-        "relative rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900/50 p-6 cursor-pointer overflow-hidden",
-        hoverEffect === "tilt" && "transform-gpu perspective-1000",
+        "relative cursor-pointer overflow-hidden rounded-lg border border-zinc-200 bg-white p-6 dark:border-zinc-700 dark:bg-zinc-900/50",
+        hoverEffect === "tilt" && "perspective-1000 transform-gpu",
         className,
       )}
       {...motionProps}
@@ -149,7 +149,7 @@ export function EnhancedHoverCard({
       {/* Shimmer effect overlay for playful interactions */}
       {delightLevel === "playful" && isHovered && (
         <motion.div
-          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-12"
+          className="absolute inset-0 -skew-x-12 transform bg-gradient-to-r from-transparent via-white/10 to-transparent"
           initial={{ x: "-100%" }}
           animate={{ x: "100%" }}
           transition={{ duration: 0.8, ease: "easeInOut" }}
@@ -193,7 +193,7 @@ export function ProjectHoverCard({
       <div className="space-y-4">
         {/* Project Thumbnail */}
         {project.thumbnail && (
-          <div className="aspect-video rounded-lg overflow-hidden bg-zinc-100 dark:bg-zinc-800">
+          <div className="aspect-video overflow-hidden rounded-lg bg-zinc-100 dark:bg-zinc-800">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: imageLoaded ? 1 : 0 }}
@@ -204,23 +204,23 @@ export function ProjectHoverCard({
                 alt={project.name}
                 width={400}
                 height={225}
-                className="w-full h-full object-cover"
+                className="h-full w-full object-cover"
                 onLoad={() => setImageLoaded(true)}
               />
             </motion.div>
 
             {!imageLoaded && (
-              <div className="w-full h-full animate-pulse bg-zinc-200 dark:bg-zinc-700" />
+              <div className="h-full w-full animate-pulse bg-zinc-200 dark:bg-zinc-700" />
             )}
           </div>
         )}
 
         {/* Project Info */}
         <div>
-          <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 mb-2">
+          <h3 className="mb-2 font-semibold text-zinc-900 dark:text-zinc-100">
             {project.name}
           </h3>
-          <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-3">
+          <p className="mb-3 text-sm text-zinc-600 dark:text-zinc-400">
             {project.description}
           </p>
 

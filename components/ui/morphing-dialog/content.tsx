@@ -41,3 +41,5 @@ export function MorphingDialogContent({
     </motion.div>
   );
 }
+
+MorphingDialogContent.displayName = "MorphingDialogContent";

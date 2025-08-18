@@ -117,7 +117,7 @@ export function CursorFollower({
 
   return (
     <motion.div
-      className="fixed top-0 left-0 w-6 h-6 bg-white rounded-full pointer-events-none z-50 hidden lg:block"
+      className="pointer-events-none fixed top-0 left-0 z-50 hidden h-6 w-6 rounded-full bg-white lg:block"
       style={{
         x: springX,
         y: springY,

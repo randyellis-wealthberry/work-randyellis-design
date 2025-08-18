@@ -130,14 +130,14 @@ export function UnicornStudioEmbed({
           transform: "scale(1.1) translateY(-10%)",
           transformOrigin: "center top",
         }}
-        className="absolute inset-0 unicorn-studio-embed"
+        className="unicorn-studio-embed absolute inset-0"
       />
 
       {/* Loading fallback - only show when not loaded */}
       {!isLoaded && (
         <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-green-100 to-emerald-200 dark:from-green-800/30 dark:to-emerald-800/30">
-          <div className="text-center space-y-2">
-            <div className="animate-spin w-8 h-8 border-2 border-green-500 border-t-transparent rounded-full mx-auto"></div>
+          <div className="space-y-2 text-center">
+            <div className="mx-auto h-8 w-8 animate-spin rounded-full border-2 border-green-500 border-t-transparent"></div>
             <p className="text-sm text-green-600 dark:text-green-400">
               Loading interactive content...
             </p>

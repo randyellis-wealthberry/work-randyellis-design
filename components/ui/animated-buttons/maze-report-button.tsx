@@ -32,12 +32,12 @@ export function MazeReportButton({
     <motion.button
       className={cn(
         "relative inline-flex items-center justify-center",
-        "px-6 py-3 min-w-[240px]",
+        "min-w-[240px] px-6 py-3",
         "font-semibold text-white",
-        "rounded-xl overflow-hidden",
+        "overflow-hidden rounded-xl",
         "transition-all duration-500",
         "hover:shadow-2xl hover:shadow-purple-500/50",
-        "focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2",
+        "focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:outline-none",
         "transform-gpu will-change-transform",
         "group",
         className,
@@ -153,9 +153,9 @@ export function MazeReportButton({
 
       {/* Button content */}
       <span className="relative z-10 flex items-center justify-center gap-3">
-        <BarChart3 className="w-5 h-5 transition-transform group-hover:rotate-12" />
+        <BarChart3 className="h-5 w-5 transition-transform group-hover:rotate-12" />
         <span>View Usability Report</span>
-        <ExternalLink className="w-4 h-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+        <ExternalLink className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
       </span>
 
       {/* CSS for gradient animation */}
@@ -185,7 +185,7 @@ function AnimatedParticles({ isHovered }: { isHovered: boolean }) {
       {Array.from({ length: 5 }).map((_, i) => (
         <motion.div
           key={i}
-          className="absolute w-1 h-1 bg-white rounded-full"
+          className="absolute h-1 w-1 rounded-full bg-white"
           initial={{
             x: Math.random() * 100,
             y: 100,
