@@ -24,7 +24,7 @@ export function CaseStudySection({
       <div className="text-center">
         <h2
           id={`${id}-heading`}
-          className="text-3xl md:text-4xl font-bold tracking-tight"
+          className="text-3xl font-bold tracking-tight md:text-4xl"
         >
           {title}
         </h2>

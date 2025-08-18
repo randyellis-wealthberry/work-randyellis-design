@@ -31,7 +31,7 @@ export function LiquidButton({
   return (
     <div className="relative inline-block">
       {/* SVG Filter for liquid effect */}
-      <svg className="absolute w-0 h-0">
+      <svg className="absolute h-0 w-0">
         <defs>
           <filter id={filterId}>
             <feTurbulence
@@ -64,9 +64,9 @@ export function LiquidButton({
         className={cn(
           "relative px-8 py-3",
           "font-semibold text-white",
-          "rounded-xl overflow-hidden",
+          "overflow-hidden rounded-xl",
           "transition-all duration-600",
-          "focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2",
+          "focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none",
           className,
         )}
         style={{

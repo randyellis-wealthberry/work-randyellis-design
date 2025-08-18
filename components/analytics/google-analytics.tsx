@@ -9,10 +9,12 @@ interface GoogleAnalyticsProps {
 export function GoogleAnalytics({ gaId }: GoogleAnalyticsProps) {
   return (
     <>
+      {/* External Google Analytics script */}
       <Script
         strategy="afterInteractive"
         src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
       />
+      {/* Inline configuration script - Next.js will automatically add nonce when CSP is detected */}
       <Script
         id="google-analytics"
         strategy="afterInteractive"

@@ -89,7 +89,7 @@ const MetricCard = memo(function MetricCard({
   return (
     <motion.div
       ref={ref}
-      className="relative overflow-hidden rounded-2xl bg-zinc-300/30 p-[1px] dark:bg-zinc-600/30 group cursor-pointer"
+      className="group relative cursor-pointer overflow-hidden rounded-2xl bg-zinc-300/30 p-[1px] dark:bg-zinc-600/30"
       whileHover={{
         scale: 1.05,
         rotateY: 5,
@@ -128,10 +128,10 @@ const MetricCard = memo(function MetricCard({
         className="from-zinc-900 via-zinc-800 to-zinc-700 blur-2xl dark:from-zinc-100 dark:via-zinc-200 dark:to-zinc-50"
         size={64}
       />
-      <div className="relative h-full w-full rounded-[15px] bg-white p-6 dark:bg-zinc-950 overflow-hidden">
+      <div className="relative h-full w-full overflow-hidden rounded-[15px] bg-white p-6 dark:bg-zinc-950">
         {/* Heartbeat pulse effect */}
         <motion.div
-          className="absolute inset-0 bg-gradient-to-r from-blue-400/20 to-purple-400/20 rounded-[15px]"
+          className="absolute inset-0 rounded-[15px] bg-gradient-to-r from-blue-400/20 to-purple-400/20"
           animate={
             showHeartbeat
               ? {
@@ -157,11 +157,11 @@ const MetricCard = memo(function MetricCard({
           )}
         </AnimatePresence>
 
-        <div className="text-center relative z-10">
+        <div className="relative z-10 text-center">
           {/* Achievement badge for excellent metrics */}
           {metric.value.includes("%") && parseInt(metric.value) >= 40 && (
             <motion.div
-              className="absolute -top-2 -right-2 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full p-1"
+              className="absolute -top-2 -right-2 rounded-full bg-gradient-to-r from-green-400 to-emerald-500 p-1"
               initial={{ scale: 0, rotate: -180 }}
               animate={hasAnimated ? { scale: 1, rotate: 0 } : {}}
               transition={{
@@ -176,7 +176,7 @@ const MetricCard = memo(function MetricCard({
           )}
 
           <motion.div
-            className="text-3xl font-bold text-zinc-900 dark:text-zinc-100 mb-2 flex items-center justify-center gap-1"
+            className="mb-2 flex items-center justify-center gap-1 text-3xl font-bold text-zinc-900 dark:text-zinc-100"
             animate={
               showHeartbeat
                 ? {
@@ -209,7 +209,7 @@ const MetricCard = memo(function MetricCard({
         </div>
 
         {/* Subtle hover glow effect */}
-        <motion.div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-purple-500/0 to-pink-500/0 rounded-[15px] opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
+        <motion.div className="absolute inset-0 rounded-[15px] bg-gradient-to-r from-blue-500/0 via-purple-500/0 to-pink-500/0 opacity-0 transition-opacity duration-300 group-hover:opacity-10" />
       </div>
     </motion.div>
   );
@@ -240,7 +240,7 @@ const ProjectCard = memo(function ProjectCard({
 
   return (
     <motion.div
-      className="relative overflow-hidden rounded-2xl bg-zinc-300/30 p-[1px] dark:bg-zinc-600/30 group cursor-pointer"
+      className="group relative cursor-pointer overflow-hidden rounded-2xl bg-zinc-300/30 p-[1px] dark:bg-zinc-600/30"
       initial={{ opacity: 0, x: -20, filter: "blur(8px)" }}
       whileInView={{
         opacity: 1,
@@ -270,7 +270,7 @@ const ProjectCard = memo(function ProjectCard({
       <div className="relative h-full w-full rounded-[15px] bg-white p-6 dark:bg-zinc-950">
         <div className="flex items-start gap-4">
           <motion.div
-            className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm font-medium flex-shrink-0 relative overflow-hidden"
+            className="relative flex h-8 w-8 flex-shrink-0 items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-sm font-medium text-white"
             whileHover={{
               scale: 1.05, // Reduced animation
               rotate: 180, // Reduced rotation
@@ -302,9 +302,9 @@ const ProjectCard = memo(function ProjectCard({
               )}
             </AnimatePresence>
           </motion.div>
-          <div className="space-y-2 flex-1">
+          <div className="flex-1 space-y-2">
             <motion.h4
-              className="font-medium text-zinc-900 dark:text-zinc-100 flex items-center gap-2"
+              className="flex items-center gap-2 font-medium text-zinc-900 dark:text-zinc-100"
               layoutId={`title-${index}`}
             >
               {title}
@@ -312,11 +312,11 @@ const ProjectCard = memo(function ProjectCard({
                 animate={showIcon ? { rotate: 360 } : { rotate: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <Sparkles className="h-3 w-3 text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <Sparkles className="h-3 w-3 text-blue-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
               </motion.div>
             </motion.h4>
             <motion.p
-              className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed"
+              className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400"
               animate={{
                 height: isExpanded ? "auto" : "auto",
                 opacity: 1,
@@ -334,7 +334,7 @@ const ProjectCard = memo(function ProjectCard({
                   animate={{ opacity: 1, height: "auto" }}
                   exit={{ opacity: 0, height: 0 }}
                   transition={{ duration: 0.3 }}
-                  className="text-xs text-blue-600 dark:text-blue-400 font-medium flex items-center gap-1 mt-2"
+                  className="mt-2 flex items-center gap-1 text-xs font-medium text-blue-600 dark:text-blue-400"
                 >
                   <PartyPopper className="h-3 w-3" />
                   Impact: Global scale design transformation
@@ -499,7 +499,7 @@ export default function NagarroClientPage() {
 
       <motion.main
         id="main-content"
-        className="space-y-32 sm:space-y-24 relative"
+        className="relative space-y-32 sm:space-y-24"
         variants={VARIANTS_CONTAINER}
         initial="hidden"
         animate="visible"
@@ -512,7 +512,7 @@ export default function NagarroClientPage() {
         >
           <div className="space-y-6">
             <motion.h1
-              className="text-4xl md:text-6xl font-bold text-zinc-900 dark:text-zinc-100"
+              className="text-4xl font-bold text-zinc-900 md:text-6xl dark:text-zinc-100"
               data-cursor-hover
               data-cursor-text="🎨"
               whileHover={{
@@ -549,7 +549,7 @@ export default function NagarroClientPage() {
 
             {/* Nagarro Logo */}
             <motion.div
-              className="my-8 relative"
+              className="relative my-8"
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2, duration: 0.5 }}
@@ -562,13 +562,13 @@ export default function NagarroClientPage() {
                 alt="Nagarro company logo - Global digital engineering leader"
                 width={800}
                 height={400}
-                className="w-full max-w-2xl mx-auto rounded-xl shadow-2xl dark:shadow-blue-500/20"
+                className="mx-auto w-full max-w-2xl rounded-xl shadow-2xl dark:shadow-blue-500/20"
                 priority
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-blue-600/10 to-transparent rounded-xl pointer-events-none" />
+              <div className="pointer-events-none absolute inset-0 rounded-xl bg-gradient-to-t from-blue-600/10 to-transparent" />
             </motion.div>
 
-            <p className="text-xl text-zinc-600 dark:text-zinc-400 max-w-3xl">
+            <p className="max-w-3xl text-xl text-zinc-600 dark:text-zinc-400">
               Scaling design excellence across 18,000+ Nagarrians in 36
               countries through strategic design evangelism, accessibility
               innovation, and inclusive design leadership that drove 50% brand
@@ -627,7 +627,7 @@ export default function NagarroClientPage() {
           <AnimatePresence>
             {celebrationMode && (
               <motion.div
-                className="absolute inset-0 pointer-events-none z-50"
+                className="pointer-events-none absolute inset-0 z-50"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -635,7 +635,7 @@ export default function NagarroClientPage() {
                 {Array.from({ length: 20 }).map((_, i) => (
                   <motion.div
                     key={i}
-                    className="absolute w-2 h-2 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full"
+                    className="absolute h-2 w-2 rounded-full bg-gradient-to-r from-blue-400 to-purple-500"
                     initial={{
                       x:
                         Math.random() *
@@ -670,7 +670,7 @@ export default function NagarroClientPage() {
             )}
           </AnimatePresence>
 
-          <div className="flex items-center justify-between mb-5">
+          <div className="mb-5 flex items-center justify-between">
             <ScrambleSectionTitle
               className="text-lg font-medium"
               data-cursor-hover
@@ -686,7 +686,7 @@ export default function NagarroClientPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
             {nagarroProject.metrics?.slice(0, 4).map((metric, index) => (
               <MetricCard
                 key={index}
@@ -727,7 +727,7 @@ export default function NagarroClientPage() {
           variants={VARIANTS_SECTION}
           transition={TRANSITION_SECTION}
         >
-          <div className="flex items-center gap-3 mb-5">
+          <div className="mb-5 flex items-center gap-3">
             <ScrambleSectionTitle
               className="text-lg font-medium"
               data-cursor-hover
@@ -745,7 +745,7 @@ export default function NagarroClientPage() {
           </div>
 
           <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 gap-6"
+            className="grid grid-cols-1 gap-6 md:grid-cols-2"
             variants={{
               visible: {
                 transition: {
@@ -779,12 +779,12 @@ export default function NagarroClientPage() {
 
           {/* Hidden message for engaged users */}
           <motion.div
-            className="mt-8 text-center text-xs text-zinc-500 dark:text-zinc-400 opacity-0 hover:opacity-100 transition-opacity duration-1000"
+            className="mt-8 text-center text-xs text-zinc-500 opacity-0 transition-opacity duration-1000 hover:opacity-100 dark:text-zinc-400"
             whileHover={{ scale: 1.05 }}
             data-cursor-hover
             data-cursor-text="💝"
           >
-            <Heart className="h-3 w-3 inline mr-1" />
+            <Heart className="mr-1 inline h-3 w-3" />
             <span role="img" aria-label="Hidden message for engaged users">
               Thank you for taking the time to explore these design leadership
               initiatives! Your engagement helps us create better, more
@@ -810,7 +810,7 @@ export default function NagarroClientPage() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                <p className="leading-relaxed text-zinc-600 dark:text-zinc-400">
                   {nagarroProject.processStory?.background}
                 </p>
               </CardContent>
@@ -824,7 +824,7 @@ export default function NagarroClientPage() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                <p className="leading-relaxed text-zinc-600 dark:text-zinc-400">
                   {nagarroProject.processStory?.approach}
                 </p>
               </CardContent>
@@ -839,28 +839,28 @@ export default function NagarroClientPage() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                  <p className="leading-relaxed text-zinc-600 dark:text-zinc-400">
                     {nagarroProject.processStory?.outcome}
                   </p>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
-                    <div className="text-center p-4 rounded-lg bg-zinc-50 dark:bg-zinc-900/50">
-                      <div className="text-2xl font-bold text-blue-600 mb-1">
+                  <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
+                    <div className="rounded-lg bg-zinc-50 p-4 text-center dark:bg-zinc-900/50">
+                      <div className="mb-1 text-2xl font-bold text-blue-600">
                         50%
                       </div>
                       <div className="text-sm text-zinc-600 dark:text-zinc-400">
                         Brand Recognition Growth
                       </div>
                     </div>
-                    <div className="text-center p-4 rounded-lg bg-zinc-50 dark:bg-zinc-900/50">
-                      <div className="text-2xl font-bold text-green-600 mb-1">
+                    <div className="rounded-lg bg-zinc-50 p-4 text-center dark:bg-zinc-900/50">
+                      <div className="mb-1 text-2xl font-bold text-green-600">
                         100+
                       </div>
                       <div className="text-sm text-zinc-600 dark:text-zinc-400">
                         Qualified Leads Generated
                       </div>
                     </div>
-                    <div className="text-center p-4 rounded-lg bg-zinc-50 dark:bg-zinc-900/50">
-                      <div className="text-2xl font-bold text-purple-600 mb-1">
+                    <div className="rounded-lg bg-zinc-50 p-4 text-center dark:bg-zinc-900/50">
+                      <div className="mb-1 text-2xl font-bold text-purple-600">
                         40%
                       </div>
                       <div className="text-sm text-zinc-600 dark:text-zinc-400">
@@ -882,11 +882,11 @@ export default function NagarroClientPage() {
           <ScrambleSectionTitle className="mb-5 text-lg font-medium">
             Strategic Insights
           </ScrambleSectionTitle>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             {nagarroProject.processStory?.keyInsights?.map((insight, index) => (
               <Card key={index}>
                 <CardContent className="pt-6">
-                  <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed font-medium">
+                  <p className="leading-relaxed font-medium text-zinc-600 dark:text-zinc-400">
                     {insight}
                   </p>
                 </CardContent>
@@ -903,12 +903,12 @@ export default function NagarroClientPage() {
           <ScrambleSectionTitle className="mb-5 text-lg font-medium">
             Leadership Impact
           </ScrambleSectionTitle>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             {nagarroProject.processStory?.stakeholderQuotes?.map(
               (quote, index) => (
                 <Card key={index}>
                   <CardContent className="pt-6">
-                    <blockquote className="text-zinc-600 dark:text-zinc-400 italic leading-relaxed mb-4">
+                    <blockquote className="mb-4 leading-relaxed text-zinc-600 italic dark:text-zinc-400">
                       &ldquo;{quote.quote}&rdquo;
                     </blockquote>
                     <div className="text-sm">
@@ -938,7 +938,7 @@ export default function NagarroClientPage() {
           >
             Strategic Resources & Publications
           </ScrambleSectionTitle>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             {externalLinks.map((link, index) => (
               <Magnetic
                 key={`link-${index}-${link.title}`}
@@ -948,7 +948,7 @@ export default function NagarroClientPage() {
                 {" "}
                 {/* Reduced intensity for performance */}
                 <motion.div
-                  className="block group"
+                  className="group block"
                   whileHover={{ y: -2 }}
                   whileTap={{ scale: 0.98 }}
                   initial={{ opacity: 0, y: 20 }}
@@ -959,15 +959,15 @@ export default function NagarroClientPage() {
                   }}
                   viewport={{ once: true }}
                 >
-                  <div className="relative overflow-hidden rounded-2xl bg-zinc-300/30 p-[1px] dark:bg-zinc-600/30 hover:bg-zinc-400/40 dark:hover:bg-zinc-500/40 transition-colors duration-200">
+                  <div className="relative overflow-hidden rounded-2xl bg-zinc-300/30 p-[1px] transition-colors duration-200 hover:bg-zinc-400/40 dark:bg-zinc-600/30 dark:hover:bg-zinc-500/40">
                     <Spotlight
                       className="from-zinc-900 via-zinc-800 to-zinc-700 blur-2xl dark:from-zinc-100 dark:via-zinc-200 dark:to-zinc-50"
                       size={64}
                     />
-                    <div className="relative h-full w-full rounded-[15px] bg-white p-6 dark:bg-zinc-950 flex flex-col">
+                    <div className="relative flex h-full w-full flex-col rounded-[15px] bg-white p-6 dark:bg-zinc-950">
                       <div className="flex-1 space-y-3">
                         <motion.h4
-                          className="font-medium text-zinc-900 dark:text-zinc-100 flex items-center gap-2"
+                          className="flex items-center gap-2 font-medium text-zinc-900 dark:text-zinc-100"
                           whileHover={{ x: 2 }}
                         >
                           {link.title}
@@ -975,23 +975,23 @@ export default function NagarroClientPage() {
                             whileHover={{ rotate: 45, scale: 1.1 }}
                             transition={{ duration: 0.2 }}
                           >
-                            <ExternalLink className="h-4 w-4 text-zinc-400 group-hover:text-blue-500 transition-colors" />
+                            <ExternalLink className="h-4 w-4 text-zinc-400 transition-colors group-hover:text-blue-500" />
                           </motion.div>
                         </motion.h4>
-                        <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                        <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
                           {link.description}
                         </p>
                       </div>
 
                       {/* Large "Open" CTA Button */}
                       <motion.div
-                        className="mt-4 pt-4 border-t border-zinc-200 dark:border-zinc-700"
+                        className="mt-4 border-t border-zinc-200 pt-4 dark:border-zinc-700"
                         initial={{ opacity: 0.8 }}
                         whileHover={{ opacity: 1 }}
                       >
                         <Button
                           asChild
-                          className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-[1.02]"
+                          className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg transition-all duration-300 group-hover:scale-[1.02] hover:from-blue-700 hover:to-purple-700 hover:shadow-xl"
                           size="lg"
                         >
                           <motion.a
@@ -1047,7 +1047,7 @@ export default function NagarroClientPage() {
           </ScrambleSectionTitle>
           <Card>
             <CardContent className="pt-6">
-              <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed text-lg">
+              <p className="text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
                 {nagarroProject.processStory?.reflection}
               </p>
             </CardContent>
@@ -1058,9 +1058,9 @@ export default function NagarroClientPage() {
         <motion.section
           variants={VARIANTS_SECTION}
           transition={TRANSITION_SECTION}
-          className="border-t border-zinc-200 dark:border-zinc-700 pt-8 px-4 sm:px-6 lg:px-8 mb-16 sm:mb-20 lg:mb-24"
+          className="mb-16 border-t border-zinc-200 px-4 pt-8 sm:mb-20 sm:px-6 lg:mb-24 lg:px-8 dark:border-zinc-700"
         >
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+          <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
             <Magnetic springOptions={{ bounce: 0 }} intensity={0.3}>
               <motion.div
                 whileHover={{ scale: 1.05 }}
@@ -1068,7 +1068,7 @@ export default function NagarroClientPage() {
               >
                 <Link
                   href="/projects"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-zinc-900 dark:text-zinc-100 transition-all duration-200 group"
+                  className="group inline-flex items-center gap-2 rounded-lg bg-zinc-100 px-6 py-3 text-zinc-900 transition-all duration-200 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700"
                 >
                   <motion.span
                     whileHover={{ x: -2 }}
@@ -1088,7 +1088,7 @@ export default function NagarroClientPage() {
               >
                 <Link
                   href="/about"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white transition-all duration-200 group"
+                  className="group inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-3 text-white transition-all duration-200 hover:from-blue-700 hover:to-purple-700"
                 >
                   Learn More About My Work
                   <motion.div
@@ -1103,8 +1103,8 @@ export default function NagarroClientPage() {
           </div>
 
           {/* Static footer message */}
-          <div className="text-center mt-8">
-            <div className="text-xs text-zinc-500 dark:text-zinc-400 inline-flex items-center gap-1">
+          <div className="mt-8 text-center">
+            <div className="inline-flex items-center gap-1 text-xs text-zinc-500 dark:text-zinc-400">
               <Heart className="h-3 w-3" />
               <span>
                 Thank you for exploring this design leadership journey!

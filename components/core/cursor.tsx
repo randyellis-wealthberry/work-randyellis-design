@@ -95,7 +95,7 @@ export function Cursor({
       <AnimatePresence>
         {isVisible && attachToParent && (
           <motion.div
-            className="absolute pointer-events-none z-50"
+            className="pointer-events-none absolute z-50"
             style={{
               left: position.x,
               top: position.y,

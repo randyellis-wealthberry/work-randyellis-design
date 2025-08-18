@@ -30,7 +30,7 @@ export function ProgressIndicator({
       case "error":
         return <AlertCircle className="h-5 w-5 text-red-600" />;
       case "loading":
-        return <Loader className="h-5 w-5 text-blue-600 animate-spin" />;
+        return <Loader className="h-5 w-5 animate-spin text-blue-600" />;
       default:
         return (
           <div className="h-5 w-5 rounded-full border-2 border-zinc-300 dark:border-zinc-600" />
@@ -62,7 +62,7 @@ export function ProgressIndicator({
             transition={{ duration: 0.3, delay: index * 0.1 }}
             className="flex items-start gap-3"
           >
-            <div className="flex-shrink-0 mt-0.5">
+            <div className="mt-0.5 flex-shrink-0">
               {getStepIcon(step.status)}
             </div>
             <div className="min-w-0 flex-1">
@@ -70,7 +70,7 @@ export function ProgressIndicator({
                 {step.label}
               </p>
               {step.description && (
-                <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1">
+                <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
                   {step.description}
                 </p>
               )}
@@ -95,7 +95,7 @@ export function ProgressIndicator({
             {getStepIcon(step.status)}
             <span
               className={cn(
-                "text-xs mt-1 text-center",
+                "mt-1 text-center text-xs",
                 getStepColor(step.status),
               )}
             >
@@ -103,7 +103,7 @@ export function ProgressIndicator({
             </span>
           </div>
           {index < steps.length - 1 && (
-            <div className="w-8 h-0.5 bg-zinc-200 dark:bg-zinc-700 mx-2" />
+            <div className="mx-2 h-0.5 w-8 bg-zinc-200 dark:bg-zinc-700" />
           )}
         </motion.div>
       ))}
@@ -130,14 +130,14 @@ export function LoadingState({
       className={cn("flex flex-col items-center justify-center p-8", className)}
     >
       <div className="relative">
-        <div className="w-8 h-8 border-2 border-blue-200 dark:border-blue-800 rounded-full animate-pulse" />
-        <div className="absolute inset-0 w-8 h-8 border-2 border-t-blue-600 rounded-full animate-spin" />
+        <div className="h-8 w-8 animate-pulse rounded-full border-2 border-blue-200 dark:border-blue-800" />
+        <div className="absolute inset-0 h-8 w-8 animate-spin rounded-full border-2 border-t-blue-600" />
       </div>
-      <p className="text-zinc-700 dark:text-zinc-300 mt-4 font-medium">
+      <p className="mt-4 font-medium text-zinc-700 dark:text-zinc-300">
         {message}
       </p>
       {submessage && (
-        <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1">
+        <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
           {submessage}
         </p>
       )}
@@ -171,17 +171,17 @@ export function ErrorState({
         className,
       )}
     >
-      <AlertCircle className="h-12 w-12 text-red-500 mb-4" />
-      <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100 mb-2">
+      <AlertCircle className="mb-4 h-12 w-12 text-red-500" />
+      <h3 className="mb-2 text-lg font-semibold text-zinc-900 dark:text-zinc-100">
         {title}
       </h3>
-      <p className="text-zinc-600 dark:text-zinc-400 mb-6 max-w-md">
+      <p className="mb-6 max-w-md text-zinc-600 dark:text-zinc-400">
         {message}
       </p>
       {action && (
         <button
           onClick={action.onClick}
-          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          className="rounded-md bg-blue-600 px-4 py-2 text-white transition-colors hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none"
         >
           {action.label}
         </button>

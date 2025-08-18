@@ -72,7 +72,7 @@ export function OptimizedImage({
     <div ref={imgRef} className={`relative overflow-hidden ${className || ""}`}>
       {/* Loading placeholder */}
       {!isLoaded && (
-        <div className="absolute inset-0 bg-gradient-to-r from-zinc-200 via-zinc-100 to-zinc-200 dark:from-zinc-800 dark:via-zinc-700 dark:to-zinc-800 animate-pulse" />
+        <div className="absolute inset-0 animate-pulse bg-gradient-to-r from-zinc-200 via-zinc-100 to-zinc-200 dark:from-zinc-800 dark:via-zinc-700 dark:to-zinc-800" />
       )}
 
       {/* Actual image - only load when in view or priority */}
@@ -167,7 +167,7 @@ export function OptimizedVideo({
     >
       {/* Loading placeholder */}
       {!isLoaded && (
-        <div className="absolute inset-0 bg-gradient-to-r from-zinc-200 via-zinc-100 to-zinc-200 dark:from-zinc-800 dark:via-zinc-700 dark:to-zinc-800 animate-pulse" />
+        <div className="absolute inset-0 animate-pulse bg-gradient-to-r from-zinc-200 via-zinc-100 to-zinc-200 dark:from-zinc-800 dark:via-zinc-700 dark:to-zinc-800" />
       )}
 
       {/* Video - only load when in view */}
@@ -183,7 +183,7 @@ export function OptimizedVideo({
           poster={poster}
           preload={preload}
           onLoadedData={handleLoad}
-          className={`w-full h-full transition-opacity duration-300 ${
+          className={`h-full w-full transition-opacity duration-300 ${
             isLoaded ? "opacity-100" : "opacity-0"
           }`}
           style={{ objectFit: "cover" }}

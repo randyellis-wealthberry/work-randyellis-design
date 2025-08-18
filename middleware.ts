@@ -1,156 +1,115 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse } from 'next/server';
 
-/**
- * Rate Limiting Middleware
- *
- * Protects the newsletter subscription endpoint from abuse by limiting requests to:
- * - 5 requests per minute per IP address
- * - Returns 429 status with Retry-After header when limit exceeded
- * - Adds rate limit headers to all responses
- *
- * Currently uses in-memory storage. For production scale or multiple server instances,
- * consider upgrading to Redis/Upstash for distributed rate limiting.
- */
-
-// In-memory rate limiting store
-// In production, you'd want to use Redis or a distributed cache
-interface RateLimitEntry {
-  count: number;
-  resetTime: number;
-}
-
-const rateLimitStore = new Map<string, RateLimitEntry>();
-
-// Rate limiting configuration
-const RATE_LIMIT_CONFIG = {
-  windowMs: 60 * 1000, // 1 minute
-  maxRequests: 5, // 5 requests per minute
-  skipSuccessfulRequests: false,
-  skipFailedRequests: false,
+// Cache header configurations
+const CACHE_HEADERS = {
+  // Static assets - Long-term caching (1 year)
+  staticAssets: {
+    'Cache-Control': 'public, max-age=31536000, immutable',
+    'CDN-Cache-Control': 'public, max-age=31536000',
+    'Vercel-CDN-Cache-Control': 'max-age=31536000',
+  },
+  
+  // Images - Optimized with stale-while-revalidate
+  images: {
+    'Cache-Control': 'public, max-age=31536000, stale-while-revalidate=86400',
+    'CDN-Cache-Control': 'public, max-age=31536000',
+    'Vercel-CDN-Cache-Control': 'max-age=31536000',
+  },
+  
+  // Fonts - Preload and cache optimization
+  fonts: {
+    'Cache-Control': 'public, max-age=31536000, immutable',
+    'CDN-Cache-Control': 'public, max-age=31536000',
+    'Vercel-CDN-Cache-Control': 'max-age=31536000',
+    'Access-Control-Allow-Origin': '*',
+  },
+  
+  // Dynamic content - Short-term caching with revalidation
+  dynamic: {
+    'Cache-Control': 'public, max-age=60, stale-while-revalidate=3600',
+    'CDN-Cache-Control': 'public, max-age=60',
+    'Vercel-CDN-Cache-Control': 'max-age=60',
+  },
+  
+  // API responses - Strategic caching
+  api: {
+    'Cache-Control': 'public, max-age=300, stale-while-revalidate=1800',
+    'CDN-Cache-Control': 'public, max-age=300',
+    'Vercel-CDN-Cache-Control': 'max-age=300',
+  },
 };
 
-function getRateLimitKey(request: NextRequest): string {
-  // Use IP address as the key, with fallback to forwarded headers
-  const ip =
-    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
-    request.headers.get("x-real-ip") ||
-    request.headers.get("cf-connecting-ip") || // Cloudflare
-    "unknown";
-
-  return `ratelimit:${ip}:${request.nextUrl.pathname}`;
-}
-
-function cleanupExpiredEntries(): void {
-  const now = Date.now();
-  for (const [key, entry] of rateLimitStore.entries()) {
-    if (now > entry.resetTime) {
-      rateLimitStore.delete(key);
-    }
+function applyCacheHeaders(request: NextRequest, response: NextResponse): NextResponse {
+  const { pathname } = request.nextUrl;
+  
+  // Static assets (JS, CSS) - immutable with long cache
+  if (pathname.match(/\.(js|css)$/)) {
+    Object.entries(CACHE_HEADERS.staticAssets).forEach(([key, value]) => {
+      response.headers.set(key, value);
+    });
   }
-}
-
-function checkRateLimit(key: string): {
-  allowed: boolean;
-  count: number;
-  remaining: number;
-  resetTime: number;
-} {
-  const now = Date.now();
-  const entry = rateLimitStore.get(key);
-
-  // Clean up expired entries periodically
-  if (Math.random() < 0.01) {
-    // 1% chance to cleanup
-    cleanupExpiredEntries();
+  
+  // Images - long cache with stale-while-revalidate
+  else if (pathname.match(/\.(jpg|jpeg|png|webp|avif|svg|gif|ico)$/)) {
+    Object.entries(CACHE_HEADERS.images).forEach(([key, value]) => {
+      response.headers.set(key, value);
+    });
   }
-
-  if (!entry || now > entry.resetTime) {
-    // First request or window expired
-    const resetTime = now + RATE_LIMIT_CONFIG.windowMs;
-    rateLimitStore.set(key, { count: 1, resetTime });
-    return {
-      allowed: true,
-      count: 1,
-      remaining: RATE_LIMIT_CONFIG.maxRequests - 1,
-      resetTime,
-    };
+  
+  // Fonts - long cache with CORS
+  else if (pathname.match(/\.(woff|woff2|eot|ttf|otf)$/)) {
+    Object.entries(CACHE_HEADERS.fonts).forEach(([key, value]) => {
+      response.headers.set(key, value);
+    });
   }
-
-  // Increment count
-  entry.count++;
-  rateLimitStore.set(key, entry);
-
-  return {
-    allowed: entry.count <= RATE_LIMIT_CONFIG.maxRequests,
-    count: entry.count,
-    remaining: Math.max(0, RATE_LIMIT_CONFIG.maxRequests - entry.count),
-    resetTime: entry.resetTime,
-  };
+  
+  // API routes - strategic caching
+  else if (pathname.startsWith('/api/')) {
+    Object.entries(CACHE_HEADERS.api).forEach(([key, value]) => {
+      response.headers.set(key, value);
+    });
+  }
+  
+  // Dynamic pages - short cache with revalidation
+  else if (!pathname.startsWith('/_next/')) {
+    Object.entries(CACHE_HEADERS.dynamic).forEach(([key, value]) => {
+      response.headers.set(key, value);
+    });
+  }
+  
+  return response;
 }
 
 export function middleware(request: NextRequest) {
-  // Handle route redirects for backward compatibility
-  if (request.nextUrl.pathname === "/addvanced") {
-    return NextResponse.redirect(
-      new URL("/projects/addvanced", request.url),
-      301
-    );
+  const response = NextResponse.next();
+  
+  // Apply cache headers based on request path
+  const updatedResponse = applyCacheHeaders(request, response);
+  
+  // Add security headers for fonts and images
+  const { pathname } = request.nextUrl;
+  
+  if (pathname.match(/\.(woff|woff2|eot|ttf|otf)$/)) {
+    updatedResponse.headers.set('Access-Control-Allow-Methods', 'GET');
+    updatedResponse.headers.set('Access-Control-Allow-Headers', 'Content-Type');
   }
-
-  // Only apply rate limiting to newsletter subscription endpoint
-  if (
-    request.nextUrl.pathname === "/api/newsletter/subscribe" &&
-    request.method === "POST"
-  ) {
-    const key = getRateLimitKey(request);
-    const { allowed, count, remaining, resetTime } = checkRateLimit(key);
-
-    if (!allowed) {
-      // Rate limit exceeded
-      return new NextResponse(
-        JSON.stringify({
-          error: "Too many requests",
-          message: "Please wait a moment before trying again.",
-          retryAfter: Math.ceil((resetTime - Date.now()) / 1000),
-        }),
-        {
-          status: 429,
-          headers: {
-            "Content-Type": "application/json",
-            "X-RateLimit-Limit": RATE_LIMIT_CONFIG.maxRequests.toString(),
-            "X-RateLimit-Remaining": remaining.toString(),
-            "X-RateLimit-Reset": Math.ceil(resetTime / 1000).toString(),
-            "Retry-After": Math.ceil(
-              (resetTime - Date.now()) / 1000,
-            ).toString(),
-          },
-        },
-      );
-    }
-
-    // Add rate limit headers to successful responses
-    const response = NextResponse.next();
-    response.headers.set(
-      "X-RateLimit-Limit",
-      RATE_LIMIT_CONFIG.maxRequests.toString(),
-    );
-    response.headers.set("X-RateLimit-Remaining", remaining.toString());
-    response.headers.set(
-      "X-RateLimit-Reset",
-      Math.ceil(resetTime / 1000).toString(),
-    );
-
-    return response;
+  
+  // Add Vary header for image optimization
+  if (pathname.match(/\.(jpg|jpeg|png|webp|avif|svg|gif)$/)) {
+    updatedResponse.headers.set('Vary', 'Accept');
   }
-
-  return NextResponse.next();
+  
+  return updatedResponse;
 }
 
 export const config = {
   matcher: [
-    // Apply to API routes
-    "/api/:path*",
-    // Apply to routes that need redirects
-    "/addvanced",
+    /*
+     * Match all request paths except for the ones starting with:
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     */
+    '/((?!_next/static|_next/image|favicon.ico).*)',
   ],
 };

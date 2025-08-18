@@ -115,10 +115,10 @@ export const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({
           {testimonials.map((testimonial, index) => (
             <CarouselItem
               key={`${testimonial.author}-${index}`}
-              className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3"
+              className="pl-2 md:basis-1/2 md:pl-4 lg:basis-1/3"
             >
               <motion.div variants={itemVariants} className="h-full">
-                <Card className="h-full flex flex-col">
+                <Card className="flex h-full flex-col">
                   <CardHeader className="flex-none">
                     <div className="space-y-1">
                       <CardTitle className="text-sm font-medium">
@@ -129,8 +129,8 @@ export const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({
                       </CardDescription>
                     </div>
                   </CardHeader>
-                  <CardContent className="flex-1 flex items-start pt-0">
-                    <blockquote className="text-sm text-muted-foreground leading-relaxed italic">
+                  <CardContent className="flex flex-1 items-start pt-0">
+                    <blockquote className="text-muted-foreground text-sm leading-relaxed italic">
                       &ldquo;{testimonial.quote}&rdquo;
                     </blockquote>
                   </CardContent>
@@ -140,7 +140,7 @@ export const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({
           ))}
         </CarouselContent>
         {/* Navigation Controls */}
-        <div className="flex items-center justify-between mt-4">
+        <div className="mt-4 flex items-center justify-between">
           <div className="flex gap-2">
             <CarouselPrevious className="static translate-y-0" />
             <CarouselNext className="static translate-y-0" />
@@ -169,7 +169,7 @@ export const TestimonialCarousel: React.FC<TestimonialCarouselProps> = ({
       {/* Progress Indicator */}
       {count > 1 && (
         <div className="text-center">
-          <p className="text-xs text-muted-foreground">
+          <p className="text-muted-foreground text-xs">
             {current} of {count}
           </p>
         </div>
@@ -230,14 +230,14 @@ export const TestimonialCarouselCompact: React.FC<TestimonialCarouselProps> = ({
                 <Card>
                   <CardContent className="p-6">
                     <blockquote className="space-y-4">
-                      <p className="text-sm text-muted-foreground leading-relaxed italic text-center">
+                      <p className="text-muted-foreground text-center text-sm leading-relaxed italic">
                         &ldquo;{testimonial.quote}&rdquo;
                       </p>
-                      <footer className="text-center space-y-1">
+                      <footer className="space-y-1 text-center">
                         <div className="text-sm font-medium">
                           {testimonial.author}
                         </div>
-                        <div className="text-xs text-muted-foreground">
+                        <div className="text-muted-foreground text-xs">
                           {testimonial.role}
                         </div>
                       </footer>

@@ -1,0 +1,406 @@
+[
+  {
+    "id": "TC001",
+    "title": "Audio Player - Play and Pause Functionality",
+    "description": "Verify that the advanced audio player can play and pause audio tracks using both UI controls and keyboard shortcuts.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Load a page containing the audio player component."
+      },
+      {
+        "type": "action",
+        "description": "Click the play button in the audio player UI."
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm that audio playback starts and the play button changes to pause."
+      },
+      {
+        "type": "action",
+        "description": "Press the keyboard shortcut to pause the audio player."
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm that audio playback stops and the pause button changes back to play."
+      }
+    ]
+  },
+  {
+    "id": "TC002",
+    "title": "Audio Player - Script Drawer Accessibility and Keyboard Controls",
+    "description": "Test that the script drawer control in the audio player is accessible via keyboard and screen readers, and keyboard shortcuts toggle it correctly.",
+    "category": "accessibility",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the audio player component and focus on the script drawer toggle button using keyboard (Tab key)."
+      },
+      {
+        "type": "action",
+        "description": "Activate the script drawer toggle via keyboard (Enter or Space key)."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the script drawer opens and content is accessible with screen reader semantics."
+      },
+      {
+        "type": "action",
+        "description": "Press the keyboard shortcut designed to toggle the script drawer."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the script drawer closes properly and focus returns to the toggle button."
+      }
+    ]
+  },
+  {
+    "id": "TC003",
+    "title": "Video Player - Hover Effect and Custom Controls",
+    "description": "Validate that interactive video player components display controls on hover and respond to user interaction, including custom controls and autoplay behavior.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to a page containing the hover video player component."
+      },
+      {
+        "type": "action",
+        "description": "Hover the mouse pointer over the video player."
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm that custom video controls appear on hover."
+      },
+      {
+        "type": "action",
+        "description": "Click the play control on the video player."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify video playback begins and custom controls update appropriately."
+      },
+      {
+        "type": "action",
+        "description": "Move the mouse pointer away from the video player."
+      },
+      {
+        "type": "assertion",
+        "description": "Ensure the controls hide automatically but video continues playing unless paused."
+      }
+    ]
+  },
+  {
+    "id": "TC004",
+    "title": "Project Management - Random Project Selection",
+    "description": "Ensure that the project management system correctly selects and displays random projects on page load and after triggering the randomization.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Open the projects overview page."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a random set of projects is displayed with correct video thumbnails."
+      },
+      {
+        "type": "action",
+        "description": "Click the button to refresh or randomize projects."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the list updates to a different random selection without errors."
+      }
+    ]
+  },
+  {
+    "id": "TC005",
+    "title": "Project Details - Dynamic Content and Animations",
+    "description": "Verify that navigating to a project detail page loads dynamic content including video, 3D elements, and animations smoothly and correctly.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to a project detail page via link from projects page."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the page loads the correct project data including video thumbnails."
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm 3D WebGL components render without rendering errors."
+      },
+      {
+        "type": "assertion",
+        "description": "Check UI animations triggered on page load perform smoothly without frame drops."
+      }
+    ]
+  },
+  {
+    "id": "TC006",
+    "title": "Text Effects System - Animation Rendering and Performance",
+    "description": "Check that various text animation effects (scrambling, morphing, circular text) render correctly and perform smoothly across supported browsers and devices.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to a page containing text effects components."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify each text effect (scramble, morph, circular) animates as specified."
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm animations do not cause layout shifts or performance degradation."
+      }
+    ]
+  },
+  {
+    "id": "TC007",
+    "title": "MDX Blog System - Rendering and Metadata Support",
+    "description": "Validate that MDX blog posts render fully with custom components and metadata is correctly applied for SEO.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Open multiple sample blog post pages authored in MDX."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the custom components render properly inside posts."
+      },
+      {
+        "type": "assertion",
+        "description": "Check that metadata such as title, description, and structured data are present in HTML head."
+      }
+    ]
+  },
+  {
+    "id": "TC008",
+    "title": "Newsletter Subscription - Email Validation and API Integration",
+    "description": "Test the newsletter signup form validates email inputs correctly, handles API responses including success and error, and provides appropriate user feedback.",
+    "category": "error handling",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the newsletter subscription form."
+      },
+      {
+        "type": "action",
+        "description": "Submit the form with an invalid email format."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify validation error is displayed and the form is not submitted."
+      },
+      {
+        "type": "action",
+        "description": "Submit the form with a valid email."
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm the API call is made and a success message is displayed upon successful subscription."
+      },
+      {
+        "type": "action",
+        "description": "Simulate API failure response."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify user sees an appropriate error message and can retry submission."
+      }
+    ]
+  },
+  {
+    "id": "TC009",
+    "title": "Responsive Navigation System - Theme Switching and Responsiveness",
+    "description": "Verify that the navigation header and footer render correctly across desktop, tablet, and mobile screen sizes and that theme switching (light/dark) functions without layout issues.",
+    "category": "ui",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Resize the browser or use device emulation to test navigation system at multiple breakpoints."
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm header and footer menus adapt layout appropriately for each device size."
+      },
+      {
+        "type": "action",
+        "description": "Toggle theme switching control."
+      },
+      {
+        "type": "assertion",
+        "description": "Validate that theme changes application-wide with no broken styles or overlaps."
+      },
+      {
+        "type": "action",
+        "description": "Navigate through all menu items in both themes."
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm all navigation links work and styling is consistent."
+      }
+    ]
+  },
+  {
+    "id": "TC010",
+    "title": "Analytics Integration - Event Tracking Verification",
+    "description": "Check that key user interactions trigger analytics events correctly in Vercel Analytics and Google Analytics setups.",
+    "category": "security",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Perform common user actions such as page navigation, media player controls, and form submissions."
+      },
+      {
+        "type": "assertion",
+        "description": "Validate that expected analytics events are sent and captured via mock or test analytics backends."
+      }
+    ]
+  },
+  {
+    "id": "TC011",
+    "title": "Visual Effects - Spotlight and Border Trail Performance and Rendering",
+    "description": "Ensure advanced visual effects like spotlight and border trails render correctly on UI components and do not degrade performance noticeably.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to pages with spotlight and border trail visual effects."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify visual effects appear correctly and move responsively with user interactions such as cursor movement."
+      },
+      {
+        "type": "assertion",
+        "description": "Monitor performance metrics ensuring no significant frame drop or jank occurs."
+      }
+    ]
+  },
+  {
+    "id": "TC012",
+    "title": "Archive System - Filtering and Categorization",
+    "description": "Test the portfolio archive system's filtering and categorization features for accuracy and responsiveness.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Open the portfolio archive page."
+      },
+      {
+        "type": "action",
+        "description": "Apply various filters and category selections."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify that the displayed projects update dynamically to match filter criteria without errors or delays."
+      },
+      {
+        "type": "action",
+        "description": "Clear filters and confirm all projects are displayed again."
+      }
+    ]
+  },
+  {
+    "id": "TC013",
+    "title": "Page Generation - SEO Metadata and Structured Data Presence",
+    "description": "Verify every page has correct SEO metadata, open graph tags, structured data, and proper icons for optimal search engine indexing.",
+    "category": "functional",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Inspect multiple pages including home, projects, blog posts, and about for meta tags and structured data."
+      },
+      {
+        "type": "assertion",
+        "description": "Validate that titles, descriptions, open graph images, JSON-LD structured data, favicon and manifest files are correctly linked and contain expected values."
+      }
+    ]
+  },
+  {
+    "id": "TC014",
+    "title": "Newsletter API Route - Error Handling and Input Validation",
+    "description": "Test the backend API route for newsletter subscription with various valid and invalid requests to ensure robustness and clear error messages.",
+    "category": "error handling",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Send POST requests to the newsletter subscription API with invalid payloads (missing email, malformed email, etc.)."
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the API returns appropriate HTTP error status codes and descriptive error messages."
+      },
+      {
+        "type": "action",
+        "description": "Send a POST request with a valid email."
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm API returns success response and records subscription."
+      }
+    ]
+  },
+  {
+    "id": "TC015",
+    "title": "Core UI Library Components - Accessibility and Responsiveness",
+    "description": "Verify foundational UI components based on Radix UI primitives function correctly with keyboard navigation, screen readers, and adapt to various screen sizes.",
+    "category": "accessibility",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate through all core UI components: buttons, dialogs, dropdowns, tabs, tooltips using keyboard only."
+      },
+      {
+        "type": "assertion",
+        "description": "Ensure components have correct ARIA attributes, focus outlines, and behave according to specification."
+      },
+      {
+        "type": "action",
+        "description": "Resize viewport to test components responsiveness."
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm components layout and usability remain intact."
+      }
+    ]
+  },
+  {
+    "id": "TC016",
+    "title": "Testing Infrastructure - Coverage and Integration Tests Execution",
+    "description": "Verify that automated tests using Jest and React Testing Library execute successfully covering core components, utilities, and integrations preventing regressions.",
+    "category": "functional",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Run the full test suite including unit, integration, and API tests."
+      },
+      {
+        "type": "assertion",
+        "description": "Confirm all tests pass and coverage reports meet minimum project thresholds."
+      }
+    ]
+  }
+]

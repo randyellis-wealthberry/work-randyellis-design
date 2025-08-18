@@ -14,11 +14,11 @@ interface ImageGalleryProps {
 
 export function ImageGallery({ images }: ImageGalleryProps) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
       {images.map((image, index) => (
         <Card
           key={index}
-          className="overflow-hidden hover:shadow-lg transition-shadow"
+          className="overflow-hidden transition-shadow hover:shadow-lg"
         >
           <CardContent className="p-0">
             <AspectRatio ratio={4 / 3}>
@@ -32,7 +32,7 @@ export function ImageGallery({ images }: ImageGalleryProps) {
             </AspectRatio>
             {image.caption && (
               <div className="p-4">
-                <p className="text-sm text-muted-foreground text-center">
+                <p className="text-muted-foreground text-center text-sm">
                   {image.caption}
                 </p>
               </div>

@@ -105,16 +105,16 @@ export function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
   ];
 
   return (
-    <main className="w-full min-h-screen">
+    <main className="min-h-screen w-full">
       <div className="w-full">
         {/* Hero Section */}
         <CaseStudyHero {...data.hero} />
 
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16 py-16">
+        <div className="mx-auto max-w-6xl space-y-16 px-4 py-16 sm:px-6 lg:px-8">
           {/* Project Overview */}
           <CaseStudySection title="Project Overview" id="overview">
-            <div className="prose prose-lg max-w-none dark:prose-invert">
-              <p className="text-xl text-muted-foreground leading-relaxed">
+            <div className="prose prose-lg dark:prose-invert max-w-none">
+              <p className="text-muted-foreground text-xl leading-relaxed">
                 Echo Global Logistics, headquartered in Chicago, is a prominent
                 provider of technology-enabled transportation and supply chain
                 management services. With over 30 offices nationwide and a
@@ -129,12 +129,12 @@ export function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
 
           {/* The Challenge */}
           <CaseStudySection title="The Challenge" id="challenge">
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid gap-8 md:grid-cols-2">
               <div>
-                <h3 className="text-xl font-semibold mb-4">
+                <h3 className="mb-4 text-xl font-semibold">
                   Primary Objectives
                 </h3>
-                <ul className="space-y-3 text-muted-foreground">
+                <ul className="text-muted-foreground space-y-3">
                   <li className="flex items-start gap-2">
                     <span className="text-primary">•</span>
                     <div>
@@ -166,10 +166,10 @@ export function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
                 </ul>
               </div>
               <div>
-                <h3 className="text-xl font-semibold mb-4">
+                <h3 className="mb-4 text-xl font-semibold">
                   Industry Pain Points
                 </h3>
-                <ul className="space-y-3 text-muted-foreground">
+                <ul className="text-muted-foreground space-y-3">
                   <li className="flex items-start gap-2">
                     <span className="text-destructive">×</span>
                     <span>Fragmented communication between stakeholders</span>
@@ -196,7 +196,7 @@ export function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
           {/* Research & Discovery */}
           <CaseStudySection title="Research & Discovery" id="research">
             <div className="space-y-8">
-              <div className="prose prose-lg max-w-none dark:prose-invert">
+              <div className="prose prose-lg dark:prose-invert max-w-none">
                 <p>
                   Eight Bit Studios conducted comprehensive user research to
                   understand real-world logistics challenges through stakeholder
@@ -213,7 +213,7 @@ export function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
           {/* Brand & Strategy Development */}
           <CaseStudySection title="Brand & Strategy Development" id="brand">
             <div className="space-y-8">
-              <div className="prose prose-lg max-w-none dark:prose-invert">
+              <div className="prose prose-lg dark:prose-invert max-w-none">
                 <p>
                   Eight Bit Studios developed a cohesive brand strategy that
                   aligned with Echo&apos;s ethos while establishing EchoDrive as
@@ -229,22 +229,22 @@ export function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
 
           {/* Solution Architecture */}
           <CaseStudySection title="Solution Architecture" id="solution">
-            <div className="grid lg:grid-cols-2 gap-12">
+            <div className="grid gap-12 lg:grid-cols-2">
               <div>
-                <h3 className="text-xl font-semibold mb-6">
+                <h3 className="mb-6 text-xl font-semibold">
                   Mobile Applications (iOS & Android)
                 </h3>
-                <ul className="space-y-3 text-muted-foreground">
+                <ul className="text-muted-foreground space-y-3">
                   <li>Native mobile apps for drivers</li>
                   <li>Electronic logging capabilities</li>
                   <li>Real-time shipment tracking</li>
                   <li>Communication tools</li>
                 </ul>
 
-                <h4 className="text-lg font-semibold mt-8 mb-4">
+                <h4 className="mt-8 mb-4 text-lg font-semibold">
                   Core Features
                 </h4>
-                <ul className="space-y-2 text-sm text-muted-foreground">
+                <ul className="text-muted-foreground space-y-2 text-sm">
                   <li>
                     <strong>Login & Profiles</strong> - Secure authentication
                   </li>
@@ -269,17 +269,17 @@ export function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
               </div>
 
               <div>
-                <h3 className="text-xl font-semibold mb-6">Web Application</h3>
-                <ul className="space-y-3 text-muted-foreground">
+                <h3 className="mb-6 text-xl font-semibold">Web Application</h3>
+                <ul className="text-muted-foreground space-y-3">
                   <li>Internal tools for dispatch teams</li>
                   <li>Customer service representative interface</li>
                   <li>Seamless integration with mobile platform</li>
                 </ul>
 
-                <h4 className="text-lg font-semibold mt-8 mb-4">
+                <h4 className="mt-8 mb-4 text-lg font-semibold">
                   Platform Features
                 </h4>
-                <ul className="space-y-2 text-sm text-muted-foreground">
+                <ul className="text-muted-foreground space-y-2 text-sm">
                   <li>
                     <strong>Fleet Management</strong> - Active driver overview
                   </li>
@@ -309,35 +309,35 @@ export function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
 
           {/* Results & Impact */}
           <CaseStudySection title="Results & Impact" id="results">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            <div className="mb-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
               {data.metrics.map((metric, index) => (
                 <MetricsCard key={index} metric={metric} />
               ))}
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8 text-center">
+            <div className="grid gap-8 text-center md:grid-cols-3">
               <div>
-                <h3 className="text-lg font-semibold mb-3">
+                <h3 className="mb-3 text-lg font-semibold">
                   Compliance Achievement
                 </h3>
-                <ul className="text-sm text-muted-foreground space-y-2">
+                <ul className="text-muted-foreground space-y-2 text-sm">
                   <li>✅ Met ELD Mandate requirements</li>
                   <li>✅ Electronic logging implementation</li>
                 </ul>
               </div>
               <div>
-                <h3 className="text-lg font-semibold mb-3">
+                <h3 className="mb-3 text-lg font-semibold">
                   Process Enhancement
                 </h3>
-                <ul className="text-sm text-muted-foreground space-y-2">
+                <ul className="text-muted-foreground space-y-2 text-sm">
                   <li>Streamlined internal operations</li>
                   <li>Enhanced driver-dispatcher communication</li>
                   <li>Strengthened digital transformation</li>
                 </ul>
               </div>
               <div>
-                <h3 className="text-lg font-semibold mb-3">Growth Metrics</h3>
-                <ul className="text-sm text-muted-foreground space-y-2">
+                <h3 className="mb-3 text-lg font-semibold">Growth Metrics</h3>
+                <ul className="text-muted-foreground space-y-2 text-sm">
                   <li>Substantial year-over-year growth</li>
                   <li>Alpha → Beta → Launch success</li>
                   <li>Industry standard establishment</li>
@@ -354,40 +354,40 @@ export function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
             id="development"
           >
             <div className="space-y-8">
-              <div className="grid md:grid-cols-4 gap-6 text-center">
-                <div className="p-6 rounded-lg border">
-                  <div className="w-8 h-8 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto mb-3">
+              <div className="grid gap-6 text-center md:grid-cols-4">
+                <div className="rounded-lg border p-6">
+                  <div className="bg-primary/10 text-primary mx-auto mb-3 flex h-8 w-8 items-center justify-center rounded-full">
                     1
                   </div>
-                  <h4 className="font-semibold mb-2">Discovery</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <h4 className="mb-2 font-semibold">Discovery</h4>
+                  <p className="text-muted-foreground text-sm">
                     Stakeholder workshops & research
                   </p>
                 </div>
-                <div className="p-6 rounded-lg border">
-                  <div className="w-8 h-8 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto mb-3">
+                <div className="rounded-lg border p-6">
+                  <div className="bg-primary/10 text-primary mx-auto mb-3 flex h-8 w-8 items-center justify-center rounded-full">
                     2
                   </div>
-                  <h4 className="font-semibold mb-2">Design</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <h4 className="mb-2 font-semibold">Design</h4>
+                  <p className="text-muted-foreground text-sm">
                     Brand & UI/UX development
                   </p>
                 </div>
-                <div className="p-6 rounded-lg border">
-                  <div className="w-8 h-8 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto mb-3">
+                <div className="rounded-lg border p-6">
+                  <div className="bg-primary/10 text-primary mx-auto mb-3 flex h-8 w-8 items-center justify-center rounded-full">
                     3
                   </div>
-                  <h4 className="font-semibold mb-2">Development</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <h4 className="mb-2 font-semibold">Development</h4>
+                  <p className="text-muted-foreground text-sm">
                     Native & web app creation
                   </p>
                 </div>
-                <div className="p-6 rounded-lg border">
-                  <div className="w-8 h-8 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto mb-3">
+                <div className="rounded-lg border p-6">
+                  <div className="bg-primary/10 text-primary mx-auto mb-3 flex h-8 w-8 items-center justify-center rounded-full">
                     4
                   </div>
-                  <h4 className="font-semibold mb-2">Launch</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <h4 className="mb-2 font-semibold">Launch</h4>
+                  <p className="text-muted-foreground text-sm">
                     Beta testing & optimization
                   </p>
                 </div>
@@ -401,10 +401,10 @@ export function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
 
           {/* Lessons Learned */}
           <CaseStudySection title="Lessons Learned" id="lessons">
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid gap-8 md:grid-cols-2">
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-lg font-semibold mb-3">
+                  <h3 className="mb-3 text-lg font-semibold">
                     Research-First Approach
                   </h3>
                   <p className="text-muted-foreground">
@@ -415,7 +415,7 @@ export function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
                   </p>
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold mb-3">
+                  <h3 className="mb-3 text-lg font-semibold">
                     Cross-Platform Consistency
                   </h3>
                   <p className="text-muted-foreground">
@@ -427,7 +427,7 @@ export function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
               </div>
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-lg font-semibold mb-3">
+                  <h3 className="mb-3 text-lg font-semibold">
                     Stakeholder Alignment
                   </h3>
                   <p className="text-muted-foreground">
@@ -437,7 +437,7 @@ export function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
                   </p>
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold mb-3">
+                  <h3 className="mb-3 text-lg font-semibold">
                     Scalability Planning
                   </h3>
                   <p className="text-muted-foreground">
@@ -454,7 +454,7 @@ export function CaseStudyLayout({ data }: CaseStudyLayoutProps) {
 
           {/* Project Impact */}
           <CaseStudySection title="Project Impact" id="impact">
-            <div className="text-center max-w-4xl mx-auto space-y-6">
+            <div className="mx-auto max-w-4xl space-y-6 text-center">
               <p className="text-xl leading-relaxed">
                 EchoDrive represents a successful digital transformation in the
                 logistics industry, demonstrating how user-centered design and

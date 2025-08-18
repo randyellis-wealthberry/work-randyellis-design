@@ -47,7 +47,7 @@ export function HoverIframe({ src, title, className }: HoverIframeProps) {
 
   return (
     <div
-      className={cn("relative overflow-hidden group", className)}
+      className={cn("group relative overflow-hidden", className)}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
@@ -64,7 +64,7 @@ export function HoverIframe({ src, title, className }: HoverIframeProps) {
       {/* Hover indicator */}
       <div
         className={cn(
-          "absolute top-2 right-2 px-2 py-1 bg-black/60 text-white text-xs rounded transition-opacity duration-200",
+          "absolute top-2 right-2 rounded bg-black/60 px-2 py-1 text-xs text-white transition-opacity duration-200",
           isHovered ? "opacity-100" : "opacity-0",
         )}
       >

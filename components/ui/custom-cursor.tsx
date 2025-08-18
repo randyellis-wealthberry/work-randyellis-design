@@ -67,14 +67,14 @@ export function CustomCursor({ isActive }: CustomCursorProps) {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 pointer-events-none z-50 mix-blend-difference"
+      className="pointer-events-none fixed top-0 left-0 z-50 mix-blend-difference"
       style={{
         translateX: cursorXSpring,
         translateY: cursorYSpring,
       }}
     >
       <motion.div
-        className="w-8 h-8 bg-white rounded-full flex items-center justify-center text-black text-xs font-medium"
+        className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-xs font-medium text-black"
         animate={{
           scale: isHovering ? 1.5 : 1,
           opacity: isHovering ? 1 : 0.8,

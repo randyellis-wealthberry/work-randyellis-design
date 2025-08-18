@@ -1,7 +1,15 @@
 "use client";
 
 import { useRef, useEffect } from "react";
-import * as THREE from "three";
+import {
+  SphereGeometry,
+  BufferGeometry,
+  BufferAttribute,
+  PlaneGeometry,
+  Mesh,
+  Group,
+  DoubleSide,
+} from "three";
 
 type OrganicSceneProps = {
   color?: string;
@@ -14,9 +22,9 @@ export function OrganicScene({
   speed = 1,
   intensity = 1,
 }: OrganicSceneProps) {
-  const meshRef = useRef<THREE.Mesh>(null);
-  const particlesRef = useRef<THREE.Group>(null);
-  const leavesRef = useRef<THREE.Group>(null);
+  const meshRef = useRef<Mesh>(null);
+  const particlesRef = useRef<Group>(null);
+  const leavesRef = useRef<Group>(null);
 
   useEffect(() => {
     if (!meshRef.current) return;
@@ -40,7 +48,7 @@ export function OrganicScene({
 
   // Create organic geometry
   const createOrganicGeometry = () => {
-    const geometry = new THREE.SphereGeometry(1.5, 32, 32);
+    const geometry = new SphereGeometry(1.5, 32, 32);
     const vertices = geometry.attributes.position.array;
 
     // Add organic deformation
@@ -51,7 +59,6 @@ export function OrganicScene({
 
       // Create organic bumps and waves
       const noise = Math.sin(x * 3) * Math.cos(y * 2) * Math.sin(z * 4) * 0.3;
-      const distance = Math.sqrt(x * x + y * y + z * z);
       const factor = 1 + noise * intensity * 0.5;
 
       vertices[i] = x * factor;
@@ -76,8 +83,8 @@ export function OrganicScene({
       positions[i3 + 2] = (Math.random() - 0.5) * 10;
     }
 
-    const geometry = new THREE.BufferGeometry();
-    geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+    const geometry = new BufferGeometry();
+    geometry.setAttribute("position", new BufferAttribute(positions, 3));
 
     return geometry;
   };
@@ -99,12 +106,7 @@ export function OrganicScene({
       <group ref={particlesRef}>
         <points>
           <primitive object={createParticles()} />
-          <pointsMaterial
-            size={0.05}
-            color={color}
-            transparent
-            opacity={0.6}
-          />
+          <pointsMaterial size={0.05} color={color} transparent opacity={0.6} />
         </points>
       </group>
 
@@ -124,12 +126,12 @@ export function OrganicScene({
               Math.random() * Math.PI,
             ]}
           >
-            <planeGeometry args={[0.2, 0.1]} />
+            <primitive object={new PlaneGeometry(0.2, 0.1)} />
             <meshBasicMaterial
               color={color}
               transparent
               opacity={0.4}
-              side={THREE.DoubleSide}
+              side={DoubleSide}
             />
           </mesh>
         ))}
@@ -137,16 +139,10 @@ export function OrganicScene({
 
       {/* Lighting */}
       <ambientLight intensity={0.4} />
-      <directionalLight
-        position={[10, 10, 5]}
-        intensity={0.8}
-        color={color}
-      />
-      <pointLight
-        position={[-10, -10, -5]}
-        intensity={0.5}
-        color={color}
-      />
+      <directionalLight position={[10, 10, 5]} intensity={0.8} color={color} />
+      <pointLight position={[-10, -10, -5]} intensity={0.5} color={color} />
     </>
   );
 }
+
+OrganicScene.displayName = "OrganicScene";

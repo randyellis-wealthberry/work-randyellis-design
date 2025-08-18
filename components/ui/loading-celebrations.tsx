@@ -51,18 +51,18 @@ export function LoadingCelebration({
     <AnimatePresence>
       {(isLoading || showSuccess) && (
         <motion.div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-white/80 dark:bg-zinc-950/80 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-white/80 backdrop-blur-sm dark:bg-zinc-950/80"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
         >
-          <div className="text-center space-y-6">
+          <div className="space-y-6 text-center">
             {isLoading ? (
               <>
                 {/* Loading Animation */}
                 <motion.div
-                  className="relative w-16 h-16 mx-auto"
+                  className="relative mx-auto h-16 w-16"
                   animate={{ rotate: 360 }}
                   transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
                 >
@@ -96,7 +96,7 @@ export function LoadingCelebration({
               <>
                 {/* Success Animation */}
                 <motion.div
-                  className="w-16 h-16 mx-auto bg-green-500 rounded-full flex items-center justify-center"
+                  className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-500"
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{
@@ -106,7 +106,7 @@ export function LoadingCelebration({
                   }}
                 >
                   <motion.svg
-                    className="w-8 h-8 text-white"
+                    className="h-8 w-8 text-white"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -159,10 +159,10 @@ export function PersonalitySkeletonLoader({
           animate={{ opacity: 1 }}
           transition={{ delay: 0.1 }}
         >
-          <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full animate-pulse" />
+          <div className="h-10 w-10 animate-pulse rounded-full bg-gradient-to-br from-blue-400 to-purple-500" />
           <div className="space-y-2">
-            <div className="h-4 bg-zinc-200 dark:bg-zinc-700 rounded w-24 animate-pulse" />
-            <div className="h-3 bg-zinc-200 dark:bg-zinc-700 rounded w-16 animate-pulse" />
+            <div className="h-4 w-24 animate-pulse rounded bg-zinc-200 dark:bg-zinc-700" />
+            <div className="h-3 w-16 animate-pulse rounded bg-zinc-200 dark:bg-zinc-700" />
           </div>
         </motion.div>
       )}
@@ -171,7 +171,7 @@ export function PersonalitySkeletonLoader({
         {Array.from({ length: lines }).map((_, i) => (
           <motion.div
             key={i}
-            className="h-4 bg-zinc-200 dark:bg-zinc-700 rounded animate-pulse"
+            className="h-4 animate-pulse rounded bg-zinc-200 dark:bg-zinc-700"
             style={{ width: `${Math.random() * 40 + 60}%` }}
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -197,16 +197,16 @@ export function ProjectLoadingState() {
 
   return (
     <motion.div
-      className="flex flex-col items-center justify-center py-12 space-y-4"
+      className="flex flex-col items-center justify-center space-y-4 py-12"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
     >
       <motion.div
-        className="w-12 h-12 border-4 border-blue-200 border-t-blue-500 rounded-full"
+        className="h-12 w-12 rounded-full border-4 border-blue-200 border-t-blue-500"
         animate={{ rotate: 360 }}
         transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
       />
-      <p className="text-zinc-600 dark:text-zinc-400 font-medium">
+      <p className="font-medium text-zinc-600 dark:text-zinc-400">
         Loading amazing projects{dots}
       </p>
     </motion.div>

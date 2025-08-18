@@ -140,7 +140,7 @@ export function SearchInterface({
   return (
     <div ref={containerRef} className={`relative ${className}`}>
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400" />
+        <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-zinc-400" />
         <input
           ref={inputRef}
           type="text"
@@ -149,12 +149,12 @@ export function SearchInterface({
           onFocus={() => setIsOpen(true)}
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
-          className="w-full rounded-lg border border-zinc-200 bg-white pl-10 pr-10 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:focus:border-blue-400"
+          className="w-full rounded-lg border border-zinc-200 bg-white py-2 pr-10 pl-10 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 focus:outline-none dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:focus:border-blue-400"
         />
         {query && (
           <button
             onClick={clearSearch}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300"
+            className="absolute top-1/2 right-3 -translate-y-1/2 text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-300"
           >
             <X className="h-4 w-4" />
           </button>
@@ -168,13 +168,13 @@ export function SearchInterface({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 4 }}
             transition={{ duration: 0.2 }}
-            className="absolute top-full left-0 right-0 z-50 mt-2"
+            className="absolute top-full right-0 left-0 z-50 mt-2"
           >
-            <Card className="max-h-96 overflow-y-auto shadow-lg border border-zinc-200 dark:border-zinc-700">
+            <Card className="max-h-96 overflow-y-auto border border-zinc-200 shadow-lg dark:border-zinc-700">
               {isLoading ? (
                 <div className="p-4 text-center">
-                  <div className="animate-spin h-5 w-5 border-2 border-blue-500 border-t-transparent rounded-full mx-auto"></div>
-                  <p className="text-sm text-zinc-500 mt-2">Searching...</p>
+                  <div className="mx-auto h-5 w-5 animate-spin rounded-full border-2 border-blue-500 border-t-transparent"></div>
+                  <p className="mt-2 text-sm text-zinc-500">Searching...</p>
                 </div>
               ) : results.length > 0 ? (
                 <div className="p-2">
@@ -183,15 +183,15 @@ export function SearchInterface({
                       key={result.id}
                       href={result.url}
                       onClick={() => setIsOpen(false)}
-                      className="block p-3 hover:bg-zinc-50 dark:hover:bg-zinc-800 rounded-md transition-colors group"
+                      className="group block rounded-md p-3 transition-colors hover:bg-zinc-50 dark:hover:bg-zinc-800"
                     >
                       <div className="flex items-start gap-3">
-                        <span className="text-lg mt-0.5">
+                        <span className="mt-0.5 text-lg">
                           {getTypeIcon(result.type)}
                         </span>
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2 mb-1">
-                            <h4 className="font-medium text-zinc-900 dark:text-zinc-100 truncate group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                        <div className="min-w-0 flex-1">
+                          <div className="mb-1 flex items-center gap-2">
+                            <h4 className="truncate font-medium text-zinc-900 group-hover:text-blue-600 dark:text-zinc-100 dark:group-hover:text-blue-400">
                               {result.title}
                             </h4>
                             {result.category && (
@@ -200,15 +200,15 @@ export function SearchInterface({
                               </Badge>
                             )}
                           </div>
-                          <p className="text-sm text-zinc-600 dark:text-zinc-400 line-clamp-2">
+                          <p className="line-clamp-2 text-sm text-zinc-600 dark:text-zinc-400">
                             {result.description}
                           </p>
                           {result.tags && (
-                            <div className="flex gap-1 mt-2">
+                            <div className="mt-2 flex gap-1">
                               {result.tags.slice(0, 3).map((tag) => (
                                 <span
                                   key={tag}
-                                  className="text-xs bg-zinc-100 dark:bg-zinc-700 px-2 py-0.5 rounded"
+                                  className="rounded bg-zinc-100 px-2 py-0.5 text-xs dark:bg-zinc-700"
                                 >
                                   {tag}
                                 </span>
@@ -216,7 +216,7 @@ export function SearchInterface({
                             </div>
                           )}
                         </div>
-                        <ArrowRight className="h-4 w-4 text-zinc-400 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 mt-1" />
+                        <ArrowRight className="mt-1 h-4 w-4 text-zinc-400 group-hover:text-zinc-600 dark:group-hover:text-zinc-300" />
                       </div>
                     </Link>
                   ))}
@@ -226,7 +226,7 @@ export function SearchInterface({
                   <p className="text-sm text-zinc-500">
                     No results found for &quot;{query}&quot;
                   </p>
-                  <p className="text-xs text-zinc-400 mt-1">
+                  <p className="mt-1 text-xs text-zinc-400">
                     Try adjusting your search terms
                   </p>
                 </div>

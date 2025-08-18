@@ -74,13 +74,13 @@ function ResourceCard({
   return (
     <Disclosure open={isExpanded} onOpenChange={onToggle}>
       <Card
-        className="group relative overflow-hidden transition-all duration-300 hover:shadow-lg min-h-11"
+        className="group relative min-h-11 overflow-hidden transition-all duration-300 hover:shadow-lg"
         data-testid={cardId}
       >
         <DisclosureTrigger>
           <div
             id={cardId}
-            className="cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 rounded-lg"
+            className="cursor-pointer rounded-lg focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none"
             aria-expanded={isExpanded}
             aria-controls={contentId}
             tabIndex={0}
@@ -88,7 +88,7 @@ function ResourceCard({
             {/* Image Section */}
             <div className="aspect-video overflow-hidden bg-gradient-to-br from-zinc-100 to-zinc-200 dark:from-zinc-800 dark:to-zinc-900">
               {!imageError && imageUrl ? (
-                <div className="relative w-full h-full">
+                <div className="relative h-full w-full">
                   <Image
                     src={imageUrl}
                     alt={`Abstract art representing ${card.title} - Visual preview for ${card.description}`}
@@ -104,11 +104,11 @@ function ResourceCard({
 
                   {/* Loading overlay */}
                   {!imageLoaded && (
-                    <div className="absolute inset-0 bg-gradient-to-br from-zinc-200 to-zinc-300 dark:from-zinc-700 dark:to-zinc-800 animate-pulse" />
+                    <div className="absolute inset-0 animate-pulse bg-gradient-to-br from-zinc-200 to-zinc-300 dark:from-zinc-700 dark:to-zinc-800" />
                   )}
 
                   {/* Icon overlay */}
-                  <div className="absolute top-4 right-4 p-2 bg-white/90 dark:bg-zinc-800/90 rounded-lg backdrop-blur-sm">
+                  <div className="absolute top-4 right-4 rounded-lg bg-white/90 p-2 backdrop-blur-sm dark:bg-zinc-800/90">
                     {IconComponent && (
                       <IconComponent className="h-4 w-4 text-zinc-700 dark:text-zinc-300" />
                     )}
@@ -116,19 +116,19 @@ function ResourceCard({
 
                   {/* External link indicator */}
                   {card.isExternal && (
-                    <div className="absolute bottom-4 right-4 p-1.5 bg-blue-500/90 rounded-md">
+                    <div className="absolute right-4 bottom-4 rounded-md bg-blue-500/90 p-1.5">
                       <ExternalLink className="h-3 w-3 text-white" />
                     </div>
                   )}
                 </div>
               ) : (
                 // Fallback when image fails to load or no imageUrl available
-                <div className="flex items-center justify-center w-full h-full bg-gradient-to-br from-zinc-100 to-zinc-200 dark:from-zinc-800 dark:to-zinc-900">
+                <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-zinc-100 to-zinc-200 dark:from-zinc-800 dark:to-zinc-900">
                   {IconComponent && (
                     <IconComponent className="h-12 w-12 text-zinc-400 dark:text-zinc-600" />
                   )}
                   {!imageUrl && (
-                    <div className="absolute inset-0 bg-gradient-to-br from-zinc-200 to-zinc-300 dark:from-zinc-700 dark:to-zinc-800 animate-pulse" />
+                    <div className="absolute inset-0 animate-pulse bg-gradient-to-br from-zinc-200 to-zinc-300 dark:from-zinc-700 dark:to-zinc-800" />
                   )}
                 </div>
               )}
@@ -136,8 +136,8 @@ function ResourceCard({
 
             {/* Content Section */}
             <CardContent className="p-4">
-              <div className="flex items-start justify-between mb-2">
-                <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 group-hover:text-blue-600 transition-colors">
+              <div className="mb-2 flex items-start justify-between">
+                <h3 className="font-semibold text-zinc-900 transition-colors group-hover:text-blue-600 dark:text-zinc-100">
                   {card.title}
                 </h3>
                 <Badge
@@ -180,11 +180,11 @@ function ResourceCard({
         <DisclosureContent>
           <div
             id={contentId}
-            className="px-4 pb-4 border-t border-zinc-200 dark:border-zinc-700"
+            className="border-t border-zinc-200 px-4 pb-4 dark:border-zinc-700"
             aria-labelledby={cardId}
           >
-            <div className="pt-4 space-y-4">
-              <p className="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed">
+            <div className="space-y-4 pt-4">
+              <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
                 {card.description}
               </p>
 
@@ -195,7 +195,7 @@ function ResourceCard({
                     href={card.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                    className="inline-flex items-center gap-2 rounded-lg bg-blue-500 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-600 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none"
                     aria-label={`Open ${card.title} in new tab`}
                   >
                     Open Resource
@@ -204,7 +204,7 @@ function ResourceCard({
                 ) : (
                   <Link
                     href={card.url}
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-zinc-800 dark:bg-zinc-200 hover:bg-zinc-900 dark:hover:bg-zinc-300 text-white dark:text-zinc-800 text-sm font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-zinc-500"
+                    className="inline-flex items-center gap-2 rounded-lg bg-zinc-800 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-zinc-900 focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2 focus:outline-none dark:bg-zinc-200 dark:text-zinc-800 dark:hover:bg-zinc-300"
                     aria-label={`Navigate to ${card.title}`}
                   >
                     {card.title.includes("Projects")
@@ -257,20 +257,20 @@ export function ProjectResourcesSection({
 
   return (
     <section
-      className={cn("px-6 py-16 lg:px-8 bg-muted/20", className)}
+      className={cn("bg-muted/20 px-6 py-16 lg:px-8", className)}
       data-testid="project-resources-section"
       aria-labelledby="resources-heading"
     >
       <div className="mx-auto max-w-6xl">
         {/* Section Header */}
-        <div className="text-center mb-12">
+        <div className="mb-12 text-center">
           <h2
             id="resources-heading"
-            className="text-3xl font-bold text-zinc-900 dark:text-zinc-100 mb-4"
+            className="mb-4 text-3xl font-bold text-zinc-900 dark:text-zinc-100"
           >
             Project Resources & Documentation
           </h2>
-          <p className="text-lg text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto">
+          <p className="mx-auto max-w-2xl text-lg text-zinc-600 dark:text-zinc-400">
             Explore the comprehensive research, testing, and design materials
             that shaped the Addvanced project. Each resource provides detailed
             insights into our methodology and findings.
@@ -279,7 +279,7 @@ export function ProjectResourcesSection({
 
         {/* Resource Cards Grid */}
         <div
-          className="grid grid-cols-1 md:grid-cols-2 gap-6"
+          className="grid grid-cols-1 gap-6 md:grid-cols-2"
           data-testid="resources-grid"
         >
           {resourceCards.map((card) => (

@@ -80,7 +80,7 @@ export function AnimatedMetricCard({
     >
       <Card
         className={cn(
-          "hover:shadow-lg transition-all duration-300 h-full",
+          "h-full transition-all duration-300 hover:shadow-lg",
           performanceStyles.cardClass,
           isHero ? "col-span-2 lg:col-span-2" : "",
           className,
@@ -88,7 +88,7 @@ export function AnimatedMetricCard({
       >
         <CardContent
           className={cn(
-            "text-center h-full flex flex-col justify-center",
+            "flex h-full flex-col justify-center text-center",
             isHero ? "pt-8 pb-8" : "pt-6 pb-6",
           )}
         >
@@ -97,7 +97,7 @@ export function AnimatedMetricCard({
             <div className="mb-2 flex justify-center">
               <div
                 className={cn(
-                  "w-2 h-2 rounded-full",
+                  "h-2 w-2 rounded-full",
                   performanceStyles.indicatorClass,
                 )}
               />
@@ -105,10 +105,10 @@ export function AnimatedMetricCard({
           )}
           <div
             className={cn(
-              "font-bold mb-3 flex items-center justify-center",
+              "mb-3 flex items-center justify-center font-bold",
               isHero
-                ? "text-3xl md:text-4xl lg:text-5xl min-h-[4rem]"
-                : "text-2xl md:text-3xl min-h-[3rem]",
+                ? "min-h-[4rem] text-3xl md:text-4xl lg:text-5xl"
+                : "min-h-[3rem] text-2xl md:text-3xl",
               performanceStyles.textClass,
             )}
           >
@@ -122,8 +122,8 @@ export function AnimatedMetricCard({
           </div>
           <div
             className={cn(
-              "text-muted-foreground font-medium leading-tight flex items-center justify-center px-2",
-              isHero ? "text-base min-h-[3rem]" : "text-sm min-h-[2.5rem]",
+              "text-muted-foreground flex items-center justify-center px-2 leading-tight font-medium",
+              isHero ? "min-h-[3rem] text-base" : "min-h-[2.5rem] text-sm",
             )}
           >
             {label}

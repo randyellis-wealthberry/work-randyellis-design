@@ -4,11 +4,11 @@ import Link from "next/link";
 
 export function Header() {
   return (
-    <header className="mb-12 sm:mb-10 flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6">
+    <header className="mb-12 flex flex-col-reverse gap-4 sm:mb-10 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
       <div className="pt-8 sm:pt-24">
         <Link
           href="https://work.randyellis.design"
-          className="font-medium text-black dark:text-white whitespace-nowrap"
+          className="font-medium whitespace-nowrap text-black dark:text-white"
         >
           Randy Ellis
         </Link>
@@ -16,31 +16,31 @@ export function Header() {
           as="p"
           preset="fade"
           per="char"
-          className="text-zinc-600 dark:text-zinc-500 whitespace-nowrap"
+          className="whitespace-nowrap text-zinc-600 dark:text-zinc-500"
           delay={0.5}
         >
           Generative AI & Product Design Engineer
         </TextEffect>
       </div>
 
-      <nav className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-8 md:gap-10 lg:gap-16 pt-0">
+      <nav className="flex flex-col gap-2 pt-0 sm:flex-row sm:items-center sm:gap-8 md:gap-10 lg:gap-16">
         <Link
           href="https://work.randyellis.design"
-          className="text-sm font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors py-2 px-0 sm:py-3 sm:px-4 min-h-[44px] flex items-center rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800 no-underline"
+          className="flex min-h-[44px] items-center rounded-md px-0 py-2 text-sm font-medium text-zinc-600 no-underline transition-colors hover:bg-zinc-100 hover:text-zinc-900 sm:px-4 sm:py-3 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
           style={{ textDecoration: "none" }}
         >
           Home
         </Link>
         <Link
           href="/about"
-          className="text-sm font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors py-2 px-0 sm:py-3 sm:px-4 min-h-[44px] flex items-center rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800 no-underline"
+          className="flex min-h-[44px] items-center rounded-md px-0 py-2 text-sm font-medium text-zinc-600 no-underline transition-colors hover:bg-zinc-100 hover:text-zinc-900 sm:px-4 sm:py-3 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
           style={{ textDecoration: "none" }}
         >
           About
         </Link>
         <Link
           href="/projects"
-          className="text-sm font-medium text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors py-2 px-0 sm:py-3 sm:px-4 min-h-[44px] flex items-center rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800 no-underline"
+          className="flex min-h-[44px] items-center rounded-md px-0 py-2 text-sm font-medium text-zinc-600 no-underline transition-colors hover:bg-zinc-100 hover:text-zinc-900 sm:px-4 sm:py-3 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
           style={{ textDecoration: "none" }}
         >
           Projects

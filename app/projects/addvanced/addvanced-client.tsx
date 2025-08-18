@@ -60,7 +60,7 @@ const SpotlightCard = ({
 
   return (
     <div
-      className={`relative overflow-hidden rounded-xl border bg-card ${className}`}
+      className={`bg-card relative overflow-hidden rounded-xl border ${className}`}
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setOpacity(1)}
       onMouseLeave={() => setOpacity(0)}
@@ -101,7 +101,7 @@ export default function AddvancedClient() {
   } = addvancedProject;
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-background via-background to-muted/30">
+    <main className="from-background via-background to-muted/30 min-h-screen bg-gradient-to-br">
       {/* Hero Section - Professional Redesign */}
       <section className="relative overflow-hidden px-6 pt-20 pb-16 lg:px-8">
         <div className="mx-auto max-w-7xl">
@@ -110,16 +110,16 @@ export default function AddvancedClient() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-center mb-8"
+            className="mb-8 text-center"
           >
             <Badge variant="outline" className="mb-4 text-xs">
               <Award className="mr-1.5 h-3 w-3" />
               Innovation Lab Case Study
             </Badge>
-            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl mb-3">
+            <h1 className="mb-3 text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
               AI-Enhanced Career Intelligence Platform
             </h1>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+            <p className="text-muted-foreground mx-auto max-w-3xl text-lg">
               Transforming job search from reactive to strategic through
               AI-powered insights
             </p>
@@ -132,26 +132,26 @@ export default function AddvancedClient() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="mb-10"
           >
-            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 py-4 px-6 bg-muted/30 rounded-lg border text-sm">
+            <div className="bg-muted/30 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 rounded-lg border px-6 py-4 text-sm">
               <div className="flex items-center gap-2">
-                <Users className="h-3.5 w-3.5 text-muted-foreground" />
+                <Users className="text-muted-foreground h-3.5 w-3.5" />
                 <span className="font-medium">
                   Product Design Director & Strategic UX Lead
                 </span>
               </div>
-              <div className="hidden sm:block w-px h-4 bg-border" />
+              <div className="bg-border hidden h-4 w-px sm:block" />
               <div className="flex items-center gap-2">
-                <Target className="h-3.5 w-3.5 text-muted-foreground" />
+                <Target className="text-muted-foreground h-3.5 w-3.5" />
                 <span>Alight Solutions Innovation Lab</span>
               </div>
-              <div className="hidden sm:block w-px h-4 bg-border" />
+              <div className="bg-border hidden h-4 w-px sm:block" />
               <div className="flex items-center gap-2">
-                <Clock className="h-3.5 w-3.5 text-muted-foreground" />
+                <Clock className="text-muted-foreground h-3.5 w-3.5" />
                 <span>2 weeks (Sprint)</span>
               </div>
-              <div className="hidden sm:block w-px h-4 bg-border" />
+              <div className="bg-border hidden h-4 w-px sm:block" />
               <div className="flex items-center gap-2">
-                <Brain className="h-3.5 w-3.5 text-muted-foreground" />
+                <Brain className="text-muted-foreground h-3.5 w-3.5" />
                 <span>1871, Chicago, IL</span>
               </div>
             </div>
@@ -164,7 +164,7 @@ export default function AddvancedClient() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="mb-10"
           >
-            <div className="aspect-[16/9] overflow-hidden rounded-xl border bg-card shadow-xl">
+            <div className="bg-card aspect-[16/9] overflow-hidden rounded-xl border shadow-xl">
               {video && (
                 <HoverVideo
                   src={video}
@@ -181,47 +181,47 @@ export default function AddvancedClient() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
               {/* Success Metric */}
-              <div className="flex items-center justify-between p-4 bg-card rounded-lg border">
+              <div className="bg-card flex items-center justify-between rounded-lg border p-4">
                 <div>
-                  <div className="text-2xl font-bold text-primary">35%</div>
-                  <div className="text-xs text-muted-foreground mt-1">
+                  <div className="text-primary text-2xl font-bold">35%</div>
+                  <div className="text-muted-foreground mt-1 text-xs">
                     Job Placement Success
                   </div>
-                  <div className="text-xs text-green-600 dark:text-green-400 mt-0.5">
+                  <div className="mt-0.5 text-xs text-green-600 dark:text-green-400">
                     ↑ Improvement
                   </div>
                 </div>
-                <TrendingUp className="h-8 w-8 text-muted-foreground/20" />
+                <TrendingUp className="text-muted-foreground/20 h-8 w-8" />
               </div>
 
               {/* Testing Metric */}
-              <div className="flex items-center justify-between p-4 bg-card rounded-lg border">
+              <div className="bg-card flex items-center justify-between rounded-lg border p-4">
                 <div>
-                  <div className="text-2xl font-bold text-primary">14</div>
-                  <div className="text-xs text-muted-foreground mt-1">
+                  <div className="text-primary text-2xl font-bold">14</div>
+                  <div className="text-muted-foreground mt-1 text-xs">
                     Usability Testing
                   </div>
-                  <div className="text-xs text-muted-foreground mt-0.5">
+                  <div className="text-muted-foreground mt-0.5 text-xs">
                     Participants
                   </div>
                 </div>
-                <Users className="h-8 w-8 text-muted-foreground/20" />
+                <Users className="text-muted-foreground/20 h-8 w-8" />
               </div>
 
               {/* Sprint Metric */}
-              <div className="flex items-center justify-between p-4 bg-card rounded-lg border">
+              <div className="bg-card flex items-center justify-between rounded-lg border p-4">
                 <div>
-                  <div className="text-2xl font-bold text-primary">2</div>
-                  <div className="text-xs text-muted-foreground mt-1">
+                  <div className="text-primary text-2xl font-bold">2</div>
+                  <div className="text-muted-foreground mt-1 text-xs">
                     Week Sprint
                   </div>
-                  <div className="text-xs text-muted-foreground mt-0.5">
+                  <div className="text-muted-foreground mt-0.5 text-xs">
                     Rapid Delivery
                   </div>
                 </div>
-                <Zap className="h-8 w-8 text-muted-foreground/20" />
+                <Zap className="text-muted-foreground/20 h-8 w-8" />
               </div>
             </div>
           </motion.div>
@@ -266,7 +266,7 @@ export default function AddvancedClient() {
           <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
             <div>
               <h3 className="mb-6 text-2xl font-semibold">The Challenge</h3>
-              <div className="space-y-4 text-lg text-muted-foreground">
+              <div className="text-muted-foreground space-y-4 text-lg">
                 <p>
                   <strong className="text-foreground">
                     &ldquo;How might we provide an easy-to-use but powerful
@@ -290,7 +290,7 @@ export default function AddvancedClient() {
                 {challenges?.slice(0, 4).map((challenge, index) => (
                   <SpotlightCard key={index} className="p-4">
                     <div className="flex items-start gap-3">
-                      <div className="mt-1 h-2 w-2 rounded-full bg-destructive" />
+                      <div className="bg-destructive mt-1 h-2 w-2 rounded-full" />
                       <p className="text-sm">{challenge}</p>
                     </div>
                   </SpotlightCard>
@@ -310,7 +310,7 @@ export default function AddvancedClient() {
 
           {/* IDI Framework */}
           <div className="mb-16">
-            <h3 className="mb-8 text-2xl font-semibold text-center">
+            <h3 className="mb-8 text-center text-2xl font-semibold">
               IDI (Innovation, Disruption, Integration) Competitive Analysis
             </h3>
 
@@ -455,7 +455,7 @@ export default function AddvancedClient() {
                   <div className="grid gap-6 md:grid-cols-2">
                     <SpotlightCard className="p-6">
                       <h4 className="mb-4 font-semibold">User Interviews</h4>
-                      <p className="text-sm text-muted-foreground mb-4">
+                      <p className="text-muted-foreground mb-4 text-sm">
                         Conducted interviews with job seekers across tech and
                         non-tech sectors to understand pain points and
                         opportunities.
@@ -484,7 +484,7 @@ export default function AddvancedClient() {
                       <h4 className="mb-4 font-semibold">
                         Behavioral Analysis
                       </h4>
-                      <p className="text-sm text-muted-foreground mb-4">
+                      <p className="text-muted-foreground mb-4 text-sm">
                         Analyzed professional networking behaviors and career
                         advancement patterns.
                       </p>
@@ -517,9 +517,9 @@ export default function AddvancedClient() {
                 <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
                   <Card>
                     <CardContent className="p-6 text-center">
-                      <Smartphone className="mx-auto mb-4 h-8 w-8 text-primary" />
+                      <Smartphone className="text-primary mx-auto mb-4 h-8 w-8" />
                       <h4 className="mb-2 font-semibold">Reachability</h4>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-muted-foreground text-sm">
                         All functions accessible within thumb-friendly zones
                       </p>
                     </CardContent>
@@ -527,11 +527,11 @@ export default function AddvancedClient() {
 
                   <Card>
                     <CardContent className="p-6 text-center">
-                      <Shield className="mx-auto mb-4 h-8 w-8 text-primary" />
+                      <Shield className="text-primary mx-auto mb-4 h-8 w-8" />
                       <h4 className="mb-2 font-semibold">
                         Heuristic Compliance
                       </h4>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-muted-foreground text-sm">
                         Nielsen&rsquo;s usability principles implementation
                       </p>
                     </CardContent>
@@ -539,9 +539,9 @@ export default function AddvancedClient() {
 
                   <Card>
                     <CardContent className="p-6 text-center">
-                      <ArrowRight className="mx-auto mb-4 h-8 w-8 text-primary" />
+                      <ArrowRight className="text-primary mx-auto mb-4 h-8 w-8" />
                       <h4 className="mb-2 font-semibold">Direct Navigation</h4>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-muted-foreground text-sm">
                         Minimal steps to complete core tasks
                       </p>
                     </CardContent>
@@ -549,9 +549,9 @@ export default function AddvancedClient() {
 
                   <Card>
                     <CardContent className="p-6 text-center">
-                      <Target className="mx-auto mb-4 h-8 w-8 text-primary" />
+                      <Target className="text-primary mx-auto mb-4 h-8 w-8" />
                       <h4 className="mb-2 font-semibold">Purposeful Tasks</h4>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-muted-foreground text-sm">
                         Every interaction serves strategic career advancement
                       </p>
                     </CardContent>
@@ -569,7 +569,7 @@ export default function AddvancedClient() {
                   ].map((insight, index) => (
                     <SpotlightCard key={index} className="p-6">
                       <div className="flex items-start gap-4">
-                        <div className="mt-1 flex h-6 w-6 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">
+                        <div className="bg-primary/10 text-primary mt-1 flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold">
                           {index + 1}
                         </div>
                         <p className="text-sm">{insight}</p>
@@ -583,12 +583,12 @@ export default function AddvancedClient() {
 
           {/* Fitts Law Implementation */}
           <div className="mb-16">
-            <h3 className="mb-8 text-2xl font-semibold text-center">
+            <h3 className="mb-8 text-center text-2xl font-semibold">
               Fitts Law Implementation
             </h3>
             <div className="mx-auto max-w-4xl">
               <SpotlightCard className="overflow-hidden">
-                <div className="aspect-video relative">
+                <div className="relative aspect-video">
                   <Image
                     src="/projects/addvanced/addvanced-whiteboard-fitts-law.png"
                     alt="Fitts Law whiteboard implementation showing thumb-friendly interaction zones"
@@ -597,7 +597,7 @@ export default function AddvancedClient() {
                   />
                 </div>
                 <div className="p-6">
-                  <p className="text-center text-sm text-muted-foreground">
+                  <p className="text-muted-foreground text-center text-sm">
                     Whiteboard sketches exploring Fitts Law implementation for
                     optimal mobile interactions and thumb-friendly interaction
                     zones in the Progressive Web App design.
@@ -610,7 +610,7 @@ export default function AddvancedClient() {
       </section>
 
       {/* Validation & Testing Section */}
-      <section className="px-6 py-16 lg:px-8 bg-muted/30">
+      <section className="bg-muted/30 px-6 py-16 lg:px-8">
         <div className="mx-auto max-w-6xl">
           <h3 className="mb-12 text-center text-2xl font-semibold">
             Validation & Testing
@@ -618,16 +618,16 @@ export default function AddvancedClient() {
 
           {/* Testing Methodology */}
           <div className="mb-16">
-            <h3 className="mb-8 text-2xl font-semibold text-center">
+            <h3 className="mb-8 text-center text-2xl font-semibold">
               Comprehensive Usability Testing Methodology
             </h3>
 
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
               <Card>
                 <CardContent className="p-6 text-center">
-                  <Users className="mx-auto mb-4 h-8 w-8 text-primary" />
+                  <Users className="text-primary mx-auto mb-4 h-8 w-8" />
                   <h4 className="mb-2 font-semibold">14 Participants</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-muted-foreground text-sm">
                     Moderated usability testing in open lab environment
                   </p>
                 </CardContent>
@@ -635,9 +635,9 @@ export default function AddvancedClient() {
 
               <Card>
                 <CardContent className="p-6 text-center">
-                  <BarChart3 className="mx-auto mb-4 h-8 w-8 text-primary" />
+                  <BarChart3 className="text-primary mx-auto mb-4 h-8 w-8" />
                   <h4 className="mb-2 font-semibold">4 Task Scenarios</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-muted-foreground text-sm">
                     Core user journeys tested via Maze platform
                   </p>
                 </CardContent>
@@ -645,9 +645,9 @@ export default function AddvancedClient() {
 
               <Card>
                 <CardContent className="p-6 text-center">
-                  <Smartphone className="mx-auto mb-4 h-8 w-8 text-primary" />
+                  <Smartphone className="text-primary mx-auto mb-4 h-8 w-8" />
                   <h4 className="mb-2 font-semibold">Cross-Platform</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-muted-foreground text-sm">
                     MAC/PC devices, virtual desktop/laptop sessions
                   </p>
                 </CardContent>
@@ -655,9 +655,9 @@ export default function AddvancedClient() {
 
               <Card>
                 <CardContent className="p-6 text-center">
-                  <Clock className="mx-auto mb-4 h-8 w-8 text-primary" />
+                  <Clock className="text-primary mx-auto mb-4 h-8 w-8" />
                   <h4 className="mb-2 font-semibold">No Time Limits</h4>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-muted-foreground text-sm">
                     Natural user behavior patterns encouraged
                   </p>
                 </CardContent>
@@ -667,7 +667,7 @@ export default function AddvancedClient() {
 
           {/* Task Performance Results */}
           <div className="mb-16">
-            <h3 className="mb-8 text-2xl font-semibold text-center">
+            <h3 className="mb-8 text-center text-2xl font-semibold">
               Task Performance Results
             </h3>
 
@@ -717,7 +717,7 @@ export default function AddvancedClient() {
 
                     <div className="space-y-3">
                       <div>
-                        <div className="flex items-center justify-between mb-2">
+                        <div className="mb-2 flex items-center justify-between">
                           <span className="text-sm font-medium">
                             Success Rate
                           </span>
@@ -729,7 +729,7 @@ export default function AddvancedClient() {
                       </div>
 
                       <div>
-                        <div className="flex items-center justify-between mb-2">
+                        <div className="mb-2 flex items-center justify-between">
                           <span className="text-sm font-medium">
                             Usability Score
                           </span>
@@ -748,14 +748,14 @@ export default function AddvancedClient() {
 
           {/* Critical Findings */}
           <div className="mb-16">
-            <h3 className="mb-8 text-2xl font-semibold text-center">
+            <h3 className="mb-8 text-center text-2xl font-semibold">
               Critical Findings & Optimizations
             </h3>
 
             <div className="grid gap-6 lg:grid-cols-2">
               <Card className="border-destructive/20 bg-destructive/5">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2 text-destructive">
+                  <CardTitle className="text-destructive flex items-center gap-2">
                     <AlertTriangle className="h-5 w-5" />
                     Optimization Needed
                   </CardTitle>
@@ -763,20 +763,20 @@ export default function AddvancedClient() {
                 <CardContent className="space-y-4">
                   <div className="space-y-3">
                     <div className="flex items-center gap-3">
-                      <div className="h-2 w-2 rounded-full bg-destructive" />
+                      <div className="bg-destructive h-2 w-2 rounded-full" />
                       <span className="text-sm">
                         50% of testers deviated from expected path for Job
                         Import
                       </span>
                     </div>
                     <div className="flex items-center gap-3">
-                      <div className="h-2 w-2 rounded-full bg-destructive" />
+                      <div className="bg-destructive h-2 w-2 rounded-full" />
                       <span className="text-sm">
                         7 testers became completely lost during Task #1
                       </span>
                     </div>
                     <div className="flex items-center gap-3">
-                      <div className="h-2 w-2 rounded-full bg-destructive" />
+                      <div className="bg-destructive h-2 w-2 rounded-full" />
                       <span className="text-sm">
                         60% mission unfinished rate for problematic flows
                       </span>
@@ -820,7 +820,7 @@ export default function AddvancedClient() {
 
           {/* Heatmap Analysis */}
           <div>
-            <h3 className="mb-8 text-2xl font-semibold text-center">
+            <h3 className="mb-8 text-center text-2xl font-semibold">
               Heatmap Analysis & User Behavior
             </h3>
             <div className="mx-auto max-w-4xl">
@@ -849,19 +849,19 @@ export default function AddvancedClient() {
 
           {/* Business Impact */}
           <div className="mb-16">
-            <h3 className="mb-8 text-2xl font-semibold text-center">
+            <h3 className="mb-8 text-center text-2xl font-semibold">
               Business Impact
             </h3>
 
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               <SpotlightCard className="p-6 text-center">
                 <div className="mb-4">
-                  <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
-                    <TrendingUp className="h-8 w-8 text-primary" />
+                  <div className="bg-primary/10 mx-auto flex h-16 w-16 items-center justify-center rounded-full">
+                    <TrendingUp className="text-primary h-8 w-8" />
                   </div>
                 </div>
                 <h4 className="mb-2 text-3xl font-bold">35%</h4>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-muted-foreground text-sm">
                   Improvement in customer job placement success - primary
                   success metric
                 </p>
@@ -874,7 +874,7 @@ export default function AddvancedClient() {
                   </div>
                 </div>
                 <h4 className="mb-2 text-lg font-bold">B2C Market</h4>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-muted-foreground text-sm">
                   Validated market opportunity beyond enterprise focus
                 </p>
               </SpotlightCard>
@@ -886,7 +886,7 @@ export default function AddvancedClient() {
                   </div>
                 </div>
                 <h4 className="mb-2 text-lg font-bold">White-Label</h4>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-muted-foreground text-sm">
                   Foundation for B2B product offerings and scalability
                 </p>
               </SpotlightCard>
@@ -895,7 +895,7 @@ export default function AddvancedClient() {
 
           {/* Design Impact */}
           <div className="mb-16">
-            <h3 className="mb-8 text-2xl font-semibold text-center">
+            <h3 className="mb-8 text-center text-2xl font-semibold">
               Design Impact & Innovation
             </h3>
 
@@ -928,12 +928,12 @@ export default function AddvancedClient() {
               ].map((impact, index) => (
                 <SpotlightCard key={index} className="p-6">
                   <div className="flex items-start gap-4">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-                      <impact.icon className="h-6 w-6 text-primary" />
+                    <div className="bg-primary/10 flex h-12 w-12 items-center justify-center rounded-full">
+                      <impact.icon className="text-primary h-6 w-6" />
                     </div>
                     <div>
                       <h4 className="mb-2 font-semibold">{impact.title}</h4>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-muted-foreground text-sm">
                         {impact.description}
                       </p>
                     </div>
@@ -945,7 +945,7 @@ export default function AddvancedClient() {
 
           {/* Stakeholder Quotes */}
           <div>
-            <h3 className="mb-8 text-2xl font-semibold text-center">
+            <h3 className="mb-8 text-center text-2xl font-semibold">
               Stakeholder Feedback
             </h3>
 
@@ -958,7 +958,7 @@ export default function AddvancedClient() {
                     </p>
                     <div className="border-t pt-4">
                       <p className="font-semibold">{quote.author}</p>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-muted-foreground text-sm">
                         {quote.role}
                       </p>
                     </div>
@@ -971,7 +971,7 @@ export default function AddvancedClient() {
       </section>
 
       {/* Reflection & Learnings Section */}
-      <section className="px-6 py-16 lg:px-8 bg-muted/30">
+      <section className="bg-muted/30 px-6 py-16 lg:px-8">
         <div className="mx-auto max-w-6xl">
           <h3 className="mb-12 text-center text-2xl font-semibold">
             Reflection & Learnings
@@ -979,44 +979,44 @@ export default function AddvancedClient() {
 
           {/* Innovation Lab Context */}
           <div className="mb-16">
-            <h3 className="mb-8 text-2xl font-semibold text-center">
+            <h3 className="mb-8 text-center text-2xl font-semibold">
               Innovation Lab Leadership Context
             </h3>
 
             <div className="mx-auto max-w-4xl">
               <SpotlightCard className="p-8">
-                <div className="text-center space-y-6">
-                  <div className="flex items-center justify-center gap-3 mb-6">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-                      <Brain className="h-6 w-6 text-primary" />
+                <div className="space-y-6 text-center">
+                  <div className="mb-6 flex items-center justify-center gap-3">
+                    <div className="bg-primary/10 flex h-12 w-12 items-center justify-center rounded-full">
+                      <Brain className="text-primary h-6 w-6" />
                     </div>
                     <div>
                       <h4 className="text-lg font-semibold">
                         Alight Solutions Innovation Lab
                       </h4>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-muted-foreground text-sm">
                         1871, Chicago, IL
                       </p>
                     </div>
                   </div>
 
-                  <div className="grid gap-6 md:grid-cols-3 text-center">
+                  <div className="grid gap-6 text-center md:grid-cols-3">
                     <div>
-                      <h5 className="font-semibold mb-2">Lab Mission</h5>
-                      <p className="text-sm text-muted-foreground">
+                      <h5 className="mb-2 font-semibold">Lab Mission</h5>
+                      <p className="text-muted-foreground text-sm">
                         Tip of the spear for B2C/B2B digital product creation
                         using lean startup and UX methodologies
                       </p>
                     </div>
                     <div>
-                      <h5 className="font-semibold mb-2">Approach</h5>
-                      <p className="text-sm text-muted-foreground">
+                      <h5 className="mb-2 font-semibold">Approach</h5>
+                      <p className="text-muted-foreground text-sm">
                         Fast movers - collect data, synthesize, and take action
                       </p>
                     </div>
                     <div>
-                      <h5 className="font-semibold mb-2">Team Structure</h5>
-                      <p className="text-sm text-muted-foreground">
+                      <h5 className="mb-2 font-semibold">Team Structure</h5>
+                      <p className="text-muted-foreground text-sm">
                         Cross-functional collaboration with daily standups and
                         rapid iteration cycles
                       </p>
@@ -1029,7 +1029,7 @@ export default function AddvancedClient() {
 
           {/* Key Takeaways */}
           <div className="mb-16">
-            <h3 className="mb-8 text-2xl font-semibold text-center">
+            <h3 className="mb-8 text-center text-2xl font-semibold">
               Strategic Design Leadership Learnings
             </h3>
 
@@ -1037,7 +1037,7 @@ export default function AddvancedClient() {
               {processStory?.keyInsights?.map((insight, index) => (
                 <SpotlightCard key={index} className="p-6">
                   <div className="flex items-start gap-4">
-                    <div className="mt-1 flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 text-sm font-bold text-primary">
+                    <div className="bg-primary/10 text-primary mt-1 flex h-8 w-8 items-center justify-center rounded-full text-sm font-bold">
                       {index + 1}
                     </div>
                     <div>
@@ -1051,7 +1051,7 @@ export default function AddvancedClient() {
 
           {/* Technical Tools & Methods */}
           <div className="mb-16">
-            <h3 className="mb-8 text-2xl font-semibold text-center">
+            <h3 className="mb-8 text-center text-2xl font-semibold">
               Innovation Lab Tools & Methods
             </h3>
 
@@ -1074,7 +1074,7 @@ export default function AddvancedClient() {
                         <h4 className="mb-2 font-semibold">
                           InVision - High-Fidelity Prototyping
                         </h4>
-                        <p className="text-sm text-muted-foreground mb-4">
+                        <p className="text-muted-foreground mb-4 text-sm">
                           Direct-to-high-fidelity approach enabling rapid
                           stakeholder validation and user testing without
                           traditional wireframing phases.
@@ -1116,7 +1116,7 @@ export default function AddvancedClient() {
                         <h4 className="mb-2 font-semibold">
                           Miro - Wireframing & Collaboration
                         </h4>
-                        <p className="text-sm text-muted-foreground mb-4">
+                        <p className="text-muted-foreground mb-4 text-sm">
                           Facilitated cross-functional team ideation sessions
                           and information architecture planning in real-time
                           collaborative environment.
@@ -1156,7 +1156,7 @@ export default function AddvancedClient() {
                         <h4 className="mb-2 font-semibold">
                           Maze - Unmoderated Usability Testing
                         </h4>
-                        <p className="text-sm text-muted-foreground mb-4">
+                        <p className="text-muted-foreground mb-4 text-sm">
                           Comprehensive testing platform enabling detailed
                           analytics on user behavior patterns and task
                           completion rates across 4 core scenarios.
@@ -1198,7 +1198,7 @@ export default function AddvancedClient() {
                         <h4 className="mb-2 font-semibold">
                           Whiteboard & Sharpie - Initial Conceptualization
                         </h4>
-                        <p className="text-sm text-muted-foreground mb-4">
+                        <p className="text-muted-foreground mb-4 text-sm">
                           Rapid ideation and Fitts Law exploration sessions
                           using traditional analog methods for immediate team
                           alignment and concept validation.
@@ -1233,7 +1233,7 @@ export default function AddvancedClient() {
 
           {/* Final Reflection */}
           <div>
-            <h3 className="mb-8 text-2xl font-semibold text-center">
+            <h3 className="mb-8 text-center text-2xl font-semibold">
               Design Leadership Reflection
             </h3>
 
@@ -1241,42 +1241,42 @@ export default function AddvancedClient() {
               <SpotlightCard className="p-8">
                 <div className="space-y-6">
                   <div className="text-center">
-                    <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
-                      <Award className="h-8 w-8 text-primary" />
+                    <div className="bg-primary/10 mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full">
+                      <Award className="text-primary h-8 w-8" />
                     </div>
-                    <h4 className="text-xl font-semibold mb-4">
+                    <h4 className="mb-4 text-xl font-semibold">
                       Innovation Lab Impact
                     </h4>
                   </div>
 
                   <div className="prose prose-gray dark:prose-invert max-w-none">
-                    <p className="text-center text-muted-foreground leading-relaxed">
+                    <p className="text-muted-foreground text-center leading-relaxed">
                       {processStory?.reflection}
                     </p>
                   </div>
 
-                  <div className="grid gap-6 md:grid-cols-3 pt-6 border-t">
+                  <div className="grid gap-6 border-t pt-6 md:grid-cols-3">
                     <div className="text-center">
-                      <div className="text-2xl font-bold text-primary mb-2">
+                      <div className="text-primary mb-2 text-2xl font-bold">
                         35%
                       </div>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-muted-foreground text-sm">
                         Job Placement Improvement
                       </p>
                     </div>
                     <div className="text-center">
-                      <div className="text-2xl font-bold text-primary mb-2">
+                      <div className="text-primary mb-2 text-2xl font-bold">
                         2 weeks
                       </div>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-muted-foreground text-sm">
                         Sprint Duration
                       </p>
                     </div>
                     <div className="text-center">
-                      <div className="text-2xl font-bold text-primary mb-2">
+                      <div className="text-primary mb-2 text-2xl font-bold">
                         800%
                       </div>
-                      <p className="text-sm text-muted-foreground">
+                      <p className="text-muted-foreground text-sm">
                         Optimized Path Success
                       </p>
                     </div>
@@ -1294,12 +1294,12 @@ export default function AddvancedClient() {
           <h3 className="mb-4 text-2xl font-semibold">
             Ready to Drive Innovation?
           </h3>
-          <p className="mb-8 text-lg text-muted-foreground">
+          <p className="text-muted-foreground mb-8 text-lg">
             This case study demonstrates strategic UX leadership in
             high-velocity innovation environments. Let&rsquo;s discuss how this
             experience can drive results for your next product challenge.
           </p>
-          <div className="flex gap-4 justify-center">
+          <div className="flex justify-center gap-4">
             <Button asChild size="lg">
               <Link href="/#contact">
                 Get in Touch

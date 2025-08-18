@@ -74,6 +74,114 @@ Object.defineProperty(window, "performance", {
   writable: true,
 });
 
+// Mock Next.js server environment for CSP tests
+if (typeof global.Request === 'undefined') {
+  global.Request = class MockRequest {
+    constructor(input, init) {
+      this.url = typeof input === 'string' ? input : input.url;
+      this.method = init?.method || 'GET';
+      this.headers = new Map(Object.entries(init?.headers || {}));
+      this.body = init?.body;
+    }
+  };
+}
+
+if (typeof global.Response === 'undefined') {
+  global.Response = class MockResponse {
+    constructor(body, init) {
+      this.body = body;
+      this.status = init?.status || 200;
+      this.headers = new Map(Object.entries(init?.headers || {}));
+    }
+  };
+}
+
+// Mock Web Crypto API for nonce generation
+if (typeof global.crypto === 'undefined') {
+  global.crypto = {
+    getRandomValues: (array) => {
+      for (let i = 0; i < array.length; i++) {
+        array[i] = Math.floor(Math.random() * 256);
+      }
+      return array;
+    },
+    randomUUID: () => {
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        const r = Math.random() * 16 | 0;
+        const v = c == 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
+    }
+  };
+}
+
+// Mock CSP utils to return proper base64 nonces
+jest.mock("@/lib/security/csp-utils", () => {
+  const actual = jest.requireActual("@/lib/security/csp-utils");
+  return {
+    ...actual,
+    generateCSPNonce: jest.fn(() => {
+      // Generate a valid base64 string for tests
+      const array = new Uint8Array(16);
+      for (let i = 0; i < array.length; i++) {
+        array[i] = Math.floor(Math.random() * 256);
+      }
+      return Buffer.from(array).toString('base64');
+    }),
+  };
+});
+
+// Mock motion-primitives disclosure specifically
+jest.mock("@/components/motion-primitives/disclosure", () => {
+  const React = require("react");
+  
+  return {
+    Disclosure: ({ children, open, onOpenChange }) => {
+      return React.createElement("div", { "data-testid": "disclosure" }, children);
+    },
+    DisclosureTrigger: ({ children }) => {
+      return React.createElement("div", { "data-testid": "disclosure-trigger" }, children);
+    },
+    DisclosureContent: ({ children }) => {
+      return React.createElement("div", { "data-testid": "disclosure-content" }, children);
+    },
+  };
+});
+
+// Mock Buffer for Node.js compatibility
+if (typeof global.Buffer === 'undefined') {
+  global.Buffer = require('buffer').Buffer;
+}
+
+// Mock performance API
+if (typeof global.performance === 'undefined') {
+  global.performance = {
+    now: () => Date.now(),
+  };
+}
+
+// Mock feature flags
+jest.mock("@/hooks/use-feature-flag", () => ({
+  useFeatureFlag: jest.fn((flag) => {
+    // Default feature flags for tests
+    const defaultFlags = {
+      newsletterEnabled: true,
+      performanceOptimizationsEnabled: true,
+      pwafeaturesEnabled: true,
+      securityHeadersEnabled: true,
+      analyticsEnabled: false, // Disable analytics in tests
+    };
+    return defaultFlags[flag] || false;
+  }),
+  useFeatureFlags: jest.fn(() => ({
+    newsletterEnabled: true,
+    performanceOptimizationsEnabled: true,
+    pwafeaturesEnabled: true,
+    securityHeadersEnabled: true,
+    analyticsEnabled: false,
+  })),
+}));
+
 // Manual mock for motion/react
 jest.mock("motion/react", () => {
   const React = require("react");

@@ -19,7 +19,7 @@ export function BorderTrail({
   style,
 }: BorderTrailProps) {
   return (
-    <div className="pointer-events-none absolute inset-0 rounded-[inherit] overflow-hidden">
+    <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]">
       <motion.div
         className={cn("absolute inset-0 rounded-[inherit]", className)}
         style={{

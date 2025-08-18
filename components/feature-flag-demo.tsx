@@ -16,8 +16,8 @@ export function FeatureFlagDemo() {
   }
 
   return (
-    <div className="fixed bottom-4 right-4 p-4 bg-black/80 text-white rounded-lg text-xs font-mono max-w-xs">
-      <h3 className="font-bold mb-2">🏳️ Feature Flags</h3>
+    <div className="fixed right-4 bottom-4 max-w-xs rounded-lg bg-black/80 p-4 font-mono text-xs text-white">
+      <h3 className="mb-2 font-bold">🏳️ Feature Flags</h3>
       <ul className="space-y-1">
         {Object.entries(flags).map(([key, value]) => (
           <li key={key} className="flex justify-between">
@@ -28,7 +28,7 @@ export function FeatureFlagDemo() {
           </li>
         ))}
       </ul>
-      <div className="mt-2 pt-2 border-t border-white/20 text-[10px] opacity-60">
+      <div className="mt-2 border-t border-white/20 pt-2 text-[10px] opacity-60">
         Environment: {process.env.NEXT_PUBLIC_VERCEL_ENV || "development"}
       </div>
     </div>

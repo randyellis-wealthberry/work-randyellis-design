@@ -15,7 +15,7 @@ interface ParticleProps {
 function Particle({ id, color, size, x, y, onComplete }: ParticleProps) {
   return (
     <motion.div
-      className={`absolute rounded-full pointer-events-none z-50`}
+      className={`pointer-events-none absolute z-50 rounded-full`}
       style={{
         background: color,
         width: size,
@@ -90,7 +90,7 @@ export function CelebrationParticles({
   };
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-40">
+    <div className="pointer-events-none fixed inset-0 z-40">
       <AnimatePresence>
         {particles.map((particle) => (
           <Particle

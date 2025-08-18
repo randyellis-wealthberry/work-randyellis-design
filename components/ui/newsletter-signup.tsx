@@ -90,7 +90,7 @@ export function NewsletterSignup() {
 
   return (
     <motion.section
-      className="mt-24 border-t border-zinc-100 dark:border-zinc-800 pt-16 pb-8 min-h-[600px]"
+      className="mt-24 min-h-[600px] border-t border-zinc-100 pt-16 pb-8 dark:border-zinc-800"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
@@ -100,17 +100,17 @@ export function NewsletterSignup() {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="max-w-lg mx-auto text-center flex flex-col justify-center h-full min-h-[520px]"
+          className="mx-auto flex h-full min-h-[520px] max-w-lg flex-col justify-center text-center"
         >
           <div className="flex flex-col items-center space-y-4">
-            <div className="w-[350px] h-[350px]">
+            <div className="h-[350px] w-[350px]">
               <DotLottieReact
                 src="https://lottie.host/749b3ff8-0097-4e37-8cbd-2fa2687bcae7/ZV6PZUEF3p.json"
                 loop={false}
                 autoplay={true}
               />
             </div>
-            <div className="text-center space-y-2">
+            <div className="space-y-2 text-center">
               <h4 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">
                 Successfully subscribed!
               </h4>
@@ -121,19 +121,19 @@ export function NewsletterSignup() {
           </div>
         </motion.div>
       ) : (
-        <div className="max-w-lg mx-auto text-center space-y-6 min-h-[520px] flex flex-col justify-center">
+        <div className="mx-auto flex min-h-[520px] max-w-lg flex-col justify-center space-y-6 text-center">
           <div className="space-y-3">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="w-2 h-2 rounded-full bg-blue-600"></div>
-              <div className="w-1 h-1 rounded-full bg-blue-400"></div>
-              <div className="w-0.5 h-0.5 rounded-full bg-blue-300"></div>
+            <div className="mb-4 flex items-center justify-center gap-3">
+              <div className="h-2 w-2 rounded-full bg-blue-600"></div>
+              <div className="h-1 w-1 rounded-full bg-blue-400"></div>
+              <div className="h-0.5 w-0.5 rounded-full bg-blue-300"></div>
             </div>
             <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">
               Business Strategy Prompts
               <br />
               for Product Designers
             </h3>
-            <p className="text-zinc-600 dark:text-zinc-400 leading-relaxed">
+            <p className="leading-relaxed text-zinc-600 dark:text-zinc-400">
               Get weekly insights that bridge design thinking with business
               strategy. Transform from pixel-pusher to strategic partner in the
               boardroom.
@@ -144,7 +144,7 @@ export function NewsletterSignup() {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="w-full max-w-md mx-auto"
+            className="mx-auto w-full max-w-md"
           >
             <form
               onSubmit={handleSubmit(onSubmit)}
@@ -164,7 +164,7 @@ export function NewsletterSignup() {
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full h-12 bg-blue-600 hover:bg-blue-700 focus-visible:ring-blue-500/20"
+                className="h-12 w-full bg-blue-600 hover:bg-blue-700 focus-visible:ring-blue-500/20"
                 size="lg"
               >
                 {isSubmitting ? "Subscribing..." : "Subscribe"}
@@ -175,10 +175,10 @@ export function NewsletterSignup() {
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className={`p-3 border rounded-lg ${
+                  className={`rounded-lg border p-3 ${
                     submitStatus === "rate_limited"
-                      ? "bg-orange-100 dark:bg-orange-900/30 border-orange-300 dark:border-orange-700"
-                      : "bg-red-100 dark:bg-red-900/30 border-red-300 dark:border-red-700"
+                      ? "border-orange-300 bg-orange-100 dark:border-orange-700 dark:bg-orange-900/30"
+                      : "border-red-300 bg-red-100 dark:border-red-700 dark:bg-red-900/30"
                   }`}
                 >
                   <p

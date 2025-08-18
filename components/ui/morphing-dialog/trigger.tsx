@@ -32,3 +32,5 @@ export function MorphingDialogTrigger({
     </motion.div>
   );
 }
+
+MorphingDialogTrigger.displayName = "MorphingDialogTrigger";

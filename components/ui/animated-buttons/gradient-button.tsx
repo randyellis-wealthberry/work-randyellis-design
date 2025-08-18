@@ -33,12 +33,12 @@ export function GradientButton({
       className={cn(
         "relative px-8 py-3",
         "font-semibold text-white",
-        "rounded-xl overflow-hidden",
+        "overflow-hidden rounded-xl",
         "transition-all duration-500",
         "hover:shadow-2xl hover:shadow-purple-500/40",
-        "focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2",
+        "focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:outline-none",
         "hover:animate-gradient",
-        disabled && "opacity-50 cursor-not-allowed",
+        disabled && "cursor-not-allowed opacity-50",
         className,
       )}
       onMouseEnter={disabled ? undefined : () => setIsHovered(true)}

@@ -18,25 +18,25 @@ export function AnimatedButtonShowcase() {
   };
 
   return (
-    <section className="py-16 px-6 lg:px-8 bg-gradient-to-br from-muted/30 via-background to-muted/20">
+    <section className="from-muted/30 via-background to-muted/20 bg-gradient-to-br px-6 py-16 lg:px-8">
       <div className="mx-auto max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="mb-12 text-center"
         >
-          <h2 className="text-3xl font-bold mb-4">
+          <h2 className="mb-4 text-3xl font-bold">
             Interactive Button Showcase
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-muted-foreground mx-auto max-w-2xl text-lg">
             Innovation Lab demonstration of modern interaction patterns for
             professional interfaces. Each button showcases different animation
             techniques optimized for engagement and accessibility.
           </p>
         </motion.div>
 
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-2 max-w-5xl mx-auto">
+        <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-2 lg:grid-cols-2">
           {/* Magnetic Button */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -48,10 +48,10 @@ export function AnimatedButtonShowcase() {
               onClick={() => handleButtonClick("Career Intelligence")}
               aria-label="Launch Career Intelligence Platform"
             >
-              <Brain className="w-5 h-5" />
+              <Brain className="h-5 w-5" />
               Career Intelligence
             </MagneticButton>
-            <p className="text-sm text-muted-foreground text-center">
+            <p className="text-muted-foreground text-center text-sm">
               Magnetic cursor follow with 3D rotation
             </p>
           </motion.div>
@@ -68,10 +68,10 @@ export function AnimatedButtonShowcase() {
               aria-label="Start Network Analysis"
               liquidColor="#06b6d4"
             >
-              <Network className="w-5 h-5" />
+              <Network className="h-5 w-5" />
               Network Analysis
             </LiquidButton>
-            <p className="text-sm text-muted-foreground text-center">
+            <p className="text-muted-foreground text-center text-sm">
               Liquid morphing with SVG turbulence
             </p>
           </motion.div>
@@ -87,10 +87,10 @@ export function AnimatedButtonShowcase() {
               onClick={() => handleButtonClick("Download Case Study")}
               aria-label="Download Case Study PDF"
             >
-              <Download className="w-5 h-5" />
+              <Download className="h-5 w-5" />
               Download Case Study
             </ParticleButton>
-            <p className="text-sm text-muted-foreground text-center">
+            <p className="text-muted-foreground text-center text-sm">
               Particle burst effects on interaction
             </p>
           </motion.div>
@@ -106,10 +106,10 @@ export function AnimatedButtonShowcase() {
               onClick={() => handleButtonClick("Schedule Demo")}
               aria-label="Schedule a product demo"
             >
-              <Calendar className="w-5 h-5" />
+              <Calendar className="h-5 w-5" />
               Schedule Demo
             </GradientButton>
-            <p className="text-sm text-muted-foreground text-center">
+            <p className="text-muted-foreground text-center text-sm">
               Aurora gradient shift animation
             </p>
           </motion.div>
@@ -126,10 +126,10 @@ export function AnimatedButtonShowcase() {
               aria-label="Join the Innovation Lab"
               showSuccess={true}
             >
-              <Users className="w-5 h-5" />
+              <Users className="h-5 w-5" />
               Join Innovation Lab
             </RippleButton>
-            <p className="text-sm text-muted-foreground text-center">
+            <p className="text-muted-foreground text-center text-sm">
               Ripple effect with success feedback
             </p>
           </motion.div>
@@ -140,14 +140,14 @@ export function AnimatedButtonShowcase() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="mt-16 p-6 rounded-xl border bg-card"
+          className="bg-card mt-16 rounded-xl border p-6"
         >
-          <h3 className="text-lg font-semibold mb-4">
+          <h3 className="mb-4 text-lg font-semibold">
             Technical Implementation
           </h3>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-2 text-sm">
+          <div className="grid gap-4 text-sm md:grid-cols-2 lg:grid-cols-2">
             <div className="flex items-start gap-2">
-              <div className="w-2 h-2 rounded-full bg-green-500 mt-1.5" />
+              <div className="mt-1.5 h-2 w-2 rounded-full bg-green-500" />
               <div>
                 <p className="font-medium">Performance Optimized</p>
                 <p className="text-muted-foreground">
@@ -156,7 +156,7 @@ export function AnimatedButtonShowcase() {
               </div>
             </div>
             <div className="flex items-start gap-2">
-              <div className="w-2 h-2 rounded-full bg-green-500 mt-1.5" />
+              <div className="mt-1.5 h-2 w-2 rounded-full bg-green-500" />
               <div>
                 <p className="font-medium">Accessibility First</p>
                 <p className="text-muted-foreground">
@@ -165,7 +165,7 @@ export function AnimatedButtonShowcase() {
               </div>
             </div>
             <div className="flex items-start gap-2">
-              <div className="w-2 h-2 rounded-full bg-green-500 mt-1.5" />
+              <div className="mt-1.5 h-2 w-2 rounded-full bg-green-500" />
               <div>
                 <p className="font-medium">Motion Preferences</p>
                 <p className="text-muted-foreground">
@@ -174,7 +174,7 @@ export function AnimatedButtonShowcase() {
               </div>
             </div>
             <div className="flex items-start gap-2">
-              <div className="w-2 h-2 rounded-full bg-green-500 mt-1.5" />
+              <div className="mt-1.5 h-2 w-2 rounded-full bg-green-500" />
               <div>
                 <p className="font-medium">Theme Compatible</p>
                 <p className="text-muted-foreground">
@@ -183,7 +183,7 @@ export function AnimatedButtonShowcase() {
               </div>
             </div>
             <div className="flex items-start gap-2">
-              <div className="w-2 h-2 rounded-full bg-green-500 mt-1.5" />
+              <div className="mt-1.5 h-2 w-2 rounded-full bg-green-500" />
               <div>
                 <p className="font-medium">Responsive Design</p>
                 <p className="text-muted-foreground">
@@ -192,7 +192,7 @@ export function AnimatedButtonShowcase() {
               </div>
             </div>
             <div className="flex items-start gap-2">
-              <div className="w-2 h-2 rounded-full bg-green-500 mt-1.5" />
+              <div className="mt-1.5 h-2 w-2 rounded-full bg-green-500" />
               <div>
                 <p className="font-medium">Test Coverage</p>
                 <p className="text-muted-foreground">

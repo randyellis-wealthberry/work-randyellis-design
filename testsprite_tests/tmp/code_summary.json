@@ -8,10 +8,24 @@
     "MDX",
     "Motion (Framer Motion)",
     "Three.js",
+    "React Three Fiber",
     "Radix UI",
     "Jest",
+    "Testing Library",
     "Vercel Analytics",
-    "ESLint"
+    "Google Analytics",
+    "ESLint",
+    "Prettier",
+    "Docker",
+    "Puppeteer",
+    "Zod",
+    "React Hook Form",
+    "Web Vitals",
+    "Lottie Files",
+    "Embla Carousel",
+    "Loops (Email)",
+    "PostgreSQL",
+    "Redis"
   ],
   "features": [
     {

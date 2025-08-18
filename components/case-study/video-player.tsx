@@ -28,7 +28,7 @@ export function VideoPlayer({
         <AspectRatio ratio={16 / 9}>
           {isClient ? (
             <video
-              className="w-full h-full object-cover"
+              className="h-full w-full object-cover"
               controls
               poster={poster}
               preload="metadata"
@@ -44,13 +44,13 @@ export function VideoPlayer({
               </p>
             </video>
           ) : (
-            <div className="w-full h-full bg-muted flex items-center justify-center">
+            <div className="bg-muted flex h-full w-full items-center justify-center">
               <p className="text-muted-foreground">Loading video...</p>
             </div>
           )}
         </AspectRatio>
-        <div className="p-4 bg-muted/50">
-          <p className="text-sm font-medium text-center">{title}</p>
+        <div className="bg-muted/50 p-4">
+          <p className="text-center text-sm font-medium">{title}</p>
         </div>
       </CardContent>
     </Card>

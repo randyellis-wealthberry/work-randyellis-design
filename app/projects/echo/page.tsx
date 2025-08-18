@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 
 export default function EchoDriveCaseStudy() {
   return (
-    <div className="container mx-auto px-4 py-16 max-w-6xl">
+    <div className="container mx-auto max-w-6xl px-4 py-16">
       <EchoClientPage />
     </div>
   );

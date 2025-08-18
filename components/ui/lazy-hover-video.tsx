@@ -14,7 +14,7 @@ const HoverVideo = lazy(() =>
       // Fallback component if import fails
       return {
         default: () => (
-          <div className="w-full h-full bg-zinc-100 dark:bg-zinc-800 rounded-lg flex items-center justify-center">
+          <div className="flex h-full w-full items-center justify-center rounded-lg bg-zinc-100 dark:bg-zinc-800">
             <span className="text-zinc-500">Failed to load video</span>
           </div>
         ),
@@ -22,7 +22,7 @@ const HoverVideo = lazy(() =>
     })
     .catch(() => ({
       default: () => (
-        <div className="w-full h-full bg-zinc-100 dark:bg-zinc-800 rounded-lg flex items-center justify-center">
+        <div className="flex h-full w-full items-center justify-center rounded-lg bg-zinc-100 dark:bg-zinc-800">
           <span className="text-zinc-500">Failed to load video</span>
         </div>
       ),
@@ -43,15 +43,15 @@ function VideoSkeleton({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "w-full h-full bg-zinc-100 dark:bg-zinc-800 animate-pulse rounded-lg",
+        "h-full w-full animate-pulse rounded-lg bg-zinc-100 dark:bg-zinc-800",
         className,
       )}
       role="status"
       aria-label="Loading video"
     >
-      <div className="flex items-center justify-center h-full">
+      <div className="flex h-full items-center justify-center">
         <div
-          className="w-12 h-12 border-2 border-zinc-300 border-t-zinc-600 rounded-full animate-spin"
+          className="h-12 w-12 animate-spin rounded-full border-2 border-zinc-300 border-t-zinc-600"
           aria-hidden="true"
         />
       </div>

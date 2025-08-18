@@ -202,12 +202,12 @@ export default function ProjectsClient() {
           onValueChange={setActiveCategory}
           className="w-full"
         >
-          <TabsList className="grid h-auto w-full grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-2 p-2">
+          <TabsList className="xs:grid-cols-2 grid h-auto w-full grid-cols-1 gap-2 p-2 sm:grid-cols-3 lg:grid-cols-7">
             {PROJECT_CATEGORIES.map((category) => (
               <TabsTrigger
                 key={category}
                 value={category}
-                className="text-xs py-2.5 px-3 min-h-[44px] sm:py-1 sm:min-h-[36px]"
+                className="min-h-[44px] px-3 py-2.5 text-xs sm:min-h-[36px] sm:py-1"
               >
                 {category}
               </TabsTrigger>
@@ -227,14 +227,14 @@ export default function ProjectsClient() {
                   variants={VARIANTS_ITEM}
                   className="h-full"
                 >
-                  <Card className="group relative overflow-hidden h-full flex flex-col gap-0 p-0 shadow-lg">
+                  <Card className="group relative flex h-full flex-col gap-0 overflow-hidden p-0 shadow-lg">
                     <Link href={`/projects/${project.slug}`} className="block">
                       <ProjectThumbnail project={project} />
                     </Link>
-                    <CardHeader className="pt-4 pb-3 px-4">
+                    <CardHeader className="px-4 pt-4 pb-3">
                       <div className="space-y-2">
                         <div className="flex items-start justify-between">
-                          <CardTitle className="group-hover:text-blue-600 transition-colors">
+                          <CardTitle className="transition-colors group-hover:text-blue-600">
                             {project.name}
                           </CardTitle>
                           <Badge
@@ -254,8 +254,8 @@ export default function ProjectsClient() {
                         </CardDescription>
                       </div>
                     </CardHeader>
-                    <CardContent className="flex-1 flex flex-col pt-0 px-4 pb-4">
-                      <div className="space-y-3 flex-1">
+                    <CardContent className="flex flex-1 flex-col px-4 pt-0 pb-4">
+                      <div className="flex-1 space-y-3">
                         {/* Project Metrics */}
                         {project.metrics && (
                           <div className="space-y-3">
@@ -265,12 +265,12 @@ export default function ProjectsClient() {
                                 .map((metric, index) => (
                                   <div
                                     key={index}
-                                    className="flex flex-col justify-between h-14 p-2"
+                                    className="flex h-14 flex-col justify-between p-2"
                                   >
-                                    <div className="text-lg font-semibold text-zinc-900 dark:text-zinc-100 leading-tight">
+                                    <div className="text-lg leading-tight font-semibold text-zinc-900 dark:text-zinc-100">
                                       {metric.value}
                                     </div>
-                                    <div className="text-xs text-zinc-500 leading-tight break-words">
+                                    <div className="text-xs leading-tight break-words text-zinc-500">
                                       {metric.label}
                                     </div>
                                   </div>
@@ -283,12 +283,12 @@ export default function ProjectsClient() {
                                   .map((metric, index) => (
                                     <div
                                       key={index + 3}
-                                      className="flex flex-col justify-between h-14 p-2"
+                                      className="flex h-14 flex-col justify-between p-2"
                                     >
-                                      <div className="text-lg font-semibold text-zinc-900 dark:text-zinc-100 leading-tight">
+                                      <div className="text-lg leading-tight font-semibold text-zinc-900 dark:text-zinc-100">
                                         {metric.value}
                                       </div>
-                                      <div className="text-xs text-zinc-500 leading-tight break-words">
+                                      <div className="text-xs leading-tight break-words text-zinc-500">
                                         {metric.label}
                                       </div>
                                     </div>
@@ -324,7 +324,7 @@ export default function ProjectsClient() {
                             <Badge
                               key={tech}
                               variant="outline"
-                              className="text-xs px-2 py-0.5"
+                              className="px-2 py-0.5 text-xs"
                             >
                               {tech}
                             </Badge>
@@ -332,7 +332,7 @@ export default function ProjectsClient() {
                           {project.technologies.length > 4 && (
                             <Badge
                               variant="outline"
-                              className="text-xs px-2 py-0.5"
+                              className="px-2 py-0.5 text-xs"
                             >
                               +{project.technologies.length - 4} more
                             </Badge>
@@ -346,7 +346,7 @@ export default function ProjectsClient() {
                           asChild
                           variant="ghost"
                           size="sm"
-                          className="flex-1 border border-zinc-200 dark:border-zinc-700 hover:bg-zinc-900 hover:text-white dark:hover:bg-zinc-100 dark:hover:text-zinc-900 transition-all duration-200"
+                          className="flex-1 border border-zinc-200 transition-all duration-200 hover:bg-zinc-900 hover:text-white dark:border-zinc-700 dark:hover:bg-zinc-100 dark:hover:text-zinc-900"
                         >
                           <Link href={`/projects/${project.slug}`}>
                             View Details

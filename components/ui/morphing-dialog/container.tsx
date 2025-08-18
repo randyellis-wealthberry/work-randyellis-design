@@ -12,8 +12,10 @@ export type MorphingDialogContainerProps = {
   style?: React.CSSProperties;
 };
 
-export function MorphingDialogContainer({ children }: MorphingDialogContainerProps) {
-  const { isOpen, setIsOpen, uniqueId } = useMorphingDialog();
+export function MorphingDialogContainer({
+  children,
+}: MorphingDialogContainerProps) {
+  const { isOpen, uniqueId } = useMorphingDialog();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -67,3 +69,6 @@ export function MorphingDialogClose({
     </button>
   );
 }
+
+MorphingDialogContainer.displayName = "MorphingDialogContainer";
+MorphingDialogClose.displayName = "MorphingDialogClose";

@@ -105,10 +105,10 @@ export function ParticleButton({
         "relative px-8 py-3",
         "font-semibold text-white",
         "bg-gradient-to-r from-amber-500 to-orange-600",
-        "rounded-xl overflow-visible",
+        "overflow-visible rounded-xl",
         "transition-all duration-300",
         "hover:shadow-xl hover:shadow-orange-500/30",
-        "focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2",
+        "focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:outline-none",
         className,
       )}
       onMouseEnter={handleMouseEnter}
@@ -138,7 +138,7 @@ export function ParticleButton({
 
       {/* Button content */}
       <span className="relative z-10 flex items-center justify-center gap-2">
-        <Sparkles className="w-5 h-5" />
+        <Sparkles className="h-5 w-5" />
         {children}
       </span>
 
@@ -147,7 +147,7 @@ export function ParticleButton({
         {particles.map((particle) => (
           <motion.span
             key={particle.id}
-            className="particle absolute pointer-events-none"
+            className="particle pointer-events-none absolute"
             initial={{
               x: particle.x,
               y: particle.y,

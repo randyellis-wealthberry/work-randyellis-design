@@ -30,12 +30,12 @@ export function ReadingProgress({ className }: ReadingProgressProps) {
 
   return (
     <motion.div
-      className={`fixed bottom-6 left-1/2 transform -translate-x-1/2 z-40 ${className}`}
+      className={`fixed bottom-6 left-1/2 z-40 -translate-x-1/2 transform ${className}`}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 1, duration: 0.5 }}
     >
-      <div className="bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm rounded-full px-6 py-3 shadow-lg border border-zinc-200 dark:border-zinc-700">
+      <div className="rounded-full border border-zinc-200 bg-white/90 px-6 py-3 shadow-lg backdrop-blur-sm dark:border-zinc-700 dark:bg-zinc-900/90">
         <div className="flex items-center gap-4">
           {sections.map((section, index) => {
             const Icon = section.icon;
@@ -53,7 +53,7 @@ export function ReadingProgress({ className }: ReadingProgressProps) {
                 transition={{ duration: 0.3 }}
               >
                 <motion.div
-                  className={`w-8 h-8 rounded-full flex items-center justify-center text-white ${
+                  className={`flex h-8 w-8 items-center justify-center rounded-full text-white ${
                     isActive ? section.color : "bg-zinc-300 dark:bg-zinc-600"
                   }`}
                   animate={{
@@ -68,7 +68,7 @@ export function ReadingProgress({ className }: ReadingProgressProps) {
                   <Icon className="h-4 w-4" />
                 </motion.div>
                 {index < sections.length - 1 && (
-                  <motion.div className="w-12 h-1 bg-zinc-200 dark:bg-zinc-700 rounded-full overflow-hidden">
+                  <motion.div className="h-1 w-12 overflow-hidden rounded-full bg-zinc-200 dark:bg-zinc-700">
                     <motion.div
                       className={`h-full ${section.color} origin-left`}
                       initial={{ scaleX: 0 }}
@@ -84,7 +84,7 @@ export function ReadingProgress({ className }: ReadingProgressProps) {
 
         {/* Progress text */}
         <motion.div
-          className="text-center mt-2 text-xs text-zinc-600 dark:text-zinc-400"
+          className="mt-2 text-center text-xs text-zinc-600 dark:text-zinc-400"
           animate={{ opacity: [0.5, 1, 0.5] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
         >

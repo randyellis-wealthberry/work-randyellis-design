@@ -149,6 +149,18 @@ export const AnimatePresence = ({ children, mode, ...props }) => {
   );
 };
 
+// MotionConfig component
+export const MotionConfig = ({ children, transition, ...props }) => {
+  return React.createElement(
+    "div",
+    {
+      "data-motion-config": true,
+      ...props,
+    },
+    children,
+  );
+};
+
 // Export TypeScript types (these are just for runtime compatibility)
 export const Variants = {};
 export const Transition = {};

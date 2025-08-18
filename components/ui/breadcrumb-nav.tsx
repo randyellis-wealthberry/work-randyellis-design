@@ -20,13 +20,13 @@ export function BreadcrumbNav({ items, className }: BreadcrumbNavProps) {
     <nav
       aria-label="Breadcrumb"
       className={cn(
-        "flex items-center space-x-1 text-sm text-zinc-500 dark:text-zinc-400 mb-6",
+        "mb-6 flex items-center space-x-1 text-sm text-zinc-500 dark:text-zinc-400",
         className,
       )}
     >
       <Link
         href="https://work.randyellis.design"
-        className="hover:text-zinc-700 dark:hover:text-zinc-200 transition-colors p-1 rounded"
+        className="rounded p-1 transition-colors hover:text-zinc-700 dark:hover:text-zinc-200"
         aria-label="Home"
       >
         <Home className="h-4 w-4" />
@@ -38,7 +38,7 @@ export function BreadcrumbNav({ items, className }: BreadcrumbNavProps) {
           {item.href && !item.current ? (
             <Link
               href={item.href}
-              className="hover:text-zinc-700 dark:hover:text-zinc-200 transition-colors px-1 py-0.5 rounded"
+              className="rounded px-1 py-0.5 transition-colors hover:text-zinc-700 dark:hover:text-zinc-200"
             >
               {item.label}
             </Link>
@@ -46,7 +46,7 @@ export function BreadcrumbNav({ items, className }: BreadcrumbNavProps) {
             <span
               className={cn(
                 "px-1 py-0.5",
-                item.current && "text-zinc-900 dark:text-zinc-100 font-medium",
+                item.current && "font-medium text-zinc-900 dark:text-zinc-100",
               )}
               aria-current={item.current ? "page" : undefined}
             >

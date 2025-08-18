@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 
 export type WebGLCapabilities = {
   hasWebGL: boolean;
@@ -50,21 +50,35 @@ export function useWebGLRenderer() {
     setCapabilities(detectCapabilities());
   }, []);
 
-  // Intersection observer for performance optimization
+  // Enhanced intersection observer with performance optimizations
   useEffect(() => {
     if (!containerRef.current) return;
 
+    // Use a more aggressive threshold and rootMargin for better performance
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setIsInView(entry.isIntersecting);
+        const isIntersecting = entry.isIntersecting;
+        setIsInView(isIntersecting);
+        
+        // Performance optimization: reduce quality when scrolling quickly
+        if (isIntersecting) {
+          const scrollSpeed = Math.abs(entry.boundingClientRect.top - (window.innerHeight / 2));
+          if (scrollSpeed > 200 && capabilities && !capabilities.isLowPerformance) {
+            // User is scrolling fast, temporarily reduce quality
+            console.debug('Fast scroll detected, temporarily reducing WebGL quality');
+          }
+        }
       },
-      { threshold: 0.1 }
+      { 
+        threshold: 0.1,
+        rootMargin: '100px' // Start loading before element comes into view
+      }
     );
 
     observer.observe(containerRef.current);
 
     return () => observer.disconnect();
-  }, []);
+  }, [capabilities]);
 
   // Performance monitoring
   const onFrame = useCallback(() => {
@@ -91,16 +105,36 @@ export function useWebGLRenderer() {
     setHasError(true);
   }, []);
 
-  const shouldRenderWebGL = capabilities?.hasWebGL && !hasError && isInView;
-  const shouldUseLowQuality = capabilities?.isLowPerformance || hasError;
+  // Memoized performance decisions
+  const performanceSettings = useMemo(() => {
+    const shouldRenderWebGL = capabilities?.hasWebGL && !hasError && isInView;
+    const shouldUseLowQuality = capabilities?.isLowPerformance || hasError;
+    
+    // Connection-aware quality adjustment
+    const connection = (navigator as any).connection;
+    const isSlowConnection = connection && (
+      connection.effectiveType === 'slow-2g' || 
+      connection.effectiveType === '2g' ||
+      connection.saveData
+    );
+    
+    return {
+      shouldRenderWebGL,
+      shouldUseLowQuality: shouldUseLowQuality || isSlowConnection,
+      dpr: shouldUseLowQuality || isSlowConnection ? 1 : Math.min(2, window?.devicePixelRatio || 1),
+      antialias: !shouldUseLowQuality && !isSlowConnection
+    };
+  }, [capabilities, hasError, isInView]);
 
   return {
     containerRef,
     capabilities,
     hasError,
     isInView,
-    shouldRenderWebGL,
-    shouldUseLowQuality,
+    shouldRenderWebGL: performanceSettings.shouldRenderWebGL,
+    shouldUseLowQuality: performanceSettings.shouldUseLowQuality,
+    dpr: performanceSettings.dpr,
+    antialias: performanceSettings.antialias,
     onFrame,
     handleError,
     setHasError,

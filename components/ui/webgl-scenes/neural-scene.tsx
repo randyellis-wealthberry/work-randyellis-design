@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useEffect } from "react";
-import * as THREE from "three";
+import { Group } from "three";
 
 type NeuralSceneProps = {
   color?: string;
@@ -14,8 +14,8 @@ export function NeuralScene({
   speed = 1,
   intensity = 1,
 }: NeuralSceneProps) {
-  const nodesRef = useRef<THREE.Group>(null);
-  const connectionsRef = useRef<THREE.Group>(null);
+  const nodesRef = useRef<Group>(null);
+  const connectionsRef = useRef<Group>(null);
 
   useEffect(() => {
     if (!nodesRef.current) return;
@@ -58,7 +58,11 @@ export function NeuralScene({
       {/* Lighting */}
       <ambientLight intensity={0.5} />
       <pointLight position={[5, 5, 5]} intensity={intensity} />
-      <pointLight position={[-5, -5, -5]} intensity={intensity * 0.5} color={color} />
+      <pointLight
+        position={[-5, -5, -5]}
+        intensity={intensity * 0.5}
+        color={color}
+      />
 
       {/* Neural network nodes */}
       <group ref={nodesRef}>
@@ -92,13 +96,13 @@ export function NeuralScene({
 
             const distance = Math.sqrt(
               Math.pow(targetPos[0] - position[0], 2) +
-              Math.pow(targetPos[1] - position[1], 2) +
-              Math.pow(targetPos[2] - position[2], 2)
+                Math.pow(targetPos[1] - position[1], 2) +
+                Math.pow(targetPos[2] - position[2], 2),
             );
 
             const angle = Math.atan2(
               targetPos[1] - position[1],
-              targetPos[0] - position[0]
+              targetPos[0] - position[0],
             );
 
             return (
@@ -144,3 +148,5 @@ export function NeuralScene({
     </>
   );
 }
+
+NeuralScene.displayName = "NeuralScene";

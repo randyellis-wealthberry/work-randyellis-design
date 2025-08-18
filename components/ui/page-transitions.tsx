@@ -63,14 +63,14 @@ export function CurtainTransition({ children }: { children: React.ReactNode }) {
       <AnimatePresence>
         <motion.div
           key={`curtain-${pathname}`}
-          className="fixed inset-0 z-50 pointer-events-none"
+          className="pointer-events-none fixed inset-0 z-50"
           initial={{ scaleY: 0 }}
           animate={{ scaleY: 0 }}
           exit={{ scaleY: 1 }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
           style={{ originY: 0 }}
         >
-          <div className="w-full h-full bg-gradient-to-br from-blue-500 to-purple-600" />
+          <div className="h-full w-full bg-gradient-to-br from-blue-500 to-purple-600" />
         </motion.div>
       </AnimatePresence>
     </div>
@@ -131,14 +131,14 @@ export function BlobTransition({ children }: { children: React.ReactNode }) {
       <AnimatePresence>
         {isTransitioning && (
           <motion.div
-            className="fixed inset-0 z-50 pointer-events-none flex items-center justify-center"
+            className="pointer-events-none fixed inset-0 z-50 flex items-center justify-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
           >
             <motion.div
-              className="bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 rounded-full"
+              className="rounded-full bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500"
               initial={{ scale: 0, borderRadius: "50%" }}
               animate={{
                 scale: [0, 1.5, 2.5],

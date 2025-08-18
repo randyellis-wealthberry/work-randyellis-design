@@ -1,0 +1,135 @@
+{
+  "timestamp": "2025-08-18T05:11:46.804Z",
+  "summary": {
+    "totalBundles": 28,
+    "totalSizeKB": 1803,
+    "largestChunkKB": 425,
+    "averageChunkKB": 64,
+    "exceedsTargets": true
+  },
+  "topChunks": [
+    {
+      "fileName": "f58c171e-7d1f0f514a1b1f92.js",
+      "sizeKB": 425,
+      "percentage": 24
+    },
+    {
+      "fileName": "framework-42adc0eb109681a6.js",
+      "sizeKB": 178,
+      "percentage": 10
+    },
+    {
+      "fileName": "4bd1b696-cc729d47eba2cee4.js",
+      "sizeKB": 169,
+      "percentage": 9
+    },
+    {
+      "fileName": "5964-6d6a41800488ba64.js",
+      "sizeKB": 162,
+      "percentage": 9
+    },
+    {
+      "fileName": "webpack.js",
+      "sizeKB": 138,
+      "percentage": 8
+    },
+    {
+      "fileName": "5357-796964baf95e4398.js",
+      "sizeKB": 115,
+      "percentage": 6
+    },
+    {
+      "fileName": "main-43ac0213a360d67c.js",
+      "sizeKB": 115,
+      "percentage": 6
+    },
+    {
+      "fileName": "polyfills-42372ed130431b0a.js",
+      "sizeKB": 110,
+      "percentage": 6
+    },
+    {
+      "fileName": "9497-092cb048e2c7f943.js",
+      "sizeKB": 88,
+      "percentage": 5
+    },
+    {
+      "fileName": "5313-3d640bbfe3312228.js",
+      "sizeKB": 77,
+      "percentage": 4
+    }
+  ],
+  "optimizationOpportunities": [
+    {
+      "type": "code-splitting",
+      "priority": "High",
+      "description": "Large chunks should be split with dynamic imports",
+      "affectedFiles": [
+        "f58c171e-7d1f0f514a1b1f92.js"
+      ],
+      "estimatedSavings": "255KB",
+      "implementation": "Use React.lazy() and dynamic imports for heavy components"
+    },
+    {
+      "type": "bundle-optimization",
+      "priority": "High",
+      "description": "Total bundle size exceeds performance budget",
+      "currentSize": "1803KB",
+      "targetSize": "800KB",
+      "estimatedSavings": "1003KB",
+      "implementation": "Implement lazy loading for 3D components and tree shaking"
+    },
+    {
+      "type": "threejs-optimization",
+      "priority": "High",
+      "description": "Three.js and related libraries should be dynamically imported",
+      "affectedFiles": [
+        "f58c171e-7d1f0f514a1b1f92.js"
+      ],
+      "currentSize": "425KB",
+      "targetSize": "150KB",
+      "estimatedSavings": "275KB",
+      "implementation": "Move Three.js to separate chunk with intersection observer loading"
+    },
+    {
+      "type": "chunk-merging",
+      "priority": "Medium",
+      "description": "Too many small chunks indicate over-splitting",
+      "affectedFiles": [
+        "1960-83b1d501faf9dd50.js",
+        "6050-6f2e590081a04a59.js",
+        "95-c927d2a0d4aa999c.js",
+        "194-97f600cab16752cb.js",
+        "5486-3e0cd69342c0588c.js",
+        "3409-3e134174a7c48e1a.js",
+        "7626-7201551583174437.js",
+        "webpack-04f2c37cb6c6c3bd.js",
+        "9188.4cfec0139a6b30d4.js",
+        "main-app-20952d237088097a.js"
+      ],
+      "count": 10,
+      "implementation": "Configure webpack to merge related small chunks"
+    }
+  ],
+  "performanceTargets": {
+    "current": {
+      "bundleSize": 1803,
+      "largestChunk": 425,
+      "estimatedLCP": 3245,
+      "estimatedTTI": 4147
+    },
+    "targets": {
+      "bundleSize": 800,
+      "largestChunk": 200,
+      "estimatedLCP": 2500,
+      "estimatedTTI": 3800
+    }
+  },
+  "recommendations": [
+    "Implement dynamic imports for Three.js components",
+    "Add intersection observer for WebGL component loading",
+    "Use tree shaking for selective library imports",
+    "Configure bundle splitting for optimal chunk sizes",
+    "Add connection-aware loading for mobile optimization"
+  ]
+}

@@ -53,7 +53,7 @@ export function VimeoEmbed({
           allow="autoplay; fullscreen; picture-in-picture; clipboard-write"
           allowFullScreen
           title={title}
-          className="w-full h-full rounded-lg"
+          className="h-full w-full rounded-lg"
           loading="lazy"
         />
       </div>

@@ -7,10 +7,10 @@ export const metadata: Metadata = {
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className="max-w-4xl mx-auto py-12 px-4">
-      <h1 className="text-3xl font-bold mb-8">Privacy Policy</h1>
+    <div className="mx-auto max-w-4xl px-4 py-12">
+      <h1 className="mb-8 text-3xl font-bold">Privacy Policy</h1>
       <div className="prose prose-zinc dark:prose-invert max-w-none">
-        <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-6">
+        <p className="mb-6 text-sm text-zinc-600 dark:text-zinc-400">
           Last updated: {new Date().toLocaleDateString()}
         </p>
 
