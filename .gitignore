@@ -79,3 +79,6 @@ jspm_packages/
 .claude/
 CLAUDE.md
 .env*.local
+
+# Serena MCP files
+.serena/
