@@ -1,12 +1,15 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { Canvas } from "@react-three/fiber";
-import { Suspense } from "react";
+import { lazy, Suspense } from "react";
 import { AnimatedAsset } from "./animated-asset";
-import { UnicornWebGL } from "./unicorn-webgl";
-import { WebGLSceneFactory, type SceneType } from "./webgl-scenes";
 import { useWebGLRenderer } from "@/hooks/useWebGLRenderer";
+import type { SceneType } from "./webgl-scenes/scene-factory";
+
+// Dynamic imports for heavy 3D libraries
+const Canvas = lazy(() => import("@react-three/fiber").then(m => ({ default: m.Canvas })));
+const WebGLSceneFactory = lazy(() => import("./webgl-scenes/scene-factory").then(m => ({ default: m.WebGLSceneFactory })));
+const UnicornWebGL = lazy(() => import("./unicorn-webgl").then(m => ({ default: m.UnicornWebGL })));
 
 type AnimatedWebGLProps = {
   sceneType: SceneType;
@@ -42,8 +45,50 @@ export const AnimatedWebGL = ({
     isInView,
     shouldRenderWebGL,
     shouldUseLowQuality,
+    dpr,
+    antialias,
     handleError,
   } = useWebGLRenderer();
+
+  // Enhanced WebGL content loading with performance optimizations
+  const renderWebGLContent = () => {
+    // Only render when in viewport and WebGL is supported
+    if (!isInView || !shouldRenderWebGL || !capabilities?.hasWebGL) {
+      return null;
+    }
+
+    const webglContent = (
+      <div className={cn("aspect-video w-full h-full", className)}>
+        <Suspense fallback={
+          <div className="w-full h-full bg-muted/20 animate-pulse flex items-center justify-center">
+            <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+          </div>
+        }>
+          <Canvas
+            camera={{ position: [0, 0, 8], fov: 45 }}
+            style={{ width: "100%", height: "100%" }}
+            dpr={dpr || (shouldUseLowQuality ? 1 : Math.min(2, window?.devicePixelRatio || 1))}
+            performance={{ min: shouldUseLowQuality ? 0.2 : 0.5 }}
+            onError={handleError}
+            gl={{
+              antialias: antialias !== undefined ? antialias : !shouldUseLowQuality,
+              alpha: true,
+              powerPreference: shouldUseLowQuality ? "low-power" : "default",
+            }}
+          >
+            <WebGLSceneFactory
+              type={sceneType}
+              color={color}
+              speed={speed}
+              intensity={shouldUseLowQuality ? intensity * 0.5 : intensity}
+            />
+          </Canvas>
+        </Suspense>
+      </div>
+    );
+
+    return webglContent;
+  };
 
   // Special handling for Unicorn Studio
   if (sceneType === "unicorn") {
@@ -56,7 +101,15 @@ export const AnimatedWebGL = ({
           hoverScale={hoverScale}
           showCloseButton={showCloseButton}
         >
-          <UnicornWebGL />
+          {isInView && (
+            <Suspense fallback={
+              <div className="w-full h-full bg-muted/20 animate-pulse flex items-center justify-center">
+                <div className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+              </div>
+            }>
+              <UnicornWebGL />
+            </Suspense>
+          )}
         </AnimatedAsset>
       </div>
     );
@@ -109,37 +162,16 @@ export const AnimatedWebGL = ({
     );
   }
 
-  // WebGL content with performance optimizations
-  const webglContent = (
-    <div className={cn("aspect-video w-full h-full", className)}>
-      <Canvas
-        camera={{ position: [0, 0, 8], fov: 45 }}
-        style={{ width: "100%", height: "100%" }}
-        dpr={shouldUseLowQuality ? 1 : Math.min(2, window?.devicePixelRatio || 1)}
-        performance={{ min: shouldUseLowQuality ? 0.2 : 0.5 }}
-        onError={handleError}
-        gl={{
-          antialias: !shouldUseLowQuality,
-          alpha: true,
-          powerPreference: shouldUseLowQuality ? "low-power" : "default",
-        }}
-      >
-        <Suspense fallback={null}>
-          <WebGLSceneFactory
-            type={sceneType}
-            color={color}
-            speed={speed}
-            intensity={shouldUseLowQuality ? intensity * 0.5 : intensity}
-          />
-        </Suspense>
-      </Canvas>
-    </div>
-  );
+  const webglContent = renderWebGLContent();
 
   if (disableZoom) {
     return (
       <div ref={containerRef} className={containerClassName}>
-        {webglContent}
+        {webglContent || (
+          <div className={cn("aspect-video w-full h-full bg-muted/50 flex items-center justify-center", className)}>
+            <p className="text-muted-foreground text-sm">Loading...</p>
+          </div>
+        )}
       </div>
     );
   }
@@ -153,7 +185,11 @@ export const AnimatedWebGL = ({
         hoverScale={hoverScale}
         showCloseButton={showCloseButton}
       >
-        {webglContent}
+        {webglContent || (
+          <div className={cn("aspect-video w-full h-full bg-muted/50 flex items-center justify-center", className)}>
+            <p className="text-muted-foreground text-sm">Loading...</p>
+          </div>
+        )}
       </AnimatedAsset>
     </div>
   );

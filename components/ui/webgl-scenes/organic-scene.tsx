@@ -1,7 +1,18 @@
 "use client";
 
 import { useRef, useEffect } from "react";
-import * as THREE from "three";
+import {
+  SphereGeometry,
+  BufferGeometry,
+  BufferAttribute,
+  PlaneGeometry,
+  Mesh,
+  Group,
+  MeshPhongMaterial,
+  MeshBasicMaterial,
+  PointsMaterial,
+  DoubleSide
+} from "three";
 
 type OrganicSceneProps = {
   color?: string;
@@ -14,9 +25,9 @@ export function OrganicScene({
   speed = 1,
   intensity = 1,
 }: OrganicSceneProps) {
-  const meshRef = useRef<THREE.Mesh>(null);
-  const particlesRef = useRef<THREE.Group>(null);
-  const leavesRef = useRef<THREE.Group>(null);
+  const meshRef = useRef<Mesh>(null);
+  const particlesRef = useRef<Group>(null);
+  const leavesRef = useRef<Group>(null);
 
   useEffect(() => {
     if (!meshRef.current) return;
@@ -40,7 +51,7 @@ export function OrganicScene({
 
   // Create organic geometry
   const createOrganicGeometry = () => {
-    const geometry = new THREE.SphereGeometry(1.5, 32, 32);
+    const geometry = new SphereGeometry(1.5, 32, 32);
     const vertices = geometry.attributes.position.array;
 
     // Add organic deformation
@@ -76,8 +87,8 @@ export function OrganicScene({
       positions[i3 + 2] = (Math.random() - 0.5) * 10;
     }
 
-    const geometry = new THREE.BufferGeometry();
-    geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+    const geometry = new BufferGeometry();
+    geometry.setAttribute("position", new BufferAttribute(positions, 3));
 
     return geometry;
   };
@@ -124,12 +135,12 @@ export function OrganicScene({
               Math.random() * Math.PI,
             ]}
           >
-            <planeGeometry args={[0.2, 0.1]} />
+            <primitive object={new PlaneGeometry(0.2, 0.1)} />
             <meshBasicMaterial
               color={color}
               transparent
               opacity={0.4}
-              side={THREE.DoubleSide}
+              side={DoubleSide}
             />
           </mesh>
         ))}

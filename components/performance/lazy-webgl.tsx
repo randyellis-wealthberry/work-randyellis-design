@@ -1,66 +1,234 @@
 "use client";
 
-import { lazy, Suspense, ComponentType } from "react";
+import { lazy, Suspense, ComponentType, useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 
-// Lazy load heavy WebGL components
+// Enhanced dynamic imports with better chunking
 const AnimatedWebGL = lazy(() => 
-  import("@/components/ui/animated-webgl").then(module => ({
+  import(
+    /* webpackChunkName: "webgl-core" */
+    "@/components/ui/animated-webgl"
+  ).then(module => ({
     default: module.AnimatedWebGL
   }))
 );
 
 const UnicornWebGL = lazy(() => 
-  import("@/components/ui/unicorn-webgl").then(module => ({
+  import(
+    /* webpackChunkName: "unicorn-webgl" */
+    "@/components/ui/unicorn-webgl"
+  ).then(module => ({
     default: module.UnicornWebGL
   }))
 );
 
 const DelightParticles = lazy(() => 
-  import("@/components/ui/delight-particles").then(module => ({
+  import(
+    /* webpackChunkName: "particles" */
+    "@/components/ui/delight-particles"
+  ).then(module => ({
     default: module.DelightParticles
   }))
 );
 
-// Loading fallback component
-const WebGLLoader = ({ className }: { className?: string }) => (
-  <div className={cn("aspect-video w-full h-full bg-muted/20 animate-pulse flex items-center justify-center", className)}>
-    <div className="space-y-2 text-center">
-      <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto" />
-      <p className="text-sm text-muted-foreground">Loading 3D content...</p>
+// Three.js related imports in separate chunks
+const ThreeJSCore = lazy(() => 
+  import(
+    /* webpackChunkName: "threejs-core" */
+    "@react-three/fiber"
+  ).then(module => ({
+    default: module.Canvas
+  }))
+);
+
+// Note: ThreeJSDrei removed due to type complexity - will be handled differently
+
+// Enhanced loading fallback with progressive states
+const WebGLLoader = ({ 
+  className, 
+  stage = "initializing" 
+}: { 
+  className?: string;
+  stage?: "initializing" | "loading-webgl" | "loading-scene" | "ready";
+}) => {
+  const [progress, setProgress] = useState(0);
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setProgress(prev => Math.min(prev + Math.random() * 20, 90));
+    }, 200);
+    
+    return () => clearInterval(interval);
+  }, []);
+  
+  const getMessage = () => {
+    switch (stage) {
+      case "loading-webgl": return "Loading WebGL engine...";
+      case "loading-scene": return "Loading 3D scene...";
+      case "ready": return "Almost ready...";
+      default: return "Initializing...";
+    }
+  };
+  
+  return (
+    <div className={cn("aspect-video w-full h-full bg-muted/20 animate-pulse flex items-center justify-center", className)}>
+      <div className="space-y-3 text-center max-w-xs">
+        <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto" />
+        <div className="space-y-2">
+          <p className="text-sm text-muted-foreground">{getMessage()}</p>
+          <div className="w-full bg-muted rounded-full h-1">
+            <div 
+              className="bg-primary h-1 rounded-full transition-all duration-300"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
-// Wrapper components with lazy loading
-export const LazyAnimatedWebGL = (props: any) => (
-  <Suspense fallback={<WebGLLoader className={props.className} />}>
-    <AnimatedWebGL {...props} />
-  </Suspense>
-);
+// Enhanced intersection observer hook
+function useIntersectionObserver(threshold = 0.1) {
+  const [isIntersecting, setIsIntersecting] = useState(false);
+  const [hasIntersected, setHasIntersected] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+  
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+    
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsIntersecting(entry.isIntersecting);
+        if (entry.isIntersecting && !hasIntersected) {
+          setHasIntersected(true);
+        }
+      },
+      { 
+        threshold,
+        rootMargin: '50px' // Start loading slightly before element comes into view
+      }
+    );
+    
+    observer.observe(element);
+    
+    return () => observer.disconnect();
+  }, [threshold, hasIntersected]);
+  
+  return { ref, isIntersecting, hasIntersected };
+}
 
-export const LazyUnicornWebGL = (props: any) => (
-  <Suspense fallback={<WebGLLoader />}>
-    <UnicornWebGL {...props} />
-  </Suspense>
-);
+// Enhanced wrapper components with intersection observer
+export const LazyAnimatedWebGL = (props: any) => {
+  const { ref, hasIntersected } = useIntersectionObserver(0.1);
+  const [loadingStage, setLoadingStage] = useState<"initializing" | "loading-webgl" | "loading-scene" | "ready">("initializing");
+  
+  useEffect(() => {
+    if (hasIntersected) {
+      setLoadingStage("loading-webgl");
+      const timer1 = setTimeout(() => setLoadingStage("loading-scene"), 500);
+      const timer2 = setTimeout(() => setLoadingStage("ready"), 1000);
+      return () => {
+        clearTimeout(timer1);
+        clearTimeout(timer2);
+      };
+    }
+  }, [hasIntersected]);
+  
+  return (
+    <div ref={ref} className={props.containerClassName}>
+      {hasIntersected ? (
+        <Suspense fallback={<WebGLLoader className={props.className} stage={loadingStage} />}>
+          <AnimatedWebGL {...props} />
+        </Suspense>
+      ) : (
+        <div className={cn("aspect-video w-full h-full bg-muted/10 flex items-center justify-center", props.className)}>
+          <p className="text-muted-foreground text-sm">Scroll to load 3D content</p>
+        </div>
+      )}
+    </div>
+  );
+};
 
-export const LazyDelightParticles = (props: any) => (
-  <Suspense fallback={<div className="w-full h-full" />}>
-    <DelightParticles {...props} />
-  </Suspense>
-);
+export const LazyUnicornWebGL = (props: any) => {
+  const { ref, hasIntersected } = useIntersectionObserver(0.1);
+  
+  return (
+    <div ref={ref}>
+      {hasIntersected ? (
+        <Suspense fallback={<WebGLLoader stage="loading-webgl" />}>
+          <UnicornWebGL {...props} />
+        </Suspense>
+      ) : (
+        <div className="w-full h-full bg-muted/10 flex items-center justify-center">
+          <p className="text-muted-foreground text-sm">Scroll to load content</p>
+        </div>
+      )}
+    </div>
+  );
+};
 
-// Generic lazy wrapper for any heavy component
+export const LazyDelightParticles = (props: any) => {
+  const { ref, hasIntersected } = useIntersectionObserver(0.2);
+  
+  return (
+    <div ref={ref} className="w-full h-full">
+      {hasIntersected ? (
+        <Suspense fallback={<div className="w-full h-full" />}>
+          <DelightParticles {...props} />
+        </Suspense>
+      ) : (
+        <div className="w-full h-full" />
+      )}
+    </div>
+  );
+};
+
+// Enhanced generic lazy wrapper with intersection observer
 export function createLazyComponent(
   importFn: () => Promise<{ default: ComponentType<any> }>,
-  fallback?: React.ReactNode
+  options: {
+    fallback?: React.ReactNode;
+    threshold?: number;
+    chunkName?: string;
+    requiresIntersection?: boolean;
+  } = {}
 ) {
+  const { 
+    fallback = <WebGLLoader />, 
+    threshold = 0.1, 
+    requiresIntersection = true 
+  } = options;
+  
   const LazyComponent = lazy(importFn);
   
-  return (props: any) => (
-    <Suspense fallback={fallback || <WebGLLoader />}>
-      <LazyComponent {...props} />
-    </Suspense>
-  );
+  return (props: any) => {
+    const { ref, hasIntersected } = useIntersectionObserver(threshold);
+    
+    if (!requiresIntersection) {
+      return (
+        <Suspense fallback={fallback}>
+          <LazyComponent {...props} />
+        </Suspense>
+      );
+    }
+    
+    return (
+      <div ref={ref} className={props.containerClassName}>
+        {hasIntersected ? (
+          <Suspense fallback={fallback}>
+            <LazyComponent {...props} />
+          </Suspense>
+        ) : (
+          <div className="w-full h-full bg-muted/10 flex items-center justify-center">
+            <p className="text-muted-foreground text-sm">Loading...</p>
+          </div>
+        )}
+      </div>
+    );
+  };
 }
+
+// Export additional optimized components
+export { ThreeJSCore };

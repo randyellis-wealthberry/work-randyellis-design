@@ -1,0 +1,123 @@
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  experimental: {
+    optimizePackageImports: [
+      '@radix-ui/react-avatar',
+      '@radix-ui/react-dialog',
+      '@radix-ui/react-dropdown-menu',
+      '@radix-ui/react-hover-card',
+      '@radix-ui/react-progress',
+      '@radix-ui/react-scroll-area',
+      '@radix-ui/react-separator',
+      '@radix-ui/react-slider',
+      '@radix-ui/react-slot',
+      '@radix-ui/react-tabs',
+      '@radix-ui/react-tooltip',
+      'lucide-react',
+      'framer-motion'
+    ],
+  },
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      // Enhanced bundle splitting for better performance
+      config.optimization = {
+        ...config.optimization,
+        splitChunks: {
+          chunks: 'all',
+          minSize: 10000,
+          maxSize: 200000, // Maximum chunk size of 200KB
+          cacheGroups: {
+            // Three.js specific chunk
+            threejs: {
+              test: /[\\/]node_modules[\\/](three|@react-three)[\\/]/,
+              name: 'threejs',
+              chunks: 'all',
+              priority: 30,
+              maxSize: 150000, // Limit Three.js chunk to 150KB
+              reuseExistingChunk: true,
+            },
+            // Framer Motion chunk
+            framerMotion: {
+              test: /[\\/]node_modules[\\/](framer-motion|motion)[\\/]/,
+              name: 'framer-motion',
+              chunks: 'all',
+              priority: 25,
+              maxSize: 80000,
+              reuseExistingChunk: true,
+            },
+            // Radix UI components
+            radixUI: {
+              test: /[\\/]node_modules[\\/]@radix-ui[\\/]/,
+              name: 'radix-ui',
+              chunks: 'all',
+              priority: 20,
+              maxSize: 100000,
+              reuseExistingChunk: true,
+            },
+            // Lucide React icons
+            icons: {
+              test: /[\\/]node_modules[\\/](lucide-react|@remixicon)[\\/]/,
+              name: 'icons',
+              chunks: 'all',
+              priority: 15,
+              maxSize: 50000,
+              reuseExistingChunk: true,
+            },
+            // React and framework libraries
+            react: {
+              test: /[\\/]node_modules[\\/](react|react-dom|react-hook-form)[\\/]/,
+              name: 'react',
+              chunks: 'all',
+              priority: 10,
+              maxSize: 150000,
+              reuseExistingChunk: true,
+            },
+            // Large vendor libraries
+            vendor: {
+              test: /[\\/]node_modules[\\/]/,
+              name: 'vendor',
+              chunks: 'all',
+              priority: 5,
+              maxSize: 180000,
+              reuseExistingChunk: true,
+            },
+            // Default chunk
+            default: {
+              minChunks: 2,
+              chunks: 'all',
+              name: 'default',
+              priority: 1,
+              maxSize: 120000,
+              reuseExistingChunk: true,
+            },
+          },
+        },
+      };
+    }
+    
+    return config;
+  },
+  // MDX configuration
+  pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
+  
+  // Image optimization
+  images: {
+    formats: ['image/webp', 'image/avif'],
+    minimumCacheTTL: 31536000,
+  },
+  
+  // Performance optimizations
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
+};
+
+const withMDX = require('@next/mdx')({
+  extension: /\.mdx?$/,
+  options: {
+    remarkPlugins: [],
+    rehypePlugins: [],
+  },
+});
+
+module.exports = withMDX(nextConfig);

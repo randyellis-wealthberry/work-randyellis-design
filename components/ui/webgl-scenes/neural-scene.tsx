@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useEffect } from "react";
-import * as THREE from "three";
+import { Group } from "three";
 
 type NeuralSceneProps = {
   color?: string;
@@ -14,8 +14,8 @@ export function NeuralScene({
   speed = 1,
   intensity = 1,
 }: NeuralSceneProps) {
-  const nodesRef = useRef<THREE.Group>(null);
-  const connectionsRef = useRef<THREE.Group>(null);
+  const nodesRef = useRef<Group>(null);
+  const connectionsRef = useRef<Group>(null);
 
   useEffect(() => {
     if (!nodesRef.current) return;

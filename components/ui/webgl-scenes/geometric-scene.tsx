@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
-import * as THREE from "three";
+import { Mesh, Group } from "three";
 
 type GeometricSceneProps = {
   color?: string;
@@ -14,8 +14,8 @@ export function GeometricScene({
   speed = 1,
   intensity = 1,
 }: GeometricSceneProps) {
-  const geometryRef = useRef<THREE.Mesh>(null);
-  const orbitingGroupRef = useRef<THREE.Group>(null);
+  const geometryRef = useRef<Mesh>(null);
+  const orbitingGroupRef = useRef<Group>(null);
   const [time, setTime] = useState(0);
 
   useEffect(() => {
