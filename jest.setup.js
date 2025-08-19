@@ -92,6 +92,11 @@ if (typeof global.Response === 'undefined') {
       this.body = body;
       this.status = init?.status || 200;
       this.headers = new Map(Object.entries(init?.headers || {}));
+      this.ok = (init?.status || 200) >= 200 && (init?.status || 200) < 300;
+      this.statusText = init?.statusText || 'OK';
+      this.clone = jest.fn().mockReturnValue(this);
+      this.text = jest.fn().mockResolvedValue(body || '');
+      this.json = jest.fn().mockResolvedValue(typeof body === 'string' ? JSON.parse(body || '{}') : body);
     }
   };
 }

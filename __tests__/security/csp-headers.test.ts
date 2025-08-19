@@ -77,18 +77,30 @@ describe('CSP Headers', () => {
 
     it('should set Content-Security-Policy-Report-Only header in development', async () => {
       const originalEnv = process.env.NODE_ENV;
-      process.env.NODE_ENV = 'development';
+      Object.defineProperty(process.env, 'NODE_ENV', {
+        value: 'development',
+        writable: true,
+        configurable: true
+      });
       
       const response = await middleware(mockRequest);
       
       expect(response.headers.get('Content-Security-Policy-Report-Only')).toBeDefined();
       
-      process.env.NODE_ENV = originalEnv;
+      Object.defineProperty(process.env, 'NODE_ENV', {
+        value: originalEnv,
+        writable: true,
+        configurable: true
+      });
     });
 
     it('should use enforcing CSP header in production', async () => {
       const originalEnv = process.env.NODE_ENV;
-      process.env.NODE_ENV = 'production';
+      Object.defineProperty(process.env, 'NODE_ENV', {
+        value: 'production',
+        writable: true,
+        configurable: true
+      });
       
       // Update mock to return production headers
       mockNextResponse.next.mockReturnValueOnce({
@@ -104,7 +116,11 @@ describe('CSP Headers', () => {
       expect(response.headers.get('Content-Security-Policy')).toBeDefined();
       expect(response.headers.get('Content-Security-Policy-Report-Only')).toBeUndefined();
       
-      process.env.NODE_ENV = originalEnv;
+      Object.defineProperty(process.env, 'NODE_ENV', {
+        value: originalEnv,
+        writable: true,
+        configurable: true
+      });
     });
   });
 

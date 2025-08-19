@@ -77,7 +77,7 @@ describe("Echo Project Data Integration", () => {
       expect(echoProject?.categories).toEqual([
         "Enterprise (SaaS)",
         "AI/ML",
-        "Web Development",
+        "Web Dev",
       ]);
     });
 

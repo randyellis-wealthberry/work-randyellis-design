@@ -98,7 +98,7 @@ export const PROJECT_CATEGORIES = [
   "All",
   "Enterprise (SaaS)",
   "Mobile App",
-  "Web Development",
+  "Web Dev",
   "Design Systems",
   "UI/UX",
   "AI/ML",

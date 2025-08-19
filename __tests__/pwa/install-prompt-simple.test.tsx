@@ -64,6 +64,7 @@ describe('PWA Install Prompt Integration Tests', () => {
   it('should render without crashing', () => {
     render(<InstallPrompt />);
     // Initially hidden until beforeinstallprompt event
+    // @ts-ignore - Jest DOM types
     expect(screen.queryByTestId('install-prompt')).not.toBeInTheDocument();
   });
 
@@ -74,7 +75,7 @@ describe('PWA Install Prompt Integration Tests', () => {
     const mockEvent = new Event('beforeinstallprompt');
     Object.assign(mockEvent, {
       preventDefault: jest.fn(),
-      prompt: jest.fn().mockResolvedValue(undefined),
+      prompt: jest.fn().mockResolvedValue(undefined as any),
       userChoice: Promise.resolve({ outcome: 'accepted', platform: 'web' }),
       platforms: ['web']
     });

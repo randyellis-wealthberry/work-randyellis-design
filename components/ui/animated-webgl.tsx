@@ -31,6 +31,7 @@ type AnimatedWebGLProps = {
   color?: string;
   speed?: number;
   intensity?: number;
+  onError?: (error: Error) => void;
 };
 
 export const AnimatedWebGL = ({
@@ -45,7 +46,16 @@ export const AnimatedWebGL = ({
   color,
   speed = 1,
   intensity = 1,
+  onError,
 }: AnimatedWebGLProps) => {
+  // Handle WebGL errors if callback provided
+  const handleWebGLError = (error: Error) => {
+    if (onError) {
+      onError(error);
+    } else {
+      console.error("WebGL Error:", error);
+    }
+  };
   const {
     containerRef,
     capabilities,

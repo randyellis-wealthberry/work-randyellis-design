@@ -33,7 +33,7 @@ export const PROJECT_CATEGORIES = [
   "All",
   "Enterprise", // New category
   "Mobile App",
-  "Web Development",
+  "Web Dev",
   "Design Systems",
   "UI/UX",
 ] as const;

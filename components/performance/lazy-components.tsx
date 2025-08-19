@@ -182,16 +182,31 @@ export const LazyCookieConsent = dynamic(
   },
 );
 
-// HOC for intersection observer-based lazy loading
+// Enhanced HOC for intersection observer-based lazy loading with optimizations
 export function withIntersectionObserver<T extends object>(
   Component: React.ComponentType<T>,
-  options: IntersectionObserverInit = {},
+  options: IntersectionObserverInit & {
+    priority?: "high" | "medium" | "low";
+    enablePreloading?: boolean;
+    preloadDistance?: number;
+  } = {},
 ) {
   return function IntersectionObserverWrapper(props: T) {
     const [isInView, setIsInView] = React.useState(false);
+    const [shouldPreload, setShouldPreload] = React.useState(false);
     const ref = React.useRef<HTMLDivElement>(null);
 
+    const {
+      priority = "medium",
+      enablePreloading = true,
+      preloadDistance = 150,
+      ...observerOptions
+    } = options;
+
     React.useEffect(() => {
+      if (!ref.current) return;
+
+      // Create main observer
       const observer = new IntersectionObserver(
         ([entry]) => {
           if (entry.isIntersecting) {
@@ -200,22 +215,50 @@ export function withIntersectionObserver<T extends object>(
           }
         },
         {
-          rootMargin: "50px",
-          threshold: 0.1,
-          ...options,
+          rootMargin:
+            priority === "high"
+              ? "200px"
+              : priority === "medium"
+                ? "100px"
+                : "50px",
+          threshold: 0.01,
+          ...observerOptions,
         },
       );
 
-      if (ref.current) {
-        observer.observe(ref.current);
+      // Create preload observer for high priority components
+      let preloadObserver: IntersectionObserver | null = null;
+      if (enablePreloading && priority === "high") {
+        preloadObserver = new IntersectionObserver(
+          ([entry]) => {
+            if (entry.isIntersecting) {
+              setShouldPreload(true);
+              preloadObserver?.disconnect();
+            }
+          },
+          {
+            rootMargin: `${preloadDistance}px`,
+            threshold: 0,
+          },
+        );
+        preloadObserver.observe(ref.current);
       }
 
-      return () => observer.disconnect();
-    }, []);
+      observer.observe(ref.current);
+
+      return () => {
+        observer.disconnect();
+        preloadObserver?.disconnect();
+      };
+    }, [priority, enablePreloading, preloadDistance, observerOptions]);
 
     return (
       <div ref={ref}>
-        {isInView ? <Component {...props} /> : <ComponentSkeleton />}
+        {isInView || shouldPreload ? (
+          <Component {...props} />
+        ) : (
+          <ComponentSkeleton />
+        )}
       </div>
     );
   };
@@ -329,29 +372,66 @@ export function useConnectionAwareLoading() {
   };
 }
 
-// Resource preloader component
-export function ResourcePreloader({ resources }: { resources: string[] }) {
+// Resource preloader component with enhanced prioritization
+export function ResourcePreloader({
+  resources,
+  priority = "medium",
+  delay = 0,
+}: {
+  resources: string[];
+  priority?: "high" | "medium" | "low";
+  delay?: number;
+}) {
   React.useEffect(() => {
     const preloadResources = () => {
-      resources.forEach((resource) => {
+      resources.forEach((resource, index) => {
         const link = document.createElement("link");
-        link.rel = "prefetch";
+
+        // Set appropriate rel based on priority and resource type
+        if (priority === "high") {
+          link.rel = "preload";
+          if (resource.match(/\.(jpg|jpeg|png|webp|avif)$/i)) {
+            link.as = "image";
+          } else if (resource.match(/\.(mp4|webm|ogg)$/i)) {
+            link.as = "video";
+          }
+        } else {
+          link.rel = "prefetch";
+        }
+
         link.href = resource;
 
-        // Add to head if not already present
-        if (!document.querySelector(`link[href="${resource}"]`)) {
-          document.head.appendChild(link);
-        }
+        // Add staggered delay for better performance
+        const resourceDelay = priority === "high" ? index * 50 : index * 200;
+
+        setTimeout(() => {
+          // Add to head if not already present
+          if (!document.querySelector(`link[href="${resource}"]`)) {
+            document.head.appendChild(link);
+          }
+        }, resourceDelay);
       });
     };
 
-    // Use requestIdleCallback if available, otherwise setTimeout
-    if ("requestIdleCallback" in window) {
-      requestIdleCallback(preloadResources);
+    const startPreloading = () => {
+      setTimeout(preloadResources, delay);
+    };
+
+    // Use requestIdleCallback for low priority, immediate for high priority
+    if (priority === "high") {
+      startPreloading();
+    } else if ("requestIdleCallback" in window) {
+      requestIdleCallback(startPreloading);
     } else {
-      setTimeout(preloadResources, 2000);
+      setTimeout(startPreloading, 2000);
     }
-  }, [resources]);
+  }, [resources, priority, delay]);
 
   return null;
 }
+
+// Export optimized components
+export { OptimizedLazyImage } from "@/components/ui/optimized-lazy-image";
+export { OptimizedLazyVideo } from "@/components/ui/optimized-lazy-video";
+export { OptimizedWebGLLoader } from "@/components/ui/optimized-webgl-loader";
+export { useOptimizedLazyLoading } from "@/lib/hooks/use-optimized-lazy-loading";

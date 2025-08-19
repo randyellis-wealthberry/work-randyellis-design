@@ -43,8 +43,12 @@ export default function NotFound() {
   useEffect(() => {
     // Generate random positions only on client side
     const positions = Array.from({ length: 20 }).map(() => ({
-      x: Math.random() * window.innerWidth,
-      y: Math.random() * window.innerHeight,
+      x:
+        Math.random() *
+        (typeof window !== "undefined" ? window.innerWidth : 1200),
+      y:
+        Math.random() *
+        (typeof window !== "undefined" ? window.innerHeight : 800),
       offsetX: (Math.random() - 0.5) * 200,
       offsetY: (Math.random() - 0.5) * 200,
     }));

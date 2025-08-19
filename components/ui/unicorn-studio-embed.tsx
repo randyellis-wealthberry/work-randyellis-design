@@ -145,18 +145,28 @@ export function UnicornStudioEmbed({
         </div>
       )}
 
-      {/* Hide vendor badge with CSS */}
-      <style jsx>{`
-        .unicorn-studio-embed :global([data-badge*="unicorn"]),
-        .unicorn-studio-embed :global([class*="badge"]),
-        .unicorn-studio-embed :global([class*="branding"]),
-        .unicorn-studio-embed :global([class*="watermark"]),
-        .unicorn-studio-embed :global(a[href*="unicorn.studio"]) {
-          display: none !important;
-          visibility: hidden !important;
-          opacity: 0 !important;
-        }
-      `}</style>
+      {/* Hide vendor badge with inline styles */}
+      <div
+        className="sr-only"
+        style={{
+          display: "none",
+        }}
+        dangerouslySetInnerHTML={{
+          __html: `
+            <style>
+              .unicorn-studio-embed [data-badge*="unicorn"],
+              .unicorn-studio-embed [class*="badge"],
+              .unicorn-studio-embed [class*="branding"],
+              .unicorn-studio-embed [class*="watermark"],
+              .unicorn-studio-embed a[href*="unicorn.studio"] {
+                display: none !important;
+                visibility: hidden !important;
+                opacity: 0 !important;
+              }
+            </style>
+          `,
+        }}
+      />
     </div>
   );
 }

@@ -10,10 +10,10 @@ class MockIntersectionObserver {
   unobserve = jest.fn();
 }
 
-// Mock window.requestIdleCallback
+// Mock window.requestIdleCallback  
 const mockRequestIdleCallback = jest.fn((callback) => {
-  setTimeout(callback, 0);
-});
+  return setTimeout(callback, 0);
+}) as jest.MockedFunction<typeof requestIdleCallback>;
 
 // Mock dynamic imports
 const mockDynamicImport = jest.fn();
@@ -271,8 +271,8 @@ describe('3D Components Lazy Loading Performance Tests', () => {
             return {
               hasWebGL: true,
               hasWebGL2: !!gl2,
-              maxTextureSize: gl.getParameter(gl.MAX_TEXTURE_SIZE),
-              renderer: gl.getParameter(gl.RENDERER)
+              maxTextureSize: (gl as WebGLRenderingContext).getParameter((gl as WebGLRenderingContext).MAX_TEXTURE_SIZE),
+              renderer: (gl as WebGLRenderingContext).getParameter((gl as WebGLRenderingContext).RENDERER)
             };
           } catch {
             return {

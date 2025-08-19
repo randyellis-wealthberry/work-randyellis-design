@@ -144,13 +144,16 @@ describe('PWA Install Prompt Tests', () => {
     // Mock BeforeInstallPromptEvent
     mockDeferredPrompt = {
       preventDefault: jest.fn(),
-      prompt: jest.fn().mockResolvedValue(undefined),
+      prompt: jest.fn() as jest.MockedFunction<() => Promise<void>>,
       userChoice: Promise.resolve({
         outcome: 'accepted' as const,
         platform: 'web'
       }),
       platforms: ['web']
     };
+    
+    // Set up the prompt mock return value
+    (mockDeferredPrompt.prompt as jest.MockedFunction<() => Promise<void>>).mockResolvedValue();
 
     // Mock localStorage
     const localStorageMock = {

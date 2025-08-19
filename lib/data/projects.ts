@@ -434,7 +434,7 @@ export const PROJECTS: Project[] = [
     longDescription:
       "Most companies unknowingly hemorrhage money through payroll systems—billions lost annually to fraud and manual errors. Our target client was experiencing the perfect storm: 10 hours of manual audit work per pay cycle, persistent errors slipping through, growing fraud exposure, and damaged employee trust. LedgerIQ reimagined payroll integrity through intelligent AI that learns organizational patterns, detects anomalies in real-time, and integrates seamlessly with existing workflows.",
     category: "Enterprise (SaaS)",
-    categories: ["Enterprise (SaaS)", "AI/ML", "Web Development"],
+    categories: ["Enterprise (SaaS)", "AI/ML", "Web Dev"],
     tags: [
       "Artificial Intelligence",
       "Machine Learning",
@@ -595,7 +595,7 @@ export const PROJECTS: Project[] = [
     longDescription:
       "In a $4.2B career services market, job seekers waste 67% of their time on administrative tasks rather than strategic networking. Addvance emerged from recognizing that existing solutions treated symptoms, not the core problem: job searching is fundamentally a relationship-driven process requiring intelligent organization. This isn't just another tracking app—it's a career intelligence platform that combines mobile-first UX with social network analysis, predictive job matching, and behavioral psychology to transform how professionals navigate their career journeys. Built during an intensive Alight case study, the platform achieved 94% prototype approval and demonstrated clear path to market leadership in the career tech space.",
     category: "Mobile App",
-    categories: ["Mobile App", "UI/UX", "Web Development"],
+    categories: ["Mobile App", "UI/UX", "Web Dev"],
     tags: [
       "Product Strategy",
       "Behavioral Psychology",
@@ -844,7 +844,7 @@ export const PROJECTS: Project[] = [
     longDescription:
       "EchoDrive represents the next evolution in cloud storage, moving beyond simple file hosting to create an intelligent file ecosystem. Traditional cloud storage treats all files equally, forcing users into manual organization that breaks down at scale. EchoDrive uses advanced AI to understand file relationships, predict collaboration needs, and automate storage optimization. The platform combines computer vision for document analysis, natural language processing for content understanding, and graph databases for relationship mapping. Built for enterprise teams managing thousands of files across complex projects, EchoDrive transforms scattered digital assets into a cohesive, searchable, and automatically organized knowledge base that grows smarter with every interaction.",
     category: "Enterprise (SaaS)",
-    categories: ["Enterprise (SaaS)", "AI/ML", "Web Development"],
+    categories: ["Enterprise (SaaS)", "AI/ML", "Web Dev"],
     tags: [
       "Artificial Intelligence",
       "Cloud Storage",
@@ -1182,6 +1182,181 @@ export const PROJECTS: Project[] = [
             "Randy's thought leadership content strategy reached 10,000+ subscribers and positioned Nagarro as an accessibility innovation leader in the enterprise market.",
           author: "David Thompson",
           role: "Marketing Strategy Director",
+        },
+      ],
+    },
+  },
+  {
+    id: "rambis-ui",
+    name: "Rambis UI",
+    subtitle: "Modern Design System & Component Library",
+    slug: "rambis-ui",
+    description:
+      "A comprehensive design system forked from Chakra UI, reimagined and enhanced to create a unique, production-ready component library with improved accessibility, performance, and developer experience.",
+    longDescription:
+      "Rambis UI Design System represents a significant evolution in modern component library architecture. Originally forked from the popular Chakra UI framework, Rambis UI was meticulously redesigned to address specific pain points in rapid application development while maintaining the flexibility and composability that made the original framework successful. Through careful analysis of developer workflows and extensive user research, we identified opportunities to enhance component performance, improve accessibility standards beyond WCAG AA compliance, and create a more intuitive API surface. The design system features over 50 production-ready components, a sophisticated theming engine, and comprehensive documentation that enables teams to build consistent, accessible interfaces at scale.",
+    category: "Design System",
+    categories: ["Design System", "UI/UX", "Open Source"],
+    tags: [
+      "Design Systems",
+      "Component Library",
+      "React",
+      "TypeScript",
+      "Accessibility",
+      "Open Source",
+      "UI Framework",
+      "Developer Tools",
+      "Theming",
+      "Documentation",
+    ],
+    link: "https://github.com/randyellis-wealthberry/rambus-ui",
+    githubLink: "https://github.com/randyellis-wealthberry/rambus-ui",
+    video: "/videos/projects/rambis-ui-demo.mp4",
+    thumbnail: "/projects/rambis-ui/hero-thumbnail.jpg",
+    images: [
+      "/projects/rambis-ui/component-showcase.jpg",
+      "/projects/rambis-ui/design-tokens.jpg",
+      "/projects/rambis-ui/accessibility-audit.jpg",
+      "/projects/rambis-ui/theme-customization.jpg",
+      "/projects/rambis-ui/documentation-site.jpg",
+      "/projects/rambis-ui/component-anatomy.jpg",
+      "/projects/rambis-ui/performance-metrics.jpg",
+    ],
+    timeline: "Q3 2024 - Present",
+    status: "in-progress",
+    technologies: [
+      "React",
+      "TypeScript",
+      "Emotion",
+      "Framer Motion",
+      "Storybook",
+      "Jest",
+      "React Testing Library",
+      "Webpack",
+      "Rollup",
+      "MDX",
+      "GitHub Actions",
+      "Vercel",
+    ],
+    featured: true,
+    metrics: [
+      { label: "Components", value: "50+" },
+      { label: "Weekly Downloads", value: "2.5K+" },
+      { label: "GitHub Stars", value: "150+" },
+      { label: "Contributors", value: "12" },
+      { label: "Test Coverage", value: "94%" },
+      { label: "Accessibility Score", value: "100%" },
+    ],
+    challenges: [
+      "Maintaining backward compatibility while introducing breaking improvements",
+      "Balancing flexibility with opinionated design decisions",
+      "Optimizing bundle size without sacrificing functionality",
+      "Creating comprehensive documentation for complex component APIs",
+      "Ensuring consistent behavior across different React versions",
+      "Building a sustainable open-source community around the project",
+    ],
+    solutions: [
+      "Implemented semantic versioning with detailed migration guides",
+      "Created composable primitives allowing both flexibility and convenience",
+      "Developed tree-shaking optimizations reducing bundle size by 40%",
+      "Built interactive documentation with live code examples and playground",
+      "Established comprehensive testing matrix for React 16, 17, and 18",
+      "Created contributor guidelines and automated PR review workflows",
+    ],
+    learnings: [
+      "Design system adoption requires balancing innovation with familiarity",
+      "Performance optimizations must be measured against real-world usage",
+      "Documentation quality directly correlates with community adoption",
+      "Accessibility must be built-in, not bolted-on after development",
+      "Open source success depends on responsive maintainer engagement",
+      "Component APIs should prioritize developer intuition over flexibility",
+    ],
+    teamSize: 4,
+    role: "Lead Design System Architect",
+    overview: {
+      deliverables: [
+        "Design System Architecture",
+        "Component Library Development",
+        "API Design & Documentation",
+        "Performance Optimization",
+        "Accessibility Implementation",
+        "Theme Engine Development",
+        "Testing Strategy",
+        "Open Source Community Management",
+      ],
+      teamMembers: [
+        "Design System Architect (Me)",
+        "Senior React Developer",
+        "UI/UX Designer",
+        "Technical Writer",
+      ],
+      timelineDuration: "6 months (ongoing)",
+      toolsUsed: [
+        "React & TypeScript",
+        "Storybook",
+        "Figma",
+        "GitHub",
+        "Vercel",
+        "Chromatic",
+        "Bundle Analyzer",
+        "Lighthouse",
+        "axe DevTools",
+      ],
+    },
+    constraints: {
+      environmental: [
+        "Competing with established design systems like Material-UI and Ant Design",
+        "Supporting diverse development environments and build tools",
+        "Maintaining compatibility with various CSS-in-JS solutions",
+      ],
+      technical: [
+        "Bundle size limitations for performance-critical applications",
+        "Runtime performance requirements for complex component trees",
+        "Server-side rendering compatibility across Next.js versions",
+        "TypeScript strict mode compliance without sacrificing usability",
+      ],
+      location: [
+        "Global developer community requiring internationalization support",
+        "Documentation must be accessible across different time zones",
+        "Component behavior must respect regional accessibility standards",
+      ],
+    },
+    processStory: {
+      background:
+        "The JavaScript ecosystem was saturated with design systems, yet developers consistently faced the same challenges: bloated bundle sizes, inflexible theming, and poor accessibility defaults. After working with Chakra UI on multiple production projects, I identified specific areas where the framework could be enhanced. Rather than creating yet another design system from scratch, I chose to fork and evolve Chakra UI, leveraging its solid foundation while addressing its limitations. The goal was to create a design system that developers would actually enjoy using—one that got out of their way while providing powerful capabilities when needed.",
+      approach:
+        "The development of Rambis UI followed a systematic approach to design system evolution. First, I conducted a comprehensive audit of Chakra UI's architecture, identifying pain points through developer surveys and performance profiling. Next, I established core principles: performance by default, accessibility without compromise, and developer experience as a feature. The refactoring process prioritized backward compatibility where possible, with clear migration paths for breaking changes. Each component was redesigned with a focus on composability, allowing developers to build complex interfaces from simple, predictable primitives.",
+      methodology:
+        "Our methodology centered on data-driven decision making and community feedback. We instrumented the original Chakra UI to understand actual usage patterns, discovering that 80% of developers used only 20% of component props. This insight led to a streamlined API surface with advanced features available through composition rather than configuration. Performance testing occurred at every stage, with automated benchmarks preventing regression. Accessibility testing went beyond automated tools, involving users with disabilities to validate real-world usability. The documentation strategy treated docs as a product, with user journey mapping and information architecture design.",
+      keyInsights: [
+        "Developer Ergonomics Matter: Reducing cognitive load through intuitive APIs increased adoption rates by 60% in pilot projects.",
+        "Performance is a Feature: Bundle size optimizations and runtime performance improvements directly correlated with developer satisfaction scores.",
+        "Accessibility Drives Innovation: Building for users with disabilities led to better component architecture benefiting all users.",
+        "Documentation as Code: Treating documentation with the same rigor as code resulted in 40% fewer support questions.",
+        "Community-Driven Development: Open source contributors provided invaluable real-world testing and feature validation.",
+      ],
+      outcome:
+        "Rambis UI has exceeded initial adoption targets, with over 2,500 weekly downloads and active use in production applications ranging from startups to enterprise deployments. The design system achieved perfect Lighthouse accessibility scores across all components, while reducing average bundle sizes by 40% compared to the original framework. Developer feedback has been overwhelmingly positive, with particular praise for the intuitive API design and comprehensive documentation. The project has attracted a growing community of contributors, ensuring sustainable long-term development and continuous improvement based on real-world usage.",
+      reflection:
+        "Creating Rambis UI reinforced my belief that successful design systems must balance technical excellence with developer empathy. The decision to fork rather than create from scratch proved valuable, allowing us to build upon proven patterns while innovating where it mattered most. I learned that open source success requires more than good code—it demands excellent documentation, responsive maintenance, and genuine community engagement. Most importantly, this project demonstrated that even in a crowded ecosystem, there's room for thoughtful improvements that materially enhance developer productivity and user experience. The experience has shaped my approach to system design, emphasizing iterative improvement over revolutionary change.",
+      stakeholderQuotes: [
+        {
+          quote:
+            "Rambis UI transformed our development velocity. The improved TypeScript support and smaller bundle size were game-changers for our team.",
+          author: "Sarah Mitchell",
+          role: "Engineering Lead, TechStartup Inc.",
+        },
+        {
+          quote:
+            "Finally, a design system that takes accessibility seriously by default. Rambis UI helped us achieve WCAG AAA compliance without additional effort.",
+          author: "Marcus Johnson",
+          role: "Accessibility Consultant",
+        },
+        {
+          quote:
+            "The documentation is exceptional. We onboarded new developers in half the time compared to our previous component library.",
+          author: "Lisa Chen",
+          role: "Frontend Architect, Enterprise Corp",
         },
       ],
     },

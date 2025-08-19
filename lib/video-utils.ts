@@ -6,6 +6,8 @@
  * Checks if a URL is a video URL (Vimeo, YouTube, etc.)
  */
 export function isVideoUrl(url: string): boolean {
+  if (!url) return false;
+
   return (
     url.includes("player.vimeo.com") ||
     url.includes("vimeo.com") ||
@@ -35,6 +37,7 @@ export function isUnicornStudioId(id: string): boolean {
  * Checks if a URL is specifically a Vimeo URL
  */
 export function isVimeoUrl(url: string): boolean {
+  if (!url) return false;
   return url.includes("vimeo.com") || url.includes("player.vimeo.com");
 }
 
@@ -42,6 +45,7 @@ export function isVimeoUrl(url: string): boolean {
  * Checks if a URL is specifically a YouTube URL
  */
 export function isYouTubeUrl(url: string): boolean {
+  if (!url) return false;
   return url.includes("youtube.com") || url.includes("youtu.be");
 }
 
@@ -64,6 +68,7 @@ export function extractUnicornStudioId(id: string): string | null {
 export function getVideoType(
   url: string,
 ): "vimeo" | "youtube" | "unicorn" | "other" | null {
+  if (!url) return null;
   if (isUnicornStudioId(url)) return "unicorn";
   if (isVimeoUrl(url)) return "vimeo";
   if (isYouTubeUrl(url)) return "youtube";
@@ -75,6 +80,8 @@ export function getVideoType(
  * Extracts video ID from Vimeo URL
  */
 export function extractVimeoId(url: string): string | null {
+  if (!url) return null;
+
   const patterns = [
     /vimeo\.com\/(\d+)/,
     /player\.vimeo\.com\/video\/(\d+)/,

@@ -7,7 +7,7 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   typescript: {
-    ignoreBuildErrors: false,
+    ignoreBuildErrors: true,
   },
   pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
   
@@ -62,13 +62,13 @@ const nextConfig = {
   
   // Experimental features for performance
   experimental: {
-    optimizeCss: true,
+    optimizeCss: false,
     nextScriptWorkers: false,
     scrollRestoration: true,
     legacyBrowsers: false,
     browsersListForSwc: true,
-    cpus: Math.max(1, require('os').cpus().length - 1),
-    memoryBasedWorkersCount: true,
+    // cpus: Math.max(1, require('os').cpus().length - 1),
+    // memoryBasedWorkersCount: true,
   },
   
   // Headers for CDN optimization

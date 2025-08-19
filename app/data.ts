@@ -460,8 +460,8 @@ export const PROJECTS: Project[] = [
       "Transforming job search from reactive to strategic through AI-powered insights and social intelligence - achieving 35% improvement in customer job placement success.",
     longDescription:
       "At Alight Solutions Innovation Lab, I led a cross-functional team in a rapid 2-week sprint to create a career intelligence platform that fundamentally changed how job seekers approach career advancement. Unlike traditional job tracking tools, Addvanced integrated social networking, real-time activity monitoring, and AI-powered insights to transform reactive job hunting into strategic career management. Working under tight innovation lab constraints, we delivered a Progressive Web App that achieved a 35% improvement in customer job placement success through user-centered design and rapid validation methodology.",
-    category: "Web Development",
-    categories: ["Web Development", "UI/UX"],
+    category: "Web Dev",
+    categories: ["Web Dev", "UI/UX"],
     tags: [
       "UX Research",
       "Product Strategy",
@@ -745,7 +745,7 @@ export const PROJECT_CATEGORIES = [
   "All",
   "Enterprise (SaaS)",
   "Mobile App",
-  "Web Development",
+  "Web Dev",
   "Design Systems",
   "UI/UX",
 ] as const;
@@ -788,7 +788,7 @@ export const ARCHIVE_ITEMS: ArchiveItem[] = [
     type: "article",
     thumbnail: "/images/archive/article-placeholder-3.jpg",
     link: "https://example.com/mobile-first-development",
-    tags: ["Mobile", "Responsive", "Web Development"],
+    tags: ["Mobile", "Responsive", "Web Dev"],
   },
   {
     id: "article-placeholder-4",

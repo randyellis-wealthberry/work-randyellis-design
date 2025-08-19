@@ -10,7 +10,9 @@ if (typeof global.clearInterval === "undefined") {
   global.clearInterval = jest.fn();
 }
 if (typeof global.setTimeout === "undefined") {
-  global.setTimeout = jest.fn();
+  global.setTimeout = Object.assign(jest.fn(), {
+    __promisify__: jest.fn(),
+  }) as any;
 }
 if (typeof global.clearTimeout === "undefined") {
   global.clearTimeout = jest.fn();

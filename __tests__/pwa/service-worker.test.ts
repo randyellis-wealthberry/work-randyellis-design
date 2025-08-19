@@ -44,21 +44,22 @@ const mockNextPWA = {
 
 // Mock caches API
 const mockCaches = {
-  open: jest.fn(),
-  has: jest.fn(),
-  delete: jest.fn(),
-  keys: jest.fn(),
-  match: jest.fn()
+  open: jest.fn() as jest.MockedFunction<(cacheName: string) => Promise<Cache>>,
+  has: jest.fn() as jest.MockedFunction<(cacheName: string) => Promise<boolean>>,
+  delete: jest.fn() as jest.MockedFunction<(cacheName: string) => Promise<boolean>>,
+  keys: jest.fn() as jest.MockedFunction<() => Promise<string[]>>,
+  match: jest.fn() as jest.MockedFunction<(request: RequestInfo) => Promise<Response | undefined>>
 };
 
 // Mock cache instance
 const mockCache = {
-  add: jest.fn(),
-  addAll: jest.fn(),
-  delete: jest.fn(),
-  keys: jest.fn(),
-  match: jest.fn(),
-  put: jest.fn()
+  add: jest.fn() as jest.MockedFunction<(request: RequestInfo) => Promise<void>>,
+  addAll: jest.fn() as jest.MockedFunction<(requests: RequestInfo[]) => Promise<void>>,
+  delete: jest.fn() as jest.MockedFunction<(request: RequestInfo) => Promise<boolean>>,
+  keys: jest.fn() as jest.MockedFunction<() => Promise<readonly Request[]>>,
+  match: jest.fn() as jest.MockedFunction<(request: RequestInfo) => Promise<Response | undefined>>,
+  matchAll: jest.fn() as jest.MockedFunction<(request?: RequestInfo) => Promise<readonly Response[]>>,
+  put: jest.fn() as jest.MockedFunction<(request: RequestInfo, response: Response) => Promise<void>>
 };
 
 describe('Service Worker Tests', () => {
@@ -81,14 +82,15 @@ describe('Service Worker Tests', () => {
     });
 
     // Mock fetch globally
-    global.fetch = jest.fn().mockResolvedValue({
-      clone: jest.fn().mockReturnValue(new Response('test')),
-      text: jest.fn().mockResolvedValue('test'),
-      json: jest.fn().mockResolvedValue({})
+    global.fetch = jest.fn() as jest.MockedFunction<typeof fetch>;
+    (global.fetch as jest.MockedFunction<typeof fetch>).mockResolvedValue({
+      clone: jest.fn().mockReturnValue(new Response('test') as any),
+      text: jest.fn().mockResolvedValue('test' as any),
+      json: jest.fn().mockResolvedValue({} as any)
     } as any);
 
     // Mock successful cache operations
-    mockCaches.open.mockResolvedValue(mockCache);
+    mockCaches.open.mockResolvedValue(mockCache as any);
     mockCaches.has.mockResolvedValue(true);
     mockCaches.match.mockResolvedValue(new Response('cached content'));
     mockCache.match.mockResolvedValue(new Response('cached content'));
@@ -110,7 +112,7 @@ describe('Service Worker Tests', () => {
         waiting: null,
         installing: null,
         active: { scriptURL: '/sw.js', state: 'activated' }
-      });
+      } as any);
 
       // Simulate service worker registration
       if ('serviceWorker' in navigator) {
@@ -122,7 +124,7 @@ describe('Service Worker Tests', () => {
 
     it('should handle service worker registration failure gracefully', async () => {
       const consoleError = jest.spyOn(console, 'error').mockImplementation(() => {});
-      mockServiceWorker.register.mockRejectedValue(new Error('Registration failed'));
+      mockServiceWorker.register.mockRejectedValue(new Error('Registration failed') as any);
 
       try {
         await navigator.serviceWorker.register('/sw.js');
@@ -215,8 +217,8 @@ describe('Service Worker Tests', () => {
       const onlineHandler = jest.fn();
       const offlineHandler = jest.fn();
 
-      global.addEventListener = jest.fn();
-      global.dispatchEvent = jest.fn();
+      global.addEventListener = jest.fn() as jest.MockedFunction<typeof addEventListener>;
+      global.dispatchEvent = jest.fn() as jest.MockedFunction<(event: Event) => boolean>;
 
       // Simulate event listeners
       global.addEventListener('online', onlineHandler);
@@ -255,7 +257,7 @@ describe('Service Worker Tests', () => {
       const maxCacheSize = 100; // 100 entries
       const cacheKeys = Array.from({ length: 150 }, (_, i) => `cache-entry-${i}`);
       
-      mockCache.keys.mockResolvedValue(cacheKeys);
+      mockCache.keys.mockResolvedValue(cacheKeys as any);
       
       const keys = await mockCache.keys();
       const shouldCleanup = keys.length > maxCacheSize;
@@ -319,7 +321,7 @@ describe('Service Worker Tests', () => {
         update: jest.fn()
       };
 
-      mockServiceWorker.register.mockResolvedValue(registration);
+      mockServiceWorker.register.mockResolvedValue(registration as any);
 
       const reg = await navigator.serviceWorker.register('/sw.js');
       
@@ -341,13 +343,13 @@ describe('Service Worker Tests', () => {
       const errorHandler = jest.fn();
       mockServiceWorker.addEventListener.mockImplementation((event, handler) => {
         if (event === 'error') {
-          errorHandler.mockImplementation(handler);
+          errorHandler.mockImplementation(handler as any);
         }
       });
 
       // Simulate service worker error
       const error = new Error('Service worker error');
-      errorHandler(error);
+      errorHandler(error as any);
 
       expect(errorHandler).toHaveBeenCalled();
     });
