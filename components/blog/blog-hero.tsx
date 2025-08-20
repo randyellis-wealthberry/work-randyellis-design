@@ -32,7 +32,7 @@ export function BlogHero({
 
   return (
     <motion.section
-      className="space-y-8 pt-16 text-center"
+      className="space-y-8 pt-16 pb-12 text-center"
       variants={VARIANTS_SECTION}
       transition={TRANSITION_SECTION}
       initial="hidden"
@@ -62,7 +62,7 @@ export function BlogHero({
         
         {/* Author and Date */}
         {(author || date) && (
-          <div className="flex items-center justify-center space-x-4 text-sm text-zinc-500 dark:text-zinc-400">
+          <div className="flex items-center justify-center space-x-4 text-sm text-zinc-500 dark:text-zinc-400 pt-4">
             {author && <span>By {author}</span>}
             {author && date && <span>•</span>}
             {date && <span>{new Date(date).toLocaleDateString('en-US', { 

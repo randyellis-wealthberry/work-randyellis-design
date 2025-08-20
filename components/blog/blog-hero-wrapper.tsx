@@ -29,7 +29,7 @@ export function BlogHeroWrapper(props: BlogHeroWrapperProps) {
 
   return (
     <motion.div
-      className="mx-auto max-w-5xl space-y-16 px-4"
+      className="mx-auto max-w-5xl space-y-16 px-4 mb-16"
       variants={VARIANTS_CONTAINER}
       initial="hidden"
       animate="visible"
