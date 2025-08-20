@@ -85,6 +85,18 @@ export const OptimizedLazyImage = forwardRef<
         ? src.replace(/\.(jpg|jpeg|png)$/i, ".webp")
         : src;
 
+    // Performance monitoring (use isInView and isLoaded for debugging)
+    useEffect(() => {
+      if (process.env.NODE_ENV === "development") {
+        console.debug(`Image lazy loading state:`, {
+          src: optimizedSrc,
+          isInView,
+          isLoaded,
+          shouldLoad: canStartLoading,
+        });
+      }
+    }, [isInView, isLoaded, canStartLoading, optimizedSrc]);
+
     // Progressive quality based on connection
     const adaptiveQuality =
       connectionInfo.effectiveType === "4g"
@@ -117,7 +129,7 @@ export const OptimizedLazyImage = forwardRef<
       onLoad?.();
     };
 
-    const handleImageError = (error: any) => {
+    const handleImageError = () => {
       const err = new Error(`Failed to load image: ${src}`);
       setImageError(err);
       onError?.(err);

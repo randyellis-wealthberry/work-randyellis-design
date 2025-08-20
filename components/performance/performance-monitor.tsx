@@ -24,9 +24,6 @@ interface NavigatorWithConnection extends Navigator {
   webkitConnection?: Connection;
 }
 
-interface WindowWithGtag extends Window {
-  gtag?: (command: string, eventName: string, parameters: Record<string, unknown>) => void;
-}
 
 export function PerformanceMonitor() {
   const metricsRef = useRef<PerformanceMetrics>({
@@ -119,8 +116,8 @@ export function PerformanceMonitor() {
         console.groupEnd();
 
         // Send to analytics (optional)
-        if (typeof window !== "undefined" && (window as WindowWithGtag).gtag) {
-          (window as WindowWithGtag).gtag("event", "lazy_loading_performance", {
+        if (typeof window !== "undefined" && typeof window.gtag === "function") {
+          window.gtag("event", "lazy_loading_performance", {
             event_category: "Performance",
             connection_type: metrics.connectionType,
             lazy_load_count: metrics.lazyLoadCount,

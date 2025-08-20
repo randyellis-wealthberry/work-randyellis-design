@@ -55,21 +55,25 @@ export function BlogHero({
         <h1 className="mb-6 text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
           {title}
         </h1>
-        
+
         <p className="mx-auto max-w-2xl text-xl leading-relaxed text-zinc-600 dark:text-zinc-400">
           {description}
         </p>
-        
+
         {/* Author and Date */}
         {(author || date) && (
-          <div className="flex items-center justify-center space-x-4 text-sm text-zinc-500 dark:text-zinc-400 pt-4">
+          <div className="flex items-center justify-center space-x-4 pt-4 text-sm text-zinc-500 dark:text-zinc-400">
             {author && <span>By {author}</span>}
             {author && date && <span>•</span>}
-            {date && <span>{new Date(date).toLocaleDateString('en-US', { 
-              year: 'numeric', 
-              month: 'long', 
-              day: 'numeric' 
-            })}</span>}
+            {date && (
+              <span>
+                {new Date(date).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </span>
+            )}
           </div>
         )}
       </div>

@@ -1,18 +1,6 @@
 // Analytics utility functions for both Google Analytics and Vercel Analytics
 import { track } from "@vercel/analytics";
 
-declare global {
-  interface Window {
-    gtag: (
-      command: "config" | "event" | "js" | "consent",
-      targetId: string | Date,
-      config?: {
-        [key: string]: unknown;
-      },
-    ) => void;
-    dataLayer: unknown[];
-  }
-}
 
 // Track custom events to both GA and Vercel Analytics
 export const trackEvent = (

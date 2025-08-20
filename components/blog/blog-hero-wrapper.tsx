@@ -23,13 +23,13 @@ const VARIANTS_CONTAINER = {
 
 export function BlogHeroWrapper(props: BlogHeroWrapperProps) {
   const { heroImage } = props;
-  
+
   // Only render if there's a hero image
   if (!heroImage) return null;
 
   return (
     <motion.div
-      className="mx-auto max-w-5xl space-y-16 mb-16"
+      className="mx-auto mb-16 max-w-5xl space-y-16"
       variants={VARIANTS_CONTAINER}
       initial="hidden"
       animate="visible"
