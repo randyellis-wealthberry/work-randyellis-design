@@ -39,7 +39,7 @@ export function BlogHero({
       animate="visible"
     >
       {/* Hero Banner Image - Matching METIS aspect ratio */}
-      <div className="relative mx-auto mb-8 aspect-[16/4.5] w-full max-w-4xl overflow-hidden rounded-2xl shadow-2xl">
+      <div className="relative mx-auto mb-8 aspect-[16/4.5] w-full max-w-5xl overflow-hidden rounded-2xl shadow-2xl">
         <Image
           src={heroImage}
           alt={heroAlt || title}
@@ -51,7 +51,7 @@ export function BlogHero({
       </div>
 
       {/* Title and Description */}
-      <div className="space-y-4">
+      <div className="space-y-4 px-4">
         <h1 className="mb-6 text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
           {title}
         </h1>
