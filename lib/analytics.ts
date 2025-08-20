@@ -1,7 +1,6 @@
 // Analytics utility functions for both Google Analytics and Vercel Analytics
 import { track } from "@vercel/analytics";
 
-
 // Track custom events to both GA and Vercel Analytics
 export const trackEvent = (
   action: string,

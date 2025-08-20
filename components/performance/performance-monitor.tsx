@@ -24,7 +24,6 @@ interface NavigatorWithConnection extends Navigator {
   webkitConnection?: Connection;
 }
 
-
 export function PerformanceMonitor() {
   const metricsRef = useRef<PerformanceMetrics>({
     lazyLoadCount: 0,
@@ -116,7 +115,10 @@ export function PerformanceMonitor() {
         console.groupEnd();
 
         // Send to analytics (optional)
-        if (typeof window !== "undefined" && typeof window.gtag === "function") {
+        if (
+          typeof window !== "undefined" &&
+          typeof window.gtag === "function"
+        ) {
           window.gtag("event", "lazy_loading_performance", {
             event_category: "Performance",
             connection_type: metrics.connectionType,

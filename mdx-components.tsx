@@ -1,6 +1,6 @@
 import type { MDXComponents } from "mdx/types";
 import { ComponentPropsWithoutRef } from "react";
-import { highlight } from "sugar-high";
+import { CodeBlock, InlineCode } from "@/components/ui/code-block";
 
 export function Cover({
   src,
@@ -38,9 +38,35 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         </figure>
       );
     },
+    // Handle fenced code blocks
+    pre: ({ children, ...props }: ComponentPropsWithoutRef<"pre">) => {
+      // Extract the code element and its props
+      if (children && typeof children === "object" && "props" in children) {
+        const codeElement = children as React.ReactElement<{
+          children?: string;
+          className?: string;
+        }>;
+        if (codeElement.props?.children) {
+          const code = codeElement.props.children;
+          const className = codeElement.props.className || "";
+          // Extract language from className (e.g., "language-javascript")
+          const language = className.replace(/language-/, "");
+
+          return <CodeBlock language={language}>{code}</CodeBlock>;
+        }
+      }
+      // Fallback for non-standard code blocks
+      return <pre {...props}>{children}</pre>;
+    },
+    // Handle inline code
     code: ({ children, ...props }: ComponentPropsWithoutRef<"code">) => {
-      const codeHTML = highlight(children as string);
-      return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />;
+      // Check if this is an inline code (not inside a pre tag)
+      const isInline = !props.className?.includes("language-");
+      if (isInline && typeof children === "string") {
+        return <InlineCode>{children}</InlineCode>;
+      }
+      // This is part of a code block, just return the code element
+      return <code {...props}>{children}</code>;
     },
   };
 }
