@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "motion/react";
-import Image from "next/image";
+import { GlowingHeroImage } from "@/components/ui/glowing-hero-image";
 
 interface BlogHeroProps {
   title: string;
@@ -38,17 +38,13 @@ export function BlogHero({
       initial="hidden"
       animate="visible"
     >
-      {/* Hero Banner Image - Matching METIS aspect ratio */}
-      <div className="relative mx-auto mb-8 aspect-[16/4.5] w-full max-w-5xl overflow-hidden rounded-2xl shadow-2xl">
-        <Image
-          src={heroImage}
-          alt={heroAlt || title}
-          fill
-          className="object-cover"
-          priority
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
-        />
-      </div>
+      {/* Hero Banner Image with Glow Effect */}
+      <GlowingHeroImage
+        src={heroImage}
+        alt={heroAlt || title}
+        priority
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+      />
 
       {/* Title and Description */}
       <div className="space-y-4 px-4">
