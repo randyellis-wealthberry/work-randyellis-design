@@ -721,9 +721,18 @@ export default function Personal() {
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
-        <ScrambleSectionTitle className="mb-3 text-lg font-medium">
-          Blog
-        </ScrambleSectionTitle>
+        <div className="mb-3 flex items-center justify-between">
+          <ScrambleSectionTitle className="text-lg font-medium">
+            Blog
+          </ScrambleSectionTitle>
+          <Link
+            href="/blog"
+            className="group relative inline-flex items-center text-sm text-zinc-600 transition-colors duration-200 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+          >
+            View archive
+            <span className="absolute bottom-0 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 transition-all duration-200 group-hover:max-w-full dark:bg-zinc-50"></span>
+          </Link>
+        </div>
         <div className="flex flex-col space-y-0">
           <AnimatedBackground
             enableHover
