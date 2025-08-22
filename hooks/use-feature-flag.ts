@@ -2,10 +2,10 @@
  * React hooks for feature flags
  */
 
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { getFlag, getFlags, type FeatureFlags } from '@/lib/feature-flags';
+import { useEffect, useState } from "react";
+import { getFlag, getFlags, type FeatureFlags } from "@/lib/feature-flags";
 
 /**
  * Hook to get a single feature flag value

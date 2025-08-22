@@ -95,7 +95,7 @@ describe("Grid Layout Constraints", () => {
 
     it("should validate responsive grid patterns", () => {
       const ResponsiveComponent = () => (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-2">
           <div>Item 1</div>
           <div>Item 2</div>
         </div>
@@ -113,7 +113,7 @@ describe("Grid Layout Constraints", () => {
   describe("Touch Target Size Validation", () => {
     it("should ensure minimum touch target size of 44px", () => {
       const TouchableComponent = () => (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <button className="min-h-[44px] min-w-[44px] p-4">Button 1</button>
           <button className="min-h-[44px] min-w-[44px] p-4">Button 2</button>
         </div>
@@ -132,12 +132,12 @@ describe("Grid Layout Constraints", () => {
   describe("Accessibility Compliance", () => {
     it("should maintain proper spacing for readability", () => {
       const ReadableComponent = () => (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
-          <div className="p-4 space-y-2">
+        <div className="grid grid-cols-1 gap-6 p-6 md:grid-cols-2">
+          <div className="space-y-2 p-4">
             <h3>Title</h3>
             <p>Content that should be easily readable</p>
           </div>
-          <div className="p-4 space-y-2">
+          <div className="space-y-2 p-4">
             <h3>Title 2</h3>
             <p>More content with proper spacing</p>
           </div>

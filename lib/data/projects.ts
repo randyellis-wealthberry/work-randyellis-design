@@ -1211,7 +1211,7 @@ export const PROJECTS: Project[] = [
     ],
     link: "https://github.com/randyellis-wealthberry/rambus-ui",
     githubLink: "https://github.com/randyellis-wealthberry/rambus-ui",
-    video: "/videos/projects/rambis-ui-demo.mp4",
+    video: "/projects/rambis-ui/rambis.mp4",
     thumbnail: "/projects/rambis-ui/hero-thumbnail.jpg",
     images: [
       "/projects/rambis-ui/component-showcase.jpg",

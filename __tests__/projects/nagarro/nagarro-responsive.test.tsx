@@ -83,13 +83,13 @@ const MockResponsiveNagarroLayout = () => {
         className="w-full px-4 md:px-6 lg:px-8"
         data-testid="responsive-header"
       >
-        <nav className="flex flex-col md:flex-row items-start md:items-center justify-between py-4">
-          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 md:mb-0 line-clamp-2 md:line-clamp-1">
+        <nav className="flex flex-col items-start justify-between py-4 md:flex-row md:items-center">
+          <h1 className="mb-4 line-clamp-2 text-2xl font-bold md:mb-0 md:line-clamp-1 md:text-3xl lg:text-4xl">
             {mockNagarroResponsiveData.title}
           </h1>
 
           {/* Responsive navigation menu */}
-          <div className="hidden md:flex space-x-6" data-testid="desktop-nav">
+          <div className="hidden space-x-6 md:flex" data-testid="desktop-nav">
             <a href="#overview" className="nav-link">
               Overview
             </a>
@@ -103,13 +103,13 @@ const MockResponsiveNagarroLayout = () => {
 
           {/* Mobile menu button */}
           <button
-            className="md:hidden flex items-center px-3 py-2 border rounded"
+            className="flex items-center rounded border px-3 py-2 md:hidden"
             data-testid="mobile-menu-toggle"
             aria-label="Toggle mobile navigation menu"
           >
             <span className="sr-only">Open main menu</span>
             <svg
-              className="w-6 h-6"
+              className="h-6 w-6"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -128,24 +128,24 @@ const MockResponsiveNagarroLayout = () => {
       <main className="w-full" data-testid="responsive-main">
         {/* Hero Section - Responsive Layout */}
         <section
-          className="px-4 md:px-6 lg:px-8 py-8 md:py-12 lg:py-16"
+          className="px-4 py-8 md:px-6 md:py-12 lg:px-8 lg:py-16"
           data-testid="hero-responsive"
         >
-          <div className="max-w-7xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          <div className="mx-auto max-w-7xl">
+            <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-12">
               {/* Hero Content */}
               <div className="order-2 lg:order-1" data-testid="hero-content">
-                <h2 className="text-xl md:text-2xl lg:text-3xl mb-4 leading-tight">
+                <h2 className="mb-4 text-xl leading-tight md:text-2xl lg:text-3xl">
                   {mockNagarroResponsiveData.hero.subtitle}
                 </h2>
 
                 {/* Client Info - Responsive Stack */}
                 <div
-                  className="space-y-2 md:space-y-3 mb-6"
+                  className="mb-6 space-y-2 md:space-y-3"
                   data-testid="client-info-responsive"
                 >
                   <div className="flex flex-col sm:flex-row sm:items-center">
-                    <span className="font-semibold text-sm md:text-base mr-2">
+                    <span className="mr-2 text-sm font-semibold md:text-base">
                       Client:
                     </span>
                     <span className="text-sm md:text-base">
@@ -156,7 +156,7 @@ const MockResponsiveNagarroLayout = () => {
 
                 {/* Platform Badges - Responsive Grid */}
                 <div className="mb-6" data-testid="platforms-responsive">
-                  <h3 className="font-semibold text-sm md:text-base mb-2">
+                  <h3 className="mb-2 text-sm font-semibold md:text-base">
                     Platforms:
                   </h3>
                   <div className="flex flex-wrap gap-2 md:gap-3">
@@ -164,7 +164,7 @@ const MockResponsiveNagarroLayout = () => {
                       (platform, index) => (
                         <span
                           key={index}
-                          className="px-2 py-1 md:px-3 md:py-2 bg-gray-100 rounded text-xs md:text-sm"
+                          className="rounded bg-gray-100 px-2 py-1 text-xs md:px-3 md:py-2 md:text-sm"
                           data-testid={`platform-badge-${index}`}
                         >
                           {platform}
@@ -185,7 +185,7 @@ const MockResponsiveNagarroLayout = () => {
                     src={mockNagarroResponsiveData.hero.heroVideo}
                     poster={mockNagarroResponsiveData.hero.heroImage}
                     controls
-                    className="w-full h-full object-cover rounded-lg"
+                    className="h-full w-full rounded-lg object-cover"
                     data-testid="responsive-video"
                   >
                     Your browser does not support the video tag.
@@ -198,32 +198,32 @@ const MockResponsiveNagarroLayout = () => {
 
         {/* Metrics Section - Responsive Grid */}
         <section
-          className="px-4 md:px-6 lg:px-8 py-8 md:py-12"
+          className="px-4 py-8 md:px-6 md:py-12 lg:px-8"
           data-testid="metrics-responsive"
         >
-          <div className="max-w-7xl mx-auto">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-8 md:mb-12 text-center">
+          <div className="mx-auto max-w-7xl">
+            <h2 className="mb-8 text-center text-2xl font-bold md:mb-12 md:text-3xl lg:text-4xl">
               Impact & Results
             </h2>
 
             {/* Responsive Metrics Grid */}
             <div
-              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8"
+              className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3 lg:gap-8"
               data-testid="metrics-grid-responsive"
             >
               {mockNagarroResponsiveData.metrics.map((metric, index) => (
                 <div
                   key={index}
-                  className="p-4 md:p-6 bg-white rounded-lg shadow-sm border hover:shadow-md transition-shadow duration-200"
+                  className="rounded-lg border bg-white p-4 shadow-sm transition-shadow duration-200 hover:shadow-md md:p-6"
                   data-testid={`responsive-metric-${index}`}
                 >
-                  <h3 className="font-semibold text-sm md:text-base mb-2 text-gray-700">
+                  <h3 className="mb-2 text-sm font-semibold text-gray-700 md:text-base">
                     {metric.label}
                   </h3>
-                  <div className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 text-blue-600">
+                  <div className="mb-2 text-2xl font-bold text-blue-600 md:text-3xl lg:text-4xl">
                     {metric.value}
                   </div>
-                  <p className="text-xs md:text-sm text-gray-600 leading-relaxed">
+                  <p className="text-xs leading-relaxed text-gray-600 md:text-sm">
                     {metric.description}
                   </p>
                 </div>
@@ -234,30 +234,30 @@ const MockResponsiveNagarroLayout = () => {
 
         {/* External Links - Responsive Layout */}
         <section
-          className="px-4 md:px-6 lg:px-8 py-8 md:py-12"
+          className="px-4 py-8 md:px-6 md:py-12 lg:px-8"
           data-testid="external-links-responsive"
         >
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-xl md:text-2xl lg:text-3xl font-bold mb-6 md:mb-8 text-center">
+          <div className="mx-auto max-w-4xl">
+            <h2 className="mb-6 text-center text-xl font-bold md:mb-8 md:text-2xl lg:text-3xl">
               Additional Resources
             </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
               <a
                 href="https://www.scribd.com/document/nagarro-design-leadership-case-study"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex flex-col sm:flex-row items-start sm:items-center p-4 md:p-6 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                className="flex flex-col items-start rounded-lg bg-gray-50 p-4 transition-colors hover:bg-gray-100 sm:flex-row sm:items-center md:p-6"
                 data-testid="scribd-link-responsive"
               >
-                <div className="flex-shrink-0 text-2xl mb-2 sm:mb-0 sm:mr-4">
+                <div className="mb-2 flex-shrink-0 text-2xl sm:mr-4 sm:mb-0">
                   📄
                 </div>
                 <div>
-                  <h3 className="font-semibold text-sm md:text-base mb-1">
+                  <h3 className="mb-1 text-sm font-semibold md:text-base">
                     Complete Case Study
                   </h3>
-                  <p className="text-xs md:text-sm text-gray-600">
+                  <p className="text-xs text-gray-600 md:text-sm">
                     View on Scribd
                   </p>
                 </div>
@@ -267,17 +267,17 @@ const MockResponsiveNagarroLayout = () => {
                 href="https://medium.com/@randyellis/nagarro-design-leadership-transformation"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex flex-col sm:flex-row items-start sm:items-center p-4 md:p-6 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                className="flex flex-col items-start rounded-lg bg-gray-50 p-4 transition-colors hover:bg-gray-100 sm:flex-row sm:items-center md:p-6"
                 data-testid="medium-link-responsive"
               >
-                <div className="flex-shrink-0 text-2xl mb-2 sm:mb-0 sm:mr-4">
+                <div className="mb-2 flex-shrink-0 text-2xl sm:mr-4 sm:mb-0">
                   ✍️
                 </div>
                 <div>
-                  <h3 className="font-semibold text-sm md:text-base mb-1">
+                  <h3 className="mb-1 text-sm font-semibold md:text-base">
                     Design Leadership Article
                   </h3>
-                  <p className="text-xs md:text-sm text-gray-600">
+                  <p className="text-xs text-gray-600 md:text-sm">
                     Read on Medium
                   </p>
                 </div>
@@ -289,12 +289,12 @@ const MockResponsiveNagarroLayout = () => {
 
       {/* Responsive Footer with Scroll to Top */}
       <footer
-        className="px-4 md:px-6 lg:px-8 py-6 md:py-8"
+        className="px-4 py-6 md:px-6 md:py-8 lg:px-8"
         data-testid="responsive-footer"
       >
-        <div className="max-w-7xl mx-auto flex justify-center">
+        <div className="mx-auto flex max-w-7xl justify-center">
           <button
-            className="px-4 py-2 md:px-6 md:py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm md:text-base"
+            className="rounded-lg bg-blue-600 px-4 py-2 text-sm text-white transition-colors hover:bg-blue-700 md:px-6 md:py-3 md:text-base"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             data-testid="scroll-to-top-responsive"
           >
@@ -684,13 +684,13 @@ describe("Nagarro Case Study - Responsive Design Tests", () => {
       render(<MockResponsiveNagarroLayout />);
 
       // Find the navigation section containing "Back to Projects"
-      const navigationSection = screen.getByText("Back to Projects").closest('section, [class*="border-t"]');
+      const navigationSection = screen
+        .getByText("Back to Projects")
+        .closest('section, [class*="border-t"]');
       expect(navigationSection).toBeInTheDocument();
 
       // On mobile, navigation section should have mb-16 (64px) bottom margin
-      expect(navigationSection).toHaveClass(
-        expect.stringContaining("mb-16")
-      );
+      expect(navigationSection).toHaveClass(expect.stringContaining("mb-16"));
     });
 
     it("should scale spacing appropriately on tablet viewport", () => {
@@ -698,11 +698,13 @@ describe("Nagarro Case Study - Responsive Design Tests", () => {
       mockViewport(768, 1024);
       render(<MockResponsiveNagarroLayout />);
 
-      const navigationSection = screen.getByText("Back to Projects").closest('section, [class*="border-t"]');
-      
+      const navigationSection = screen
+        .getByText("Back to Projects")
+        .closest('section, [class*="border-t"]');
+
       // Should have responsive bottom margin that scales up on tablet
       expect(navigationSection).toHaveClass(
-        expect.stringMatching(/mb-16.*sm:mb-20/)
+        expect.stringMatching(/mb-16.*sm:mb-20/),
       );
     });
 
@@ -711,42 +713,46 @@ describe("Nagarro Case Study - Responsive Design Tests", () => {
       mockViewport(1200, 800);
       render(<MockResponsiveNagarroLayout />);
 
-      const navigationSection = screen.getByText("Back to Projects").closest('section, [class*="border-t"]');
-      
+      const navigationSection = screen
+        .getByText("Back to Projects")
+        .closest('section, [class*="border-t"]');
+
       // Should have full responsive bottom margin classes
       expect(navigationSection).toHaveClass(
-        expect.stringMatching(/mb-16.*sm:mb-20.*lg:mb-24/)
+        expect.stringMatching(/mb-16.*sm:mb-20.*lg:mb-24/),
       );
     });
 
     it("should prevent visual overlap with footer content", () => {
       render(<MockResponsiveNagarroLayout />);
-      
-      const navigationSection = screen.getByText("Back to Projects").closest('section');
-      
+
+      const navigationSection = screen
+        .getByText("Back to Projects")
+        .closest("section");
+
       // Navigation section should have adequate bottom spacing to prevent footer overlap
       // The exact spacing should be at least mb-16 (64px) on mobile
-      expect(navigationSection).toHaveClass(
-        expect.stringContaining("mb-")
-      );
-      
+      expect(navigationSection).toHaveClass(expect.stringContaining("mb-"));
+
       // Should not have any conflicting negative margins or positioning
       expect(navigationSection).not.toHaveClass(
-        expect.stringMatching(/-mb-|absolute|fixed/)
+        expect.stringMatching(/-mb-|absolute|fixed/),
       );
     });
 
     it("should maintain consistent spacing with other page elements", () => {
       render(<MockResponsiveNagarroLayout />);
-      
-      const navigationSection = screen.getByText("Back to Projects").closest('section');
-      
+
+      const navigationSection = screen
+        .getByText("Back to Projects")
+        .closest("section");
+
       // Navigation should have both top and bottom spacing for visual balance
       expect(navigationSection).toHaveClass(
-        expect.stringMatching(/(pt-8|py-8)/) // Top spacing
+        expect.stringMatching(/(pt-8|py-8)/), // Top spacing
       );
       expect(navigationSection).toHaveClass(
-        expect.stringMatching(/mb-(16|20|24)/) // Bottom spacing
+        expect.stringMatching(/mb-(16|20|24)/), // Bottom spacing
       );
     });
   });
@@ -758,15 +764,15 @@ describe("Nagarro Case Study - Responsive Design Tests", () => {
       render(<MockResponsiveNagarroLayout />);
 
       // Find the breadcrumb navigation section
-      const breadcrumbSection = screen.getByText("Back to Projects").closest('div');
+      const breadcrumbSection = screen
+        .getByText("Back to Projects")
+        .closest("div");
       expect(breadcrumbSection).toBeInTheDocument();
 
       // On mobile, the breadcrumb container should have horizontal padding
       // to prevent buttons from touching viewport edges
       const breadcrumbContainer = breadcrumbSection?.parentElement;
-      expect(breadcrumbContainer).toHaveClass(
-        expect.stringContaining("px-4")
-      );
+      expect(breadcrumbContainer).toHaveClass(expect.stringContaining("px-4"));
     });
 
     it("should have adequate spacing on tablet and desktop viewports", () => {
@@ -774,23 +780,28 @@ describe("Nagarro Case Study - Responsive Design Tests", () => {
       mockViewport(768, 1024);
       render(<MockResponsiveNagarroLayout />);
 
-      const breadcrumbSection = screen.getByText("Back to Projects").closest('div');
+      const breadcrumbSection = screen
+        .getByText("Back to Projects")
+        .closest("div");
       const breadcrumbContainer = breadcrumbSection?.parentElement;
-      
+
       // Should maintain consistent padding with responsive design
       expect(breadcrumbContainer).toHaveClass(
-        expect.stringMatching(/px-(4|6|8)/)
+        expect.stringMatching(/px-(4|6|8)/),
       );
 
-      // Test desktop viewport  
+      // Test desktop viewport
       mockViewport(1200, 800);
       render(<MockResponsiveNagarroLayout />);
 
-      const desktopBreadcrumbSection = screen.getByText("Back to Projects").closest('div');
-      const desktopBreadcrumbContainer = desktopBreadcrumbSection?.parentElement;
-      
+      const desktopBreadcrumbSection = screen
+        .getByText("Back to Projects")
+        .closest("div");
+      const desktopBreadcrumbContainer =
+        desktopBreadcrumbSection?.parentElement;
+
       expect(desktopBreadcrumbContainer).toHaveClass(
-        expect.stringMatching(/px-(6|8)/)
+        expect.stringMatching(/px-(6|8)/),
       );
     });
 
@@ -798,22 +809,24 @@ describe("Nagarro Case Study - Responsive Design Tests", () => {
       // Mobile test
       mockViewport(375, 667);
       render(<MockResponsiveNagarroLayout />);
-      
+
       const backToProjectsLink = screen.getByText("Back to Projects");
       expect(backToProjectsLink).toHaveClass("px-6 py-3");
-      
+
       // The link should have proper spacing and not extend to viewport edges
-      expect(backToProjectsLink.closest('div')).not.toHaveClass("w-full");
+      expect(backToProjectsLink.closest("div")).not.toHaveClass("w-full");
     });
 
     it("should have consistent navigation spacing across different project pages", () => {
       render(<MockResponsiveNagarroLayout />);
-      
-      const navigationSection = screen.getByText("Back to Projects").closest('[data-testid*="navigation"], section');
-      
+
+      const navigationSection = screen
+        .getByText("Back to Projects")
+        .closest('[data-testid*="navigation"], section');
+
       // Navigation section should have consistent spacing patterns
       expect(navigationSection).toHaveClass(
-        expect.stringMatching(/(pt-8|py-8|border-t)/)
+        expect.stringMatching(/(pt-8|py-8|border-t)/),
       );
     });
   });

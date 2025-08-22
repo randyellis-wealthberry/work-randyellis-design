@@ -64,7 +64,11 @@ const WireframesSectionComponent = ({
       className={`bg-gradient-to-br from-gray-50 via-white to-gray-100 px-4 py-16 md:px-6 lg:px-8 dark:from-gray-950 dark:via-gray-900 dark:to-gray-800 ${className} `}
     >
       <div className="mx-auto max-w-6xl">
-        <InView once={true} margin="-10%" data-in-view={isInView}>
+        <InView
+          once={true}
+          viewOptions={{ margin: "-10%" }}
+          data-in-view={isInView}
+        >
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}

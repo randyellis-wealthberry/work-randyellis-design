@@ -5,6 +5,7 @@ import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { CometCard } from "@/components/ui/comet-card";
 import { CometCardDemo } from "@/components/ui/comet-card-demo";
+import { GlowingHeroImage } from "@/components/ui/glowing-hero-image";
 
 const VARIANTS_CONTAINER = {
   hidden: { opacity: 0 },
@@ -46,17 +47,14 @@ export default function MetisClient() {
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
-        {/* Hero Banner Image - Half Height */}
-        <div className="relative mx-auto mb-8 aspect-[16/4.5] w-full max-w-4xl overflow-hidden rounded-2xl shadow-2xl">
-          <Image
-            src="/images/projects/metis/hero-banner-metis.jpg"
-            alt="METIS:LAYER - A Business Strategy AI Agent for Digital Designers"
-            fill
-            className="object-cover"
-            priority
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
-          />
-        </div>
+        {/* Hero Banner Image with Glow Effect */}
+        <GlowingHeroImage
+          src="/images/projects/metis/hero-banner-metis.jpg"
+          alt="METIS:LAYER - A Business Strategy AI Agent for Digital Designers"
+          priority
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+          containerClassName="max-w-4xl"
+        />
 
         <h1 className="mb-6 text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
           METIS:LAYER: A Business Strategy AI Agent for Digital Designers

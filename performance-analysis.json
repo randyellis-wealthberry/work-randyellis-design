@@ -64,9 +64,7 @@
       "type": "code-splitting",
       "priority": "High",
       "description": "Large chunks should be split with dynamic imports",
-      "affectedFiles": [
-        "f58c171e-7d1f0f514a1b1f92.js"
-      ],
+      "affectedFiles": ["f58c171e-7d1f0f514a1b1f92.js"],
       "estimatedSavings": "255KB",
       "implementation": "Use React.lazy() and dynamic imports for heavy components"
     },
@@ -83,9 +81,7 @@
       "type": "threejs-optimization",
       "priority": "High",
       "description": "Three.js and related libraries should be dynamically imported",
-      "affectedFiles": [
-        "f58c171e-7d1f0f514a1b1f92.js"
-      ],
+      "affectedFiles": ["f58c171e-7d1f0f514a1b1f92.js"],
       "currentSize": "425KB",
       "targetSize": "150KB",
       "estimatedSavings": "275KB",

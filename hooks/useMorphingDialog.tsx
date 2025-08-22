@@ -10,7 +10,8 @@ export type MorphingDialogContextType = {
   triggerRef: React.RefObject<HTMLDivElement | null>;
 };
 
-export const MorphingDialogContext = createContext<MorphingDialogContextType | null>(null);
+export const MorphingDialogContext =
+  createContext<MorphingDialogContextType | null>(null);
 
 export function useMorphingDialog() {
   const context = useContext(MorphingDialogContext);

@@ -41,13 +41,21 @@ const mockInView = ({ children, ...props }: any) => (
 );
 
 // Create mocks for components that may not exist yet
-jest.doMock("../../components/motion-primitives/animated-group", () => ({
-  AnimatedGroup: mockAnimatedGroup,
-}), { virtual: true });
+jest.doMock(
+  "../../components/motion-primitives/animated-group",
+  () => ({
+    AnimatedGroup: mockAnimatedGroup,
+  }),
+  { virtual: true },
+);
 
-jest.doMock("../../components/motion-primitives/in-view", () => ({
-  InView: mockInView,
-}), { virtual: true });
+jest.doMock(
+  "../../components/motion-primitives/in-view",
+  () => ({
+    InView: mockInView,
+  }),
+  { virtual: true },
+);
 
 // Mock the Tilt component
 jest.mock("../../components/core/tilt", () => ({
@@ -85,7 +93,8 @@ const mockWireframeData = [
     id: "A0",
     title: "A0 (Splash Screen)",
     imagePath: "/projects/addvanced/A0-Addvanced Splash Screen.png",
-    altText: "Wireframe for Addvanced app splash screen showing logo and loading state",
+    altText:
+      "Wireframe for Addvanced app splash screen showing logo and loading state",
     features: [
       "Brand introduction with logo animation",
       "Loading progress indicator",
@@ -96,7 +105,8 @@ const mockWireframeData = [
     id: "A1",
     title: "A1 (Home)",
     imagePath: "/projects/addvanced/A1-Home.png",
-    altText: "Wireframe for Addvanced app home screen with navigation and content areas",
+    altText:
+      "Wireframe for Addvanced app home screen with navigation and content areas",
     features: [
       "Main navigation and search",
       "Featured content showcase",
@@ -107,7 +117,8 @@ const mockWireframeData = [
     id: "A17c",
     title: "A17c (Moved to Offer)",
     imagePath: "/projects/addvanced/A17c-Moved to Offer.png",
-    altText: "Wireframe showing offer moved state with confirmation and next steps",
+    altText:
+      "Wireframe showing offer moved state with confirmation and next steps",
     features: [
       "Offer status confirmation",
       "Next steps guidance",
@@ -118,7 +129,8 @@ const mockWireframeData = [
     id: "A5",
     title: "A5 (Connection Details)",
     imagePath: "/projects/addvanced/A5-Connection Details.png",
-    altText: "Wireframe for connection details screen with contact information and actions",
+    altText:
+      "Wireframe for connection details screen with contact information and actions",
     features: [
       "Contact information display",
       "Connection status indicators",
@@ -131,7 +143,7 @@ describe("WireframesSection Component", () => {
   // Reset mocks before each test
   beforeEach(() => {
     jest.clearAllMocks();
-    
+
     // Reset useInView mock to return true by default
     const { useInView } = require("motion/react");
     useInView.mockReturnValue([null, true]);
@@ -147,11 +159,11 @@ describe("WireframesSection Component", () => {
       render(<WireframesSection wireframes={mockWireframeData} />);
 
       expect(
-        screen.getByRole("heading", { name: /high-fidelity wireframes/i })
+        screen.getByRole("heading", { name: /high-fidelity wireframes/i }),
       ).toBeInTheDocument();
-      
+
       expect(
-        screen.getByText(/detailed wireframes showcasing key user flows/i)
+        screen.getByText(/detailed wireframes showcasing key user flows/i),
       ).toBeInTheDocument();
     });
 
@@ -211,7 +223,7 @@ describe("WireframesSection Component", () => {
       render(<WireframesSection wireframes={mockWireframeData} />);
 
       const wireframeCards = screen.getAllByTestId("wireframe-card");
-      
+
       wireframeCards.forEach((card, index) => {
         // Check for animation delay attributes or data attributes
         expect(card).toHaveAttribute("data-animation-delay");
@@ -224,12 +236,12 @@ describe("WireframesSection Component", () => {
   describe("InView Animation Behavior", () => {
     it("should trigger animations when component comes into view", () => {
       const { useInView } = require("motion/react");
-      
+
       // Initially not in view
       useInView.mockReturnValue([null, false]);
-      
+
       const { rerender } = render(
-        <WireframesSection wireframes={mockWireframeData} />
+        <WireframesSection wireframes={mockWireframeData} />,
       );
 
       const animatedGroup = screen.getByTestId("animated-group");
@@ -244,7 +256,7 @@ describe("WireframesSection Component", () => {
 
     it("should handle useInView hook with proper options", () => {
       const { useInView } = require("motion/react");
-      
+
       render(<WireframesSection wireframes={mockWireframeData} />);
 
       expect(useInView).toHaveBeenCalledWith(
@@ -252,7 +264,7 @@ describe("WireframesSection Component", () => {
         expect.objectContaining({
           once: true,
           margin: "-10%",
-        })
+        }),
       );
     });
   });
@@ -262,13 +274,13 @@ describe("WireframesSection Component", () => {
       render(<WireframesSection wireframes={mockWireframeData} />);
 
       const gridContainer = screen.getByTestId("wireframes-grid");
-      
+
       // Mobile: 1 column
       expect(gridContainer).toHaveClass("grid-cols-1");
-      
+
       // Tablet: 2 columns
       expect(gridContainer).toHaveClass("md:grid-cols-2");
-      
+
       // Desktop: 2x2 grid
       expect(gridContainer).toHaveClass("lg:grid-cols-2");
     });
@@ -304,7 +316,7 @@ describe("WireframesSection Component", () => {
       render(<WireframesSection wireframes={mockWireframeData} />);
 
       const images = screen.getAllByRole("img");
-      
+
       // Simulate image load
       await act(async () => {
         images.forEach((image) => {
@@ -314,7 +326,7 @@ describe("WireframesSection Component", () => {
 
       await waitFor(() => {
         expect(screen.queryAllByTestId("image-loading-skeleton")).toHaveLength(
-          0
+          0,
         );
       });
     });
@@ -323,7 +335,7 @@ describe("WireframesSection Component", () => {
       render(<WireframesSection wireframes={mockWireframeData} />);
 
       const images = screen.getAllByRole("img");
-      
+
       // Simulate image error
       await act(async () => {
         fireEvent.error(images[0]);
@@ -338,20 +350,23 @@ describe("WireframesSection Component", () => {
       render(<WireframesSection wireframes={mockWireframeData} />);
 
       const images = screen.getAllByRole("img");
-      
+
       // Simulate image error
       await act(async () => {
         fireEvent.error(images[0]);
       });
 
       const retryButton = await screen.findByRole("button", { name: /retry/i });
-      
+
       await act(async () => {
         await userEvent.click(retryButton);
       });
 
       // Should attempt to reload the image
-      expect(images[0]).toHaveAttribute("key", expect.stringContaining("retry"));
+      expect(images[0]).toHaveAttribute(
+        "key",
+        expect.stringContaining("retry"),
+      );
     });
   });
 
@@ -359,9 +374,7 @@ describe("WireframesSection Component", () => {
     it("should handle empty wireframes array gracefully", () => {
       render(<WireframesSection wireframes={[]} />);
 
-      expect(
-        screen.getByText(/no wireframes available/i)
-      ).toBeInTheDocument();
+      expect(screen.getByText(/no wireframes available/i)).toBeInTheDocument();
     });
 
     it("should handle missing image paths gracefully", () => {
@@ -395,7 +408,7 @@ describe("WireframesSection Component", () => {
   describe("Accessibility", () => {
     it("should have no accessibility violations", async () => {
       const { container } = render(
-        <WireframesSection wireframes={mockWireframeData} />
+        <WireframesSection wireframes={mockWireframeData} />,
       );
 
       const results = await axe(container);
@@ -407,13 +420,11 @@ describe("WireframesSection Component", () => {
 
       // Should use semantic section element
       expect(
-        screen.getByRole("region", { name: /wireframes/i })
+        screen.getByRole("region", { name: /wireframes/i }),
       ).toBeInTheDocument();
 
       // Should have proper heading hierarchy
-      expect(
-        screen.getByRole("heading", { level: 2 })
-      ).toBeInTheDocument();
+      expect(screen.getByRole("heading", { level: 2 })).toBeInTheDocument();
     });
 
     it("should provide proper ARIA labels for interactive elements", () => {
@@ -423,7 +434,7 @@ describe("WireframesSection Component", () => {
       wireframeCards.forEach((card, index) => {
         expect(card).toHaveAttribute(
           "aria-label",
-          expect.stringContaining(mockWireframeData[index].title)
+          expect.stringContaining(mockWireframeData[index].title),
         );
       });
     });
@@ -433,7 +444,7 @@ describe("WireframesSection Component", () => {
       render(<WireframesSection wireframes={mockWireframeData} />);
 
       const firstCard = screen.getAllByTestId("wireframe-card")[0];
-      
+
       await act(async () => {
         await user.tab();
       });
@@ -447,10 +458,10 @@ describe("WireframesSection Component", () => {
       mockWireframeData.forEach((wireframe) => {
         const image = screen.getByAltText(wireframe.altText);
         expect(image).toBeInTheDocument();
-        
+
         // Alt text should be descriptive (more than just the title)
         expect(wireframe.altText.length).toBeGreaterThan(
-          wireframe.title.length
+          wireframe.title.length,
         );
       });
     });
@@ -459,9 +470,7 @@ describe("WireframesSection Component", () => {
       render(<WireframesSection wireframes={mockWireframeData} />);
 
       // Check for screen reader friendly content
-      expect(
-        screen.getByText(/4 wireframes showcasing/i)
-      ).toBeInTheDocument();
+      expect(screen.getByText(/4 wireframes showcasing/i)).toBeInTheDocument();
     });
   });
 
@@ -477,7 +486,7 @@ describe("WireframesSection Component", () => {
 
     it("should not cause memory leaks during unmount", () => {
       const { unmount } = render(
-        <WireframesSection wireframes={mockWireframeData} />
+        <WireframesSection wireframes={mockWireframeData} />,
       );
 
       // Should unmount without errors
@@ -486,14 +495,14 @@ describe("WireframesSection Component", () => {
 
     it("should optimize re-renders with proper memoization", () => {
       const renderSpy = jest.fn();
-      
+
       const TestWrapper = ({ wireframes }: any) => {
         renderSpy();
         return <WireframesSection wireframes={wireframes} />;
       };
 
       const { rerender } = render(
-        <TestWrapper wireframes={mockWireframeData} />
+        <TestWrapper wireframes={mockWireframeData} />,
       );
 
       // Re-render with same props
@@ -525,7 +534,7 @@ describe("WireframesSection Component", () => {
       render(<WireframesSection wireframes={mockWireframeData} />);
 
       const firstCard = screen.getAllByTestId("wireframe-card")[0];
-      
+
       await act(async () => {
         await user.hover(firstCard);
       });
@@ -539,7 +548,7 @@ describe("WireframesSection Component", () => {
       render(<WireframesSection wireframes={mockWireframeData} />);
 
       const firstCard = screen.getAllByTestId("wireframe-card")[0];
-      
+
       await act(async () => {
         await user.tab();
       });
@@ -562,11 +571,11 @@ describe("WireframesSection Component", () => {
         <WireframesSection
           wireframes={mockWireframeData}
           className="custom-wireframes"
-        />
+        />,
       );
 
       expect(screen.getByTestId("wireframes-section")).toHaveClass(
-        "custom-wireframes"
+        "custom-wireframes",
       );
     });
 
@@ -580,7 +589,7 @@ describe("WireframesSection Component", () => {
         <WireframesSection
           wireframes={mockWireframeData}
           animationConfig={customAnimationConfig}
-        />
+        />,
       );
 
       const wireframeCards = screen.getAllByTestId("wireframe-card");

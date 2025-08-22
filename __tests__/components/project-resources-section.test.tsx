@@ -65,10 +65,14 @@ describe("ProjectResourcesSection", () => {
 
     it("should generate different images on each render", () => {
       const { rerender } = render(<ProjectResourcesSection />);
-      const initialImages = screen.getAllByRole("img").map((img) => (img as HTMLImageElement).src);
+      const initialImages = screen
+        .getAllByRole("img")
+        .map((img) => (img as HTMLImageElement).src);
 
       rerender(<ProjectResourcesSection />);
-      const newImages = screen.getAllByRole("img").map((img) => (img as HTMLImageElement).src);
+      const newImages = screen
+        .getAllByRole("img")
+        .map((img) => (img as HTMLImageElement).src);
 
       expect(initialImages).not.toEqual(newImages);
     });

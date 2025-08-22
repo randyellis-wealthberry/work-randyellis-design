@@ -339,7 +339,11 @@ describe("Nagarro Case Study Page - TDD Implementation", () => {
       const ogImages = Array.isArray(expectedMetadata.openGraph?.images)
         ? expectedMetadata.openGraph.images
         : [expectedMetadata.openGraph?.images];
-      expect(typeof ogImages[0] === 'object' && 'url' in ogImages[0] ? ogImages[0]?.url : ogImages[0]).toBe("/projects/nagarro/nagarro-hero.jpg");
+      expect(
+        typeof ogImages[0] === "object" && "url" in ogImages[0]
+          ? ogImages[0]?.url
+          : ogImages[0],
+      ).toBe("/projects/nagarro/nagarro-hero.jpg");
 
       // Validate Twitter Card metadata
       expect((expectedMetadata.twitter as any)?.card).toBe(
@@ -372,7 +376,11 @@ describe("Nagarro Case Study Page - TDD Implementation", () => {
       const ogImages2 = Array.isArray(expectedMetadata.openGraph?.images)
         ? expectedMetadata.openGraph.images
         : [expectedMetadata.openGraph?.images];
-      expect(typeof ogImages2[0] === 'object' && 'url' in ogImages2[0] ? ogImages2[0]?.url : ogImages2[0]).toMatch(/^\/projects\/nagarro\//);
+      expect(
+        typeof ogImages2[0] === "object" && "url" in ogImages2[0]
+          ? ogImages2[0]?.url
+          : ogImages2[0],
+      ).toMatch(/^\/projects\/nagarro\//);
     });
 
     it("validates external link performance attributes", () => {

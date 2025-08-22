@@ -87,7 +87,8 @@ export default function RambisClientPage() {
             </li>
             <li>
               <strong>Theming Complexity:</strong> Deep theme customization
-              required extensive configuration and wasn&apos;t developer-friendly
+              required extensive configuration and wasn&apos;t
+              developer-friendly
             </li>
             <li>
               <strong>Performance Bottlenecks:</strong> Some components had

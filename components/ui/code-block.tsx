@@ -2,8 +2,18 @@
 
 import { useState, useEffect } from "react";
 import { Check, Copy } from "lucide-react";
-import { highlight } from "sugar-high";
 import { cn } from "@/lib/utils";
+
+// Dynamic import function for sugar-high
+const getHighlighter = async () => {
+  try {
+    const { highlight } = await import("sugar-high");
+    return highlight;
+  } catch (error) {
+    console.warn("Failed to load sugar-high:", error);
+    return null;
+  }
+};
 
 interface CodeBlockProps {
   children: string;
@@ -37,8 +47,23 @@ export function CodeBlock({ children, language, className }: CodeBlockProps) {
     }
   };
 
-  // Get highlighted code HTML
-  const codeHTML = highlight(children);
+  // Get highlighted code HTML with dynamic import
+  const [codeHTML, setCodeHTML] = useState(children);
+
+  useEffect(() => {
+    const highlightCode = async () => {
+      const highlighter = await getHighlighter();
+      if (highlighter) {
+        try {
+          setCodeHTML(highlighter(children));
+        } catch (error) {
+          console.warn("Sugar-high highlighting failed:", error);
+          setCodeHTML(children);
+        }
+      }
+    };
+    highlightCode();
+  }, [children]);
 
   if (!mounted) {
     // Return a simple pre/code block during SSR
@@ -94,7 +119,23 @@ export function CodeBlock({ children, language, className }: CodeBlockProps) {
 
 // Inline code component (for backtick code)
 export function InlineCode({ children }: { children: string }) {
-  const codeHTML = highlight(children);
+  const [codeHTML, setCodeHTML] = useState(children);
+
+  useEffect(() => {
+    const highlightCode = async () => {
+      const highlighter = await getHighlighter();
+      if (highlighter) {
+        try {
+          setCodeHTML(highlighter(children));
+        } catch (error) {
+          console.warn("Sugar-high highlighting failed:", error);
+          setCodeHTML(children);
+        }
+      }
+    };
+    highlightCode();
+  }, [children]);
+
   return (
     <code
       className="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800"

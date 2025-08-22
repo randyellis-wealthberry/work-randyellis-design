@@ -47,6 +47,7 @@ Client-server nonce coordination:
 ### Allowed Sources
 
 #### Script Sources (`script-src`)
+
 - `'self'` - Same origin scripts
 - `'nonce-{random}'` - Inline scripts with valid nonce
 - `vitals.vercel-insights.com` - Vercel Analytics
@@ -55,11 +56,13 @@ Client-server nonce coordination:
 - `'unsafe-eval'` - Only in development for hot reloading
 
 #### Style Sources (`style-src`)
+
 - `'self'` - Same origin stylesheets
 - `'unsafe-inline'` - Required for CSS-in-JS libraries
 - `fonts.googleapis.com` - Google Fonts CSS
 
 #### Image Sources (`img-src`)
+
 - `'self'` - Same origin images
 - `data:` - Data URLs for small images/icons
 - `blob:` - Blob URLs for generated content
@@ -69,6 +72,7 @@ Client-server nonce coordination:
 - `*.googletagmanager.com` - GTM images
 
 #### Connect Sources (`connect-src`)
+
 - `'self'` - Same origin API calls
 - `vitals.vercel-insights.com` - Vercel Analytics API
 - `*.google-analytics.com` - Analytics endpoints
@@ -76,11 +80,13 @@ Client-server nonce coordination:
 - `*.googletagmanager.com` - Tag Manager API
 
 #### Font Sources (`font-src`)
+
 - `'self'` - Same origin fonts
 - `data:` - Data URL fonts
 - `fonts.gstatic.com` - Google Fonts files
 
 #### Restricted Sources
+
 - `object-src 'none'` - No Flash, Java applets, etc.
 - `frame-ancestors 'none'` - Prevent embedding in frames
 - `base-uri 'self'` - Restrict base tag usage
@@ -103,11 +109,13 @@ Client-server nonce coordination:
 ### Environment Modes
 
 #### Development
+
 - **Policy**: Report-only mode (`Content-Security-Policy-Report-Only`)
 - **Eval**: Allowed for hot reloading
 - **Violations**: Logged to console
 
 #### Production
+
 - **Policy**: Enforcing mode (`Content-Security-Policy`)
 - **Eval**: Blocked for security
 - **Violations**: Logged and monitored
@@ -163,6 +171,7 @@ npm test -- __tests__/security/ --coverage
 ### Violation Monitoring
 
 CSP violations are automatically:
+
 - **Logged** with structured data
 - **Categorized** by severity
 - **Rate limited** to prevent spam
@@ -178,11 +187,13 @@ CSP violations are automatically:
 ### Common Violations
 
 Expected violations that can be ignored:
+
 - Browser extensions injecting scripts
 - Legitimate third-party widgets
 - Development tools in dev mode
 
 Concerning violations that need investigation:
+
 - Unknown script sources
 - Data URI script attempts
 - External object sources
@@ -209,6 +220,7 @@ Concerning violations that need investigation:
 ### Debug Mode
 
 To debug CSP issues:
+
 1. Check browser console for violation reports
 2. Review middleware logs for nonce generation
 3. Test with report-only mode first

@@ -58,7 +58,7 @@ bun add @rambis-ui/react @emotion/react
 ### Basic Usage
 
 ```jsx
-import { ChakraProvider, Button, Box } from '@rambis-ui/react'
+import { ChakraProvider, Button, Box } from "@rambis-ui/react";
 
 function App() {
   return (
@@ -69,7 +69,7 @@ function App() {
         </Button>
       </Box>
     </ChakraProvider>
-  )
+  );
 }
 ```
 
@@ -128,24 +128,31 @@ function App() {
 Rambis UI includes 50+ production-ready components:
 
 ### Layout
+
 - Box, Container, Grid, SimpleGrid, Stack, HStack, VStack
 
 ### Forms
+
 - Button, Input, Select, Textarea, Checkbox, Radio, Switch
 
 ### Data Display
+
 - Badge, Card, Table, List, Tag, Stat, Avatar
 
 ### Feedback
+
 - Alert, Toast, Progress, Skeleton, Spinner
 
 ### Overlay
+
 - Modal, Drawer, Popover, Tooltip, Menu
 
 ### Navigation
+
 - Breadcrumb, Tabs, Stepper, Pagination
 
 ### Media
+
 - Image, Icon, Avatar
 
 ## 🎨 Theming
@@ -153,35 +160,31 @@ Rambis UI includes 50+ production-ready components:
 Rambis UI features an enhanced theming system with better performance and more flexibility:
 
 ```jsx
-import { extendTheme, RambisProvider } from '@rambis-ui/react'
+import { extendTheme, RambisProvider } from "@rambis-ui/react";
 
 const theme = extendTheme({
   colors: {
     brand: {
-      50: '#e3f2fd',
-      500: '#2196f3',
-      900: '#0d47a1',
-    }
+      50: "#e3f2fd",
+      500: "#2196f3",
+      900: "#0d47a1",
+    },
   },
   components: {
     Button: {
       // Component-specific customizations
       variants: {
         solid: {
-          bg: 'brand.500',
-          color: 'white',
-        }
-      }
-    }
-  }
-})
+          bg: "brand.500",
+          color: "white",
+        },
+      },
+    },
+  },
+});
 
 function App() {
-  return (
-    <RambisProvider theme={theme}>
-      {/* Your app */}
-    </RambisProvider>
-  )
+  return <RambisProvider theme={theme}>{/* Your app */}</RambisProvider>;
 }
 ```
 
@@ -198,13 +201,13 @@ Built with modern best practices:
 
 ## 📊 Performance Comparison
 
-| Metric | Chakra UI v2 | Rambis UI | Improvement |
-|--------|--------------|-----------|-------------|
-| Bundle Size | 245kb | 147kb | **40% smaller** |
-| First Load | 1.2s | 0.8s | **33% faster** |
-| Tree-shaking | Partial | Full | **100% coverage** |
-| TypeScript | Good | Excellent | **Strict mode** |
-| Accessibility | 85% | 100% | **Perfect score** |
+| Metric        | Chakra UI v2 | Rambis UI | Improvement       |
+| ------------- | ------------ | --------- | ----------------- |
+| Bundle Size   | 245kb        | 147kb     | **40% smaller**   |
+| First Load    | 1.2s         | 0.8s      | **33% faster**    |
+| Tree-shaking  | Partial      | Full      | **100% coverage** |
+| TypeScript    | Good         | Excellent | **Strict mode**   |
+| Accessibility | 85%          | 100%      | **Perfect score** |
 
 ## 🤝 Contributing
 
@@ -234,18 +237,19 @@ MIT © [Randy Ellis](https://github.com/randyellis-wealthberry)
 Rambis UI is built upon the excellent foundation of [Chakra UI](https://github.com/chakra-ui/chakra-ui) created by [Segun Adebayo](https://github.com/segunadebayo) and the Chakra UI team. We're grateful for their pioneering work in React component libraries.
 
 **Key Contributors:**
+
 - Original Chakra UI architecture and design patterns
 - Community feedback and real-world usage insights
 - Open source ecosystem and best practices
 
 ## 🌟 Why Choose Rambis UI?
 
-> "Rambis UI takes everything we loved about Chakra UI and makes it faster, more accessible, and easier to use. The migration was seamless and the performance improvements were immediate." 
-> 
+> "Rambis UI takes everything we loved about Chakra UI and makes it faster, more accessible, and easier to use. The migration was seamless and the performance improvements were immediate."
+>
 > — **Sarah Mitchell**, Engineering Lead at TechStartup Inc.
 
 > "The enhanced TypeScript support and reduced bundle size made Rambis UI an easy choice for our enterprise application. Our developers love the improved DX."
-> 
+>
 > — **David Chen**, Senior Architect at Enterprise Corp.
 
 ---

@@ -18,23 +18,16 @@ export const useSpring = jest.fn((initialValue) => {
 });
 
 export const useTransform = jest.fn((spring, transform) => {
-  const mockValue = { ...mockMotionValue };
-  mockValue.get = jest.fn(() => {
-    try {
-      const value =
-        typeof spring === "object" && spring.get
-          ? spring.get()
-          : typeof spring === "number"
-            ? spring
-            : 0;
-      return transform && typeof transform === "function"
-        ? transform(value)
-        : value;
-    } catch (e) {
-      return 0; // Fallback for mock safety
-    }
-  });
-  return mockValue;
+  // For test environments, return the transformed value directly for rendering
+  if (typeof transform === "function") {
+    const value = typeof spring === "object" && spring.get 
+      ? spring.get() 
+      : typeof spring === "number" 
+        ? spring 
+        : 0;
+    return transform(value);
+  }
+  return typeof spring === "object" && spring.get ? spring.get() : spring || 0;
 });
 
 export const useMotionValue = jest.fn(() => ({ ...mockMotionValue }));
@@ -43,6 +36,13 @@ export const useAnimation = jest.fn(() => ({
   start: jest.fn(),
   stop: jest.fn(),
 }));
+
+export const useInView = jest.fn((ref, options) => {
+  // Return [ref, inView] tuple like the real hook
+  return true; // Default to true for tests
+});
+
+export const useIsomorphicLayoutEffect = jest.fn();
 
 // Create motion components for all HTML elements - simplified version
 const createMotionComponent = (element) => {
@@ -93,6 +93,10 @@ const createMotionComponent = (element) => {
         dragMomentum: ________________,
         layoutId: _________________,
         layout: __________________,
+        viewOptions: ___________________,
+        viewport: ____________________,
+        once: _____________________,
+        threshold: ______________________,
         ...domProps
       } = props;
 
@@ -102,6 +106,7 @@ const createMotionComponent = (element) => {
           ...domProps,
           style,
           ref,
+          className: domProps.className || "",
           "data-motion-component": element,
         },
         children,

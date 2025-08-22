@@ -26,9 +26,7 @@ describe("EchoDriveCaseStudy Page", () => {
       render(<EchoDriveCaseStudy />);
 
       const container = screen.getByTestId("echo-client-page").parentElement;
-      expect(container).toHaveClass(
-        "container mx-auto px-4 py-16 max-w-6xl",
-      );
+      expect(container).toHaveClass("container mx-auto px-4 py-16 max-w-6xl");
     });
 
     it("includes the client component", () => {
@@ -108,7 +106,11 @@ describe("EchoDriveCaseStudy Page", () => {
       const twitterImages = Array.isArray(metadata.twitter?.images)
         ? metadata.twitter.images
         : [metadata.twitter?.images];
-      expect(typeof ogImages[0] === 'object' && 'url' in ogImages[0] ? ogImages[0]?.url : ogImages[0]).toBe(expectedImagePath);
+      expect(
+        typeof ogImages[0] === "object" && "url" in ogImages[0]
+          ? ogImages[0]?.url
+          : ogImages[0],
+      ).toBe(expectedImagePath);
       expect(twitterImages[0]).toBe(expectedImagePath);
     });
 
@@ -135,7 +137,11 @@ describe("EchoDriveCaseStudy Page", () => {
         ? metadata.openGraph.images
         : [metadata.openGraph?.images];
       const ogImage = ogImages[0];
-      expect(typeof ogImage === 'object' && 'alt' in ogImage ? ogImage?.alt : undefined).toBe("EchoDrive AI-powered cloud storage interface");
+      expect(
+        typeof ogImage === "object" && "alt" in ogImage
+          ? ogImage?.alt
+          : undefined,
+      ).toBe("EchoDrive AI-powered cloud storage interface");
     });
   });
 
@@ -271,7 +277,10 @@ describe("EchoDriveCaseStudy Page", () => {
       const ogImages = Array.isArray(metadata.openGraph?.images)
         ? metadata.openGraph.images
         : [metadata.openGraph?.images];
-      const imagePath = typeof ogImages[0] === 'object' && 'url' in ogImages[0] ? ogImages[0]?.url : ogImages[0];
+      const imagePath =
+        typeof ogImages[0] === "object" && "url" in ogImages[0]
+          ? ogImages[0]?.url
+          : ogImages[0];
 
       // Should use project-specific path
       expect(imagePath).toBe("/projects/echo/img1.jpg");
@@ -285,12 +294,26 @@ describe("EchoDriveCaseStudy Page", () => {
       const ogImage = ogImages[0];
 
       // Should use standard OpenGraph dimensions
-      expect(typeof ogImage === 'object' && 'width' in ogImage ? ogImage?.width : undefined).toBe(1200);
-      expect(typeof ogImage === 'object' && 'height' in ogImage ? ogImage?.height : undefined).toBe(630);
+      expect(
+        typeof ogImage === "object" && "width" in ogImage
+          ? ogImage?.width
+          : undefined,
+      ).toBe(1200);
+      expect(
+        typeof ogImage === "object" && "height" in ogImage
+          ? ogImage?.height
+          : undefined,
+      ).toBe(630);
 
       // Should have proper aspect ratio (roughly 1.91:1)
-      const width = typeof ogImage === 'object' && 'width' in ogImage ? (ogImage?.width || 0) : 0;
-      const height = typeof ogImage === 'object' && 'height' in ogImage ? (ogImage?.height || 1) : 1;
+      const width =
+        typeof ogImage === "object" && "width" in ogImage
+          ? ogImage?.width || 0
+          : 0;
+      const height =
+        typeof ogImage === "object" && "height" in ogImage
+          ? ogImage?.height || 1
+          : 1;
       const aspectRatio = (Number(width) || 0) / (Number(height) || 1);
       expect(aspectRatio).toBeCloseTo(1.905, 2);
     });

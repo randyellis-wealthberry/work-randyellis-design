@@ -244,10 +244,7 @@
     {
       "name": "Error Handling & 404 Pages",
       "description": "Custom error pages with interactive elements and user-friendly error handling",
-      "files": [
-        "app/not-found.tsx",
-        "app/offline/page.tsx"
-      ]
+      "files": ["app/not-found.tsx", "app/offline/page.tsx"]
     }
   ]
 }

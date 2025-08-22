@@ -83,7 +83,7 @@ const SimplifiedNagarroAnimationComponent = ({
       {/* Interactive button with hover states */}
       <button
         data-testid="interactive-button"
-        className={shouldAnimate ? "hover:scale-105 transition-transform" : ""}
+        className={shouldAnimate ? "transition-transform hover:scale-105" : ""}
         data-animation-enabled={shouldAnimate}
         onClick={() => {}}
       >

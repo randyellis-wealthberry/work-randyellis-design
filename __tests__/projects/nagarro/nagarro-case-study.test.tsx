@@ -94,7 +94,7 @@ const MockNagarroCaseStudyLayout = ({
   data: typeof mockNagarroDataForCaseStudy;
 }) => {
   return (
-    <main role="main" className="w-full case-study-layout">
+    <main role="main" className="case-study-layout w-full">
       <div data-testid="case-study-container">
         {/* Hero Section */}
         <section data-testid="case-study-hero" className="hero-section">
@@ -277,9 +277,7 @@ describe("Nagarro Case Study Layout - TDD Component Tests", () => {
       render(<MockNagarroCaseStudyLayout data={mockNagarroDataForCaseStudy} />);
 
       expect(screen.getByRole("main")).toBeInTheDocument();
-      expect(screen.getByRole("main")).toHaveClass(
-        "w-full case-study-layout",
-      );
+      expect(screen.getByRole("main")).toHaveClass("w-full case-study-layout");
       expect(screen.getByTestId("case-study-container")).toBeInTheDocument();
     });
 

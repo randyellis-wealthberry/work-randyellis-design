@@ -35,5 +35,12 @@
     "jest.setup.ts",
     "jest-globals.d.ts"
   ],
-  "exclude": ["node_modules", "react-email-starter", "email-list", "claude-remotion-demo", "portfolio-feature-flags", "__tests__"]
+  "exclude": [
+    "node_modules",
+    "react-email-starter",
+    "email-list",
+    "claude-remotion-demo",
+    "portfolio-feature-flags",
+    "__tests__"
+  ]
 }

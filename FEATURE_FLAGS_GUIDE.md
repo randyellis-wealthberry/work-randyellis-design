@@ -7,11 +7,11 @@ This guide shows how to use feature flags in your portfolio project.
 ### 1. Basic Usage
 
 ```tsx
-import { useFeatureFlag } from '@/hooks/use-feature-flag';
+import { useFeatureFlag } from "@/hooks/use-feature-flag";
 
 function MyComponent() {
-  const showNewFeature = useFeatureFlag('experimentalAnimations');
-  
+  const showNewFeature = useFeatureFlag("experimentalAnimations");
+
   return showNewFeature ? <NewAnimation /> : <StandardAnimation />;
 }
 ```
@@ -19,11 +19,11 @@ function MyComponent() {
 ### 2. Multiple Flags
 
 ```tsx
-import { useFeatureFlags } from '@/hooks/use-feature-flag';
+import { useFeatureFlags } from "@/hooks/use-feature-flag";
 
 function Dashboard() {
   const flags = useFeatureFlags();
-  
+
   return (
     <div>
       {flags.newsletterEnabled && <Newsletter />}
@@ -61,15 +61,15 @@ function Dashboard() {
 
 ## 📋 Available Flags
 
-| Flag | Purpose | Default | Use Case |
-|------|---------|---------|----------|
-| `experimentalAnimations` | Test new animations | `false` | A/B testing |
-| `maintenanceMode` | Show maintenance page | `false` | Site updates |
-| `newProjectShowcase` | New project layout | `false` | Gradual rollout |
-| `newsletterEnabled` | Newsletter signup | `true` | Feature control |
-| `analyticsEnhanced` | Detailed tracking | `false` | Privacy compliance |
-| `betaFeatures` | Beta functionality | `false` | User testing |
-| `performanceMode` | Optimizations | `true` | Performance tuning |
+| Flag                     | Purpose               | Default | Use Case           |
+| ------------------------ | --------------------- | ------- | ------------------ |
+| `experimentalAnimations` | Test new animations   | `false` | A/B testing        |
+| `maintenanceMode`        | Show maintenance page | `false` | Site updates       |
+| `newProjectShowcase`     | New project layout    | `false` | Gradual rollout    |
+| `newsletterEnabled`      | Newsletter signup     | `true`  | Feature control    |
+| `analyticsEnhanced`      | Detailed tracking     | `false` | Privacy compliance |
+| `betaFeatures`           | Beta functionality    | `false` | User testing       |
+| `performanceMode`        | Optimizations         | `true`  | Performance tuning |
 
 ## 🧪 Testing Scenarios
 
@@ -139,20 +139,20 @@ NEXT_PUBLIC_MAINTENANCE_MODE=false
 Track flag usage in your analytics:
 
 ```tsx
-import { useFeatureFlag } from '@/hooks/use-feature-flag';
-import { trackEvent } from '@/lib/analytics';
+import { useFeatureFlag } from "@/hooks/use-feature-flag";
+import { trackEvent } from "@/lib/analytics";
 
 function TrackedComponent() {
-  const flagValue = useFeatureFlag('experimentalAnimations');
-  
+  const flagValue = useFeatureFlag("experimentalAnimations");
+
   useEffect(() => {
-    trackEvent('feature_flag_exposed', {
-      flag: 'experimentalAnimations',
+    trackEvent("feature_flag_exposed", {
+      flag: "experimentalAnimations",
       value: flagValue,
-      timestamp: Date.now()
+      timestamp: Date.now(),
     });
   }, [flagValue]);
-  
+
   return <div>...</div>;
 }
 ```
@@ -164,10 +164,10 @@ function TrackedComponent() {
 ```tsx
 // components/ui/newsletter-signup.tsx
 export function NewsletterSignup() {
-  const isEnabled = useFeatureFlag('newsletterEnabled');
-  
+  const isEnabled = useFeatureFlag("newsletterEnabled");
+
   if (!isEnabled) return null;
-  
+
   return <Newsletter />;
 }
 ```
@@ -177,17 +177,17 @@ export function NewsletterSignup() {
 ```tsx
 // components/projects.tsx
 export function ProjectShowcase() {
-  const useNewLayout = useFeatureFlag('newProjectShowcase');
-  const enhancedAnalytics = useFeatureFlag('analyticsEnhanced');
-  
+  const useNewLayout = useFeatureFlag("newProjectShowcase");
+  const enhancedAnalytics = useFeatureFlag("analyticsEnhanced");
+
   useEffect(() => {
     if (enhancedAnalytics) {
-      trackEvent('projects_viewed', {
-        layout: useNewLayout ? 'modern' : 'classic'
+      trackEvent("projects_viewed", {
+        layout: useNewLayout ? "modern" : "classic",
       });
     }
   }, [useNewLayout, enhancedAnalytics]);
-  
+
   return useNewLayout ? <ModernGrid /> : <ClassicList />;
 }
 ```
@@ -196,7 +196,7 @@ export function ProjectShowcase() {
 
 ```tsx
 // app/layout.tsx
-import { FLAGS } from '@/lib/feature-flags';
+import { FLAGS } from "@/lib/feature-flags";
 
 export default function RootLayout({ children }) {
   if (FLAGS.maintenanceMode) {
@@ -208,7 +208,7 @@ export default function RootLayout({ children }) {
       </html>
     );
   }
-  
+
   return (
     <html>
       <body>{children}</body>
@@ -230,21 +230,25 @@ export default function RootLayout({ children }) {
 ## 🔄 Migration Path
 
 ### Phase 1: Setup (✅ Complete)
+
 - Feature flag system implemented
 - Integration with components
 - Deployment scripts created
 
 ### Phase 2: Gradual Adoption
+
 - Add flags to more components
 - Test different flag combinations
 - Monitor performance impact
 
 ### Phase 3: Advanced Usage
+
 - Integrate with A/B testing
 - Add user-specific flags
 - Automate flag lifecycle
 
 ### Phase 4: Optimization
+
 - Remove unnecessary flags
 - Optimize performance
 - Document learnings

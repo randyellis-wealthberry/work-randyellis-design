@@ -11,29 +11,29 @@ function ProjectThumbnail({ project }: { project: (typeof PROJECTS)[0] }) {
   ) {
     return (
       <div
-        className="aspect-video w-full max-h-48 rounded-lg overflow-hidden cursor-pointer hover:opacity-90 transition-opacity duration-200"
+        className="aspect-video max-h-48 w-full cursor-pointer overflow-hidden rounded-lg transition-opacity duration-200 hover:opacity-90"
         data-testid="video-thumbnail"
       >
-        <video src={project.video} className="w-full h-full" />
+        <video src={project.video} className="h-full w-full" />
       </div>
     );
   }
 
   const thumbnailSrc =
     project.thumbnail || "/images/projects/placeholder-thumbnail.jpg";
-    
+
   return (
     <img
       src={thumbnailSrc}
       alt={project.name}
       data-testid="static-thumbnail"
-      className="aspect-video w-full max-h-48 object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity duration-200"
+      className="aspect-video max-h-48 w-full cursor-pointer rounded-lg object-cover transition-opacity duration-200 hover:opacity-90"
     />
   );
 }
 
 describe("Nagarro Project Thumbnail", () => {
-  const nagarroProject = PROJECTS.find(p => p.slug === "nagarro");
+  const nagarroProject = PROJECTS.find((p) => p.slug === "nagarro");
 
   beforeEach(() => {
     // Clear any previous DOM
@@ -62,13 +62,21 @@ describe("Nagarro Project Thumbnail", () => {
 
     // Thumbnail should have correct src
     if (thumbnailElement) {
-      expect(thumbnailElement).toHaveAttribute("src", "/projects/nagarro/nagarro-logo.png");
-      expect(thumbnailElement).toHaveAttribute("alt", "Design Leadership @ Nagarro");
+      expect(thumbnailElement).toHaveAttribute(
+        "src",
+        "/projects/nagarro/nagarro-logo.png",
+      );
+      expect(thumbnailElement).toHaveAttribute(
+        "alt",
+        "Design Leadership @ Nagarro",
+      );
     }
   });
 
   it("should have correct thumbnail path configured", () => {
-    expect(nagarroProject?.thumbnail).toBe("/projects/nagarro/nagarro-logo.png");
+    expect(nagarroProject?.thumbnail).toBe(
+      "/projects/nagarro/nagarro-logo.png",
+    );
   });
 
   it("should be marked as featured project", () => {
@@ -82,7 +90,7 @@ describe("Nagarro Project Thumbnail", () => {
 
     // This verifies the bug has been fixed - project has empty video string
     expect(nagarroProject.video).toBe("");
-    
+
     render(<ProjectThumbnail project={nagarroProject} />);
 
     // Should now correctly render thumbnail element instead of video

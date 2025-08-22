@@ -10,7 +10,9 @@ export type WebGLCapabilities = {
 };
 
 export function useWebGLRenderer() {
-  const [capabilities, setCapabilities] = useState<WebGLCapabilities | null>(null);
+  const [capabilities, setCapabilities] = useState<WebGLCapabilities | null>(
+    null,
+  );
   const [hasError, setHasError] = useState(false);
   const [isInView, setIsInView] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -20,9 +22,10 @@ export function useWebGLRenderer() {
   useEffect(() => {
     const detectCapabilities = (): WebGLCapabilities => {
       const canvas = document.createElement("canvas");
-      const gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+      const gl =
+        canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
       const gl2 = canvas.getContext("webgl2");
-      
+
       if (!gl || !(gl instanceof WebGLRenderingContext)) {
         return {
           hasWebGL: false,
@@ -34,7 +37,7 @@ export function useWebGLRenderer() {
 
       const maxTextureSize = gl.getParameter(gl.MAX_TEXTURE_SIZE);
       const renderer = gl.getParameter(gl.RENDERER);
-      const isLowPerformance = 
+      const isLowPerformance =
         /software|mesa|swiftshader/i.test(renderer as string) ||
         maxTextureSize < 4096 ||
         navigator.hardwareConcurrency < 4;
@@ -59,20 +62,28 @@ export function useWebGLRenderer() {
       ([entry]) => {
         const isIntersecting = entry.isIntersecting;
         setIsInView(isIntersecting);
-        
+
         // Performance optimization: reduce quality when scrolling quickly
         if (isIntersecting) {
-          const scrollSpeed = Math.abs(entry.boundingClientRect.top - (window.innerHeight / 2));
-          if (scrollSpeed > 200 && capabilities && !capabilities.isLowPerformance) {
+          const scrollSpeed = Math.abs(
+            entry.boundingClientRect.top - window.innerHeight / 2,
+          );
+          if (
+            scrollSpeed > 200 &&
+            capabilities &&
+            !capabilities.isLowPerformance
+          ) {
             // User is scrolling fast, temporarily reduce quality
-            console.debug('Fast scroll detected, temporarily reducing WebGL quality');
+            console.debug(
+              "Fast scroll detected, temporarily reducing WebGL quality",
+            );
           }
         }
       },
-      { 
+      {
         threshold: 0.1,
-        rootMargin: '100px' // Start loading before element comes into view
-      }
+        rootMargin: "100px", // Start loading before element comes into view
+      },
     );
 
     observer.observe(containerRef.current);
@@ -84,15 +95,15 @@ export function useWebGLRenderer() {
   const onFrame = useCallback(() => {
     const now = Date.now();
     const perf = performanceRef.current;
-    
+
     perf.frameCount++;
-    
+
     // Check FPS every second
     if (now - perf.lastTime > 1000) {
       const fps = perf.frameCount;
       perf.frameCount = 0;
       perf.lastTime = now;
-      
+
       // If FPS is too low, we might want to reduce quality
       if (fps < 30 && capabilities && !capabilities.isLowPerformance) {
         console.warn("Low FPS detected:", fps);
@@ -109,20 +120,23 @@ export function useWebGLRenderer() {
   const performanceSettings = useMemo(() => {
     const shouldRenderWebGL = capabilities?.hasWebGL && !hasError && isInView;
     const shouldUseLowQuality = capabilities?.isLowPerformance || hasError;
-    
+
     // Connection-aware quality adjustment
     const connection = (navigator as any).connection;
-    const isSlowConnection = connection && (
-      connection.effectiveType === 'slow-2g' || 
-      connection.effectiveType === '2g' ||
-      connection.saveData
-    );
-    
+    const isSlowConnection =
+      connection &&
+      (connection.effectiveType === "slow-2g" ||
+        connection.effectiveType === "2g" ||
+        connection.saveData);
+
     return {
       shouldRenderWebGL,
       shouldUseLowQuality: shouldUseLowQuality || isSlowConnection,
-      dpr: shouldUseLowQuality || isSlowConnection ? 1 : Math.min(2, window?.devicePixelRatio || 1),
-      antialias: !shouldUseLowQuality && !isSlowConnection
+      dpr:
+        shouldUseLowQuality || isSlowConnection
+          ? 1
+          : Math.min(2, window?.devicePixelRatio || 1),
+      antialias: !shouldUseLowQuality && !isSlowConnection,
     };
   }, [capabilities, hasError, isInView]);
 

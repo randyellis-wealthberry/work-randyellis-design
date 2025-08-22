@@ -159,7 +159,7 @@ const MetricCard: React.FC<MetricCardProps> = ({
           </div>
         )}
 
-        <div className="text-center relative">
+        <div className="relative text-center">
           <div
             className="metric-value"
             data-heartbeat={showHeartbeat}

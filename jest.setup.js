@@ -75,34 +75,38 @@ Object.defineProperty(window, "performance", {
 });
 
 // Mock Next.js server environment for CSP tests
-if (typeof global.Request === 'undefined') {
+if (typeof global.Request === "undefined") {
   global.Request = class MockRequest {
     constructor(input, init) {
-      this.url = typeof input === 'string' ? input : input.url;
-      this.method = init?.method || 'GET';
+      this.url = typeof input === "string" ? input : input.url;
+      this.method = init?.method || "GET";
       this.headers = new Map(Object.entries(init?.headers || {}));
       this.body = init?.body;
     }
   };
 }
 
-if (typeof global.Response === 'undefined') {
+if (typeof global.Response === "undefined") {
   global.Response = class MockResponse {
     constructor(body, init) {
       this.body = body;
       this.status = init?.status || 200;
       this.headers = new Map(Object.entries(init?.headers || {}));
       this.ok = (init?.status || 200) >= 200 && (init?.status || 200) < 300;
-      this.statusText = init?.statusText || 'OK';
+      this.statusText = init?.statusText || "OK";
       this.clone = jest.fn().mockReturnValue(this);
-      this.text = jest.fn().mockResolvedValue(body || '');
-      this.json = jest.fn().mockResolvedValue(typeof body === 'string' ? JSON.parse(body || '{}') : body);
+      this.text = jest.fn().mockResolvedValue(body || "");
+      this.json = jest
+        .fn()
+        .mockResolvedValue(
+          typeof body === "string" ? JSON.parse(body || "{}") : body,
+        );
     }
   };
 }
 
 // Mock Web Crypto API for nonce generation
-if (typeof global.crypto === 'undefined') {
+if (typeof global.crypto === "undefined") {
   global.crypto = {
     getRandomValues: (array) => {
       for (let i = 0; i < array.length; i++) {
@@ -111,12 +115,15 @@ if (typeof global.crypto === 'undefined') {
       return array;
     },
     randomUUID: () => {
-      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        const r = Math.random() * 16 | 0;
-        const v = c == 'x' ? r : (r & 0x3 | 0x8);
-        return v.toString(16);
-      });
-    }
+      return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+        /[xy]/g,
+        function (c) {
+          const r = (Math.random() * 16) | 0;
+          const v = c == "x" ? r : (r & 0x3) | 0x8;
+          return v.toString(16);
+        },
+      );
+    },
   };
 }
 
@@ -131,7 +138,7 @@ jest.mock("@/lib/security/csp-utils", () => {
       for (let i = 0; i < array.length; i++) {
         array[i] = Math.floor(Math.random() * 256);
       }
-      return Buffer.from(array).toString('base64');
+      return Buffer.from(array).toString("base64");
     }),
   };
 });
@@ -139,27 +146,39 @@ jest.mock("@/lib/security/csp-utils", () => {
 // Mock motion-primitives disclosure specifically
 jest.mock("@/components/motion-primitives/disclosure", () => {
   const React = require("react");
-  
+
   return {
     Disclosure: ({ children, open, onOpenChange }) => {
-      return React.createElement("div", { "data-testid": "disclosure" }, children);
+      return React.createElement(
+        "div",
+        { "data-testid": "disclosure" },
+        children,
+      );
     },
     DisclosureTrigger: ({ children }) => {
-      return React.createElement("div", { "data-testid": "disclosure-trigger" }, children);
+      return React.createElement(
+        "div",
+        { "data-testid": "disclosure-trigger" },
+        children,
+      );
     },
     DisclosureContent: ({ children }) => {
-      return React.createElement("div", { "data-testid": "disclosure-content" }, children);
+      return React.createElement(
+        "div",
+        { "data-testid": "disclosure-content" },
+        children,
+      );
     },
   };
 });
 
 // Mock Buffer for Node.js compatibility
-if (typeof global.Buffer === 'undefined') {
-  global.Buffer = require('buffer').Buffer;
+if (typeof global.Buffer === "undefined") {
+  global.Buffer = require("buffer").Buffer;
 }
 
 // Mock performance API
-if (typeof global.performance === 'undefined') {
+if (typeof global.performance === "undefined") {
   global.performance = {
     now: () => Date.now(),
   };

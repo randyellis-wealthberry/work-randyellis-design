@@ -108,7 +108,7 @@ const MockEchoClientPage = () => {
     <main
       id="main-content"
       role="main"
-      className="space-y-32 sm:space-y-24 relative"
+      className="relative space-y-32 sm:space-y-24"
     >
       {/* Skip Links */}
       <div className="sr-only focus-within:not-sr-only">
@@ -142,7 +142,7 @@ const MockEchoClientPage = () => {
       {/* Metrics Section */}
       <section id="metrics-section" aria-labelledby="metrics-heading">
         <h2 id="metrics-heading">Performance Metrics</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
           <button
             role="button"
             tabIndex={0}

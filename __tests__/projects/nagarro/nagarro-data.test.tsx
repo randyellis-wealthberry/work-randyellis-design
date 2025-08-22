@@ -384,10 +384,12 @@ describe("TDD: Nagarro Design Leadership Data Validation", () => {
       expect(typeof mockNagarroProject.processStory!).toBe("object");
 
       expect(mockNagarroProject.processStory!.background!).toBeDefined();
-      expect(typeof mockNagarroProject.processStory!.background!).toBe("string");
-      expect(mockNagarroProject.processStory!.background!.length).toBeGreaterThan(
-        100,
+      expect(typeof mockNagarroProject.processStory!.background!).toBe(
+        "string",
       );
+      expect(
+        mockNagarroProject.processStory!.background!.length,
+      ).toBeGreaterThan(100);
 
       expect(mockNagarroProject.processStory!.approach!).toBeDefined();
       expect(typeof mockNagarroProject.processStory!.approach!).toBe("string");
@@ -396,7 +398,9 @@ describe("TDD: Nagarro Design Leadership Data Validation", () => {
       );
 
       expect(mockNagarroProject.processStory!.methodology!).toBeDefined();
-      expect(typeof mockNagarroProject.processStory!.methodology!).toBe("string");
+      expect(typeof mockNagarroProject.processStory!.methodology!).toBe(
+        "string",
+      );
       expect(
         mockNagarroProject.processStory!.methodology!.length,
       ).toBeGreaterThan(100);
@@ -408,10 +412,12 @@ describe("TDD: Nagarro Design Leadership Data Validation", () => {
       );
 
       expect(mockNagarroProject.processStory!.reflection!).toBeDefined();
-      expect(typeof mockNagarroProject.processStory!.reflection!).toBe("string");
-      expect(mockNagarroProject.processStory!.reflection!.length).toBeGreaterThan(
-        100,
+      expect(typeof mockNagarroProject.processStory!.reflection!).toBe(
+        "string",
       );
+      expect(
+        mockNagarroProject.processStory!.reflection!.length,
+      ).toBeGreaterThan(100);
     });
 
     test("should have key insights array with meaningful content", () => {
@@ -468,8 +474,12 @@ describe("TDD: Nagarro Design Leadership Data Validation", () => {
       );
 
       expect(mockNagarroProject.overview!.teamMembers).toBeDefined();
-      expect(Array.isArray(mockNagarroProject.overview!.teamMembers)).toBe(true);
-      expect(mockNagarroProject.overview!.teamMembers.length).toBeGreaterThan(0);
+      expect(Array.isArray(mockNagarroProject.overview!.teamMembers)).toBe(
+        true,
+      );
+      expect(mockNagarroProject.overview!.teamMembers.length).toBeGreaterThan(
+        0,
+      );
 
       expect(mockNagarroProject.overview!.timelineDuration).toBeDefined();
       expect(typeof mockNagarroProject.overview!.timelineDuration).toBe(
@@ -496,7 +506,9 @@ describe("TDD: Nagarro Design Leadership Data Validation", () => {
       );
 
       expect(mockNagarroProject.constraints!.location).toBeDefined();
-      expect(Array.isArray(mockNagarroProject.constraints!.location)).toBe(true);
+      expect(Array.isArray(mockNagarroProject.constraints!.location)).toBe(
+        true,
+      );
     });
   });
 
@@ -558,9 +570,9 @@ describe("TDD: Nagarro Design Leadership Data Validation", () => {
       expect(mockNagarroProject.longDescription.length).toBeGreaterThan(200);
 
       // Each process story section should be substantial
-      expect(mockNagarroProject.processStory!.background!.length).toBeGreaterThan(
-        200,
-      );
+      expect(
+        mockNagarroProject.processStory!.background!.length,
+      ).toBeGreaterThan(200);
       expect(mockNagarroProject.processStory!.approach!.length).toBeGreaterThan(
         200,
       );

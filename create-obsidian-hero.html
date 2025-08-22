@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude + Obsidian Hero Image</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .node {
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            position: absolute;
+            animation: pulse 2s infinite;
+        }
+        .connection {
+            position: absolute;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.3);
+            transform-origin: left center;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body class="m-0 overflow-hidden p-0">
+    <!-- Hero Container: 1200x300 (4:1 ratio) -->
+    <div class="gradient-bg relative flex h-[300px] w-[1200px] items-center justify-center">
+        <!-- Background Network Visualization -->
+        <div class="absolute inset-0 opacity-30">
+            <!-- Network Nodes -->
+            <div class="node" style="top: 20%; left: 15%;"></div>
+            <div class="node" style="top: 40%; left: 25%;"></div>
+            <div class="node" style="top: 60%; left: 20%;"></div>
+            <div class="node" style="top: 30%; left: 45%;"></div>
+            <div class="node" style="top: 70%; left: 40%;"></div>
+            <div class="node" style="top: 25%; left: 70%;"></div>
+            <div class="node" style="top: 55%; left: 75%;"></div>
+            <div class="node" style="top: 80%; left: 85%;"></div>
+            
+            <!-- Connection Lines -->
+            <div class="connection" style="top: 20%; left: 15%; width: 120px; transform: rotate(25deg);"></div>
+            <div class="connection" style="top: 40%; left: 25%; width: 180px; transform: rotate(-15deg);"></div>
+            <div class="connection" style="top: 30%; left: 45%; width: 220px; transform: rotate(20deg);"></div>
+            <div class="connection" style="top: 55%; left: 75%; width: 100px; transform: rotate(45deg);"></div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="relative z-10 flex items-center space-x-8 px-8">
+            <!-- Claude Logo/Icon -->
+            <div class="floating">
+                <div class="flex h-24 w-24 items-center justify-center rounded-2xl bg-white/20 backdrop-blur-sm">
+                    <div class="text-3xl font-bold text-white">C</div>
+                </div>
+            </div>
+
+            <!-- Plus Icon -->
+            <div class="text-4xl font-light text-white/80">+</div>
+
+            <!-- Obsidian Logo/Icon -->
+            <div class="floating" style="animation-delay: -2s;">
+                <div class="flex h-24 w-24 items-center justify-center rounded-2xl bg-white/20 backdrop-blur-sm">
+                    <div class="h-8 w-8 rounded-lg bg-gradient-to-br from-purple-400 to-purple-600"></div>
+                </div>
+            </div>
+
+            <!-- Arrow -->
+            <div class="text-3xl text-white/80">→</div>
+
+            <!-- Main Title -->
+            <div class="text-center">
+                <h1 class="mb-2 text-5xl font-bold tracking-tight text-white">
+                    Ultimate Knowledge
+                </h1>
+                <h2 class="text-3xl font-light text-white/90">
+                    Management System
+                </h2>
+                <div class="mt-4 text-lg text-white/70">
+                    Claude Code + Obsidian Workflow
+                </div>
+            </div>
+        </div>
+
+        <!-- Decorative Elements -->
+        <div class="absolute top-4 right-4 h-16 w-16 rounded-full bg-white/10"></div>
+        <div class="absolute bottom-4 left-4 h-12 w-12 rounded-full bg-white/10"></div>
+        
+        <!-- Grid Overlay -->
+        <div class="absolute inset-0 opacity-5" style="background-image: radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px); background-size: 40px 40px;"></div>
+    </div>
+</body>
+</html>
