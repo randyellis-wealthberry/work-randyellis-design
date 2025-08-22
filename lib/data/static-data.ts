@@ -52,16 +52,14 @@ export const BLOG_POSTS: BlogPost[] = [
     uid: "blog-9",
   },
   {
-    title:
-      "How to Create Professional Videos with Claude Code: A Complete Guide to AI-Powered Video Generation Using Remotion and Manim",
+    title: "Creating Professional Videos with Claude Code",
     description:
       "A comprehensive guide to creating professional videos with Claude Code using Remotion and Manim.",
     link: "/blog/create-professional-videos-claude-code-guide",
     uid: "blog-8",
   },
   {
-    title:
-      "PROFITS, NOT PIXELS: The story of world's most expensive (yet, valuable?) cup of coffee",
+    title: "Profits, Not Pixels: Why Business Impact Matters",
     description:
       "How the design job market shifted from aesthetics to business impact and ROI.",
     link: "/blog/profits-not-pixels",

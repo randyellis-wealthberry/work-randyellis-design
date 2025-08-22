@@ -168,3 +168,41 @@
   --sh-property: #73daca;
   --sh-entity: #e0af68;
 }
+
+/* Code Block Styling */
+@layer components {
+  /* Override default prose code block styles */
+  .prose pre {
+    @apply bg-transparent dark:bg-transparent;
+    @apply p-0 m-0;
+    @apply border-0;
+  }
+
+  .prose pre code {
+    @apply bg-transparent dark:bg-transparent;
+    @apply text-sm;
+  }
+
+  /* Ensure inline code doesn't inherit block styles */
+  .prose code:not(pre code) {
+    @apply rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800;
+    @apply border-0;
+  }
+
+  /* Custom scrollbar for code blocks */
+  .prose pre::-webkit-scrollbar {
+    @apply h-2;
+  }
+
+  .prose pre::-webkit-scrollbar-track {
+    @apply bg-zinc-100 dark:bg-zinc-800;
+  }
+
+  .prose pre::-webkit-scrollbar-thumb {
+    @apply bg-zinc-300 dark:bg-zinc-600 rounded;
+  }
+
+  .prose pre::-webkit-scrollbar-thumb:hover {
+    @apply bg-zinc-400 dark:bg-zinc-500;
+  }
+}

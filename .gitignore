@@ -82,3 +82,25 @@ CLAUDE.md
 
 # Serena MCP files
 .serena/
+
+# Test Reports and Performance Analysis
+metis-performance-report.json
+metis-performance-report.md
+performance-analysis.json
+performance-summary.json
+performance-test.js
+simple-perf-test.js
+advanced-perf-test.js
+final-performance-summary.js
+
+# TestSprite files
+testsprite_tests/
+
+# Super Design files  
+.superdesign/
+
+# PWA fallback files
+public/fallback-*.js
+
+# Docker files (if not needed in repo)
+docker-compose.serena.yml

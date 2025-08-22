@@ -56,6 +56,9 @@ export const AnimatedWebGL = ({
       console.error("WebGL Error:", error);
     }
   };
+
+  // Use the error handler to prevent unused variable warning
+  void handleWebGLError;
   const {
     containerRef,
     capabilities,
