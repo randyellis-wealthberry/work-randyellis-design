@@ -3,15 +3,15 @@
  * Handles environment-aware metadata for SEO and social sharing
  */
 
-import type { Metadata } from 'next';
-import { getBaseUrl, createAbsoluteUrl } from './env';
+import type { Metadata } from "next";
+import { getBaseUrl, createAbsoluteUrl } from "./env";
 
 /**
  * Create base metadata configuration with dynamic URLs
  */
 export function createBaseMetadata(): Metadata {
   const baseUrl = getBaseUrl();
-  
+
   return {
     metadataBase: new URL(baseUrl),
     alternates: {
@@ -104,7 +104,7 @@ export function createBaseMetadata(): Metadata {
 export function createPageMetadata({
   title,
   description,
-  path = '',
+  path = "",
   image,
   keywords = [],
 }: {
@@ -114,9 +114,11 @@ export function createPageMetadata({
   image?: string;
   keywords?: string[];
 }): Metadata {
-  const baseUrl = getBaseUrl();
+  // const baseUrl = getBaseUrl(); // Currently unused
   const canonicalUrl = createAbsoluteUrl(path);
-  const ogImage = image ? createAbsoluteUrl(image) : createAbsoluteUrl("/randy-ellis-og-image.jpg");
+  const ogImage = image
+    ? createAbsoluteUrl(image)
+    : createAbsoluteUrl("/randy-ellis-og-image.jpg");
 
   return {
     title,
@@ -168,7 +170,9 @@ export function createArticleMetadata({
   image?: string;
 }): Metadata {
   const canonicalUrl = createAbsoluteUrl(path);
-  const ogImage = image ? createAbsoluteUrl(image) : createAbsoluteUrl("/randy-ellis-og-image.jpg");
+  const ogImage = image
+    ? createAbsoluteUrl(image)
+    : createAbsoluteUrl("/randy-ellis-og-image.jpg");
 
   return {
     title,

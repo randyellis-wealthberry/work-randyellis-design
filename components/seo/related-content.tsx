@@ -2,12 +2,18 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Clock, User } from "lucide-react";
 import { BLOG_POSTS } from "@/lib/data";
 import { PROJECTS } from "@/lib/data/projects";
-import { calculateReadTime } from "@/lib/utils/read-time";
+// import { calculateReadTime } from "@/lib/utils/read-time";
 
 export interface RelatedItem {
   title: string;
@@ -34,7 +40,7 @@ interface RelatedContentProps {
 export function RelatedContent({
   currentUrl,
   contentType,
-  tags = [],
+  // tags = [],
   category,
   maxItems = 3,
   showImages = true,
@@ -45,10 +51,12 @@ export function RelatedContent({
 
     if (contentType === "blog") {
       // Get related blog posts
-      const otherPosts = BLOG_POSTS.filter(post => !currentUrl.includes(post.link));
-      
+      const otherPosts = BLOG_POSTS.filter(
+        (post) => !currentUrl.includes(post.link),
+      );
+
       // Add blog posts
-      otherPosts.slice(0, 2).forEach(post => {
+      otherPosts.slice(0, 2).forEach((post) => {
         related.push({
           title: post.title,
           description: post.description,
@@ -60,10 +68,11 @@ export function RelatedContent({
 
       // Add related projects if there's space
       if (related.length < maxItems) {
-        const relatedProjects = PROJECTS.filter(project => project.featured)
-          .slice(0, maxItems - related.length);
-        
-        relatedProjects.forEach(project => {
+        const relatedProjects = PROJECTS.filter(
+          (project) => project.featured,
+        ).slice(0, maxItems - related.length);
+
+        relatedProjects.forEach((project) => {
           related.push({
             title: project.name,
             description: project.description,
@@ -76,18 +85,22 @@ export function RelatedContent({
       }
     } else if (contentType === "project") {
       // Get related projects
-      const otherProjects = PROJECTS.filter(project => 
-        !currentUrl.includes(project.slug)
+      const otherProjects = PROJECTS.filter(
+        (project) => !currentUrl.includes(project.slug),
       );
 
       // Prioritize by category match
-      const sameCategory = otherProjects.filter(p => p.category === category);
-      const otherCategories = otherProjects.filter(p => p.category !== category);
-      
-      const sortedProjects = [...sameCategory, ...otherCategories]
-        .slice(0, maxItems - 1); // Leave room for a blog post
+      const sameCategory = otherProjects.filter((p) => p.category === category);
+      const otherCategories = otherProjects.filter(
+        (p) => p.category !== category,
+      );
 
-      sortedProjects.forEach(project => {
+      const sortedProjects = [...sameCategory, ...otherCategories].slice(
+        0,
+        maxItems - 1,
+      ); // Leave room for a blog post
+
+      sortedProjects.forEach((project) => {
         related.push({
           title: project.name,
           description: project.description,
@@ -123,13 +136,20 @@ export function RelatedContent({
       <div className="space-y-2">
         <h2 className="text-2xl font-bold tracking-tight">Related Content</h2>
         <p className="text-muted-foreground">
-          Explore more {contentType === "blog" ? "articles and projects" : "projects and insights"} that might interest you.
+          Explore more{" "}
+          {contentType === "blog"
+            ? "articles and projects"
+            : "projects and insights"}{" "}
+          that might interest you.
         </p>
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {relatedItems.map((item, index) => (
-          <Card key={`${item.type}-${index}`} className="group h-full transition-all hover:shadow-lg">
+          <Card
+            key={`${item.type}-${index}`}
+            className="group h-full transition-all hover:shadow-lg"
+          >
             <Link href={item.url} className="block h-full">
               {showImages && item.image && (
                 <div className="relative aspect-video overflow-hidden rounded-t-lg">
@@ -142,53 +162,57 @@ export function RelatedContent({
                   />
                 </div>
               )}
-              
+
               <CardHeader className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <Badge 
+                  <Badge
                     variant={item.type === "blog" ? "default" : "secondary"}
                     className="w-fit"
                   >
                     {item.type === "blog" ? "Article" : "Project"}
                   </Badge>
-                  
+
                   {item.readTime && (
-                    <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                    <div className="text-muted-foreground flex items-center gap-1 text-xs">
                       <Clock className="h-3 w-3" />
                       {item.readTime} min read
                     </div>
                   )}
                 </div>
-                
-                <CardTitle className="line-clamp-2 group-hover:text-primary transition-colors">
+
+                <CardTitle className="group-hover:text-primary line-clamp-2 transition-colors">
                   {item.title}
                 </CardTitle>
               </CardHeader>
-              
+
               <CardContent className="space-y-3">
                 <CardDescription className="line-clamp-3">
                   {item.description}
                 </CardDescription>
-                
+
                 {item.tags && item.tags.length > 0 && (
                   <div className="flex flex-wrap gap-1">
                     {item.tags.slice(0, 3).map((tag, tagIndex) => (
-                      <Badge key={tagIndex} variant="outline" className="text-xs">
+                      <Badge
+                        key={tagIndex}
+                        variant="outline"
+                        className="text-xs"
+                      >
                         {tag}
                       </Badge>
                     ))}
                   </div>
                 )}
-                
+
                 <div className="flex items-center justify-between pt-2">
                   {item.author && (
-                    <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                    <div className="text-muted-foreground flex items-center gap-1 text-xs">
                       <User className="h-3 w-3" />
                       {item.author}
                     </div>
                   )}
-                  
-                  <div className="flex items-center gap-1 text-xs text-muted-foreground group-hover:text-primary transition-colors">
+
+                  <div className="text-muted-foreground group-hover:text-primary flex items-center gap-1 text-xs transition-colors">
                     Read more
                     <ExternalLink className="h-3 w-3" />
                   </div>
@@ -211,7 +235,8 @@ export function getContextualLinks(currentPath: string): RelatedItem[] {
     // On blog posts, suggest projects
     links.push({
       title: "View My Projects",
-      description: "Explore AI-powered product design projects with real business impact",
+      description:
+        "Explore AI-powered product design projects with real business impact",
       url: "/projects",
       type: "project",
     });
@@ -220,7 +245,7 @@ export function getContextualLinks(currentPath: string): RelatedItem[] {
     links.push({
       title: "Read My Blog",
       description: "AI design insights, tutorials, and real-world experiences",
-      url: "/blog", 
+      url: "/blog",
       type: "blog",
     });
   } else if (currentPath.includes("/about")) {

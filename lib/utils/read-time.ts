@@ -110,9 +110,9 @@ export function extractMDXMetadata(content: string): ArticleMetadata {
     Math.round(
       (wordCount / 1000) * 0.6 +
         (imageCount / 5) * 0.2 +
-        (codeBlockCount / 10) * 0.2
+        (codeBlockCount / 10) * 0.2,
     ),
-    10
+    10,
   );
 
   return {
@@ -131,13 +131,75 @@ export function extractMDXMetadata(content: string): ArticleMetadata {
  */
 export function extractKeywords(content: string, title: string): string[] {
   const commonWords = new Set([
-    "the", "a", "an", "and", "or", "but", "in", "on", "at", "to", "for", "of",
-    "with", "by", "from", "up", "about", "into", "through", "during", "before",
-    "after", "above", "below", "between", "among", "is", "are", "was", "were",
-    "be", "been", "being", "have", "has", "had", "do", "does", "did", "will",
-    "would", "could", "should", "may", "might", "can", "this", "that", "these",
-    "those", "i", "you", "he", "she", "it", "we", "they", "me", "him", "her",
-    "us", "them", "my", "your", "his", "her", "its", "our", "their"
+    "the",
+    "a",
+    "an",
+    "and",
+    "or",
+    "but",
+    "in",
+    "on",
+    "at",
+    "to",
+    "for",
+    "of",
+    "with",
+    "by",
+    "from",
+    "up",
+    "about",
+    "into",
+    "through",
+    "during",
+    "before",
+    "after",
+    "above",
+    "below",
+    "between",
+    "among",
+    "is",
+    "are",
+    "was",
+    "were",
+    "be",
+    "been",
+    "being",
+    "have",
+    "has",
+    "had",
+    "do",
+    "does",
+    "did",
+    "will",
+    "would",
+    "could",
+    "should",
+    "may",
+    "might",
+    "can",
+    "this",
+    "that",
+    "these",
+    "those",
+    "i",
+    "you",
+    "he",
+    "she",
+    "it",
+    "we",
+    "they",
+    "me",
+    "him",
+    "her",
+    "us",
+    "them",
+    "my",
+    "your",
+    "his",
+    "her",
+    "its",
+    "our",
+    "their",
   ]);
 
   // Extract words from title and content
@@ -145,13 +207,16 @@ export function extractKeywords(content: string, title: string): string[] {
   const words = text
     .replace(/[^\w\s]/g, " ")
     .split(/\s+/)
-    .filter(word => word.length > 3 && !commonWords.has(word));
+    .filter((word) => word.length > 3 && !commonWords.has(word));
 
   // Count word frequency
-  const wordCount = words.reduce((acc, word) => {
-    acc[word] = (acc[word] || 0) + 1;
-    return acc;
-  }, {} as Record<string, number>);
+  const wordCount = words.reduce(
+    (acc, word) => {
+      acc[word] = (acc[word] || 0) + 1;
+      return acc;
+    },
+    {} as Record<string, number>,
+  );
 
   // Return top keywords
   return Object.entries(wordCount)
@@ -170,7 +235,7 @@ export function extractKeywords(content: string, title: string): string[] {
 export function generateBlogPostMetadata(
   content: string,
   slug: string,
-  baseUrl: string = "https://work.randyellis.design"
+  baseUrl: string = "https://work.randyellis.design",
 ): BlogPostMetadata | null {
   // Extract frontmatter
   const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
@@ -181,14 +246,18 @@ export function generateBlogPostMetadata(
 
   // Parse frontmatter fields
   const titleMatch = frontmatter.match(/title:\s*["']?(.*?)["']?$/m);
-  const descriptionMatch = frontmatter.match(/description:\s*["']?(.*?)["']?$/m);
+  const descriptionMatch = frontmatter.match(
+    /description:\s*["']?(.*?)["']?$/m,
+  );
   const dateMatch = frontmatter.match(/date:\s*["']?(.*?)["']?$/m);
 
   if (!titleMatch || !descriptionMatch) return null;
 
   const title = titleMatch[1];
   const description = descriptionMatch[1];
-  const publishDate = dateMatch ? dateMatch[1] : new Date().toISOString().split('T')[0];
+  const publishDate = dateMatch
+    ? dateMatch[1]
+    : new Date().toISOString().split("T")[0];
 
   // Calculate reading time
   const readTime = calculateAdvancedReadTime(content, metadata);

@@ -39,28 +39,28 @@ export default function LayoutBlogPost({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  
+
   // Generate breadcrumb for blog posts
   const generateBlogBreadcrumbs = () => {
     if (pathname === "/blog") {
       return [{ label: "Blog", current: true }];
     }
-    
+
     // Extract blog post slug from pathname
     const slug = pathname.split("/blog/")[1];
     if (slug) {
       // Get blog post title from the slug (basic formatting)
       const title = slug
         .split("-")
-        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
         .join(" ");
-      
+
       return [
         { label: "Blog", href: "/blog" },
         { label: title, current: true },
       ];
     }
-    
+
     return [{ label: "Blog", current: true }];
   };
 
@@ -80,7 +80,7 @@ export default function LayoutBlogPost({
         <CopyButton />
         {children}
       </main>
-      
+
       {/* Related Content Section */}
       {pathname !== "/blog" && (
         <div className="not-prose mt-12 border-t pt-12">

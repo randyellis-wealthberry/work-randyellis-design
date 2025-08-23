@@ -116,7 +116,7 @@ export default async function RootLayout({
             </div>
 
             {/* PWA Components */}
-            {process.env.NODE_ENV !== 'production' && <PWAStatus />}
+            {process.env.NODE_ENV !== "production" && <PWAStatus />}
             <InstallPrompt />
             <ServiceWorkerUpdatePrompt />
             <ServiceWorkerRegister />

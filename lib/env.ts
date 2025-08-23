@@ -9,14 +9,14 @@ export interface EnvironmentConfig {
   isProduction: boolean;
   isDevelopment: boolean;
   isStaging: boolean;
-  environment: 'development' | 'staging' | 'production';
+  environment: "development" | "staging" | "production";
 }
 
 /**
  * Get the base URL for the current environment
  * Priority order:
  * 1. NEXT_PUBLIC_BASE_URL environment variable (manual override)
- * 2. Vercel URL (automatic on Vercel deployments)  
+ * 2. Vercel URL (automatic on Vercel deployments)
  * 3. Environment detection (localhost for dev, production domain for prod)
  */
 export function getBaseUrl(): string {
@@ -31,9 +31,12 @@ export function getBaseUrl(): string {
   }
 
   // Environment-based detection
-  if (typeof window !== 'undefined') {
+  if (typeof window !== "undefined") {
     // Client-side detection
-    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    if (
+      window.location.hostname === "localhost" ||
+      window.location.hostname === "127.0.0.1"
+    ) {
       return `${window.location.protocol}//${window.location.host}`;
     }
     return `${window.location.protocol}//${window.location.host}`;
@@ -42,18 +45,18 @@ export function getBaseUrl(): string {
   // Server-side detection
   const nodeEnv = process.env.NODE_ENV;
   const vercelEnv = process.env.NEXT_PUBLIC_VERCEL_ENV;
-  const port = process.env.PORT || '3000';
+  const port = process.env.PORT || "3000";
 
-  if (nodeEnv === 'development' || nodeEnv === 'test') {
+  if (nodeEnv === "development" || nodeEnv === "test") {
     return `http://localhost:${port}`;
   }
 
-  if (vercelEnv === 'preview') {
-    return 'https://work-randyellis-design-preview.vercel.app'; // Update with actual preview URL
+  if (vercelEnv === "preview") {
+    return "https://work-randyellis-design-preview.vercel.app"; // Update with actual preview URL
   }
 
   // Default to production domain
-  return 'https://work.randyellis.design';
+  return "https://work.randyellis.design";
 }
 
 /**
@@ -65,19 +68,27 @@ export function getEnvironmentConfig(): EnvironmentConfig {
   const vercelEnv = process.env.NEXT_PUBLIC_VERCEL_ENV;
 
   // Determine environment type
-  let environment: 'development' | 'staging' | 'production' = 'production';
-  
-  if (nodeEnv === 'development' || nodeEnv === 'test' || baseUrl.includes('localhost')) {
-    environment = 'development';
-  } else if (vercelEnv === 'preview' || baseUrl.includes('preview') || baseUrl.includes('staging')) {
-    environment = 'staging';
+  let environment: "development" | "staging" | "production" = "production";
+
+  if (
+    nodeEnv === "development" ||
+    nodeEnv === "test" ||
+    baseUrl.includes("localhost")
+  ) {
+    environment = "development";
+  } else if (
+    vercelEnv === "preview" ||
+    baseUrl.includes("preview") ||
+    baseUrl.includes("staging")
+  ) {
+    environment = "staging";
   }
 
   return {
     baseUrl,
-    isProduction: environment === 'production',
-    isDevelopment: environment === 'development',
-    isStaging: environment === 'staging',
+    isProduction: environment === "production",
+    isDevelopment: environment === "development",
+    isStaging: environment === "staging",
     environment,
   };
 }
@@ -85,16 +96,16 @@ export function getEnvironmentConfig(): EnvironmentConfig {
 /**
  * Create absolute URL from relative path
  */
-export function createAbsoluteUrl(path: string = ''): string {
+export function createAbsoluteUrl(path: string = ""): string {
   const baseUrl = getBaseUrl();
-  const cleanPath = path.startsWith('/') ? path : `/${path}`;
+  const cleanPath = path.startsWith("/") ? path : `/${path}`;
   return `${baseUrl}${cleanPath}`;
 }
 
 /**
  * Get canonical URL for a page (for SEO)
  */
-export function getCanonicalUrl(path: string = ''): string {
+export function getCanonicalUrl(path: string = ""): string {
   return createAbsoluteUrl(path);
 }
 
@@ -102,9 +113,9 @@ export function getCanonicalUrl(path: string = ''): string {
  * Development helper to log current environment configuration
  */
 export function logEnvironmentConfig(): void {
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV === "development") {
     const config = getEnvironmentConfig();
-    console.log('🌍 Environment Configuration:', {
+    console.log("🌍 Environment Configuration:", {
       baseUrl: config.baseUrl,
       environment: config.environment,
       NODE_ENV: process.env.NODE_ENV,
