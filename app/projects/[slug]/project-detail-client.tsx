@@ -167,7 +167,7 @@ export default function ProjectDetailClient({
       >
         {/* Breadcrumb Navigation */}
         <motion.div variants={VARIANTS_ITEM} transition={TRANSITION_ITEM}>
-          <BreadcrumbNav 
+          <BreadcrumbNav
             items={[
               { label: "Projects", href: "/projects" },
               { label: project.name, current: true },

@@ -1,4 +1,9 @@
+"use client";
+
 import Script from "next/script";
+import { useEffect } from "react";
+import { trackStructuredDataView } from "@/lib/analytics";
+import { createAbsoluteUrl } from "@/lib/env";
 
 // Breadcrumb structured data for navigation
 export function BreadcrumbStructuredData({
@@ -76,8 +81,8 @@ export function PersonStructuredData() {
     jobTitle: "AI Product Design Engineer",
     description:
       "Leading AI Product Design Engineer specializing in generative AI, design systems, and product leadership. Head of Product at Wealthberry Labs with 2.5M+ users impacted.",
-    url: "https://work.randyellis.design",
-    image: "https://work.randyellis.design/randy-ellis-profile.jpg",
+    url: createAbsoluteUrl(),
+    image: createAbsoluteUrl("/randy-ellis-profile.jpg"),
     sameAs: [
       "https://www.linkedin.com/in/iamrandyellis/",
       "https://github.com/ibelick",
@@ -207,14 +212,14 @@ export function WebsiteStructuredData() {
     name: "Randy Ellis - AI Product Design Engineer",
     description:
       "Portfolio of Randy Ellis, AI Product Design Engineer specializing in generative AI, design systems, and product leadership.",
-    url: "https://work.randyellis.design",
+    url: createAbsoluteUrl(),
     author: {
       "@type": "Person",
       name: "Randy Ellis",
     },
     potentialAction: {
       "@type": "SearchAction",
-      target: "https://work.randyellis.design/search?q={search_term_string}",
+      target: createAbsoluteUrl("/search?q={search_term_string}"),
       "query-input": "required name=search_term_string",
     },
   };
@@ -353,7 +358,7 @@ export function ArticleStructuredData({
     author: {
       "@type": "Person",
       name: "Randy Ellis",
-      url: "https://work.randyellis.design",
+      url: createAbsoluteUrl(),
       jobTitle: "AI Product Design Engineer",
       worksFor: {
         "@type": "Organization",
@@ -363,7 +368,7 @@ export function ArticleStructuredData({
     publisher: {
       "@type": "Person",
       name: "Randy Ellis",
-      url: "https://work.randyellis.design",
+      url: createAbsoluteUrl(),
     },
     datePublished: datePublished,
     dateModified: dateModified || datePublished,
@@ -430,7 +435,7 @@ export function CreativeWorkStructuredData({
     creator: {
       "@type": "Person",
       name: "Randy Ellis",
-      url: "https://work.randyellis.design",
+      url: createAbsoluteUrl(),
       jobTitle: "AI Product Design Engineer",
       worksFor: {
         "@type": "Organization",
@@ -494,20 +499,25 @@ export function CreativeWorkStructuredData({
 }
 
 export function LocalBusinessStructuredData() {
+  // Track structured data rendering
+  useEffect(() => {
+    trackStructuredDataView("LocalBusiness", "chicago-design-services");
+  }, []);
+
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     name: "Randy Ellis Design Services",
     description:
       "AI Product Design Engineering services specializing in generative AI implementation, design systems, and product leadership consulting in Chicago.",
-    url: "https://work.randyellis.design",
-    image: "https://work.randyellis.design/randy-ellis-profile.jpg",
+    url: createAbsoluteUrl(),
+    image: createAbsoluteUrl("/randy-ellis-profile.jpg"),
     telephone: "+1-XXX-XXX-XXXX", // Replace with actual number if available
     email: "contact@work.randyellis.design", // Replace with actual email
     founder: {
       "@type": "Person",
       name: "Randy Ellis",
-      url: "https://work.randyellis.design",
+      url: createAbsoluteUrl(),
       jobTitle: "AI Product Design Engineer",
     },
     address: {
@@ -531,7 +541,7 @@ export function LocalBusinessStructuredData() {
         name: "United States",
       },
       {
-        "@type": "Place", 
+        "@type": "Place",
         name: "Remote/Worldwide",
       },
     ],
@@ -563,7 +573,8 @@ export function LocalBusinessStructuredData() {
           itemOffered: {
             "@type": "Service",
             name: "AI Product Design Consulting",
-            description: "Strategic AI product design and implementation guidance",
+            description:
+              "Strategic AI product design and implementation guidance",
           },
           areaServed: "Worldwide",
         },

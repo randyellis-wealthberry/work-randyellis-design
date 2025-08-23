@@ -254,6 +254,474 @@ export const trackPageLoadTime = (loadTime: number, page: string) => {
   );
 };
 
+// === SEO ANALYTICS EVENTS ===
+
+// Track structured data rendering
+export const trackStructuredDataView = (
+  schemaType: string,
+  schemaId?: string,
+) => {
+  trackEvent(
+    "structured_data_view",
+    "seo",
+    schemaType,
+    undefined,
+    createProperties({
+      schema_type: schemaType,
+      schema_id: schemaId,
+    }),
+  );
+};
+
+// Track breadcrumb navigation clicks
+export const trackBreadcrumbClick = (
+  url: string,
+  label: string,
+  position?: number,
+) => {
+  trackEvent(
+    "breadcrumb_click",
+    "seo",
+    label,
+    undefined,
+    createProperties({
+      breadcrumb_url: url,
+      breadcrumb_position: position,
+    }),
+  );
+};
+
+// Track search engine referrals
+export const trackSearchEngineReferral = (
+  searchEngine: string,
+  searchQuery?: string,
+  landingPage?: string,
+) => {
+  trackEvent(
+    "search_engine_referral",
+    "seo",
+    searchEngine,
+    undefined,
+    createProperties({
+      search_engine: searchEngine,
+      search_query: searchQuery,
+      landing_page: landingPage,
+    }),
+  );
+};
+
+// Track meta tag engagement (social sharing)
+export const trackMetaTagEngagement = (
+  socialPlatform: string,
+  engagementType: string,
+  pageUrl?: string,
+) => {
+  trackEvent(
+    "meta_tag_engagement",
+    "seo",
+    socialPlatform,
+    undefined,
+    createProperties({
+      social_platform: socialPlatform,
+      engagement_type: engagementType,
+      page_url: pageUrl,
+    }),
+  );
+};
+
+// Track local business schema views
+export const trackLocalBusinessView = (
+  location: string,
+  businessType?: string,
+) => {
+  trackEvent(
+    "local_business_view",
+    "seo",
+    location,
+    undefined,
+    createProperties({
+      business_location: location,
+      business_type: businessType,
+    }),
+  );
+};
+
+// === BLOG ANALYTICS EVENTS ===
+
+// Track blog hero image views
+export const trackBlogHeroImageView = (blogSlug: string, imageAlt?: string) => {
+  trackEvent(
+    "blog_hero_image_view",
+    "blog_engagement",
+    blogSlug,
+    undefined,
+    createProperties({
+      blog_slug: blogSlug,
+      image_alt: imageAlt,
+    }),
+  );
+};
+
+// Track code block copy actions
+export const trackCodeBlockCopy = (
+  language: string,
+  blogSlug?: string,
+  lineCount?: number,
+) => {
+  trackEvent(
+    "code_block_copy",
+    "blog_engagement",
+    language,
+    undefined,
+    createProperties({
+      language: language,
+      blog_slug: blogSlug,
+      line_count: lineCount,
+    }),
+  );
+};
+
+// Track related article clicks
+export const trackRelatedArticleClick = (
+  relatedTitle: string,
+  relatedUrl: string,
+  sourceArticle?: string,
+  position?: number,
+) => {
+  trackEvent(
+    "related_article_click",
+    "blog_engagement",
+    relatedTitle,
+    undefined,
+    createProperties({
+      related_title: relatedTitle,
+      related_url: relatedUrl,
+      source_article: sourceArticle,
+      position: position,
+    }),
+  );
+};
+
+// Track granular reading progress
+export const trackReadingProgress = (
+  blogSlug: string,
+  progressPercentage: number,
+  timeSpent?: number,
+) => {
+  trackEvent(
+    "reading_progress",
+    "blog_engagement",
+    blogSlug,
+    progressPercentage,
+    createProperties({
+      blog_slug: blogSlug,
+      progress_percentage: progressPercentage,
+      time_spent: timeSpent,
+    }),
+  );
+};
+
+// Track blog search usage
+export const trackBlogSearchUsage = (
+  searchQuery: string,
+  resultsCount?: number,
+  hadResults?: boolean,
+) => {
+  trackEvent(
+    "blog_search_usage",
+    "blog_engagement",
+    searchQuery,
+    undefined,
+    createProperties({
+      search_query: searchQuery,
+      results_count: resultsCount,
+      had_results: hadResults,
+    }),
+  );
+};
+
+// Track blog comment interactions
+export const trackBlogCommentInteraction = (
+  interactionType: string,
+  blogSlug: string,
+  commentId?: string,
+) => {
+  trackEvent(
+    "blog_comment_interaction",
+    "blog_engagement",
+    interactionType,
+    undefined,
+    createProperties({
+      interaction_type: interactionType,
+      blog_slug: blogSlug,
+      comment_id: commentId,
+    }),
+  );
+};
+
+// === MOTION/ANIMATION ANALYTICS EVENTS ===
+
+// Track animation interactions
+export const trackAnimationInteraction = (
+  animationType: string,
+  interactionType: string,
+  pageUrl?: string,
+  duration?: number,
+) => {
+  trackEvent(
+    "animation_interaction",
+    "motion_engagement",
+    animationType,
+    duration,
+    createProperties({
+      animation_type: animationType,
+      interaction_type: interactionType,
+      page_url: pageUrl,
+      duration: duration,
+    }),
+  );
+};
+
+// Track magnetic hover effects
+export const trackMagneticHover = (
+  elementType: string,
+  distanceX?: number,
+  distanceY?: number,
+  duration?: number,
+) => {
+  trackEvent(
+    "magnetic_hover",
+    "motion_engagement",
+    elementType,
+    undefined,
+    createProperties({
+      element_type: elementType,
+      distance_x: distanceX,
+      distance_y: distanceY,
+      duration: duration,
+    }),
+  );
+};
+
+// Track scroll-based animation progress
+export const trackScrollProgress = (
+  pageUrl: string,
+  animationType?: string,
+  progressPercentage?: number,
+  sectionName?: string,
+) => {
+  trackEvent(
+    "scroll_progress",
+    "motion_engagement",
+    pageUrl,
+    undefined,
+    createProperties({
+      page_url: pageUrl,
+      animation_type: animationType,
+      progress_percentage: progressPercentage,
+      section_name: sectionName,
+    }),
+  );
+};
+
+// Track motion preference changes
+export const trackMotionPreference = (
+  preference: string,
+  isSystem?: boolean,
+  source?: string,
+) => {
+  trackEvent(
+    "motion_preference",
+    "motion_engagement",
+    preference,
+    undefined,
+    createProperties({
+      preference: preference,
+      is_system: isSystem,
+      source: source,
+    }),
+  );
+};
+
+// Track glow effect activations
+export const trackGlowEffectTrigger = (
+  elementId: string,
+  triggerType: string,
+  color?: string,
+  intensity?: number,
+) => {
+  trackEvent(
+    "glow_effect_trigger",
+    "motion_engagement",
+    elementId,
+    undefined,
+    createProperties({
+      element_id: elementId,
+      trigger_type: triggerType,
+      color: color,
+      intensity: intensity,
+    }),
+  );
+};
+
+// Track parallax scroll interactions
+export const trackParallaxScroll = (
+  elementType: string,
+  speedFactor: number,
+  scrollDistance?: number,
+  pageUrl?: string,
+) => {
+  trackEvent(
+    "parallax_scroll",
+    "motion_engagement",
+    elementType,
+    undefined,
+    createProperties({
+      element_type: elementType,
+      speed_factor: speedFactor,
+      scroll_distance: scrollDistance,
+      page_url: pageUrl,
+    }),
+  );
+};
+
+// === PWA ANALYTICS EVENTS ===
+
+// Track PWA install prompt display
+export const trackPWAInstallPrompt = (
+  eventType: string,
+  triggerSource?: string,
+  sessionVisitCount?: number,
+) => {
+  trackEvent(
+    "pwa_install_prompt",
+    "pwa_engagement",
+    eventType,
+    undefined,
+    createProperties({
+      event_type: eventType,
+      trigger_source: triggerSource,
+      session_visit_count: sessionVisitCount,
+    }),
+  );
+};
+
+// Track PWA installation success
+export const trackPWAInstallSuccess = (
+  outcome: string,
+  browser?: string,
+  platform?: string,
+) => {
+  trackEvent(
+    "pwa_install_success",
+    "pwa_engagement",
+    outcome,
+    undefined,
+    createProperties({
+      outcome: outcome,
+      browser: browser,
+      platform: platform,
+    }),
+  );
+};
+
+// Track offline usage
+export const trackOfflineUsage = (
+  pageUrl: string,
+  actionType?: string,
+  offlineDuration?: number,
+) => {
+  trackEvent(
+    "offline_usage",
+    "pwa_engagement",
+    pageUrl,
+    undefined,
+    createProperties({
+      page_url: pageUrl,
+      action_type: actionType,
+      offline_duration: offlineDuration,
+    }),
+  );
+};
+
+// Track service worker updates
+export const trackServiceWorkerUpdate = (
+  updateType: string,
+  version?: string,
+  activationMode?: string,
+) => {
+  trackEvent(
+    "service_worker_update",
+    "pwa_engagement",
+    updateType,
+    undefined,
+    createProperties({
+      update_type: updateType,
+      version: version,
+      activation_mode: activationMode,
+    }),
+  );
+};
+
+// Track push notification permissions
+export const trackPushNotificationPermission = (
+  permissionStatus: string,
+  requestSource?: string,
+  context?: string,
+) => {
+  trackEvent(
+    "push_notification_permission",
+    "pwa_engagement",
+    permissionStatus,
+    undefined,
+    createProperties({
+      permission_status: permissionStatus,
+      request_source: requestSource,
+      context: context,
+    }),
+  );
+};
+
+// Track PWA performance metrics
+export const trackPWAPerformance = (
+  metricType: string,
+  resource: string,
+  loadTime: number,
+  fromCache?: boolean,
+) => {
+  trackEvent(
+    "pwa_performance",
+    "pwa_engagement",
+    metricType,
+    loadTime,
+    createProperties({
+      metric_type: metricType,
+      resource: resource,
+      load_time: loadTime,
+      from_cache: fromCache,
+    }),
+  );
+};
+
+// Track PWA engagement
+export const trackPWAEngagement = (
+  engagementType: string,
+  launchMethod?: string,
+  sessionLength?: number,
+) => {
+  trackEvent(
+    "pwa_engagement",
+    "pwa_engagement",
+    engagementType,
+    undefined,
+    createProperties({
+      engagement_type: engagementType,
+      launch_method: launchMethod,
+      session_length: sessionLength,
+    }),
+  );
+};
+
 const analytics = {
   trackEvent,
   trackPageView,
@@ -278,6 +746,34 @@ const analytics = {
   trackNewsletterAttempt,
   trackScrollDepth,
   trackPageLoadTime,
+  // SEO tracking functions
+  trackStructuredDataView,
+  trackBreadcrumbClick,
+  trackSearchEngineReferral,
+  trackMetaTagEngagement,
+  trackLocalBusinessView,
+  // Blog tracking functions
+  trackBlogHeroImageView,
+  trackCodeBlockCopy,
+  trackRelatedArticleClick,
+  trackReadingProgress,
+  trackBlogSearchUsage,
+  trackBlogCommentInteraction,
+  // Motion/Animation tracking functions
+  trackAnimationInteraction,
+  trackMagneticHover,
+  trackScrollProgress,
+  trackMotionPreference,
+  trackGlowEffectTrigger,
+  trackParallaxScroll,
+  // PWA tracking functions
+  trackPWAInstallPrompt,
+  trackPWAInstallSuccess,
+  trackOfflineUsage,
+  trackServiceWorkerUpdate,
+  trackPushNotificationPermission,
+  trackPWAPerformance,
+  trackPWAEngagement,
 };
 
 export default analytics;
