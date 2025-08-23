@@ -23,6 +23,7 @@ import PWAStatus, {
 } from "@/components/pwa/pwa-status";
 import ServiceWorkerRegister from "./sw-register";
 import ResourceHints from "@/components/cdn/resource-hints";
+import { createBaseMetadata } from "@/lib/metadata";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -35,61 +36,7 @@ export const viewport: Viewport = {
   ],
 };
 
-export const metadata: Metadata = {
-  metadataBase: new URL("https://work.randyellis.design/"),
-  alternates: {
-    canonical: "/",
-  },
-  title: {
-    default:
-      "Randy Ellis - AI Product Design Engineer | Generative AI & Design Leadership",
-    template: "%s | Randy Ellis",
-  },
-  description:
-    "🚀 AI Product Design Engineer transforming ideas into reality. 2.5M+ users impacted, 6 design awards won. See how AI-powered design drives $50M in product value at Wealthberry Labs.",
-  keywords: [
-    "Randy Ellis",
-    "AI Product Design Engineer",
-    "Generative AI Designer",
-    "Product Design Leadership",
-    "AI Design Systems",
-    "Head of Product",
-    "Wealthberry Labs",
-    "Design Engineering",
-    "AI UX Research",
-    "Product Design Chicago",
-  ],
-  authors: [{ name: "Randy Ellis", url: "https://work.randyellis.design" }],
-  creator: "Randy Ellis",
-  publisher: "Randy Ellis",
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://work.randyellis.design/",
-    title: "Randy Ellis - AI Product Design Engineer",
-    description:
-      "🚀 AI Product Design Engineer with 2.5M+ users impacted, 6 design awards, and $50M in proven product value. Discover transformative AI-powered design solutions.",
-    siteName: "Randy Ellis Portfolio",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Randy Ellis - AI Product Design Engineer",
-    description:
-      "🚀 AI Product Design Engineer: 2.5M+ users impacted, 6 awards won, $50M value delivered. See transformative AI design in action.",
-    creator: "@randyellis",
-  },
-};
+export const metadata: Metadata = createBaseMetadata();
 
 const geist = Geist({
   variable: "--font-geist",

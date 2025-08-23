@@ -349,10 +349,7 @@ export const trackLocalBusinessView = (
 // === BLOG ANALYTICS EVENTS ===
 
 // Track blog hero image views
-export const trackBlogHeroImageView = (
-  blogSlug: string,
-  imageAlt?: string,
-) => {
+export const trackBlogHeroImageView = (blogSlug: string, imageAlt?: string) => {
   trackEvent(
     "blog_hero_image_view",
     "blog_engagement",

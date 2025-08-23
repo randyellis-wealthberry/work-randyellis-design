@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import ProjectsClient from "./projects-client";
 import { BreadcrumbStructuredData } from "@/components/seo/structured-data";
+import { createPageMetadata } from "@/lib/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "AI Product Design Projects - Randy Ellis Portfolio",
   description:
     "🎯 Proven AI design results: GrowIt hit 1M+ users & 4.8★ rating, AI Design System Generator saves 40+ hours/week. See real projects that deliver business impact.",
+  path: "/projects",
   keywords: [
     "AI Product Design Projects",
     "Randy Ellis Portfolio",
@@ -16,13 +18,7 @@ export const metadata: Metadata = {
     "Mobile App Design",
     "AI Design Tools",
   ],
-  openGraph: {
-    title: "AI Product Design Projects - Randy Ellis",
-    description:
-      "🎯 Real AI design impact: 1M+ users, 4.8★ ratings, 40+ hours saved weekly. Discover projects that prove AI-powered design delivers business results.",
-    url: "https://work.randyellis.design/projects",
-  },
-};
+});
 
 export default function ProjectsPage() {
   const breadcrumbItems = [
