@@ -38,6 +38,7 @@ import {
   extractVimeoId,
 } from "@/components/ui/vimeo-embed";
 import { AnimatedMetricCard } from "@/components/ui/animated-metric-card";
+import { GlobalRecommendations } from "@/components/ui/global-recommendations";
 import type { Project } from "../../data";
 import { trackProjectLiveDemo, trackProjectGithub } from "@/lib/analytics";
 
@@ -1040,6 +1041,18 @@ export default function ProjectDetailClient({
             </div>
           </motion.section>
         )}
+
+        {/* Global Recommendations */}
+        <motion.div variants={VARIANTS_ITEM} transition={TRANSITION_ITEM}>
+          <GlobalRecommendations
+            contentType="project"
+            currentSlug={project.slug}
+            showCaseStudies={true}
+            showArticles={true}
+            caseStudyTitle="More Case Studies"
+            articleTitle="Related Articles"
+          />
+        </motion.div>
 
         {/* CTA */}
         <motion.section

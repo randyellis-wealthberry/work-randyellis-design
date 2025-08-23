@@ -2,7 +2,8 @@
 import { TextMorph } from "@/components/ui/text-morph";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
 import { BreadcrumbNav } from "@/components/ui/breadcrumb-nav";
-import { RelatedContent } from "@/components/seo/related-content";
+// import { RelatedContent } from "@/components/seo/related-content";
+import { GlobalRecommendations } from "@/components/ui/global-recommendations";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
@@ -81,13 +82,16 @@ export default function LayoutBlogPost({
         {children}
       </main>
 
-      {/* Related Content Section */}
+      {/* Global Recommendations Section */}
       {pathname !== "/blog" && (
         <div className="not-prose mt-12 border-t pt-12">
-          <RelatedContent
-            currentUrl={pathname}
+          <GlobalRecommendations
             contentType="blog"
-            maxItems={3}
+            currentSlug={pathname.split("/blog/")[1] || ""}
+            showCaseStudies={true}
+            showArticles={true}
+            caseStudyTitle="Featured Case Studies"
+            articleTitle="More Articles"
             className="mb-20"
           />
         </div>

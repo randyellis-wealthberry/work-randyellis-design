@@ -585,6 +585,130 @@ export const trackParallaxScroll = (
   );
 };
 
+// === RECOMMENDATION ANALYTICS EVENTS ===
+
+// Track when recommendation sections are viewed/rendered
+export const trackRecommendationSectionView = (
+  sourcePageType: "project" | "blog",
+  sourceSlug: string,
+  sectionsShown: ("case_studies" | "articles")[],
+  caseStudyCount: number = 0,
+  articleCount: number = 0,
+) => {
+  trackEvent(
+    "recommendation_section_view",
+    "recommendation_engagement",
+    sourcePageType,
+    undefined,
+    createProperties({
+      source_page_type: sourcePageType,
+      source_slug: sourceSlug,
+      sections_shown: sectionsShown.join(","),
+      case_study_count: caseStudyCount,
+      article_count: articleCount,
+      recommendation_context: `${sourcePageType}_page`,
+    }),
+  );
+};
+
+// Track clicks on case study recommendation cards
+export const trackRecommendationCaseStudyClick = (
+  sourcePageType: "project" | "blog",
+  sourceSlug: string,
+  recommendedProjectSlug: string,
+  recommendedProjectName: string,
+  position: number,
+  recommendationContext?: string,
+) => {
+  trackEvent(
+    "recommendation_case_study_click",
+    "recommendation_engagement",
+    recommendedProjectName,
+    undefined,
+    createProperties({
+      source_page_type: sourcePageType,
+      source_slug: sourceSlug,
+      recommended_project_slug: recommendedProjectSlug,
+      recommended_project_name: recommendedProjectName,
+      position: position,
+      recommendation_context: recommendationContext || `${sourcePageType}_page`,
+    }),
+  );
+};
+
+// Track clicks on article recommendation cards
+export const trackRecommendationArticleClick = (
+  sourcePageType: "project" | "blog",
+  sourceSlug: string,
+  recommendedArticleSlug: string,
+  recommendedArticleTitle: string,
+  position: number,
+  recommendationContext?: string,
+) => {
+  trackEvent(
+    "recommendation_article_click",
+    "recommendation_engagement",
+    recommendedArticleTitle,
+    undefined,
+    createProperties({
+      source_page_type: sourcePageType,
+      source_slug: sourceSlug,
+      recommended_article_slug: recommendedArticleSlug,
+      recommended_article_title: recommendedArticleTitle,
+      position: position,
+      recommendation_context: recommendationContext || `${sourcePageType}_page`,
+    }),
+  );
+};
+
+// Track hover interactions with recommendation cards
+export const trackRecommendationCardHover = (
+  cardType: "case_study" | "article",
+  sourcePageType: "project" | "blog",
+  itemSlug: string,
+  itemName: string,
+  position: number,
+) => {
+  trackEvent(
+    "recommendation_card_hover",
+    "recommendation_engagement",
+    cardType,
+    undefined,
+    createProperties({
+      card_type: cardType,
+      source_page_type: sourcePageType,
+      item_slug: itemSlug,
+      item_name: itemName,
+      position: position,
+    }),
+  );
+};
+
+// Track recommendation performance by measuring conversion rate
+export const trackRecommendationConversion = (
+  sourcePageType: "project" | "blog",
+  sourceSlug: string,
+  targetType: "case_study" | "article",
+  targetSlug: string,
+  conversionType: "view" | "engagement" | "exit",
+  timeToConversion?: number,
+) => {
+  trackEvent(
+    "recommendation_conversion",
+    "recommendation_engagement",
+    conversionType,
+    timeToConversion,
+    createProperties({
+      source_page_type: sourcePageType,
+      source_slug: sourceSlug,
+      target_type: targetType,
+      target_slug: targetSlug,
+      conversion_type: conversionType,
+      time_to_conversion: timeToConversion,
+    }),
+  );
+};
+
 // === PWA ANALYTICS EVENTS ===
 
 // Track PWA install prompt display
@@ -774,6 +898,12 @@ const analytics = {
   trackPushNotificationPermission,
   trackPWAPerformance,
   trackPWAEngagement,
+  // Recommendation tracking functions
+  trackRecommendationSectionView,
+  trackRecommendationCaseStudyClick,
+  trackRecommendationArticleClick,
+  trackRecommendationCardHover,
+  trackRecommendationConversion,
 };
 
 export default analytics;
