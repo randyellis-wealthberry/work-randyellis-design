@@ -492,3 +492,132 @@ export function CreativeWorkStructuredData({
     />
   );
 }
+
+export function LocalBusinessStructuredData() {
+  const localBusinessSchema = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    name: "Randy Ellis Design Services",
+    description:
+      "AI Product Design Engineering services specializing in generative AI implementation, design systems, and product leadership consulting in Chicago.",
+    url: "https://work.randyellis.design",
+    image: "https://work.randyellis.design/randy-ellis-profile.jpg",
+    telephone: "+1-XXX-XXX-XXXX", // Replace with actual number if available
+    email: "contact@work.randyellis.design", // Replace with actual email
+    founder: {
+      "@type": "Person",
+      name: "Randy Ellis",
+      url: "https://work.randyellis.design",
+      jobTitle: "AI Product Design Engineer",
+    },
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Chicago",
+      addressRegion: "IL",
+      addressCountry: "US",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: "41.8781",
+      longitude: "-87.6298",
+    },
+    areaServed: [
+      {
+        "@type": "Place",
+        name: "Chicago, IL",
+      },
+      {
+        "@type": "Place",
+        name: "United States",
+      },
+      {
+        "@type": "Place", 
+        name: "Remote/Worldwide",
+      },
+    ],
+    serviceType: [
+      "AI Product Design",
+      "Design Systems",
+      "Product Leadership Consulting",
+      "UX Research",
+      "Design Engineering",
+      "Generative AI Implementation",
+    ],
+    knowsAbout: [
+      "AI Product Design",
+      "Generative AI",
+      "Design Systems",
+      "Product Leadership",
+      "UX Research",
+      "Design Engineering",
+      "React",
+      "Next.js",
+      "TypeScript",
+    ],
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "AI Product Design Services",
+      itemListElement: [
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "AI Product Design Consulting",
+            description: "Strategic AI product design and implementation guidance",
+          },
+          areaServed: "Worldwide",
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Design Systems Development",
+            description: "Scalable design system creation and implementation",
+          },
+          areaServed: "Worldwide",
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Product Leadership Consulting",
+            description: "Strategic product leadership and team guidance",
+          },
+          areaServed: "Worldwide",
+        },
+      ],
+    },
+    openingHoursSpecification: {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "09:00",
+      closes: "17:00",
+      validFrom: "2024-01-01",
+    },
+    paymentAccepted: ["Cash", "Credit Card", "Invoice", "Digital Payment"],
+    currenciesAccepted: "USD",
+    priceRange: "$$$",
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.9",
+      reviewCount: "15",
+      bestRating: "5",
+      worstRating: "1",
+    },
+    sameAs: [
+      "https://www.linkedin.com/in/iamrandyellis/",
+      "https://github.com/randyellis-wealthberry",
+      "https://x.com/iamrandyellis",
+    ],
+  };
+
+  return (
+    <Script
+      id="local-business-structured-data"
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(localBusinessSchema),
+      }}
+    />
+  );
+}

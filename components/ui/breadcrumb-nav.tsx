@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ChevronRight, Home } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { BreadcrumbStructuredData } from "@/components/seo/structured-data";
 
 interface BreadcrumbItem {
   label: string;
@@ -16,8 +17,23 @@ interface BreadcrumbNavProps {
 }
 
 export function BreadcrumbNav({ items, className }: BreadcrumbNavProps) {
+  // Prepare structured data items (include home + items)
+  const structuredDataItems = [
+    { name: "Home", url: "https://work.randyellis.design/" },
+    ...items
+      .filter((item) => item.href) // Only include items with href
+      .map((item) => ({
+        name: item.label,
+        url: item.href!.startsWith("http") 
+          ? item.href! 
+          : `https://work.randyellis.design${item.href}`,
+      })),
+  ];
+
   return (
-    <nav
+    <>
+      <BreadcrumbStructuredData items={structuredDataItems} />
+      <nav
       aria-label="Breadcrumb"
       className={cn(
         "mb-6 flex items-center space-x-1 text-sm text-zinc-500 dark:text-zinc-400",

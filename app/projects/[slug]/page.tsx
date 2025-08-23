@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { PROJECTS } from "@/lib/data/projects";
 import { CreativeWorkStructuredData } from "@/components/seo/structured-data";
+import { ProjectFAQStructuredData } from "@/components/seo/project-faq";
 import ProjectDetailClient from "./project-detail-client";
 
 export async function generateMetadata({
@@ -92,6 +93,7 @@ export default async function ProjectDetailPage({
         teamSize={project.teamSize}
         role={project.role}
       />
+      <ProjectFAQStructuredData projectSlug={project.slug} />
       <ProjectDetailClient
         project={project}
         relatedProjects={relatedProjects}

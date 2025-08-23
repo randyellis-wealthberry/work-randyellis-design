@@ -8,11 +8,11 @@ import { TextEffect } from "@/components/motion-primitives/text-effect";
 export const metadata: Metadata = {
   title: "Blog Archive - Randy Ellis",
   description:
-    "Explore insights, tutorials, and thoughts on design, development, and product strategy from Randy Ellis. A collection of articles covering UX design, frontend development, and business strategy.",
+    "📚 AI design insights from the trenches: Claude + Obsidian workflows, AI video creation with Remotion, and why profits beat pixels. Real-world tutorials that work.",
   openGraph: {
     title: "Blog Archive - Randy Ellis",
     description:
-      "Explore insights, tutorials, and thoughts on design, development, and product strategy.",
+      "📚 AI design insights: Claude workflows, Remotion video tutorials, and why profits beat pixels. Practical advice from 2.5M+ user impact.",
     type: "website",
     url: "https://work.randyellis.design/blog",
   },
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Blog Archive - Randy Ellis",
     description:
-      "Explore insights, tutorials, and thoughts on design, development, and product strategy.",
+      "📚 AI design insights: Claude workflows, video tutorials, profits over pixels. Real advice that works.",
   },
 };
 

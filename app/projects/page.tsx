@@ -5,7 +5,7 @@ import { BreadcrumbStructuredData } from "@/components/seo/structured-data";
 export const metadata: Metadata = {
   title: "AI Product Design Projects - Randy Ellis Portfolio",
   description:
-    "Explore Randy Ellis's AI-powered product design projects including GrowIt (100K+ users), AI Design System Generator, and innovative design engineering solutions.",
+    "🎯 Proven AI design results: GrowIt hit 1M+ users & 4.8★ rating, AI Design System Generator saves 40+ hours/week. See real projects that deliver business impact.",
   keywords: [
     "AI Product Design Projects",
     "Randy Ellis Portfolio",
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "AI Product Design Projects - Randy Ellis",
     description:
-      "Explore innovative AI-powered design projects with real impact: 100K+ users, 4.8★ ratings, and cutting-edge AI design tools.",
+      "🎯 Real AI design impact: 1M+ users, 4.8★ ratings, 40+ hours saved weekly. Discover projects that prove AI-powered design delivers business results.",
     url: "https://work.randyellis.design/projects",
   },
 };

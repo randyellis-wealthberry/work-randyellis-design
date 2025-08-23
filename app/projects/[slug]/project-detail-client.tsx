@@ -25,6 +25,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { ScrambleSectionTitle } from "@/components/ui/scramble-section-title";
+import { BreadcrumbNav } from "@/components/ui/breadcrumb-nav";
 import {
   AnimatedVideo,
   AnimatedImage,
@@ -164,6 +165,16 @@ export default function ProjectDetailClient({
         initial="hidden"
         animate="visible"
       >
+        {/* Breadcrumb Navigation */}
+        <motion.div variants={VARIANTS_ITEM} transition={TRANSITION_ITEM}>
+          <BreadcrumbNav 
+            items={[
+              { label: "Projects", href: "/projects" },
+              { label: project.name, current: true },
+            ]}
+          />
+        </motion.div>
+
         {/* Back Navigation */}
         <motion.div variants={VARIANTS_ITEM} transition={TRANSITION_ITEM}>
           <Button asChild variant="ghost" className="mb-4">

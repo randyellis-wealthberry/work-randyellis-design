@@ -13,6 +13,7 @@ import {
   ProfessionalServiceStructuredData,
   OrganizationStructuredData,
   FAQStructuredData,
+  LocalBusinessStructuredData,
 } from "@/components/seo/structured-data";
 import { getNonce } from "@/lib/security/nonce";
 import PWAProvider from "@/components/pwa/pwa-provider";
@@ -45,7 +46,7 @@ export const metadata: Metadata = {
     template: "%s | Randy Ellis",
   },
   description:
-    "Randy Ellis is a leading AI Product Design Engineer specializing in generative AI, design systems, and product leadership. Head of Product at Wealthberry Labs with 2.5M+ users impacted.",
+    "🚀 AI Product Design Engineer transforming ideas into reality. 2.5M+ users impacted, 6 design awards won. See how AI-powered design drives $50M in product value at Wealthberry Labs.",
   keywords: [
     "Randy Ellis",
     "AI Product Design Engineer",
@@ -78,14 +79,14 @@ export const metadata: Metadata = {
     url: "https://work.randyellis.design/",
     title: "Randy Ellis - AI Product Design Engineer",
     description:
-      "Leading AI Product Design Engineer specializing in generative AI, design systems, and product leadership. 2.5M+ users impacted.",
+      "🚀 AI Product Design Engineer with 2.5M+ users impacted, 6 design awards, and $50M in proven product value. Discover transformative AI-powered design solutions.",
     siteName: "Randy Ellis Portfolio",
   },
   twitter: {
     card: "summary_large_image",
     title: "Randy Ellis - AI Product Design Engineer",
     description:
-      "Leading AI Product Design Engineer specializing in generative AI, design systems, and product leadership.",
+      "🚀 AI Product Design Engineer: 2.5M+ users impacted, 6 awards won, $50M value delivered. See transformative AI design in action.",
     creator: "@randyellis",
   },
 };
@@ -144,6 +145,7 @@ export default async function RootLayout({
         <WebsiteStructuredData />
         <ProfessionalServiceStructuredData />
         <OrganizationStructuredData />
+        <LocalBusinessStructuredData />
         <FAQStructuredData />
       </head>
       <body
@@ -167,7 +169,7 @@ export default async function RootLayout({
             </div>
 
             {/* PWA Components */}
-            <PWAStatus />
+            {process.env.NODE_ENV !== 'production' && <PWAStatus />}
             <InstallPrompt />
             <ServiceWorkerUpdatePrompt />
             <ServiceWorkerRegister />
