@@ -1,4 +1,8 @@
+"use client";
+
 import Script from "next/script";
+import { useEffect } from "react";
+import { trackStructuredDataView } from "@/lib/analytics";
 
 // Breadcrumb structured data for navigation
 export function BreadcrumbStructuredData({
@@ -494,6 +498,11 @@ export function CreativeWorkStructuredData({
 }
 
 export function LocalBusinessStructuredData() {
+  // Track structured data rendering
+  useEffect(() => {
+    trackStructuredDataView('LocalBusiness', 'chicago-design-services');
+  }, []);
+
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",

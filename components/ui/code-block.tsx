@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import { Check, Copy } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { trackCodeBlockCopy } from "@/lib/analytics";
+import { usePathname } from "next/navigation";
 
 // Dynamic import function for sugar-high
 const getHighlighter = async () => {
@@ -24,6 +26,7 @@ interface CodeBlockProps {
 export function CodeBlock({ children, language, className }: CodeBlockProps) {
   const [copied, setCopied] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     setMounted(true);
@@ -42,6 +45,14 @@ export function CodeBlock({ children, language, className }: CodeBlockProps) {
     try {
       await navigator.clipboard.writeText(children);
       setCopied(true);
+      
+      // Track code copy interaction
+      const blogSlug = pathname?.includes('/blog/') 
+        ? pathname.split('/blog/')[1]?.split('/')[0] 
+        : undefined;
+      const lineCount = children.split('\n').length;
+      
+      trackCodeBlockCopy(language || 'code', blogSlug, lineCount);
     } catch (err) {
       console.error("Failed to copy:", err);
     }

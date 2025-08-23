@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ChevronRight, Home } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { BreadcrumbStructuredData } from "@/components/seo/structured-data";
+import { trackBreadcrumbClick } from "@/lib/analytics";
 
 interface BreadcrumbItem {
   label: string;
@@ -44,6 +45,7 @@ export function BreadcrumbNav({ items, className }: BreadcrumbNavProps) {
         href="https://work.randyellis.design"
         className="rounded p-1 transition-colors hover:text-zinc-700 dark:hover:text-zinc-200"
         aria-label="Home"
+        onClick={() => trackBreadcrumbClick('/', 'Home', 0)}
       >
         <Home className="h-4 w-4" />
       </Link>
@@ -55,6 +57,7 @@ export function BreadcrumbNav({ items, className }: BreadcrumbNavProps) {
             <Link
               href={item.href}
               className="rounded px-1 py-0.5 transition-colors hover:text-zinc-700 dark:hover:text-zinc-200"
+              onClick={() => trackBreadcrumbClick(item.href!, item.label, index + 1)}
             >
               {item.label}
             </Link>
@@ -72,5 +75,6 @@ export function BreadcrumbNav({ items, className }: BreadcrumbNavProps) {
         </div>
       ))}
     </nav>
+    </>
   );
 }
