@@ -15,9 +15,7 @@ jest.mock('@/components/motion-primitives/text-effect', () => ({
   ),
 }));
 
-jest.mock('@/components/motion-primitives/magnetic', () => ({
-  Magnetic: ({ children, ...props }: any) => <div data-testid="magnetic">{children}</div>,
-}));
+// Magnetic component removed from global-article-grid.tsx
 
 // Mock the blog data
 jest.mock('@/lib/utils/blog-data', () => ({
@@ -286,20 +284,25 @@ describe('GlobalArticleGrid', () => {
     it('should have staggered animation delays for cards', () => {
       render(<GlobalArticleGrid />);
       
-      const inViewComponents = screen.getAllByTestId('in-view');
-      const cardInViews = inViewComponents.filter(component => 
-        component.closest('[data-testid="article-card"]')
-      );
+      const cards = screen.getAllByTestId('article-card');
+      const cardInViews = cards.map(card => 
+        card.closest('[data-testid="in-view"]')
+      ).filter(Boolean);
       
       // Should have staggered delays (each card gets index * delay)
-      expect(cardInViews).toHaveLength(2);
+      expect(cardInViews).toHaveLength(cards.length);
     });
 
-    it('should use Magnetic wrapper for cards', () => {
+    it('should have stable hover effects without magnetic movement', () => {
       render(<GlobalArticleGrid />);
       
-      const magneticComponents = screen.getAllByTestId('magnetic');
-      expect(magneticComponents.length).toBe(2); // One for each card
+      const cards = screen.getAllByTestId('article-card');
+      cards.forEach(card => {
+        // Cards should have transition classes for hover effects
+        expect(card).toHaveClass('transition-all');
+        expect(card).toHaveClass('hover:border-zinc-300');
+        expect(card).toHaveClass('hover:shadow-md');
+      });
     });
 
     it('should have fade-in animation preset for titles', () => {
@@ -319,7 +322,7 @@ describe('GlobalArticleGrid', () => {
     it('should have exact hover classes matching existing patterns', () => {
       render(<GlobalArticleGrid />);
       
-      const cards = screen.getAllByTestId('article-card-inner');
+      const cards = screen.getAllByTestId('article-card');
       cards.forEach(card => {
         // Match hover classes from existing global-recommendations-grid.tsx
         expect(card).toHaveClass('group', 'transition-all', 'duration-200');
@@ -346,7 +349,7 @@ describe('GlobalArticleGrid', () => {
       // Should use Card component with proper structure
       const cards = screen.getAllByTestId('article-card');
       cards.forEach(card => {
-        expect(card.firstChild).toHaveClass('group'); // Card should wrap group
+        expect(card).toHaveClass('group'); // Card itself has group class
       });
     });
 
@@ -407,10 +410,86 @@ describe('GlobalArticleGrid', () => {
     it('should have proper card heights and layout', () => {
       render(<GlobalArticleGrid />);
       
-      const cards = screen.getAllByTestId('article-card-inner');
+      const cards = screen.getAllByTestId('article-card');
       cards.forEach(card => {
-        expect(card).toHaveClass('h-full', 'min-h-[280px]');
-        expect(card).toHaveClass('flex', 'flex-col');
+        expect(card).toHaveClass('h-full');
+        // The inner content structure should be maintained
+        const linkElements = card.querySelectorAll('a');
+        expect(linkElements.length).toBeGreaterThan(0);
+      });
+    });
+  });
+
+  describe('Card Hover Behavior Tests', () => {
+    it('should have stable hover effects without movement', () => {
+      render(<GlobalArticleGrid />);
+      
+      const cards = screen.getAllByTestId('article-card');
+      cards.forEach(card => {
+        // Cards should NOT be wrapped by magnetic component
+        const magneticWrapper = card.closest('[data-testid="magnetic"]');
+        expect(magneticWrapper).toBeNull();
+        
+        // Cards should be direct children of InView wrapper
+        const inViewWrapper = card.closest('[data-testid="in-view"]');
+        expect(inViewWrapper).toBeTruthy();
+      });
+    });
+
+    it('should have unified hover effects on card boundaries', () => {
+      render(<GlobalArticleGrid />);
+      
+      const cards = screen.getAllByTestId('article-card');
+      cards.forEach(card => {
+        // Check that card has unified hover classes
+        expect(card).toHaveClass('transition-all');
+        expect(card).toHaveClass('hover:border-zinc-300');
+        expect(card).toHaveClass('hover:shadow-md');
+      });
+    });
+
+    it('should apply hover effects to complete card boundary', () => {
+      render(<GlobalArticleGrid />);
+      
+      const cards = screen.getAllByTestId('article-card');
+      cards.forEach(card => {
+        // Hover effects should be on the Card itself
+        expect(card).toHaveClass('hover:shadow-md');
+        expect(card).toHaveClass('hover:border-zinc-300');
+        
+        // Should use group hover pattern for inner elements
+        expect(card).toHaveClass('group');
+      });
+    });
+
+    it('should be directly wrapped by InView for entrance animations', () => {
+      render(<GlobalArticleGrid />);
+      
+      const cards = screen.getAllByTestId('article-card');
+      cards.forEach(card => {
+        // The card should be directly wrapped by InView only
+        const inViewWrapper = card.closest('[data-testid="in-view"]');
+        expect(inViewWrapper).toBeTruthy();
+        
+        // InView should be the direct parent wrapper
+        const cardParent = card.parentElement;
+        expect(cardParent?.getAttribute('data-testid')).toBe('in-view');
+      });
+    });
+
+    it('should maintain consistent hover state across entire card', () => {
+      render(<GlobalArticleGrid />);
+      
+      const cards = screen.getAllByTestId('article-card');
+      cards.forEach(card => {
+        // Card should coordinate all hover states
+        expect(card).toHaveClass('group');
+        
+        // Title should respond to group-hover
+        const titleElement = card.querySelector('h3');
+        if (titleElement) {
+          expect(titleElement).toHaveClass('group-hover:text-blue-600');
+        }
       });
     });
   });
@@ -553,17 +632,15 @@ describe('GlobalArticleGrid', () => {
     it('should maintain consistent card structure', () => {
       render(<GlobalArticleGrid />);
       
-      const cards = screen.getAllByTestId('article-card-inner');
+      const cards = screen.getAllByTestId('article-card');
       cards.forEach(card => {
-        // Should have consistent flexbox structure
-        expect(card).toHaveClass('flex', 'flex-col');
+        // Should have consistent group and transition classes
+        expect(card).toHaveClass('group', 'h-full', 'transition-all');
         
-        // Should have proper overflow handling
-        expect(card).toHaveClass('overflow-hidden');
-        
-        // Should have proper border and background
-        expect(card).toHaveClass('border-zinc-200', 'bg-white');
-        expect(card).toHaveClass('dark:border-zinc-700', 'dark:bg-zinc-900');
+        // Should contain the link structure
+        const link = card.querySelector('a');
+        expect(link).toBeInTheDocument();
+        expect(link).toHaveClass('block', 'h-full');
       });
     });
   });

@@ -8,7 +8,6 @@ import { AdvancedReadTimeBadge } from "@/components/ui/advanced-read-time-badge"
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { getBlogArticles, type BlogArticle } from "@/lib/utils/blog-data";
-import { Magnetic } from "@/components/motion-primitives/magnetic";
 import { InView } from "@/components/motion-primitives/in-view";
 import { TextEffect } from "@/components/motion-primitives/text-effect";
 import {
@@ -51,117 +50,6 @@ function formatPublishedDate(dateString: string): string {
   } catch {
     return dateString;
   }
-}
-
-function ArticleCard({
-  article,
-  index = 0,
-  showReadTime = true,
-  showCategory = true,
-  showDescription = true,
-  onArticleClick,
-  onArticleHover,
-}: {
-  article: BlogArticle;
-  index?: number;
-  showReadTime?: boolean;
-  showCategory?: boolean;
-  showDescription?: boolean;
-  onArticleClick?: (article: BlogArticle, position: number) => void;
-  onArticleHover?: (article: BlogArticle, position: number) => void;
-}) {
-  return (
-    <Card className="h-full" data-testid="article-card">
-      <div className="group">
-        <InView
-          variants={VARIANTS_ITEM}
-          transition={{ ...TRANSITION_ITEM, delay: index * 0.1 }}
-          viewOptions={{ once: true }}
-        >
-          <Magnetic>
-            <div
-              className="group flex h-full min-h-[280px] flex-col overflow-hidden border-zinc-200 bg-white transition-all duration-200 hover:border-zinc-300 hover:shadow-md dark:border-zinc-700 dark:bg-zinc-900 dark:hover:border-zinc-600"
-              data-testid="article-card-inner"
-            >
-              {/* Featured Star Indicator */}
-              {article.featured && (
-                <div
-                  className="absolute top-3 right-3 z-10"
-                  data-testid="featured-star"
-                >
-                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-amber-100 dark:bg-amber-900/50">
-                    <Star className="h-3 w-3 fill-amber-500 text-amber-500" />
-                  </div>
-                </div>
-              )}
-
-              {/* Article Hero Image */}
-              <div className="relative aspect-video overflow-hidden">
-                <img
-                  src={`https://picsum.photos/600/300?random=${article.slug}`}
-                  alt={`${article.title} preview`}
-                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-
-              <Link
-                href={`/blog/${article.slug}`}
-                className="block h-full p-6 no-underline"
-                style={{ textDecoration: "none" }}
-                aria-label={`Read ${article.title}`}
-                onClick={() => onArticleClick?.(article, index)}
-                onMouseEnter={() => onArticleHover?.(article, index)}
-              >
-                <div className="flex h-full flex-col">
-                  {/* Header with category and read time */}
-                  <div className="mb-4 flex items-center justify-between gap-2">
-                    {showCategory && (
-                      <Badge variant="outline" className="text-xs">
-                        {article.category}
-                      </Badge>
-                    )}
-                    {showReadTime && (
-                      <div data-testid="read-time-badge">
-                        <AdvancedReadTimeBadge
-                          readTime={article.readTime}
-                          variant="outline"
-                          size="sm"
-                        />
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Article title with hover effects */}
-                  <TextEffect
-                    as="h3"
-                    preset="fade"
-                    className="mb-3 line-clamp-2 min-h-[3.5rem] font-semibold text-zinc-950 group-hover:text-blue-600 dark:text-zinc-50 dark:group-hover:text-blue-400"
-                    delay={0.1}
-                  >
-                    {article.title}
-                  </TextEffect>
-
-                  {/* Description */}
-                  {showDescription && article.description && (
-                    <p className="mb-4 line-clamp-3 flex-1 text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
-                      {article.description}
-                    </p>
-                  )}
-
-                  {/* Publication date */}
-                  <div className="mt-auto text-xs font-medium text-zinc-500 dark:text-zinc-400">
-                    {formatPublishedDate(article.publishedDate)}
-                  </div>
-                </div>
-              </Link>
-            </div>
-          </Magnetic>
-        </InView>
-      </div>
-    </Card>
-  );
 }
 
 export function GlobalArticleGrid({
@@ -259,18 +147,91 @@ export function GlobalArticleGrid({
         data-testid="article-grid"
       >
         {articles.map((article, index) => (
-          <ArticleCard
+          <InView
             key={article.slug}
-            article={article}
-            index={index}
-            showReadTime={showReadTime}
-            showCategory={showCategory}
-            showDescription={showDescription}
-            sourcePageType={sourcePageType}
-            sourceSlug={sourceSlug}
-            onArticleClick={handleArticleClick}
-            onArticleHover={handleArticleHover}
-          />
+            variants={VARIANTS_ITEM}
+            transition={{ ...TRANSITION_ITEM, delay: index * 0.1 }}
+            viewOptions={{ once: true }}
+          >
+            <Card
+              className="group h-full transition-all duration-200 hover:border-zinc-300 hover:shadow-md dark:hover:border-zinc-600"
+              data-testid="article-card"
+            >
+              {/* Featured Star Indicator */}
+              {article.featured && (
+                <div
+                  className="absolute top-3 right-3 z-10"
+                  data-testid="featured-star"
+                >
+                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-amber-100 dark:bg-amber-900/50">
+                    <Star className="h-3 w-3 fill-amber-500 text-amber-500" />
+                  </div>
+                </div>
+              )}
+
+              {/* Article Hero Image */}
+              <div className="relative aspect-video overflow-hidden rounded-t-lg">
+                <img
+                  src={`https://picsum.photos/600/300?random=${article.slug}`}
+                  alt={`${article.title} preview`}
+                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+
+              <Link
+                href={`/blog/${article.slug}`}
+                className="block h-full p-6 no-underline"
+                style={{ textDecoration: "none" }}
+                aria-label={`Read ${article.title}`}
+                onClick={() => handleArticleClick?.(article, index)}
+                onMouseEnter={() => handleArticleHover?.(article, index)}
+              >
+                <div className="flex h-full flex-col">
+                  {/* Header with category and read time */}
+                  <div className="mb-4 flex items-center justify-between gap-2">
+                    {showCategory && (
+                      <Badge variant="outline" className="text-xs">
+                        {article.category}
+                      </Badge>
+                    )}
+                    {showReadTime && (
+                      <div data-testid="read-time-badge">
+                        <AdvancedReadTimeBadge
+                          readTime={article.readTime}
+                          variant="outline"
+                          size="sm"
+                        />
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Article title with hover effects */}
+                  <TextEffect
+                    as="h3"
+                    preset="fade"
+                    className="mb-3 line-clamp-2 min-h-[3.5rem] font-semibold text-zinc-950 group-hover:text-blue-600 dark:text-zinc-50 dark:group-hover:text-blue-400"
+                    delay={0.1}
+                  >
+                    {article.title}
+                  </TextEffect>
+
+                  {/* Description */}
+                  {showDescription && article.description && (
+                    <p className="mb-4 line-clamp-3 flex-1 text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                      {article.description}
+                    </p>
+                  )}
+
+                  {/* Publication date */}
+                  <div className="mt-auto text-xs font-medium text-zinc-500 dark:text-zinc-400">
+                    {formatPublishedDate(article.publishedDate)}
+                  </div>
+                </div>
+              </Link>
+            </Card>
+          </InView>
         ))}
       </div>
     </section>

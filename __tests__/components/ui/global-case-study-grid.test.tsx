@@ -16,9 +16,7 @@ jest.mock('@/components/motion-primitives/text-effect', () => ({
   ),
 }));
 
-jest.mock('@/components/motion-primitives/magnetic', () => ({
-  Magnetic: ({ children, ...props }: any) => <div data-testid="magnetic">{children}</div>,
-}));
+// Magnetic component removed from global-case-study-grid.tsx
 
 // Mock analytics functions
 jest.mock('@/lib/analytics', () => ({
@@ -273,20 +271,24 @@ describe('GlobalCaseStudyGrid', () => {
     it('should have staggered animation delays for cards', () => {
       render(<GlobalCaseStudyGrid />);
       
-      const inViewComponents = screen.getAllByTestId('in-view');
-      const cardInViews = inViewComponents.filter(component => 
-        component.closest('[data-testid="case-study-card"]')
-      );
+      const cards = screen.getAllByTestId('case-study-card');
+      const cardInViews = cards.map(card => 
+        card.closest('[data-testid="in-view"]')
+      ).filter(Boolean);
       
       // Should have staggered delays (each card gets index * delay)
-      expect(cardInViews).toHaveLength(2);
+      expect(cardInViews).toHaveLength(cards.length);
     });
 
-    it('should use Magnetic wrapper for cards', () => {
+    it('should have stable hover effects without magnetic movement', () => {
       render(<GlobalCaseStudyGrid />);
       
-      const magneticComponents = screen.getAllByTestId('magnetic');
-      expect(magneticComponents.length).toBe(2); // One for each card
+      const cards = screen.getAllByTestId('case-study-card');
+      cards.forEach(card => {
+        // Cards should have transition classes for hover effects
+        expect(card).toHaveClass('transition-all');
+        expect(card).toHaveClass('hover:shadow-lg');
+      });
     });
   });
 
@@ -294,7 +296,7 @@ describe('GlobalCaseStudyGrid', () => {
     it('should have exact hover classes matching existing patterns', () => {
       render(<GlobalCaseStudyGrid />);
       
-      const cards = screen.getAllByTestId('case-study-card-inner');
+      const cards = screen.getAllByTestId('case-study-card');
       cards.forEach(card => {
         // Match exact classes from line 1005 in project-detail-client.tsx
         expect(card).toHaveClass('group', 'transition-all', 'duration-300', 'hover:shadow-lg');
@@ -319,7 +321,7 @@ describe('GlobalCaseStudyGrid', () => {
       // Should use Card component with proper structure
       const cards = screen.getAllByTestId('case-study-card');
       cards.forEach(card => {
-        expect(card.firstChild).toHaveClass('group'); // Card should wrap group
+        expect(card).toHaveClass('group'); // Card itself has group class
       });
     });
 
@@ -361,6 +363,88 @@ describe('GlobalCaseStudyGrid', () => {
       
       expect(links[0]).toHaveAttribute('href', '/projects/featured-project-1');
       expect(links[1]).toHaveAttribute('href', '/projects/featured-project-2');
+    });
+  });
+
+  describe('Card Animation Cohesion Tests', () => {
+    it('should have stable hover effects without movement', () => {
+      render(<GlobalCaseStudyGrid />);
+      
+      const cards = screen.getAllByTestId('case-study-card');
+      cards.forEach(card => {
+        // Cards should NOT be wrapped by magnetic component
+        const magneticWrapper = card.closest('[data-testid="magnetic"]');
+        expect(magneticWrapper).toBeNull();
+        
+        // Cards should be direct children of InView wrapper
+        const inViewWrapper = card.closest('[data-testid="in-view"]');
+        expect(inViewWrapper).toBeTruthy();
+      });
+    });
+
+    it('should not create visual disconnect between border and content', () => {
+      render(<GlobalCaseStudyGrid />);
+      
+      const cards = screen.getAllByTestId('case-study-card');
+      cards.forEach(card => {
+        // Check that card has unified hover classes, not nested motion div
+        expect(card).toHaveClass('transition-all');
+        
+        // Should NOT have a separate motion.div that moves independently
+        const motionDiv = card.querySelector('[data-testid="case-study-card-inner"]');
+        expect(motionDiv).toBeNull(); // This will fail with current implementation
+      });
+    });
+
+    it('should apply hover shadow to complete card boundary', () => {
+      render(<GlobalCaseStudyGrid />);
+      
+      const cards = screen.getAllByTestId('case-study-card');
+      cards.forEach(card => {
+        // Hover effects should be on the Card itself, not inner div
+        expect(card).toHaveClass('hover:shadow-lg');
+        
+        // Inner content should use group-hover, not direct hover
+        // Specifically check video/image elements that should use group-hover
+        const hoverElements = card.querySelectorAll('video, img');
+        hoverElements.forEach(element => {
+          if (element.className.includes('hover:')) {
+            expect(element.className).toMatch(/group-hover:/);
+          }
+        });
+      });
+    });
+
+    it('should be directly wrapped by InView for entrance animations', () => {
+      render(<GlobalCaseStudyGrid />);
+      
+      const cards = screen.getAllByTestId('case-study-card');
+      cards.forEach(card => {
+        // The card should be directly wrapped by InView only
+        const inViewWrapper = card.closest('[data-testid="in-view"]');
+        expect(inViewWrapper).toBeTruthy();
+        
+        // InView should be the direct parent wrapper
+        const cardParent = card.parentElement;
+        expect(cardParent?.getAttribute('data-testid')).toBe('in-view');
+      });
+    });
+
+    it('should maintain consistent hover state across entire card', () => {
+      render(<GlobalCaseStudyGrid />);
+      
+      const cards = screen.getAllByTestId('case-study-card');
+      cards.forEach(card => {
+        // Card should have group class for coordinated hover states
+        expect(card).toHaveClass('group');
+        
+        // Title should respond to group-hover, not create its own hover
+        const titleElement = card.querySelector('h3, [role="heading"]');
+        if (titleElement) {
+          expect(titleElement).toHaveClass('group-hover:text-blue-600');
+          expect(titleElement.className).not.toMatch(/^.*hover:text-.*$/);
+        }
+      });
     });
   });
 

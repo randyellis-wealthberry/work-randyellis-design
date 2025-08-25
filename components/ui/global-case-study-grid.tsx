@@ -1,12 +1,10 @@
 "use client";
 
-import { motion } from "motion/react";
 import Link from "next/link";
 // import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { InView } from "@/components/motion-primitives/in-view";
-import { Magnetic } from "@/components/motion-primitives/magnetic";
 import { TextEffect } from "@/components/motion-primitives/text-effect";
 import { PROJECTS } from "@/lib/data/projects";
 import type { Project } from "@/lib/data/types";
@@ -150,117 +148,106 @@ export function GlobalCaseStudyGrid({
         data-testid="case-study-grid"
       >
         {filteredProjects.map((project: Project, index: number) => (
-          <Card
+          <InView
             key={project.id}
-            className="h-full"
-            data-testid="case-study-card"
+            variants={VARIANTS_ITEM}
+            transition={{ ...TRANSITION_ITEM, delay: index * 0.1 }}
+            viewOptions={{ once: true }}
           >
-            <div className="group">
-              <InView
-                variants={VARIANTS_ITEM}
-                transition={{ ...TRANSITION_ITEM, delay: index * 0.1 }}
-                viewOptions={{ once: true }}
+            <Card
+              className="group h-full transition-all duration-300 hover:shadow-lg"
+              data-testid="case-study-card"
+            >
+              <Link
+                href={`/projects/${project.slug}`}
+                aria-label={`View ${project.name} case study`}
+                onClick={() => handleProjectClick(project, index)}
+                onMouseEnter={() => handleProjectHover(project, index)}
+                className="block h-full"
               >
-                <Magnetic>
-                  <motion.div
-                    className="group h-full transition-all duration-300 hover:shadow-lg"
-                    data-testid="case-study-card-inner"
-                  >
-                    <Link
-                      href={`/projects/${project.slug}`}
-                      aria-label={`View ${project.name} case study`}
-                      onClick={() => handleProjectClick(project, index)}
-                      onMouseEnter={() => handleProjectHover(project, index)}
-                      className="block h-full"
+                {/* Media Container */}
+                <div className="aspect-video overflow-hidden rounded-t-lg">
+                  {project.video && project.id !== "featured-project-2" ? (
+                    <div
+                      className="group relative aspect-video overflow-hidden"
+                      data-testid="video-container"
                     >
-                      {/* Media Container */}
-                      <div className="aspect-video overflow-hidden rounded-t-lg">
-                        {project.video &&
-                        project.id !== "featured-project-2" ? (
-                          <div
-                            className="group relative aspect-video overflow-hidden"
-                            data-testid="video-container"
-                          >
-                            <video
-                              src={project.video}
-                              poster={project.thumbnail}
-                              autoPlay
-                              loop
-                              muted
-                              playsInline
-                              className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                              data-testid="lazy-video"
-                            />
-                          </div>
-                        ) : project.thumbnail ? (
-                          <div className="group relative aspect-video overflow-hidden">
-                            <img
-                              src={project.thumbnail}
-                              alt={`${project.name} preview`}
-                              className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                              loading="lazy"
-                              decoding="async"
-                            />
-                          </div>
-                        ) : (
-                          <div className="bg-muted flex aspect-video items-center justify-center">
-                            <span className="text-muted-foreground">
-                              No preview available
-                            </span>
-                          </div>
-                        )}
-                      </div>
+                      <video
+                        src={project.video}
+                        poster={project.thumbnail}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        data-testid="lazy-video"
+                      />
+                    </div>
+                  ) : project.thumbnail ? (
+                    <div className="group relative aspect-video overflow-hidden">
+                      <img
+                        src={project.thumbnail}
+                        alt={`${project.name} preview`}
+                        className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </div>
+                  ) : (
+                    <div className="bg-muted flex aspect-video items-center justify-center">
+                      <span className="text-muted-foreground">
+                        No preview available
+                      </span>
+                    </div>
+                  )}
+                </div>
 
-                      {/* Card Content */}
-                      <CardHeader className="space-y-2">
-                        <div className="flex items-start justify-between gap-2">
-                          <CardTitle className="line-clamp-2 transition-colors group-hover:text-blue-600">
-                            {project.name}
-                          </CardTitle>
-                          {project.featured && (
-                            <Badge variant="secondary" className="shrink-0">
-                              Featured
-                            </Badge>
-                          )}
-                        </div>
+                {/* Card Content */}
+                <CardHeader className="space-y-2">
+                  <div className="flex items-start justify-between gap-2">
+                    <CardTitle className="line-clamp-2 transition-colors group-hover:text-blue-600">
+                      {project.name}
+                    </CardTitle>
+                    {project.featured && (
+                      <Badge variant="secondary" className="shrink-0">
+                        Featured
+                      </Badge>
+                    )}
+                  </div>
 
-                        {project.subtitle && (
-                          <p className="text-muted-foreground line-clamp-2 text-sm">
-                            {project.subtitle}
-                          </p>
-                        )}
-                      </CardHeader>
+                  {project.subtitle && (
+                    <p className="text-muted-foreground line-clamp-2 text-sm">
+                      {project.subtitle}
+                    </p>
+                  )}
+                </CardHeader>
 
-                      <CardContent className="space-y-4">
-                        {/* Description (if enabled) */}
-                        {showDescription && project.description && (
-                          <p className="text-muted-foreground line-clamp-3 text-sm">
-                            {project.description}
-                          </p>
-                        )}
+                <CardContent className="space-y-4">
+                  {/* Description (if enabled) */}
+                  {showDescription && project.description && (
+                    <p className="text-muted-foreground line-clamp-3 text-sm">
+                      {project.description}
+                    </p>
+                  )}
 
-                        {/* Category Badge */}
-                        <div className="flex flex-wrap gap-2">
-                          <Badge variant="outline">{project.category}</Badge>
-                          {project.categories &&
-                            project.categories.length > 1 && (
-                              <Badge variant="outline">
-                                +{project.categories.length - 1} more
-                              </Badge>
-                            )}
-                        </div>
+                  {/* Category Badge */}
+                  <div className="flex flex-wrap gap-2">
+                    <Badge variant="outline">{project.category}</Badge>
+                    {project.categories && project.categories.length > 1 && (
+                      <Badge variant="outline">
+                        +{project.categories.length - 1} more
+                      </Badge>
+                    )}
+                  </div>
 
-                        {/* Timeline */}
-                        <div className="text-muted-foreground text-xs">
-                          {project.timeline}
-                        </div>
-                      </CardContent>
-                    </Link>
-                  </motion.div>
-                </Magnetic>
-              </InView>
-            </div>
-          </Card>
+                  {/* Timeline */}
+                  <div className="text-muted-foreground text-xs">
+                    {project.timeline}
+                  </div>
+                </CardContent>
+              </Link>
+            </Card>
+          </InView>
         ))}
       </div>
     </section>
