@@ -37,6 +37,7 @@ import {
   trackContactIntent,
 } from "@/lib/analytics";
 import { FeatureFlagDemo } from "@/components/feature-flag-demo";
+import { TextGradientScroll } from "@/components/ui/text-gradient-scroll";
 
 const VARIANTS_CONTAINER = {
   hidden: { opacity: 0 },
@@ -528,14 +529,12 @@ export default function Personal() {
           <h1 className="sr-only">
             Randy Ellis - AI Product Design Engineer Portfolio
           </h1>
-          <p className="text-zinc-600 dark:text-zinc-400">
-            I&rsquo;m a product design strategist who&rsquo;s generated $50M in
-            product value while scaling design teams for Fortune 500 companies.
-            With recent AI leadership training and 15+ years bridging design,
-            technology, and business strategy, I help organizations build design
-            capabilities that drive measurable business outcomes. Also a decent
-            cook.
-          </p>
+          <TextGradientScroll
+            text="Hi, I'm Randy. I've spent the last 15+ years helping companies build products that people actually want to use, which has generated around $50M in value along the way. I love the challenge of turning messy problems into elegant solutions that work for both users and businesses. When I'm not designing or leading teams, you'll probably find me in the kitchen experimenting with new recipes, because good food and good design both start with understanding what people really need."
+            type="letter"
+            textOpacity="soft"
+            className="text-xl leading-normal text-zinc-600 dark:text-zinc-400"
+          />
         </div>
       </motion.section>
 
@@ -554,6 +553,22 @@ export default function Personal() {
           Core Ideologies
         </ScrambleSectionTitle>
         <TransitionPanelExample />
+      </motion.section>
+
+      <motion.section
+        variants={VARIANTS_SECTION}
+        transition={TRANSITION_SECTION}
+        className="mt-40 sm:mt-32"
+      >
+        <ScrambleSectionTitle className="mb-5 text-lg font-medium">
+          Problem Solving
+        </ScrambleSectionTitle>
+        <TextGradientScroll
+          text="I approach problems by first understanding what is actually broken rather than what people think is broken, because the real issue often lives beneath the surface symptoms that teams complain about. When users abandon a product or revenue stagnates, I dig into behavior patterns and data flows to find the root causes that everyone else missed. My process involves breaking complex challenges into smaller pieces that can be tested and validated quickly, which prevents teams from building solutions for problems that do not exist. The best solutions emerge when you combine user insights with technical constraints and business requirements, then iterate based on what actually works rather than what sounds good in meetings."
+          type="word"
+          textOpacity="medium"
+          className="max-w-4xl text-lg leading-normal text-zinc-700 dark:text-zinc-300"
+        />
       </motion.section>
 
       <motion.section
@@ -781,6 +796,12 @@ export default function Personal() {
         <ScrambleSectionTitle className="mb-5 text-lg font-medium">
           Connect
         </ScrambleSectionTitle>
+        <TextGradientScroll
+          text="I work with teams who understand that design can change how people interact with technology and solve problems they face every day. Whether you are scaling a startup from first users to millions, transforming how an enterprise serves its customers, or launching a product that could reshape an entire industry, I bring both design thinking and technical execution that turns concepts into experiences people actually use. The best projects happen when visionary leaders collaborate with people who know how to build what others only imagine."
+          type="letter"
+          textOpacity="medium"
+          className="mb-8 max-w-3xl text-lg leading-normal text-zinc-700 dark:text-zinc-300"
+        />
         <p className="mb-5 text-zinc-600 dark:text-zinc-400">
           Feel free to contact me at{" "}
           <a

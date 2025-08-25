@@ -44,6 +44,15 @@ export const useInView = jest.fn((ref, options) => {
 
 export const useIsomorphicLayoutEffect = jest.fn();
 
+export const useScroll = jest.fn((options) => {
+  return {
+    scrollYProgress: { ...mockMotionValue, get: jest.fn(() => 0.5) },
+    scrollXProgress: { ...mockMotionValue, get: jest.fn(() => 0.5) },
+    scrollY: { ...mockMotionValue, get: jest.fn(() => 100) },
+    scrollX: { ...mockMotionValue, get: jest.fn(() => 100) },
+  };
+});
+
 // Create motion components for all HTML elements - simplified version
 const createMotionComponent = (element) => {
   return React.forwardRef(
@@ -165,6 +174,15 @@ export const MotionConfig = ({ children, transition, ...props }) => {
     children,
   );
 };
+
+// Mock motion.create function (used in some components)
+const create = jest.fn((component, config) => {
+  return createMotionComponent(component);
+});
+
+// Attach create to motion object
+motion.create = create;
+export { create };
 
 // Export TypeScript types (these are just for runtime compatibility)
 export const Variants = {};
