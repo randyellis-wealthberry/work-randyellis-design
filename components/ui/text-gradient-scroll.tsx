@@ -87,7 +87,7 @@ const Word = ({ children, progress, range }: WordType) => {
   const opacity = useTransform(progress, range, [0, 1]);
 
   return (
-    <span className="relative me-2 mt-2">
+    <span className="relative me-1 mt-2">
       <span style={{ position: "absolute", opacity: 0.1 }}>{children}</span>
       <motion.span style={{ transition: "all .5s", opacity: opacity }}>
         {children}
@@ -102,7 +102,7 @@ const Letter = ({ children, progress, range }: LetterType) => {
     const step = amount / children.length;
 
     return (
-      <span className="relative me-2 mt-2">
+      <span className="relative me-1 mt-2">
         {children.split("").map((char: string, i: number) => {
           const start = range[0] + i * step;
           const end = range[0] + (i + 1) * step;
