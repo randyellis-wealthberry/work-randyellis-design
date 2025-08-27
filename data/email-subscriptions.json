@@ -78,5 +78,21 @@
       "emailProvider": "wealthbrry.com",
       "signupSource": "Newsletter form"
     }
+  },
+  {
+    "id": "email_1756263335124_1sshyz7hr",
+    "email": "randy.ellis.pro+test3@gmail.com",
+    "status": "subscribed",
+    "source": "website",
+    "subscribedAt": "2025-08-27T02:55:35.124Z",
+    "metadata": {
+      "ipAddress": "::1",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36",
+      "referer": "http://localhost:3000/",
+      "consentGiven": true,
+      "consentTimestamp": "2025-08-27T02:55:35.124Z",
+      "emailProvider": "Gmail",
+      "signupSource": "Newsletter form"
+    }
   }
 ]
