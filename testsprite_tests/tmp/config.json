@@ -7,10 +7,10 @@
     "projectName": "work.randyellis.design",
     "projectPath": "/Users/MacBook/Developer/work.randyellis.design",
     "testIds": [],
-    "additionalInstruction": "Focus on testing key portfolio features: project showcase, interactive animations, PWA functionality, and newsletter signup. Ensure accessibility compliance and performance optimization are validated.",
+    "additionalInstruction": "Focus on testing the main portfolio features including homepage performance, project showcase functionality, newsletter signup, PWA features, and 3D WebGL components. Ensure comprehensive coverage of accessibility, performance metrics, and interactive elements.",
     "envs": {
       "API_KEY": "sk-user-qZkM7YXKFzbG_RzZMiSrR1dRst1vUoRIt_HfluOxUe5fvTMm2GHy7lO0qFY-2xahZDDBxkLlFmUBgCUwAhkvUiHK7HNuYfk90RRkN64sG6uAUy3zjv_pATxM9RrGGhSAUhk"
     }
   },
-  "proxy": "http://5de68e61-cb57-4439-b599-ecdd7ae15457:rYL5t2zUiQd52M6anJiNqjYoSQKOd4Ex@tun.testsprite.com:8080"
+  "proxy": "http://99a7d94a-00a5-4478-a58c-af9cb6822b0c:jM4xs1S3XIkQqMVTA9WBQhjyyX88uywr@tun.testsprite.com:8080"
 }

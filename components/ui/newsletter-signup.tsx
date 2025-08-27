@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import "@/styles/performance-optimized.css";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -10,6 +11,7 @@ import { FloatingInput } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { trackNewsletterAttempt } from "@/lib/analytics";
 import { useFeatureFlag } from "@/hooks/use-feature-flag";
+import { useAnimationPerformance } from "@/hooks/use-animation-performance";
 
 const emailSchema = z.object({
   email: z.string().min(1, "Email is required").email("Invalid email address"),
@@ -24,6 +26,17 @@ export function NewsletterSignup() {
     "idle" | "success" | "error" | "rate_limited"
   >("idle");
   const [errorMessage, setErrorMessage] = useState<string>("");
+  
+  // Performance monitoring
+  const { startMonitoring, stopMonitoring, metrics } = useAnimationPerformance();
+  const successElementRef = useRef<HTMLDivElement>(null);
+  
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      stopMonitoring();
+    };
+  }, [stopMonitoring]);
 
   const {
     register,
@@ -60,6 +73,13 @@ export function NewsletterSignup() {
         setSubmitStatus("success");
         trackNewsletterAttempt("submit_success", true);
         reset();
+        
+        // Start performance monitoring when animation begins
+        setTimeout(() => {
+          startMonitoring();
+          // Stop monitoring after animation completes (400ms + 150ms delay)
+          setTimeout(() => stopMonitoring(), 600);
+        }, 50);
       } else if (response.status === 429) {
         // Rate limited
         const errorData = await response.json();
@@ -97,27 +117,91 @@ export function NewsletterSignup() {
     >
       {submitStatus === "success" ? (
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="mx-auto flex h-full min-h-[520px] max-w-lg flex-col justify-center text-center"
+          ref={successElementRef}
+          initial={{ opacity: 0, scale: 0.8, rotateZ: 0 }}
+          animate={{ opacity: 1, scale: 1, rotateZ: 0 }}
+          transition={{ 
+            duration: 0.4, 
+            ease: [0.34, 1.56, 0.64, 1] // Spring-like cubic-bezier
+          }}
+          style={{
+            willChange: "transform, opacity",
+            backfaceVisibility: "hidden",
+            transform: "translateZ(0)", // Force hardware acceleration
+            transitionTimingFunction: "cubic-bezier(0.34, 1.56, 0.64, 1)",
+            transitionDuration: "0.4s",
+          }}
+          className="performance-optimized-animation hw-accelerated mx-auto flex h-full min-h-[520px] max-w-lg flex-col justify-center text-center"
         >
           <div className="flex flex-col items-center space-y-4">
-            <div className="h-[350px] w-[350px]">
-              <DotLottieReact
-                src="https://lottie.host/749b3ff8-0097-4e37-8cbd-2fa2687bcae7/ZV6PZUEF3p.json"
-                loop={false}
-                autoplay={true}
-              />
+            <div className="h-[200px] w-[200px] hw-accelerated flex items-center justify-center">
+              <motion.div
+                className="w-16 h-16 rounded-full bg-green-500 flex items-center justify-center"
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ 
+                  duration: 0.4, 
+                  ease: [0.34, 1.56, 0.64, 1],
+                  delay: 0.2
+                }}
+                style={{
+                  willChange: "transform, opacity",
+                  backfaceVisibility: "hidden",
+                  transform: "translateZ(0)",
+                }}
+              >
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                </svg>
+              </motion.div>
             </div>
-            <div className="space-y-2 text-center">
-              <h4 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">
+            <motion.div 
+              className="space-y-2 text-center"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ 
+                duration: 0.3, 
+                delay: 0.1, // Stagger after main animation
+                ease: [0.34, 1.56, 0.64, 1]
+              }}
+              style={{
+                willChange: "transform, opacity",
+                backfaceVisibility: "hidden",
+              }}
+            >
+              <motion.h4 
+                className="stagger-title text-2xl font-bold text-zinc-900 dark:text-zinc-100"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ 
+                  duration: 0.2, 
+                  delay: 0.0, // Title first
+                  ease: "easeOut"
+                }}
+                style={{
+                  willChange: "opacity",
+                  transitionDelay: "0s",
+                }}
+              >
                 Successfully subscribed!
-              </h4>
-              <p className="text-zinc-600 dark:text-zinc-400">
+              </motion.h4>
+              <motion.p 
+                className="stagger-description text-zinc-600 dark:text-zinc-400"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ 
+                  duration: 0.2, 
+                  delay: 0.15, // Description delayed
+                  ease: "easeOut"
+                }}
+                style={{
+                  willChange: "opacity",
+                  transitionDelay: "0.15s",
+                }}
+              >
                 Please check your email for a confirmation message.
-              </p>
-            </div>
+              </motion.p>
+            </motion.div>
           </div>
         </motion.div>
       ) : (
