@@ -1,8 +1,8 @@
 import "@testing-library/jest-dom";
 
 // Add polyfills for MSW and Node.js environment
-import { TextEncoder, TextDecoder } from 'util';
-import { Response, Request, Headers, fetch } from 'whatwg-fetch';
+import { TextEncoder, TextDecoder } from "util";
+import { Response, Request, Headers, fetch } from "whatwg-fetch";
 
 global.TextEncoder = TextEncoder;
 global.TextDecoder = TextDecoder;
@@ -12,10 +12,10 @@ global.Response = Response;
 global.Headers = Headers;
 
 // Setup MSW server for API mocking
-import { server } from './__tests__/mocks/server';
+import { server } from "./__tests__/mocks/server";
 
 // Establish API mocking before all tests
-beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));
+beforeAll(() => server.listen({ onUnhandledRequest: "error" }));
 
 // Reset any request handlers that we may add during the tests,
 // so they don't affect other tests

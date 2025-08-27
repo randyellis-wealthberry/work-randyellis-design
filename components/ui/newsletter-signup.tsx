@@ -26,11 +26,12 @@ export function NewsletterSignup() {
     "idle" | "success" | "error" | "rate_limited"
   >("idle");
   const [errorMessage, setErrorMessage] = useState<string>("");
-  
+
   // Performance monitoring
-  const { startMonitoring, stopMonitoring, metrics } = useAnimationPerformance();
+  const { startMonitoring, stopMonitoring, metrics } =
+    useAnimationPerformance();
   const successElementRef = useRef<HTMLDivElement>(null);
-  
+
   // Cleanup on unmount
   useEffect(() => {
     return () => {
@@ -73,7 +74,7 @@ export function NewsletterSignup() {
         setSubmitStatus("success");
         trackNewsletterAttempt("submit_success", true);
         reset();
-        
+
         // Start performance monitoring when animation begins
         setTimeout(() => {
           startMonitoring();
@@ -120,9 +121,9 @@ export function NewsletterSignup() {
           ref={successElementRef}
           initial={{ opacity: 0, scale: 0.8, rotateZ: 0 }}
           animate={{ opacity: 1, scale: 1, rotateZ: 0 }}
-          transition={{ 
-            duration: 0.4, 
-            ease: [0.34, 1.56, 0.64, 1] // Spring-like cubic-bezier
+          transition={{
+            duration: 0.4,
+            ease: [0.34, 1.56, 0.64, 1], // Spring-like cubic-bezier
           }}
           style={{
             willChange: "transform, opacity",
@@ -134,15 +135,15 @@ export function NewsletterSignup() {
           className="performance-optimized-animation hw-accelerated mx-auto flex h-full min-h-[520px] max-w-lg flex-col justify-center text-center"
         >
           <div className="flex flex-col items-center space-y-4">
-            <div className="h-[200px] w-[200px] hw-accelerated flex items-center justify-center">
+            <div className="hw-accelerated flex h-[200px] w-[200px] items-center justify-center">
               <motion.div
-                className="w-16 h-16 rounded-full bg-green-500 flex items-center justify-center"
+                className="flex h-16 w-16 items-center justify-center rounded-full bg-green-500"
                 initial={{ scale: 0, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                transition={{ 
-                  duration: 0.4, 
+                transition={{
+                  duration: 0.4,
                   ease: [0.34, 1.56, 0.64, 1],
-                  delay: 0.2
+                  delay: 0.2,
                 }}
                 style={{
                   willChange: "transform, opacity",
@@ -150,33 +151,43 @@ export function NewsletterSignup() {
                   transform: "translateZ(0)",
                 }}
               >
-                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                <svg
+                  className="h-8 w-8 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={3}
+                    d="M5 13l4 4L19 7"
+                  />
                 </svg>
               </motion.div>
             </div>
-            <motion.div 
+            <motion.div
               className="space-y-2 text-center"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ 
-                duration: 0.3, 
+              transition={{
+                duration: 0.3,
                 delay: 0.1, // Stagger after main animation
-                ease: [0.34, 1.56, 0.64, 1]
+                ease: [0.34, 1.56, 0.64, 1],
               }}
               style={{
                 willChange: "transform, opacity",
                 backfaceVisibility: "hidden",
               }}
             >
-              <motion.h4 
+              <motion.h4
                 className="stagger-title text-2xl font-bold text-zinc-900 dark:text-zinc-100"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ 
-                  duration: 0.2, 
+                transition={{
+                  duration: 0.2,
                   delay: 0.0, // Title first
-                  ease: "easeOut"
+                  ease: "easeOut",
                 }}
                 style={{
                   willChange: "opacity",
@@ -185,14 +196,14 @@ export function NewsletterSignup() {
               >
                 Successfully subscribed!
               </motion.h4>
-              <motion.p 
+              <motion.p
                 className="stagger-description text-zinc-600 dark:text-zinc-400"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ 
-                  duration: 0.2, 
+                transition={{
+                  duration: 0.2,
                   delay: 0.15, // Description delayed
-                  ease: "easeOut"
+                  ease: "easeOut",
                 }}
                 style={{
                   willChange: "opacity",

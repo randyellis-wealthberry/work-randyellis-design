@@ -11,7 +11,11 @@ jest.mock("next/image", () => {
 
 jest.mock("next/link", () => {
   return function MockLink({ children, href, ...props }: any) {
-    return <a href={href} {...props}>{children}</a>;
+    return (
+      <a href={href} {...props}>
+        {children}
+      </a>
+    );
   };
 });
 
@@ -31,23 +35,23 @@ jest.mock("@/lib/data", () => ({
       company: "Test Company",
       start: "2023",
       end: "2024",
-      link: "https://test.com"
-    }
+      link: "https://test.com",
+    },
   ],
   BLOG_POSTS: [
     {
       uid: "1",
       title: "Test Blog Post",
       description: "Test description",
-      link: "/blog/test"
-    }
+      link: "/blog/test",
+    },
   ],
   getEmail: () => "test@example.com",
   SOCIAL_LINKS: [
     {
       label: "GitHub",
-      link: "https://github.com/test"
-    }
+      link: "https://github.com/test",
+    },
   ],
 }));
 
@@ -58,8 +62,8 @@ jest.mock("@/lib/data/projects", () => ({
       name: "Test Project",
       slug: "test-project",
       description: "Test description",
-      thumbnail: "/test-thumbnail.jpg"
-    }
+      thumbnail: "/test-thumbnail.jpg",
+    },
   ],
 }));
 
@@ -70,8 +74,8 @@ jest.mock("@/lib/project-utils", () => ({
       name: "Test Project",
       slug: "test-project",
       description: "Test description",
-      thumbnail: "/test-thumbnail.jpg"
-    }
+      thumbnail: "/test-thumbnail.jpg",
+    },
   ]),
 }));
 
@@ -86,41 +90,46 @@ describe("Home Page TextGradientScroll Integration", () => {
   });
 
   it("renders without crashing with TextGradientScroll components", () => {
-    const consoleSpy = jest.spyOn(console, 'error').mockImplementation((message) => {
-      // Suppress React warnings about non-boolean attributes during testing
-      if (typeof message === 'string' && message.includes('non-boolean attribute')) {
-        return; // Suppress this specific warning
-      }
-    });
-    
+    const consoleSpy = jest
+      .spyOn(console, "error")
+      .mockImplementation((message) => {
+        // Suppress React warnings about non-boolean attributes during testing
+        if (
+          typeof message === "string" &&
+          message.includes("non-boolean attribute")
+        ) {
+          return; // Suppress this specific warning
+        }
+      });
+
     render(<HomePage />);
-    
+
     // Should render main sections without critical errors
     expect(screen.getByRole("main")).toBeInTheDocument();
-    
+
     consoleSpy.mockRestore();
   });
 
   it("renders main content structure", () => {
     render(<HomePage />);
-    
+
     // Should render main sections
     expect(screen.getByRole("main")).toBeInTheDocument();
-    
+
     // Should render key text content that will be enhanced with TextGradientScroll
     expect(screen.getByText(/Silicon Dreams/)).toBeInTheDocument();
   });
 
   it("maintains responsive layout with new components", () => {
     render(<HomePage />);
-    
+
     const mainElement = screen.getByRole("main");
     expect(mainElement).toHaveClass("space-y-32", "sm:space-y-24");
   });
 
   it("preserves existing navigation and sections", () => {
     render(<HomePage />);
-    
+
     // Check for existing section headings that should still be present
     expect(screen.getByText(/Core Ideologies/)).toBeInTheDocument();
     expect(screen.getByText(/Selected Projects/)).toBeInTheDocument();
@@ -130,32 +139,37 @@ describe("Home Page TextGradientScroll Integration", () => {
 
   it("handles motion components properly", () => {
     render(<HomePage />);
-    
+
     // Motion components should render with proper data attributes
-    const motionElements = document.querySelectorAll('[data-motion-component]');
+    const motionElements = document.querySelectorAll("[data-motion-component]");
     expect(motionElements.length).toBeGreaterThan(0);
   });
 
   it("maintains accessibility with new components", () => {
     render(<HomePage />);
-    
+
     // Should have proper semantic structure
     expect(screen.getByRole("main")).toBeInTheDocument();
-    
+
     // Should have screen reader content
-    expect(screen.getByText(/Randy Ellis - AI Product Design Engineer Portfolio/)).toBeInTheDocument();
+    expect(
+      screen.getByText(/Randy Ellis - AI Product Design Engineer Portfolio/),
+    ).toBeInTheDocument();
   });
 
   it("preserves existing interactive elements", () => {
     render(<HomePage />);
-    
+
     // Should have links that are still functional
     const links = screen.getAllByRole("link");
     expect(links.length).toBeGreaterThan(0);
-    
+
     // Should have email link
     const emailLink = screen.getByText("test@example.com");
-    expect(emailLink.closest("a")).toHaveAttribute("href", "mailto:test@example.com");
+    expect(emailLink.closest("a")).toHaveAttribute(
+      "href",
+      "mailto:test@example.com",
+    );
   });
 
   describe("Performance Considerations", () => {
@@ -163,17 +177,17 @@ describe("Home Page TextGradientScroll Integration", () => {
       const startTime = performance.now();
       render(<HomePage />);
       const renderTime = performance.now() - startTime;
-      
+
       // Should render within reasonable time even with new components
       expect(renderTime).toBeLessThan(1000);
     });
 
     it("does not create excessive DOM nodes", () => {
       render(<HomePage />);
-      
+
       // Count DOM nodes to ensure we're not creating too many
       const allElements = document.querySelectorAll("*");
-      
+
       // Should be reasonable number of elements (TextGradientScroll creates many spans for letter animation)
       // With letter-level animations, expect around 4000 elements
       expect(allElements.length).toBeLessThan(5000);
@@ -183,12 +197,12 @@ describe("Home Page TextGradientScroll Integration", () => {
   describe("Responsive Behavior", () => {
     it("maintains mobile-first responsive classes", () => {
       render(<HomePage />);
-      
+
       // Check that responsive grid classes are maintained
-      const gridElements = document.querySelectorAll('.grid-cols-1');
+      const gridElements = document.querySelectorAll(".grid-cols-1");
       expect(gridElements.length).toBeGreaterThan(0);
-      
-      const responsiveElements = document.querySelectorAll('.sm\\:grid-cols-2');
+
+      const responsiveElements = document.querySelectorAll(".sm\\:grid-cols-2");
       expect(responsiveElements.length).toBeGreaterThan(0);
     });
   });
@@ -196,13 +210,17 @@ describe("Home Page TextGradientScroll Integration", () => {
   describe("Animation Integration", () => {
     it("does not conflict with existing motion components", () => {
       render(<HomePage />);
-      
+
       // Should render motion sections without errors
-      const motionSections = document.querySelectorAll('[data-motion-component="section"]');
+      const motionSections = document.querySelectorAll(
+        '[data-motion-component="section"]',
+      );
       expect(motionSections.length).toBeGreaterThan(0);
-      
+
       // Should render motion main element
-      const motionMain = document.querySelector('[data-motion-component="main"]');
+      const motionMain = document.querySelector(
+        '[data-motion-component="main"]',
+      );
       expect(motionMain).toBeInTheDocument();
     });
   });

@@ -35,7 +35,7 @@ export class AnimationPerformanceMonitor {
 
   start() {
     if (this.isMonitoring) return;
-    
+
     this.isMonitoring = true;
     this.frameData = [];
     this.startTime = performance.now();
@@ -68,11 +68,12 @@ export class AnimationPerformanceMonitor {
       frameTimes.push(this.frameData[i] - this.frameData[i - 1]);
     }
 
-    const avgFrameTime = frameTimes.reduce((a, b) => a + b, 0) / frameTimes.length;
+    const avgFrameTime =
+      frameTimes.reduce((a, b) => a + b, 0) / frameTimes.length;
     const fps = 1000 / avgFrameTime;
     const minFrameTime = Math.min(...frameTimes);
     const maxFrameTime = Math.max(...frameTimes);
-    const jank = frameTimes.filter(time => time > 16.67).length; // Frames over 60fps
+    const jank = frameTimes.filter((time) => time > 16.67).length; // Frames over 60fps
 
     return {
       averageFPS: fps,
@@ -81,7 +82,7 @@ export class AnimationPerformanceMonitor {
       jankFrames: jank,
       jankPercentage: (jank / frameTimes.length) * 100,
       totalFrames: frameTimes.length,
-      duration: this.frameData[this.frameData.length - 1] - this.startTime
+      duration: this.frameData[this.frameData.length - 1] - this.startTime,
     };
   }
 }
@@ -119,7 +120,7 @@ export class MemoryLeakDetector {
       initialMemory: this.initialMemory,
       currentMemory,
       growth,
-      growthRate
+      growthRate,
     };
   }
 
@@ -144,7 +145,7 @@ export const loadTest = async (
     concurrent: number;
     duration: number;
     rampUp?: number;
-  }
+  },
 ): Promise<{
   totalRequests: number;
   successfulRequests: number;
@@ -158,7 +159,7 @@ export const loadTest = async (
   const { concurrent, duration, rampUp = 0 } = options;
   const startTime = Date.now();
   const endTime = startTime + duration;
-  
+
   const results: Array<{
     success: boolean;
     responseTime: number;
@@ -170,49 +171,50 @@ export const loadTest = async (
   // Create concurrent workers
   for (let i = 0; i < concurrent; i++) {
     const workerDelay = rampUp ? (rampUp / concurrent) * i : 0;
-    
+
     workers.push(
       (async () => {
         if (workerDelay > 0) {
-          await new Promise(resolve => setTimeout(resolve, workerDelay));
+          await new Promise((resolve) => setTimeout(resolve, workerDelay));
         }
 
         while (Date.now() < endTime) {
           const requestStart = Date.now();
-          
+
           try {
             await testFunction();
             results.push({
               success: true,
-              responseTime: Date.now() - requestStart
+              responseTime: Date.now() - requestStart,
             });
           } catch (error) {
             results.push({
               success: false,
               responseTime: Date.now() - requestStart,
-              error: error as Error
+              error: error as Error,
             });
           }
         }
-      })()
+      })(),
     );
   }
 
   await Promise.all(workers);
 
-  const successfulResults = results.filter(r => r.success);
-  const failedResults = results.filter(r => !r.success);
-  const responseTimes = results.map(r => r.responseTime);
+  const successfulResults = results.filter((r) => r.success);
+  const failedResults = results.filter((r) => !r.success);
+  const responseTimes = results.map((r) => r.responseTime);
 
   return {
     totalRequests: results.length,
     successfulRequests: successfulResults.length,
     failedRequests: failedResults.length,
-    averageResponseTime: responseTimes.reduce((a, b) => a + b, 0) / responseTimes.length,
+    averageResponseTime:
+      responseTimes.reduce((a, b) => a + b, 0) / responseTimes.length,
     minResponseTime: Math.min(...responseTimes),
     maxResponseTime: Math.max(...responseTimes),
     requestsPerSecond: results.length / (duration / 1000),
-    errors: failedResults.map(r => r.error!).filter(Boolean)
+    errors: failedResults.map((r) => r.error!).filter(Boolean),
   };
 };
 
@@ -230,17 +232,17 @@ export const measureWebVitals = (): Promise<{
       fid: 0,
       cls: 0,
       fcp: 0,
-      ttfb: 0
+      ttfb: 0,
     };
 
     // Measure LCP
-    if ('PerformanceObserver' in window) {
+    if ("PerformanceObserver" in window) {
       const lcpObserver = new PerformanceObserver((list) => {
         const entries = list.getEntries();
         const lastEntry = entries[entries.length - 1] as any;
         vitals.lcp = lastEntry.startTime;
       });
-      lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });
+      lcpObserver.observe({ entryTypes: ["largest-contentful-paint"] });
 
       // Measure FID
       const fidObserver = new PerformanceObserver((list) => {
@@ -249,7 +251,7 @@ export const measureWebVitals = (): Promise<{
           vitals.fid = entry.processingStart - entry.startTime;
         });
       });
-      fidObserver.observe({ entryTypes: ['first-input'] });
+      fidObserver.observe({ entryTypes: ["first-input"] });
 
       // Measure CLS
       const clsObserver = new PerformanceObserver((list) => {
@@ -260,21 +262,24 @@ export const measureWebVitals = (): Promise<{
           }
         });
       });
-      clsObserver.observe({ entryTypes: ['layout-shift'] });
+      clsObserver.observe({ entryTypes: ["layout-shift"] });
 
       // Measure FCP and TTFB
       const navigationObserver = new PerformanceObserver((list) => {
         const entries = list.getEntries();
         entries.forEach((entry: any) => {
-          if (entry.entryType === 'paint' && entry.name === 'first-contentful-paint') {
+          if (
+            entry.entryType === "paint" &&
+            entry.name === "first-contentful-paint"
+          ) {
             vitals.fcp = entry.startTime;
           }
-          if (entry.entryType === 'navigation') {
+          if (entry.entryType === "navigation") {
             vitals.ttfb = entry.responseStart - entry.fetchStart;
           }
         });
       });
-      navigationObserver.observe({ entryTypes: ['paint', 'navigation'] });
+      navigationObserver.observe({ entryTypes: ["paint", "navigation"] });
 
       // Resolve after a delay to collect metrics
       setTimeout(() => resolve(vitals), 3000);
@@ -291,7 +296,7 @@ export const chaosTest = async (
     name: string;
     probability: number;
     execute: () => void;
-  }>
+  }>,
 ): Promise<{
   totalTests: number;
   successful: number;
@@ -304,7 +309,7 @@ export const chaosTest = async (
     successful: 0,
     failed: 0,
     chaosEvents: [] as string[],
-    errors: [] as Error[]
+    errors: [] as Error[],
   };
 
   for (let i = 0; i < 100; i++) {
@@ -333,7 +338,7 @@ export const chaosTest = async (
 // Property-based testing helper
 export const generateRandomWebGLScenes = (count: number) => {
   const scenes = [];
-  
+
   for (let i = 0; i < count; i++) {
     scenes.push({
       vertices: Math.floor(Math.random() * 10000) + 100,
@@ -342,9 +347,9 @@ export const generateRandomWebGLScenes = (count: number) => {
       lights: Math.floor(Math.random() * 8) + 1,
       materials: Math.floor(Math.random() * 5) + 1,
       animationSpeed: Math.random() * 2 + 0.1,
-      complexity: ['low', 'medium', 'high'][Math.floor(Math.random() * 3)]
+      complexity: ["low", "medium", "high"][Math.floor(Math.random() * 3)],
     });
   }
-  
+
   return scenes;
 };

@@ -62,7 +62,11 @@ function TextGradientScroll({
 
   return (
     <TextGradientScrollContext.Provider value={{ textOpacity, type }}>
-      <p ref={ref} data-testid="text-gradient-scroll" className={cn("relative m-0 flex flex-wrap", className)}>
+      <p
+        ref={ref}
+        data-testid="text-gradient-scroll"
+        className={cn("relative m-0 flex flex-wrap", className)}
+      >
         {words.map((word, i) => {
           const start = i / words.length;
           const end = start + 1 / words.length;

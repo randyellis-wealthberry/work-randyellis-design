@@ -5,6 +5,7 @@ This document describes the comprehensive analytics tracking implemented for the
 ## Overview
 
 The global recommendations feature now includes detailed analytics tracking to measure:
+
 - User engagement with recommended content
 - Recommendation effectiveness across different contexts
 - Conversion rates from recommendations to actual views
@@ -30,6 +31,7 @@ trackRecommendationSectionView(
 ```
 
 **Properties:**
+
 - `source_page_type`: Type of page where recommendations are shown
 - `source_slug`: Slug of the current page
 - `sections_shown`: Array of sections displayed (comma-separated)
@@ -56,6 +58,7 @@ trackRecommendationCaseStudyClick(
 ```
 
 **Properties:**
+
 - `source_page_type`: Type of source page
 - `source_slug`: Slug of source page
 - `recommended_project_slug`: Slug of clicked project
@@ -82,6 +85,7 @@ trackRecommendationArticleClick(
 ```
 
 **Properties:**
+
 - Similar to case study click tracking but for articles
 - `recommended_article_slug`: Slug of clicked article
 - `recommended_article_title`: Title of clicked article
@@ -104,6 +108,7 @@ trackRecommendationCardHover(
 ```
 
 **Properties:**
+
 - `card_type`: Type of card being hovered
 - `source_page_type`: Type of source page
 - `item_slug`: Slug of hovered item
@@ -129,6 +134,7 @@ trackRecommendationConversion(
 ```
 
 **Properties:**
+
 - `source_page_type`: Type of source page
 - `source_slug`: Slug of source page
 - `target_type`: Type of target content
@@ -177,16 +183,19 @@ User Action → Component Event Handler → Analytics Function → trackEvent �
 ## Key Metrics Tracked
 
 ### Engagement Metrics
+
 - Click-through rates by position
 - Hover engagement patterns
 - Section view rates across contexts
 
 ### Performance Metrics
+
 - Recommendation effectiveness by page type
 - Content performance across different contexts
 - User journey patterns
 
 ### Conversion Metrics
+
 - Recommendation to view conversion rates
 - Time to conversion measurements
 - Cross-content engagement patterns
@@ -220,32 +229,34 @@ Comprehensive test coverage includes:
 ## Usage Examples
 
 ### Basic Implementation
+
 ```typescript
 // In a component
-import { trackRecommendationSectionView } from '@/lib/analytics';
+import { trackRecommendationSectionView } from "@/lib/analytics";
 
 useEffect(() => {
   trackRecommendationSectionView(
-    'project',
-    'my-project-slug',
-    ['case_studies', 'articles'],
+    "project",
+    "my-project-slug",
+    ["case_studies", "articles"],
     2,
-    3
+    3,
   );
 }, []);
 ```
 
 ### Click Tracking
+
 ```typescript
 // In click handler
 const handleProjectClick = (project: Project, position: number) => {
   trackRecommendationCaseStudyClick(
-    'blog',
-    'current-blog-post',
+    "blog",
+    "current-blog-post",
     project.slug,
     project.name,
     position,
-    'blog_page'
+    "blog_page",
   );
 };
 ```
@@ -253,18 +264,21 @@ const handleProjectClick = (project: Project, position: number) => {
 ## Monitoring and Insights
 
 ### Key Performance Indicators (KPIs)
+
 - Overall recommendation engagement rate
 - Click-through rate by position and context
 - Content discovery effectiveness
 - User retention through recommendations
 
 ### Analytics Dashboard Metrics
+
 - Daily/weekly recommendation interactions
 - Most effective recommendation contexts
 - Content performance across recommendations
 - User journey analytics
 
 ### Optimization Opportunities
+
 - A/B test recommendation algorithms
 - Optimize content positioning based on engagement
 - Improve recommendation relevance using conversion data

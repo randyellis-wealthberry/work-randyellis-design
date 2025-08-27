@@ -14,7 +14,12 @@ jest.mock("@/components/performance/lazy-components", () => ({
     />
   )),
   OptimizedLazyImage: jest.fn(({ src, alt, className }) => (
-    <img src={src} alt={alt} className={className} data-testid="static-thumbnail" />
+    <img
+      src={src}
+      alt={alt}
+      className={className}
+      data-testid="static-thumbnail"
+    />
   )),
 }));
 
@@ -31,8 +36,8 @@ function ProjectThumbnail({ project }: { project: (typeof PROJECTS)[0] }) {
         className="aspect-video max-h-48 w-full cursor-pointer overflow-hidden rounded-lg transition-opacity duration-200 hover:opacity-90"
         data-testid="video-container"
       >
-        <video 
-          src={project.video} 
+        <video
+          src={project.video}
           className="h-full w-full"
           data-testid="video-thumbnail"
           poster={project.thumbnail}
@@ -67,7 +72,9 @@ describe("Rambis UI Project Video Thumbnail", () => {
     it("should find the Rambis UI project in project data", () => {
       expect(rambisProject).toBeDefined();
       expect(rambisProject?.name).toBe("Rambis UI");
-      expect(rambisProject?.subtitle).toBe("Modern Design System & Component Library");
+      expect(rambisProject?.subtitle).toBe(
+        "Modern Design System & Component Library",
+      );
     });
 
     it("should have correct project slug", () => {
@@ -87,7 +94,9 @@ describe("Rambis UI Project Video Thumbnail", () => {
 
     it("should have thumbnail as fallback poster image", () => {
       // Thumbnail should be the jpg for poster
-      expect(rambisProject?.thumbnail).toBe("/projects/rambis-ui/hero-thumbnail.jpg");
+      expect(rambisProject?.thumbnail).toBe(
+        "/projects/rambis-ui/hero-thumbnail.jpg",
+      );
     });
 
     it("should have correct file extensions", () => {
@@ -131,7 +140,7 @@ describe("Rambis UI Project Video Thumbnail", () => {
       render(<ProjectThumbnail project={rambisProject} />);
 
       const videoElement = screen.getByTestId("video-thumbnail");
-      
+
       // Check important video attributes - these would be added by OptimizedLazyVideo in production
       expect(videoElement).toBeInTheDocument();
       expect(videoElement).toHaveAttribute("src", rambisProject.video);
@@ -155,7 +164,10 @@ describe("Rambis UI Project Video Thumbnail", () => {
 
       expect(imageElement).toBeInTheDocument();
       expect(videoElement).not.toBeInTheDocument();
-      expect(imageElement).toHaveAttribute("src", projectWithoutVideo.thumbnail);
+      expect(imageElement).toHaveAttribute(
+        "src",
+        projectWithoutVideo.thumbnail,
+      );
     });
   });
 
@@ -168,7 +180,7 @@ describe("Rambis UI Project Video Thumbnail", () => {
       render(<ProjectThumbnail project={rambisProject} />);
 
       const videoContainer = screen.getByTestId("video-container");
-      
+
       // Test hover class application
       expect(videoContainer).toHaveClass("hover:opacity-90");
       expect(videoContainer).toHaveClass("transition-opacity");
@@ -233,7 +245,7 @@ describe("Rambis UI Project Video Thumbnail", () => {
       render(<ProjectThumbnail project={rambisProject} />);
 
       const videoContainer = screen.getByTestId("video-container");
-      
+
       // Check that cursor-pointer indicates interactivity
       expect(videoContainer).toHaveClass("cursor-pointer");
     });
@@ -248,7 +260,7 @@ describe("Rambis UI Project Video Thumbnail", () => {
       render(<ProjectThumbnail project={rambisProject} />);
 
       const videoElement = screen.getByTestId("video-thumbnail");
-      
+
       // Video should not have autoplay attribute initially
       expect(videoElement).not.toHaveAttribute("autoplay");
     });
@@ -261,7 +273,7 @@ describe("Rambis UI Project Video Thumbnail", () => {
       render(<ProjectThumbnail project={rambisProject} />);
 
       const videoElement = screen.getByTestId("video-thumbnail");
-      
+
       // Video element is rendered for MP4 thumbnails
       expect(videoElement).toBeInTheDocument();
       expect(videoElement.tagName.toLowerCase()).toBe("video");
@@ -288,7 +300,10 @@ describe("Rambis UI Project Video Thumbnail", () => {
       render(<ProjectThumbnail project={projectWithoutThumbnail} />);
 
       const imageElement = screen.getByTestId("static-thumbnail");
-      expect(imageElement).toHaveAttribute("src", "/images/projects/placeholder-thumbnail.jpg");
+      expect(imageElement).toHaveAttribute(
+        "src",
+        "/images/projects/placeholder-thumbnail.jpg",
+      );
     });
   });
 });

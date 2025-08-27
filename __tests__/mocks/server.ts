@@ -3,16 +3,17 @@
  * Test server configuration for API mocking
  */
 
-import { setupServer } from 'msw/node';
-import { handlers } from './handlers';
+import { setupServer } from "msw/node";
+import { handlers } from "./handlers";
 
 // Setup the mock server
 export const server = setupServer(...handlers);
 
 // Server lifecycle helpers
-export const startServer = () => server.listen({
-  onUnhandledRequest: 'warn'
-});
+export const startServer = () =>
+  server.listen({
+    onUnhandledRequest: "warn",
+  });
 
 export const stopServer = () => server.close();
 

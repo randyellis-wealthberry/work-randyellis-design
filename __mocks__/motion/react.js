@@ -20,11 +20,12 @@ export const useSpring = jest.fn((initialValue) => {
 export const useTransform = jest.fn((spring, transform) => {
   // For test environments, return the transformed value directly for rendering
   if (typeof transform === "function") {
-    const value = typeof spring === "object" && spring.get 
-      ? spring.get() 
-      : typeof spring === "number" 
-        ? spring 
-        : 0;
+    const value =
+      typeof spring === "object" && spring.get
+        ? spring.get()
+        : typeof spring === "number"
+          ? spring
+          : 0;
     return transform(value);
   }
   return typeof spring === "object" && spring.get ? spring.get() : spring || 0;

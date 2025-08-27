@@ -3,6 +3,7 @@
 ## Priority 1: Video Optimization for Mobile (HIGH)
 
 ### Current Issue
+
 - 2.1MB MP4 file impacts mobile loading
 - Single format limits optimization opportunities
 - 850ms load time exceeds optimal threshold
@@ -10,6 +11,7 @@
 ### Implementation Steps
 
 #### 1. Add WebM Format Support
+
 ```tsx
 // Update HeroCard video element
 <video
@@ -18,7 +20,7 @@
   muted
   loop
   playsInline
-  className="absolute inset-0 w-full h-full object-cover"
+  className="absolute inset-0 h-full w-full object-cover"
   onLoadStart={() => setIsPlaying(true)}
 >
   <source src="/projects/rambis-ui/rambis.webm" type="video/webm" />
@@ -27,6 +29,7 @@
 ```
 
 #### 2. Add Progressive Loading with Poster
+
 ```tsx
 <video
   ref={videoRef}
@@ -36,7 +39,7 @@
   playsInline
   poster="/projects/rambis-ui/rambis-poster.jpg"
   preload="metadata"
-  className="absolute inset-0 w-full h-full object-cover"
+  className="absolute inset-0 h-full w-full object-cover"
   onLoadStart={() => setIsPlaying(true)}
 >
   <source src="/projects/rambis-ui/rambis.webm" type="video/webm" />
@@ -45,20 +48,23 @@
 ```
 
 #### 3. Connection-Aware Loading
+
 ```tsx
-const [connectionSpeed, setConnectionSpeed] = useState('fast');
+const [connectionSpeed, setConnectionSpeed] = useState("fast");
 
 useEffect(() => {
-  if ('connection' in navigator) {
+  if ("connection" in navigator) {
     const connection = (navigator as any).connection;
     setConnectionSpeed(connection.effectiveType);
   }
 }, []);
 
 // Conditionally load video based on connection
-{connectionSpeed !== 'slow-2g' && connectionSpeed !== '2g' && (
-  <video /* video props */ />
-)}
+{
+  connectionSpeed !== "slow-2g" && connectionSpeed !== "2g" && (
+    <video /* video props */ />
+  );
+}
 ```
 
 **Expected Impact**: ~400ms LCP improvement, 30% file size reduction
@@ -68,6 +74,7 @@ useEffect(() => {
 ## Priority 2: Video Accessibility Enhancement (HIGH)
 
 ### Current Issue
+
 - Video lacks closed captions
 - No audio descriptions available
 - Screen reader users miss video content
@@ -75,14 +82,9 @@ useEffect(() => {
 ### Implementation Steps
 
 #### 1. Add Closed Captions Track
+
 ```tsx
-<video
-  ref={videoRef}
-  autoPlay
-  muted
-  loop
-  playsInline
->
+<video ref={videoRef} autoPlay muted loop playsInline>
   <source src="/projects/rambis-ui/rambis.webm" type="video/webm" />
   <source src="/projects/rambis-ui/rambis.mp4" type="video/mp4" />
   <track
@@ -102,6 +104,7 @@ useEffect(() => {
 ```
 
 #### 2. Create VTT Caption File
+
 ```vtt
 WEBVTT
 
@@ -122,6 +125,7 @@ Navigation and layout components showcase
 ```
 
 #### 3. Enhanced Video Controls
+
 ```tsx
 const [captionsEnabled, setCaptionsEnabled] = useState(false);
 
@@ -132,15 +136,15 @@ const [captionsEnabled, setCaptionsEnabled] = useState(false);
     if (videoRef.current) {
       const tracks = videoRef.current.textTracks;
       for (let track of tracks) {
-        track.mode = captionsEnabled ? 'hidden' : 'showing';
+        track.mode = captionsEnabled ? "hidden" : "showing";
       }
     }
   }}
-  className="absolute top-4 left-4 p-2 rounded-full bg-black/30 hover:bg-black/50 transition-colors duration-200 backdrop-blur-sm"
+  className="absolute top-4 left-4 rounded-full bg-black/30 p-2 backdrop-blur-sm transition-colors duration-200 hover:bg-black/50"
   aria-label={captionsEnabled ? "Hide captions" : "Show captions"}
 >
   <Captions className="h-4 w-4 text-white" />
-</button>
+</button>;
 ```
 
 **Expected Impact**: WCAG 2.1 AA+ compliance for deaf/hard-of-hearing users
@@ -150,6 +154,7 @@ const [captionsEnabled, setCaptionsEnabled] = useState(false);
 ## Priority 3: Enhanced Screen Reader Support (MEDIUM)
 
 ### Current Issue
+
 - Copy notifications not announced
 - Dynamic content updates silent
 - Limited feedback for screen reader users
@@ -157,9 +162,10 @@ const [captionsEnabled, setCaptionsEnabled] = useState(false);
 ### Implementation Steps
 
 #### 1. Add Live Region for Notifications
+
 ```tsx
 // Add to component state
-const [announcement, setAnnouncement] = useState('');
+const [announcement, setAnnouncement] = useState("");
 
 // Update copy function
 const copyToClipboard = useCallback(async (text: string, index: number) => {
@@ -169,25 +175,22 @@ const copyToClipboard = useCallback(async (text: string, index: number) => {
     setAnnouncement(`Copied ${quickActions[index].label} to clipboard`);
     setTimeout(() => {
       setCopiedIndex(null);
-      setAnnouncement('');
+      setAnnouncement("");
     }, 2000);
   } catch (err) {
-    setAnnouncement('Failed to copy to clipboard');
-    console.error('Failed to copy text: ', err);
+    setAnnouncement("Failed to copy to clipboard");
+    console.error("Failed to copy text: ", err);
   }
 }, []);
 
 // Add live region to JSX
-<div
-  aria-live="polite"
-  aria-atomic="true"
-  className="sr-only"
->
+<div aria-live="polite" aria-atomic="true" className="sr-only">
   {announcement}
-</div>
+</div>;
 ```
 
 #### 2. Enhanced Button Descriptions
+
 ```tsx
 <button
   onClick={() => copyToClipboard(action.value, index)}
@@ -208,6 +211,7 @@ const copyToClipboard = useCallback(async (text: string, index: number) => {
 ## Priority 4: Motion Accessibility (MEDIUM)
 
 ### Current Issue
+
 - No respect for `prefers-reduced-motion`
 - Motion-sensitive users may experience discomfort
 - Missing alternative static states
@@ -215,6 +219,7 @@ const copyToClipboard = useCallback(async (text: string, index: number) => {
 ### Implementation Steps
 
 #### 1. Add Reduced Motion CSS
+
 ```css
 @media (prefers-reduced-motion: reduce) {
   .motion-reduce-safe {
@@ -222,7 +227,7 @@ const copyToClipboard = useCallback(async (text: string, index: number) => {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-  
+
   .motion-reduce-hide {
     animation: none !important;
     transition: none !important;
@@ -231,6 +236,7 @@ const copyToClipboard = useCallback(async (text: string, index: number) => {
 ```
 
 #### 2. Update Animation Components
+
 ```tsx
 // Add reduced motion detection
 const [reducedMotion, setReducedMotion] = useState(false);
@@ -238,27 +244,28 @@ const [reducedMotion, setReducedMotion] = useState(false);
 useEffect(() => {
   const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
   setReducedMotion(mediaQuery.matches);
-  
+
   const handleChange = (e: MediaQueryListEvent) => {
     setReducedMotion(e.matches);
   };
-  
+
   mediaQuery.addEventListener('change', handleChange);
   return () => mediaQuery.removeEventListener('change', handleChange);
 }, []);
 
 // Conditionally apply animations
-<AnimatedContent 
+<AnimatedContent
   staggerDelay={reducedMotion ? 0 : 0.1}
   className={reducedMotion ? 'motion-reduce-safe' : ''}
 >
 ```
 
 #### 3. Alternative Static States
+
 ```tsx
 // For hover effects
 className={`
-  transition-all duration-300 
+  transition-all duration-300
   ${reducedMotion ? 'motion-reduce-safe' : 'hover:shadow-xl hover:scale-105'}
 `}
 ```
@@ -270,16 +277,19 @@ className={`
 ## Implementation Timeline
 
 ### Week 1
+
 - **Day 1-2**: Video format optimization (WebM + progressive loading)
 - **Day 3**: Video accessibility (captions + descriptions)
 - **Day 4-5**: Screen reader enhancements
 
 ### Week 2
+
 - **Day 1**: Motion accessibility implementation
 - **Day 2-3**: Testing and refinement
 - **Day 4-5**: Documentation and deployment
 
 ### Testing Checklist
+
 - [ ] Test video loading on slow connections
 - [ ] Verify captions display correctly
 - [ ] Test screen reader announcements
@@ -288,6 +298,7 @@ className={`
 - [ ] Mobile device testing
 
 ### Expected Results Post-Implementation
+
 - **Overall Score**: 87.2% → 92%+
 - **LCP**: 1,350ms → ~950ms
 - **Accessibility**: 87.3% → 93%+

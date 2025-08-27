@@ -1,0 +1,327 @@
+/* Enhanced CodeBlock - Responsive Layout System */
+
+/* Container Query Support for CodeBlock */
+@container /code (max-width: 400px) {
+  .enhanced-code-block {
+    --code-font-size: 0.75rem;
+    --code-line-height: 1.4;
+    --code-padding: 0.75rem;
+    --code-margin: 1rem 0;
+    --code-border-radius: 0.5rem;
+  }
+}
+
+@container /code (min-width: 401px) and (max-width: 600px) {
+  .enhanced-code-block {
+    --code-font-size: clamp(0.75rem, 1.5vw, 0.8rem);
+    --code-line-height: 1.45;
+    --code-padding: 1rem;
+    --code-margin: 1.25rem 0;
+    --code-border-radius: 0.5rem;
+  }
+}
+
+@container /code (min-width: 601px) {
+  .enhanced-code-block {
+    --code-font-size: 0.875rem;
+    --code-line-height: 1.5;
+    --code-padding: 1.5rem;
+    --code-margin: 1.5rem 0;
+    --code-border-radius: 0.75rem;
+  }
+}
+
+/* Base CodeBlock Styles */
+.enhanced-code-block {
+  /* CSS Custom Properties for responsive design */
+  --code-font-size: 0.875rem;
+  --code-line-height: 1.5;
+  --code-padding: 1rem;
+  --code-margin: 1.5rem 0;
+  --code-border-radius: 0.5rem;
+  --code-bg-color: rgb(15 23 42); /* slate-900 */
+  --code-text-color: rgb(248 250 252); /* slate-50 */
+  --code-muted-color: rgb(161 161 170); /* zinc-400 */
+  --code-accent-color: rgb(59 130 246); /* blue-500 */
+
+  /* Layout properties */
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  margin: var(--code-margin);
+  border-radius: var(--code-border-radius);
+  background-color: var(--code-bg-color);
+  font-family: var(
+    --font-mono,
+    ui-monospace,
+    "Space Mono",
+    "Courier New",
+    monospace
+  );
+
+  /* Performance optimizations */
+  contain: layout style paint;
+  will-change: auto;
+}
+
+/* Variant-specific styles */
+.code-block-default {
+  padding: var(--code-padding);
+  font-size: var(--code-font-size);
+}
+
+.code-block-compact {
+  padding: calc(var(--code-padding) * 0.5);
+  font-size: calc(var(--code-font-size) * 0.85);
+  margin: calc(var(--code-margin) * 0.75);
+}
+
+.code-block-column {
+  padding: calc(var(--code-padding) * 0.75);
+  font-size: clamp(0.7rem, 1.2vw, 0.8rem);
+  margin: calc(var(--code-margin) * 0.875);
+}
+
+/* Code content area */
+.enhanced-code-block pre {
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
+}
+
+.enhanced-code-block pre::-webkit-scrollbar {
+  height: 8px;
+}
+
+.enhanced-code-block pre::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.enhanced-code-block pre::-webkit-scrollbar-thumb {
+  background: rgba(156, 163, 175, 0.5);
+  border-radius: 4px;
+}
+
+.enhanced-code-block pre::-webkit-scrollbar-thumb:hover {
+  background: rgba(156, 163, 175, 0.7);
+}
+
+/* Line highlighting */
+.enhanced-code-block .highlighted-line {
+  background-color: rgba(59, 130, 246, 0.1) !important;
+  border-left: 3px solid var(--code-accent-color);
+  padding-left: calc(1rem - 3px) !important;
+}
+
+/* Tab interface */
+.code-block-tabs {
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  border-bottom: 1px solid rgba(156, 163, 175, 0.2);
+  margin-bottom: 0.75rem;
+}
+
+.code-block-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.code-block-tab {
+  padding: 0.5rem 1rem;
+  font-size: 0.75rem;
+  color: var(--code-muted-color);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.code-block-tab:hover {
+  color: var(--code-text-color);
+  background-color: rgba(156, 163, 175, 0.1);
+}
+
+.code-block-tab.active {
+  color: var(--code-text-color);
+}
+
+.code-block-tab.active::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--code-accent-color);
+}
+
+/* Copy button */
+.code-block-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.375rem 0.75rem;
+  font-size: 0.75rem;
+  color: var(--code-muted-color);
+  background: rgba(30, 41, 59, 0.8);
+  border: 1px solid rgba(156, 163, 175, 0.2);
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(4px);
+}
+
+.code-block-copy:hover {
+  color: var(--code-text-color);
+  background: rgba(30, 41, 59, 0.9);
+  border-color: var(--code-accent-color);
+}
+
+.code-block-copy:active {
+  transform: scale(0.98);
+}
+
+/* Responsive design for different layout contexts */
+@media (max-width: 768px) {
+  .enhanced-code-block {
+    --code-margin: 1rem 0;
+    border-radius: 0.5rem;
+  }
+
+  .code-block-column {
+    padding: 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  .code-block-tabs {
+    padding: 0 0.5rem;
+  }
+
+  .code-block-tab {
+    padding: 0.375rem 0.75rem;
+  }
+}
+
+/* 2-column layout specific adjustments */
+@media (min-width: 769px) {
+  .two-column-layout .enhanced-code-block {
+    --code-font-size: clamp(0.75rem, 1vw, 0.8rem);
+    --code-padding: 1rem;
+  }
+
+  .two-column-layout .code-block-column {
+    font-size: 0.75rem;
+    padding: 0.75rem;
+  }
+}
+
+/* Documentation layout integration */
+.docs-content .enhanced-code-block {
+  margin: 1.5rem 0;
+}
+
+.docs-sidebar .enhanced-code-block {
+  margin: 1rem 0;
+  font-size: 0.75rem;
+}
+
+/* Card layout integration */
+.card-layout .enhanced-code-block {
+  margin: 1rem 0;
+  border-radius: 0.5rem;
+}
+
+/* Print styles */
+@media print {
+  .enhanced-code-block {
+    background: #f8f9fa !important;
+    color: #212529 !important;
+    border: 1px solid #dee2e6;
+    page-break-inside: avoid;
+  }
+
+  .code-block-copy {
+    display: none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .enhanced-code-block {
+    --code-bg-color: #000000;
+    --code-text-color: #ffffff;
+    --code-muted-color: #cccccc;
+    --code-accent-color: #00ff00;
+    border: 2px solid #ffffff;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .code-block-tab,
+  .code-block-copy {
+    transition: none;
+  }
+}
+
+/* Focus management for accessibility */
+.enhanced-code-block:focus-within {
+  outline: 2px solid var(--code-accent-color);
+  outline-offset: 2px;
+}
+
+.code-block-tab:focus {
+  outline: 2px solid var(--code-accent-color);
+  outline-offset: -2px;
+}
+
+.code-block-copy:focus {
+  outline: 2px solid var(--code-accent-color);
+  outline-offset: 2px;
+}
+
+/* Utility classes for specific use cases */
+.code-block-inline {
+  display: inline-block;
+  margin: 0;
+  padding: 0.25rem 0.5rem;
+  vertical-align: baseline;
+}
+
+.code-block-full-width {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+}
+
+.code-block-no-margin {
+  margin: 0;
+}
+
+/* Animation for copy success feedback */
+@keyframes copy-success {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.code-block-copy.success {
+  animation: copy-success 0.3s ease-out;
+  color: #10b981; /* green-500 */
+}

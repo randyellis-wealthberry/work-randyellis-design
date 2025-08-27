@@ -221,7 +221,7 @@ export const PerformanceOptimizedScene = forwardRef<
     triangles: 0,
   });
 
-  const qualityManagerRef = useRef<AdaptiveQualityManager>();
+  const qualityManagerRef = useRef<AdaptiveQualityManager | null>(null);
 
   const defaultConfig: SceneConfig = {
     complexity: "high",

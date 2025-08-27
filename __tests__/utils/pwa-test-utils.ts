@@ -7,8 +7,10 @@
 export class ServiceWorkerTestUtils {
   private swRegistration: ServiceWorkerRegistration | null = null;
 
-  async registerServiceWorker(scriptURL = '/sw.js'): Promise<ServiceWorkerRegistration> {
-    if ('serviceWorker' in navigator) {
+  async registerServiceWorker(
+    scriptURL = "/sw.js",
+  ): Promise<ServiceWorkerRegistration> {
+    if ("serviceWorker" in navigator) {
       try {
         this.swRegistration = await navigator.serviceWorker.register(scriptURL);
         return this.swRegistration;
@@ -16,28 +18,31 @@ export class ServiceWorkerTestUtils {
         throw new Error(`Service Worker registration failed: ${error}`);
       }
     } else {
-      throw new Error('Service Worker not supported');
+      throw new Error("Service Worker not supported");
     }
   }
 
   async waitForServiceWorkerActive(): Promise<ServiceWorker> {
     if (!this.swRegistration) {
-      throw new Error('No service worker registration found');
+      throw new Error("No service worker registration found");
     }
 
     return new Promise((resolve, reject) => {
-      const serviceWorker = this.swRegistration!.installing || this.swRegistration!.waiting || this.swRegistration!.active;
-      
-      if (serviceWorker?.state === 'activated') {
+      const serviceWorker =
+        this.swRegistration!.installing ||
+        this.swRegistration!.waiting ||
+        this.swRegistration!.active;
+
+      if (serviceWorker?.state === "activated") {
         resolve(serviceWorker);
         return;
       }
 
-      serviceWorker?.addEventListener('statechange', () => {
-        if (serviceWorker.state === 'activated') {
+      serviceWorker?.addEventListener("statechange", () => {
+        if (serviceWorker.state === "activated") {
           resolve(serviceWorker);
-        } else if (serviceWorker.state === 'redundant') {
-          reject(new Error('Service Worker became redundant'));
+        } else if (serviceWorker.state === "redundant") {
+          reject(new Error("Service Worker became redundant"));
         }
       });
     });
@@ -67,7 +72,7 @@ export class ServiceWorkerTestUtils {
   async postMessageToServiceWorker(message: any): Promise<any> {
     return new Promise((resolve, reject) => {
       if (!this.swRegistration?.active) {
-        reject(new Error('No active service worker'));
+        reject(new Error("No active service worker"));
         return;
       }
 
@@ -88,21 +93,22 @@ export class InstallPromptTestUtils {
   simulateBeforeInstallPrompt(): Promise<boolean> {
     return new Promise((resolve) => {
       // Create a mock beforeinstallprompt event
-      const beforeInstallPromptEvent = new CustomEvent('beforeinstallprompt', {
+      const beforeInstallPromptEvent = new CustomEvent("beforeinstallprompt", {
         cancelable: true,
         detail: {
-          prompt: () => Promise.resolve({ outcome: 'accepted', platform: 'web' }),
-          userChoice: Promise.resolve({ outcome: 'accepted', platform: 'web' })
-        }
+          prompt: () =>
+            Promise.resolve({ outcome: "accepted", platform: "web" }),
+          userChoice: Promise.resolve({ outcome: "accepted", platform: "web" }),
+        },
       });
 
       // Mock the deferredPrompt
       this.deferredPrompt = {
         prompt: jest.fn(() => Promise.resolve()),
-        userChoice: Promise.resolve({ outcome: 'accepted', platform: 'web' })
+        userChoice: Promise.resolve({ outcome: "accepted", platform: "web" }),
       };
 
-      window.addEventListener('beforeinstallprompt', (e) => {
+      window.addEventListener("beforeinstallprompt", (e) => {
         e.preventDefault();
         resolve(true);
       });
@@ -113,7 +119,7 @@ export class InstallPromptTestUtils {
 
   async triggerInstallPrompt(): Promise<{ outcome: string; platform: string }> {
     if (!this.deferredPrompt) {
-      throw new Error('No deferred install prompt available');
+      throw new Error("No deferred install prompt available");
     }
 
     await this.deferredPrompt.prompt();
@@ -133,24 +139,24 @@ export class InstallPromptTestUtils {
 export class OfflineTestUtils {
   async simulateOffline(): Promise<void> {
     // Mock navigator.onLine
-    Object.defineProperty(navigator, 'onLine', {
+    Object.defineProperty(navigator, "onLine", {
       writable: true,
-      value: false
+      value: false,
     });
 
     // Dispatch offline event
-    window.dispatchEvent(new Event('offline'));
+    window.dispatchEvent(new Event("offline"));
   }
 
   async simulateOnline(): Promise<void> {
     // Mock navigator.onLine
-    Object.defineProperty(navigator, 'onLine', {
+    Object.defineProperty(navigator, "onLine", {
       writable: true,
-      value: true
+      value: true,
     });
 
     // Dispatch online event
-    window.dispatchEvent(new Event('online'));
+    window.dispatchEvent(new Event("online"));
   }
 
   async testOfflinePageAccess(url: string): Promise<boolean> {
@@ -180,33 +186,31 @@ export class OfflineTestUtils {
     return {
       hasCache: cacheNames.length > 0,
       cacheNames,
-      totalCachedItems: totalItems
+      totalCachedItems: totalItems,
     };
   }
 
   async clearAllCaches(): Promise<void> {
     const cacheNames = await caches.keys();
-    await Promise.all(
-      cacheNames.map(cacheName => caches.delete(cacheName))
-    );
+    await Promise.all(cacheNames.map((cacheName) => caches.delete(cacheName)));
   }
 }
 
 // Push notification testing
 export class PushNotificationTestUtils {
   async requestNotificationPermission(): Promise<NotificationPermission> {
-    if ('Notification' in window) {
+    if ("Notification" in window) {
       return await Notification.requestPermission();
     }
-    throw new Error('Notifications not supported');
+    throw new Error("Notifications not supported");
   }
 
   async subscribeToPush(vapidPublicKey: string): Promise<PushSubscription> {
     const registration = await navigator.serviceWorker.ready;
-    
+
     const subscription = await registration.pushManager.subscribe({
       userVisibleOnly: true,
-      applicationServerKey: this.urlBase64ToUint8Array(vapidPublicKey)
+      applicationServerKey: this.urlBase64ToUint8Array(vapidPublicKey),
     });
 
     return subscription;
@@ -215,7 +219,7 @@ export class PushNotificationTestUtils {
   async unsubscribeFromPush(): Promise<boolean> {
     const registration = await navigator.serviceWorker.ready;
     const subscription = await registration.pushManager.getSubscription();
-    
+
     if (subscription) {
       return await subscription.unsubscribe();
     }
@@ -223,10 +227,10 @@ export class PushNotificationTestUtils {
   }
 
   private urlBase64ToUint8Array(base64String: string): Uint8Array {
-    const padding = '='.repeat((4 - base64String.length % 4) % 4);
+    const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
     const base64 = (base64String + padding)
-      .replace(/-/g, '+')
-      .replace(/_/g, '/');
+      .replace(/-/g, "+")
+      .replace(/_/g, "/");
 
     const rawData = window.atob(base64);
     const outputArray = new Uint8Array(rawData.length);
@@ -238,8 +242,8 @@ export class PushNotificationTestUtils {
   }
 
   createMockPushEvent(data: any): Event {
-    const mockEvent = new CustomEvent('push', {
-      detail: { data: JSON.stringify(data) }
+    const mockEvent = new CustomEvent("push", {
+      detail: { data: JSON.stringify(data) },
     });
     return mockEvent;
   }
@@ -247,60 +251,64 @@ export class PushNotificationTestUtils {
 
 // Web App Manifest testing
 export class ManifestTestUtils {
-  async validateManifest(manifestUrl = '/manifest.json'): Promise<{
+  async validateManifest(manifestUrl = "/manifest.json"): Promise<{
     valid: boolean;
     manifest: any;
     errors: string[];
   }> {
     const errors: string[] = [];
-    
+
     try {
       const response = await fetch(manifestUrl);
       const manifest = await response.json();
 
       // Required fields validation
       if (!manifest.name && !manifest.short_name) {
-        errors.push('Manifest must have either name or short_name');
+        errors.push("Manifest must have either name or short_name");
       }
 
       if (!manifest.start_url) {
-        errors.push('Manifest must have start_url');
+        errors.push("Manifest must have start_url");
       }
 
       if (!manifest.display) {
-        errors.push('Manifest should have display property');
+        errors.push("Manifest should have display property");
       }
 
       if (!manifest.icons || manifest.icons.length === 0) {
-        errors.push('Manifest should have at least one icon');
+        errors.push("Manifest should have at least one icon");
       } else {
         // Validate icons
-        const hasRequiredSizes = manifest.icons.some((icon: any) => 
-          icon.sizes && (icon.sizes.includes('192x192') || icon.sizes.includes('512x512'))
+        const hasRequiredSizes = manifest.icons.some(
+          (icon: any) =>
+            icon.sizes &&
+            (icon.sizes.includes("192x192") || icon.sizes.includes("512x512")),
         );
         if (!hasRequiredSizes) {
-          errors.push('Manifest should have icons with 192x192 or 512x512 sizes');
+          errors.push(
+            "Manifest should have icons with 192x192 or 512x512 sizes",
+          );
         }
       }
 
       if (!manifest.theme_color) {
-        errors.push('Manifest should have theme_color');
+        errors.push("Manifest should have theme_color");
       }
 
       if (!manifest.background_color) {
-        errors.push('Manifest should have background_color');
+        errors.push("Manifest should have background_color");
       }
 
       return {
         valid: errors.length === 0,
         manifest,
-        errors
+        errors,
       };
     } catch (error) {
       return {
         valid: false,
         manifest: null,
-        errors: [`Failed to fetch or parse manifest: ${error}`]
+        errors: [`Failed to fetch or parse manifest: ${error}`],
       };
     }
   }
@@ -309,11 +317,11 @@ export class ManifestTestUtils {
     accessible: boolean;
     testedIcons: Array<{ src: string; accessible: boolean; size?: string }>;
   }> {
-    const manifestResponse = await fetch('/manifest.json');
+    const manifestResponse = await fetch("/manifest.json");
     const manifest = await manifestResponse.json();
-    
+
     const testedIcons = [];
-    
+
     if (manifest.icons) {
       for (const icon of manifest.icons) {
         try {
@@ -321,21 +329,21 @@ export class ManifestTestUtils {
           testedIcons.push({
             src: icon.src,
             accessible: iconResponse.ok,
-            size: icon.sizes
+            size: icon.sizes,
           });
         } catch (error) {
           testedIcons.push({
             src: icon.src,
             accessible: false,
-            size: icon.sizes
+            size: icon.sizes,
           });
         }
       }
     }
 
     return {
-      accessible: testedIcons.every(icon => icon.accessible),
-      testedIcons
+      accessible: testedIcons.every((icon) => icon.accessible),
+      testedIcons,
     };
   }
 }
@@ -344,26 +352,26 @@ export class ManifestTestUtils {
 export class BackgroundSyncTestUtils {
   async registerBackgroundSync(tag: string): Promise<void> {
     const registration = await navigator.serviceWorker.ready;
-    
-    if ('sync' in registration) {
+
+    if ("sync" in registration) {
       await (registration as any).sync.register(tag);
     } else {
-      throw new Error('Background sync not supported');
+      throw new Error("Background sync not supported");
     }
   }
 
   async getTags(): Promise<string[]> {
     const registration = await navigator.serviceWorker.ready;
-    
-    if ('sync' in registration) {
+
+    if ("sync" in registration) {
       return await (registration as any).sync.getTags();
     }
     return [];
   }
 
   simulateBackgroundSyncEvent(tag: string): CustomEvent {
-    return new CustomEvent('sync', {
-      detail: { tag }
+    return new CustomEvent("sync", {
+      detail: { tag },
     });
   }
 }
@@ -375,5 +383,5 @@ export const pwaTestSuite = {
   offline: OfflineTestUtils,
   pushNotifications: PushNotificationTestUtils,
   manifest: ManifestTestUtils,
-  backgroundSync: BackgroundSyncTestUtils
+  backgroundSync: BackgroundSyncTestUtils,
 };
