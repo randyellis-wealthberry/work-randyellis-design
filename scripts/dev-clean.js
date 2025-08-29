@@ -6,6 +6,7 @@
  */
 
 const { exec, spawn } = require("child_process");
+const readline = require("readline");
 
 // Simple color logging without external dependencies
 const colors = {
@@ -20,14 +21,31 @@ const PORT = 3000;
 console.log(colors.blue("🔧 Starting development server with port cleanup..."));
 
 /**
+ * Prompt user for confirmation
+ */
+function askUserConfirmation(question) {
+  return new Promise((resolve) => {
+    const rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout,
+    });
+
+    rl.question(colors.yellow(question + " (y/N): "), (answer) => {
+      rl.close();
+      resolve(answer.toLowerCase() === "y" || answer.toLowerCase() === "yes");
+    });
+  });
+}
+
+/**
  * Kill processes running on specified port
  */
 function killPort(port) {
-  return new Promise((resolve) => {
+  return new Promise(async (resolve) => {
     console.log(colors.yellow(`🔍 Checking for processes on port ${port}...`));
 
     // Find processes using the port
-    exec(`lsof -ti:${port}`, (error, stdout) => {
+    exec(`lsof -ti:${port}`, async (error, stdout) => {
       if (error || !stdout.trim()) {
         console.log(colors.green(`✅ Port ${port} is available`));
         resolve();
@@ -40,6 +58,17 @@ function killPort(port) {
           `⚠️  Found ${pids.length} process(es) on port ${port}: ${pids.join(", ")}`,
         ),
       );
+
+      // Ask user for confirmation
+      const shouldKill = await askUserConfirmation(
+        `Do you want to kill these process(es) to start the dev server?`
+      );
+
+      if (!shouldKill) {
+        console.log(colors.yellow("❌ Cancelled. Dev server not started."));
+        process.exit(0);
+        return;
+      }
 
       // Kill the processes
       exec(`kill -9 ${pids.join(" ")}`, (killError) => {

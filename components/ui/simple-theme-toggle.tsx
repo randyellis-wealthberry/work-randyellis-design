@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { MoonIcon, SunIcon } from "lucide-react";
+import { MoonIcon, SunIcon, MonitorIcon } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -49,7 +49,22 @@ export function SimpleThemeToggle({
   }
 
   const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
+    // Three-state cycling: system → light → dark → system
+    const themeOrder = ["system", "light", "dark"] as const;
+    const currentIndex = themeOrder.indexOf(
+      theme as "system" | "light" | "dark",
+    );
+    const nextIndex = (currentIndex + 1) % themeOrder.length;
+    const nextTheme = themeOrder[nextIndex];
+
+    // Use View Transitions API for smooth animations if available
+    if (typeof document !== "undefined" && document.startViewTransition) {
+      document.startViewTransition(() => {
+        setTheme(nextTheme);
+      });
+    } else {
+      setTheme(nextTheme);
+    }
   };
 
   const iconSizes = {
@@ -73,22 +88,41 @@ export function SimpleThemeToggle({
         className,
       )}
       aria-label={
-        theme === "dark" ? "Switch to light theme" : "Switch to dark theme"
+        theme === "system"
+          ? "Switch to light theme"
+          : theme === "light"
+            ? "Switch to dark theme"
+            : "Switch to system theme"
       }
       data-testid={testId}
     >
       {showIcons && (
         <>
+          {/* Sun Icon - visible when theme is light */}
           <SunIcon
+            data-testid="sun-icon"
             className={cn(
               iconSize,
-              "scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90",
+              "scale-0 rotate-90 transition-all duration-300",
+              theme === "light" && "scale-100 rotate-0",
             )}
           />
+          {/* Moon Icon - visible when theme is dark */}
           <MoonIcon
+            data-testid="moon-icon"
             className={cn(
               iconSize,
-              "absolute scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0",
+              "absolute scale-0 rotate-90 transition-all duration-300",
+              theme === "dark" && "scale-100 rotate-0",
+            )}
+          />
+          {/* Monitor Icon - visible when theme is system */}
+          <MonitorIcon
+            data-testid="monitor-icon"
+            className={cn(
+              iconSize,
+              "absolute scale-0 rotate-90 transition-all duration-300",
+              theme === "system" && "scale-100 rotate-0",
             )}
           />
         </>

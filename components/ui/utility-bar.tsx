@@ -10,7 +10,7 @@ export default function UtilityBar() {
       aria-label="Utility controls"
       data-testid="utility-bar"
     >
-      <div className="max-w-none">
+      <div className="mx-2 max-w-none sm:mx-4">
         <HeaderThemeToggle />
       </div>
     </div>
