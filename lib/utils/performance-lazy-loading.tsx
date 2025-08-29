@@ -3,8 +3,13 @@
  * Implements intelligent loading strategies for heavy components
  */
 
-import { lazy, Suspense, type ComponentType } from 'react';
-import dynamic from 'next/dynamic';
+import {
+  type ComponentType,
+  useState,
+  useEffect,
+  useRef,
+} from "react";
+import dynamic from "next/dynamic";
 
 // Performance-aware lazy loading with preload hints
 export function createOptimizedLazyComponent<T extends Record<string, any>>(
@@ -13,10 +18,10 @@ export function createOptimizedLazyComponent<T extends Record<string, any>>(
     fallback?: React.ReactNode;
     preload?: boolean;
     ssr?: boolean;
-  } = {}
+  } = {},
 ) {
   const LazyComponent = dynamic(importFn, {
-    loading: () => options.fallback || <div className="animate-pulse bg-muted h-20 rounded" />,
+    loading: () => options.fallback || null,
     ssr: options.ssr ?? false,
   });
 
@@ -52,10 +57,10 @@ export function useIntersectionLazyLoad(threshold = 0.1) {
           setHasLoaded(true);
         }
       },
-      { 
+      {
         threshold,
-        rootMargin: '50px' // Start loading before fully visible
-      }
+        rootMargin: "50px", // Start loading before fully visible
+      },
     );
 
     if (ref.current) {
@@ -69,6 +74,8 @@ export function useIntersectionLazyLoad(threshold = 0.1) {
 }
 
 // Heavy component lazy loading with size optimization
+// Commented out until components are created
+/*
 export const LazyThreeScene = createOptimizedLazyComponent(
   () => import('@/components/three/OptimizedScene'),
   {
@@ -108,29 +115,34 @@ export const LazyLottieAnimation = createOptimizedLazyComponent(
     ssr: false,
   }
 );
+*/
 
 // Performance monitoring for lazy loaded components
 export function withPerformanceTracking<T extends Record<string, any>>(
   Component: ComponentType<T>,
-  componentName: string
+  componentName: string,
 ) {
   return function PerformanceTrackedComponent(props: T) {
     useEffect(() => {
       const startTime = performance.now();
-      
+
       return () => {
         const endTime = performance.now();
         const loadTime = endTime - startTime;
-        
+
         // Track component load time
-        if (process.env.NODE_ENV === 'development') {
+        if (process.env.NODE_ENV === "development") {
           console.log(`🚀 ${componentName} loaded in ${loadTime.toFixed(2)}ms`);
         }
-        
+
         // Send to analytics in production
-        if (process.env.NODE_ENV === 'production' && typeof window !== 'undefined') {
-          // @ts-ignore - gtag might not be available
-          window.gtag?.('event', 'component_load_time', {
+        if (
+          process.env.NODE_ENV === "production" &&
+          typeof window !== "undefined"
+        ) {
+          // gtag might not be available
+          // @ts-ignore
+          window.gtag?.("event", "component_load_time", {
             component_name: componentName,
             load_time: Math.round(loadTime),
           });
@@ -143,37 +155,37 @@ export function withPerformanceTracking<T extends Record<string, any>>(
 }
 
 // Resource hints for better loading performance
-export function addResourceHints() {
+export function useResourceHints() {
   useEffect(() => {
-    if (typeof document === 'undefined') return;
+    if (typeof document === "undefined") return;
 
     // Preload critical resources
     const criticalResources = [
-      '/fonts/geist-variable.woff2',
-      '/fonts/geist-mono-variable.woff2',
+      "/fonts/geist-variable.woff2",
+      "/fonts/geist-mono-variable.woff2",
     ];
 
-    criticalResources.forEach(resource => {
-      const link = document.createElement('link');
-      link.rel = 'preload';
+    criticalResources.forEach((resource) => {
+      const link = document.createElement("link");
+      link.rel = "preload";
       link.href = resource;
-      link.as = resource.includes('.woff') ? 'font' : 'image';
-      if (resource.includes('.woff')) {
-        link.crossOrigin = 'anonymous';
+      link.as = resource.includes(".woff") ? "font" : "image";
+      if (resource.includes(".woff")) {
+        link.crossOrigin = "anonymous";
       }
       document.head.appendChild(link);
     });
 
     // DNS prefetch for external domains
     const externalDomains = [
-      'https://fonts.googleapis.com',
-      'https://fonts.gstatic.com',
-      'https://images.unsplash.com',
+      "https://fonts.googleapis.com",
+      "https://fonts.gstatic.com",
+      "https://images.unsplash.com",
     ];
 
-    externalDomains.forEach(domain => {
-      const link = document.createElement('link');
-      link.rel = 'dns-prefetch';
+    externalDomains.forEach((domain) => {
+      const link = document.createElement("link");
+      link.rel = "dns-prefetch";
       link.href = domain;
       document.head.appendChild(link);
     });
