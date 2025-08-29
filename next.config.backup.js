@@ -57,17 +57,13 @@ const withPWA = require("next-pwa")({
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // PERFORMANCE OPTIMIZATION ENHANCEMENTS
   eslint: {
     ignoreDuringBuilds: true,
   },
   typescript: {
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: true, // TODO: Re-enable after fixing Jest DOM type issues
   },
-
-  // EXPERIMENTAL OPTIMIZATIONS
   experimental: {
-    // Optimize package imports - already configured well
     optimizePackageImports: [
       "@radix-ui/react-avatar",
       "@radix-ui/react-dialog",
@@ -81,152 +77,96 @@ const nextConfig = {
       "@radix-ui/react-tabs",
       "@radix-ui/react-tooltip",
       "lucide-react",
-      "motion",
-      "three",
-      "@react-three/fiber",
-      "@react-three/drei",
+      "framer-motion",
     ],
-    // Enable tree shaking improvements
-    webVitalsAttribution: ["CLS", "LCP"],
   },
-
-  // COMPILER OPTIMIZATIONS
-  compiler: {
-    removeConsole: process.env.NODE_ENV === "production",
-    // Enable React compiler optimizations
-    reactRemoveProperties: process.env.NODE_ENV === "production",
-  },
-
-  // WEBPACK OPTIMIZATIONS - ENHANCED
-  webpack: (config, { isServer, dev }) => {
-    if (!isServer && !dev) {
-      // PRODUCTION-ONLY OPTIMIZATIONS
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      // Optimized bundle splitting for faster lazy loading
       config.optimization = {
         ...config.optimization,
-        // ADVANCED BUNDLE SPLITTING
         splitChunks: {
           chunks: "all",
           minSize: 20000,
-          maxSize: 200000,
-          maxAsyncRequests: 12, // Increased for better parallelization
-          maxInitialRequests: 6,
+          maxSize: 200000, // Smaller chunks for faster loading
+          maxAsyncRequests: 10, // Allow more parallel requests
+          maxInitialRequests: 5,
           cacheGroups: {
-            // CRITICAL PATH - Load immediately
+            // Critical vendor chunks (loaded immediately)
             react: {
               test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
               name: "react-vendor",
               chunks: "all",
-              priority: 40,
-              enforce: true,
+              priority: 30,
             },
-            
-            // HIGH-PERFORMANCE LAZY LOADING
+            // Performance-critical lazy loading utilities
             lazyLoading: {
               test: /[\\/](use-optimized-lazy-loading|optimized-lazy|performance)[\\/]/,
               name: "lazy-loading",
               chunks: "async",
-              priority: 35,
+              priority: 25,
             },
-            
-            // THREE.JS ECOSYSTEM - Heavy libraries (lazy loaded)
+            // Heavy 3D libraries (lazy loaded)
             threejs: {
               test: /[\\/]node_modules[\\/](three|@react-three)[\\/]/,
               name: "threejs",
               chunks: "async",
-              priority: 30,
-              maxSize: 150000, // Split large three.js bundles
+              priority: 20,
             },
-            
-            // ANIMATION LIBRARIES - Lazy loaded with size limits
+            // Animation libraries (lazy loaded)
             animations: {
-              test: /[\\/]node_modules[\\/](motion|framer-motion|lottie|@lottiefiles)[\\/]/,
+              test: /[\\/]node_modules[\\/](framer-motion|motion|lottie)[\\/]/,
               name: "animations",
               chunks: "async",
-              priority: 25,
-              maxSize: 100000,
-            },
-            
-            // UI LIBRARIES - Optimized chunking
-            ui: {
-              test: /[\\/]node_modules[\\/](@radix-ui|lucide-react|@remixicon)[\\/]/,
-              name: "ui-libs",
-              chunks: "async",
-              priority: 20,
-              maxSize: 80000,
-            },
-            
-            // UTILITIES - Small, frequently used
-            utils: {
-              test: /[\\/]node_modules[\\/](clsx|tailwind-merge|class-variance-authority)[\\/]/,
-              name: "utils",
-              chunks: "all",
               priority: 15,
             },
-            
-            // DEFAULT VENDOR
+            // UI libraries (lazy loaded)
+            ui: {
+              test: /[\\/]node_modules[\\/](@radix-ui|lucide-react)[\\/]/,
+              name: "ui-libs",
+              chunks: "async",
+              priority: 10,
+            },
+            // Default vendor chunk
             vendor: {
               test: /[\\/]node_modules[\\/]/,
               name: "vendor",
               chunks: "all",
-              priority: 10,
-              maxSize: 100000,
+              priority: 5,
             },
           },
         },
-        
-        // ADVANCED OPTIMIZATIONS
+        // Enable module concatenation for better tree shaking
         concatenateModules: true,
+        // Enable aggressive module merging
         mergeDuplicateChunks: true,
-        flagIncludedChunks: true,
-        sideEffects: false,
-        
-        // MINIMIZER OPTIMIZATIONS
-        minimize: true,
-        minimizer: [
-          // Keep existing minimizers and add optimization flags
-          ...config.optimization.minimizer,
-        ],
       };
 
-      // PERFORMANCE PLUGINS
+      // Add resource hints for faster loading
       config.plugins.push(
         new (require("webpack").DefinePlugin)({
           "process.env.ENABLE_LAZY_LOADING_OPTIMIZATIONS": JSON.stringify(true),
-          "process.env.ENABLE_PERFORMANCE_MONITORING": JSON.stringify(true),
         }),
       );
     }
 
-    // DEVELOPMENT OPTIMIZATIONS
-    if (dev) {
-      // Speed up development builds
-      config.optimization.splitChunks = {
-        chunks: "all",
-        cacheGroups: {
-          vendor: {
-            test: /[\\/]node_modules[\\/]/,
-            name: "vendor",
-            chunks: "all",
-          },
-        },
-      };
-    }
-
     return config;
   },
-
   // MDX configuration
   pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
 
-  // ENHANCED IMAGE OPTIMIZATION
+  // Enhanced image optimization for faster lazy loading
   images: {
     formats: ["image/webp", "image/avif"],
     minimumCacheTTL: 31536000,
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    // Enable placeholder for better UX
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+    // Optimize loading behavior
     unoptimized: false,
+    // Add domains for external images if needed
     domains: ["images.unsplash.com"],
     remotePatterns: [
       {
@@ -236,44 +176,9 @@ const nextConfig = {
     ],
   },
 
-  // OUTPUT OPTIMIZATION
-  trailingSlash: false,
-  
-  // HEADERS FOR CACHING - Enhanced
-  async headers() {
-    return [
-      {
-        source: "/_next/static/(.*)",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=31536000, immutable",
-          },
-        ],
-      },
-      {
-        source: "/fonts/(.*)",
-        headers: [
-          {
-            key: "Cache-Control", 
-            value: "public, max-age=31536000, immutable",
-          },
-        ],
-      },
-      {
-        source: "/(.*)",
-        headers: [
-          {
-            key: "X-DNS-Prefetch-Control",
-            value: "on",
-          },
-          {
-            key: "Strict-Transport-Security",
-            value: "max-age=63072000; includeSubDomains; preload",
-          },
-        ],
-      },
-    ];
+  // Performance optimizations
+  compiler: {
+    removeConsole: process.env.NODE_ENV === "production",
   },
 };
 
