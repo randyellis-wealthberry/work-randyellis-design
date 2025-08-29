@@ -10,7 +10,7 @@ import {
   useImperativeHandle,
 } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Mesh, Group, WebGLRenderer } from "three";
+import { Mesh, Group } from "three";
 import { Stats, OrbitControls } from "@react-three/drei";
 
 // Performance monitoring utilities
@@ -89,7 +89,7 @@ function OptimizedGeometricScene({ config }: { config: SceneConfig }) {
   const qualityManager = useMemo(() => new AdaptiveQualityManager(), []);
 
   const { gl } = useThree();
-  const [metrics, setMetrics] = useState<PerformanceMetrics>({
+  const [, setMetrics] = useState<PerformanceMetrics>({
     fps: 60,
     memory: 0,
     drawCalls: 0,
@@ -122,7 +122,12 @@ function OptimizedGeometricScene({ config }: { config: SceneConfig }) {
 
     // Collect performance metrics
     const fps = 1 / delta;
-    const memory = (performance as any).memory?.usedJSHeapSize || 0;
+    const memory =
+      (
+        performance as typeof performance & {
+          memory?: { usedJSHeapSize: number };
+        }
+      ).memory?.usedJSHeapSize || 0;
     const info = gl.info;
 
     const currentMetrics = {
@@ -214,7 +219,7 @@ export const PerformanceOptimizedScene = forwardRef<
     onMetrics?: (metrics: PerformanceMetrics) => void;
   }
 >(({ config = {}, onMetrics }, ref) => {
-  const [currentMetrics, setCurrentMetrics] = useState<PerformanceMetrics>({
+  const [currentMetrics] = useState<PerformanceMetrics>({
     fps: 60,
     memory: 0,
     drawCalls: 0,
@@ -290,8 +295,11 @@ export function MemoryOptimizedWrapper({
 
   useEffect(() => {
     const checkMemory = () => {
-      if ((performance as any).memory) {
-        const used = (performance as any).memory.usedJSHeapSize;
+      const perfWithMemory = performance as typeof performance & {
+        memory?: { usedJSHeapSize: number };
+      };
+      if (perfWithMemory.memory) {
+        const used = perfWithMemory.memory.usedJSHeapSize;
         if (used > memoryBudget) {
           setCanRender(false);
         }

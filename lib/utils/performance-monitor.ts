@@ -6,6 +6,21 @@ export interface PerformanceMetrics {
   fcp: number | null; // First Contentful Paint
   ttfb: number | null; // Time to First Byte
   tti: number | null; // Time to Interactive
+  duration?: number;
+  fps?: number;
+  memoryUsed?: number;
+  reflows?: number;
+  paints?: number;
+  timestamp?: number;
+}
+
+interface TrackingSession {
+  startTime: number;
+  frameCount: number;
+  frameTimes: number[];
+  memoryStart: number;
+  reflows: number;
+  paints: number;
 }
 
 class PerformanceMonitor {
@@ -19,6 +34,8 @@ class PerformanceMonitor {
   };
 
   private observers: PerformanceObserver[] = [];
+  private sessions: Map<string, TrackingSession> = new Map();
+  private rafId: number | null = null;
 
   init() {
     if (typeof window === "undefined") return;
@@ -32,12 +49,20 @@ class PerformanceMonitor {
   }
 
   private measureTTFB() {
-    const navigationEntry = performance.getEntriesByType(
-      "navigation",
-    )[0] as PerformanceNavigationTiming;
-    if (navigationEntry) {
-      this.metrics.ttfb =
-        navigationEntry.responseStart - navigationEntry.requestStart;
+    if (typeof performance === "undefined" || !performance.getEntriesByType) {
+      return;
+    }
+
+    try {
+      const navigationEntry = performance.getEntriesByType(
+        "navigation",
+      )[0] as PerformanceNavigationTiming;
+      if (navigationEntry) {
+        this.metrics.ttfb =
+          navigationEntry.responseStart - navigationEntry.requestStart;
+      }
+    } catch {
+      // Silently fail in test environments
     }
   }
 
@@ -136,7 +161,7 @@ class PerformanceMonitor {
   }
 
   getGrades(): Record<
-    keyof PerformanceMetrics,
+    "lcp" | "fid" | "cls" | "fcp" | "ttfb" | "tti",
     "good" | "needs-improvement" | "poor"
   > {
     return {
@@ -182,7 +207,7 @@ ${this.getRecommendations(grades)}
   }
 
   private getRecommendations(
-    grades: Record<keyof PerformanceMetrics, string>,
+    grades: Record<"lcp" | "fid" | "cls" | "fcp" | "ttfb" | "tti", string>,
   ): string {
     const recommendations: string[] = [];
 
@@ -230,6 +255,161 @@ ${this.getRecommendations(grades)}
   cleanup() {
     this.observers.forEach((observer) => observer.disconnect());
     this.observers = [];
+  }
+
+  /**
+   * Start tracking performance for a specific operation
+   */
+  startTracking(sessionId: string): PerformanceMetrics {
+    const memoryStart = this.getMemoryUsage();
+
+    const session: TrackingSession = {
+      startTime: performance.now(),
+      frameCount: 0,
+      frameTimes: [],
+      memoryStart,
+      reflows: 0,
+      paints: 0,
+    };
+
+    this.sessions.set(sessionId, session);
+    this.startFrameTracking(sessionId);
+
+    return this.getCurrentMetrics(sessionId);
+  }
+
+  /**
+   * End tracking and return performance metrics
+   */
+  endTracking(sessionId: string): PerformanceMetrics {
+    const session = this.sessions.get(sessionId);
+    if (!session) {
+      return {
+        ...this.metrics,
+        duration: 0,
+        fps: 60,
+        memoryUsed: 0,
+        reflows: 0,
+        paints: 0,
+        timestamp: Date.now(),
+      };
+    }
+
+    this.stopFrameTracking();
+
+    const endTime = performance.now();
+    const duration = endTime - session.startTime;
+    const fps = this.calculateFPS(session.frameTimes);
+    const memoryUsed = this.getMemoryUsage() - session.memoryStart;
+
+    const metrics: PerformanceMetrics = {
+      ...this.metrics,
+      duration,
+      fps,
+      memoryUsed: Math.max(0, memoryUsed),
+      reflows: session.reflows,
+      paints: session.paints,
+      timestamp: Date.now(),
+    };
+
+    this.sessions.delete(sessionId);
+
+    return metrics;
+  }
+
+  /**
+   * Get current metrics without ending the session
+   */
+  getCurrentMetrics(sessionId: string): PerformanceMetrics {
+    const session = this.sessions.get(sessionId);
+    if (!session) {
+      return {
+        ...this.metrics,
+        duration: 0,
+        fps: 60,
+        memoryUsed: 0,
+        reflows: 0,
+        paints: 0,
+        timestamp: Date.now(),
+      };
+    }
+
+    const currentTime = performance.now();
+    const duration = currentTime - session.startTime;
+    const fps = this.calculateFPS(session.frameTimes);
+    const memoryUsed = this.getMemoryUsage() - session.memoryStart;
+
+    return {
+      ...this.metrics,
+      duration,
+      fps,
+      memoryUsed: Math.max(0, memoryUsed),
+      reflows: session.reflows,
+      paints: session.paints,
+      timestamp: Date.now(),
+    };
+  }
+
+  private startFrameTracking(sessionId: string) {
+    let lastTime = performance.now();
+
+    const trackFrame = () => {
+      const session = this.sessions.get(sessionId);
+      if (!session) {
+        this.rafId = null;
+        return;
+      }
+
+      const currentTime = performance.now();
+      const delta = currentTime - lastTime;
+
+      session.frameTimes.push(delta);
+      session.frameCount++;
+
+      // Keep only last 60 frame timings
+      if (session.frameTimes.length > 60) {
+        session.frameTimes.shift();
+      }
+
+      lastTime = currentTime;
+      this.rafId = requestAnimationFrame(trackFrame);
+    };
+
+    this.rafId = requestAnimationFrame(trackFrame);
+  }
+
+  private stopFrameTracking() {
+    if (this.rafId !== null) {
+      cancelAnimationFrame(this.rafId);
+      this.rafId = null;
+    }
+  }
+
+  private calculateFPS(frameTimes: number[]): number {
+    if (frameTimes.length === 0) return 60;
+
+    const avgFrameTime =
+      frameTimes.reduce((a, b) => a + b, 0) / frameTimes.length;
+    return Math.min(60, 1000 / avgFrameTime);
+  }
+
+  private getMemoryUsage(): number {
+    if (typeof performance === "undefined") return 0;
+
+    const memory = (
+      performance as typeof performance & {
+        memory?: {
+          usedJSHeapSize: number;
+          totalJSHeapSize: number;
+          jsHeapSizeLimit: number;
+        };
+      }
+    ).memory;
+    if (memory && memory.usedJSHeapSize) {
+      return memory.usedJSHeapSize;
+    }
+
+    return 0;
   }
 }
 

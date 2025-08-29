@@ -101,13 +101,7 @@ describe("Professional Header Layout (TDD RED Phase)", () => {
 
       // Theme toggle should not be in main header
       expect(mainHeader).not.toContainElement(
-        screen.queryByTestId("header-theme-light"),
-      );
-      expect(mainHeader).not.toContainElement(
-        screen.queryByTestId("header-theme-dark"),
-      );
-      expect(mainHeader).not.toContainElement(
-        screen.queryByTestId("header-theme-system"),
+        screen.queryByTestId("header-theme-toggle"),
       );
     });
 
@@ -122,13 +116,7 @@ describe("Professional Header Layout (TDD RED Phase)", () => {
 
       // Theme toggle should be in utility bar
       expect(utilityBar).toContainElement(
-        screen.getByTestId("header-theme-light"),
-      );
-      expect(utilityBar).toContainElement(
-        screen.getByTestId("header-theme-dark"),
-      );
-      expect(utilityBar).toContainElement(
-        screen.getByTestId("header-theme-system"),
+        screen.getByTestId("header-theme-toggle"),
       );
     });
   });
@@ -283,14 +271,12 @@ describe("Professional Header Layout (TDD RED Phase)", () => {
         </TestWrapper>,
       );
 
-      // All theme buttons should have proper ARIA labels
-      expect(
-        screen.getByLabelText("Switch to Light theme"),
-      ).toBeInTheDocument();
-      expect(screen.getByLabelText("Switch to Dark theme")).toBeInTheDocument();
-      expect(
-        screen.getByLabelText("Switch to System theme"),
-      ).toBeInTheDocument();
+      // Theme toggle button should have proper ARIA label
+      const themeToggle = screen.getByTestId("header-theme-toggle");
+      expect(themeToggle).toHaveAttribute(
+        "aria-label",
+        expect.stringMatching(/^Switch to (light|dark) theme$/)
+      );
     });
 
     it("should have proper semantic structure", () => {

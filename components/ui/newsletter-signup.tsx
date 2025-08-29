@@ -6,7 +6,6 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { motion } from "motion/react";
-import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { FloatingInput } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { trackNewsletterAttempt } from "@/lib/analytics";
@@ -28,8 +27,7 @@ export function NewsletterSignup() {
   const [errorMessage, setErrorMessage] = useState<string>("");
 
   // Performance monitoring
-  const { startMonitoring, stopMonitoring, metrics } =
-    useAnimationPerformance();
+  const { startMonitoring, stopMonitoring } = useAnimationPerformance();
   const successElementRef = useRef<HTMLDivElement>(null);
 
   // Cleanup on unmount
