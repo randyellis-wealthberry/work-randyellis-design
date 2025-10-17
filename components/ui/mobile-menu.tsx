@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import { XIcon, MenuIcon } from "lucide-react";
 import { useTheme } from "next-themes";
@@ -88,11 +88,11 @@ export function MobileMenu({ isOpen, onOpenChange }: MobileMenuProps) {
 
           {/* Menu Panel */}
           <div
-            className="fixed right-0 top-0 h-full w-full max-w-sm bg-white dark:bg-zinc-950 shadow-2xl transition-transform duration-300 ease-in-out translate-x-0"
+            className="fixed top-0 right-0 h-full w-full max-w-sm translate-x-0 bg-white shadow-2xl transition-transform duration-300 ease-in-out dark:bg-zinc-950"
             id="mobile-menu"
           >
             {/* Menu Header */}
-            <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 p-4">
+            <div className="flex items-center justify-between border-b border-zinc-200 p-4 dark:border-zinc-800">
               <h2
                 id="mobile-menu-title"
                 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100"
@@ -112,7 +112,7 @@ export function MobileMenu({ isOpen, onOpenChange }: MobileMenuProps) {
 
             {/* Navigation Links */}
             <nav
-              className="flex flex-col p-4 space-y-2"
+              className="flex flex-col space-y-2 p-4"
               role="navigation"
               aria-label="Main navigation"
             >
@@ -151,7 +151,7 @@ export function MobileMenu({ isOpen, onOpenChange }: MobileMenuProps) {
             </nav>
 
             {/* Theme Toggle Section */}
-            <div className="border-t border-zinc-200 dark:border-zinc-800 p-4">
+            <div className="border-t border-zinc-200 p-4 dark:border-zinc-800">
               <div className="flex items-center justify-between">
                 <span className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
                   Theme
@@ -203,7 +203,7 @@ export function MobileMenu({ isOpen, onOpenChange }: MobileMenuProps) {
             </div>
 
             {/* Footer Info */}
-            <div className="mt-auto border-t border-zinc-200 dark:border-zinc-800 p-4">
+            <div className="mt-auto border-t border-zinc-200 p-4 dark:border-zinc-800">
               <p className="text-xs text-zinc-500 dark:text-zinc-400">
                 © 2024 Randy Ellis
               </p>

@@ -29,25 +29,25 @@ export function HamburgerButton({
   const sizeClasses = {
     sm: "w-8 h-8",
     md: "w-11 h-11",
-    lg: "w-14 h-14"
+    lg: "w-14 h-14",
   };
 
   const lineSizes = {
     sm: {
       height: 2,
       width: 20,
-      spacing: 4
+      spacing: 4,
     },
     md: {
       height: 2.5,
       width: 24,
-      spacing: 5
+      spacing: 5,
     },
     lg: {
       height: 3,
       width: 28,
-      spacing: 6
-    }
+      spacing: 6,
+    },
   };
 
   const currentSize = lineSizes[size];
@@ -55,7 +55,8 @@ export function HamburgerButton({
   const variantClasses = {
     default: "text-foreground hover:bg-accent/80 hover:text-accent-foreground",
     muted: "text-muted-foreground hover:bg-muted hover:text-foreground",
-    accent: "text-accent-foreground hover:bg-accent/90 hover:text-accent-foreground"
+    accent:
+      "text-accent-foreground hover:bg-accent/90 hover:text-accent-foreground",
   };
 
   // Animation variants for the lines
@@ -63,54 +64,54 @@ export function HamburgerButton({
     closed: {
       y: 0,
       rotate: 0,
-      opacity: 1
+      opacity: 1,
     },
     open: {
       y: currentSize.spacing + currentSize.height / 2,
       rotate: 45,
-      opacity: 1
-    }
+      opacity: 1,
+    },
   };
 
   const middleLineVariants = {
     closed: {
       opacity: 1,
-      x: 0
+      x: 0,
     },
     open: {
       opacity: 0,
-      x: 20
-    }
+      x: 20,
+    },
   };
 
   const bottomLineVariants = {
     closed: {
       y: currentSize.spacing * 2 + currentSize.height,
       rotate: 0,
-      opacity: 1
+      opacity: 1,
     },
     open: {
       y: -currentSize.spacing - currentSize.height / 2,
       rotate: -45,
-      opacity: 1
-    }
+      opacity: 1,
+    },
   };
 
   const buttonVariants = {
     closed: {
       scale: 1,
-      rotate: 0
+      rotate: 0,
     },
     open: {
       scale: 1,
-      rotate: 0
+      rotate: 0,
     },
     hover: {
-      scale: 1.05
+      scale: 1.05,
     },
     tap: {
-      scale: 0.95
-    }
+      scale: 0.95,
+    },
   };
 
   return (
@@ -118,12 +119,12 @@ export function HamburgerButton({
       className={cn(
         "relative inline-flex items-center justify-center rounded-md",
         "p-2 transition-colors duration-200",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+        "focus-visible:ring-ring focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none",
         "disabled:pointer-events-none disabled:opacity-50",
         "touch-manipulation", // Improves touch responsiveness
         sizeClasses[size],
         variantClasses[variant],
-        className
+        className,
       )}
       variants={buttonVariants}
       initial="closed"
@@ -156,12 +157,9 @@ export function HamburgerButton({
           variants={topLineVariants}
           transition={{
             duration: 0.3,
-            ease: [0.4, 0, 0.2, 1] // Custom cubic-bezier for smooth animation
+            ease: [0.4, 0, 0.2, 1], // Custom cubic-bezier for smooth animation
           }}
-          className={cn(
-            "stroke-current",
-            "origin-center"
-          )}
+          className={cn("stroke-current", "origin-center")}
         />
 
         <motion.line
@@ -174,30 +172,30 @@ export function HamburgerButton({
           variants={middleLineVariants}
           transition={{
             duration: 0.3,
-            ease: [0.4, 0, 0.2, 1]
+            ease: [0.4, 0, 0.2, 1],
           }}
-          className={cn(
-            "stroke-current",
-            "origin-center"
-          )}
+          className={cn("stroke-current", "origin-center")}
         />
 
         <motion.line
           x1="0"
-          y1={currentSize.height / 2 + (currentSize.spacing + currentSize.height) * 2}
+          y1={
+            currentSize.height / 2 +
+            (currentSize.spacing + currentSize.height) * 2
+          }
           x2={currentSize.width}
-          y2={currentSize.height / 2 + (currentSize.spacing + currentSize.height) * 2}
+          y2={
+            currentSize.height / 2 +
+            (currentSize.spacing + currentSize.height) * 2
+          }
           strokeLinecap="round"
           strokeWidth={currentSize.height}
           variants={bottomLineVariants}
           transition={{
             duration: 0.3,
-            ease: [0.4, 0, 0.2, 1]
+            ease: [0.4, 0, 0.2, 1],
           }}
-          className={cn(
-            "stroke-current",
-            "origin-center"
-          )}
+          className={cn("stroke-current", "origin-center")}
         />
       </motion.svg>
 
@@ -205,7 +203,7 @@ export function HamburgerButton({
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="absolute inset-0 rounded-md bg-ring/10 backdrop-blur-sm"
+            className="bg-ring/10 absolute inset-0 rounded-md backdrop-blur-sm"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

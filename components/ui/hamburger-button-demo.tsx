@@ -9,11 +9,12 @@ export function HamburgerButtonDemo() {
   const [isThirdOpen, setIsThirdOpen] = useState(false);
 
   return (
-    <div className="p-8 space-y-8 bg-background text-foreground">
+    <div className="bg-background text-foreground space-y-8 p-8">
       <div className="space-y-4">
         <h2 className="text-2xl font-bold">Hamburger Button Component Demo</h2>
         <p className="text-muted-foreground">
-          Interactive examples of the animated hamburger button with different configurations.
+          Interactive examples of the animated hamburger button with different
+          configurations.
         </p>
       </div>
 
@@ -26,7 +27,7 @@ export function HamburgerButtonDemo() {
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle main menu"
           />
-          <div className="text-sm text-muted-foreground">
+          <div className="text-muted-foreground text-sm">
             State: {isOpen ? "Open" : "Closed"}
           </div>
         </div>
@@ -43,7 +44,7 @@ export function HamburgerButtonDemo() {
               size="sm"
               aria-label="Small menu"
             />
-            <span className="text-xs text-muted-foreground">Small</span>
+            <span className="text-muted-foreground text-xs">Small</span>
           </div>
           <div className="flex flex-col items-center gap-2">
             <HamburgerButton
@@ -52,7 +53,7 @@ export function HamburgerButtonDemo() {
               size="md"
               aria-label="Medium menu"
             />
-            <span className="text-xs text-muted-foreground">Medium</span>
+            <span className="text-muted-foreground text-xs">Medium</span>
           </div>
           <div className="flex flex-col items-center gap-2">
             <HamburgerButton
@@ -61,7 +62,7 @@ export function HamburgerButtonDemo() {
               size="lg"
               aria-label="Large menu"
             />
-            <span className="text-xs text-muted-foreground">Large</span>
+            <span className="text-muted-foreground text-xs">Large</span>
           </div>
         </div>
       </div>
@@ -77,7 +78,7 @@ export function HamburgerButtonDemo() {
               variant="default"
               aria-label="Default menu"
             />
-            <span className="text-xs text-muted-foreground">Default</span>
+            <span className="text-muted-foreground text-xs">Default</span>
           </div>
           <div className="flex flex-col items-center gap-2">
             <HamburgerButton
@@ -86,7 +87,7 @@ export function HamburgerButtonDemo() {
               variant="muted"
               aria-label="Muted menu"
             />
-            <span className="text-xs text-muted-foreground">Muted</span>
+            <span className="text-muted-foreground text-xs">Muted</span>
           </div>
           <div className="flex flex-col items-center gap-2">
             <HamburgerButton
@@ -95,7 +96,7 @@ export function HamburgerButtonDemo() {
               variant="accent"
               aria-label="Accent menu"
             />
-            <span className="text-xs text-muted-foreground">Accent</span>
+            <span className="text-muted-foreground text-xs">Accent</span>
           </div>
         </div>
       </div>
@@ -111,7 +112,7 @@ export function HamburgerButtonDemo() {
             variant="accent"
             aria-label="Toggle secondary menu"
           />
-          <div className="text-sm text-muted-foreground">
+          <div className="text-muted-foreground text-sm">
             Click to see the smooth 300ms animation
           </div>
         </div>
@@ -127,7 +128,7 @@ export function HamburgerButtonDemo() {
             disabled
             aria-label="Disabled menu"
           />
-          <div className="text-sm text-muted-foreground">
+          <div className="text-muted-foreground text-sm">
             Disabled button (not interactive)
           </div>
         </div>
@@ -142,7 +143,7 @@ export function HamburgerButtonDemo() {
             onClick={() => setIsThirdOpen(!isThirdOpen)}
             aria-label="Toggle optimized menu"
           />
-          <div className="text-sm text-muted-foreground">
+          <div className="text-muted-foreground text-sm">
             Memoized component for performance optimization
           </div>
         </div>
@@ -151,9 +152,9 @@ export function HamburgerButtonDemo() {
       {/* Usage Examples */}
       <div className="space-y-4">
         <h3 className="text-lg font-semibold">Usage Examples</h3>
-        <div className="bg-muted p-4 rounded-lg">
-          <pre className="text-sm overflow-x-auto">
-{`import { HamburgerButton } from "@/components/ui/hamburger-button";
+        <div className="bg-muted rounded-lg p-4">
+          <pre className="overflow-x-auto text-sm">
+            {`import { HamburgerButton } from "@/components/ui/hamburger-button";
 
 function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
@@ -177,7 +178,7 @@ function Navigation() {
       {/* Accessibility Features */}
       <div className="space-y-4">
         <h3 className="text-lg font-semibold">Accessibility Features</h3>
-        <ul className="text-sm text-muted-foreground space-y-2">
+        <ul className="text-muted-foreground space-y-2 text-sm">
           <li>• Proper ARIA labels and expanded states</li>
           <li>• Keyboard navigation support</li>
           <li>• Focus visible states</li>
