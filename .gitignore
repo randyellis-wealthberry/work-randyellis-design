@@ -23,21 +23,11 @@ next-env.d.ts
 .env.test.local
 .env.production.local
 
-# IDE and editor files
+# IDE and editor files (detailed configs below)
 .vscode/
 .idea/
-*.swp
-*.swo
-*~
 
-# OS generated files
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
+# OS generated files (handled in expanded sections below)
 
 # Logs
 logs
@@ -104,3 +94,57 @@ public/fallback-*.js
 
 # Docker files (if not needed in repo)
 docker-compose.serena.yml
+
+# Development and debugging files
+dev.log
+*.log
+*.tmp
+*.cache
+.cache/
+.vercel/output/
+
+# WARP terminal files
+*.warp
+.warp/
+warp-*.log
+warp-*.json
+
+# Lock files that can cause build issues
+*.lock
+execution.lock
+testsprite_tests/tmp/
+
+# Temporary and build artifacts that shouldn't be deployed
+temp/
+tmp/
+.vite/
+.eslintcache
+.turbo/
+
+# MacOS specific files that can cause issues
+.DS_Store
+.AppleDouble
+.LSOverride
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Windows specific files
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# IDE specific files
+.vscode/settings.json
+.vscode/launch.json
+.vscode/extensions.json
+.idea/
