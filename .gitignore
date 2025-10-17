@@ -108,6 +108,7 @@ dev.log
 .warp/
 warp-*.log
 warp-*.json
+WARP.md
 
 # Lock files that can cause build issues
 *.lock
