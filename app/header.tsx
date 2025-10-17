@@ -15,7 +15,7 @@ export function Header() {
         role="banner"
         data-testid="main-header"
       >
-        <div className="flex items-center justify-between pt-8 sm:pt-24">
+        <div className="flex items-center justify-between gap-4 gap-6 pt-8 sm:pt-24 lg:gap-8">
           <div>
             <Link
               href="https://work.randyellis.design"

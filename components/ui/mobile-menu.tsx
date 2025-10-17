@@ -119,7 +119,7 @@ export function MobileMenu({ isOpen, onOpenChange }: MobileMenuProps) {
               <Link
                 href="https://work.randyellis.design"
                 onClick={handleNavigationClick}
-                className="group flex min-h-[44px] items-center rounded-lg px-4 py-3 text-base font-medium text-zinc-700 transition-colors hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-300 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
+                className="group flex min-h-[44px] items-center rounded-lg px-4 py-3 text-base font-medium text-zinc-600 transition-colors hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
               >
                 Home
                 <span className="ml-auto text-zinc-400 opacity-0 transition-opacity group-hover:opacity-100 dark:text-zinc-600">
@@ -130,7 +130,7 @@ export function MobileMenu({ isOpen, onOpenChange }: MobileMenuProps) {
               <Link
                 href="/about"
                 onClick={handleNavigationClick}
-                className="group flex min-h-[44px] items-center rounded-lg px-4 py-3 text-base font-medium text-zinc-700 transition-colors hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-300 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
+                className="group flex min-h-[44px] items-center rounded-lg px-4 py-3 text-base font-medium text-zinc-600 transition-colors hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
               >
                 About
                 <span className="ml-auto text-zinc-400 opacity-0 transition-opacity group-hover:opacity-100 dark:text-zinc-600">
@@ -141,7 +141,7 @@ export function MobileMenu({ isOpen, onOpenChange }: MobileMenuProps) {
               <Link
                 href="/projects"
                 onClick={handleNavigationClick}
-                className="group flex min-h-[44px] items-center rounded-lg px-4 py-3 text-base font-medium text-zinc-700 transition-colors hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-300 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
+                className="group flex min-h-[44px] items-center rounded-lg px-4 py-3 text-base font-medium text-zinc-600 transition-colors hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
               >
                 Projects
                 <span className="ml-auto text-zinc-400 opacity-0 transition-opacity group-hover:opacity-100 dark:text-zinc-600">
