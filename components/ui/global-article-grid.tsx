@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Star } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { AdvancedReadTimeBadge } from "@/components/ui/advanced-read-time-badge";
@@ -171,12 +172,12 @@ export function GlobalArticleGrid({
 
               {/* Article Hero Image */}
               <div className="relative aspect-video overflow-hidden rounded-t-lg">
-                <img
+                <Image
                   src={`https://picsum.photos/600/300?random=${article.slug}`}
                   alt={`${article.title} preview`}
-                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  loading="lazy"
-                  decoding="async"
+                  fill
+                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
               </div>
 

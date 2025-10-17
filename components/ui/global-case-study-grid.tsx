@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-// import Image from "next/image";
+import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { InView } from "@/components/motion-primitives/in-view";
@@ -185,12 +185,12 @@ export function GlobalCaseStudyGrid({
                     </div>
                   ) : project.thumbnail ? (
                     <div className="group relative aspect-video overflow-hidden">
-                      <img
+                      <Image
                         src={project.thumbnail}
                         alt={`${project.name} preview`}
-                        className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                        loading="lazy"
-                        decoding="async"
+                        fill
+                        className="object-cover transition-transform duration-300 group-hover:scale-105"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       />
                     </div>
                   ) : (

@@ -3,16 +3,11 @@
  * Implements intelligent loading strategies for heavy components
  */
 
-import {
-  type ComponentType,
-  useState,
-  useEffect,
-  useRef,
-} from "react";
+import { type ComponentType, useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 
 // Performance-aware lazy loading with preload hints
-export function createOptimizedLazyComponent<T extends Record<string, any>>(
+export function createOptimizedLazyComponent<T extends Record<string, unknown>>(
   importFn: () => Promise<{ default: ComponentType<T> }>,
   options: {
     fallback?: React.ReactNode;
@@ -118,7 +113,7 @@ export const LazyLottieAnimation = createOptimizedLazyComponent(
 */
 
 // Performance monitoring for lazy loaded components
-export function withPerformanceTracking<T extends Record<string, any>>(
+export function withPerformanceTracking<T extends Record<string, unknown>>(
   Component: ComponentType<T>,
   componentName: string,
 ) {
@@ -141,7 +136,6 @@ export function withPerformanceTracking<T extends Record<string, any>>(
           typeof window !== "undefined"
         ) {
           // gtag might not be available
-          // @ts-ignore
           window.gtag?.("event", "component_load_time", {
             component_name: componentName,
             load_time: Math.round(loadTime),

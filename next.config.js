@@ -227,7 +227,7 @@ const nextConfig = {
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     unoptimized: false,
-    domains: ["images.unsplash.com"],
+    domains: ["images.unsplash.com", "picsum.photos"],
     remotePatterns: [
       {
         protocol: "https",
@@ -238,7 +238,8 @@ const nextConfig = {
 
   // OUTPUT OPTIMIZATION
   trailingSlash: false,
-  
+
+    
   // HEADERS FOR CACHING - Enhanced
   async headers() {
     return [
