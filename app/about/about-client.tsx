@@ -337,7 +337,7 @@ function CertificationsAccordion() {
 export default function AboutClient() {
   return (
     <motion.main
-      className="space-y-16"
+      className="space-y-12 sm:space-y-16"
       variants={VARIANTS_CONTAINER}
       initial="hidden"
       animate="visible"

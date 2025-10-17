@@ -176,7 +176,7 @@ export default function ProjectsClient() {
 
   return (
     <motion.main
-      className="space-y-8"
+      className="space-y-6 sm:space-y-8"
       variants={VARIANTS_CONTAINER}
       initial="hidden"
       animate="visible"
@@ -214,7 +214,7 @@ export default function ProjectsClient() {
             ))}
           </TabsList>
 
-          <TabsContent value={activeCategory} className="mt-8 sm:mt-10">
+          <TabsContent value={activeCategory} className="mt-6 sm:mt-8">
             <motion.div
               className="grid gap-6 md:grid-cols-2"
               variants={VARIANTS_CONTAINER}

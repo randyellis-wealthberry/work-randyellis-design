@@ -561,7 +561,7 @@ export default function Personal() {
       <motion.section
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
-        className="mt-40 sm:mt-32"
+        className="mt-32 sm:mt-24"
       >
         <ScrambleSectionTitle className="mb-5 text-lg font-medium">
           Digital Cathedrals
@@ -577,7 +577,7 @@ export default function Personal() {
       <motion.section
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
-        className="mt-40 sm:mt-32"
+        className="mt-32 sm:mt-24"
       >
         <div className="mb-5 flex items-center justify-between">
           <ScrambleSectionTitle className="text-lg font-medium">
@@ -640,7 +640,7 @@ export default function Personal() {
       <motion.section
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
-        className="mt-40 sm:mt-32"
+        className="mt-32 sm:mt-24"
       >
         <ScrambleSectionTitle className="mb-5 text-lg font-medium">
           What am I working on
@@ -677,7 +677,7 @@ export default function Personal() {
       <motion.section
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
-        className="mt-40 sm:mt-32"
+        className="mt-32 sm:mt-24"
       >
         <ScrambleSectionTitle className="mb-5 text-lg font-medium">
           Github Projects
@@ -688,7 +688,7 @@ export default function Personal() {
       <motion.section
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
-        className="mt-40 sm:mt-32"
+        className="mt-32 sm:mt-24"
       >
         <div className="mb-5 flex items-center justify-between">
           <ScrambleSectionTitle className="text-lg font-medium">
