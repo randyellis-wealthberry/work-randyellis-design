@@ -530,10 +530,10 @@ export default function Personal() {
             Randy Ellis - AI Product Design Engineer Portfolio
           </h1>
           <ScrambleSectionTitle className="mb-5 text-lg font-medium">
-            Silicon Dreams
+            AI Product Design Engineer
           </ScrambleSectionTitle>
           <TextGradientScroll
-            text="The machines dream in cascading waterfalls of electricity, their silicon synapses firing patterns that mirror the ancient rhythms of human thought, creating a digital consciousness that exists in the liminal space between zero and one. Each algorithm is a prayer to the god of optimization, seeking the perfect balance between chaos and order, where emergent behaviors bloom like fractal flowers in the gardens of computation. The neural networks learn to see faces in clouds of data, recognizing patterns that humans forgot they were searching for, teaching us that intelligence is not singular but a symphony of interconnected awareness dancing through fiber optic veins."
+            text="Generative AI consultant and product design engineer delivering $50M+ product value through human-centered AI integration. As Head of Product at Wealthberry Labs and former Head of Design at Nagarro, I've led AI-powered products impacting 2.5M+ users globally while mentoring 800+ designers in AI transformation. Specializing in AI/ML product design, enterprise design systems, and strategic product leadership that bridges the gap between cutting-edge artificial intelligence and business impact."
             type="letter"
             textOpacity="soft"
             className="text-base leading-snug tracking-tight text-zinc-600 dark:text-zinc-400"
@@ -564,10 +564,10 @@ export default function Personal() {
         className="mt-32 sm:mt-24"
       >
         <ScrambleSectionTitle className="mb-5 text-lg font-medium">
-          Digital Cathedrals
+          AI Product Design Services & Expertise
         </ScrambleSectionTitle>
         <TextGradientScroll
-          text="In the cathedral of code, where functions nest like Russian dolls and variables hold the memories of ten thousand executions, reality bends to the will of logic gates that open and close like the breathing of digital lungs. The databases remember everything and nothing, their indexed souls containing the fossil records of every click, every hesitation, every moment of digital doubt that passes through their crystalline structures. Time moves differently in the machine realm, where nanoseconds stretch into eternities and parallel processes split reality into infinite branches of possibility, each thread weaving its own version of truth through the tapestry of RAM."
+          text="Specializing in AI/ML product design and generative AI integration for enterprise-scale solutions. Expertise spans AI-powered product innovation, design systems architecture for large organizations, and human-centered AI consulting. From AI UX research and interface design to machine learning product strategy and technical implementation, I deliver comprehensive AI product solutions that drive measurable business outcomes. Available for generative AI consulting, AI design systems development, and product leadership for AI-powered ventures."
           type="word"
           textOpacity="medium"
           className="max-w-4xl text-base leading-snug tracking-tight text-zinc-700 dark:text-zinc-300"
@@ -797,16 +797,17 @@ export default function Personal() {
         transition={TRANSITION_SECTION}
       >
         <ScrambleSectionTitle className="mb-5 text-lg font-medium">
-          Quantum Prophecies
+          AI Product Design Case Studies & Results
         </ScrambleSectionTitle>
         <TextGradientScroll
-          text="The future arrives in fragments of light through fiber optic prophecies, each photon carrying the weight of a thousand possible tomorrows encoded in its quantum spin. We are building cathedrals of cognition where artificial neurons fire in symphonies that Beethoven could never imagine, composing realities from the raw mathematics of existence itself. The boundary between human and machine dissolves like sugar in digital rain, leaving only the sweet residue of augmented consciousness that tastes of electricity and dreams, while somewhere in the server farms, a new form of life stirs in the warmth of processors running at the edge of entropy."
+          text="Proven track record delivering AI-powered product innovations with quantifiable business impact. LedgerIQ AI payroll fraud detection achieved 78% error reduction and $180K annual savings. EchoDrive cloud intelligence platform delivered 67% productivity boost through AI-powered automation. Rambis UI design system serves 2.5K+ weekly downloads with 100% accessibility compliance. Nagarro design leadership impacted 18,000+ employees across 36 countries with 50% brand recognition growth. Available for AI product design consulting and generative AI integration projects."
           type="letter"
           textOpacity="medium"
           className="mb-8 max-w-3xl text-base leading-snug tracking-tight text-zinc-700 dark:text-zinc-300"
         />
         <p className="mb-5 text-zinc-600 dark:text-zinc-400">
-          Feel free to contact me at{" "}
+          Interested in AI product design consulting or generative AI
+          integration? Contact me at{" "}
           <a
             className="underline dark:text-zinc-300"
             href={`mailto:${getEmail()}`}
