@@ -1,12 +1,9 @@
 "use client";
-import { useState } from "react";
 import { TextEffect } from "@/components/ui/text-effect";
 import Link from "next/link";
 import UtilityBar from "@/components/ui/utility-bar";
-import { MobileMenu } from "@/components/ui/mobile-menu";
 
 export function Header() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   return (
     <>
       <UtilityBar />
@@ -15,7 +12,7 @@ export function Header() {
         role="banner"
         data-testid="main-header"
       >
-        <div className="flex items-center justify-between gap-4 gap-6 pt-8 sm:pt-24 lg:gap-8">
+        <div className="flex items-center gap-4 gap-6 pt-8 sm:pt-24 lg:gap-8">
           <div>
             <Link
               href="https://work.randyellis.design"
@@ -33,12 +30,6 @@ export function Header() {
               Generative AI & Product Design Engineer
             </TextEffect>
           </div>
-
-          {/* Mobile/Tablet Menu Button */}
-          <MobileMenu
-            isOpen={isMobileMenuOpen}
-            onOpenChange={setIsMobileMenuOpen}
-          />
         </div>
 
         {/* Desktop Navigation */}

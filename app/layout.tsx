@@ -24,6 +24,8 @@ import PWAStatus, {
 import ServiceWorkerRegister from "./sw-register";
 import ResourceHints from "@/components/cdn/resource-hints";
 import { createBaseMetadata } from "@/lib/metadata";
+import { MobileMenuProvider } from "@/context/mobile-menu-context";
+import { GlobalMobileMenu } from "@/components/ui/global-mobile-menu";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -106,14 +108,17 @@ export default async function RootLayout({
             storageKey="theme"
             defaultTheme="system"
           >
-            <div className="flex min-h-screen w-full flex-col font-[family-name:var(--font-inter-tight)]">
-              <div className="relative mx-auto w-full max-w-screen-md flex-1 px-4 pt-8 sm:px-6 sm:pt-6 lg:px-8">
-                <Header />
-                {children}
-                <NewsletterSignup />
-                <Footer />
+            <MobileMenuProvider>
+              <div className="flex min-h-screen w-full flex-col font-[family-name:var(--font-inter-tight)]">
+                <div className="relative mx-auto w-full max-w-screen-md flex-1 px-4 pt-8 sm:px-6 sm:pt-6 lg:px-8">
+                  <Header />
+                  {children}
+                  <NewsletterSignup />
+                  <Footer />
+                </div>
               </div>
-            </div>
+              <GlobalMobileMenu />
+            </MobileMenuProvider>
 
             {/* PWA Components */}
             {process.env.NODE_ENV !== "production" && <PWAStatus />}
