@@ -124,7 +124,7 @@ describe("Header Component", () => {
       // Check desktop navigation is visible
       const desktopNav = screen.getByRole("navigation");
       expect(desktopNav).toBeInTheDocument();
-      expect(desktopNav).toHaveClass("hidden", "lg:flex");
+      expect(desktopNav).toHaveClass("hidden lg:flex");
 
       // Check mobile menu is not visible
       const mobileMenu = screen.queryByTestId("mobile-menu");
@@ -207,12 +207,7 @@ describe("Header Component", () => {
 
       const desktopNav = screen.getByRole("navigation");
       expect(desktopNav).toHaveClass(
-        "hidden",
-        "lg:flex",
-        "lg:flex-row",
-        "lg:items-center",
-        "lg:gap-8",
-        "xl:gap-16",
+        "hidden lg:flex lg:flex-row lg:items-center lg:gap-8 xl:gap-16",
       );
     });
 
@@ -221,10 +216,7 @@ describe("Header Component", () => {
 
       const homeLink = screen.getByRole("link", { name: /home/i });
       expect(homeLink).toHaveClass(
-        "hover:bg-zinc-100",
-        "hover:text-zinc-900",
-        "dark:hover:bg-zinc-800",
-        "dark:hover:text-zinc-100",
+        "hover:bg-zinc-100 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-100",
       );
     });
   });
@@ -286,7 +278,7 @@ describe("Header Component", () => {
         "href",
         "https://work.randyellis.design",
       );
-      expect(siteTitle).toHaveClass("font-medium", "whitespace-nowrap");
+      expect(siteTitle).toHaveClass("font-medium whitespace-nowrap");
     });
 
     it("should render subtitle correctly", () => {
@@ -304,16 +296,7 @@ describe("Header Component", () => {
 
       const header = screen.getByRole("banner");
       expect(header).toHaveClass(
-        "mb-6",
-        "flex",
-        "flex-col",
-        "gap-4",
-        "sm:mb-8",
-        "sm:flex-row",
-        "sm:items-center",
-        "sm:justify-between",
-        "sm:gap-6",
-        "lg:mb-12",
+        "mb-6 flex flex-col gap-4 sm:mb-8 sm:flex-row sm:items-center sm:justify-between sm:gap-6 lg:mb-12",
       );
     });
 
@@ -323,7 +306,7 @@ describe("Header Component", () => {
       const headerContent = screen
         .getByRole("banner")
         .querySelector(".flex.items-center.justify-between");
-      expect(headerContent).toHaveClass("pt-8", "sm:pt-24");
+      expect(headerContent).toHaveClass("pt-8 sm:pt-24");
     });
   });
 
@@ -372,12 +355,12 @@ describe("Header Component", () => {
       renderWithTheme(<Header />);
 
       const siteTitle = screen.getByRole("link", { name: /randy ellis/i });
-      expect(siteTitle).toHaveClass("text-black", "dark:text-white");
+      expect(siteTitle).toHaveClass("text-black dark:text-white");
 
       const subtitle = screen.getByText(
         "Generative AI & Product Design Engineer",
       );
-      expect(subtitle).toHaveClass("text-zinc-600", "dark:text-zinc-500");
+      expect(subtitle).toHaveClass("text-zinc-600 dark:text-zinc-500");
     });
   });
 

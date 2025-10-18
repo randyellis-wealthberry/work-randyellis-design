@@ -405,22 +405,11 @@ describe("MobileMenu", () => {
       );
 
       const dialog = screen.getByRole("dialog");
-      expect(dialog).toHaveClass("fixed", "inset-0", "z-50", "lg:hidden");
+      expect(dialog).toHaveClass("fixed inset-0 z-50 lg:hidden");
 
       const menuPanel = document.querySelector("#mobile-menu");
       expect(menuPanel).toHaveClass(
-        "fixed",
-        "right-0",
-        "top-0",
-        "h-full",
-        "w-full",
-        "max-w-sm",
-        "bg-white",
-        "dark:bg-zinc-950",
-        "shadow-2xl",
-        "transition-transform",
-        "duration-300",
-        "ease-in-out",
+        "fixed right-0 top-0 h-full w-full max-w-sm bg-white dark:bg-zinc-950 shadow-2xl transition-transform duration-300 ease-in-out",
       );
     });
 

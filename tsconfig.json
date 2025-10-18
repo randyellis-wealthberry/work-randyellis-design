@@ -41,6 +41,7 @@
     "email-list",
     "claude-remotion-demo",
     "portfolio-feature-flags",
-    "__tests__"
+    "__tests__",
+    "open-websearch"
   ]
 }
