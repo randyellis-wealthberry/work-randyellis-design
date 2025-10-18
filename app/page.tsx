@@ -38,6 +38,7 @@ import {
 } from "@/lib/analytics";
 import { FeatureFlagDemo } from "@/components/feature-flag-demo";
 import { TextGradientScroll } from "@/components/ui/text-gradient-scroll";
+import { FractionalCDOHiddenSEO } from "@/components/seo/fractional-cdo-hidden-seo";
 
 const VARIANTS_CONTAINER = {
   hidden: { opacity: 0 },
@@ -456,7 +457,7 @@ function ProjectThumbnail({ project }: { project: (typeof PROJECTS)[0] }) {
         >
           <LazyHoverVideo
             src={project.video}
-            alt={project.name}
+            alt={`${project.name} - Fractional Chief Design Officer portfolio project showcasing startup design leadership, scalable design systems, and AI-powered product innovation by Randy Ellis`}
             className="h-full w-full"
             resetOnLeave={true}
             projectName={project.name}
@@ -494,7 +495,7 @@ function ProjectThumbnail({ project }: { project: (typeof PROJECTS)[0] }) {
     <Link href={`/projects/${project.slug}`}>
       <Image
         src={thumbnailSrc}
-        alt={project.name}
+        alt={`${project.name} - Fractional Chief Design Officer portfolio project showcasing startup design leadership, scalable design systems, and AI-powered product innovation by Randy Ellis`}
         onMouseEnter={() => trackProjectHover(project.name, project.id)}
         onClick={() => trackProjectView(project.name)}
         width={500}
@@ -521,6 +522,9 @@ export default function Personal() {
       initial="hidden"
       animate="visible"
     >
+      {/* Hidden SEO content for fractional CDO positioning */}
+      <FractionalCDOHiddenSEO />
+
       <motion.section
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}

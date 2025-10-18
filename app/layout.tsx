@@ -11,6 +11,7 @@ import {
   PersonStructuredData,
   WebsiteStructuredData,
   ProfessionalServiceStructuredData,
+  FractionalCDOServiceStructuredData,
   OrganizationStructuredData,
   FAQStructuredData,
   LocalBusinessStructuredData,
@@ -93,6 +94,7 @@ export default async function RootLayout({
         <PersonStructuredData />
         <WebsiteStructuredData />
         <ProfessionalServiceStructuredData />
+        <FractionalCDOServiceStructuredData />
         <OrganizationStructuredData />
         <LocalBusinessStructuredData />
         <FAQStructuredData />

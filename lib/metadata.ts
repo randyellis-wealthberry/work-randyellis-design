@@ -19,11 +19,11 @@ export function createBaseMetadata(): Metadata {
     },
     title: {
       default:
-        "Randy Ellis - AI Product Design Engineer | Generative AI & Design Leadership",
+        "Randy Ellis - Fractional Chief Design Officer & AI Product Design Engineer | Startup Design Leadership",
       template: "%s | Randy Ellis",
     },
     description:
-      "🚀 AI Product Design Engineer transforming ideas into reality. 2.5M+ users impacted, 6 design awards won. See how AI-powered design drives $50M in product value at Wealthberry Labs.",
+      "🚀 Fractional Chief Design Officer & AI Product Design Engineer transforming startups into design-led organizations. 2.5M+ users impacted, $50M+ product value delivered. Specializing in venture-backed startup design leadership, scalable design systems, and AI-powered product innovation. Available for fractional CDO engagements through Chameleon Collective, Go Fractional, and startup advisory partnerships.",
     keywords: [
       "AI Product Design Engineer",
       "Generative AI Design",
@@ -40,6 +40,26 @@ export function createBaseMetadata(): Metadata {
       "Design Leadership",
       "Product Management",
       "Design Systems Architecture",
+      "Fractional Chief Design Officer",
+      "Fractional CDO",
+      "Part-time Design Executive",
+      "Startup Design Leadership",
+      "Venture-backed Design Consultant",
+      "Chameleon Collective Fractional Executive",
+      "Go Fractional Design Leadership",
+      "Catalant Fractional Consulting",
+      "Toptal Design Executive",
+      "Business Talent Group Fractional CDO",
+      "Fractional Design Services",
+      "Startup Design Advisor",
+      "Design Systems Scaling",
+      "Remote Design Leadership",
+      "Interim Chief Design Officer",
+      "Contract Design Executive",
+      "Startup C-suite Design",
+      "Design Operations Fractional",
+      "Product Design Fractional",
+      "UX Leadership Fractional",
     ],
     authors: [{ name: "Randy Ellis", url: baseUrl }],
     creator: "Randy Ellis",
@@ -66,26 +86,26 @@ export function createBaseMetadata(): Metadata {
       type: "website",
       locale: "en_US",
       url: baseUrl,
-      siteName: "Randy Ellis - AI Product Design Engineer",
+      siteName: "Randy Ellis - Fractional Chief Design Officer & AI Product Design Engineer",
       title:
-        "Randy Ellis - AI Product Design Engineer | Generative AI & Design Leadership",
+        "Randy Ellis - Fractional Chief Design Officer & AI Product Design Engineer | Startup Design Leadership",
       description:
-        "🚀 AI Product Design Engineer transforming ideas into reality. 2.5M+ users impacted, 6 design awards won. See how AI-powered design drives $50M in product value at Wealthberry Labs.",
+        "🚀 Fractional Chief Design Officer & AI Product Design Engineer transforming startups into design-led organizations. 2.5M+ users impacted, $50M+ product value delivered. Specializing in venture-backed startup design leadership, scalable design systems, and AI-powered product innovation.",
       images: [
         {
           url: createAbsoluteUrl("/randy-ellis-og-image.jpg"),
           width: 1200,
           height: 630,
-          alt: "Randy Ellis - AI Product Design Engineer Portfolio",
+          alt: "Randy Ellis - Fractional Chief Design Officer & AI Product Design Engineer Portfolio",
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
       title:
-        "Randy Ellis - AI Product Design Engineer | Generative AI & Design Leadership",
+        "Randy Ellis - Fractional Chief Design Officer & AI Product Design Engineer | Startup Design Leadership",
       description:
-        "🚀 AI Product Design Engineer transforming ideas into reality. 2.5M+ users impacted, 6 design awards won.",
+        "🚀 Fractional Chief Design Officer transforming startups into design-led organizations. 2.5M+ users impacted, $50M+ product value delivered. Available for fractional CDO engagements.",
       site: "@iamrandyellis",
       creator: "@iamrandyellis",
       images: [createAbsoluteUrl("/randy-ellis-og-image.jpg")],

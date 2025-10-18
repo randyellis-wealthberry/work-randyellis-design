@@ -78,15 +78,15 @@ export function PersonStructuredData() {
     "@context": "https://schema.org",
     "@type": "Person",
     name: "Randy Ellis",
-    jobTitle: "AI Product Design Engineer",
+    jobTitle: ["AI Product Design Engineer", "Fractional Chief Design Officer"],
     description:
-      "Leading AI Product Design Engineer specializing in generative AI, design systems, and product leadership. Head of Product at Wealthberry Labs with 2.5M+ users impacted.",
+      "Leading Fractional Chief Design Officer & AI Product Design Engineer specializing in generative AI, design systems, and startup product leadership. Head of Product at Wealthberry Labs with 2.5M+ users impacted. Available for fractional CDO engagements through Chameleon Collective, Go Fractional, and direct startup partnerships.",
     url: createAbsoluteUrl(),
     image: createAbsoluteUrl("/randy-ellis-profile.jpg"),
     sameAs: [
       "https://www.linkedin.com/in/iamrandyellis/",
-      "https://github.com/ibelick",
-      "https://twitter.com/ibelick",
+      "https://github.com/randyellis-wealthberry",
+      "https://twitter.com/iamrandyellis",
     ],
     worksFor: {
       "@type": "Organization",
@@ -120,23 +120,59 @@ export function PersonStructuredData() {
       "Leadership Communication",
       "AI Design Tools",
       "Product Strategy",
+      "Fractional Chief Design Officer",
+      "Startup Design Leadership",
+      "Venture-backed Design Scaling",
+      "Design Systems Architecture",
+      "Remote Design Management",
+      "Fractional Executive Services",
+      "Chameleon Collective Partnership",
+      "Go Fractional Design Leadership",
+      "Startup Advisory Services",
+      "Design Operations",
+      "Product Design Consulting",
     ],
-    hasOccupation: {
-      "@type": "Occupation",
-      name: "AI Product Design Engineer",
-      occupationLocation: {
-        "@type": "City",
-        name: "Chicago",
+    hasOccupation: [
+      {
+        "@type": "Occupation",
+        name: "AI Product Design Engineer",
+        occupationLocation: {
+          "@type": "City",
+          name: "Chicago",
+        },
+        skills: [
+          "AI Product Design",
+          "Generative AI",
+          "Design Systems",
+          "Product Leadership",
+          "UX Research",
+          "Design Engineering",
+        ],
       },
-      skills: [
-        "AI Product Design",
-        "Generative AI",
-        "Design Systems",
-        "Product Leadership",
-        "UX Research",
-        "Design Engineering",
-      ],
-    },
+      {
+        "@type": "Occupation",
+        name: "Fractional Chief Design Officer",
+        description: "Part-time Chief Design Officer services for startups and venture-backed companies",
+        occupationLocation: {
+          "@type": "Place",
+          name: "Remote/Worldwide",
+        },
+        skills: [
+          "Startup Design Leadership",
+          "Design Systems Scaling",
+          "Fractional Executive Management",
+          "Venture Capital Design Strategy",
+          "Remote Team Leadership",
+          "Design Operations Setup",
+          "Startup Advisory Services",
+        ],
+        worksFor: {
+          "@type": "Organization",
+          name: "Fractional CDO Services",
+          description: "Providing part-time Chief Design Officer expertise to startups",
+        },
+      },
+    ],
     award: [
       "6 Design Awards for innovative design work",
       "4.8★ App Store rating for GrowIt project",
@@ -493,6 +529,158 @@ export function CreativeWorkStructuredData({
       type="application/ld+json"
       dangerouslySetInnerHTML={{
         __html: JSON.stringify(creativeWorkSchema),
+      }}
+    />
+  );
+}
+
+export function FractionalCDOServiceStructuredData() {
+  const fractionalServiceSchema = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    name: "Fractional Chief Design Officer Services",
+    description: "Part-time Chief Design Officer services for startups and venture-backed companies. Specializing in design systems scaling, team leadership, and strategic design operations for companies seeking fractional executive expertise.",
+    provider: {
+      "@type": "Person",
+      name: "Randy Ellis",
+      jobTitle: ["AI Product Design Engineer", "Fractional Chief Design Officer"],
+      url: createAbsoluteUrl(),
+    },
+    areaServed: "Worldwide",
+    serviceType: [
+      "Fractional Chief Design Officer",
+      "Startup Design Leadership",
+      "Design Systems Architecture",
+      "Venture-backed Design Strategy",
+      "Remote Design Management",
+      "Design Operations Setup",
+      "Product Design Consulting",
+      "UX Leadership Services",
+      "Design Team Scaling",
+      "Startup Advisory Services",
+    ],
+    audience: [
+      {
+        "@type": "Audience",
+        audienceType: "Startup Founders",
+      },
+      {
+        "@type": "Audience",
+        audienceType: "Venture Capital Firms",
+      },
+      {
+        "@type": "Audience",
+        audienceType: "Series A-C Companies",
+      },
+      {
+        "@type": "Audience",
+        audienceType: "Remote-first Organizations",
+      },
+    ],
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Fractional CDO Services",
+      itemListElement: [
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Fractional Chief Design Officer",
+            description: "Part-time CDO services for strategic design leadership and team development",
+            category: "Executive Services",
+          },
+          availableAtOrFrom: {
+            "@type": "Place",
+            name: "Remote/Worldwide",
+          },
+          offeredThrough: [
+            "Chameleon Collective",
+            "Go Fractional",
+            "Catalant",
+            "Toptal",
+            "Direct Partnership",
+          ],
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Design Systems Scaling",
+            description: "Building scalable design systems for growing startups and enterprise teams",
+            category: "Design Services",
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Startup Design Leadership",
+            description: "Strategic design guidance for early-stage and growth-stage startups",
+            category: "Consulting Services",
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Venture-backed Design Strategy",
+            description: "Design leadership for companies preparing for or having received venture funding",
+            category: "Strategic Services",
+          },
+        },
+      ],
+    },
+    providerMobility: "Dynamic",
+    availableChannel: [
+      {
+        "@type": "ServiceChannel",
+        name: "Remote Consultation",
+        serviceUrl: createAbsoluteUrl(),
+        serviceType: "Virtual Consultation",
+      },
+      {
+        "@type": "ServiceChannel",
+        name: "Fractional Platform Partnership",
+        serviceType: "Platform-mediated Service",
+        availableLanguage: ["English"],
+      },
+    ],
+    keywords: [
+      "fractional chief design officer",
+      "fractional CDO",
+      "startup design leadership",
+      "venture-backed design consultant",
+      "Chameleon Collective fractional executive",
+      "Go Fractional design leadership",
+      "part-time chief design officer",
+      "interim CDO",
+      "contract design executive",
+      "design systems scaling",
+      "remote design management",
+      "startup advisory services",
+      "design operations fractional",
+    ],
+    brand: {
+      "@type": "Brand",
+      name: "Randy Ellis Fractional CDO Services",
+      slogan: "Transform your startup with fractional design leadership",
+      description: "Expert Chief Design Officer services on a flexible, part-time basis",
+      url: createAbsoluteUrl(),
+    },
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "consultation",
+      areaServed: "Worldwide",
+      availableLanguage: ["English"],
+    },
+  };
+
+  return (
+    <Script
+      id="fractional-cdo-service-structured-data"
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(fractionalServiceSchema),
       }}
     />
   );
