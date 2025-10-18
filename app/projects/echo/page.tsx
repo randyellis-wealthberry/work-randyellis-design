@@ -2,28 +2,29 @@ import { Metadata } from "next";
 import EchoClientPage from "./echo-client";
 
 export const metadata: Metadata = {
-  title: "EchoDrive Case Study | AI-Powered Smart Cloud Storage",
+  title: "EchoDrive Case Study | Logistics Innovation & Digital Transformation",
   description:
-    "Explore how EchoDrive revolutionized cloud storage through AI-powered organization, achieving 89% user adoption, 35% storage efficiency gains, and 5x faster search speeds.",
+    "Explore how EchoDrive revolutionized trucking logistics through mobile innovation, achieving 16% revenue increase, 10,000+ active drivers, and full ELD compliance.",
   openGraph: {
-    title: "EchoDrive Case Study | AI-Powered Cloud Storage Innovation",
+    title:
+      "EchoDrive Case Study | Logistics Innovation & Digital Transformation",
     description:
-      "AI-powered cloud storage case study: 35% storage efficiency, 5x search speed, 89% user adoption through intelligent file management.",
+      "Trucking logistics case study: 16% revenue increase, 10,000+ active drivers, ELD compliance through mobile-first digital transformation.",
     type: "article",
     images: [
       {
         url: "/projects/echo/img1.jpg",
         width: 1200,
         height: 630,
-        alt: "EchoDrive AI-powered cloud storage interface",
+        alt: "EchoDrive mobile logistics platform for trucking industry",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "EchoDrive Case Study | Smart Cloud Storage with AI",
+    title: "EchoDrive Case Study | Trucking Logistics Innovation",
     description:
-      "How AI-powered intelligence transformed cloud storage efficiency and collaboration workflows.",
+      "How mobile-first digital transformation transformed trucking logistics operations and driver experience.",
     images: ["/projects/echo/img1.jpg"],
   },
 };

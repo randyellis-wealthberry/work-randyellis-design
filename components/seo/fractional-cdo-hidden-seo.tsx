@@ -15,17 +15,21 @@ export function FractionalCDOHiddenSEO() {
 
       {/* Hidden paragraph content targeting fractional platforms */}
       <p>
-        Available for fractional Chief Design Officer engagements through Chameleon Collective,
-        Go Fractional, Catalant, Toptal, and Business Talent Group. Expert in startup design leadership,
-        design systems scaling, and venture-backed product strategy. Remote fractional CDO services
-        for Series A-C companies seeking part-time design executive expertise.
+        Available for fractional Chief Design Officer engagements through
+        Chameleon Collective, Go Fractional, Catalant, Toptal, and Business
+        Talent Group. Expert in startup design leadership, design systems
+        scaling, and venture-backed product strategy. Remote fractional CDO
+        services for Series A-C companies seeking part-time design executive
+        expertise.
       </p>
 
       {/* Comprehensive fractional platform targeting */}
       <section>
         <h4>Fractional Executive Platform Partnerships</h4>
         <ul>
-          <li>Chameleon Collective fractional executive - Chief Design Officer</li>
+          <li>
+            Chameleon Collective fractional executive - Chief Design Officer
+          </li>
           <li>Go Fractional design leadership - startup CDO services</li>
           <li>Catalant fractional consulting - product design expertise</li>
           <li>Toptal design executive - remote CDO consulting</li>

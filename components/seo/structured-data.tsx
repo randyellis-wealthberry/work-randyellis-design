@@ -152,7 +152,8 @@ export function PersonStructuredData() {
       {
         "@type": "Occupation",
         name: "Fractional Chief Design Officer",
-        description: "Part-time Chief Design Officer services for startups and venture-backed companies",
+        description:
+          "Part-time Chief Design Officer services for startups and venture-backed companies",
         occupationLocation: {
           "@type": "Place",
           name: "Remote/Worldwide",
@@ -169,7 +170,8 @@ export function PersonStructuredData() {
         worksFor: {
           "@type": "Organization",
           name: "Fractional CDO Services",
-          description: "Providing part-time Chief Design Officer expertise to startups",
+          description:
+            "Providing part-time Chief Design Officer expertise to startups",
         },
       },
     ],
@@ -539,11 +541,15 @@ export function FractionalCDOServiceStructuredData() {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     name: "Fractional Chief Design Officer Services",
-    description: "Part-time Chief Design Officer services for startups and venture-backed companies. Specializing in design systems scaling, team leadership, and strategic design operations for companies seeking fractional executive expertise.",
+    description:
+      "Part-time Chief Design Officer services for startups and venture-backed companies. Specializing in design systems scaling, team leadership, and strategic design operations for companies seeking fractional executive expertise.",
     provider: {
       "@type": "Person",
       name: "Randy Ellis",
-      jobTitle: ["AI Product Design Engineer", "Fractional Chief Design Officer"],
+      jobTitle: [
+        "AI Product Design Engineer",
+        "Fractional Chief Design Officer",
+      ],
       url: createAbsoluteUrl(),
     },
     areaServed: "Worldwide",
@@ -586,7 +592,8 @@ export function FractionalCDOServiceStructuredData() {
           itemOffered: {
             "@type": "Service",
             name: "Fractional Chief Design Officer",
-            description: "Part-time CDO services for strategic design leadership and team development",
+            description:
+              "Part-time CDO services for strategic design leadership and team development",
             category: "Executive Services",
           },
           availableAtOrFrom: {
@@ -606,7 +613,8 @@ export function FractionalCDOServiceStructuredData() {
           itemOffered: {
             "@type": "Service",
             name: "Design Systems Scaling",
-            description: "Building scalable design systems for growing startups and enterprise teams",
+            description:
+              "Building scalable design systems for growing startups and enterprise teams",
             category: "Design Services",
           },
         },
@@ -615,7 +623,8 @@ export function FractionalCDOServiceStructuredData() {
           itemOffered: {
             "@type": "Service",
             name: "Startup Design Leadership",
-            description: "Strategic design guidance for early-stage and growth-stage startups",
+            description:
+              "Strategic design guidance for early-stage and growth-stage startups",
             category: "Consulting Services",
           },
         },
@@ -624,7 +633,8 @@ export function FractionalCDOServiceStructuredData() {
           itemOffered: {
             "@type": "Service",
             name: "Venture-backed Design Strategy",
-            description: "Design leadership for companies preparing for or having received venture funding",
+            description:
+              "Design leadership for companies preparing for or having received venture funding",
             category: "Strategic Services",
           },
         },
@@ -664,7 +674,8 @@ export function FractionalCDOServiceStructuredData() {
       "@type": "Brand",
       name: "Randy Ellis Fractional CDO Services",
       slogan: "Transform your startup with fractional design leadership",
-      description: "Expert Chief Design Officer services on a flexible, part-time basis",
+      description:
+        "Expert Chief Design Officer services on a flexible, part-time basis",
       url: createAbsoluteUrl(),
     },
     contactPoint: {

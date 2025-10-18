@@ -86,7 +86,8 @@ export function createBaseMetadata(): Metadata {
       type: "website",
       locale: "en_US",
       url: baseUrl,
-      siteName: "Randy Ellis - Fractional Chief Design Officer & AI Product Design Engineer",
+      siteName:
+        "Randy Ellis - Fractional Chief Design Officer & AI Product Design Engineer",
       title:
         "Randy Ellis - Fractional Chief Design Officer & AI Product Design Engineer | Startup Design Leadership",
       description:
