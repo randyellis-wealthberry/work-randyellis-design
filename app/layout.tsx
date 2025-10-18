@@ -81,13 +81,61 @@ export default async function RootLayout({
           rel="icon"
           type="image/png"
           sizes="32x32"
-          href="/icons/icon-32x32.png"
+          href="/icon"
         />
         <link
           rel="icon"
           type="image/png"
           sizes="16x16"
-          href="/icons/icon-16x16.png"
+          href="/favicon.ico"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="72x72"
+          href="/icons/icon-72x72.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="96x96"
+          href="/icons/icon-96x96.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="128x128"
+          href="/icons/icon-128x128.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="144x144"
+          href="/icons/icon-144x144.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="152x152"
+          href="/icons/icon-152x152.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="192x192"
+          href="/icons/icon-192x192.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="384x384"
+          href="/icons/icon-384x384.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="512x512"
+          href="/icons/icon-512x512.png"
         />
 
         {/* Structured Data */}
