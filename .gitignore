@@ -149,3 +149,6 @@ $RECYCLE.BIN/
 .vscode/launch.json
 .vscode/extensions.json
 .idea/
+
+# External projects and experiments
+open-websearch/
