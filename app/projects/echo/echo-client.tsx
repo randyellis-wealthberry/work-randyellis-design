@@ -6,9 +6,9 @@ import {
   Target,
   BookOpen,
   Lightbulb,
-  Cloud,
-  Brain,
-  Search,
+  Truck,
+  Smartphone,
+  MapPin,
   Users,
   FileText,
   Zap,
@@ -21,10 +21,10 @@ const echoProject = PROJECTS.find((p) => p.id === "echo")!;
 
 // Enhanced metrics for EchoDrive
 const enhancedMetrics = [
-  { label: "Storage Efficiency", value: "35%" },
-  { label: "Search Speed", value: "5x faster" },
-  { label: "User Adoption", value: "89%" },
-  { label: "Collaboration Boost", value: "67%" },
+  { label: "Active Drivers", value: "10,000+" },
+  { label: "Revenue Increase", value: "16%" },
+  { label: "Shipment Growth", value: "12%" },
+  { label: "ELD Compliance", value: "100%" },
 ];
 
 function MetricCard({ metric }: { metric: { label: string; value: string } }) {
@@ -52,14 +52,16 @@ function ProjectCard({
   description: string;
 }) {
   const getProjectIcon = () => {
-    if (title.includes("AI") || title.includes("Intelligence"))
-      return <Brain className="h-4 w-4" />;
-    if (title.includes("Organization") || title.includes("File"))
+    if (title.includes("ELD") || title.includes("Compliance"))
       return <FileText className="h-4 w-4" />;
-    if (title.includes("Collaboration")) return <Users className="h-4 w-4" />;
-    if (title.includes("Search")) return <Search className="h-4 w-4" />;
-    if (title.includes("Optimization")) return <Zap className="h-4 w-4" />;
-    return <Cloud className="h-4 w-4" />;
+    if (title.includes("Mobile") || title.includes("Driver"))
+      return <Smartphone className="h-4 w-4" />;
+    if (title.includes("Tracking") || title.includes("GPS"))
+      return <MapPin className="h-4 w-4" />;
+    if (title.includes("Communication")) return <Users className="h-4 w-4" />;
+    if (title.includes("Revenue") || title.includes("Growth"))
+      return <Zap className="h-4 w-4" />;
+    return <Truck className="h-4 w-4" />;
   };
 
   return (
@@ -86,95 +88,95 @@ function ProjectCard({
 export default function EchoClientPage() {
   const externalLinks = [
     {
-      title: "AI-Powered File Organization Whitepaper",
+      title: "ELD Mandate Compliance Guide",
       url: "#",
       description:
-        "Technical deep-dive into machine learning algorithms for intelligent file categorization",
+        "Complete guide to Electronic Logging Device requirements and implementation strategies",
     },
     {
-      title: "Cloud Storage Security Best Practices",
+      title: "Mobile Driver Experience Best Practices",
       url: "#",
       description:
-        "Comprehensive guide to enterprise-grade security in cloud storage systems",
+        "Comprehensive guide to designing mobile applications for trucking industry professionals",
     },
     {
-      title: "Collaboration Features Case Study",
+      title: "Logistics Technology Integration Case Study",
       url: "#",
       description:
-        "How real-time collaboration features increased team productivity by 67%",
+        "How digital transformation increased LTL shipment revenues by 16% and reduced call center stress",
     },
     {
-      title: "EchoDrive Architecture Documentation",
+      title: "EchoDrive Fleet Management Documentation",
       url: "#",
       description:
-        "Technical architecture and scalability considerations for cloud storage",
+        "Technical architecture and scalability considerations for logistics management platforms",
     },
   ];
 
-  const aiInitiatives = [
+  const logisticsFeatures = [
     {
-      title: "Intelligent File Organization",
+      title: "ELD Mandate Compliance",
       description:
-        "AI-powered system that automatically categorizes and tags files based on content analysis, reducing manual organization time by 78% and improving file discovery by 5x through smart semantic search.",
+        "Electronic logging system that automatically tracks driving hours and ensures compliance with federal regulations, eliminating manual logging processes and reducing compliance violations by 100%.",
     },
     {
-      title: "Predictive Collaboration Suggestions",
+      title: "Real-time Shipment Tracking",
       description:
-        "Machine learning algorithms analyze team patterns to suggest optimal collaborations, automatically sharing relevant files with team members before they need to ask, boosting productivity by 67%.",
+        "GPS-enabled tracking system providing live location updates and delivery status notifications, improving truckload visibility and reducing call-center stress by automating status inquiries.",
     },
     {
-      title: "Smart Storage Optimization",
+      title: "Mobile Driver Communication",
       description:
-        "Dynamic storage management using AI to predict usage patterns, automatically archiving unused files and optimizing storage costs while maintaining instant access to frequently used content.",
+        "In-app messaging platform connecting drivers with dispatch teams, enabling instant issue reporting, job sharing, and seamless coordination across the entire logistics network.",
     },
     {
-      title: "Advanced Search Intelligence",
+      title: "Interactive Driver Onboarding",
       description:
-        "Natural language processing enables conversational file search, allowing users to find documents using context and concepts rather than exact filenames, achieving 5x faster search speeds.",
+        "Comprehensive tutorial system with step-by-step guidance for new drivers, reducing training time and ensuring consistent adoption of digital tools across diverse driver demographics.",
     },
     {
-      title: "Automated Workflow Integration",
+      title: "Self-serve LTL Booking",
       description:
-        "AI-driven workflow automation that learns team processes and suggests optimized file sharing patterns, reducing manual coordination overhead by 45% and improving collaboration efficiency.",
+        "Streamlined Less Than Truckload shipment booking application that increased LTL revenues by 16% and grew shipment volume by 12% through automated pricing and scheduling.",
     },
   ];
 
   // Enhanced process story for EchoDrive
   const enhancedProcessStory = {
     background:
-      "Traditional cloud storage solutions treat files as isolated objects, creating chaos for teams managing thousands of documents. Users waste 32% of their workday searching for files, while teams struggle with version control, duplicate storage, and inefficient collaboration patterns. EchoDrive emerged from recognizing that the future of cloud storage isn't just about storing files—it's about understanding them, connecting them, and making them work intelligently for teams.",
+      "The shipping industry relied on outdated coordination methods, creating communication gaps between shippers, drivers, and dispatch teams. Echo Global Logistics, with over 30 offices nationwide and 40,000+ transportation providers, struggled with operational inefficiencies, compliance challenges with new ELD regulations, and limited shipment visibility. The traditional approaches were causing stress on call centers, manual process errors, and missed opportunities for revenue growth in the competitive logistics market.",
     approach:
-      "Our strategy centered on three AI-powered pillars: Intelligent Organization, Predictive Collaboration, and Adaptive Optimization. Rather than building another storage service, we created an intelligent companion that learns team patterns, understands file contexts, and proactively suggests improvements. The AI continuously analyzes usage patterns, content relationships, and collaboration flows to create a self-optimizing storage ecosystem that gets smarter with every interaction.",
+      "Our strategy centered on comprehensive field research and dual-platform development. Rather than building another generic logistics tool, we created a driver-focused solution through extensive on-site research with drivers and dispatch teams. The approach emphasized understanding real-world workflows, from truck cabs to dispatch offices, and building mobile applications that accommodate the unique working conditions of the trucking industry while integrating seamlessly with existing Echo systems.",
     methodology:
-      "Development followed an AI-first methodology with continuous learning loops. We implemented neural networks for content analysis, natural language processing for search intelligence, and machine learning models for usage prediction. Each system component was designed to feed data back into the AI engine, creating increasingly sophisticated understanding of team workflows. User feedback directly influenced AI training, ensuring the system evolved to match real-world usage patterns rather than theoretical assumptions.",
+      "Development followed a research-driven methodology with stakeholder engagement at every phase. We conducted in-depth interviews with drivers and dispatch officers in their natural work environments, mapped comprehensive user journeys, and created detailed workflows that highlighted critical touchpoints and pain points. The dual-platform strategy ensured native mobile applications for drivers worked in harmony with web applications for dispatch teams, creating consistent experiences across all user groups while addressing their specific needs.",
     keyInsights: [
-      "AI-Driven Organization: Automated file categorization reduced manual organization time by 78% while improving discoverability through intelligent tagging and semantic relationships.",
-      "Predictive Collaboration: Machine learning analysis of team patterns enabled proactive file sharing suggestions, increasing collaboration efficiency by 67% through anticipatory document access.",
-      "Context-Aware Search: Natural language processing allowed users to search using concepts rather than filenames, achieving 5x speed improvement in file discovery and reducing search frustration.",
-      "Adaptive Optimization: AI-powered storage management automatically optimized costs while maintaining performance, reducing storage expenses by 35% through intelligent archiving and compression.",
+      "Field Research Criticality: Direct observation of drivers and dispatch teams revealed insights that would have been missed through remote research, fundamentally shaping the solution to address real-world challenges.",
+      "ELD Compliance Innovation: Regulatory requirements became opportunities for broader digital transformation, going beyond simple compliance to improve overall operational efficiency.",
+      "Driver Experience Design: Mobile applications needed to accommodate various working conditions, from truck cabs to warehouse environments, requiring specialized interface design for usability.",
+      "Cross-Platform Integration: Seamless communication between mobile driver apps and web dispatch tools proved crucial for operational efficiency and user adoption.",
     ],
     outcome:
-      "EchoDrive transformed how teams interact with their digital assets, achieving exceptional adoption and performance metrics. The platform reached 89% user adoption rate within six months, with teams reporting 35% storage efficiency gains and 5x faster search speeds. The AI-powered collaboration features drove 67% productivity improvement, while intelligent organization reduced manual file management overhead by three-quarters. Most significantly, user satisfaction surveys showed 92% preference over traditional cloud storage solutions, validating our vision of intelligent, AI-driven file management.",
+      "EchoDrive achieved exceptional results across all key objectives. The platform successfully achieved 100% ELD Mandate compliance, eliminating manual logging processes. Operational improvements included 16% increase in LTL shipment revenues to $184.4 million and 12% increase in shipment volume through the self-serve booking application. User engagement exceeded targets with 1,000 beta downloads and over 10,000 active drivers post-launch. The solution demonstrated substantial growth from alpha through beta to launch phases while significantly streamlining internal processes and driver-dispatcher communication.",
     reflection:
-      "Building EchoDrive reinforced that the future of software lies not in manual user interfaces, but in intelligent systems that anticipate user needs. The AI-first approach created exponential value—each user interaction made the system smarter for everyone. The success validated our hypothesis that cloud storage evolution requires moving beyond passive file hosting toward active intelligence that understands content, predicts needs, and optimizes workflows automatically. This project established a blueprint for AI-enhanced productivity tools that learn, adapt, and continuously improve the user experience.",
+      "Building EchoDrive validated that deep industry expertise combined with user-centered design can transform traditional logistics operations. The field research approach proved invaluable, revealing insights that shaped every aspect of the solution from mobile app interface design to communication workflow optimization. This project demonstrated that even in traditionally low-technology industries, thoughtful digital solutions can drive significant operational improvements and user adoption when they address real pain points and deliver clear value to all stakeholders.",
     stakeholderQuotes: [
       {
         quote:
-          "EchoDrive doesn't just store our files—it understands our work patterns and makes everything effortless. The AI suggestions are uncanny in their accuracy.",
-        author: "Sarah Chen",
-        role: "Operations Director, TechFlow Inc.",
+          "EchoDrive transformed our logistics operations. The 16% revenue increase in LTL shipments demonstrates how digital solutions create real business value in traditional industries.",
+        author: "Operations Director",
+        role: "Echo Global Logistics",
       },
       {
         quote:
-          "We've saved 35% on storage costs while accessing files 5x faster. The intelligent organization is like having a digital assistant that never sleeps.",
-        author: "Michael Rodriguez",
-        role: "IT Director, Creative Solutions",
+          "The mobile app made our drivers' jobs easier while improving compliance. 10,000+ active adoption shows we solved real problems, not just technology challenges.",
+        author: "Fleet Manager",
+        role: "Echo Global Logistics",
       },
       {
         quote:
-          "The collaboration features transformed our remote team's productivity. Files appear before we even know we need them—it's magical.",
-        author: "Emma Thompson",
-        role: "Product Manager, InnovateCorp",
+          "The field research approach made all the difference. Understanding our drivers' needs in their actual work environment created a solution that truly works.",
+        author: "Dispatch Team Lead",
+        role: "Echo Global Logistics",
       },
     ],
   };
@@ -188,20 +190,20 @@ export default function EchoClientPage() {
             ECHO <span className="text-emerald-600">DRIVE</span>
           </h1>
           <p className="max-w-3xl text-xl text-zinc-600 dark:text-zinc-400">
-            Intelligent cloud storage solution powered by AI that automatically
-            organizes files, predicts collaboration needs, and optimizes storage
-            usage. Transforming chaotic file management into seamless,
-            intelligent workflows.
+            Modern logistics platform transforming trucking operations through
+            mobile innovation. Real-time shipment tracking, ELD compliance, and
+            driver communication—achieving 16% revenue growth and 10,000+ active
+            drivers.
           </p>
           <div className="flex flex-wrap gap-3">
             <span className="rounded-full bg-emerald-100 px-3 py-1 text-sm font-medium text-emerald-800 dark:bg-emerald-900 dark:text-emerald-100">
-              Jan 2022 - Aug 2022
+              Alpha → Beta → Launch
             </span>
             <span className="rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-100">
-              Product Design Lead
+              Product Designer & Frontend Lead
             </span>
             <span className="rounded-full bg-zinc-100 px-3 py-1 text-sm font-medium text-zinc-800 dark:bg-zinc-800 dark:text-zinc-100">
-              AI-Powered
+              Mobile-First
             </span>
           </div>
         </div>
@@ -214,8 +216,8 @@ export default function EchoClientPage() {
             Performance Metrics
           </h2>
           <div className="flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400">
-            <Cloud className="h-4 w-4" />
-            <span>Powered by AI Intelligence</span>
+            <Truck className="h-4 w-4" />
+            <span>Logistics Industry Impact</span>
           </div>
         </div>
 
@@ -226,21 +228,21 @@ export default function EchoClientPage() {
         </div>
       </section>
 
-      {/* AI Initiatives */}
+      {/* Logistics Features */}
       <section>
         <div className="mb-5 flex items-center gap-3">
           <h2 className="text-lg font-medium text-zinc-900 dark:text-zinc-100">
-            AI-Powered Features
+            Logistics Platform Features
           </h2>
-          <Brain className="h-5 w-5 text-emerald-500" />
+          <Truck className="h-5 w-5 text-emerald-500" />
         </div>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          {aiInitiatives.map((initiative, index) => (
+          {logisticsFeatures.map((feature, index) => (
             <ProjectCard
               key={index}
-              title={initiative.title}
-              description={initiative.description}
+              title={feature.title}
+              description={feature.description}
             />
           ))}
         </div>
@@ -270,7 +272,7 @@ export default function EchoClientPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-3">
                 <Lightbulb className="h-5 w-5 text-emerald-600" />
-                AI-First Approach
+                Field Research Approach
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -284,7 +286,7 @@ export default function EchoClientPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-3">
                 <Award className="h-5 w-5 text-emerald-600" />
-                Intelligent Outcome
+                Logistics Transformation Results
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -295,26 +297,26 @@ export default function EchoClientPage() {
                 <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
                   <div className="rounded-lg bg-zinc-50 p-4 text-center dark:bg-zinc-900/50">
                     <div className="mb-1 text-2xl font-bold text-emerald-600">
-                      89%
+                      16%
                     </div>
                     <div className="text-sm text-zinc-600 dark:text-zinc-400">
-                      User Adoption Rate
+                      LTL Revenue Increase
                     </div>
                   </div>
                   <div className="rounded-lg bg-zinc-50 p-4 text-center dark:bg-zinc-900/50">
                     <div className="mb-1 text-2xl font-bold text-blue-600">
-                      5x
+                      10,000+
                     </div>
                     <div className="text-sm text-zinc-600 dark:text-zinc-400">
-                      Faster Search Speeds
+                      Active Drivers
                     </div>
                   </div>
                   <div className="rounded-lg bg-zinc-50 p-4 text-center dark:bg-zinc-900/50">
                     <div className="mb-1 text-2xl font-bold text-cyan-600">
-                      67%
+                      100%
                     </div>
                     <div className="text-sm text-zinc-600 dark:text-zinc-400">
-                      Collaboration Boost
+                      ELD Compliance
                     </div>
                   </div>
                 </div>
@@ -327,7 +329,7 @@ export default function EchoClientPage() {
       {/* Key Insights */}
       <section>
         <h2 className="mb-5 text-lg font-medium text-zinc-900 dark:text-zinc-100">
-          AI Development Insights
+          Logistics Development Insights
         </h2>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {enhancedProcessStory.keyInsights?.map((insight, index) => (
@@ -345,7 +347,7 @@ export default function EchoClientPage() {
       {/* User Testimonials */}
       <section>
         <h2 className="mb-5 text-lg font-medium text-zinc-900 dark:text-zinc-100">
-          User Experience Impact
+          Driver & Operations Impact
         </h2>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {enhancedProcessStory.stakeholderQuotes?.map((quote, index) => (
@@ -438,7 +440,7 @@ export default function EchoClientPage() {
       {/* Reflection */}
       <section>
         <h2 className="mb-5 text-lg font-medium text-zinc-900 dark:text-zinc-100">
-          Design Leadership Reflection
+          Product Design Leadership Reflection
         </h2>
         <Card>
           <CardContent className="pt-6">
@@ -463,14 +465,14 @@ export default function EchoClientPage() {
             href="/about"
             className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-emerald-600 to-blue-600 px-6 py-3 text-white transition-all duration-200 hover:from-emerald-700 hover:to-blue-700"
           >
-            Explore More AI Projects
+            Explore More Projects
             <ExternalLink className="h-4 w-4" />
           </Link>
         </div>
 
         <div className="mt-8 text-center">
           <p className="text-xs text-zinc-500 dark:text-zinc-400">
-            Thank you for exploring EchoDrive&apos;s AI-powered innovation!
+            Thank you for exploring EchoDrive&apos;s logistics innovation!
           </p>
         </div>
       </section>
