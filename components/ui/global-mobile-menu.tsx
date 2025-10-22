@@ -106,7 +106,7 @@ export function GlobalMobileMenu() {
               <Link
                 href="https://work.randyellis.design"
                 onClick={handleNavigationClick}
-                className="text-4xl font-semibold text-zinc-900 transition-colors hover:text-zinc-600 dark:text-zinc-100 dark:hover:text-zinc-400 sm:text-5xl md:text-6xl lg:text-7xl"
+                className="text-4xl font-semibold text-zinc-900 transition-colors hover:text-zinc-600 sm:text-5xl md:text-6xl lg:text-7xl dark:text-zinc-100 dark:hover:text-zinc-400"
               >
                 Home
               </Link>
@@ -114,7 +114,7 @@ export function GlobalMobileMenu() {
               <Link
                 href="/about"
                 onClick={handleNavigationClick}
-                className="text-4xl font-semibold text-zinc-900 transition-colors hover:text-zinc-600 dark:text-zinc-100 dark:hover:text-zinc-400 sm:text-5xl md:text-6xl lg:text-7xl"
+                className="text-4xl font-semibold text-zinc-900 transition-colors hover:text-zinc-600 sm:text-5xl md:text-6xl lg:text-7xl dark:text-zinc-100 dark:hover:text-zinc-400"
               >
                 About
               </Link>
@@ -122,19 +122,19 @@ export function GlobalMobileMenu() {
               <Link
                 href="/projects"
                 onClick={handleNavigationClick}
-                className="text-4xl font-semibold text-zinc-900 transition-colors hover:text-zinc-600 dark:text-zinc-100 dark:hover:text-zinc-400 sm:text-5xl md:text-6xl lg:text-7xl"
+                className="text-4xl font-semibold text-zinc-900 transition-colors hover:text-zinc-600 sm:text-5xl md:text-6xl lg:text-7xl dark:text-zinc-100 dark:hover:text-zinc-400"
               >
                 Projects
               </Link>
             </nav>
 
             {/* Bottom Theme Toggle */}
-            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 transform">
               <Button
                 variant="outline"
                 size="lg"
                 onClick={handleThemeToggle}
-                className="h-14 px-6 text-base font-medium border-zinc-200 bg-white/90 backdrop-blur-sm hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900/90 dark:hover:bg-zinc-800"
+                className="h-14 border-zinc-200 bg-white/90 px-6 text-base font-medium backdrop-blur-sm hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900/90 dark:hover:bg-zinc-800"
                 aria-label={`Switch to ${theme === "light" ? "dark" : "light"} theme`}
               >
                 {theme === "light" ? (
