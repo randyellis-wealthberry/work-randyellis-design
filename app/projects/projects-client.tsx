@@ -220,7 +220,7 @@ export default function ProjectsClient() {
 
           <TabsContent value={activeCategory} className="mt-6 sm:mt-8">
             <motion.div
-              className="grid gap-6 md:grid-cols-2"
+              className="projects-grid-pattern"
               variants={VARIANTS_CONTAINER}
               initial="hidden"
               animate="visible"

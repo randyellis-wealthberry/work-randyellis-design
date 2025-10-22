@@ -251,3 +251,27 @@
     }
   }
 }
+
+/* Projects grid layout pattern - 1-2-2-2 responsive design */
+.projects-grid-pattern {
+  display: grid;
+  gap: 1.5rem; /* gap-6 equivalent */
+  grid-template-columns: 1fr; /* Mobile: single column */
+}
+
+/* Desktop: 2-column grid with first item full width (1-2-2-2 pattern) */
+@media (min-width: 768px) {
+  .projects-grid-pattern {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* First project (GrowIt) spans full width */
+  .projects-grid-pattern > *:first-child {
+    grid-column: span 2;
+  }
+
+  /* If odd number of projects, last item spans full width for balance */
+  .projects-grid-pattern > *:last-child:nth-child(odd) {
+    grid-column: span 2;
+  }
+}
