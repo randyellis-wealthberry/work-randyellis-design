@@ -165,6 +165,7 @@ function ProjectThumbnail({ project }: { project: (typeof PROJECTS)[0] }) {
 }
 
 export default function ProjectsClient() {
+  console.log("ProjectsClient: Rendering with PROJECT_CATEGORIES:", PROJECT_CATEGORIES);
   const [activeCategory, setActiveCategory] = useState("All");
 
   const filteredProjects = PROJECTS.filter((project) => {
@@ -202,7 +203,8 @@ export default function ProjectsClient() {
           onValueChange={setActiveCategory}
           className="w-full"
         >
-          <div className="grid grid-cols-2 gap-2 p-2 masonry-layout">
+          <TabsList className="grid h-auto w-full grid-cols-2 gap-2 p-2 masonry-layout">
+            {console.log("ProjectsClient: Rendering TabsList with categories:", PROJECT_CATEGORIES)}
             {PROJECT_CATEGORIES.map((category) => (
               <TabsTrigger
                 key={category}
@@ -212,7 +214,7 @@ export default function ProjectsClient() {
                 {category}
               </TabsTrigger>
             ))}
-         </div>
+          </TabsList>
 
           <TabsContent value={activeCategory} className="mt-6 sm:mt-8">
             <motion.div
