@@ -202,7 +202,7 @@ export default function ProjectsClient() {
           onValueChange={setActiveCategory}
           className="w-full"
         >
-          <TabsList className="xs:grid-cols-2 grid h-auto w-full grid-cols-1 gap-2 p-2 sm:grid-cols-3 lg:grid-cols-7">
+          <TabsList className="grid h-auto w-full grid-cols-2 gap-2 p-2 sm:grid-cols-3 lg:grid-cols-7">
             {PROJECT_CATEGORIES.map((category) => (
               <TabsTrigger
                 key={category}
