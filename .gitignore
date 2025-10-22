@@ -95,6 +95,9 @@ testsprite_tests/
 # PWA fallback files
 public/fallback-*.js
 
+# PWA service worker (auto-generated)
+public/sw.js
+
 # Docker files (if not needed in repo)
 docker-compose.serena.yml
 
