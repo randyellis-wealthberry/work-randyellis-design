@@ -220,4 +220,34 @@
   .prose pre::-webkit-scrollbar-thumb:hover {
     @apply bg-zinc-400 dark:bg-zinc-500;
   }
+
+  /* Masonry layout for filter tabs */
+  .masonry-layout {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+    gap: 0.5rem;
+  }
+
+  /* First item spans full width */
+  .masonry-layout > *:first-child {
+    grid-column: span 2;
+  }
+
+  /* Responsive breakpoints for masonry layout */
+  @media (min-width: 640px) {
+    .masonry-layout {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .masonry-layout {
+      grid-template-columns: repeat(7, 1fr);
+    }
+
+    .masonry-layout > *:first-child {
+      grid-column: span 1;
+    }
+  }
 }

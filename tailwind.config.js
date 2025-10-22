@@ -12,6 +12,13 @@ module.exports = {
       screens: {
         xs: "480px",
       },
+      fontSize: {
+        'xxl': ['2.5rem', { lineHeight: '1.2' }],
+        '3xl': ['3rem', { lineHeight: '1.2' }],
+        '4xl': ['3.75rem', { lineHeight: '1.2' }],
+        '5xl': ['4.5rem', { lineHeight: '1.1' }],
+        '6xl': ['6rem', { lineHeight: '1.1' }],
+      },
       fontFamily: {
         sans: ["var(--font-geist)", "system-ui", "sans-serif"],
         mono: ["var(--font-geist-mono)", "ui-monospace", "monospace"],
