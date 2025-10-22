@@ -25,7 +25,9 @@
     "optimize:images": "next-optimized-images",
     "precommit": "npm run lint:fix && npm run test",
     "deploy:vercel": "vercel --prod",
-    "deploy:preview": "vercel"
+    "deploy:preview": "vercel",
+    "clean:vercel": "node scripts/clean-vercel-deployments.js",
+    "clean:vercel:dry-run": "node scripts/clean-vercel-deployments.js --dry-run"
   },
   "dependencies": {
     "@flags-sdk/statsig": "^0.2.2",
