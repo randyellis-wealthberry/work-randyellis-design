@@ -83,125 +83,96 @@ export function GlobalMobileMenu() {
 
           {/* Menu Panel */}
           <div
-            className="fixed top-0 right-0 h-full w-full max-w-sm translate-x-0 bg-white shadow-2xl transition-transform duration-300 ease-in-out dark:bg-zinc-950"
+            className="fixed inset-0 flex items-center justify-center bg-white transition-opacity duration-300 ease-in-out dark:bg-zinc-950"
             id="mobile-menu"
           >
-            {/* Menu Header */}
-            <div className="flex items-center justify-between border-b border-zinc-200 p-4 dark:border-zinc-800">
-              <h2
-                id="mobile-menu-title"
-                className="text-lg font-semibold text-zinc-900 dark:text-zinc-100"
-              >
-                Menu
-              </h2>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={closeMobileMenu}
-                className="h-10 w-10"
-                aria-label="Close menu"
-              >
-                <XIcon className="h-5 w-5" />
-              </Button>
-            </div>
+            {/* Close Button - Top Right */}
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={closeMobileMenu}
+              className="absolute top-4 right-4 z-10 h-12 w-12 rounded-full border border-zinc-200 bg-white/90 shadow-lg backdrop-blur-sm hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900/90 dark:hover:bg-zinc-800"
+              aria-label="Close menu"
+            >
+              <XIcon className="h-6 w-6 text-zinc-600 dark:text-zinc-400" />
+            </Button>
 
-            {/* Navigation Links */}
+            {/* Centered Navigation Links */}
             <nav
-              className="flex flex-col space-y-2 p-4"
+              className="flex flex-col items-center justify-center space-y-8 px-8"
               role="navigation"
               aria-label="Main navigation"
             >
               <Link
                 href="https://work.randyellis.design"
                 onClick={handleNavigationClick}
-                className="group flex min-h-[44px] items-center rounded-lg px-4 py-3 text-base font-medium text-zinc-600 transition-colors hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
+                className="text-4xl font-semibold text-zinc-900 transition-colors hover:text-zinc-600 dark:text-zinc-100 dark:hover:text-zinc-400 sm:text-5xl md:text-6xl lg:text-7xl"
               >
                 Home
-                <span className="ml-auto text-zinc-400 opacity-0 transition-opacity group-hover:opacity-100 dark:text-zinc-600">
-                  →
-                </span>
               </Link>
 
               <Link
                 href="/about"
                 onClick={handleNavigationClick}
-                className="group flex min-h-[44px] items-center rounded-lg px-4 py-3 text-base font-medium text-zinc-600 transition-colors hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
+                className="text-4xl font-semibold text-zinc-900 transition-colors hover:text-zinc-600 dark:text-zinc-100 dark:hover:text-zinc-400 sm:text-5xl md:text-6xl lg:text-7xl"
               >
                 About
-                <span className="ml-auto text-zinc-400 opacity-0 transition-opacity group-hover:opacity-100 dark:text-zinc-600">
-                  →
-                </span>
               </Link>
 
               <Link
                 href="/projects"
                 onClick={handleNavigationClick}
-                className="group flex min-h-[44px] items-center rounded-lg px-4 py-3 text-base font-medium text-zinc-600 transition-colors hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
+                className="text-4xl font-semibold text-zinc-900 transition-colors hover:text-zinc-600 dark:text-zinc-100 dark:hover:text-zinc-400 sm:text-5xl md:text-6xl lg:text-7xl"
               >
                 Projects
-                <span className="ml-auto text-zinc-400 opacity-0 transition-opacity group-hover:opacity-100 dark:text-zinc-600">
-                  →
-                </span>
               </Link>
             </nav>
 
-            {/* Theme Toggle Section */}
-            <div className="border-t border-zinc-200 p-4 dark:border-zinc-800">
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
-                  Theme
-                </span>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={handleThemeToggle}
-                  className="h-10 px-3"
-                  aria-label={`Switch to ${theme === "light" ? "dark" : "light"} theme`}
-                >
-                  {theme === "light" ? (
-                    <>
-                      <svg
-                        className="mr-2 h-4 w-4"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-                        />
-                      </svg>
-                      Dark
-                    </>
-                  ) : (
-                    <>
-                      <svg
-                        className="mr-2 h-4 w-4"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-                        />
-                      </svg>
-                      Light
-                    </>
-                  )}
-                </Button>
-              </div>
-            </div>
-
-            {/* Footer Info */}
-            <div className="mt-auto border-t border-zinc-200 p-4 dark:border-zinc-800">
-              <p className="text-xs text-zinc-500 dark:text-zinc-400">
-                © 2024 Randy Ellis
-              </p>
+            {/* Bottom Theme Toggle */}
+            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
+              <Button
+                variant="outline"
+                size="lg"
+                onClick={handleThemeToggle}
+                className="h-14 px-6 text-base font-medium border-zinc-200 bg-white/90 backdrop-blur-sm hover:bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900/90 dark:hover:bg-zinc-800"
+                aria-label={`Switch to ${theme === "light" ? "dark" : "light"} theme`}
+              >
+                {theme === "light" ? (
+                  <>
+                    <svg
+                      className="mr-3 h-5 w-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+                      />
+                    </svg>
+                    Dark Mode
+                  </>
+                ) : (
+                  <>
+                    <svg
+                      className="mr-3 h-5 w-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                      />
+                    </svg>
+                    Light Mode
+                  </>
+                )}
+              </Button>
             </div>
           </div>
         </div>
