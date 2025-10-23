@@ -157,10 +157,10 @@ export function MobileMenu({ isOpen, onOpenChange }: MobileMenuProps) {
                   Theme
                 </span>
                 <Button
-                  variant="outline"
+                  variant="ghost"
                   size="sm"
                   onClick={toggleTheme}
-                  className="h-10 px-3"
+                  className="h-8 px-2 hover:bg-zinc-100 dark:hover:bg-zinc-800"
                   aria-label={`Switch to ${theme === "light" ? "dark" : "light"} theme`}
                 >
                   {theme === "light" ? (
