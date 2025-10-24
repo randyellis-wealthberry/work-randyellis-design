@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "node scripts/dev-clean.js",
+    "dev:auto": "node scripts/dev-auto.js",
     "dev:direct": "next dev",
     "dev:turbo": "next dev --turbo",
-    "build": "next build",
+    "build": "env -u NODE_ENV next build",
     "build:analyze": "ANALYZE=true npm run build",
     "build:optimized": "NODE_OPTIONS='--max-old-space-size=4096' npm run build",
     "build:profile": "npm run build -- --profile",
