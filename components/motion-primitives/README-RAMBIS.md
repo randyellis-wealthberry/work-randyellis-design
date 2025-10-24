@@ -43,7 +43,7 @@ import { GlareHover, GlarePresets } from "@/components/motion-primitives";
   {...GlarePresets.card} // Preset for cards
   borderRadius="0.75rem"
 >
-  <div className="bg-card rounded-xl border p-6">
+  <div className="rounded-xl border bg-card p-6">
     <h3>Component Title</h3>
     <p>Description...</p>
   </div>
@@ -100,7 +100,7 @@ export function RambisProjectGrid() {
           <h2 key="title" className="mb-4 text-center text-4xl font-bold">
             Rambis UI Components
           </h2>,
-          <p key="subtitle" className="text-muted-foreground mb-16 text-center">
+          <p key="subtitle" className="mb-16 text-center text-muted-foreground">
             Professional design system components
           </p>,
         ]}
@@ -117,9 +117,9 @@ export function RambisProjectGrid() {
           {components.map((component, index) => (
             <AnimatedContentItem key={index} delay={index * 0.1}>
               <GlareHover {...GlarePresets.card} borderRadius="0.75rem">
-                <div className="bg-card h-full rounded-xl border p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+                <div className="h-full rounded-xl border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
                   <h3 className="mb-2 font-semibold">{component.title}</h3>
-                  <p className="text-muted-foreground text-sm">
+                  <p className="text-sm text-muted-foreground">
                     {component.description}
                   </p>
                 </div>

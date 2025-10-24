@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "serena": {
+      "command": "docker",
+      "args": ["exec", "-i", "workrandyellisdesign-serena-mcp-1", "serena-mcp-server", "--context", "ide-assistant", "--project", "/workspace"]
+    },
+    "github-mcp-server": {
+      "command": "node",
+      "args": ["/Users/MacBook/Developer/work.randyellis.design/node_modules/github-mcp-server/dist/index.js"],
+      "env": {}
+    }
+  }
+}

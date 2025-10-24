@@ -1,80 +1,95 @@
-# Dependencies
+# ============================================
+# DEPENDENCIES
+# ============================================
 node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
 pnpm-lock.yaml
-package-lock.json
+.pnpm-debug.log*
 
-# Next.js
+# Dependency directories
+jspm_packages/
+bower_components/
+
+# Optional npm cache directory
+.npm
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+
+# ============================================
+# NEXT.JS
+# ============================================
 .next/
 out/
 build/
 dist/
-
-# Production builds
 *.tsbuildinfo
 next-env.d.ts
+.swc/
 
-# Environment variables
+# ============================================
+# ENVIRONMENT VARIABLES
+# ============================================
 .env
-.env.local
+.env*.local
 .env.development.local
 .env.test.local
 .env.production.local
 
-# Vercel environment templates (keep main .env.example but ignore platform-specific ones)
+# Vercel environment templates (keep .env.example but ignore platform-specific ones)
 .env.example.*
 
-# IDE and editor files (detailed configs below)
-.vscode/
-.idea/
+# ============================================
+# BUILD TOOLS & CACHES
+# ============================================
+# Turbo
+.turbo/
 
-# OS generated files (handled in expanded sections below)
+# Parcel
+.cache/
+.parcel-cache/
 
-# Logs
-logs
-*.log
-
-# Runtime data
-pids
-*.pid
-*.seed
-*.pid.lock
-
-# Coverage directory used by tools like istanbul
-coverage/
-*.lcov
-
-# nyc test coverage
-.nyc_output
-
-# Dependency directories
-jspm_packages/
-
-# Optional npm cache directory
-.npm
-
-# Optional eslint cache
+# ESLint
 .eslintcache
 
-# Parcel-bundler cache (https://parceljs.org/)
-.cache
-.parcel-cache
+# Vite
+.vite/
 
-# Vercel
-.vercel
+# TypeScript
+*.tsbuildinfo
 
-# Snapshots
+# Webpack
+.webpack/
+
+# Rollup
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# ============================================
+# TESTING
+# ============================================
+coverage/
+*.lcov
+.nyc_output/
 .snapshots/
+__snapshots__/
 
-# Claude AI files
-.claude/
-CLAUDE.md
-.env*.local
+# Jest
+jest-results.json
 
-# Serena MCP files
-.serena/
+# Playwright
+test-results/
+playwright-report/
+playwright/.cache/
+
+# TestSprite
+testsprite_tests/
 
 # Test Reports and Performance Analysis
 metis-performance-report.json
@@ -86,49 +101,45 @@ simple-perf-test.js
 advanced-perf-test.js
 final-performance-summary.js
 
-# TestSprite files
-testsprite_tests/
-
-# Super Design files  
-.superdesign/
-
-# PWA fallback files
-public/fallback-*.js
-
-# PWA service worker (auto-generated)
+# ============================================
+# PWA & SERVICE WORKERS
+# ============================================
+# Auto-generated PWA files
 public/sw.js
+public/sw.js.map
+public/workbox-*.js
+public/workbox-*.js.map
+public/fallback-*.js
+public/worker-*.js
 
-# Docker files (if not needed in repo)
-docker-compose.serena.yml
-
-# Development and debugging files
-dev.log
+# ============================================
+# LOGS & RUNTIME DATA
+# ============================================
+logs/
 *.log
-*.tmp
-*.cache
-.cache/
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+dev.log
+
+# ============================================
+# DEPLOYMENT & HOSTING
+# ============================================
+# Vercel
+.vercel/
 .vercel/output/
 
-# WARP terminal files
-*.warp
-.warp/
-warp-*.log
-warp-*.json
-WARP.md
-
-# Lock files that can cause build issues
-*.lock
-execution.lock
-testsprite_tests/tmp/
-
-# Temporary and build artifacts that shouldn't be deployed
-temp/
-tmp/
-.vite/
-.eslintcache
-.turbo/
-
-# MacOS specific files that can cause issues
+# ============================================
+# OPERATING SYSTEMS
+# ============================================
+# macOS
 .DS_Store
 .AppleDouble
 .LSOverride
@@ -139,8 +150,13 @@ tmp/
 .Trashes
 .VolumeIcon.icns
 .com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
 
-# Windows specific files
+# Windows
 Thumbs.db
 Thumbs.db:encryptable
 ehthumbs.db
@@ -150,11 +166,114 @@ ehthumbs_vista.db
 $RECYCLE.BIN/
 *.lnk
 
-# IDE specific files
-.vscode/settings.json
-.vscode/launch.json
-.vscode/extensions.json
+# Linux
+*~
+.directory
+.Trash-*
+
+# ============================================
+# IDEs & EDITORS
+# ============================================
+# VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+# JetBrains IDEs (WebStorm, IntelliJ, etc.)
 .idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+# Vim
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+
+# ============================================
+# AI & DEVELOPMENT TOOLS
+# ============================================
+# MCP Servers
+.serena/
+.mcp/
+
+# Super Design
+.superdesign/
+
+# Cursor AI
+.cursor/
+
+# WARP Terminal
+*.warp
+.warp/
+warp-*.log
+warp-*.json
+WARP.md
+
+# ============================================
+# TEMPORARY FILES
+# ============================================
+*.tmp
+*.temp
+*.swp
+*.swo
+*.bak
+*.backup
+temp/
+tmp/
+.cache
+
+# Lock files that can cause issues
+execution.lock
+
+# ============================================
+# PROJECT SPECIFIC
+# ============================================
+# Docker (if not needed in repo)
+docker-compose.serena.yml
 
 # External projects and experiments
 open-websearch/
+
+# ============================================
+# SECURITY & SECRETS
+# ============================================
+# Secret files (never commit these!)
+*.pem
+*.key
+*.cert
+*.p12
+*.pfx
+secrets.json
+credentials.json
+
+# ============================================
+# MISCELLANEOUS
+# ============================================
+# Bundle analyzer reports
+.next/analyze/
+stats.json
+
+# Sentry
+.sentryclirc
+
+# Storybook
+storybook-static/
+.storybook/build/
