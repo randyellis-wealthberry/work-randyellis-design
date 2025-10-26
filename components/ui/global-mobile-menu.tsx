@@ -181,7 +181,7 @@ export function GlobalMobileMenu() {
               href="https://randyellis.design"
               target="_blank"
               rel="noopener noreferrer"
-              className="absolute bottom-8 left-8 h-3 w-3 cursor-pointer rounded-full bg-gradient-to-br from-orange-400 to-pink-500 shadow-lg transition-shadow hover:shadow-xl hover:shadow-orange-500/50 dark:from-orange-500 dark:to-pink-600 dark:hover:shadow-orange-400/50"
+              className="absolute top-8 left-8 h-3 w-3 cursor-pointer rounded-full bg-gradient-to-br from-orange-400 to-pink-500 shadow-lg transition-shadow hover:shadow-xl hover:shadow-orange-500/50 dark:from-orange-500 dark:to-pink-600 dark:hover:shadow-orange-400/50"
               animate={{
                 scale: [0.8, 1, 0.8],
                 opacity: [0.4, 0.7, 0.4],
