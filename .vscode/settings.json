@@ -1,3 +1,6 @@
 {
-    "claudeCode.useTerminal": false
+    "claudeCode.useTerminal": false,
+    "github-actions.workflows.pinned.workflows": [
+        ".github/workflows/claude-code-review.yml"
+    ]
 }

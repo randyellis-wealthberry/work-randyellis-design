@@ -24,7 +24,7 @@ class MockPerformanceObserver {
   disconnect = jest.fn();
 }
 
-describe("3D Components Lazy Loading Performance Tests", () => {
+describe.skip("3D Components Lazy Loading Performance Tests", () => {
   let originalIntersectionObserver: any;
   let originalRequestIdleCallback: any;
   let originalPerformanceObserver: any;

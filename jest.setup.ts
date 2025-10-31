@@ -1,4 +1,19 @@
 import "@testing-library/jest-dom";
+import "whatwg-fetch";
+
+// Polyfill for MSW - Response and Request globals
+if (typeof global.Response === "undefined") {
+  global.Response = Response as any;
+}
+if (typeof global.Request === "undefined") {
+  global.Request = Request as any;
+}
+// Add TextEncoder and TextDecoder for MSW
+if (typeof global.TextEncoder === "undefined") {
+  const { TextEncoder, TextDecoder } = require("util");
+  global.TextEncoder = TextEncoder;
+  global.TextDecoder = TextDecoder as any;
+}
 
 // Global test mocks
 Object.defineProperty(window, "matchMedia", {

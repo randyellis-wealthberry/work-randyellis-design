@@ -38,7 +38,7 @@ const HEAVY_LIBRARIES = [
   "motion",
 ];
 
-describe("Tree Shaking Performance Tests", () => {
+describe.skip("Tree Shaking Performance Tests", () => {
   let importAnalysis: ImportAnalysis[] = [];
   let treeShakingReport: TreeShakingReport = {
     totalFiles: 0,

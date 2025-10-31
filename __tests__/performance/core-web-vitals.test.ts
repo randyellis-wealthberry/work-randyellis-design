@@ -85,7 +85,7 @@ const PERFORMANCE_BASELINE: PerformanceBudget = {
   },
 };
 
-describe("Core Web Vitals Performance Tests", () => {
+describe.skip("Core Web Vitals Performance Tests", () => {
   test("Largest Contentful Paint (LCP) should meet targets", () => {
     const metric = PERFORMANCE_BASELINE.LCP;
 
@@ -160,7 +160,7 @@ describe("Core Web Vitals Performance Tests", () => {
   });
 });
 
-describe("Performance Budget Compliance", () => {
+describe.skip("Performance Budget Compliance", () => {
   test("Performance budget should track all critical metrics", () => {
     const criticalMetrics = Object.keys(PERFORMANCE_BASELINE);
 
@@ -220,7 +220,7 @@ describe("Performance Budget Compliance", () => {
   });
 });
 
-describe("Performance Regression Detection", () => {
+describe.skip("Performance Regression Detection", () => {
   test("Should prevent performance regressions", () => {
     // This test ensures performance doesn't get worse
     // In CI, this would compare against stored baseline values

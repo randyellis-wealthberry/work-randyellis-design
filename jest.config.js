@@ -14,6 +14,8 @@ const customJestConfig = {
     "<rootDir>/email-list/",
     "<rootDir>/claude-remotion-demo/",
     "<rootDir>/portfolio-feature-flags/",
+    "<rootDir>/__tests__/mocks/",
+    "<rootDir>/__tests__/utils/",
   ],
   transformIgnorePatterns: [
     "node_modules/(?!(@vercel/analytics|three|@react-three|framer-motion)/)",

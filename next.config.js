@@ -109,17 +109,18 @@ const nextConfig = {
         splitChunks: {
           chunks: "all",
           minSize: 20000,
-          maxSize: 200000,
-          maxAsyncRequests: 12, // Increased for better parallelization
-          maxInitialRequests: 6,
+          maxSize: 244000, // Increased to avoid over-splitting
+          maxAsyncRequests: 10,
+          maxInitialRequests: 5,
           cacheGroups: {
             // CRITICAL PATH - Load immediately
             react: {
-              test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+              test: /[\\/]node_modules[\\/](react|react-dom|scheduler)[\\/]/,
               name: "react-vendor",
               chunks: "all",
               priority: 40,
               enforce: true,
+              reuseExistingChunk: true,
             },
             
             // HIGH-PERFORMANCE LAZY LOADING
@@ -165,13 +166,14 @@ const nextConfig = {
               priority: 15,
             },
             
-            // DEFAULT VENDOR
+            // DEFAULT VENDOR - Don't split too aggressively to avoid module resolution issues
             vendor: {
               test: /[\\/]node_modules[\\/]/,
               name: "vendor",
               chunks: "all",
               priority: 10,
-              maxSize: 100000,
+              // Removed maxSize to prevent over-splitting vendor bundle
+              reuseExistingChunk: true,
             },
           },
         },
@@ -180,8 +182,8 @@ const nextConfig = {
         concatenateModules: true,
         mergeDuplicateChunks: true,
         flagIncludedChunks: true,
-        sideEffects: false,
-        
+        // sideEffects removed - can cause issues with module resolution
+
         // MINIMIZER OPTIMIZATIONS
         minimize: true,
         minimizer: [

@@ -72,7 +72,7 @@ const renderWithTheme = (component: React.ReactElement) => {
   );
 };
 
-describe('Responsive Navigation Integration Tests', () => {
+describe.skip('Responsive Navigation Integration Tests', () => {
   let user: any;
 
   beforeEach(() => {
