@@ -20,6 +20,10 @@ bower_components/
 .yarn/build-state.yml
 .yarn/install-state.gz
 
+# Bun
+.bun
+bun.lockb
+
 # ============================================
 # NEXT.JS
 # ============================================
@@ -30,6 +34,14 @@ dist/
 *.tsbuildinfo
 next-env.d.ts
 .swc/
+
+# Content Management
+.contentlayer/
+.mdx/
+
+# Cloudflare Workers
+.wrangler/
+wrangler.toml.local
 
 # ============================================
 # ENVIRONMENT VARIABLES
@@ -219,6 +231,13 @@ out/
 
 # Cursor AI
 .cursor/
+
+# Claude Code
+.claude/
+.anthropic/
+
+# GitHub Copilot
+.copilot/
 
 # WARP Terminal
 *.warp

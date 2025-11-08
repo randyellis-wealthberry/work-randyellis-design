@@ -57,16 +57,22 @@ describe("Newsletter API Logic", () => {
       }));
 
       const loops = new mockLoops("test-key");
-      await loops.updateContact("test@example.com", {
-        firstName: "John",
-        source: "Website newsletter signup",
-        subscribed: true,
+      await loops.updateContact({
+        email: "test@example.com",
+        properties: {
+          firstName: "John",
+          source: "Website newsletter signup",
+          subscribed: true,
+        },
       });
 
-      expect(mockUpdateContact).toHaveBeenCalledWith("test@example.com", {
-        firstName: "John",
-        source: "Website newsletter signup",
-        subscribed: true,
+      expect(mockUpdateContact).toHaveBeenCalledWith({
+        email: "test@example.com",
+        properties: {
+          firstName: "John",
+          source: "Website newsletter signup",
+          subscribed: true,
+        },
       });
     });
 
@@ -80,10 +86,13 @@ describe("Newsletter API Logic", () => {
       }));
 
       const loops = new mockLoops("test-key");
-      const result = await loops.updateContact("test@example.com", {
-        firstName: "John",
-        source: "Website newsletter signup",
-        subscribed: true,
+      const result = await loops.updateContact({
+        email: "test@example.com",
+        properties: {
+          firstName: "John",
+          source: "Website newsletter signup",
+          subscribed: true,
+        },
       });
 
       expect(result.success).toBe(false);
@@ -102,10 +111,13 @@ describe("Newsletter API Logic", () => {
       const loops = new mockLoops("test-key");
 
       await expect(
-        loops.updateContact("test@example.com", {
-          firstName: "John",
-          source: "Website newsletter signup",
-          subscribed: true,
+        loops.updateContact({
+          email: "test@example.com",
+          properties: {
+            firstName: "John",
+            source: "Website newsletter signup",
+            subscribed: true,
+          },
         }),
       ).rejects.toThrow("Connection error");
     });

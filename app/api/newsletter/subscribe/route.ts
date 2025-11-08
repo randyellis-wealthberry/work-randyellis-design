@@ -81,24 +81,17 @@ export async function POST(request: NextRequest) {
         subscriptionMethod: "Website form",
       };
 
-      const resp = await loops.updateContact(email, contactData);
+      // Use the updated Loops API signature (single object parameter)
+      const resp = await loops.updateContact({
+        email,
+        properties: contactData,
+        ...(Object.keys(mailingListsObject).length > 0 && {
+          mailingLists: mailingListsObject,
+        }),
+      });
 
-      // Handle mailing list subscriptions separately if provided
       if (Object.keys(mailingListsObject).length > 0) {
-        try {
-          await loops.sendEvent({
-            email,
-            eventName: "manage_lists",
-            eventProperties: {
-              mailingListsJson: JSON.stringify(mailingListsObject),
-              mailingListCount: Object.keys(mailingListsObject).length,
-            },
-          });
-          console.log(`Mailing list subscriptions updated for: ${email}`);
-        } catch (listError) {
-          console.error("Failed to update mailing lists:", listError);
-          // Don't fail the request if mailing list update fails
-        }
+        console.log(`Mailing list subscriptions updated for: ${email}`);
       }
 
       if (!resp.success) {
