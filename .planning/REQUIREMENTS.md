@@ -41,11 +41,11 @@ REQ-ID format: `[CATEGORY]-[NN]`. All are v1 for this milestone.
 | CRED-03 | 1 | ✅ Done (a686f85) — GrowIt → 240K active everywhere |
 | CRED-04 | 1 | ✅ Done (2513864) |
 | CRED-05 | 1 | ✅ Done (2513864) |
-| POS-01 | 2 | Pending |
-| POS-02 | 2 | Pending |
-| POS-03 | 2 | Pending |
-| POS-04 | 2 | Pending |
-| POS-05 | 2 | Pending |
+| POS-01 | 2 | ✅ Done (32929fd) — leadership-forward hero |
+| POS-02 | 2 | ✅ Done (32929fd) — headline + tight subhead + stat chips |
+| POS-03 | 2 | ✅ Done (32929fd) — "ships code" differentiator front-loaded |
+| POS-04 | 2 | ✅ Done (32929fd) — single leadership lane (hero + metadata) |
+| POS-05 | 2 | ✅ Done — brand already consistent (no change needed) |
 | RDY-01 | 3 | Pending |
 | RDY-02 | 3 | Pending |
 | RDY-03 | 3 | Pending |

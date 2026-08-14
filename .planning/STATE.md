@@ -1,9 +1,9 @@
 # STATE — Recruiter-Readiness Milestone
 
-**Current phase:** 1 — Credibility Fixes ✅ COMPLETE
-**Status:** All CRED-01..05 shipped on branch chore/recruiter-readiness (not merged/deployed)
-**Branch:** chore/recruiter-readiness (4 commits ahead of main)
-**Next action:** Phase 2 (positioning) — needs Randy's voice on hero wording. Or merge Phase 1 first.
+**Current phase:** 2 — Positioning ✅ COMPLETE (Phase 1 also complete)
+**Status:** CRED-01..05 + POS-01..05 shipped on branch chore/recruiter-readiness (not merged/deployed). PR #44 open.
+**Branch:** chore/recruiter-readiness (7 commits ahead of main)
+**Next action:** Phase 3 (readiness — booking link, resume PDF, client logos, homepage testimonials). Or merge PRs first.
 
 ## Progress
 - [x] Project initialized (PROJECT.md, config.json, REQUIREMENTS.md, ROADMAP.md)
@@ -13,7 +13,7 @@
 - [x] CRED-03 metrics (GrowIt → 240K active everywhere; 4.8★ kept, owner-verifiable)
 - [x] CRED-04 fabricated schema removed (aggregateRating, fake telephone, google-verify placeholder)
 - [x] CRED-05 hidden keyword-SEO block deleted
-- [ ] Phase 2 (positioning) — hero rewrite, single title lane, brand consistency
+- [x] Phase 2 (positioning) — leadership hero, single title lane; brand already consistent
 - [ ] Phase 3 (readiness) — booking link, resume PDF, client logo bar, homepage testimonials
 
 ## Follow-ups / notes
