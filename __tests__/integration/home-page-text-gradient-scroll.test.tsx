@@ -151,9 +151,7 @@ describe("Home Page TextGradientScroll Integration", () => {
     expect(screen.getByRole("main")).toBeInTheDocument();
 
     // Should have screen reader content
-    expect(
-      screen.getByText(/Randy Ellis - AI Product Design Engineer Portfolio/),
-    ).toBeInTheDocument();
+    expect(screen.getByText(/Randy Ellis - Design Leader/)).toBeInTheDocument();
   });
 
   it("preserves existing interactive elements", () => {
