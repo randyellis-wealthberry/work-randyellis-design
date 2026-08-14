@@ -1,20 +1,25 @@
 # STATE — Recruiter-Readiness Milestone
 
-**Current phase:** 1 — Credibility Fixes (in progress)
-**Status:** CRED-01/04/05 shipped (commit 2513864); CRED-02/03 blocked on Randy's input
-**Branch:** chore/recruiter-readiness
-**Next action:** resolve CRED-02 (testimonials approach) + CRED-03 (true GrowIt user count), then finish Phase 1
+**Current phase:** 1 — Credibility Fixes ✅ COMPLETE
+**Status:** All CRED-01..05 shipped on branch chore/recruiter-readiness (not merged/deployed)
+**Branch:** chore/recruiter-readiness (4 commits ahead of main)
+**Next action:** Phase 2 (positioning) — needs Randy's voice on hero wording. Or merge Phase 1 first.
 
 ## Progress
 - [x] Project initialized (PROJECT.md, config.json, REQUIREMENTS.md, ROADMAP.md)
 - [x] Verified credibility copy drafted (`.planning/CREDIBILITY-COPY.md`)
 - [x] CRED-01 awards (6 → 4 named/verified)
+- [x] CRED-02 testimonials (real quotes + section; 8 fabricated blocks removed)
+- [x] CRED-03 metrics (GrowIt → 240K active everywhere; 4.8★ kept, owner-verifiable)
 - [x] CRED-04 fabricated schema removed (aggregateRating, fake telephone, google-verify placeholder)
 - [x] CRED-05 hidden keyword-SEO block deleted
-- [ ] CRED-02 testimonials (blocked — approach decision)
-- [ ] CRED-03 metrics reconciliation (blocked — true GrowIt number)
-- [ ] Phase 2 (positioning)
-- [ ] Phase 3 (readiness)
+- [ ] Phase 2 (positioning) — hero rewrite, single title lane, brand consistency
+- [ ] Phase 3 (readiness) — booking link, resume PDF, client logo bar, homepage testimonials
+
+## Follow-ups / notes
+- 4.8★ App Store rating kept per Randy (he'll provide proof); if not, revisit.
+- EchoDrive filesOrganized "1M+" metric is a real EchoDrive stat, untouched (not a user count).
+- Real testimonials currently render on /about; Phase 3 (RDY-04) can also surface them on homepage.
 
 ## Verification (last run)
 - `npx tsc --noEmit`: clean · `npm run lint`: clean · `npm test`: 77 passed / 33 skipped / 0 failed
