@@ -38,7 +38,6 @@ import {
 } from "@/lib/analytics";
 import { FeatureFlagDemo } from "@/components/feature-flag-demo";
 import { TextGradientScroll } from "@/components/ui/text-gradient-scroll";
-import { FractionalCDOHiddenSEO } from "@/components/seo/fractional-cdo-hidden-seo";
 
 const VARIANTS_CONTAINER = {
   hidden: { opacity: 0 },
@@ -215,7 +214,7 @@ function AccordionIcons() {
           <p className="text-zinc-500 dark:text-zinc-400">
             I&apos;ve led products that have reached significant scale,
             including GrowIt, one of the fastest-growing gardening apps in the
-            U.S. with over 100K active users and a 4.8★ App Store rating. My
+            U.S. with over 240K active users and a 4.8★ App Store rating. My
             experience spans from early-stage product validation to scaling
             infrastructure and teams. I focus on building sustainable growth
             through excellent user experience, data-driven decision making, and
@@ -522,25 +521,26 @@ export default function Personal() {
       initial="hidden"
       animate="visible"
     >
-      {/* Hidden SEO content for fractional CDO positioning */}
-      <FractionalCDOHiddenSEO />
-
       <motion.section
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
         <div className="flex-1">
           <h1 className="sr-only">
-            Randy Ellis - AI Product Design Engineer Portfolio
+            Randy Ellis - Design Leader, Head of Product & Fractional Chief
+            Design Officer
           </h1>
-          <ScrambleSectionTitle className="mb-5 text-lg font-medium">
-            AI Product Design Engineer
+          <ScrambleSectionTitle className="mb-3 text-lg font-medium text-zinc-500 dark:text-zinc-400">
+            Head of Product & Fractional CDO
           </ScrambleSectionTitle>
+          <p className="mb-5 text-3xl font-semibold tracking-tight text-zinc-900 sm:text-4xl dark:text-zinc-50">
+            Design leader who ships AI products.
+          </p>
           <TextGradientScroll
-            text="Generative AI consultant and product design engineer delivering $50M+ product value through human-centered AI integration. As Head of Product at Wealthberry Labs and former Head of Design at Nagarro, I've led AI-powered products impacting 2.5M+ users globally while mentoring 800+ designers in AI transformation. Specializing in AI/ML product design, enterprise design systems, and strategic product leadership that bridges the gap between cutting-edge artificial intelligence and business impact."
+            text="I turn startups into design-led organizations — and write the code to prove it. Twenty years in product design, now focused on AI: I've led products for 2.5M+ users, mentored 800+ designers, and build in React, Next.js, and TypeScript."
             type="letter"
             textOpacity="soft"
-            className="text-base leading-snug tracking-tight text-zinc-600 dark:text-zinc-400"
+            className="max-w-2xl text-base leading-snug tracking-tight text-zinc-600 dark:text-zinc-400"
           />
         </div>
       </motion.section>

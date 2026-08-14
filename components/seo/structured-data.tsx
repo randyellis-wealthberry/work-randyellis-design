@@ -176,9 +176,10 @@ export function PersonStructuredData() {
       },
     ],
     award: [
-      "6 Design Awards for innovative design work",
-      "4.8★ App Store rating for GrowIt project",
-      "Recognition for AI Design System Generator",
+      "Silver Award, The Davey Awards — Mobile Apps/Social (GrowIt!)",
+      "Silver Award, The Davey Awards — Mobile Apps/Lifestyle (GrowIt!)",
+      "3rd Place, Vega Digital Awards — Best User Interface App/Experience (GrowIt!)",
+      "3rd Place, Vega Digital Awards — Best Lifestyle App (GrowIt!)",
     ],
     hasCredential: [
       {
@@ -217,7 +218,7 @@ export function PersonStructuredData() {
         "@type": "Project",
         name: "GrowIt - Gardening App",
         description:
-          "One of the fastest-growing gardening apps in the U.S. with 100K+ users and 4.8★ rating",
+          "One of the fastest-growing gardening apps in the U.S. with 240K+ active users and 4.8★ rating",
       },
       {
         "@type": "Project",
@@ -354,7 +355,7 @@ export function FAQStructuredData() {
         name: "What's your experience with scaling products?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "I've led product design for applications serving 2.5M+ users, including the GrowIt gardening platform that reached 1M+ users across 25K+ cities. My experience spans from startup MVP validation to enterprise-scale design systems. I focus on building scalable design foundations, establishing design processes that grow with teams, and ensuring user experience quality remains consistent as products expand globally.",
+          text: "I've led product design for applications serving 2.5M+ users, including the GrowIt gardening platform that reached 240K+ active users across 25K+ cities. My experience spans from startup MVP validation to enterprise-scale design systems. I focus on building scalable design foundations, establishing design processes that grow with teams, and ensuring user experience quality remains consistent as products expand globally.",
         },
       },
     ],
@@ -711,8 +712,7 @@ export function LocalBusinessStructuredData() {
       "AI Product Design Engineering services specializing in generative AI implementation, design systems, and product leadership consulting in Chicago.",
     url: createAbsoluteUrl(),
     image: createAbsoluteUrl("/randy-ellis-profile.jpg"),
-    telephone: "+1-XXX-XXX-XXXX", // Replace with actual number if available
-    email: "contact@work.randyellis.design", // Replace with actual email
+    email: "randy.ellis.pro@gmail.com",
     founder: {
       "@type": "Person",
       name: "Randy Ellis",
@@ -807,13 +807,6 @@ export function LocalBusinessStructuredData() {
     paymentAccepted: ["Cash", "Credit Card", "Invoice", "Digital Payment"],
     currenciesAccepted: "USD",
     priceRange: "$$$",
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.9",
-      reviewCount: "15",
-      bestRating: "5",
-      worstRating: "1",
-    },
     sameAs: [
       "https://www.linkedin.com/in/iamrandyellis/",
       "https://github.com/randyellis-wealthberry",

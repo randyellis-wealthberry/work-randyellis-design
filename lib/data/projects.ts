@@ -8,7 +8,7 @@ export const PROJECTS: Project[] = [
     subtitle: "Social Gardening Platform",
     slug: "growit",
     description:
-      "The fastest-growing social gardening platform in the U.S., connecting over 1 million plant enthusiasts worldwide through community-driven discovery and expert horticultural partnerships.",
+      "One of the fastest-growing social gardening platforms in the U.S., connecting 240K+ active plant enthusiasts through community-driven discovery and expert horticultural partnerships.",
     longDescription:
       "GrowIt! revolutionized the gardening community by creating the first comprehensive social platform that bridges the gap between novice gardeners and horticultural experts. Through strategic partnership with Ball Horticultural Company, we developed a platform that combines social networking, plant identification, geolocation services, and expert guidance to serve gardening enthusiasts across 25,000+ cities globally. The three-phase development approach prioritized community building, engagement mechanisms, and deep horticultural integration to achieve sustainable growth and user retention.",
     category: "Mobile App",
@@ -56,7 +56,7 @@ export const PROJECTS: Project[] = [
     ],
     featured: true,
     metrics: [
-      { label: "Total Users", value: "1M+" },
+      { label: "Active Users", value: "240K+" },
       { label: "Photo Ratings", value: "3.4M" },
       { label: "Photo Uploads", value: "350K" },
       { label: "Cities Served", value: "25K+" },
@@ -150,29 +150,9 @@ export const PROJECTS: Project[] = [
         "Seasonal Engagement Patterns: Understanding gardening seasonality allowed us to adapt features and notifications to maintain year-round user engagement.",
       ],
       outcome:
-        "GrowIt! achieved remarkable success, reaching over 1 million users across 25,000+ cities globally. The platform facilitated 3.4 million photo ratings and 350,000 photo uploads, creating the largest user-generated gardening database in the U.S. The Ball Horticultural partnership resulted in expert-validated content for 15,000+ plant varieties, achieving 94% plant identification accuracy. Most importantly, user surveys showed 87% improved gardening success rates among novice users, validating our mission to democratize gardening expertise through community and expert collaboration.",
+        "GrowIt! achieved remarkable success, reaching over 240,000 active users across 25,000+ cities globally. The platform facilitated 3.4 million photo ratings and 350,000 photo uploads, creating the largest user-generated gardening database in the U.S. The Ball Horticultural partnership resulted in expert-validated content for 15,000+ plant varieties, achieving 94% plant identification accuracy. Most importantly, user surveys showed 87% improved gardening success rates among novice users, validating our mission to democratize gardening expertise through community and expert collaboration.",
       reflection:
         "Leading GrowIt! taught me that successful social platforms require both authentic community building and credible expertise integration. The three-phase approach proved essential—rushing to advanced features before establishing community trust would have failed. The Ball Horticultural partnership demonstrated how strategic collaborations can differentiate products in crowded markets. Most significantly, I learned that geographic relevance is crucial for specialized communities like gardening, where local climate and plant availability directly impact user success. This experience shaped my approach to community-driven product development and the importance of expert validation in user-generated content platforms.",
-      stakeholderQuotes: [
-        {
-          quote:
-            "GrowIt! transformed how our customers discover and care for plants. The community-driven approach created engagement we never achieved through traditional channels.",
-          author: "Dr. Sarah Chen",
-          role: "Director of Innovation, Ball Horticultural Company",
-        },
-        {
-          quote:
-            "The app made gardening accessible to beginners like me. Having experts validate my plant identifications gave me confidence to try new varieties.",
-          author: "Maria Rodriguez",
-          role: "Community Member, Phoenix, AZ",
-        },
-        {
-          quote:
-            "As a master gardener, I loved contributing expertise to help novice gardeners succeed. The platform beautifully balanced community support with professional guidance.",
-          author: "James Thompson",
-          role: "Master Gardener, Community Expert",
-        },
-      ],
     },
   },
   {
@@ -396,32 +376,6 @@ export const PROJECTS: Project[] = [
         "Oh!Plays achieved exceptional validation metrics with 93% of students successfully creating highlight reels during testing sessions. The app reduced average editing time by 67% compared to existing solutions, while 87% of student testers indicated they would recommend the app to teammates. Post-launch metrics showed sustained engagement with 15,000+ weekly active users creating over 50,000 highlight reels. The social sharing features drove organic growth, with 78% of content being shared across social media platforms. Most importantly, student feedback consistently praised the app's intuitive design and sports-specific feature set.",
       reflection:
         "Leading Oh!Plays taught me the critical importance of testing with real users in authentic environments. Lab-based usability testing would have missed the network connectivity issues, social dynamics, and time pressure factors that defined the actual student athlete experience. The project demonstrated that specialized user groups—like student athletes—require purpose-built solutions rather than adapted general-purpose tools. The success of Oh!Plays validated our thesis that mobile-first design, combined with comprehensive real-world testing, creates products that truly serve user needs rather than assumed requirements.",
-      stakeholderQuotes: [
-        {
-          quote:
-            "This app gets what student athletes need - quick edits, easy sharing, and effects that make our highlights look professional!",
-          author: "Sarah Martinez",
-          role: "Junior, Varsity Basketball",
-        },
-        {
-          quote:
-            "Finally an app that doesn't take forever to learn. I made my first highlight reel in like 2 minutes and it looked sick!",
-          author: "Marcus Thompson",
-          role: "Senior, Varsity Football",
-        },
-        {
-          quote:
-            "I love how easy it is to share with my volleyball team. Everyone can add their best spikes to our team highlights.",
-          author: "Emma Rodriguez",
-          role: "Sophomore, JV Volleyball",
-        },
-        {
-          quote:
-            "Way better than trying to edit on my phone's regular video app. The sports filters are perfect for basketball clips.",
-          author: "Jordan Kim",
-          role: "Freshman, JV Basketball",
-        },
-      ],
     },
   },
   {
@@ -563,26 +517,6 @@ export const PROJECTS: Project[] = [
         "Six months later, LedgerIQ wasn't just working—it was transforming how organizations think about payroll integrity. The platform achieved a 78% reduction in payroll errors and 65% time savings, reducing audit time from 10 hours to 3-4 hours per cycle. With a 92% detection rate for known anomalies and 90%+ precision with minimal false positives, the financial impact was substantial: $180,000 annual savings in year one, ROI achieved within 6 months, $50,000 in prevented fraud losses, and zero compliance penalties post-implementation. But perhaps most importantly, we saw a 15% increase in employee payroll satisfaction, dramatic reduction in payroll-related HR inquiries, and enhanced trust in organizational systems.",
       reflection:
         "This 6-month sprint proved something crucial: LedgerIQ isn't just a product—it's a platform. The modular architecture, proven ROI metrics, and positive stakeholder feedback validate the enterprise white-label opportunity. Organizations don't just want payroll error detection; they want intelligent financial oversight that scales with their complexity. Building LedgerIQ taught me that successful AI products solve human problems first, technical problems second. The most sophisticated algorithms mean nothing if users don't trust them or understand how to act on their insights. As organizations increasingly seek intelligent solutions for complex operational challenges, platforms like LedgerIQ point toward a future where AI and human insight work seamlessly together.",
-      stakeholderQuotes: [
-        {
-          quote:
-            "It's like having an extra analyst on the team who never gets tired or misses a detail.",
-          author: "Sarah Mitchell",
-          role: "Payroll Specialist",
-        },
-        {
-          quote:
-            "The ROI was evident in the first quarter. The risk reduction gives me confidence in our controls.",
-          author: "David Chen",
-          role: "CFO",
-        },
-        {
-          quote:
-            "Employees stopped asking why their paychecks were wrong—because they weren't wrong anymore.",
-          author: "Maria Rodriguez",
-          role: "HR Director",
-        },
-      ],
     },
   },
   {
@@ -800,38 +734,6 @@ export const PROJECTS: Project[] = [
         "Addvance achieved exceptional validation metrics that exceeded enterprise software standards: 94% prototype approval rate, 4.8/5 mobile usability score, and 67% job search efficiency improvement. The platform created a new product category ('career intelligence') with zero direct competitors and 156% improvement in professional network discovery. Technical achievements included sub-2-second mobile load times, 98.5% cross-platform compatibility, and seamless multi-platform OAuth integration. Most significantly, user feedback revealed 43% stress reduction compared to existing solutions—transforming job search from administrative burden into strategic advantage. Stakeholder impact included 4.9/5 satisfaction score and clear path to $4.2B market disruption through mobile-first behavioral psychology approach.",
       reflection:
         "Leading Addvance validated a hypothesis that's reshaping how I approach product strategy: constraint-driven innovation often outperforms resource-rich development. The 2-week timeline forced elimination of everything non-essential, creating a product 3x more focused than typical career apps. The behavioral psychology approach—treating job search stress as a design problem rather than feature problem—became a competitive differentiator worth patenting. Most importantly, this sprint demonstrated that creating new product categories ('career intelligence' vs. 'job tracking') generates blue ocean opportunities even in saturated markets. The technical complexity of multi-platform API orchestration created an 18-month competitive moat, proving that sophisticated architecture disguised as simple UX becomes sustainable competitive advantage. This project established a playbook for transforming administrative tools into strategic platforms through mobile-first behavioral design.",
-      stakeholderQuotes: [
-        {
-          quote:
-            "This isn't just another job app—it's the first platform that actually understands the psychology of job searching. The 67% efficiency improvement in our testing was unprecedented.",
-          author: "Dr. Sarah Chen",
-          role: "Head of Product Strategy, Alight Solutions",
-        },
-        {
-          quote:
-            "The network mining feature is brilliant. We saw 156% increase in relevant connections discovered—that's the kind of competitive advantage that transforms careers.",
-          author: "Michael Rodriguez",
-          role: "VP Engineering & Technical Architecture Lead",
-        },
-        {
-          quote:
-            "Randy delivered enterprise-grade UX thinking in a sprint timeline. The 94% prototype approval rate and 4.8/5 usability scores speak to exceptional design leadership.",
-          author: "Jennifer Kim",
-          role: "Director of User Experience Research",
-        },
-        {
-          quote:
-            "The API integration strategy alone is worth studying—seamless authentication across LinkedIn, Google, Twitter with fallback strategies. Technical sophistication disguised as simplicity.",
-          author: "David Thompson",
-          role: "Senior Software Architect & Integration Specialist",
-        },
-        {
-          quote:
-            "I've tested dozens of career apps. This is the first one that actually reduced my stress instead of adding to it. The behavioral psychology approach is game-changing.",
-          author: "Amanda Foster",
-          role: "Senior Marketing Manager & Beta User",
-        },
-      ],
     },
   },
   {
@@ -1155,32 +1057,6 @@ export const PROJECTS: Project[] = [
         "In 8 months, the design leadership transformation at Nagarro achieved remarkable business impact. The 18,000+ employee organization developed unified design excellence capabilities across 36 countries. Brand recognition increased by 50%, directly contributing to business development success with 100+ qualified leads generated through design thought leadership. The Digital Accessibility Strategy 2023 positioned Nagarro ahead of compliance requirements while creating competitive advantage in healthcare technology, government, and enterprise markets. Designer retention improved by 40% through the mentoring program, while website traffic increased by 40% through strategic content. Most importantly, the accessibility-first design approach opened new market opportunities, including healthcare technology partnerships and government contracts requiring inclusive design expertise.",
       reflection:
         "Leading design transformation at Nagarro during this critical growth period taught me that enterprise design leadership is fundamentally about creating business impact through design excellence. The success wasn't just in the frameworks, strategies, or team development—it was in connecting design capability to measurable business outcomes. The Digital Accessibility Strategy 2023 became more than compliance; it was competitive differentiation. The mentoring program became more than team development; it was organizational capability building. The content strategy became more than thought leadership; it was business development. This experience reinforced that design leadership at enterprise scale requires balancing innovation with operational excellence, global perspective with local relevance, and creative vision with business results. The 8-month tenure demonstrated that strategic design leadership can drive rapid organizational transformation when aligned with business growth objectives.",
-      stakeholderQuotes: [
-        {
-          quote:
-            "Randy's design evangelism strategy transformed how we position design in client conversations. The 50% brand recognition increase directly contributed to our business development success.",
-          author: "Rajesh Kumar",
-          role: "VP Business Development, Nagarro",
-        },
-        {
-          quote:
-            "The Digital Accessibility Strategy 2023 didn't just ensure compliance—it opened entirely new market opportunities in healthcare and government sectors.",
-          author: "Sarah Chen",
-          role: "Director of Healthcare Technology Solutions",
-        },
-        {
-          quote:
-            "The mentoring program Randy established improved our designer retention by 40% while accelerating the capabilities of our global design teams.",
-          author: "Maria Rodriguez",
-          role: "Global HR Director, Design and Creative",
-        },
-        {
-          quote:
-            "Randy's thought leadership content strategy reached 10,000+ subscribers and positioned Nagarro as an accessibility innovation leader in the enterprise market.",
-          author: "David Thompson",
-          role: "Marketing Strategy Director",
-        },
-      ],
     },
   },
   {
@@ -1336,26 +1212,6 @@ export const PROJECTS: Project[] = [
         "Rambis UI has exceeded initial adoption targets, with over 2,500 weekly downloads and active use in production applications ranging from startups to enterprise deployments. The design system achieved perfect Lighthouse accessibility scores across all components, while reducing average bundle sizes by 40% compared to the original framework. Developer feedback has been overwhelmingly positive, with particular praise for the intuitive API design and comprehensive documentation. The project has attracted a growing community of contributors, ensuring sustainable long-term development and continuous improvement based on real-world usage.",
       reflection:
         "Creating Rambis UI reinforced my belief that successful design systems must balance technical excellence with developer empathy. The decision to fork rather than create from scratch proved valuable, allowing us to build upon proven patterns while innovating where it mattered most. I learned that open source success requires more than good code—it demands excellent documentation, responsive maintenance, and genuine community engagement. Most importantly, this project demonstrated that even in a crowded ecosystem, there's room for thoughtful improvements that materially enhance developer productivity and user experience. The experience has shaped my approach to system design, emphasizing iterative improvement over revolutionary change.",
-      stakeholderQuotes: [
-        {
-          quote:
-            "Rambis UI transformed our development velocity. The improved TypeScript support and smaller bundle size were game-changers for our team.",
-          author: "Sarah Mitchell",
-          role: "Engineering Lead, TechStartup Inc.",
-        },
-        {
-          quote:
-            "Finally, a design system that takes accessibility seriously by default. Rambis UI helped us achieve WCAG AAA compliance without additional effort.",
-          author: "Marcus Johnson",
-          role: "Accessibility Consultant",
-        },
-        {
-          quote:
-            "The documentation is exceptional. We onboarded new developers in half the time compared to our previous component library.",
-          author: "Lisa Chen",
-          role: "Frontend Architect, Enterprise Corp",
-        },
-      ],
     },
   },
 ];

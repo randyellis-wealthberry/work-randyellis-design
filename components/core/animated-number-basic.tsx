@@ -10,7 +10,7 @@ export function AnimatedNumberBasic() {
 
   useEffect(() => {
     setTimeout(() => setValue1(2.5), 0);
-    setTimeout(() => setValue2(6), 200);
+    setTimeout(() => setValue2(4), 200);
     setTimeout(() => setValue3(50), 400);
     setTimeout(() => setValue4(800), 600);
   }, []);

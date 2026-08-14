@@ -234,26 +234,6 @@ export const PROJECTS: Project[] = [
         "Six months later, LedgerIQ wasn't just working—it was transforming how organizations think about payroll integrity. The platform achieved a 78% reduction in payroll errors and 65% time savings, reducing audit time from 10 hours to 3-4 hours per cycle. With a 92% detection rate for known anomalies and 90%+ precision with minimal false positives, the financial impact was substantial: $180,000 annual savings in year one, ROI achieved within 6 months, $50,000 in prevented fraud losses, and zero compliance penalties post-implementation. But perhaps most importantly, we saw a 15% increase in employee payroll satisfaction, dramatic reduction in payroll-related HR inquiries, and enhanced trust in organizational systems.",
       reflection:
         "This 6-month sprint proved something crucial: LedgerIQ isn't just a product—it's a platform. The modular architecture, proven ROI metrics, and positive stakeholder feedback validate the enterprise white-label opportunity. Organizations don't just want payroll error detection; they want intelligent financial oversight that scales with their complexity. Building LedgerIQ taught me that successful AI products solve human problems first, technical problems second. The most sophisticated algorithms mean nothing if users don't trust them or understand how to act on their insights. As organizations increasingly seek intelligent solutions for complex operational challenges, platforms like LedgerIQ point toward a future where AI and human insight work seamlessly together.",
-      stakeholderQuotes: [
-        {
-          quote:
-            "It's like having an extra analyst on the team who never gets tired or misses a detail.",
-          author: "Sarah Mitchell",
-          role: "Payroll Specialist",
-        },
-        {
-          quote:
-            "The ROI was evident in the first quarter. The risk reduction gives me confidence in our controls.",
-          author: "David Chen",
-          role: "CFO",
-        },
-        {
-          quote:
-            "Employees stopped asking why their paychecks were wrong—because they weren't wrong anymore.",
-          author: "Maria Rodriguez",
-          role: "HR Director",
-        },
-      ],
     },
   },
   {
@@ -611,26 +591,6 @@ export const PROJECTS: Project[] = [
         "The 2-week sprint delivered measurable business impact: 35% improvement in customer job placement success, validated B2C market opportunity, and foundation for B2B white-label solutions. The Progressive Web App successfully integrated OAuth authentication with LinkedIn, Google, and Twitter, enabling real-time professional network analysis and strategic job comparison. Most importantly, the project demonstrated that innovation labs can bridge B2C and B2B opportunities through strategic UX leadership and rapid validation methodology. The platform's mobile-first accessibility (Level AA compliance) and social intelligence features positioned Alight for expansion beyond traditional enterprise focus.",
       reflection:
         "Leading this innovation lab project taught me that successful rapid prototyping requires adapted methodology, not compromised standards. The direct-to-high-fidelity approach succeeded because we built validation into every sprint day rather than relegating it to end-stage testing. Managing cross-functional collaboration under sprint constraints required clear communication of design rationale and shared ownership of user outcomes. The 35% job placement improvement validated that strategic UX leadership can deliver both innovation velocity and measurable business impact. This experience shaped my approach to design leadership in high-stakes, time-constrained environments where user-centered outcomes must be achieved through process innovation.",
-      stakeholderQuotes: [
-        {
-          quote:
-            "Randy's ability to maintain UX rigor while meeting our innovation lab timeline was exceptional. The 35% improvement exceeded our expectations.",
-          author: "Sarah Chen",
-          role: "Innovation Lab Director",
-        },
-        {
-          quote:
-            "The social intelligence features created immediate competitive differentiation. Users understood the value proposition instantly.",
-          author: "Michael Rodriguez",
-          role: "Product Strategy Lead",
-        },
-        {
-          quote:
-            "The mobile-first design and accessibility standards positioned us perfectly for both B2C launch and B2B white-label opportunities.",
-          author: "Jennifer Thompson",
-          role: "Business Development Manager",
-        },
-      ],
     },
   },
 ];

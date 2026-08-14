@@ -13,7 +13,7 @@ interface ProjectFAQProps {
 const PROJECT_FAQS: Record<string, ProjectFAQ[]> = {
   growit: [
     {
-      question: "How did GrowIt achieve 1M+ users so quickly?",
+      question: "How did GrowIt achieve 240K+ active users so quickly?",
       answer:
         "GrowIt's rapid growth came from a three-phase strategy focusing on community building first, then engagement features, and finally expert partnerships with Ball Horticultural Company. The geolocation-based discovery helped users find relevant local gardening content, while plant identification features using machine learning created viral sharing moments.",
     },

@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import { getEmail } from "../data";
 import AvatarCircularText from "@/components/ui/avatar-circular-text";
+import { testimonials } from "@/lib/data/testimonials";
 
 const achievements = [
   {
@@ -653,6 +654,38 @@ export default function AboutClient() {
             </footer>
           </CardContent>
         </Card>
+      </motion.section>
+
+      {/* Testimonials — real, attributable LinkedIn recommendations */}
+      <motion.section
+        className="space-y-6"
+        variants={VARIANTS_SECTION}
+        transition={TRANSITION_SECTION}
+      >
+        <ScrambleSectionTitle
+          as="h2"
+          className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100"
+        >
+          What Colleagues Say
+        </ScrambleSectionTitle>
+        <div className="grid gap-6 md:grid-cols-2">
+          {testimonials.map((testimonial) => (
+            <Card key={testimonial.author}>
+              <CardContent className="pt-6">
+                <blockquote className="leading-relaxed text-zinc-600 italic dark:text-zinc-400">
+                  &ldquo;{testimonial.quote}&rdquo;
+                </blockquote>
+                <footer className="mt-4 text-sm text-zinc-500 dark:text-zinc-400">
+                  <span className="font-medium text-zinc-700 dark:text-zinc-300">
+                    {testimonial.author}
+                  </span>
+                  <br />
+                  {testimonial.role}
+                </footer>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       </motion.section>
 
       {/* Contact CTA */}

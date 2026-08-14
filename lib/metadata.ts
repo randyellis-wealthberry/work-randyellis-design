@@ -111,9 +111,6 @@ export function createBaseMetadata(): Metadata {
       creator: "@iamrandyellis",
       images: [createAbsoluteUrl("/randy-ellis-og-image.jpg")],
     },
-    verification: {
-      google: "your-google-verification-code", // Replace with actual verification
-    },
     category: "Technology",
     classification: "Business",
   };

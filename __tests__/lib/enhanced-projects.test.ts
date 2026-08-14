@@ -22,7 +22,7 @@ describe("Enhanced Projects Data Validation", () => {
 
       // Should have the new comprehensive metrics
       const metricLabels = growItProject.metrics!.map((m) => m.label);
-      expect(metricLabels).toContain("Total Users");
+      expect(metricLabels).toContain("Active Users");
       expect(metricLabels).toContain("Photo Ratings");
       expect(metricLabels).toContain("Photo Uploads");
       expect(metricLabels).toContain("Cities Served");
@@ -113,24 +113,9 @@ describe("Enhanced Projects Data Validation", () => {
       );
     });
 
-    test("Oh!Plays has student testimonials", () => {
-      expect(ohPlaysProject.processStory!.stakeholderQuotes).toBeDefined();
-      expect(
-        ohPlaysProject.processStory!.stakeholderQuotes!.length,
-      ).toBeGreaterThanOrEqual(3);
-
-      // Should have student testimonials
-      const quotes = ohPlaysProject.processStory!.stakeholderQuotes!;
-      const hasStudentQuotes = quotes.some(
-        (q) =>
-          q.role.toLowerCase().includes("student") ||
-          q.role.toLowerCase().includes("junior") ||
-          q.role.toLowerCase().includes("senior") ||
-          q.role.toLowerCase().includes("freshman") ||
-          q.role.toLowerCase().includes("sophomore"),
-      );
-      expect(hasStudentQuotes).toBe(true);
-    });
+    // NOTE: Oh!Plays' per-project "student testimonials" were removed as part of
+    // the credibility pass (CRED-02) — they used reused/fabricated names. Real,
+    // attributable testimonials now live in lib/data/testimonials.ts.
 
     test("Oh!Plays has user testing metrics", () => {
       expect(ohPlaysProject.metrics).toBeDefined();
