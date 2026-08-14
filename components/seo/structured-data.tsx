@@ -176,9 +176,10 @@ export function PersonStructuredData() {
       },
     ],
     award: [
-      "6 Design Awards for innovative design work",
-      "4.8★ App Store rating for GrowIt project",
-      "Recognition for AI Design System Generator",
+      "Silver Award, The Davey Awards — Mobile Apps/Social (GrowIt!)",
+      "Silver Award, The Davey Awards — Mobile Apps/Lifestyle (GrowIt!)",
+      "3rd Place, Vega Digital Awards — Best User Interface App/Experience (GrowIt!)",
+      "3rd Place, Vega Digital Awards — Best Lifestyle App (GrowIt!)",
     ],
     hasCredential: [
       {
@@ -711,8 +712,7 @@ export function LocalBusinessStructuredData() {
       "AI Product Design Engineering services specializing in generative AI implementation, design systems, and product leadership consulting in Chicago.",
     url: createAbsoluteUrl(),
     image: createAbsoluteUrl("/randy-ellis-profile.jpg"),
-    telephone: "+1-XXX-XXX-XXXX", // Replace with actual number if available
-    email: "contact@work.randyellis.design", // Replace with actual email
+    email: "randy.ellis.pro@gmail.com",
     founder: {
       "@type": "Person",
       name: "Randy Ellis",
@@ -807,13 +807,6 @@ export function LocalBusinessStructuredData() {
     paymentAccepted: ["Cash", "Credit Card", "Invoice", "Digital Payment"],
     currenciesAccepted: "USD",
     priceRange: "$$$",
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.9",
-      reviewCount: "15",
-      bestRating: "5",
-      worstRating: "1",
-    },
     sameAs: [
       "https://www.linkedin.com/in/iamrandyellis/",
       "https://github.com/randyellis-wealthberry",

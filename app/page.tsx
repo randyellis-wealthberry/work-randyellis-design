@@ -38,7 +38,6 @@ import {
 } from "@/lib/analytics";
 import { FeatureFlagDemo } from "@/components/feature-flag-demo";
 import { TextGradientScroll } from "@/components/ui/text-gradient-scroll";
-import { FractionalCDOHiddenSEO } from "@/components/seo/fractional-cdo-hidden-seo";
 
 const VARIANTS_CONTAINER = {
   hidden: { opacity: 0 },
@@ -522,9 +521,6 @@ export default function Personal() {
       initial="hidden"
       animate="visible"
     >
-      {/* Hidden SEO content for fractional CDO positioning */}
-      <FractionalCDOHiddenSEO />
-
       <motion.section
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
