@@ -36,11 +36,11 @@ REQ-ID format: `[CATEGORY]-[NN]`. All are v1 for this milestone.
 
 | REQ-ID | Phase | Status |
 |--------|-------|--------|
-| CRED-01 | 1 | Pending |
-| CRED-02 | 1 | Pending |
-| CRED-03 | 1 | Pending |
-| CRED-04 | 1 | Pending |
-| CRED-05 | 1 | Pending |
+| CRED-01 | 1 | ✅ Done (2513864) |
+| CRED-02 | 1 | ⏸ Blocked — testimonials approach (needs input) |
+| CRED-03 | 1 | ⏸ Blocked — true GrowIt user count (needs input) |
+| CRED-04 | 1 | ✅ Done (2513864) |
+| CRED-05 | 1 | ✅ Done (2513864) |
 | POS-01 | 2 | Pending |
 | POS-02 | 2 | Pending |
 | POS-03 | 2 | Pending |
