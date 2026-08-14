@@ -214,7 +214,7 @@ function AccordionIcons() {
           <p className="text-zinc-500 dark:text-zinc-400">
             I&apos;ve led products that have reached significant scale,
             including GrowIt, one of the fastest-growing gardening apps in the
-            U.S. with over 100K active users and a 4.8★ App Store rating. My
+            U.S. with over 240K active users and a 4.8★ App Store rating. My
             experience spans from early-stage product validation to scaling
             infrastructure and teams. I focus on building sustainable growth
             through excellent user experience, data-driven decision making, and

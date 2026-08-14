@@ -218,7 +218,7 @@ export function PersonStructuredData() {
         "@type": "Project",
         name: "GrowIt - Gardening App",
         description:
-          "One of the fastest-growing gardening apps in the U.S. with 100K+ users and 4.8★ rating",
+          "One of the fastest-growing gardening apps in the U.S. with 240K+ active users and 4.8★ rating",
       },
       {
         "@type": "Project",
@@ -355,7 +355,7 @@ export function FAQStructuredData() {
         name: "What's your experience with scaling products?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "I've led product design for applications serving 2.5M+ users, including the GrowIt gardening platform that reached 1M+ users across 25K+ cities. My experience spans from startup MVP validation to enterprise-scale design systems. I focus on building scalable design foundations, establishing design processes that grow with teams, and ensuring user experience quality remains consistent as products expand globally.",
+          text: "I've led product design for applications serving 2.5M+ users, including the GrowIt gardening platform that reached 240K+ active users across 25K+ cities. My experience spans from startup MVP validation to enterprise-scale design systems. I focus on building scalable design foundations, establishing design processes that grow with teams, and ensuring user experience quality remains consistent as products expand globally.",
         },
       },
     ],
