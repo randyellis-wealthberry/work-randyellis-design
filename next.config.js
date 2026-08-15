@@ -271,6 +271,17 @@ const nextConfig = {
       },
     ];
   },
+
+  // REDIRECTS
+  async redirects() {
+    return [
+      {
+        source: "/ledgeriq",
+        destination: "/projects/ledgeriq",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 const withMDX = require("@next/mdx")({
