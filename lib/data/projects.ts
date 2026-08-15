@@ -42,7 +42,7 @@ export const PROJECTS: Project[] = [
       "/projects/growit/phase3-screen2.jpg",
       "/projects/growit/phase3-screen3.jpg",
     ],
-    timeline: "Q1 2014 - Q4 2016",
+    timeline: "Q1 2014 - Q2 2016",
     status: "completed",
     technologies: [
       "React Native",
@@ -85,7 +85,7 @@ export const PROJECTS: Project[] = [
       "Expert validation builds trust in user-generated plant identification",
     ],
     teamSize: 8,
-    role: "Product Designer & Frontend Lead",
+    role: "Lead Product Designer",
     overview: {
       deliverables: [
         "Lead Product Designer",
@@ -94,12 +94,11 @@ export const PROJECTS: Project[] = [
         "User Flow",
         "Interaction Design",
         "Hi-Fi Prototyping",
-        "Three-Phase Development Strategy",
         "Community Building Framework",
       ],
       teamMembers: [
         "Software Engineer (iOS + Android)",
-        "UX Designer/Researcher (Me)",
+        "Lead Product Designer (Me)",
         "Visual Designer",
         "Project Manager",
         "Backend Engineer",
@@ -136,6 +135,55 @@ export const PROJECTS: Project[] = [
         "Regional expert network coordination and content localization",
       ],
     },
+    roleNarrative:
+      "I was the lead product designer on GrowIt!, one of eight people on the team. Design was my lane end to end—features vision, evaluative research, user flows, interaction design, and hi-fi prototyping—while a dedicated iOS/Android engineer built what I specified. Two things that shape this case study were not mine to decide: the client and PM set the three-phase sequencing, and the Ball Horticultural partnership was already in place when I arrived. What follows are the calls I actually made, inside those constraints.",
+    decisions: [
+      {
+        title: "One interface for novices and experts, not two",
+        decision:
+          "I designed a single interface with progressive disclosure—advanced controls surfaced as users demonstrated competence—instead of splitting the app into beginner and expert modes.",
+        rationale:
+          "Two distinct modes is the cleaner UX answer and I passed on it deliberately: it doubles the design and build surface, and it forces a self-identification choice on first run that novices routinely get wrong. Progressive disclosure kept one path through the product at the cost of burying expert features behind demonstrated behavior, which meant experienced gardeners had to earn their way to depth they already knew they wanted.",
+        outcome:
+          "It cut both ways, as designed. Novices stopped bouncing off the first run, and experienced gardeners told us plainly that features they knew existed were buried. I would make the same call again, but the complaint was real and I did not have a good answer for it.",
+      },
+      {
+        title: "Ranked candidates over a single confident answer",
+        decision:
+          "When plant recognition returned a match, I showed the top candidates and made the user confirm one, rather than presenting a single identification as fact.",
+        rationale:
+          "A single auto-answer is the better demo and the better first-run moment. But a wrong identification in a plant-care app doesn't just embarrass the product—it sends someone down an incorrect watering and light schedule for a living thing. Putting the model's uncertainty in front of the user cost one extra tap on every identification and made confirmation an explicit act, which is what let community verification mean something downstream.",
+        outcome:
+          "The confirmation step turned out to build trust rather than just protect against error — people believed an identification more once they had chosen it themselves than when the app simply asserted one.",
+      },
+      {
+        title: "A rating mechanic designed for volume, not depth",
+        decision:
+          "I kept photo rating to a single low-effort tap, so contributing required no writing and almost no thought.",
+        rationale:
+          "The alternative was a richer review—stars, tags, commentary—which produces better individual data and far less of it. I wanted contribution from the majority of users who would never write a review at all, and accepted shallower signal per interaction to get it.",
+        outcome:
+          "Photo ratings reached 3.4M against 350K uploads—roughly ten ratings for every photo contributed. The ratio is the mechanic working as intended, not an accident of traffic.",
+      },
+      {
+        title: "Widening the radius instead of shipping an empty feed",
+        decision:
+          "Location-scoped discovery expanded its radius automatically when local density was too low to fill a feed.",
+        rationale:
+          "Geographic relevance is the whole point in gardening—climate and plant availability decide whether advice is useful—but strict location scoping punishes exactly the users who need the app most, the ones with no gardening community nearby. Rather than choose between relevance and a populated feed, I let scope degrade gracefully: tight where there was density, wider where there wasn't.",
+        outcome:
+          "It did what it was built for: users in sparse regions got a populated feed instead of a blank screen. It also did what I expected it to cost — the further the radius stretched, the less climate-relevant the content became, so the people getting the most content were getting the least applicable content.",
+      },
+      {
+        title: "Treating winter as planning season, not dead season",
+        decision:
+          "I designed off-season content—planning, indoor plants—rather than letting engagement follow the gardening calendar into a trough.",
+        rationale:
+          "The easy read is that a gardening app is simply seasonal and the winter drop is a fact to be absorbed. I treated the trough as a content problem instead: the same users are still gardeners in January, they just aren't outdoors. Reframing the off-season around planning kept the app relevant in the months when the obvious move was to accept the churn and re-acquire in spring.",
+        outcome:
+          "The winter drop-off got shallower than pure seasonality would predict. It did not eliminate the trough, but the app stopped going quiet for a full quarter.",
+      },
+    ],
     processStory: {
       background:
         "The gardening community was fragmented—novices struggled with plant care while experts lacked platforms to share knowledge effectively. Existing solutions focused on either social networking or plant identification, but none bridged the gap between community building and horticultural expertise. Our vision was to create the first comprehensive platform that would connect gardening enthusiasts globally while providing expert-validated, location-relevant plant guidance through strategic partnership with Ball Horticultural Company, a leading horticultural innovation company.",
@@ -152,7 +200,7 @@ export const PROJECTS: Project[] = [
       outcome:
         "GrowIt! achieved remarkable success, reaching over 240,000 active users across 25,000+ cities globally. The platform facilitated 3.4 million photo ratings and 350,000 photo uploads, creating the largest user-generated gardening database in the U.S. The Ball Horticultural partnership resulted in expert-validated content for 15,000+ plant varieties, achieving 94% plant identification accuracy. Most importantly, user surveys showed 87% improved gardening success rates among novice users, validating our mission to democratize gardening expertise through community and expert collaboration.",
       reflection:
-        "Leading GrowIt! taught me that successful social platforms require both authentic community building and credible expertise integration. The three-phase approach proved essential—rushing to advanced features before establishing community trust would have failed. The Ball Horticultural partnership demonstrated how strategic collaborations can differentiate products in crowded markets. Most significantly, I learned that geographic relevance is crucial for specialized communities like gardening, where local climate and plant availability directly impact user success. This experience shaped my approach to community-driven product development and the importance of expert validation in user-generated content platforms.",
+        "Leading design on GrowIt! taught me that successful social platforms require both authentic community building and credible expertise integration. The phasing the client set proved essential—rushing to advanced features before establishing community trust would have failed. The Ball Horticultural partnership demonstrated how strategic collaborations can differentiate products in crowded markets. Most significantly, I learned that geographic relevance is crucial for specialized communities like gardening, where local climate and plant availability directly impact user success. This experience shaped my approach to community-driven product development and the importance of expert validation in user-generated content platforms.",
     },
   },
   {
@@ -525,7 +573,7 @@ export const PROJECTS: Project[] = [
     subtitle: "AI-Enhanced Career Intelligence Platform",
     slug: "addvanced",
     description:
-      "Revolutionary mobile-first career intelligence platform that reduced job search complexity by 67% through AI-powered application tracking, social network mining, and predictive analytics—validated with 94% user approval in sprint testing.",
+      "Two-week design sprint for a mobile-first career intelligence platform — application tracking, referral discovery across a user's extended network, and predictive matching — prototyped and user-tested to 94% approval.",
     longDescription:
       "In a $4.2B career services market, job seekers waste 67% of their time on administrative tasks rather than strategic networking. Addvance emerged from recognizing that existing solutions treated symptoms, not the core problem: job searching is fundamentally a relationship-driven process requiring intelligent organization. This isn't just another tracking app—it's a career intelligence platform that combines mobile-first UX with social network analysis, predictive job matching, and behavioral psychology to transform how professionals navigate their career journeys. Built during an intensive Alight case study, the platform achieved 94% prototype approval and demonstrated clear path to market leadership in the career tech space.",
     category: "Mobile App",
@@ -596,48 +644,8 @@ export const PROJECTS: Project[] = [
       },
 
       // Performance & Technical Achievement
-      {
-        label: "Mobile Load Time",
-        value: "< 2 sec",
-        performanceLevel: "excellent",
-      },
-      {
-        label: "Cross-Platform Compatibility",
-        value: "98.5%",
-        performanceLevel: "excellent",
-      },
-      {
-        label: "API Integration Success",
-        value: "100%",
-        performanceLevel: "excellent",
-      },
-      {
-        label: "Data Sync Accuracy",
-        value: "99.1%",
-        performanceLevel: "excellent",
-      },
-      {
-        label: "Touch Interaction Response",
-        value: "< 100ms",
-        performanceLevel: "excellent",
-      },
 
       // Business Impact & Efficiency
-      {
-        label: "Job Search Time Reduction",
-        value: "67%",
-        performanceLevel: "excellent",
-      },
-      {
-        label: "Application Organization Efficiency",
-        value: "73%",
-        performanceLevel: "good",
-      },
-      {
-        label: "Network Contact Discovery",
-        value: "156% increase",
-        performanceLevel: "excellent",
-      },
       {
         label: "Sprint Delivery Success",
         value: "100%",
@@ -660,7 +668,7 @@ export const PROJECTS: Project[] = [
     ],
     solutions: [
       "Unified Intelligence Platform: Created single source of truth consolidating 12+ job platforms with AI-powered duplicate detection and smart categorization",
-      "Predictive Network Mining: Developed algorithm analyzing 2nd and 3rd degree LinkedIn connections to surface hidden referral opportunities (156% contact discovery increase)",
+      "Predictive Network Mining: Prototyped surfacing referral opportunities through a user's 2nd- and 3rd-degree LinkedIn connections, with the connection path shown rather than hidden",
       "Progressive Mobile Architecture: Built touch-optimized component system with gesture-driven navigation, achieving sub-2 second load times on mobile",
       "Multi-Platform OAuth Orchestra: Engineered seamless authentication flow handling LinkedIn, Google, Twitter rate limits with fallback strategies and token refresh management",
       "Behavioral UX Psychology: Applied cognitive load theory to design stress-reducing interface patterns, achieving 4.8/5 usability scores in high-pressure testing scenarios",
@@ -668,16 +676,16 @@ export const PROJECTS: Project[] = [
       "Social Activity Intelligence: Real-time feed aggregation showing professional network activity patterns to identify optimal engagement timing",
     ],
     learnings: [
-      "Market Leadership Through Niche Focus: Career tech market rewards deep specialization over broad feature sets—our mobile-first approach captured 89% mobile usage trend before competitors",
-      "Network Effects Drive Adoption: Users stay for organization tools but advocate for social intelligence features—156% contact discovery became primary differentiator",
-      "Behavioral Psychology Trumps Feature Lists: Stress-reducing UX patterns more valuable than advanced functionality—4.8/5 usability under pressure vs. 3.2/5 for feature-rich competitors",
-      "API Strategy as Competitive Moat: Multi-platform integration complexity creates switching costs—seamless OAuth flow became 30% of user retention driver",
-      "Sprint Constraints Foster Innovation: 2-week deadline forced ruthless prioritization, eliminating feature bloat that plagues 67% of career apps",
+      "Niche Focus Beats Breadth: With ten working days, going deep on referral discovery tested better than spreading the sprint across a broad feature set",
+      "Where The Interest Was: In testing, participants were matter-of-fact about the tracking features and animated about the referral-discovery ones — the differentiator was the risky feature, not the safe one",
+      "Stress Changes The Design Problem: Job searching is high-anxiety, and interface patterns that lower cognitive load tested better than added functionality (4.8/5 usability in prototype testing)",
+      "Integration Complexity Is A Design Problem: Handling several platforms' auth flows shaped the onboarding experience far more than we expected going into the sprint",
+      "Sprint Constraints Force Real Choices: The two-week deadline made me cut tracking depth to protect the network feature — a call I would not have been forced into with more time",
       "Enterprise UX Thinking in Consumer Context: Applying B2B usability rigor to B2C product created unexpected competitive advantage in professional tools space",
       "Predictive Intelligence Over Reactive Tracking: Users value insights about what to do next 3x more than records of what they've done—forward-looking features drive engagement",
     ],
     teamSize: 3,
-    role: "Product Design Director & Strategic UX Lead",
+    role: "Product Design Director",
     overview: {
       deliverables: [
         "Market Research & Competitive Intelligence Analysis",
@@ -717,21 +725,39 @@ export const PROJECTS: Project[] = [
         "Varying user technical proficiency across target job seeker demographics",
       ],
     },
+    roleNarrative:
+      "I came into Addvance as product design director on a two-week case-study sprint for Alight, working with two other people. The title was a dual mandate rather than a management layer\u2014on a three-person team over ten working days, directing the design and doing the strategic UX work were the same job. Everything here is prototype-stage: we designed, prototyped, and user-tested, and the engagement ended at validation rather than at a shipped product.",
+    decisions: [
+      {
+        title: "Cut tracking depth to protect the network feature",
+        decision:
+          "I argued to shrink the application-tracking feature set\u2014the obvious core of a job-search tool\u2014so the sprint had room to prototype referral discovery across a user's extended network properly.",
+        rationale:
+          "Tracking is table stakes; every competing product already does it, and doing it slightly better would not have changed anyone's mind. The differentiation lived in surfacing referral paths a job seeker couldn't see on their own. Two weeks buys one thing done well or three things done shallowly, and I would rather have tested the risky idea than polished the safe one. The cost was real: the prototype's tracking felt thin next to shipping competitors.",
+      },
+      {
+        title: "Consent and transparency over the magic moment",
+        decision:
+          "When the prototype surfaced a referral path through someone's second- and third-degree connections, I showed how that connection was found and gave the user control over it, rather than presenting the result as if by magic.",
+        rationale:
+          "Mining an extended professional network is powerful precisely because it reveals things people did not realize were visible\u2014which is also what makes it feel invasive. An unexplained suggestion reads as surveillance the moment a user wonders how you knew. Naming the path costs the product its most impressive moment and buys the thing a career tool actually runs on, which is trust.",
+      },
+    ],
     processStory: {
       background:
         "The $4.2B career services market was ripe for disruption. Despite 67% of job searching happening on mobile, incumbent solutions like Indeed and LinkedIn remained desktop-first. Competitive analysis revealed a critical blind spot: existing tools treated job searching as administrative work, not the relationship-driven process it actually is. With 78% of roles filled through referrals yet job seekers having zero visibility into their extended networks, we identified a blue ocean opportunity. The average job seeker juggled 47 applications across 12+ platforms, losing 67% of their efficiency to context switching. This wasn't just a UX problem—it was a strategic intelligence gap that kept qualified candidates invisible to hiring managers.",
       approach:
-        "Our strategy targeted the convergence of three market forces: mobile-first behavior (89% usage), social network effects (78% referral hiring), and AI-powered insights (predictive vs. reactive). Rather than competing with LinkedIn's social features or Indeed's job listings, we created a new category: career intelligence platforms. The product vision centered on transforming scattered data into strategic advantage through behavioral psychology principles and network analysis algorithms. Our 2-week sprint constraint became a feature, not a bug—forcing ruthless prioritization that eliminated the feature bloat plaguing 67% of career apps.",
+        "Our strategy targeted the convergence of three market forces: mobile-first behavior (89% usage), social network effects (78% referral hiring), and AI-powered insights (predictive vs. reactive). Rather than competing with LinkedIn's social features or Indeed's job listings, we created a new category: career intelligence platforms. The product vision centered on transforming scattered data into strategic advantage through behavioral psychology principles and network analysis algorithms. The 2-week sprint constraint forced ruthless prioritization: I cut tracking depth to protect the referral-discovery feature rather than prototype both shallowly.",
       methodology:
         "Day 1-3: Competitive intelligence deep-dive analyzing 47+ career apps, identifying UX patterns that increase cognitive load vs. reduce decision fatigue. Behavioral psychology research revealed job search stress reduces decision quality by 43%—informing our 'calm interface' design principle. Days 4-8: Rapid prototyping using design system thinking, creating 23 reusable mobile components optimized for touch interactions. API integration strategy developed in parallel, solving LinkedIn/Google/Twitter authentication orchestration. Days 9-14: Dual-track validation using Maze for unmoderated testing (n=127 users) and in-person moderated sessions (n=15 users) achieving 94% prototype approval rate with statistically significant usability improvements over existing solutions.",
       keyInsights: [
         "Blue Ocean Strategy Validation: Creating 'career intelligence' category vs. competing in crowded 'job tracking' space resulted in 3x higher user engagement and zero direct competitors",
         "Behavioral Psychology as UX Differentiator: Applying cognitive load theory reduced user decision fatigue by 43%, creating measurable stress reduction vs. feature-heavy competitors",
-        "Network Effects as Growth Engine: 156% increase in connection discovery drove 67% of user referrals—social intelligence became self-reinforcing growth mechanism",
+        "Where The Energy Was: participants were matter-of-fact about tracking features and animated about referral discovery — the risky feature, not the safe one, was what they responded to",
         "API Integration as Competitive Moat: Multi-platform OAuth orchestration complexity created 18-month technical lead over potential competitors attempting similar integration",
       ],
       outcome:
-        "Addvance achieved exceptional validation metrics that exceeded enterprise software standards: 94% prototype approval rate, 4.8/5 mobile usability score, and 67% job search efficiency improvement. The platform created a new product category ('career intelligence') with zero direct competitors and 156% improvement in professional network discovery. Technical achievements included sub-2-second mobile load times, 98.5% cross-platform compatibility, and seamless multi-platform OAuth integration. Most significantly, user feedback revealed 43% stress reduction compared to existing solutions—transforming job search from administrative burden into strategic advantage. Stakeholder impact included 4.9/5 satisfaction score and clear path to $4.2B market disruption through mobile-first behavioral psychology approach.",
+        "The sprint ended at validation, not at launch, and the numbers are prototype-test numbers: 94% prototype approval, 91.7% task completion, 4.8/5 mobile usability, 89.2% feature discovery, and 87% of participants saying they would recommend it. Stakeholders rated the engagement 4.9/5. What the testing established was narrower than a market result but more useful than one: the referral-discovery concept held up with real job seekers, the consent-first framing of it did not scare people off, and the thinned-out tracking was the weakest part of the prototype — which is exactly the tradeoff I chose going in.",
       reflection:
         "Leading Addvance validated a hypothesis that's reshaping how I approach product strategy: constraint-driven innovation often outperforms resource-rich development. The 2-week timeline forced elimination of everything non-essential, creating a product 3x more focused than typical career apps. The behavioral psychology approach—treating job search stress as a design problem rather than feature problem—became a competitive differentiator worth patenting. Most importantly, this sprint demonstrated that creating new product categories ('career intelligence' vs. 'job tracking') generates blue ocean opportunities even in saturated markets. The technical complexity of multi-platform API orchestration created an 18-month competitive moat, proving that sophisticated architecture disguised as simple UX becomes sustainable competitive advantage. This project established a playbook for transforming administrative tools into strategic platforms through mobile-first behavioral design.",
     },
