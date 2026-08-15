@@ -41,6 +41,23 @@ export type Project = {
     technical?: string[];
     location?: string[];
   };
+  /**
+   * First-person design decisions with the fork made explicit (TPL-01).
+   * `rationale` carries the weight: what was rejected and why. `outcome` is
+   * optional on purpose — omit it rather than invent a result (CRED-07).
+   */
+  decisions?: {
+    title: string;
+    decision: string;
+    rationale: string;
+    outcome?: string;
+  }[];
+  /**
+   * What Randy personally owned on this engagement, in his own voice —
+   * distinct from `role` (title) and `overview.deliverables` (artifacts).
+   * Exists so team-executed work is credited accurately (CRED-06).
+   */
+  roleNarrative?: string;
   processStory?: {
     background?: string;
     approach?: string;
