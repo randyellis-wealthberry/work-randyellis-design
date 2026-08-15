@@ -18,6 +18,7 @@ export type Project = {
   status: "completed" | "in-progress" | "concept";
   technologies: string[];
   featured: boolean;
+  isLiveProduct?: boolean; // drives the "Live Product" grid badge (D-05)
   archived?: boolean;
   metrics?: {
     label: string;

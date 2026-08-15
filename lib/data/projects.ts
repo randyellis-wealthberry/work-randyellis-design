@@ -1214,6 +1214,36 @@ export const PROJECTS: Project[] = [
         "Creating Rambis UI reinforced my belief that successful design systems must balance technical excellence with developer empathy. The decision to fork rather than create from scratch proved valuable, allowing us to build upon proven patterns while innovating where it mattered most. I learned that open source success requires more than good code—it demands excellent documentation, responsive maintenance, and genuine community engagement. Most importantly, this project demonstrated that even in a crowded ecosystem, there's room for thoughtful improvements that materially enhance developer productivity and user experience. The experience has shaped my approach to system design, emphasizing iterative improvement over revolutionary change.",
     },
   },
+  {
+    id: "waffle",
+    name: "Waffle",
+    subtitle: "AI-Powered Interview Scorecard Generator",
+    slug: "waffle",
+    description:
+      "AI-powered interview scorecard generator — paste a job description, get weighted competencies, behavioral questions, and scoring rubrics in 2–4 minutes.",
+    longDescription:
+      "Waffle is a live, paid, production AI SaaS designed and built end-to-end by Randy Ellis. Recruiters and hiring teams paste a job description and Waffle streams back weighted competencies, behavioral interview questions, and scoring rubrics in 2–4 minutes — replacing hours of manual scorecard drafting with EEOC-compliant, bias-reducing AI content.",
+    category: "AI/ML",
+    categories: ["AI/ML", "Web Dev"],
+    tags: ["AI SaaS", "Interview Tech", "Generative UI", "Recruiting"],
+    link: "https://waffle.cards",
+    video: "",
+    thumbnail: "/projects/waffle/screenshot.png",
+    images: ["/projects/waffle/screenshot.png"],
+    timeline: "2025 – Present",
+    status: "completed",
+    technologies: [
+      "Next.js 16",
+      "AI SDK 6",
+      "Claude",
+      "Stripe",
+      "Neon",
+      "Prisma",
+      "Clerk",
+    ],
+    featured: true,
+    isLiveProduct: true,
+  },
 ];
 
 // Helper function to get featured projects (reduces initial data load)
