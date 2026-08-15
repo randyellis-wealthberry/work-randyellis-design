@@ -52,6 +52,8 @@ interface ScrambleSectionTitleProps {
    */
   children: ReactNode;
   className?: string;
+  /** Forwarded to the rendered element so sections can aria-labelledby it (D-12). */
+  id?: string;
   as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
   speed?: number;
 }
@@ -59,6 +61,7 @@ interface ScrambleSectionTitleProps {
 export function ScrambleSectionTitle({
   children,
   className,
+  id,
   as = "h3",
 }: ScrambleSectionTitleProps) {
   const [isTrigger, setIsTrigger] = useState(false);
@@ -68,6 +71,7 @@ export function ScrambleSectionTitle({
 
   return (
     <TextScramble
+      id={id}
       className={cn(
         "transition-colors duration-200 hover:text-zinc-600 dark:hover:text-zinc-300",
         className,

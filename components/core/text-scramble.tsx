@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 interface TextScrambleProps {
   children: string;
   className?: string;
+  id?: string;
   as?: "span" | "div" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
   speed?: number;
   trigger?: boolean;
@@ -18,6 +19,7 @@ const CHARACTERS = "!<>-_\\/[]{}—=+*^?#________";
 export function TextScramble({
   children,
   className,
+  id,
   as: Component = "span",
   trigger = false,
   onHoverStart,
@@ -82,16 +84,16 @@ export function TextScramble({
   };
 
   return (
+    // No role="button"/tabIndex here on purpose. This component is usually
+    // rendered `as` a heading (see ScrambleSectionTitle), and role="button"
+    // overrode those heading semantics site-wide — screen readers got a page of
+    // buttons instead of a document outline. The scramble is a decorative hover
+    // effect that performs no action, so it should not be in the tab order or
+    // announced as interactive.
     <Component
-      className={cn("inline-block cursor-pointer", className)}
+      id={id}
+      className={cn("inline-block", className)}
       onMouseEnter={handleMouseEnter}
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          onHoverStart?.();
-        }
-      }}
     >
       {displayText}
     </Component>
