@@ -22,7 +22,6 @@ import InstallPrompt from "@/components/pwa/install-prompt";
 import PWAStatus, {
   ServiceWorkerUpdatePrompt,
 } from "@/components/pwa/pwa-status";
-import ServiceWorkerRegister from "./sw-register";
 import ResourceHints from "@/components/cdn/resource-hints";
 import { createBaseMetadata } from "@/lib/metadata";
 import { MobileMenuProvider } from "@/context/mobile-menu-context";
@@ -164,7 +163,6 @@ export default async function RootLayout({
             {process.env.NODE_ENV !== "production" && <PWAStatus />}
             <InstallPrompt />
             <ServiceWorkerUpdatePrompt />
-            <ServiceWorkerRegister />
           </ThemeProvider>
         </PWAProvider>
         <Analytics />
