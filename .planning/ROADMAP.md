@@ -51,7 +51,7 @@ ship-proof portfolio addition.
 **Mode:** mvp
 **Requirements:** WAF-01, WAF-02, WAF-03, WAF-04
 **Input:** `.planning/phases/04-waffle-product-page/04-CONTEXT.md`; product source-of-truth `/Users/MacBook/Developer/waffle.cards`
-**Plans:** 1/3 plans executed
+**Plans:** 2/3 plans executed
 Plans:
 **Wave 1**
 
@@ -59,7 +59,7 @@ Plans:
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
-- [ ] 04-02-PLAN.md — Badged "Live Product" card in the /projects grid routing to the page [wave 2]
+- [x] 04-02-PLAN.md — Badged "Live Product" card in the /projects grid routing to the page [wave 2]
 
 **Wave 3** *(blocked on Wave 2 completion)*
 
