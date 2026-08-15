@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Case-Study Depth
 status: executing
-stopped_at: Phase 5 context gathered
-last_updated: "2026-08-15T17:40:45.577Z"
-last_activity: 2026-08-15 -- Phase 5 planning complete
+stopped_at: "Completed 05-02-PLAN.md (foundation cleanup: FND-01, FND-02, FND-04, DEBT-01, DEBT-02)"
+last_updated: "2026-08-15T18:25:29.172Z"
+last_activity: 2026-08-15
 progress:
   total_phases: 5
   completed_phases: 0
   total_plans: 2
-  completed_plans: 0
+  completed_plans: 1
   percent: 0
 ---
 
@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-08-15 after v1.0 milestone)
 
 **Core value:** A hiring manager finds a coherent, senior, *verifiable* story with an obvious way to book a conversation — shipped and audit-verified in v1.0. v2.0 adds proof of *how Randy decides*.
-**Current focus:** Phase 5 — Foundation & Cleanup
+**Current focus:** Phase 05 — foundation-cleanup
 
 ## Current Position
 
-Phase: 5 of 9 (Foundation & Cleanup) — first phase of v2.0
-Plan: — (not yet planned)
+Phase: 05 (foundation-cleanup) — EXECUTING
+Plan: 2 of 2
 Status: Ready to execute
-Last activity: 2026-08-15 -- Phase 5 planning complete
+Last activity: 2026-08-15
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [█████░░░░░] 50%
 
 ## Performance Metrics
 
@@ -47,6 +47,7 @@ Progress: [░░░░░░░░░░] 0%
 | - | - | - | - |
 
 **Recent Trend:** — (no v2.0 plans executed yet)
+| Phase 05 P02 | 19min | 5 tasks | 24 files |
 
 ## Accumulated Context
 
@@ -58,6 +59,9 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 - Roadmap: `ledgeriq` orphan-route deletion (FND-02) scheduled before its content rewrite so copy isn't authored twice
 - Roadmap: deck-coverage audit (FND-03) is a hard gate before Phase 8 content — mirrors v1.0's fabrication-purge lesson
 - Roadmap: CRED-09 cross-surface verification is its own final phase (9), not folded into "content done" — modeled on v1.0 audit remediation
+- [Phase 05]: D-12 accessibility contract carried forward for Phase 6: preserve deleted case-study-section.tsx's section id / role=region / aria-labelledby->{id}-heading contract while rendering the heading via ScrambleSectionTitle, not a plain h2
+- [Phase 05]: D-16 no-AI-slop chip allowlist for Phase 6 UI-SPEC.md: Badge primitive only, no lucide icons, no Card wrapper, no new tokens, amber accent reserved for the Live Product status badge
+- [Phase 05]: FND-01 closed: Project type resolves exclusively from lib/data/types.ts; app/data.ts deleted; Phase 6 decisions[]/roleNarrative fields will typecheck against the live model
 
 ### Pending Todos
 
@@ -82,9 +86,9 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-08-15T17:04:18.020Z
-Stopped at: Phase 5 context gathered
-Resume file: .planning/phases/05-foundation-cleanup/05-CONTEXT.md
+Last session: 2026-08-15T18:25:29.096Z
+Stopped at: Completed 05-02-PLAN.md (foundation cleanup: FND-01, FND-02, FND-04, DEBT-01, DEBT-02)
+Resume file: None
 
 ---
 *Last updated: 2026-08-15 — v2.0 roadmap created*

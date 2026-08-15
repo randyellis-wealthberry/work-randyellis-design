@@ -48,7 +48,7 @@ with every claim deck-backed and cross-surface-consistent.
   5. The POS-02 proof-chip subhead renders as chips (not dense text); clicking the Waffle "Live Product" badge has no dead zone
 **Plans**: 2 plans (both wave 1, parallel)
 - [ ] 05-01-PLAN.md — Deck-coverage audit: per-claim Backed/Partial/Unbacked table for the 7 case studies (FND-03)
-- [ ] 05-02-PLAN.md — Code cleanup & tech debt: data-model consolidation, orphan/dead-route deletion, hero proof chips, badge click fix (FND-01, FND-02, FND-04, DEBT-01, DEBT-02)
+- [x] 05-02-PLAN.md — Code cleanup & tech debt: data-model consolidation, orphan/dead-route deletion, hero proof chips, badge click fix (FND-01, FND-02, FND-04, DEBT-01, DEBT-02)
 
 ### Phase 6: Narrative Template & Data Model
 **Goal**: A proven, reusable set of narrative components — decision-with-rationale, in-page nav, reflection, role narrative — exist and render the full problem-to-reflection arc on at least one project, de-risking the pattern before it's applied to 6 more files.
@@ -105,7 +105,7 @@ with every claim deck-backed and cross-surface-consistent.
 | 2. Positioning & Messaging | v1.0 | pre-GSD (traced) | Complete | 2026-08-14 |
 | 3. Candidate Readiness | v1.0 | pre-GSD (traced) | Complete | 2026-08-14 |
 | 4. Waffle Product Page | v1.0 | 3/3 | Complete | 2026-08-15 |
-| 5. Foundation & Cleanup | v2.0 | 0/TBD | Not started | - |
+| 5. Foundation & Cleanup | v2.0 | 1/2 | In Progress|  |
 | 6. Narrative Template & Data Model | v2.0 | 0/TBD | Not started | - |
 | 7. Bespoke Convergence | v2.0 | 0/TBD | Not started | - |
 | 8. Content Rewrite & Credibility Guardrails | v2.0 | 0/TBD | Not started | - |

@@ -9,10 +9,10 @@
 
 ### Foundation — Decisions Gate (blocking prerequisites)
 
-- [ ] **FND-01**: `Project` type resolves from `lib/data/types.ts` (not stale `app/data.ts`); stale `app/data.ts` PROJECTS array deleted — new narrative fields typecheck against the model actually used
-- [ ] **FND-02**: Orphaned `/ledgeriq` root route deleted; `/projects/ledgeriq` is the single canonical LedgerIQ page (no crawlable duplicate)
+- [x] **FND-01**: `Project` type resolves from `lib/data/types.ts` (not stale `app/data.ts`); stale `app/data.ts` PROJECTS array deleted — new narrative fields typecheck against the model actually used
+- [x] **FND-02**: Orphaned `/ledgeriq` root route deleted; `/projects/ledgeriq` is the single canonical LedgerIQ page (no crawlable duplicate)
 - [ ] **FND-03**: Per-project deck-coverage audit produced — a Backed / Partial / Unbacked table for the 7 case studies, gating what may be written before any content work
-- [ ] **FND-04**: Dead code removed — `echo-client-final.tsx` (unused) and abandoned `components/case-study/*` — so rewrites edit only live files
+- [x] **FND-04**: Dead code removed — `echo-client-final.tsx` (unused) and abandoned `components/case-study/*` — so rewrites edit only live files
 
 ### Template & Data Model
 
@@ -48,8 +48,8 @@
 
 ### Tech-Debt Fold-In
 
-- [ ] **DEBT-01**: POS-02 proof-chips — dense subhead resolved to the intended chip treatment
-- [ ] **DEBT-02**: WAF-02 — Waffle "Live Product" badge click dead-zone fixed
+- [x] **DEBT-01**: POS-02 proof-chips — dense subhead resolved to the intended chip treatment
+- [x] **DEBT-02**: WAF-02 — Waffle "Live Product" badge click dead-zone fixed
 
 ## v2 Requirements (deferred)
 
@@ -75,10 +75,10 @@ Populated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FND-01 | Phase 5 | Pending |
-| FND-02 | Phase 5 | Pending |
+| FND-01 | Phase 5 | Complete |
+| FND-02 | Phase 5 | Complete |
 | FND-03 | Phase 5 | Pending |
-| FND-04 | Phase 5 | Pending |
+| FND-04 | Phase 5 | Complete |
 | TPL-01 | Phase 6 | Pending |
 | TPL-02 | Phase 6 | Pending |
 | TPL-03 | Phase 6 | Pending |
@@ -99,8 +99,8 @@ Populated during roadmap creation.
 | CRED-07 | Phase 8 | Pending |
 | CRED-08 | Phase 8 | Pending |
 | CRED-09 | Phase 9 | Pending |
-| DEBT-01 | Phase 5 | Pending |
-| DEBT-02 | Phase 5 | Pending |
+| DEBT-01 | Phase 5 | Complete |
+| DEBT-02 | Phase 5 | Complete |
 
 **Coverage:**
 - v1 requirements: 26 total
