@@ -105,7 +105,7 @@ export function GlobalMobileMenu() {
               aria-label="Main navigation"
             >
               <Link
-                href="https://work.randyellis.design"
+                href="/"
                 onClick={handleNavigationClick}
                 className="text-4xl font-semibold text-zinc-900 transition-colors hover:text-zinc-600 sm:text-5xl md:text-6xl lg:text-7xl dark:text-zinc-100 dark:hover:text-zinc-400"
               >
@@ -126,6 +126,14 @@ export function GlobalMobileMenu() {
                 className="text-4xl font-semibold text-zinc-900 transition-colors hover:text-zinc-600 sm:text-5xl md:text-6xl lg:text-7xl dark:text-zinc-100 dark:hover:text-zinc-400"
               >
                 Projects
+              </Link>
+
+              <Link
+                href="/blog"
+                onClick={handleNavigationClick}
+                className="text-4xl font-semibold text-zinc-900 transition-colors hover:text-zinc-600 sm:text-5xl md:text-6xl lg:text-7xl dark:text-zinc-100 dark:hover:text-zinc-400"
+              >
+                Blog
               </Link>
             </nav>
 

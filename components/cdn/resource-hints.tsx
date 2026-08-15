@@ -42,7 +42,7 @@ const RESOURCE_HINTS = {
   // /fonts/*.woff2 here (those files don't exist and 404).
   preload: [
     {
-      href: "/manifest.json",
+      href: "/manifest.webmanifest",
       as: "manifest",
     },
   ] as PreloadHint[],

@@ -25,7 +25,13 @@ export function getBaseUrl(): string {
     return process.env.NEXT_PUBLIC_BASE_URL;
   }
 
-  // Vercel automatically sets NEXT_PUBLIC_VERCEL_URL for deployments
+  // Production Vercel deployments must always use the canonical domain
+  // (NEXT_PUBLIC_VERCEL_URL is deployment-specific and would break canonicals)
+  if (process.env.NEXT_PUBLIC_VERCEL_ENV === "production") {
+    return "https://work.randyellis.design";
+  }
+
+  // Preview deployments on Vercel
   if (process.env.NEXT_PUBLIC_VERCEL_URL) {
     return `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
   }

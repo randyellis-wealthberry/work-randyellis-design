@@ -3,9 +3,12 @@ import MetisClient from "./metis-client";
 import { BreadcrumbStructuredData } from "@/components/seo/structured-data";
 
 export const metadata: Metadata = {
-  title: "METIS - Randy Ellis",
+  title: "METIS — AI Business Strategy Agent",
   description:
     "A humble announcement about METIS and what I share with the design community. Bridging the gap between design excellence and boardroom fluency.",
+  alternates: {
+    canonical: "/metis",
+  },
   keywords: [
     "METIS",
     "Randy Ellis",
@@ -16,10 +19,10 @@ export const metadata: Metadata = {
     "AI Product Design",
   ],
   openGraph: {
-    title: "METIS - Randy Ellis",
+    title: "METIS — AI Business Strategy Agent",
     description:
       "A humble announcement about METIS and what I share with the design community.",
-    url: "https://work.randyellis.design/metis",
+    url: "/metis",
   },
 };
 

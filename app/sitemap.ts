@@ -1,53 +1,51 @@
 import { MetadataRoute } from "next";
 import { WEBSITE_URL } from "@/lib/constants";
-import { BLOG_POSTS } from "@/lib/data";
 import { PROJECTS } from "@/lib/data/projects";
+import { getBlogArticles } from "@/lib/utils/blog-data";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const currentDate = new Date();
-
   // Static pages with priority scoring
-  const staticPages = [
+  const staticPages: MetadataRoute.Sitemap = [
     {
       url: `${WEBSITE_URL}/`,
-      lastModified: currentDate,
-      changeFrequency: "weekly" as const,
-      priority: 1.0, // Homepage - highest priority
+      changeFrequency: "weekly",
+      priority: 1.0,
     },
     {
       url: `${WEBSITE_URL}/projects`,
-      lastModified: currentDate,
-      changeFrequency: "weekly" as const,
-      priority: 0.9, // Projects page - very high priority
+      changeFrequency: "weekly",
+      priority: 0.9,
     },
     {
       url: `${WEBSITE_URL}/about`,
-      lastModified: currentDate,
-      changeFrequency: "monthly" as const,
-      priority: 0.8, // About page - high priority
+      changeFrequency: "monthly",
+      priority: 0.8,
     },
     {
       url: `${WEBSITE_URL}/blog`,
-      lastModified: currentDate,
-      changeFrequency: "weekly" as const,
-      priority: 0.7, // Blog index - high priority
+      changeFrequency: "weekly",
+      priority: 0.7,
+    },
+    {
+      url: `${WEBSITE_URL}/metis`,
+      changeFrequency: "monthly",
+      priority: 0.6,
     },
   ];
 
   // Dynamic project pages
-  const projectPages = PROJECTS.map((project) => ({
+  const projectPages: MetadataRoute.Sitemap = PROJECTS.map((project) => ({
     url: `${WEBSITE_URL}/projects/${project.slug}`,
-    lastModified: currentDate,
     changeFrequency: "monthly" as const,
-    priority: project.featured ? 0.8 : 0.6, // Featured projects get higher priority
+    priority: project.featured ? 0.8 : 0.6,
   }));
 
-  // Dynamic blog pages
-  const blogPages = BLOG_POSTS.map((post) => ({
-    url: `${WEBSITE_URL}${post.link}`,
-    lastModified: currentDate,
+  // Dynamic blog pages with real publication dates
+  const blogPages: MetadataRoute.Sitemap = getBlogArticles().map((post) => ({
+    url: `${WEBSITE_URL}/blog/${post.slug}`,
+    lastModified: new Date(post.publishedDate),
     changeFrequency: "monthly" as const,
-    priority: 0.6, // Blog posts - medium priority
+    priority: 0.6,
   }));
 
   return [...staticPages, ...projectPages, ...blogPages];

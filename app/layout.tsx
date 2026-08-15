@@ -10,11 +10,6 @@ import { GoogleAnalytics } from "@/components/analytics/google-analytics";
 import {
   PersonStructuredData,
   WebsiteStructuredData,
-  ProfessionalServiceStructuredData,
-  FractionalCDOServiceStructuredData,
-  OrganizationStructuredData,
-  FAQStructuredData,
-  LocalBusinessStructuredData,
 } from "@/components/seo/structured-data";
 import { getNonce } from "@/lib/security/nonce";
 import PWAProvider from "@/components/pwa/pwa-provider";
@@ -30,8 +25,6 @@ import { GlobalMobileMenu } from "@/components/ui/global-mobile-menu";
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#ffffff" },
     { media: "(prefers-color-scheme: dark)", color: "#000000" },
@@ -67,8 +60,6 @@ export default async function RootLayout({
         {/* CDN Resource Hints for Performance */}
         <ResourceHints />
         {/* PWA Meta Tags */}
-        <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#000000" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta
           name="apple-mobile-web-app-status-bar-style"
@@ -130,11 +121,6 @@ export default async function RootLayout({
         {/* Structured Data */}
         <PersonStructuredData />
         <WebsiteStructuredData />
-        <ProfessionalServiceStructuredData />
-        <FractionalCDOServiceStructuredData />
-        <OrganizationStructuredData />
-        <LocalBusinessStructuredData />
-        <FAQStructuredData />
       </head>
       <body
         className={`${geist.variable} ${geistMono.variable} bg-white tracking-tight antialiased dark:bg-zinc-950`}

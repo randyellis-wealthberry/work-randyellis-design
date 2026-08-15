@@ -1,8 +1,17 @@
+import type { Metadata } from "next";
 import {
   GlowEffectCardBackground,
   GlowEffectHeroTest,
 } from "@/components/test/glow-test";
 import { GlowingHeroImage } from "@/components/ui/glowing-hero-image";
+
+export const metadata: Metadata = {
+  title: "Glow Effect Tests",
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default function TestGlowPage() {
   return (

@@ -2,6 +2,7 @@
 import { TextMorph } from "@/components/ui/text-morph";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
 import { BreadcrumbNav } from "@/components/ui/breadcrumb-nav";
+import { BreadcrumbStructuredData } from "@/components/seo/structured-data";
 // import { RelatedContent } from "@/components/seo/related-content";
 import { GlobalRecommendations } from "@/components/ui/global-recommendations";
 import { useEffect, useState } from "react";
@@ -40,6 +41,11 @@ export default function LayoutBlogPost({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const [origin, setOrigin] = useState("");
+
+  useEffect(() => {
+    setOrigin(window.location.origin);
+  }, []);
 
   // Generate breadcrumb for blog posts
   const generateBlogBreadcrumbs = () => {
@@ -65,8 +71,26 @@ export default function LayoutBlogPost({
     return [{ label: "Blog", current: true }];
   };
 
+  const blogSlug = pathname.split("/blog/")[1] || "";
+  const postTitle = blogSlug
+    ? blogSlug
+        .split("-")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ")
+    : "";
+
+  const schemaItems =
+    origin && blogSlug
+      ? [
+          { name: "Home", url: origin },
+          { name: "Blog", url: `${origin}/blog` },
+          { name: postTitle, url: `${origin}${pathname}` },
+        ]
+      : undefined;
+
   return (
     <>
+      {schemaItems && <BreadcrumbStructuredData items={schemaItems} />}
       <div className="pointer-events-none fixed top-0 left-0 z-10 h-12 w-full bg-gray-100 to-transparent backdrop-blur-xl [-webkit-mask-image:linear-gradient(to_bottom,black,transparent)] dark:bg-zinc-950" />
       <ScrollProgress
         className="fixed top-0 z-20 h-0.5 bg-gray-300 dark:bg-zinc-600"

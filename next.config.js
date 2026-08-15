@@ -235,6 +235,16 @@ const nextConfig = {
   // OUTPUT OPTIMIZATION
   trailingSlash: false,
 
+  async redirects() {
+    return [
+      {
+        source: "/ledgeriq",
+        destination: "/projects/ledgeriq",
+        permanent: true,
+      },
+    ];
+  },
+
   // HEADERS FOR CACHING - Enhanced
   async headers() {
     return [

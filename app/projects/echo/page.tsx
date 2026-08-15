@@ -2,9 +2,12 @@ import { Metadata } from "next";
 import EchoClientPage from "./echo-client";
 
 export const metadata: Metadata = {
-  title: "EchoDrive Case Study | Logistics Innovation & Digital Transformation",
+  title: "EchoDrive Case Study | Logistics Innovation",
   description:
     "Explore how EchoDrive revolutionized trucking logistics through mobile innovation, achieving 16% revenue increase, 10,000+ active drivers, and full ELD compliance.",
+  alternates: {
+    canonical: "/projects/echo",
+  },
   openGraph: {
     title:
       "EchoDrive Case Study | Logistics Innovation & Digital Transformation",

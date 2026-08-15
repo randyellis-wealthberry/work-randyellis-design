@@ -86,7 +86,7 @@ export function PersonStructuredData() {
     description:
       "Head of Product & Fractional Chief Design Officer specializing in generative AI, design systems, and startup product leadership. Head of Product at Wealthberry Labs with 2.5M+ users impacted. Available for fractional CDO engagements through Chameleon Collective, Go Fractional, and direct startup partnerships.",
     url: createAbsoluteUrl(),
-    image: createAbsoluteUrl("/randy-ellis-profile.jpg"),
+    image: createAbsoluteUrl("/images/randy-ellis-official-avatar.png"),
     sameAs: [
       "https://www.linkedin.com/in/iamrandyellis/",
       "https://github.com/randyellis-wealthberry",
@@ -259,11 +259,6 @@ export function WebsiteStructuredData() {
     author: {
       "@type": "Person",
       name: "Randy Ellis",
-    },
-    potentialAction: {
-      "@type": "SearchAction",
-      target: createAbsoluteUrl("/search?q={search_term_string}"),
-      "query-input": "required name=search_term_string",
     },
   };
 
@@ -716,7 +711,7 @@ export function LocalBusinessStructuredData() {
     description:
       "AI Product Design Engineering services specializing in generative AI implementation, design systems, and product leadership consulting, delivered remotely across the United States.",
     url: createAbsoluteUrl(),
-    image: createAbsoluteUrl("/randy-ellis-profile.jpg"),
+    image: createAbsoluteUrl("/images/randy-ellis-official-avatar.png"),
     email: "randy.ellis.pro@gmail.com",
     founder: {
       "@type": "Person",
