@@ -1,65 +1,52 @@
 ---
 gsd_state_version: 1.0
 milestone: v1.0
-milestone_name: milestone
+milestone_name: Recruiter-Readiness
 current_phase: 04
-status: "Phase 04 shipped — PR #47"
-last_updated: "2026-08-15T13:40:42.594Z"
+status: completed
+last_updated: "2026-08-15T14:31:26.404Z"
+last_activity: 2026-08-15 — Milestone v1.0 completed and archived
 progress:
   total_phases: 4
-  completed_phases: 0
+  completed_phases: 4
   total_plans: 3
   completed_plans: 3
-  percent: 0
+  percent: 100
 ---
 
-# STATE — Recruiter-Readiness Milestone
+# STATE — Randy Ellis Portfolio
 
-**Current phase:** 04
-**Status:** Phase 04 shipped — PR #47
-**Branch:** chore/recruiter-readiness (14 commits ahead of main)
-**Next action:** Merge PR #44 after domain transfer settles + a visual pass (esp. logo bar in dark mode).
+## Project Reference
 
-## Booking link
+See: .planning/PROJECT.md (updated 2026-08-15 after v1.0 milestone)
 
-- Cal.com: https://cal.com/randyellis/30min (in lib/constants.ts as BOOKING_URL)
+**Core value:** A hiring manager finds a coherent, senior, *verifiable* story with an obvious way to book a conversation — shipped and audit-verified in v1.0.
+**Current focus:** Planning next milestone
 
-## Progress
+## Current Position
 
-- [x] Project initialized (PROJECT.md, config.json, REQUIREMENTS.md, ROADMAP.md)
-- [x] Verified credibility copy drafted (`.planning/CREDIBILITY-COPY.md`)
-- [x] CRED-01 awards (6 → 4 named/verified)
-- [x] CRED-02 testimonials (real quotes + section; 8 fabricated blocks removed)
-- [x] CRED-03 metrics (GrowIt → 240K active everywhere; 4.8★ kept, owner-verifiable)
-- [x] CRED-04 fabricated schema removed (aggregateRating, fake telephone, google-verify placeholder)
-- [x] CRED-05 hidden keyword-SEO block deleted
-- [x] Phase 2 (positioning) — leadership hero, single title lane; brand already consistent
-- [x] Phase 3 (readiness) — RDY-01 booking + RDY-02 resume + RDY-03 logo bar + RDY-04 testimonials
+Phase: Milestone v1.0 Recruiter-Readiness — complete, shipped, tagged
+Plan: —
+Status: Awaiting next milestone
+Last activity: 2026-08-15 — v1.0 merged to main (PR #47), audited (passed after remediation `514de29`), archived, tagged
 
-## Reconciliation decisions (resume vs site)
+## Open Items (carried into next milestone)
 
-- Experience: "20 years in design, 8+ leading teams" (qualified, both true)
-- Employer: hybrid — Chameleon Collective (Fractional VP Design) added alongside Wealthberry Labs
-- Location: remote (dropped Chicago geo from schema; project-history Chicago kept)
-- ⚠ Verify Chameleon Collective URL (https://www.chameleon.co) before deploy
-
-## Follow-ups / notes
-
-- 4.8★ App Store rating kept per Randy (he'll provide proof); if not, revisit.
-- EchoDrive filesOrganized "1M+" metric is a real EchoDrive stat, untouched (not a user count).
-- Real testimonials currently render on /about; Phase 3 (RDY-04) can also surface them on homepage.
-
-## Verification (last run)
-
-- `npx tsc --noEmit`: clean · `npm run lint`: clean · `npm test`: 77 passed / 33 skipped / 0 failed
+- Tech debt: POS-02 chips spec deviation; WAF-02 badge click dead-zone; stale `app/data.ts` PROJECTS array (dead code)
+- ⚠ Verify Chameleon Collective URL (https://www.chameleon.co) before relying on it in copy
+- 4.8★ App Store rating kept per Randy (he'll provide proof); if not, revisit
+- Concurrent-session WIP stashed on `gsd/phase-04-waffle-product-page` (39 files: layout/metadata/middleware/ledgeriq-removal etc.) — needs owner triage; overlaps files touched by audit remediation `514de29`, expect conflicts on unstash
 
 ## Key context for next session
 
-- Source-of-truth = `Randy's Product Design Deck.pdf` (~/Downloads) + `.planning/CREDIBILITY-COPY.md`
-- Live site claims were inflated/inconsistent; deck is verified. Do not add unbacked numbers.
-- Build is NOT a validation gate (ignores lint/type errors). Verify via: `npm run lint` → `npx tsc --noEmit` → `npm test`.
-- Planning docs authored directly (not via gsd-roadmapper) — bounded punch-list, no domain research needed.
-- Not committed yet — on `main`; awaiting user's go to commit on a branch.
+- Source-of-truth for claims = Randy's Product Design Deck + `.planning/CREDIBILITY-COPY.md`; do not add unbacked numbers
+- Verify via `npm run lint` → `npx tsc --noEmit` → `npm test` (build ignores lint/type errors). Known flaky: `animation-load-testing.test.tsx`
+- Booking link: https://cal.com/randyellis/30min (`BOOKING_URL` in lib/constants.ts)
+- Milestone archives: `.planning/milestones/v1.0-{ROADMAP,REQUIREMENTS,MILESTONE-AUDIT}.md`
+
+## Operator Next Steps
+
+- Start the next milestone with /gsd-new-milestone
 
 ---
-*Last updated: 2026-08-14*
+*Last updated: 2026-08-15 after v1.0 milestone completion*
