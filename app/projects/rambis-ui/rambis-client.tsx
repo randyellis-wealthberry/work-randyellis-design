@@ -173,7 +173,7 @@ export default function RambisClientPage() {
             </CardHeader>
             <CardContent className="text-zinc-700 dark:text-zinc-300">
               <p className="mb-3">
-                Reduced bundle size by 40% through strategic refactoring:
+                Reduced bundle size through strategic refactoring:
               </p>
               <ul className="ml-4 space-y-1 text-sm">
                 <li>• Eliminated unused utility functions and dependencies</li>

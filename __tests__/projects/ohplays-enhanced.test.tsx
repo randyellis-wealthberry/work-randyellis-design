@@ -45,7 +45,11 @@ describe("OhPlays Enhanced Project Data", () => {
     it("should have enhanced metrics array with performance levels", () => {
       expect(ohplaysProject?.metrics).toBeDefined();
       expect(Array.isArray(ohplaysProject?.metrics)).toBe(true);
-      expect(ohplaysProject?.metrics?.length).toBeGreaterThanOrEqual(18);
+      // Was >= 18. Oh!Plays shipped, but the post-launch figures (store rating,
+      // retention, session length, total reels) belong to the product after
+      // Randy's engagement ended, so they were removed. What remains is the
+      // 15-student research study, which is his work.
+      expect(ohplaysProject?.metrics?.length).toBeGreaterThanOrEqual(5);
     });
 
     it("should have metrics with proper structure including performance levels", () => {
@@ -156,21 +160,29 @@ describe("OhPlays Enhanced Project Data", () => {
       expect(foundUXMetrics.length).toBeGreaterThan(0);
     });
 
-    it("should have performance and technical metrics", () => {
-      const techMetrics = [
+    // Inverted deliberately. These are production telemetry from after the
+    // engagement; presenting them as outcomes of Randy's work is the
+    // misattribution CRED-06 exists to prevent. This now guards against them
+    // being reintroduced.
+    it("should not claim post-launch production metrics", () => {
+      const postLaunchMetrics = [
         "Video Export Success Rate",
         "Video Processing Speed",
         "Cross-Platform Compatibility",
         "Crash-Free Sessions",
         "Time to First Video",
+        "App Store Rating",
+        "User Retention",
+        "Highlight Reels Created",
+        "Average Session Duration",
       ];
 
       const projectMetrics = ohplaysProject?.metrics || [];
-      const foundTechMetrics = projectMetrics.filter((metric) =>
-        techMetrics.some((techLabel) => metric.label.includes(techLabel)),
+      const found = projectMetrics.filter((metric) =>
+        postLaunchMetrics.some((label) => metric.label.includes(label)),
       );
 
-      expect(foundTechMetrics.length).toBeGreaterThan(0);
+      expect(found).toEqual([]);
     });
 
     it("should have engagement metrics", () => {
@@ -210,8 +222,8 @@ describe("OhPlays Enhanced Project Data", () => {
 
     it("should maintain existing metric count while adding new ones", () => {
       const allMetrics = ohplaysProject?.metrics || [];
-      // Should have at least the original 6 metrics plus new enhanced ones
-      expect(allMetrics.length).toBeGreaterThanOrEqual(18);
+      // Research-study metrics only — see the post-launch exclusion test above.
+      expect(allMetrics.length).toBeGreaterThanOrEqual(5);
     });
   });
 });

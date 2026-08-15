@@ -4,7 +4,7 @@ import EchoClientPage from "./echo-client";
 export const metadata: Metadata = {
   title: "EchoDrive Case Study | Logistics Innovation",
   description:
-    "Explore how EchoDrive revolutionized trucking logistics through mobile innovation, achieving 16% revenue increase, 10,000+ active drivers, and full ELD compliance.",
+    "How EchoDrive brought trucking logistics onto mobile: on-site research with drivers and dispatch, a shared shipment state across both platforms, and full ELD compliance.",
   alternates: {
     canonical: "/projects/echo",
   },
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     title:
       "EchoDrive Case Study | Logistics Innovation & Digital Transformation",
     description:
-      "Trucking logistics case study: 16% revenue increase, 10,000+ active drivers, ELD compliance through mobile-first digital transformation.",
+      "Trucking logistics case study: field research with drivers, dual-platform design, and ELD compliance through a mobile-first approach.",
     type: "article",
     images: [
       {

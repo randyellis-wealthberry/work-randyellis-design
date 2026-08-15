@@ -137,9 +137,7 @@ export default function AddvancedClient() {
             <div className="bg-muted/30 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 rounded-lg border px-6 py-4 text-sm">
               <div className="flex items-center gap-2">
                 <Users className="text-muted-foreground h-3.5 w-3.5" />
-                <span className="font-medium">
-                  Product Design Director & Strategic UX Lead
-                </span>
+                <span className="font-medium">Product Design Director</span>
               </div>
               <div className="bg-border hidden h-4 w-px sm:block" />
               <div className="flex items-center gap-2">

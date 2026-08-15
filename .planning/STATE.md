@@ -25,9 +25,9 @@ See: .planning/PROJECT.md (updated 2026-08-15 after v1.0 milestone)
 
 ## Current Position
 
-Phase: 07 (bespoke-convergence) — STRUCTURE COMPLETE
-Plan: narrative components wired to all 7 in-scope case studies
-Status: Phase 8 content is the critical path
+Phase: 08 (content rewrite) — IN PROGRESS
+Plan: decisions + attribution + claim purge done for all 7; prose voice conversion remains
+Status: Phase 9 cross-surface sweep run once (role-title drift found and fixed)
 Last activity: 2026-08-15
 
 Progress: [█████░░░░░] 50%
@@ -68,18 +68,20 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 
 ### Pending Todos
 
-- **Phase 8 — decision content: 3 of 7 done.** growit (5 decisions, all with outcomes), addvanced (2, both with outcomes), rambis-ui (2, outcomes pending). Remaining: ohplays, ledgeriq, echo, nagarro.
-- **addvanced claim purge done 2026-08-15.** Randy confirmed it was a 2-week prototype sprint only, never shipped. Removed 8 production-scale metrics, rewrote description/outcome/5 learnings that claimed retention drivers, competitor benchmarks and market capture. Kept the 7 genuine prototype-test figures.
-- **rambis-ui open questions.** (a) `status: "in-progress"` and `timeline: "Q3 2024 - Present"` contradict a reflection written entirely in past tense as a finished project. (b) The reflection claims 2,500+ weekly npm downloads, perfect Lighthouse a11y scores across all components, and 40% bundle reduction — the most independently checkable claims on the site. Confirm before they carry more narrative weight. (c) Its 2 decisions have no outcomes yet.
-- ~~MIG-01 deviation — addvanced bespoke reflection~~ **RESOLVED 2026-08-15.** Randy chose to standardize. SpotlightCard/Award chrome retired; addvanced now renders `ReflectionBlock` like the other six. The 3-column metric grid was deleted with it after verifying all three figures (35%, 2 weeks, 800%) are already restated elsewhere on the same page — no unique claim lost.
-- **Echo data duplication (Phase 9).** `echo-client.tsx` defines a local `enhancedProcessStory` with its own `reflection`, overriding `PROJECTS`. Two sources of truth for one claim — exactly the cross-surface drift CRED-09 exists to catch.
-- ~~growit decision outcomes~~ **RESOLVED 2026-08-15.** All 5 now carry an outcome, sourced qualitatively from Randy (no invented figures). Two are honestly negative/mixed: experts complained about buried features under progressive disclosure, and radius-widening thinned relevance exactly where it filled the feed.
+- **Decision content: 7 of 7 projects populated** (17 decisions total). growit 5, addvanced 2, rambis-ui 2, ohplays 2, echo 2, nagarro 2, ledgeriq 2. Outcomes present on 14 of 17; ledgeriq's 2 and one nagarro decision are absent by choice rather than invented.
+- **CNT-01..08 are NOT complete.** Decisions, roleNarrative, attribution corrections and the false-claim purge are done for all 7. What remains is converting the existing `challenges`/`solutions`/`learnings`/`processStory` prose from corporate "we" into first person, and filling genuinely thin sections. That is the rest of Phase 8.
+- **LedgerIQ composite disclosure needs a stronger surface.** It is currently stated in the first sentence of `roleNarrative`, which renders inside the "My Role" section. Consider a visible badge at the top of the page — an unlabeled composite is the single riskiest item in the portfolio.
+- **Echo NDA line applied (CRED-08 RESOLVED).** Randy set it at process-and-design-only. Removed "$184.4 million" LTL revenue, "16% revenue increase", "12% shipment volume", "1,000 beta downloads" and "10,000+ active drivers" from five surfaces: project data, the bespoke client hero, `processStory.outcome`, two stakeholder quotes, and page metadata (description + OpenGraph).
+- **Nagarro NDA: none (CRED-08 RESOLVED).** Randy confirmed a public-facing role; its metrics are publishable and stay.
+- **Two Echo stakeholder quotes were edited, not removed.** Both are attributed to named roles at Echo Global Logistics and contained business figures. Figures stripped, attribution kept. If these quotes are not independently sourceable, they should come out entirely — Randy's call.
 
 ### Blockers/Concerns
 
 - Phase 8 requires Randy's sign-off (CRED-08) on NDA/confidentiality depth for Nagarro and Echo before that content ships — not resolvable without his input
 - LedgerIQ's real-vs-composite status is ambiguous (existing copy reads hypothetical/composite) — confirm with Randy before deepening its narrative in Phase 8
 - Verify Chameleon Collective URL and 4.8★ App Store rating before either lands in deeper copy (carried from v1.0)
+- ~~LedgerIQ real-vs-composite ambiguity~~ RESOLVED 2026-08-15: it is a composite, now disclosed in roleNarrative
+- ~~Phase 8 requires Randy's sign-off (CRED-08) on Nagarro and Echo~~ RESOLVED 2026-08-15: Echo = process/design only, Nagarro = unrestricted
 
 ## Deferred Items
 

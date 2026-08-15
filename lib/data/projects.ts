@@ -275,67 +275,12 @@ export const PROJECTS: Project[] = [
       },
 
       // Performance & Technical Achievement
-      {
-        label: "Video Export Success Rate",
-        value: "97.8%",
-        performanceLevel: "excellent",
-      },
-      {
-        label: "Video Processing Speed",
-        value: "2.1x faster",
-        performanceLevel: "excellent",
-      },
-      {
-        label: "Cross-Platform Compatibility",
-        value: "94.5%",
-        performanceLevel: "excellent",
-      },
-      {
-        label: "Crash-Free Sessions",
-        value: "99.3%",
-        performanceLevel: "excellent",
-      },
-      {
-        label: "Time to First Video",
-        value: "47 sec",
-        performanceLevel: "excellent",
-      },
 
       // Engagement & Growth
       { label: "Weekly Active Users", value: "15K+", performanceLevel: "good" },
       { label: "Daily Active Users", value: "8.2K", performanceLevel: "good" },
-      {
-        label: "Average Session Duration",
-        value: "12.3 min",
-        performanceLevel: "good",
-      },
-      {
-        label: "User Retention (7-day)",
-        value: "68.9%",
-        performanceLevel: "good",
-      },
-      {
-        label: "Highlight Reels Created",
-        value: "50K+",
-        performanceLevel: "excellent",
-      },
 
       // Social & Sharing Success
-      {
-        label: "Social Share Success Rate",
-        value: "91.2%",
-        performanceLevel: "excellent",
-      },
-      {
-        label: "Editing Time Reduction",
-        value: "67%",
-        performanceLevel: "good",
-      },
-      {
-        label: "App Store Rating",
-        value: "4.6★",
-        performanceLevel: "excellent",
-      },
     ],
     challenges: [
       "Simplifying complex video editing for mobile-first experience",
@@ -359,7 +304,7 @@ export const PROJECTS: Project[] = [
       "Cross-platform consistency essential for team-based sharing and collaboration",
     ],
     teamSize: 6,
-    role: "UX Designer & Mobile Product Lead",
+    role: "UX Researcher & Designer",
     overview: {
       deliverables: [
         "User Research & Testing Strategy",
@@ -370,7 +315,7 @@ export const PROJECTS: Project[] = [
         "Video Editing Workflow Optimization",
       ],
       teamMembers: [
-        "UX Designer & Product Lead (Me)",
+        "UX Researcher & Designer (Me)",
         "iOS Developer",
         "Android Developer",
         "Backend Engineer",
@@ -407,6 +352,28 @@ export const PROJECTS: Project[] = [
         "Varying mobile device management and app installation restrictions",
       ],
     },
+    roleNarrative:
+      "My contribution to Oh!Plays was research-led. On a team of six I owned the user research and the design that came out of it \u2014 in particular getting the product in front of real student athletes and letting what happened there settle design arguments. Oh!Plays did ship, but the post-launch numbers (store rating, retention, total reels created) came from the product's life after my engagement; they are not results of my work and I do not claim them.",
+    decisions: [
+      {
+        title: "Testing both editing models instead of arguing about them",
+        decision:
+          "Rather than settle gesture-based editing versus a conventional timeline in a meeting, I prototyped both and put them in front of student athletes.",
+        rationale:
+          "Timeline editing is what every serious editor offers, and dropping it is the kind of call that gets overruled by whoever argues hardest. The counter-argument \u2014 that students want speed over control \u2014 was a hypothesis, not a fact, and I did not want to bet the product on my own taste. Building two prototypes cost time we could have spent polishing one.",
+        outcome:
+          "Gestures won clearly enough that the debate ended. Students went for speed and simplicity over editing control, which is what let us commit to sports presets without second-guessing it for the rest of the project.",
+      },
+      {
+        title: "Testing in schools instead of a lab",
+        decision:
+          "I pushed to run sessions in hallways and locker rooms rather than a research facility.",
+        rationale:
+          "A lab gets you a quiet room, a seated participant and their full attention \u2014 none of which describes a student editing a highlight between classes. Testing in the setting the product actually lives in costs control and repeatability, and it is harder to schedule, but the alternative is validating a product for conditions no user will ever be in.",
+        outcome:
+          "The real setting surfaced problems the lab version never would have: noise, bad lighting, one-handed use and genuine time pressure between periods. Those constraints ended up shaping the interface more than anything from the seated sessions.",
+      },
+    ],
     processStory: {
       background:
         "Student athletes struggled with existing video editing solutions that were either too complex for mobile use or too simplistic for creating compelling sports highlights. Eight Bit Studios identified this gap and envisioned Oh!Plays as the first mobile app specifically designed for student athletes who needed to quickly create, edit, and share sports highlights on their mobile devices. The challenge was balancing powerful editing capabilities with the simplicity and speed that busy student athletes demanded.",
@@ -515,7 +482,7 @@ export const PROJECTS: Project[] = [
         "White-label Platform Validation & Documentation",
       ],
       teamMembers: [
-        "AI Product Lead (Me)",
+        "AI Product Lead & Technical Architect (Me)",
         "Machine Learning Engineer",
         "Data Scientist",
         "Backend Engineers (2)",
@@ -548,6 +515,24 @@ export const PROJECTS: Project[] = [
         "Existing payroll workflows requiring seamless integration",
       ],
     },
+    roleNarrative:
+      "A note before anything else: LedgerIQ is a composite. It draws on real payroll-fraud and applied-AI work, but it is assembled and anonymized rather than a single named engagement, and it should be read that way. Within it, my lane covered both the product and the system design \u2014 how the detection models were structured and how a human auditor actually works alongside them.",
+    decisions: [
+      {
+        title: "Fixing false positives with context, not thresholds",
+        decision:
+          "Rather than tune the detection threshold until the false-positive rate looked acceptable, I made the models payroll-context-aware so ordinary variation stopped registering as anomalous in the first place.",
+        rationale:
+          "Threshold tuning is the fast fix and it trades one failure for the other: raise it and real fraud passes, lower it and honest employees get flagged. In payroll neither error is survivable, because a wrong accusation costs an employee's trust permanently and a miss is the entire reason the system exists. Bonus cycles, commission structures and seasonal overtime all look like anomalies to a model that does not know what month it is. Teaching the model the shape of normal payroll was much slower than moving a number, and it is the only version that improves both error rates at once.",
+      },
+      {
+        title: "Limiting what the system was allowed to see",
+        decision:
+          "I scoped detection to payroll anomalies specifically, and kept it away from broader employee behavior monitoring even where that data was reachable.",
+        rationale:
+          "Any tool that watches employees to catch a few of them is one scope expansion away from being surveillance infrastructure, and the expansion always sounds reasonable in the moment \u2014 more signal means better detection. Deciding the boundary up front, while nobody is asking, is far easier than defending it later under pressure to catch more. It caps the system's ceiling on purpose: there is fraud a wider net would find that this one will not.",
+      },
+    ],
     processStory: {
       background:
         "What if I told you that most companies are unknowingly hemorrhaging money through their payroll systems? The numbers were stark: payroll fraud costs businesses billions annually, while manual errors create endless cycles of corrections, compliance headaches, and eroded employee trust. But here's what really got my attention—the traditional 'solutions' weren't working. Rule-based systems catch obvious problems but miss the subtle patterns. Manual audits are slow, expensive, and inevitably let things slip through. Our target client was experiencing the perfect storm: 10 hours of manual audit work per pay cycle, persistent small errors slipping through, growing fraud risk exposure, and reactive problem-solving that damaged employee trust.",
@@ -698,7 +683,7 @@ export const PROJECTS: Project[] = [
         "Stakeholder Management & Executive Presentation",
       ],
       teamMembers: [
-        "Product Design Director & Strategic UX Lead (Me)",
+        "Product Design Director (Me)",
         "Senior Visual Designer & Brand Specialist",
         "Technical Project Manager & Sprint Coordinator",
       ],
@@ -772,7 +757,7 @@ export const PROJECTS: Project[] = [
     subtitle: "Streamlining Logistics Through Digital Innovation",
     slug: "echo",
     description:
-      "Modern shipment tracking system improving communication and coordination between shippers, drivers, and dispatch teams—achieving 16% revenue increase and 10,000+ active drivers.",
+      "Modern shipment tracking system improving communication and coordination between shippers, drivers, and dispatch teams, designed from on-site research with drivers and dispatch officers.",
     longDescription:
       "EchoDrive was developed to revolutionize the trucking and logistics industry by replacing outdated coordination methods with modern digital solutions. Built through collaboration between Echo Global Logistics and Eight Bit Studios, this comprehensive platform addresses critical challenges in truckload management, ELD mandate compliance, and driver-dispatcher communication. The system consists of native mobile applications for drivers and a robust web platform for dispatch teams, facilitating real-time shipment tracking, electronic logging, and seamless communication. Through extensive field research including on-site interviews with drivers and dispatch officers, EchoDrive delivers practical solutions that reduce call-center stress, increase operational efficiency, and drive measurable revenue growth in the competitive logistics market.",
     category: "Mobile App",
@@ -846,7 +831,7 @@ export const PROJECTS: Project[] = [
       "Driver feedback integration during development phases significantly improves product adoption and user satisfaction",
     ],
     teamSize: 6,
-    role: "Product Designer & Frontend Lead",
+    role: "UX Researcher & Product Designer",
     overview: {
       deliverables: [
         "Stakeholder Interviews & User Research",
@@ -859,7 +844,7 @@ export const PROJECTS: Project[] = [
         "Interactive Onboarding Tutorials",
       ],
       teamMembers: [
-        "Product Designer & Frontend Lead (Me)",
+        "UX Researcher & Product Designer (Me)",
         "Mobile Developers (iOS & Android)",
         "Backend Engineers (2)",
         "UX Researchers",
@@ -893,6 +878,28 @@ export const PROJECTS: Project[] = [
         "Driver demographic diversity requiring intuitive, accessible interface design",
       ],
     },
+    roleNarrative:
+      "On Echo I worked as a researcher-designer in a team of six. My contribution started with going out to the people who would use this \u2014 on-site interviews with drivers and with dispatch officers \u2014 and the design followed from what those sessions showed. Everything described here is process and design work; the business specifics of the engagement stay with the client.",
+    decisions: [
+      {
+        title: "Designing the handoff, not two separate apps",
+        decision:
+          "I treated the driver mobile app and the dispatch web app as one system with a seam down the middle, and designed the handoff between them first, before designing either side in depth.",
+        rationale:
+          "Drivers and dispatchers are close to opposite users \u2014 one is in a cab with gloves and bad signal, the other is at a desk with several screens \u2014 and the tempting move is to build two good products independently. But nothing in logistics is done by one of them alone: a status a driver sets is only worth setting if it lands usefully on a dispatcher's screen, and a request a dispatcher sends is only worth sending if it is answerable from a truck. Designing the seam first meant accepting a more constrained design on both sides than either would have had on its own.",
+        outcome:
+          "It made the integration the thing we argued about early rather than the thing we discovered late, which is the usual failure mode when two platforms are designed in parallel by different people.",
+      },
+      {
+        title: "Going to the drivers before designing for them",
+        decision:
+          "I ran on-site interviews with drivers and dispatchers at the start rather than designing from the team's existing picture of how the work went.",
+        rationale:
+          "Low digital adoption among drivers was being treated as a fact about drivers \u2014 a resistant, traditional user base. That framing quietly blames the user and leads to designing persuasion rather than designing tools. I wanted to see the actual conditions before accepting it.",
+        outcome:
+          "The interviews changed assumptions the team had been designing against. What read as resistance to digital tools looked much more like tools that had never been designed for the conditions drivers work in, which redirected the driver-side design substantially.",
+      },
+    ],
     processStory: {
       background:
         "The shipping industry was struggling with outdated coordination methods that created communication gaps between shippers, drivers, and dispatch teams. Echo Global Logistics, a prominent technology-enabled transportation provider with over 30 offices nationwide and 40,000+ transportation providers, recognized the critical need for digital transformation. The traditional approaches were causing operational inefficiencies, compliance challenges with new ELD regulations, and limited shipment visibility. Through partnership with Eight Bit Studios, Echo envisioned a comprehensive solution that would modernize logistics operations while meeting multiple key objectives: ELD mandate compliance, enhanced truckload visibility, increased LTL shipment revenues, and improved driver engagement.",
@@ -908,19 +915,19 @@ export const PROJECTS: Project[] = [
         "Industry-Specific Workflows Matter: Generic logistics solutions failed to address the specific operational patterns and terminology used in trucking and transportation.",
       ],
       outcome:
-        "EchoDrive achieved exceptional results, meeting and exceeding all primary objectives. The platform successfully achieved full ELD Mandate compliance, eliminating manual logging processes and reducing regulatory risk. Operational improvements included 16% increase in LTL shipment revenues to $184.4 million and 12% increase in overall shipment volume through the self-serve booking application. Call-center stress was significantly reduced through improved truckload visibility and automated communication features. User engagement exceeded targets with 1,000 beta downloads during testing and over 10,000 active drivers on the platform post-launch. The solution demonstrated substantial year-over-year growth from alpha through beta to full launch phases, while streamlining internal processes and enhancing driver-dispatcher communication.",
+        "EchoDrive went from alpha through beta to launch, replacing manual logging with an electronic system that met the ELD Mandate and giving drivers and dispatch a shared view of a shipment for the first time. The client's commercial results are theirs to disclose, not mine — what I can speak to is the design work: a driver app built for the conditions drivers actually work in, a dispatch tool built around the same shipment state, and a handoff between them designed before either side was.",
       reflection:
         "The EchoDrive project validated that deep industry expertise combined with user-centered design can transform traditional logistics operations. Success required understanding the unique challenges of trucking and transportation, from driver working conditions to regulatory compliance requirements. The field research approach proved invaluable, revealing insights that shaped every aspect of the solution from mobile app interface design to communication workflow optimization. This project demonstrated that even in traditionally low-technology industries, thoughtful digital solutions can drive significant operational improvements and user adoption when they address real pain points and deliver clear value to all stakeholders. The collaboration between Echo Global Logistics and Eight Bit Studios showcased how combining domain expertise with digital innovation creates solutions that drive measurable business outcomes.",
       stakeholderQuotes: [
         {
           quote:
-            "EchoDrive transformed our logistics operations. The 16% revenue increase in LTL shipments demonstrates how digital solutions can create real business value in traditional industries.",
+            "EchoDrive transformed our logistics operations, showing how digital solutions can create real value in a traditional industry.",
           author: "Operations Director",
           role: "Echo Global Logistics",
         },
         {
           quote:
-            "The mobile app made our drivers' jobs easier while improving compliance. 10,000+ active adoption shows we solved real problems, not just technology challenges.",
+            "The mobile app made our drivers' jobs easier while improving compliance. Adoption showed we solved real problems, not just technology challenges.",
           author: "Fleet Manager",
           role: "Echo Global Logistics",
         },
@@ -1070,6 +1077,26 @@ export const PROJECTS: Project[] = [
         "Time zone coordination for global design team collaboration",
       ],
     },
+    roleNarrative:
+      "I was Head of Design at Nagarro from March to October 2022. The scale number that gets quoted \u2014 18,000+ people across 36 countries \u2014 is the organization, not my team. I had direct authority over 15 designers and influence over everyone else, which is the honest shape of design leadership at this size and worth stating plainly: I could set direction, author frameworks and make the case, but I could not mandate adoption outside my own group. Nearly every decision below is therefore about persuasion rather than control.",
+    decisions: [
+      {
+        title: "Aiming past the compliance floor",
+        decision:
+          "I wrote the Digital Accessibility Strategy 2023 to target genuinely usable design rather than the WCAG conformance bar, knowing conformance was the only part anyone could audit.",
+        rationale:
+          "Meeting the standard is measurable, defensible and easy to fund; it is also entirely possible to pass an audit and ship something a disabled user cannot actually use. Aiming at real usability meant committing to a goal I could not prove with a score, in an IT consultancy where unmeasurable goals are the first ones cut. The compliance floor stayed in the strategy as the minimum, not the target \u2014 which cost me the simpler story and a cleaner metric to report against.",
+      },
+      {
+        title: "Evangelism instead of enforcement",
+        decision:
+          "With no authority over the wider organization, I positioned design as a business driver and invested in advocacy, content and mentoring rather than trying to mandate standards through process.",
+        rationale:
+          "The instinct at this scale is to write a policy and attach it to a delivery gate. In an organization of 18,000 where I directly led 15, a mandate I could not enforce would have produced compliance theatre and quiet resentment from teams who did not report to me. Persuasion is slower, has no completion date, and is much harder to show progress on \u2014 but it was the only lever that actually existed.",
+        outcome:
+          "Positioning design as a strategic business driver rather than an operational requirement increased adoption threefold, and the mentor-coaching program improved junior designer retention by 40%. The content strategy reached 10K+ subscribers and generated 100+ qualified leads, which is what made the design function legible to the business.",
+      },
+    ],
     processStory: {
       background:
         "When I joined Nagarro as Head of Design in March 2022, the company was in a critical growth phase, scaling from 15,000 to 18,000+ employees while competing in the increasingly sophisticated enterprise IT consulting market. The design function existed but lacked strategic vision and organizational impact. With regulatory pressure mounting around digital accessibility and clients demanding more inclusive design approaches, Nagarro needed a comprehensive design leadership transformation. The challenge was creating design excellence that could scale across 36 countries, serve diverse clients from healthcare to finance, and establish Nagarro as a leader in accessibility-first design practices.",
@@ -1161,7 +1188,7 @@ export const PROJECTS: Project[] = [
     solutions: [
       "Implemented semantic versioning with detailed migration guides",
       "Created composable primitives allowing both flexibility and convenience",
-      "Developed tree-shaking optimizations reducing bundle size by 40%",
+      "Developed tree-shaking optimizations to cut bundle size",
       "Built interactive documentation with live code examples and playground",
       "Established comprehensive testing matrix for React 16, 17, and 18",
       "Created contributor guidelines and automated PR review workflows",
@@ -1188,7 +1215,7 @@ export const PROJECTS: Project[] = [
         "Open Source Community Management",
       ],
       teamMembers: [
-        "Design System Architect (Me)",
+        "Lead Design System Architect (Me)",
         "Senior React Developer",
         "UI/UX Designer",
         "Technical Writer",
@@ -1233,6 +1260,8 @@ export const PROJECTS: Project[] = [
           "I built Rambis UI as a fork of Chakra UI, inheriting its component API rather than designing a new one.",
         rationale:
           "Adoption is the hard part of a design system, not construction. A new API means every developer who picks it up has to relearn primitives they already know, and that cost is paid by every single user, forever. Starting from an API people already had in their hands meant the switching cost was close to zero. What I gave up was control of the foundation: I inherited Chakra's design decisions wholesale, the good ones and the awkward ones, and some of the awkward ones are now mine to carry.",
+        outcome:
+          "It was a clean win on speed. Forking got us to something real and usable in a fraction of the time a clean-sheet system would have taken, and the familiar API meant early users needed almost no onboarding.",
       },
       {
         title: "Opinionated defaults with an escape hatch underneath",
@@ -1240,6 +1269,8 @@ export const PROJECTS: Project[] = [
           "I made the common case a single obvious call, and put the composable primitives underneath for anyone who needed to go further.",
         rationale:
           "The two things a component library is pulled between are intuition and flexibility, and most systems pick one and suffer for it. Fully composable primitives are powerful and leave newcomers assembling boilerplate to do the obvious thing; fully opinionated components are teachable right up until someone needs the case you did not anticipate, and then they eject entirely. Layering them was the way to serve both, and the price is a two-layer API \u2014 twice the surface to document, and a real risk that people never discover the lower layer exists.",
+        outcome:
+          "The risk landed. People largely did not find the primitives on their own \u2014 they hit the edge of a default and asked rather than dropping down a layer. That is a documentation failure, not an architecture one, and it is mine to fix.",
       },
     ],
     processStory: {
@@ -1257,9 +1288,9 @@ export const PROJECTS: Project[] = [
         "Community-Driven Development: Open source contributors provided invaluable real-world testing and feature validation.",
       ],
       outcome:
-        "Rambis UI has exceeded initial adoption targets, with over 2,500 weekly downloads and active use in production applications ranging from startups to enterprise deployments. The design system achieved perfect Lighthouse accessibility scores across all components, while reducing average bundle sizes by 40% compared to the original framework. Developer feedback has been overwhelmingly positive, with particular praise for the intuitive API design and comprehensive documentation. The project has attracted a growing community of contributors, ensuring sustainable long-term development and continuous improvement based on real-world usage.",
+        "Rambis UI is in active development rather than finished. Forking got a usable system into people's hands far faster than building one from scratch would have, and the inherited API meant early adopters had almost nothing to relearn. The clearest signal so far is a negative one: developers are not finding the composable primitives underneath the opinionated defaults on their own, which points at documentation rather than architecture as the next real problem to solve.",
       reflection:
-        "Creating Rambis UI reinforced my belief that successful design systems must balance technical excellence with developer empathy. The decision to fork rather than create from scratch proved valuable, allowing us to build upon proven patterns while innovating where it mattered most. I learned that open source success requires more than good code—it demands excellent documentation, responsive maintenance, and genuine community engagement. Most importantly, this project demonstrated that even in a crowded ecosystem, there's room for thoughtful improvements that materially enhance developer productivity and user experience. The experience has shaped my approach to system design, emphasizing iterative improvement over revolutionary change.",
+        "Building Rambis UI keeps reinforcing that a design system is judged on developer empathy as much as on technical quality. Forking rather than starting clean is proving to be the right call — it let us build on patterns people already trusted and spend our own time where we actually differ. The open lesson is that good code is the smaller half: the layered API works, but developers are not discovering its lower layer without help, and no amount of architecture fixes what documentation has not explained. That is the part I am still working on.",
     },
   },
   {
