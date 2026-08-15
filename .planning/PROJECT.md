@@ -27,6 +27,7 @@ conversation.
 - ✓ SEO structured data (Person/Org/FAQ/LocalBusiness JSON-LD) — existing
 - ✓ Motion animations, Radix/shadcn UI, dark mode, Tailwind v4 — existing
 - ✓ Newsletter API via Loops — existing
+- ✓ Waffle product showcase: standalone `/projects/waffle` page (hero + build credit, 6-feature grid, how-it-works, screenshot, dual CTAs to waffle.cards with analytics) + "Live Product" badged card in `/projects` grid — Validated in Phase 4: Waffle Product Page
 
 ### Active (this milestone — hypotheses until shipped)
 
@@ -63,4 +64,4 @@ This document evolves at phase transitions and milestone boundaries.
 source-view and a reference check.
 
 ---
-*Last updated: 2026-08-14 after initialization*
+*Last updated: 2026-08-15 after Phase 4 (Waffle Product Page) completion — all phase plans executed, verified 13/13 must-haves, human visual sign-off recorded*
