@@ -20,12 +20,26 @@ npm run dev:turbo        # Next.js dev server with Turbo mode
 
 The default `npm run dev` uses `scripts/dev-clean.js` which automatically detects and prompts to kill processes on port 3000.
 
+> **Agents / non-interactive shells**: `npm run dev` waits for interactive confirmation and will hang. Use `npm run dev:auto` (automated port cleanup) or `npm run dev:direct` (plain `next dev`) instead. `npm run clean-port` frees port 3000 without confirmation.
+
 ### Building
 ```bash
-npm run build                # Standard production build
+npm run build                # Standard production build (runs `env -u NODE_ENV next build`)
 npm run build:optimized      # Production build with increased memory (4GB)
 npm run build:analyze        # Build with bundle analysis enabled
 npm run build:profile        # Build with profiling enabled
+```
+
+> **`npm run build` is NOT a validation step.** `next.config.js` sets `eslint.ignoreDuringBuilds` and `typescript.ignoreBuildErrors`, so the build succeeds even with lint/type errors. To actually validate a change, run the verify order below.
+
+### Verifying Changes
+
+There is **no `type-check` script** (the README's `npm run type-check` does not exist). Verify in this order:
+
+```bash
+npm run lint        # ESLint (Prettier enforced via plugin:prettier/recommended)
+npx tsc --noEmit    # the ONLY type gate; tsconfig excludes __tests__/, so test files aren't typechecked
+npm test            # Jest
 ```
 
 ### Linting & Testing
@@ -33,9 +47,11 @@ npm run build:profile        # Build with profiling enabled
 npm run lint            # Run ESLint
 npm run lint:fix        # Auto-fix linting issues
 npm test                # Run all Jest tests
-npm test:watch          # Run tests in watch mode
-npm test:performance    # Run performance-specific tests
+npm run test:watch      # Run tests in watch mode
+npm run test:performance # Run performance-specific tests (only __tests__/performance/)
 ```
+
+> Only `npm test` works as a bare alias; the colon scripts need `npm run` (e.g. `npm run test:watch`, not `npm test:watch`). Single file: `npx jest __tests__/path/to/file.test.tsx` or `npm test -- <path>`.
 
 ### Deployment & Cleanup
 ```bash
@@ -111,11 +127,10 @@ npm run analyze:build         # Analyze build output
 - Performance-optimized with GPU acceleration
 - Scroll-triggered animations using intersection observers
 
-**PWA Implementation**
-- Uses `next-pwa` for service worker generation
-- PWA components in `components/pwa/`
-- Offline support with runtime caching strategies
-- Install prompts and update notifications
+**PWA Implementation — currently DISABLED**
+- `next-pwa` is commented out in `next.config.js` (Next.js 15 incompatibility; TODO notes migrating to `@ducanh2912/next-pwa`)
+- **No service worker is generated** — do not rely on or claim offline behavior
+- `app/manifest.ts` still ships (installable metadata), and `components/pwa/` + `app/offline/` remain in the tree but are inactive
 
 **Performance Optimization**
 - Extensive webpack bundle splitting in `next.config.js`
@@ -152,15 +167,16 @@ npm run analyze:build         # Analyze build output
 - Setup file: `jest.setup.ts`
 - Environment: jsdom
 - Coverage collected from `app/`, `components/`, `lib/`
-- Mocks for `@vercel/analytics` and `motion/react`
+- `motion/react` and `@vercel/analytics` are mocked via `moduleNameMapper` → root `__mocks__/`; tests depend on those mocks existing
+- **Known baseline (not regressions)**: some suites are intentionally `describe.skip` (stale/TDD-red), and `__tests__/performance/animation-load-testing.test.tsx` is flaky (measures FPS inside jsdom, fails on slower runs)
 
 **Running Tests**:
 ```bash
 npm test                              # Run all tests
-npm test:watch                        # Run tests in watch mode
+npm run test:watch                    # Run tests in watch mode
 npm test -- path/to/test.tsx          # Run specific test file
-npm test:watch -- path/to/test.tsx    # Watch specific test file
-npm test:performance                  # Run performance tests only
+npm run test:watch -- path/to/test.tsx # Watch specific test file
+npm run test:performance              # Run performance tests only
 ```
 
 ## Styling
@@ -178,6 +194,10 @@ npm test:performance                  # Run performance tests only
 - Neo-brutalism and modern dark mode style patterns available
 - Icons: Lucide React (primary), Remixicon
 
+**Code Style**
+- ESLint uses the flat config `eslint.config.mjs`
+- Prettier is enforced through ESLint (`plugin:prettier/recommended`): double quotes, trailing commas, printWidth 80, Tailwind class sorting via `prettier-plugin-tailwindcss`
+
 ## Build Optimization
 
 The `next.config.js` contains extensive webpack optimizations:
@@ -186,7 +206,6 @@ The `next.config.js` contains extensive webpack optimizations:
 - **Bundle Size Limits**: `maxSize` constraints to prevent large chunks
 - **Image Optimization**: WebP/AVIF with responsive sizing
 - **Caching**: Aggressive caching headers for static assets
-- **PWA**: Service worker with runtime caching
 
 **Critical Dependencies**:
 - React vendor chunk (priority: 40) - loads immediately
@@ -200,19 +219,38 @@ The `next.config.js` contains extensive webpack optimizations:
 - Page extensions: `.js`, `.jsx`, `.ts`, `.tsx`, `.md`, `.mdx`
 - Blog posts use MDX for rich content
 
-## Security
+## API Routes & Backend
 
-- Content Security Policy utilities in `lib/security/csp-utils.ts`
-- Nonce generation for inline scripts
-- Strict CSP headers
-- HSTS enabled in production
+Route handlers live under `app/api/`:
+- `app/api/newsletter/*` — subscribe, unsubscribe, export, stats, analytics. Backed by **Loops** (`loops` SDK); requires `LOOPS_API_KEY`. Subscriber state is helper-managed in `lib/email-storage.ts`.
+- `app/api/csp-report/` — receives CSP violation reports
+- `app/api/cdn/optimize/` — image/asset optimization endpoint
+
+## Feature Flags
+
+- Uses the Vercel `flags` SDK with the Statsig adapter (`@flags-sdk/statsig`)
+- Flags defined in `lib/feature-flags.ts`; demo usage in `components/feature-flag-demo.tsx`
+- See `FEATURE_FLAGS_GUIDE.md` at repo root for the full workflow
+
+## Forms
+
+- `react-hook-form` + `zod` (via `@hookform/resolvers`) for validation
+- Prefer schema-first validation with `zod` and wire it through `@hookform/resolvers/zod`
+
+## Middleware & Security
+
+- `middleware.ts` runs on requests (security/cache headers, routing)
+- **Headers are set in three places that must stay in sync**: `middleware.ts`, the `headers()` function in `next.config.js`, and `vercel.json`. Change one → check the others.
+- Content Security Policy utilities in `lib/security/` (`csp-utils.ts`), plus nonce generation for inline scripts, strict CSP headers, HSTS in production
+- Deploys to Vercel (region `iad1` per `vercel.json`)
 
 ## Environment Notes
 
-- Development ignores TypeScript and ESLint errors during builds (for speed)
+- Builds ignore TypeScript and ESLint errors (`ignoreBuildErrors` / `ignoreDuringBuilds`) — see Verifying Changes above
 - Production removes console logs
-- Service workers disabled in development
+- Service workers are disabled entirely (PWA commented out), not just in development
 - Analytics only active in production
+- Most of the app runs without `.env.local`; only the newsletter API needs `LOOPS_API_KEY` (see `.env.example`)
 
 ## Common Patterns
 

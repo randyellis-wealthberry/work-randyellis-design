@@ -36,28 +36,19 @@ const RESOURCE_HINTS = {
     { href: "https://vercel.live" },
   ] as PreconnectHint[],
 
-  // Preload for critical resources
+  // Preload for critical resources.
+  // NOTE: Geist / Geist Mono are loaded via next/font/google, which self-hosts
+  // and preloads them under hashed /_next/static/media paths — do NOT preload
+  // /fonts/*.woff2 here (those files don't exist and 404).
   preload: [
-    {
-      href: "/fonts/geist-variable.woff2",
-      as: "font",
-      type: "font/woff2",
-      crossOrigin: "anonymous",
-    },
-    {
-      href: "/fonts/geist-mono-variable.woff2",
-      as: "font",
-      type: "font/woff2",
-      crossOrigin: "anonymous",
-    },
     {
       href: "/manifest.json",
       as: "manifest",
     },
   ] as PreloadHint[],
 
-  // Prefetch for likely navigation
-  prefetch: ["/projects", "/about", "/contact", "/_next/static/css/app.css"],
+  // Prefetch for likely navigation (real routes only)
+  prefetch: ["/projects", "/about"],
 };
 
 export function DNSPrefetchHints() {

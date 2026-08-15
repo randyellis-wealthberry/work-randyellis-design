@@ -137,8 +137,8 @@ export function PersonStructuredData() {
         "@type": "Occupation",
         name: "AI Product Design Engineer",
         occupationLocation: {
-          "@type": "City",
-          name: "Chicago",
+          "@type": "Place",
+          name: "Remote (United States)",
         },
         skills: [
           "AI Product Design",
@@ -709,7 +709,7 @@ export function LocalBusinessStructuredData() {
     "@type": "LocalBusiness",
     name: "Randy Ellis Design Services",
     description:
-      "AI Product Design Engineering services specializing in generative AI implementation, design systems, and product leadership consulting in Chicago.",
+      "AI Product Design Engineering services specializing in generative AI implementation, design systems, and product leadership consulting, delivered remotely across the United States.",
     url: createAbsoluteUrl(),
     image: createAbsoluteUrl("/randy-ellis-profile.jpg"),
     email: "randy.ellis.pro@gmail.com",
@@ -721,20 +721,9 @@ export function LocalBusinessStructuredData() {
     },
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Chicago",
-      addressRegion: "IL",
       addressCountry: "US",
     },
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: "41.8781",
-      longitude: "-87.6298",
-    },
     areaServed: [
-      {
-        "@type": "Place",
-        name: "Chicago, IL",
-      },
       {
         "@type": "Place",
         name: "United States",

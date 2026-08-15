@@ -1,9 +1,12 @@
 # STATE — Recruiter-Readiness Milestone
 
-**Current phase:** 2 — Positioning ✅ COMPLETE (Phase 1 also complete)
-**Status:** CRED-01..05 + POS-01..05 shipped on branch chore/recruiter-readiness (not merged/deployed). PR #44 open.
-**Branch:** chore/recruiter-readiness (7 commits ahead of main)
-**Next action:** Phase 3 (readiness — booking link, resume PDF, client logos, homepage testimonials). Or merge PRs first.
+**Current phase:** MILESTONE COMPLETE ✅ — all 14 requirements shipped
+**Status:** CRED-01..05 + POS-01..05 + RDY-01..04 shipped on branch chore/recruiter-readiness (not merged/deployed). PR #44 open.
+**Branch:** chore/recruiter-readiness (14 commits ahead of main)
+**Next action:** Merge PR #44 after domain transfer settles + a visual pass (esp. logo bar in dark mode).
+
+## Booking link
+- Cal.com: https://cal.com/randyellis/30min (in lib/constants.ts as BOOKING_URL)
 
 ## Progress
 - [x] Project initialized (PROJECT.md, config.json, REQUIREMENTS.md, ROADMAP.md)
@@ -14,7 +17,13 @@
 - [x] CRED-04 fabricated schema removed (aggregateRating, fake telephone, google-verify placeholder)
 - [x] CRED-05 hidden keyword-SEO block deleted
 - [x] Phase 2 (positioning) — leadership hero, single title lane; brand already consistent
-- [ ] Phase 3 (readiness) — booking link, resume PDF, client logo bar, homepage testimonials
+- [x] Phase 3 (readiness) — RDY-01 booking + RDY-02 resume + RDY-03 logo bar + RDY-04 testimonials
+
+## Reconciliation decisions (resume vs site)
+- Experience: "20 years in design, 8+ leading teams" (qualified, both true)
+- Employer: hybrid — Chameleon Collective (Fractional VP Design) added alongside Wealthberry Labs
+- Location: remote (dropped Chicago geo from schema; project-history Chicago kept)
+- ⚠ Verify Chameleon Collective URL (https://www.chameleon.co) before deploy
 
 ## Follow-ups / notes
 - 4.8★ App Store rating kept per Randy (he'll provide proof); if not, revisit.
