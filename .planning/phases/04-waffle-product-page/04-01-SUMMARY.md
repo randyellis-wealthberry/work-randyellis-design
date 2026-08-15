@@ -115,6 +115,10 @@ None - no external service configuration required.
 - Not yet addressed (deferred to plan 02 per phase scope): WAF-02 — the badged "Live Product" card in the `/projects` grid linking to this page. `lib/data/projects.ts` and `app/projects/projects-client.tsx` were intentionally NOT touched by this plan.
 - Manual visual verification (light/dark theme render, amber contrast, screenshot PII check) remains deferred to the 04-03 checkpoint per the plan's `<verification>` section — not yet performed.
 
+## Self-Check: PASSED
+
+All 8 created files verified present on disk; all 4 commits (`e9d0553`, `6bd62e8`, `68cf912`, `92f983b`) verified present in git history.
+
 ---
 *Phase: 04-waffle-product-page*
 *Completed: 2026-08-15*
