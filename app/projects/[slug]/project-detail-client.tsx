@@ -39,7 +39,7 @@ import {
 } from "@/components/ui/vimeo-embed";
 import { AnimatedMetricCard } from "@/components/ui/animated-metric-card";
 import { GlobalRecommendations } from "@/components/ui/global-recommendations";
-import type { Project } from "../../data";
+import type { Project } from "@/lib/data/types";
 import { trackProjectLiveDemo, trackProjectGithub } from "@/lib/analytics";
 
 const VARIANTS_CONTAINER = {

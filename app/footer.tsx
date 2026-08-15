@@ -13,12 +13,6 @@ export function Footer() {
           </TextLoop>
         </a>
         <div className="flex items-center space-x-4 text-xs text-zinc-400">
-          <a
-            href="/archive"
-            className="text-zinc-400 transition-colors hover:text-zinc-600 dark:hover:text-zinc-300"
-          >
-            Archive
-          </a>
           <FooterThemeToggle />
         </div>
       </div>

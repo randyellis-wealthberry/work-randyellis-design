@@ -43,7 +43,7 @@ jest.mock("@/components/core/accordion", () => ({
 }));
 
 // Mock email utility
-jest.mock("@/app/data", () => ({
+jest.mock("@/lib/data", () => ({
   getEmail: () => "test@example.com",
 }));
 
