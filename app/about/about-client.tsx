@@ -23,6 +23,7 @@ import { getEmail } from "../data";
 import AvatarCircularText from "@/components/ui/avatar-circular-text";
 import { testimonials } from "@/lib/data/testimonials";
 import { BOOKING_URL } from "@/lib/constants";
+import { trackResumeDownload } from "@/lib/analytics";
 
 const achievements = [
   {
@@ -721,6 +722,15 @@ export default function AboutClient() {
             className="inline-flex items-center gap-2 rounded-lg border border-zinc-300 px-6 py-3 text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800"
           >
             Email me
+            <ExternalLink className="h-4 w-4" />
+          </a>
+          <a
+            href="/randy-ellis-resume.pdf"
+            download
+            onClick={() => trackResumeDownload()}
+            className="inline-flex items-center gap-2 rounded-lg border border-zinc-300 px-6 py-3 text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800"
+          >
+            Résumé (PDF)
             <ExternalLink className="h-4 w-4" />
           </a>
         </div>

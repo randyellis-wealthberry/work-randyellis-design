@@ -35,6 +35,7 @@ import {
   trackProjectHover,
   trackProjectView,
   trackContactIntent,
+  trackResumeDownload,
 } from "@/lib/analytics";
 import { FeatureFlagDemo } from "@/components/feature-flag-demo";
 import { TextGradientScroll } from "@/components/ui/text-gradient-scroll";
@@ -884,6 +885,14 @@ export default function Personal() {
             className="inline-flex items-center gap-2 rounded-lg border border-zinc-300 px-5 py-2.5 text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800"
           >
             Email me
+          </a>
+          <a
+            href="/randy-ellis-resume.pdf"
+            download
+            onClick={() => trackResumeDownload()}
+            className="inline-flex items-center gap-2 rounded-lg border border-zinc-300 px-5 py-2.5 text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800"
+          >
+            Résumé (PDF)
           </a>
         </div>
         <div className="flex items-center justify-start space-x-3">
