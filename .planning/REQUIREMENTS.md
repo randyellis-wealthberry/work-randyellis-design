@@ -75,38 +75,38 @@ Populated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FND-01 | TBD | Pending |
-| FND-02 | TBD | Pending |
-| FND-03 | TBD | Pending |
-| FND-04 | TBD | Pending |
-| TPL-01 | TBD | Pending |
-| TPL-02 | TBD | Pending |
-| TPL-03 | TBD | Pending |
-| TPL-04 | TBD | Pending |
-| MIG-01 | TBD | Pending |
-| MIG-02 | TBD | Pending |
-| MIG-03 | TBD | Pending |
-| MIG-04 | TBD | Pending |
-| CNT-01 | TBD | Pending |
-| CNT-02 | TBD | Pending |
-| CNT-03 | TBD | Pending |
-| CNT-04 | TBD | Pending |
-| CNT-05 | TBD | Pending |
-| CNT-06 | TBD | Pending |
-| CNT-07 | TBD | Pending |
-| CNT-08 | TBD | Pending |
-| CRED-06 | TBD | Pending |
-| CRED-07 | TBD | Pending |
-| CRED-08 | TBD | Pending |
-| CRED-09 | TBD | Pending |
-| DEBT-01 | TBD | Pending |
-| DEBT-02 | TBD | Pending |
+| FND-01 | Phase 5 | Pending |
+| FND-02 | Phase 5 | Pending |
+| FND-03 | Phase 5 | Pending |
+| FND-04 | Phase 5 | Pending |
+| TPL-01 | Phase 6 | Pending |
+| TPL-02 | Phase 6 | Pending |
+| TPL-03 | Phase 6 | Pending |
+| TPL-04 | Phase 6 | Pending |
+| MIG-01 | Phase 7 | Pending |
+| MIG-02 | Phase 7 | Pending |
+| MIG-03 | Phase 7 | Pending |
+| MIG-04 | Phase 7 | Pending |
+| CNT-01 | Phase 8 | Pending |
+| CNT-02 | Phase 8 | Pending |
+| CNT-03 | Phase 8 | Pending |
+| CNT-04 | Phase 8 | Pending |
+| CNT-05 | Phase 8 | Pending |
+| CNT-06 | Phase 8 | Pending |
+| CNT-07 | Phase 8 | Pending |
+| CNT-08 | Phase 8 | Pending |
+| CRED-06 | Phase 8 | Pending |
+| CRED-07 | Phase 8 | Pending |
+| CRED-08 | Phase 8 | Pending |
+| CRED-09 | Phase 9 | Pending |
+| DEBT-01 | Phase 5 | Pending |
+| DEBT-02 | Phase 5 | Pending |
 
 **Coverage:**
 - v1 requirements: 26 total
-- Mapped to phases: 0 (roadmap pending)
-- Unmapped: 26 ⚠️
+- Mapped to phases: 26/26 ✓
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-08-15*
-*Last updated: 2026-08-15 at milestone v2.0 start*
+*Last updated: 2026-08-15 — mapped to roadmap Phases 5-9*

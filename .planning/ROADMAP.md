@@ -3,6 +3,7 @@
 ## Milestones
 
 - ✅ **v1.0 Recruiter-Readiness** — Phases 1-4 (shipped 2026-08-15) — [archive](milestones/v1.0-ROADMAP.md)
+- 🚧 **v2.0 Case-Study Depth** — Phases 5-9 (in progress)
 
 ## Phases
 
@@ -19,6 +20,81 @@ Audit: [milestones/v1.0-MILESTONE-AUDIT.md](milestones/v1.0-MILESTONE-AUDIT.md) 
 
 </details>
 
+### 🚧 v2.0 Case-Study Depth (In Progress)
+
+**Milestone Goal:** Turn all 7 in-scope case-study project pages (growit, ohplays,
+ledgeriq, addvanced, echo, nagarro, rambis-ui — waffle excluded, it's a product
+showcase not a case study) from generic corporate summaries into first-person,
+decision-driven narratives that prove senior design leadership to a hiring manager,
+with every claim deck-backed and cross-surface-consistent.
+
+- [ ] **Phase 5: Foundation & Cleanup** - Fix the type-import blocker, delete duplicate/orphaned code, audit deck coverage before any content is written, and fold in unrelated tech debt
+- [ ] **Phase 6: Narrative Template & Data Model** - Build and pilot the decisions-with-rationale narrative components on growit before mass rollout
+- [ ] **Phase 7: Bespoke Convergence** - Insert the proven narrative components into the 4 bespoke standalone project pages
+- [ ] **Phase 8: Content Rewrite & Credibility Guardrails** - Rewrite all 7 case studies first-person, decision-driven, deck-backed, with credit-attribution and NDA guardrails enforced as acceptance criteria
+- [ ] **Phase 9: Cross-Surface Verification** - Reconcile visible copy, metadata, OG images, and JSON-LD across every touched project
+
+## Phase Details
+
+### Phase 5: Foundation & Cleanup
+**Goal**: The codebase is type-safe, duplicate-free, and audited for what content is genuinely backed by the deck — and unrelated pre-existing tech debt is cleared — before any narrative work begins.
+**Depends on**: Nothing (first phase of v2.0)
+**Requirements**: FND-01, FND-02, FND-03, FND-04, DEBT-01, DEBT-02
+**Success Criteria** (what must be TRUE):
+  1. `app/projects/[slug]/project-detail-client.tsx` imports `Project` from `lib/data/types.ts`; `app/data.ts` no longer exists; the project pages typecheck clean
+  2. Only one LedgerIQ URL exists (`/projects/ledgeriq`); the orphaned `/ledgeriq` root route is gone and no page links to it
+  3. A Backed / Partial / Unbacked coverage table exists for all 7 case-study projects against the 48-page deck, ready to gate Phase 8 content
+  4. `echo-client-final.tsx` and the abandoned `components/case-study/*` files are deleted; only live, imported files remain in the rewrite path
+  5. The POS-02 proof-chip subhead renders as chips (not dense text); clicking the Waffle "Live Product" badge has no dead zone
+**Plans**: TBD
+
+### Phase 6: Narrative Template & Data Model
+**Goal**: A proven, reusable set of narrative components — decision-with-rationale, in-page nav, reflection, role narrative — exist and render the full problem-to-reflection arc on at least one project, de-risking the pattern before it's applied to 6 more files.
+**Depends on**: Phase 5
+**Requirements**: TPL-01, TPL-02, TPL-03, TPL-04
+**Success Criteria** (what must be TRUE):
+  1. `lib/data/types.ts` has typed `decisions[]{title, decision, rationale, outcome}` and `roleNarrative` fields, populated for growit
+  2. `DecisionCallout`, `CaseStudyTOC`, `ReflectionBlock`, and `RoleNarrativeSection` render from props only (no project-specific strings/paths baked in), built from existing primitives + `@tailwindcss/typography` with zero new npm dependencies
+  3. growit's page renders problem → my role → decisions-with-rationale → measurable outcome → reflection, with no section rendering shallow
+  4. The pilot passes `npm run lint`, `npx tsc --noEmit`, and `npm test` clean before any other project is touched
+**Plans**: TBD
+**UI hint**: yes
+
+### Phase 7: Bespoke Convergence
+**Goal**: All 4 bespoke standalone project pages render the same narrative components proven in Phase 6, so all 7 in-scope case studies share one structurally consistent pattern before content is rewritten.
+**Depends on**: Phase 6
+**Requirements**: MIG-01, MIG-02, MIG-03, MIG-04
+**Success Criteria** (what must be TRUE):
+  1. addvanced's page renders `DecisionCallout`/`CaseStudyTOC`/`ReflectionBlock`/`RoleNarrativeSection` alongside its existing bespoke layout
+  2. echo is migrated via the live `echo-client.tsx` (the dead `-final` variant is never touched or reintroduced)
+  3. nagarro's page renders the same shared narrative components
+  4. rambis-ui's page renders the same shared narrative components
+  5. All 7 in-scope case-study pages (growit, ohplays, ledgeriq, addvanced, echo, nagarro, rambis-ui) share the identical narrative component set, verified file-by-file
+**Plans**: TBD
+**UI hint**: yes
+
+### Phase 8: Content Rewrite & Credibility Guardrails
+**Goal**: Every in-scope case study reads as a first-person, decision-driven, deck-backed narrative a hiring manager can trust — corporate "we" voice is gone and no claim is invented to fill a template slot.
+**Depends on**: Phase 7 (structural template must be in place on all 7 pages before content lands), Phase 5 (deck-coverage audit gates what may be written)
+**Requirements**: CNT-01, CNT-02, CNT-03, CNT-04, CNT-05, CNT-06, CNT-07, CNT-08, CRED-06, CRED-07, CRED-08
+**Success Criteria** (what must be TRUE):
+  1. All 7 projects (growit, ohplays, ledgeriq, addvanced, echo, nagarro, rambis-ui) read first-person ("I chose X because Y"), with challenges·solutions·learnings complete and no thin/empty sections
+  2. Every decision, rationale, and outcome traces to a Backed or Partial entry in the Phase 5 coverage audit; anything Unbacked is flagged to Randy, never invented
+  3. First-person "I" claims are checked against each project's `role`/`teamSize`; team-executed work (teamSize 3–15, director titles) is credited as "we"/"led," not misattributed as solo work
+  4. Randy has signed off on publishing deeper internal specificity for the real, named, still-operating clients (Nagarro, Echo) before that content ships
+  5. "Alternatives considered" and leadership-signal callouts (mentoring, influence, strategy) appear only where the deck genuinely supports them per project — never as uniform template fill
+**Plans**: TBD
+
+### Phase 9: Cross-Surface Verification
+**Goal**: For every project touched this milestone, what a hiring manager reads on the page matches what a recruiter sees in metadata, the OG image, and the page source — closing the milestone the way v1.0's audit remediation did.
+**Depends on**: Phase 8
+**Requirements**: CRED-09
+**Success Criteria** (what must be TRUE):
+  1. For each of the 7 touched projects, visible copy, `generateMetadata()` description, OG image, and JSON-LD (`CreativeWorkStructuredData`, `ProjectFAQStructuredData`) all agree — including the 5 standalone-route pages that don't inherit `[slug]`'s `generateMetadata()`
+  2. A grep sweep across `app/`, `lib/`, `components/seo/` finds no claim that was changed in one surface but left stale in another
+  3. `npm run lint`, `npx tsc --noEmit`, and `npm test` all pass clean across the full touched surface
+**Plans**: TBD
+
 ## Progress
 
 | Phase | Milestone | Plans Complete | Status | Completed |
@@ -27,6 +103,11 @@ Audit: [milestones/v1.0-MILESTONE-AUDIT.md](milestones/v1.0-MILESTONE-AUDIT.md) 
 | 2. Positioning & Messaging | v1.0 | pre-GSD (traced) | Complete | 2026-08-14 |
 | 3. Candidate Readiness | v1.0 | pre-GSD (traced) | Complete | 2026-08-14 |
 | 4. Waffle Product Page | v1.0 | 3/3 | Complete | 2026-08-15 |
+| 5. Foundation & Cleanup | v2.0 | 0/TBD | Not started | - |
+| 6. Narrative Template & Data Model | v2.0 | 0/TBD | Not started | - |
+| 7. Bespoke Convergence | v2.0 | 0/TBD | Not started | - |
+| 8. Content Rewrite & Credibility Guardrails | v2.0 | 0/TBD | Not started | - |
+| 9. Cross-Surface Verification | v2.0 | 0/TBD | Not started | - |
 
 ---
-*Last updated: 2026-08-15 after v1.0 milestone completion*
+*Last updated: 2026-08-15 — v2.0 Case-Study Depth roadmap created (Phases 5-9)*

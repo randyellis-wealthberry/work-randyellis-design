@@ -22,15 +22,16 @@ monetized AI SaaS.
 
 ## Current Milestone: v2.0 Case-Study Depth
 
-**Goal:** Turn all 8 project pages from generic corporate summaries into
-first-person, decision-driven case studies that prove senior design leadership
-to a hiring manager.
+**Goal:** Turn the 7 project case studies (growit, ohplays, ledgeriq, addvanced,
+echo, nagarro, rambis-ui) from generic corporate summaries into first-person,
+decision-driven case studies that prove senior design leadership to a hiring
+manager. (Waffle stays as its v1.0 product-showcase page — not a case study.)
 
 **Target features:**
 - Narrative template evolution — extend the `[slug]` layout to express
   problem → *my* role → key decisions *with rationale* → measurable outcome →
   reflection (the current template can't carry this structure)
-- Content rewrite (all 8 projects) — corporate "we developed…" voice →
+- Content rewrite (7 case studies) — corporate "we developed…" voice →
   first-person "I chose X because Y", deck-backed
 - Data completeness — fill thin/empty challenges·solutions·learnings so no
   section renders shallow
