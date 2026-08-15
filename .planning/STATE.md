@@ -1,9 +1,12 @@
 # STATE — Recruiter-Readiness Milestone
 
-**Current phase:** 2 — Positioning ✅ COMPLETE (Phase 1 also complete)
-**Status:** CRED-01..05 + POS-01..05 shipped on branch chore/recruiter-readiness (not merged/deployed). PR #44 open.
-**Branch:** chore/recruiter-readiness (7 commits ahead of main)
-**Next action:** Phase 3 (readiness — booking link, resume PDF, client logos, homepage testimonials). Or merge PRs first.
+**Current phase:** 3 — Readiness (in progress: RDY-01/04 done; RDY-02/03 need Randy's files)
+**Status:** CRED-01..05 + POS-01..05 + RDY-01/04 shipped on branch chore/recruiter-readiness (not merged/deployed). PR #44 open.
+**Branch:** chore/recruiter-readiness (9 commits ahead of main)
+**Next action:** RDY-02 (resume PDF) + RDY-03 (client logos) need files from Randy. Otherwise merge PR #44.
+
+## Booking link
+- Cal.com: https://cal.com/randyellis/30min (in lib/constants.ts as BOOKING_URL)
 
 ## Progress
 - [x] Project initialized (PROJECT.md, config.json, REQUIREMENTS.md, ROADMAP.md)
@@ -14,7 +17,7 @@
 - [x] CRED-04 fabricated schema removed (aggregateRating, fake telephone, google-verify placeholder)
 - [x] CRED-05 hidden keyword-SEO block deleted
 - [x] Phase 2 (positioning) — leadership hero, single title lane; brand already consistent
-- [ ] Phase 3 (readiness) — booking link, resume PDF, client logo bar, homepage testimonials
+- [~] Phase 3 (readiness) — RDY-01 booking + RDY-04 homepage testimonials done; RDY-02 resume + RDY-03 logos need files
 
 ## Follow-ups / notes
 - 4.8★ App Store rating kept per Randy (he'll provide proof); if not, revisit.

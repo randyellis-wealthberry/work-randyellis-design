@@ -46,10 +46,10 @@ REQ-ID format: `[CATEGORY]-[NN]`. All are v1 for this milestone.
 | POS-03 | 2 | ✅ Done (32929fd) — "ships code" differentiator front-loaded |
 | POS-04 | 2 | ✅ Done (32929fd) — single leadership lane (hero + metadata) |
 | POS-05 | 2 | ✅ Done — brand already consistent (no change needed) |
-| RDY-01 | 3 | Pending |
-| RDY-02 | 3 | Pending |
-| RDY-03 | 3 | Pending |
-| RDY-04 | 3 | Pending |
+| RDY-01 | 3 | ✅ Done (booking CTAs: hero + contact + about) |
+| RDY-02 | 3 | ⏸ Blocked — needs resume PDF from Randy |
+| RDY-03 | 3 | ⏸ Blocked — needs client logo files |
+| RDY-04 | 3 | ✅ Done (testimonials on homepage) |
 
 ---
 *Last updated: 2026-08-14*
