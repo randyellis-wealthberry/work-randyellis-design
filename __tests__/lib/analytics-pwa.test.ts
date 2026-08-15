@@ -26,49 +26,25 @@ describe("PWA Analytics Functions", () => {
     delete process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
   });
 
-  describe("trackPWAInstallPrompt", () => {
-    it("should track when PWA install prompt is shown", () => {
-      const { trackPWAInstallPrompt } = require("../../lib/analytics");
-
-      trackPWAInstallPrompt("beforeinstallprompt", "automatic", 3);
-
-      expect(mockGtag).toHaveBeenCalledWith("event", "pwa_install_prompt", {
-        event_category: "pwa_engagement",
-        event_label: "beforeinstallprompt",
-        event_type: "beforeinstallprompt",
-        trigger_source: "automatic",
-        session_visit_count: 3,
-      });
-
-      expect(mockTrack).toHaveBeenCalledWith("pwa_install_prompt", {
-        category: "pwa_engagement",
-        label: "beforeinstallprompt",
-        event_type: "beforeinstallprompt",
-        trigger_source: "automatic",
-        session_visit_count: 3,
-      });
-    });
-
-    it("should handle missing optional parameters", () => {
-      const { trackPWAInstallPrompt } = require("../../lib/analytics");
-
-      trackPWAInstallPrompt("manual");
-
-      expect(mockGtag).toHaveBeenCalledWith("event", "pwa_install_prompt", {
-        event_category: "pwa_engagement",
-        event_label: "manual",
-        event_type: "manual",
-      });
-
-      expect(mockTrack).toHaveBeenCalledWith("pwa_install_prompt", {
-        category: "pwa_engagement",
-        label: "manual",
-        event_type: "manual",
-      });
-    });
-  });
-
   describe("trackPWAInstallSuccess", () => {
+    it("should handle missing optional parameters", () => {
+      const { trackPWAInstallSuccess } = require("../../lib/analytics");
+
+      trackPWAInstallSuccess("accepted");
+
+      expect(mockGtag).toHaveBeenCalledWith("event", "pwa_install_success", {
+        event_category: "pwa_engagement",
+        event_label: "accepted",
+        outcome: "accepted",
+      });
+
+      expect(mockTrack).toHaveBeenCalledWith("pwa_install_success", {
+        category: "pwa_engagement",
+        label: "accepted",
+        outcome: "accepted",
+      });
+    });
+
     it("should track successful PWA installations", () => {
       const { trackPWAInstallSuccess } = require("../../lib/analytics");
 
@@ -231,16 +207,16 @@ describe("PWA Analytics Functions", () => {
       const originalGtag = window.gtag;
       delete (window as any).gtag;
 
-      const { trackPWAInstallPrompt } = require("../../lib/analytics");
+      const { trackPWAInstallSuccess } = require("../../lib/analytics");
 
       expect(() => {
-        trackPWAInstallPrompt("manual");
+        trackPWAInstallSuccess("accepted");
       }).not.toThrow();
 
-      expect(mockTrack).toHaveBeenCalledWith("pwa_install_prompt", {
+      expect(mockTrack).toHaveBeenCalledWith("pwa_install_success", {
         category: "pwa_engagement",
-        label: "manual",
-        event_type: "manual",
+        label: "accepted",
+        outcome: "accepted",
       });
 
       // Restore gtag

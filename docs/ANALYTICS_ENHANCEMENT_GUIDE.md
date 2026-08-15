@@ -4,12 +4,12 @@ This guide documents the comprehensive analytics enhancements implemented using 
 
 ## Overview
 
-The analytics system has been enhanced with 23 new tracking functions organized into 4 categories:
+The analytics system has been enhanced with 22 new tracking functions organized into 4 categories:
 
 - **SEO Analytics**: 5 functions for tracking search engine optimization interactions
 - **Blog Analytics**: 6 functions for tracking blog engagement and reading behavior
 - **Motion/Animation Analytics**: 6 functions for tracking user interactions with motion primitives
-- **PWA Analytics**: 7 functions for tracking Progressive Web App metrics
+- **PWA Analytics**: 6 functions for tracking Progressive Web App metrics
 
 All functions maintain dual tracking to both Google Analytics and Vercel Analytics for comprehensive coverage.
 
@@ -156,14 +156,6 @@ Tracks parallax scrolling interactions and performance.
 - **Use Case**: Measure parallax effect engagement and performance impact
 
 ## PWA Analytics Functions
-
-### `trackPWAInstallPrompt(eventType, triggerSource?, sessionVisitCount?)`
-
-Tracks PWA installation prompt displays and triggers.
-
-- **Category**: `pwa_engagement`
-- **Example**: `trackPWAInstallPrompt('beforeinstallprompt', 'automatic', 3)`
-- **Use Case**: Optimize install prompt timing and conversion rates
 
 ### `trackPWAInstallSuccess(outcome, browser?, platform?)`
 

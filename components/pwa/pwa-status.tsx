@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Wifi, WifiOff, Download } from "lucide-react";
+import { Wifi, WifiOff } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface PWAStatusProps {
@@ -120,89 +120,4 @@ export function useOnlineStatus() {
   return isOnline;
 }
 
-// Component that shows when service worker is updating
-export function ServiceWorkerUpdatePrompt() {
-  const [showUpdatePrompt, setShowUpdatePrompt] = useState(false);
-  const [registration, setRegistration] =
-    useState<ServiceWorkerRegistration | null>(null);
-
-  useEffect(() => {
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.ready.then((reg) => {
-        setRegistration(reg);
-
-        // Listen for waiting service worker
-        if (reg.waiting) {
-          setShowUpdatePrompt(true);
-        }
-
-        reg.addEventListener("updatefound", () => {
-          const newWorker = reg.installing;
-          if (newWorker) {
-            newWorker.addEventListener("statechange", () => {
-              if (
-                newWorker.state === "installed" &&
-                navigator.serviceWorker.controller
-              ) {
-                setShowUpdatePrompt(true);
-              }
-            });
-          }
-        });
-      });
-    }
-  }, []);
-
-  const handleUpdate = () => {
-    if (registration?.waiting) {
-      registration.waiting.postMessage({ type: "SKIP_WAITING" });
-      setShowUpdatePrompt(false);
-      window.location.reload();
-    }
-  };
-
-  const handleDismiss = () => {
-    setShowUpdatePrompt(false);
-  };
-
-  return (
-    <AnimatePresence>
-      {showUpdatePrompt && (
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 50 }}
-          className="fixed right-4 bottom-4 left-4 z-50 mx-auto max-w-sm"
-        >
-          <div className="rounded-lg bg-blue-500 p-4 text-white shadow-lg">
-            <div className="mb-2 flex items-center gap-3">
-              <Download className="h-5 w-5" />
-              <h3 className="font-semibold">Update Available</h3>
-            </div>
-            <p className="mb-3 text-sm opacity-90">
-              A new version of the app is available. Update now to get the
-              latest features.
-            </p>
-            <div className="flex gap-2">
-              <button
-                onClick={handleUpdate}
-                className="rounded bg-white px-4 py-2 text-sm font-medium text-blue-500 transition-colors hover:bg-gray-100"
-              >
-                Update
-              </button>
-              <button
-                onClick={handleDismiss}
-                className="rounded px-4 py-2 text-sm text-white transition-colors hover:bg-white/20"
-              >
-                Later
-              </button>
-            </div>
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
-}
-
-ServiceWorkerUpdatePrompt.displayName = "ServiceWorkerUpdatePrompt";
 PWAStatus.displayName = "PWAStatus";

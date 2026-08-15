@@ -711,25 +711,6 @@ export const trackRecommendationConversion = (
 
 // === PWA ANALYTICS EVENTS ===
 
-// Track PWA install prompt display
-export const trackPWAInstallPrompt = (
-  eventType: string,
-  triggerSource?: string,
-  sessionVisitCount?: number,
-) => {
-  trackEvent(
-    "pwa_install_prompt",
-    "pwa_engagement",
-    eventType,
-    undefined,
-    createProperties({
-      event_type: eventType,
-      trigger_source: triggerSource,
-      session_visit_count: sessionVisitCount,
-    }),
-  );
-};
-
 // Track PWA installation success
 export const trackPWAInstallSuccess = (
   outcome: string,
@@ -891,7 +872,6 @@ const analytics = {
   trackGlowEffectTrigger,
   trackParallaxScroll,
   // PWA tracking functions
-  trackPWAInstallPrompt,
   trackPWAInstallSuccess,
   trackOfflineUsage,
   trackServiceWorkerUpdate,
