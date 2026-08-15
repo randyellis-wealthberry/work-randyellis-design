@@ -165,3 +165,12 @@ None - no external service configuration required.
 ---
 *Phase: 05-foundation-cleanup*
 *Completed: 2026-08-15*
+
+## Self-Check: PASSED
+
+- All 12 claimed-deleted files confirmed MISSING on disk (app/ledgeriq/*, components/case-study/*, echo-client-final.tsx, app/archive/*, archive-thumbnail.tsx, app/data.ts)
+- All 4 claimed-live files confirmed FOUND (echo-client.tsx, next.config.js, app/page.tsx, projects-client.tsx)
+- All 5 commit hashes (0db34e7, b3f5595, 5d97790, 3413906, 70cefaf) confirmed present in `git log --oneline --all`
+- next.config.js redirect block confirmed to contain `async redirects()`, `source: "/ledgeriq"`, `destination: "/projects/ledgeriq"`, `permanent: true`
+- app/page.tsx and app/projects/projects-client.tsx confirmed to contain the DEBT-01/DEBT-02 literal strings claimed above
+- No missing items.
