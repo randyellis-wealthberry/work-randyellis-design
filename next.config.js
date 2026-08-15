@@ -122,7 +122,7 @@ const nextConfig = {
               enforce: true,
               reuseExistingChunk: true,
             },
-            
+
             // HIGH-PERFORMANCE LAZY LOADING
             lazyLoading: {
               test: /[\\/](use-optimized-lazy-loading|optimized-lazy|performance)[\\/]/,
@@ -130,7 +130,7 @@ const nextConfig = {
               chunks: "async",
               priority: 35,
             },
-            
+
             // THREE.JS ECOSYSTEM - Heavy libraries (lazy loaded)
             threejs: {
               test: /[\\/]node_modules[\\/](three|@react-three)[\\/]/,
@@ -139,7 +139,7 @@ const nextConfig = {
               priority: 30,
               maxSize: 150000, // Split large three.js bundles
             },
-            
+
             // ANIMATION LIBRARIES - Lazy loaded with size limits
             animations: {
               test: /[\\/]node_modules[\\/](motion|framer-motion|lottie|@lottiefiles)[\\/]/,
@@ -148,7 +148,7 @@ const nextConfig = {
               priority: 25,
               maxSize: 100000,
             },
-            
+
             // UI LIBRARIES - Optimized chunking
             ui: {
               test: /[\\/]node_modules[\\/](@radix-ui|lucide-react|@remixicon)[\\/]/,
@@ -157,7 +157,7 @@ const nextConfig = {
               priority: 20,
               maxSize: 80000,
             },
-            
+
             // UTILITIES - Small, frequently used
             utils: {
               test: /[\\/]node_modules[\\/](clsx|tailwind-merge|class-variance-authority)[\\/]/,
@@ -165,7 +165,7 @@ const nextConfig = {
               chunks: "all",
               priority: 15,
             },
-            
+
             // DEFAULT VENDOR - Don't split too aggressively to avoid module resolution issues
             vendor: {
               test: /[\\/]node_modules[\\/]/,
@@ -177,7 +177,7 @@ const nextConfig = {
             },
           },
         },
-        
+
         // ADVANCED OPTIMIZATIONS
         concatenateModules: true,
         mergeDuplicateChunks: true,
@@ -202,7 +202,10 @@ const nextConfig = {
     }
 
     // DEVELOPMENT OPTIMIZATIONS
-    if (dev) {
+    // NOTE: client only. Applying a custom `vendor` splitChunks group to the
+    // server build produces .next/server/vendor.js, which breaks the CommonJS
+    // server runtime with "exports is not defined". Next handles server bundling.
+    if (dev && !isServer) {
       // Speed up development builds
       config.optimization.splitChunks = {
         chunks: "all",
@@ -243,7 +246,6 @@ const nextConfig = {
   // OUTPUT OPTIMIZATION
   trailingSlash: false,
 
-    
   // HEADERS FOR CACHING - Enhanced
   async headers() {
     return [
@@ -260,7 +262,7 @@ const nextConfig = {
         source: "/fonts/(.*)",
         headers: [
           {
-            key: "Cache-Control", 
+            key: "Cache-Control",
             value: "public, max-age=31536000, immutable",
           },
         ],
