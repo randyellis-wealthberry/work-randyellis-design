@@ -182,50 +182,50 @@ case studies, and no other slide in the 48-page deck mentions Oh!Plays, Eight Bi
 sports-video product, or student-athlete testing. Every row below is Unbacked for the same
 reason; the Note column is not repeated per row.
 
-| Claim ID | Claim | Type | Source file:line |
-|---|---|---|---|
-| OHPLAYS-01 | metric: User Testing Success Rate 93% | metric | lib/data/projects.ts:204-207 |
-| OHPLAYS-02 | metric: User Onboarding Completion 89.7% | metric | lib/data/projects.ts:208-212 |
-| OHPLAYS-03 | metric: Student Recommendation Rate 87% | metric | lib/data/projects.ts:213-217 |
-| OHPLAYS-04 | metric: Feature Discovery Rate 76.4% | metric | lib/data/projects.ts:218-222 |
-| OHPLAYS-05 | metric: Video Quality Satisfaction 4.7★ | metric | lib/data/projects.ts:223-227 |
-| OHPLAYS-06 | metric: Video Export Success Rate 97.8% | metric | lib/data/projects.ts:230-234 |
-| OHPLAYS-07 | metric: Video Processing Speed 2.1x faster | metric | lib/data/projects.ts:235-239 |
-| OHPLAYS-08 | metric: Cross-Platform Compatibility 94.5% | metric | lib/data/projects.ts:240-244 |
-| OHPLAYS-09 | metric: Crash-Free Sessions 99.3% | metric | lib/data/projects.ts:245-249 |
-| OHPLAYS-10 | metric: Time to First Video 47 sec | metric | lib/data/projects.ts:250-254 |
-| OHPLAYS-11 | metric: Weekly Active Users 15K+ | metric | lib/data/projects.ts:257 |
-| OHPLAYS-12 | metric: Daily Active Users 8.2K | metric | lib/data/projects.ts:258 |
-| OHPLAYS-13 | metric: Average Session Duration 12.3 min | metric | lib/data/projects.ts:259-263 |
-| OHPLAYS-14 | metric: User Retention (7-day) 68.9% | metric | lib/data/projects.ts:264-268 |
-| OHPLAYS-15 | metric: Highlight Reels Created 50K+ | metric | lib/data/projects.ts:269-273 |
-| OHPLAYS-16 | metric: Social Share Success Rate 91.2% | metric | lib/data/projects.ts:276-280 |
-| OHPLAYS-17 | metric: Editing Time Reduction 67% | metric | lib/data/projects.ts:281-285 |
-| OHPLAYS-18 | metric: App Store Rating 4.6★ | metric | lib/data/projects.ts:286-290 |
-| OHPLAYS-19 | challenge: Simplifying complex video editing for mobile-first experience | challenge | lib/data/projects.ts:293 |
-| OHPLAYS-20 | challenge: Balancing feature richness with intuitive student athlete workflow | challenge | lib/data/projects.ts:294 |
-| OHPLAYS-21 | challenge: Optimizing video processing performance across iOS/Android | challenge | lib/data/projects.ts:295 |
-| OHPLAYS-22 | challenge: Creating engaging social features enhancing rather than distracting | challenge | lib/data/projects.ts:296 |
-| OHPLAYS-23 | challenge: Validating usability with real student athletes in authentic environments | challenge | lib/data/projects.ts:297 |
-| OHPLAYS-24 | solution: Gesture-based editing interface for mobile touchscreens | decision | lib/data/projects.ts:300 |
-| OHPLAYS-25 | solution: Preset sports-specific filters and transitions | decision | lib/data/projects.ts:301 |
-| OHPLAYS-26 | solution: Cloud-based video processing for cross-device performance | decision | lib/data/projects.ts:302 |
-| OHPLAYS-27 | solution: Social sharing integration (Instagram, Twitter, Facebook) | decision | lib/data/projects.ts:303 |
-| OHPLAYS-28 | solution: User testing with 15 high school students in school settings | decision | lib/data/projects.ts:304 |
-| OHPLAYS-29 | learning: Student athletes prioritize speed/simplicity over advanced features | learning | lib/data/projects.ts:307 |
-| OHPLAYS-30 | learning: Real-world testing reveals usability issues missed in lab settings | learning | lib/data/projects.ts:308 |
-| OHPLAYS-31 | learning: Sports content requires specialized editing tools | learning | lib/data/projects.ts:309 |
-| OHPLAYS-32 | learning: Social validation crucial for student athlete engagement | learning | lib/data/projects.ts:310 |
-| OHPLAYS-33 | learning: Cross-platform consistency essential for team sharing | learning | lib/data/projects.ts:311 |
-| OHPLAYS-34 | role: "UX Designer & Mobile Product Lead" | attribution | lib/data/projects.ts:314 |
-| OHPLAYS-35 | teamSize: 6 | attribution | lib/data/projects.ts:313 |
-| OHPLAYS-36 | timeline: "Q2 2017 - Q4 2017" | outcome | lib/data/projects.ts:189 |
-| OHPLAYS-37 | status: "completed" | outcome | lib/data/projects.ts:190 |
-| OHPLAYS-38 | processStory.keyInsights[0]: Speed Over Complexity (<3 min highlight reel) | rationale | lib/data/projects.ts:370 |
-| OHPLAYS-39 | processStory.keyInsights[1]: Social Validation Essential | rationale | lib/data/projects.ts:371 |
-| OHPLAYS-40 | processStory.keyInsights[2]: Environment-Specific Challenges | rationale | lib/data/projects.ts:372 |
-| OHPLAYS-41 | processStory.keyInsights[3]: Cross-Platform Expectations | rationale | lib/data/projects.ts:373 |
-| OHPLAYS-42 | processStory.outcome: "78% of content shared across social media platforms" | outcome | lib/data/projects.ts:376 |
+| Claim ID | Claim | Type | Source file:line | Verdict | Deck slide / source URL | Note |
+|---|---|---|---|---|---|---|
+| OHPLAYS-01 | metric: User Testing Success Rate 93% | metric | lib/data/projects.ts:204-207 | Unbacked | — | Deck's Agenda (Slide 2) scopes case studies to GrowIt and Addvance only; Oh!Plays never appears in the 48-page deck. |
+| OHPLAYS-02 | metric: User Onboarding Completion 89.7% | metric | lib/data/projects.ts:208-212 | Unbacked | — | Deck's Agenda (Slide 2) scopes case studies to GrowIt and Addvance only; Oh!Plays never appears in the 48-page deck. |
+| OHPLAYS-03 | metric: Student Recommendation Rate 87% | metric | lib/data/projects.ts:213-217 | Unbacked | — | Deck's Agenda (Slide 2) scopes case studies to GrowIt and Addvance only; Oh!Plays never appears in the 48-page deck. |
+| OHPLAYS-04 | metric: Feature Discovery Rate 76.4% | metric | lib/data/projects.ts:218-222 | Unbacked | — | Deck's Agenda (Slide 2) scopes case studies to GrowIt and Addvance only; Oh!Plays never appears in the 48-page deck. |
+| OHPLAYS-05 | metric: Video Quality Satisfaction 4.7★ | metric | lib/data/projects.ts:223-227 | Unbacked | — | Deck's Agenda (Slide 2) scopes case studies to GrowIt and Addvance only; Oh!Plays never appears in the 48-page deck. |
+| OHPLAYS-06 | metric: Video Export Success Rate 97.8% | metric | lib/data/projects.ts:230-234 | Unbacked | — | Deck's Agenda (Slide 2) scopes case studies to GrowIt and Addvance only; Oh!Plays never appears in the 48-page deck. |
+| OHPLAYS-07 | metric: Video Processing Speed 2.1x faster | metric | lib/data/projects.ts:235-239 | Unbacked | — | Deck's Agenda (Slide 2) scopes case studies to GrowIt and Addvance only; Oh!Plays never appears in the 48-page deck. |
+| OHPLAYS-08 | metric: Cross-Platform Compatibility 94.5% | metric | lib/data/projects.ts:240-244 | Unbacked | — | Deck's Agenda (Slide 2) scopes case studies to GrowIt and Addvance only; Oh!Plays never appears in the 48-page deck. |
+| OHPLAYS-09 | metric: Crash-Free Sessions 99.3% | metric | lib/data/projects.ts:245-249 | Unbacked | — | Deck's Agenda (Slide 2) scopes case studies to GrowIt and Addvance only; Oh!Plays never appears in the 48-page deck. |
+| OHPLAYS-10 | metric: Time to First Video 47 sec | metric | lib/data/projects.ts:250-254 | Unbacked | — | Deck's Agenda (Slide 2) scopes case studies to GrowIt and Addvance only; Oh!Plays never appears in the 48-page deck. |
+| OHPLAYS-11 | metric: Weekly Active Users 15K+ | metric | lib/data/projects.ts:257 | Unbacked | — | Deck's Agenda (Slide 2) scopes case studies to GrowIt and Addvance only; Oh!Plays never appears in the 48-page deck. |
+| OHPLAYS-12 | metric: Daily Active Users 8.2K | metric | lib/data/projects.ts:258 | Unbacked | — | Deck's Agenda (Slide 2) scopes case studies to GrowIt and Addvance only; Oh!Plays never appears in the 48-page deck. |
+| OHPLAYS-13 | metric: Average Session Duration 12.3 min | metric | lib/data/projects.ts:259-263 | Unbacked | — | Deck's Agenda (Slide 2) scopes case studies to GrowIt and Addvance only; Oh!Plays never appears in the 48-page deck. |
+| OHPLAYS-14 | metric: User Retention (7-day) 68.9% | metric | lib/data/projects.ts:264-268 | Unbacked | — | Deck's Agenda (Slide 2) scopes case studies to GrowIt and Addvance only; Oh!Plays never appears in the 48-page deck. |
+| OHPLAYS-15 | metric: Highlight Reels Created 50K+ | metric | lib/data/projects.ts:269-273 | Unbacked | — | Deck's Agenda (Slide 2) scopes case studies to GrowIt and Addvance only; Oh!Plays never appears in the 48-page deck. |
+| OHPLAYS-16 | metric: Social Share Success Rate 91.2% | metric | lib/data/projects.ts:276-280 | Unbacked | — | Deck's Agenda (Slide 2) scopes case studies to GrowIt and Addvance only; Oh!Plays never appears in the 48-page deck. |
+| OHPLAYS-17 | metric: Editing Time Reduction 67% | metric | lib/data/projects.ts:281-285 | Unbacked | — | Deck's Agenda (Slide 2) scopes case studies to GrowIt and Addvance only; Oh!Plays never appears in the 48-page deck. |
+| OHPLAYS-18 | metric: App Store Rating 4.6★ | metric | lib/data/projects.ts:286-290 | Unbacked | — | Deck's Agenda (Slide 2) scopes case studies to GrowIt and Addvance only; Oh!Plays never appears in the 48-page deck. |
+| OHPLAYS-19 | challenge: Simplifying complex video editing for mobile-first experience | challenge | lib/data/projects.ts:293 | Unbacked | — | Deck's Agenda (Slide 2) scopes case studies to GrowIt and Addvance only; Oh!Plays never appears in the 48-page deck. |
+| OHPLAYS-20 | challenge: Balancing feature richness with intuitive student athlete workflow | challenge | lib/data/projects.ts:294 | Unbacked | — | Deck's Agenda (Slide 2) scopes case studies to GrowIt and Addvance only; Oh!Plays never appears in the 48-page deck. |
+| OHPLAYS-21 | challenge: Optimizing video processing performance across iOS/Android | challenge | lib/data/projects.ts:295 | Unbacked | — | Deck's Agenda (Slide 2) scopes case studies to GrowIt and Addvance only; Oh!Plays never appears in the 48-page deck. |
+| OHPLAYS-22 | challenge: Creating engaging social features enhancing rather than distracting | challenge | lib/data/projects.ts:296 | Unbacked | — | Deck's Agenda (Slide 2) scopes case studies to GrowIt and Addvance only; Oh!Plays never appears in the 48-page deck. |
+| OHPLAYS-23 | challenge: Validating usability with real student athletes in authentic environments | challenge | lib/data/projects.ts:297 | Unbacked | — | Deck's Agenda (Slide 2) scopes case studies to GrowIt and Addvance only; Oh!Plays never appears in the 48-page deck. |
+| OHPLAYS-24 | solution: Gesture-based editing interface for mobile touchscreens | decision | lib/data/projects.ts:300 | Unbacked | — | Deck's Agenda (Slide 2) scopes case studies to GrowIt and Addvance only; Oh!Plays never appears in the 48-page deck. |
+| OHPLAYS-25 | solution: Preset sports-specific filters and transitions | decision | lib/data/projects.ts:301 | Unbacked | — | Deck's Agenda (Slide 2) scopes case studies to GrowIt and Addvance only; Oh!Plays never appears in the 48-page deck. |
+| OHPLAYS-26 | solution: Cloud-based video processing for cross-device performance | decision | lib/data/projects.ts:302 | Unbacked | — | Deck's Agenda (Slide 2) scopes case studies to GrowIt and Addvance only; Oh!Plays never appears in the 48-page deck. |
+| OHPLAYS-27 | solution: Social sharing integration (Instagram, Twitter, Facebook) | decision | lib/data/projects.ts:303 | Unbacked | — | Deck's Agenda (Slide 2) scopes case studies to GrowIt and Addvance only; Oh!Plays never appears in the 48-page deck. |
+| OHPLAYS-28 | solution: User testing with 15 high school students in school settings | decision | lib/data/projects.ts:304 | Unbacked | — | Deck's Agenda (Slide 2) scopes case studies to GrowIt and Addvance only; Oh!Plays never appears in the 48-page deck. |
+| OHPLAYS-29 | learning: Student athletes prioritize speed/simplicity over advanced features | learning | lib/data/projects.ts:307 | Unbacked | — | Deck's Agenda (Slide 2) scopes case studies to GrowIt and Addvance only; Oh!Plays never appears in the 48-page deck. |
+| OHPLAYS-30 | learning: Real-world testing reveals usability issues missed in lab settings | learning | lib/data/projects.ts:308 | Unbacked | — | Deck's Agenda (Slide 2) scopes case studies to GrowIt and Addvance only; Oh!Plays never appears in the 48-page deck. |
+| OHPLAYS-31 | learning: Sports content requires specialized editing tools | learning | lib/data/projects.ts:309 | Unbacked | — | Deck's Agenda (Slide 2) scopes case studies to GrowIt and Addvance only; Oh!Plays never appears in the 48-page deck. |
+| OHPLAYS-32 | learning: Social validation crucial for student athlete engagement | learning | lib/data/projects.ts:310 | Unbacked | — | Deck's Agenda (Slide 2) scopes case studies to GrowIt and Addvance only; Oh!Plays never appears in the 48-page deck. |
+| OHPLAYS-33 | learning: Cross-platform consistency essential for team sharing | learning | lib/data/projects.ts:311 | Unbacked | — | Deck's Agenda (Slide 2) scopes case studies to GrowIt and Addvance only; Oh!Plays never appears in the 48-page deck. |
+| OHPLAYS-34 | role: "UX Designer & Mobile Product Lead" | attribution | lib/data/projects.ts:314 | Unbacked | — | Deck's Agenda (Slide 2) scopes case studies to GrowIt and Addvance only; Oh!Plays never appears in the 48-page deck. |
+| OHPLAYS-35 | teamSize: 6 | attribution | lib/data/projects.ts:313 | Unbacked | — | Deck's Agenda (Slide 2) scopes case studies to GrowIt and Addvance only; Oh!Plays never appears in the 48-page deck. |
+| OHPLAYS-36 | timeline: "Q2 2017 - Q4 2017" | outcome | lib/data/projects.ts:189 | Unbacked | — | Deck's Agenda (Slide 2) scopes case studies to GrowIt and Addvance only; Oh!Plays never appears in the 48-page deck. |
+| OHPLAYS-37 | status: "completed" | outcome | lib/data/projects.ts:190 | Unbacked | — | Deck's Agenda (Slide 2) scopes case studies to GrowIt and Addvance only; Oh!Plays never appears in the 48-page deck. |
+| OHPLAYS-38 | processStory.keyInsights[0]: Speed Over Complexity (<3 min highlight reel) | rationale | lib/data/projects.ts:370 | Unbacked | — | Deck's Agenda (Slide 2) scopes case studies to GrowIt and Addvance only; Oh!Plays never appears in the 48-page deck. |
+| OHPLAYS-39 | processStory.keyInsights[1]: Social Validation Essential | rationale | lib/data/projects.ts:371 | Unbacked | — | Deck's Agenda (Slide 2) scopes case studies to GrowIt and Addvance only; Oh!Plays never appears in the 48-page deck. |
+| OHPLAYS-40 | processStory.keyInsights[2]: Environment-Specific Challenges | rationale | lib/data/projects.ts:372 | Unbacked | — | Deck's Agenda (Slide 2) scopes case studies to GrowIt and Addvance only; Oh!Plays never appears in the 48-page deck. |
+| OHPLAYS-41 | processStory.keyInsights[3]: Cross-Platform Expectations | rationale | lib/data/projects.ts:373 | Unbacked | — | Deck's Agenda (Slide 2) scopes case studies to GrowIt and Addvance only; Oh!Plays never appears in the 48-page deck. |
+| OHPLAYS-42 | processStory.outcome: "78% of content shared across social media platforms" | outcome | lib/data/projects.ts:376 | Unbacked | — | Deck's Agenda (Slide 2) scopes case studies to GrowIt and Addvance only; Oh!Plays never appears in the 48-page deck. |
 
 All 42 rows above: **Unbacked** — Deck slide / source URL: **—**.
 
@@ -235,43 +235,43 @@ Deck has **zero** coverage of LedgerIQ — no slide in the 48-page deck mentions
 fraud detection, or anomaly-detection AI. See the dedicated CONTRADICTION block below for the
 D-03 hard entry, which applies independently of this table.
 
-| Claim ID | Claim | Type | Source file:line |
-|---|---|---|---|
-| LEDGERIQ-01 | metric: Payroll Error Reduction 78% | metric | lib/data/projects.ts:428 |
-| LEDGERIQ-02 | metric: Annual Cost Savings $180K | metric | lib/data/projects.ts:429 |
-| LEDGERIQ-03 | metric: Anomaly Detection Rate 92% | metric | lib/data/projects.ts:430 |
-| LEDGERIQ-04 | metric: Time Savings Per Cycle 65% | metric | lib/data/projects.ts:431 |
-| LEDGERIQ-05 | metric: False Positive Rate <10% | metric | lib/data/projects.ts:432 |
-| LEDGERIQ-06 | metric: ROI Achievement 6 months | metric | lib/data/projects.ts:433 |
-| LEDGERIQ-07 | challenge: 10 hours manual audit work per pay cycle | challenge | lib/data/projects.ts:436 |
-| LEDGERIQ-08 | challenge: Persistent small errors slipping through rule-based systems | challenge | lib/data/projects.ts:437 |
-| LEDGERIQ-09 | challenge: Growing fraud risk exposure with manual oversight | challenge | lib/data/projects.ts:438 |
-| LEDGERIQ-10 | challenge: Reactive problem-solving damaging employee trust | challenge | lib/data/projects.ts:439 |
-| LEDGERIQ-11 | challenge: Legacy payroll systems with complex integration requirements | challenge | lib/data/projects.ts:440 |
-| LEDGERIQ-12 | challenge: Balancing fraud detection accuracy with false-positive minimization | challenge | lib/data/projects.ts:441 |
-| LEDGERIQ-13 | solution: Hybrid AI models (isolation forests + neural networks) | decision | lib/data/projects.ts:444 |
-| LEDGERIQ-14 | solution: Real-time data pipeline for immediate anomaly detection | decision | lib/data/projects.ts:445 |
-| LEDGERIQ-15 | solution: Context-aware intelligence understanding payroll patterns | decision | lib/data/projects.ts:446 |
-| LEDGERIQ-16 | solution: Iterative feedback loops for continuous model improvement | decision | lib/data/projects.ts:447 |
-| LEDGERIQ-17 | solution: Intuitive dashboard for actionable insights | decision | lib/data/projects.ts:448 |
-| LEDGERIQ-18 | solution: Microservice architecture for scalable enterprise deployment | decision | lib/data/projects.ts:449 |
-| LEDGERIQ-19 | learning: Human-centered AI amplifies rather than replaces human judgment | learning | lib/data/projects.ts:452 |
-| LEDGERIQ-20 | learning: Context-aware ML crucial for minimizing false positives | learning | lib/data/projects.ts:453 |
-| LEDGERIQ-21 | learning: Real-time processing must balance system performance | learning | lib/data/projects.ts:454 |
-| LEDGERIQ-22 | learning: Continuous feedback loops essential for user trust | learning | lib/data/projects.ts:455 |
-| LEDGERIQ-23 | learning: Enterprise AI requires modular white-label architecture | learning | lib/data/projects.ts:456 |
-| LEDGERIQ-24 | role: "AI Product Lead & Technical Architect" | attribution | lib/data/projects.ts:459 |
-| LEDGERIQ-25 | teamSize: 8 | attribution | lib/data/projects.ts:458 |
-| LEDGERIQ-26 | timeline: "Q1 2023 - Q3 2023" | outcome | lib/data/projects.ts:412 |
-| LEDGERIQ-27 | status: "completed" | outcome | lib/data/projects.ts:413 |
-| LEDGERIQ-28 | processStory.keyInsights[0]: Human-Centered AI | rationale | lib/data/projects.ts:511 |
-| LEDGERIQ-29 | processStory.keyInsights[1]: Context-Aware Intelligence | rationale | lib/data/projects.ts:512 |
-| LEDGERIQ-30 | processStory.keyInsights[2]: Iterative Feedback Loops | rationale | lib/data/projects.ts:513 |
-| LEDGERIQ-31 | processStory.keyInsights[3]: Real-Time + Batch Hybrid | rationale | lib/data/projects.ts:514 |
-| LEDGERIQ-32 | processStory.outcome: "$50,000 in prevented fraud losses" | outcome | lib/data/projects.ts:517 |
-| LEDGERIQ-33 | processStory.outcome: "zero compliance penalties post-implementation" | outcome | lib/data/projects.ts:517 |
-| LEDGERIQ-34 | processStory.outcome: "15% increase in employee payroll satisfaction" | outcome | lib/data/projects.ts:517 |
-| LEDGERIQ-35 | processStory.outcome: "90%+ precision with minimal false positives" | outcome | lib/data/projects.ts:517 |
+| Claim ID | Claim | Type | Source file:line | Verdict | Deck slide / source URL | Note |
+|---|---|---|---|---|---|---|
+| LEDGERIQ-01 | metric: Payroll Error Reduction 78% | metric | lib/data/projects.ts:428 | Unbacked | — | No slide in the 48-page deck mentions LedgerIQ, payroll fraud detection, or anomaly-detection AI. |
+| LEDGERIQ-02 | metric: Annual Cost Savings $180K | metric | lib/data/projects.ts:429 | Unbacked | — | No slide in the 48-page deck mentions LedgerIQ, payroll fraud detection, or anomaly-detection AI. |
+| LEDGERIQ-03 | metric: Anomaly Detection Rate 92% | metric | lib/data/projects.ts:430 | Unbacked | — | No slide in the 48-page deck mentions LedgerIQ, payroll fraud detection, or anomaly-detection AI. |
+| LEDGERIQ-04 | metric: Time Savings Per Cycle 65% | metric | lib/data/projects.ts:431 | Unbacked | — | No slide in the 48-page deck mentions LedgerIQ, payroll fraud detection, or anomaly-detection AI. |
+| LEDGERIQ-05 | metric: False Positive Rate <10% | metric | lib/data/projects.ts:432 | Unbacked | — | No slide in the 48-page deck mentions LedgerIQ, payroll fraud detection, or anomaly-detection AI. |
+| LEDGERIQ-06 | metric: ROI Achievement 6 months | metric | lib/data/projects.ts:433 | Unbacked | — | No slide in the 48-page deck mentions LedgerIQ, payroll fraud detection, or anomaly-detection AI. |
+| LEDGERIQ-07 | challenge: 10 hours manual audit work per pay cycle | challenge | lib/data/projects.ts:436 | Unbacked | — | No slide in the 48-page deck mentions LedgerIQ, payroll fraud detection, or anomaly-detection AI. |
+| LEDGERIQ-08 | challenge: Persistent small errors slipping through rule-based systems | challenge | lib/data/projects.ts:437 | Unbacked | — | No slide in the 48-page deck mentions LedgerIQ, payroll fraud detection, or anomaly-detection AI. |
+| LEDGERIQ-09 | challenge: Growing fraud risk exposure with manual oversight | challenge | lib/data/projects.ts:438 | Unbacked | — | No slide in the 48-page deck mentions LedgerIQ, payroll fraud detection, or anomaly-detection AI. |
+| LEDGERIQ-10 | challenge: Reactive problem-solving damaging employee trust | challenge | lib/data/projects.ts:439 | Unbacked | — | No slide in the 48-page deck mentions LedgerIQ, payroll fraud detection, or anomaly-detection AI. |
+| LEDGERIQ-11 | challenge: Legacy payroll systems with complex integration requirements | challenge | lib/data/projects.ts:440 | Unbacked | — | No slide in the 48-page deck mentions LedgerIQ, payroll fraud detection, or anomaly-detection AI. |
+| LEDGERIQ-12 | challenge: Balancing fraud detection accuracy with false-positive minimization | challenge | lib/data/projects.ts:441 | Unbacked | — | No slide in the 48-page deck mentions LedgerIQ, payroll fraud detection, or anomaly-detection AI. |
+| LEDGERIQ-13 | solution: Hybrid AI models (isolation forests + neural networks) | decision | lib/data/projects.ts:444 | Unbacked | — | No slide in the 48-page deck mentions LedgerIQ, payroll fraud detection, or anomaly-detection AI. |
+| LEDGERIQ-14 | solution: Real-time data pipeline for immediate anomaly detection | decision | lib/data/projects.ts:445 | Unbacked | — | No slide in the 48-page deck mentions LedgerIQ, payroll fraud detection, or anomaly-detection AI. |
+| LEDGERIQ-15 | solution: Context-aware intelligence understanding payroll patterns | decision | lib/data/projects.ts:446 | Unbacked | — | No slide in the 48-page deck mentions LedgerIQ, payroll fraud detection, or anomaly-detection AI. |
+| LEDGERIQ-16 | solution: Iterative feedback loops for continuous model improvement | decision | lib/data/projects.ts:447 | Unbacked | — | No slide in the 48-page deck mentions LedgerIQ, payroll fraud detection, or anomaly-detection AI. |
+| LEDGERIQ-17 | solution: Intuitive dashboard for actionable insights | decision | lib/data/projects.ts:448 | Unbacked | — | No slide in the 48-page deck mentions LedgerIQ, payroll fraud detection, or anomaly-detection AI. |
+| LEDGERIQ-18 | solution: Microservice architecture for scalable enterprise deployment | decision | lib/data/projects.ts:449 | Unbacked | — | No slide in the 48-page deck mentions LedgerIQ, payroll fraud detection, or anomaly-detection AI. |
+| LEDGERIQ-19 | learning: Human-centered AI amplifies rather than replaces human judgment | learning | lib/data/projects.ts:452 | Unbacked | — | No slide in the 48-page deck mentions LedgerIQ, payroll fraud detection, or anomaly-detection AI. |
+| LEDGERIQ-20 | learning: Context-aware ML crucial for minimizing false positives | learning | lib/data/projects.ts:453 | Unbacked | — | No slide in the 48-page deck mentions LedgerIQ, payroll fraud detection, or anomaly-detection AI. |
+| LEDGERIQ-21 | learning: Real-time processing must balance system performance | learning | lib/data/projects.ts:454 | Unbacked | — | No slide in the 48-page deck mentions LedgerIQ, payroll fraud detection, or anomaly-detection AI. |
+| LEDGERIQ-22 | learning: Continuous feedback loops essential for user trust | learning | lib/data/projects.ts:455 | Unbacked | — | No slide in the 48-page deck mentions LedgerIQ, payroll fraud detection, or anomaly-detection AI. |
+| LEDGERIQ-23 | learning: Enterprise AI requires modular white-label architecture | learning | lib/data/projects.ts:456 | Unbacked | — | No slide in the 48-page deck mentions LedgerIQ, payroll fraud detection, or anomaly-detection AI. |
+| LEDGERIQ-24 | role: "AI Product Lead & Technical Architect" | attribution | lib/data/projects.ts:459 | Unbacked | — | No slide in the 48-page deck mentions LedgerIQ, payroll fraud detection, or anomaly-detection AI. |
+| LEDGERIQ-25 | teamSize: 8 | attribution | lib/data/projects.ts:458 | Unbacked | — | No slide in the 48-page deck mentions LedgerIQ, payroll fraud detection, or anomaly-detection AI. |
+| LEDGERIQ-26 | timeline: "Q1 2023 - Q3 2023" | outcome | lib/data/projects.ts:412 | Unbacked | — | No slide in the 48-page deck mentions LedgerIQ, payroll fraud detection, or anomaly-detection AI. |
+| LEDGERIQ-27 | status: "completed" | outcome | lib/data/projects.ts:413 | Unbacked | — | No slide in the 48-page deck mentions LedgerIQ, payroll fraud detection, or anomaly-detection AI. |
+| LEDGERIQ-28 | processStory.keyInsights[0]: Human-Centered AI | rationale | lib/data/projects.ts:511 | Unbacked | — | No slide in the 48-page deck mentions LedgerIQ, payroll fraud detection, or anomaly-detection AI. |
+| LEDGERIQ-29 | processStory.keyInsights[1]: Context-Aware Intelligence | rationale | lib/data/projects.ts:512 | Unbacked | — | No slide in the 48-page deck mentions LedgerIQ, payroll fraud detection, or anomaly-detection AI. |
+| LEDGERIQ-30 | processStory.keyInsights[2]: Iterative Feedback Loops | rationale | lib/data/projects.ts:513 | Unbacked | — | No slide in the 48-page deck mentions LedgerIQ, payroll fraud detection, or anomaly-detection AI. |
+| LEDGERIQ-31 | processStory.keyInsights[3]: Real-Time + Batch Hybrid | rationale | lib/data/projects.ts:514 | Unbacked | — | No slide in the 48-page deck mentions LedgerIQ, payroll fraud detection, or anomaly-detection AI. |
+| LEDGERIQ-32 | processStory.outcome: "$50,000 in prevented fraud losses" | outcome | lib/data/projects.ts:517 | Unbacked | — | No slide in the 48-page deck mentions LedgerIQ, payroll fraud detection, or anomaly-detection AI. |
+| LEDGERIQ-33 | processStory.outcome: "zero compliance penalties post-implementation" | outcome | lib/data/projects.ts:517 | Unbacked | — | No slide in the 48-page deck mentions LedgerIQ, payroll fraud detection, or anomaly-detection AI. |
+| LEDGERIQ-34 | processStory.outcome: "15% increase in employee payroll satisfaction" | outcome | lib/data/projects.ts:517 | Unbacked | — | No slide in the 48-page deck mentions LedgerIQ, payroll fraud detection, or anomaly-detection AI. |
+| LEDGERIQ-35 | processStory.outcome: "90%+ precision with minimal false positives" | outcome | lib/data/projects.ts:517 | Unbacked | — | No slide in the 48-page deck mentions LedgerIQ, payroll fraud detection, or anomaly-detection AI. |
 
 All 35 rows above: **Unbacked** — Deck slide / source URL: **—**.
 
@@ -391,45 +391,45 @@ in `lib/data/projects.ts`, or independently re-derives deck-accurate figures):
 Deck has **zero** coverage of EchoDrive — no slide mentions Echo Global Logistics, ELD
 compliance, or trucking/logistics of any kind.
 
-| Claim ID | Claim | Type | Source file:line |
-|---|---|---|---|
-| ECHO-01 | metric: Active Drivers 10,000+ | metric | lib/data/projects.ts:787 |
-| ECHO-02 | metric: LTL Revenue Increase 16% | metric | lib/data/projects.ts:788 |
-| ECHO-03 | metric: Shipment Volume Growth 12% | metric | lib/data/projects.ts:789 |
-| ECHO-04 | metric: Beta Downloads 1,000+ | metric | lib/data/projects.ts:790 |
-| ECHO-05 | metric: Call Center Stress Reduction "Significant" | metric | lib/data/projects.ts:791 |
-| ECHO-06 | metric: ELD Compliance 100% | metric | lib/data/projects.ts:792 |
-| ECHO-07 | challenge: Outdated coordination methods between shippers/drivers/dispatch | challenge | lib/data/projects.ts:795 |
-| ECHO-08 | challenge: ELD Mandate compliance need | challenge | lib/data/projects.ts:796 |
-| ECHO-09 | challenge: Limited truckload visibility stressing call centers | challenge | lib/data/projects.ts:797 |
-| ECHO-10 | challenge: Underperforming LTL revenues requiring self-serve booking | challenge | lib/data/projects.ts:798 |
-| ECHO-11 | challenge: Low driver engagement/adoption of digital solutions | challenge | lib/data/projects.ts:799 |
-| ECHO-12 | challenge: Complex driver/dispatch/customer communication workflows | challenge | lib/data/projects.ts:800 |
-| ECHO-13 | solution: On-site interviews with drivers and dispatch officers | decision | lib/data/projects.ts:803 |
-| ECHO-14 | solution: Dual-platform (native mobile + web dispatch) architecture | decision | lib/data/projects.ts:804 |
-| ECHO-15 | solution: Onboarding tutorials + communication platform | decision | lib/data/projects.ts:805 |
-| ECHO-16 | solution: Electronic logging for ELD compliance | decision | lib/data/projects.ts:806 |
-| ECHO-17 | solution: Invoice/payment tracking functionality | decision | lib/data/projects.ts:807 |
-| ECHO-18 | solution: Driver-focused mobile UX for varied working conditions | decision | lib/data/projects.ts:808 |
-| ECHO-19 | learning: Field research critical for real-world workflows | learning | lib/data/projects.ts:811 |
-| ECHO-20 | learning: Cross-platform consistency ensures seamless UX transitions | learning | lib/data/projects.ts:812 |
-| ECHO-21 | learning: Stakeholder engagement ensures business/user fit | learning | lib/data/projects.ts:813 |
-| ECHO-22 | learning: Scalability planning enables beta-to-thousands growth | learning | lib/data/projects.ts:814 |
-| ECHO-23 | learning: Industry-specific logistics domain expertise essential | learning | lib/data/projects.ts:815 |
-| ECHO-24 | learning: Driver feedback integration improves adoption | learning | lib/data/projects.ts:816 |
-| ECHO-25 | role: "Product Designer & Frontend Lead" | attribution | lib/data/projects.ts:819 |
-| ECHO-26 | teamSize: 6 | attribution | lib/data/projects.ts:818 |
-| ECHO-27 | timeline: "Alpha → Beta → Launch" | outcome | lib/data/projects.ts:771 |
-| ECHO-28 | status: "completed" | outcome | lib/data/projects.ts:772 |
-| ECHO-29 | processStory.keyInsights[0]: Field Research Critical | rationale | lib/data/projects.ts:874 |
-| ECHO-30 | processStory.keyInsights[1]: ELD Compliance as Innovation Driver | rationale | lib/data/projects.ts:875 |
-| ECHO-31 | processStory.keyInsights[2]: Driver Experience Design Challenges | rationale | lib/data/projects.ts:876 |
-| ECHO-32 | processStory.keyInsights[3]: Cross-Platform Integration Essential | rationale | lib/data/projects.ts:877 |
-| ECHO-33 | processStory.keyInsights[4]: Industry-Specific Workflows Matter | rationale | lib/data/projects.ts:878 |
-| ECHO-34 | processStory.outcome: "16% increase in LTL shipment revenues to $184.4 million" | outcome | lib/data/projects.ts:881 |
-| ECHO-35 | quote: Operations Director, Echo Global Logistics — "16% revenue increase..." | quote | lib/data/projects.ts:886-889 |
-| ECHO-36 | quote: Fleet Manager, Echo Global Logistics — "10,000+ active adoption..." | quote | lib/data/projects.ts:892-895 |
-| ECHO-37 | quote: Dispatch Team Lead, Echo Global Logistics — "field research approach..." | quote | lib/data/projects.ts:898-901 |
+| Claim ID | Claim | Type | Source file:line | Verdict | Deck slide / source URL | Note |
+|---|---|---|---|---|---|---|
+| ECHO-01 | metric: Active Drivers 10,000+ | metric | lib/data/projects.ts:787 | Unbacked | — | No slide in the 48-page deck mentions Echo Global Logistics, ELD compliance, or trucking/logistics. |
+| ECHO-02 | metric: LTL Revenue Increase 16% | metric | lib/data/projects.ts:788 | Unbacked | — | No slide in the 48-page deck mentions Echo Global Logistics, ELD compliance, or trucking/logistics. |
+| ECHO-03 | metric: Shipment Volume Growth 12% | metric | lib/data/projects.ts:789 | Unbacked | — | No slide in the 48-page deck mentions Echo Global Logistics, ELD compliance, or trucking/logistics. |
+| ECHO-04 | metric: Beta Downloads 1,000+ | metric | lib/data/projects.ts:790 | Unbacked | — | No slide in the 48-page deck mentions Echo Global Logistics, ELD compliance, or trucking/logistics. |
+| ECHO-05 | metric: Call Center Stress Reduction "Significant" | metric | lib/data/projects.ts:791 | Unbacked | — | No slide in the 48-page deck mentions Echo Global Logistics, ELD compliance, or trucking/logistics. |
+| ECHO-06 | metric: ELD Compliance 100% | metric | lib/data/projects.ts:792 | Unbacked | — | No slide in the 48-page deck mentions Echo Global Logistics, ELD compliance, or trucking/logistics. |
+| ECHO-07 | challenge: Outdated coordination methods between shippers/drivers/dispatch | challenge | lib/data/projects.ts:795 | Unbacked | — | No slide in the 48-page deck mentions Echo Global Logistics, ELD compliance, or trucking/logistics. |
+| ECHO-08 | challenge: ELD Mandate compliance need | challenge | lib/data/projects.ts:796 | Unbacked | — | No slide in the 48-page deck mentions Echo Global Logistics, ELD compliance, or trucking/logistics. |
+| ECHO-09 | challenge: Limited truckload visibility stressing call centers | challenge | lib/data/projects.ts:797 | Unbacked | — | No slide in the 48-page deck mentions Echo Global Logistics, ELD compliance, or trucking/logistics. |
+| ECHO-10 | challenge: Underperforming LTL revenues requiring self-serve booking | challenge | lib/data/projects.ts:798 | Unbacked | — | No slide in the 48-page deck mentions Echo Global Logistics, ELD compliance, or trucking/logistics. |
+| ECHO-11 | challenge: Low driver engagement/adoption of digital solutions | challenge | lib/data/projects.ts:799 | Unbacked | — | No slide in the 48-page deck mentions Echo Global Logistics, ELD compliance, or trucking/logistics. |
+| ECHO-12 | challenge: Complex driver/dispatch/customer communication workflows | challenge | lib/data/projects.ts:800 | Unbacked | — | No slide in the 48-page deck mentions Echo Global Logistics, ELD compliance, or trucking/logistics. |
+| ECHO-13 | solution: On-site interviews with drivers and dispatch officers | decision | lib/data/projects.ts:803 | Unbacked | — | No slide in the 48-page deck mentions Echo Global Logistics, ELD compliance, or trucking/logistics. |
+| ECHO-14 | solution: Dual-platform (native mobile + web dispatch) architecture | decision | lib/data/projects.ts:804 | Unbacked | — | No slide in the 48-page deck mentions Echo Global Logistics, ELD compliance, or trucking/logistics. |
+| ECHO-15 | solution: Onboarding tutorials + communication platform | decision | lib/data/projects.ts:805 | Unbacked | — | No slide in the 48-page deck mentions Echo Global Logistics, ELD compliance, or trucking/logistics. |
+| ECHO-16 | solution: Electronic logging for ELD compliance | decision | lib/data/projects.ts:806 | Unbacked | — | No slide in the 48-page deck mentions Echo Global Logistics, ELD compliance, or trucking/logistics. |
+| ECHO-17 | solution: Invoice/payment tracking functionality | decision | lib/data/projects.ts:807 | Unbacked | — | No slide in the 48-page deck mentions Echo Global Logistics, ELD compliance, or trucking/logistics. |
+| ECHO-18 | solution: Driver-focused mobile UX for varied working conditions | decision | lib/data/projects.ts:808 | Unbacked | — | No slide in the 48-page deck mentions Echo Global Logistics, ELD compliance, or trucking/logistics. |
+| ECHO-19 | learning: Field research critical for real-world workflows | learning | lib/data/projects.ts:811 | Unbacked | — | No slide in the 48-page deck mentions Echo Global Logistics, ELD compliance, or trucking/logistics. |
+| ECHO-20 | learning: Cross-platform consistency ensures seamless UX transitions | learning | lib/data/projects.ts:812 | Unbacked | — | No slide in the 48-page deck mentions Echo Global Logistics, ELD compliance, or trucking/logistics. |
+| ECHO-21 | learning: Stakeholder engagement ensures business/user fit | learning | lib/data/projects.ts:813 | Unbacked | — | No slide in the 48-page deck mentions Echo Global Logistics, ELD compliance, or trucking/logistics. |
+| ECHO-22 | learning: Scalability planning enables beta-to-thousands growth | learning | lib/data/projects.ts:814 | Unbacked | — | No slide in the 48-page deck mentions Echo Global Logistics, ELD compliance, or trucking/logistics. |
+| ECHO-23 | learning: Industry-specific logistics domain expertise essential | learning | lib/data/projects.ts:815 | Unbacked | — | No slide in the 48-page deck mentions Echo Global Logistics, ELD compliance, or trucking/logistics. |
+| ECHO-24 | learning: Driver feedback integration improves adoption | learning | lib/data/projects.ts:816 | Unbacked | — | No slide in the 48-page deck mentions Echo Global Logistics, ELD compliance, or trucking/logistics. |
+| ECHO-25 | role: "Product Designer & Frontend Lead" | attribution | lib/data/projects.ts:819 | Unbacked | — | No slide in the 48-page deck mentions Echo Global Logistics, ELD compliance, or trucking/logistics. |
+| ECHO-26 | teamSize: 6 | attribution | lib/data/projects.ts:818 | Unbacked | — | No slide in the 48-page deck mentions Echo Global Logistics, ELD compliance, or trucking/logistics. |
+| ECHO-27 | timeline: "Alpha → Beta → Launch" | outcome | lib/data/projects.ts:771 | Unbacked | — | No slide in the 48-page deck mentions Echo Global Logistics, ELD compliance, or trucking/logistics. |
+| ECHO-28 | status: "completed" | outcome | lib/data/projects.ts:772 | Unbacked | — | No slide in the 48-page deck mentions Echo Global Logistics, ELD compliance, or trucking/logistics. |
+| ECHO-29 | processStory.keyInsights[0]: Field Research Critical | rationale | lib/data/projects.ts:874 | Unbacked | — | No slide in the 48-page deck mentions Echo Global Logistics, ELD compliance, or trucking/logistics. |
+| ECHO-30 | processStory.keyInsights[1]: ELD Compliance as Innovation Driver | rationale | lib/data/projects.ts:875 | Unbacked | — | No slide in the 48-page deck mentions Echo Global Logistics, ELD compliance, or trucking/logistics. |
+| ECHO-31 | processStory.keyInsights[2]: Driver Experience Design Challenges | rationale | lib/data/projects.ts:876 | Unbacked | — | No slide in the 48-page deck mentions Echo Global Logistics, ELD compliance, or trucking/logistics. |
+| ECHO-32 | processStory.keyInsights[3]: Cross-Platform Integration Essential | rationale | lib/data/projects.ts:877 | Unbacked | — | No slide in the 48-page deck mentions Echo Global Logistics, ELD compliance, or trucking/logistics. |
+| ECHO-33 | processStory.keyInsights[4]: Industry-Specific Workflows Matter | rationale | lib/data/projects.ts:878 | Unbacked | — | No slide in the 48-page deck mentions Echo Global Logistics, ELD compliance, or trucking/logistics. |
+| ECHO-34 | processStory.outcome: "16% increase in LTL shipment revenues to $184.4 million" | outcome | lib/data/projects.ts:881 | Unbacked | — | No slide in the 48-page deck mentions Echo Global Logistics, ELD compliance, or trucking/logistics. |
+| ECHO-35 | quote: Operations Director, Echo Global Logistics — "16% revenue increase..." | quote | lib/data/projects.ts:886-889 | Unbacked | — | No slide in the 48-page deck mentions Echo Global Logistics, ELD compliance, or trucking/logistics. This quote is attributed only to a generic title with no named individual — a lesser version of the v1.0 fabricated-testimonial pattern (PROJECT.md); still Unbacked regardless of naming style, since no deck or external source confirms EchoDrive exists as a real engagement at all. |
+| ECHO-36 | quote: Fleet Manager, Echo Global Logistics — "10,000+ active adoption..." | quote | lib/data/projects.ts:892-895 | Unbacked | — | No slide in the 48-page deck mentions Echo Global Logistics, ELD compliance, or trucking/logistics. This quote is attributed only to a generic title with no named individual — a lesser version of the v1.0 fabricated-testimonial pattern (PROJECT.md); still Unbacked regardless of naming style, since no deck or external source confirms EchoDrive exists as a real engagement at all. |
+| ECHO-37 | quote: Dispatch Team Lead, Echo Global Logistics — "field research approach..." | quote | lib/data/projects.ts:898-901 | Unbacked | — | No slide in the 48-page deck mentions Echo Global Logistics, ELD compliance, or trucking/logistics. This quote is attributed only to a generic title with no named individual — a lesser version of the v1.0 fabricated-testimonial pattern (PROJECT.md); still Unbacked regardless of naming style, since no deck or external source confirms EchoDrive exists as a real engagement at all. |
 
 All 37 rows above: **Unbacked** — Deck slide / source URL: **—**. Note (applies to
 ECHO-35/36/37): these quotes are attributed only to generic titles ("Operations Director,"
@@ -442,42 +442,42 @@ since no deck or external source confirms EchoDrive exists as a real engagement 
 Deck has **zero** coverage of the Nagarro design-leadership role — no slide mentions Nagarro, IT
 consulting, or an 18,000-person design organization.
 
-| Claim ID | Claim | Type | Source file:line |
-|---|---|---|---|
-| NAGARRO-01 | metric: Nagarrians Impacted 18,000+ | metric | lib/data/projects.ts:956 |
-| NAGARRO-02 | metric: Brand Recognition Growth 50% | metric | lib/data/projects.ts:957 |
-| NAGARRO-03 | metric: Design Event Leads Generated 100+ | metric | lib/data/projects.ts:958 |
-| NAGARRO-04 | metric: Content Subscribers Reached 10K+ | metric | lib/data/projects.ts:959 |
-| NAGARRO-05 | metric: Junior Designer Retention +40% | metric | lib/data/projects.ts:960 |
-| NAGARRO-06 | metric: Website Traffic Improvement +40% | metric | lib/data/projects.ts:961 |
-| NAGARRO-07 | metric: Lead Generation Increase +25% | metric | lib/data/projects.ts:962 |
-| NAGARRO-08 | metric: Global Design Team Growth 15+ | metric | lib/data/projects.ts:963 |
-| NAGARRO-09 | challenge: Scaling design leadership across 18,000+ employees/36 countries | challenge | lib/data/projects.ts:966 |
-| NAGARRO-10 | challenge: Building unified design culture in growing organization | challenge | lib/data/projects.ts:967 |
-| NAGARRO-11 | challenge: Establishing enterprise-wide accessibility compliance | challenge | lib/data/projects.ts:968 |
-| NAGARRO-12 | challenge: Creating inclusive design frameworks for cultural contexts | challenge | lib/data/projects.ts:969 |
-| NAGARRO-13 | challenge: Balancing design innovation with IT consulting requirements | challenge | lib/data/projects.ts:970 |
-| NAGARRO-14 | challenge: Design evangelism during competitive market expansion | challenge | lib/data/projects.ts:971 |
-| NAGARRO-15 | solution: Digital Accessibility Strategy 2023 | decision | lib/data/projects.ts:974 |
-| NAGARRO-16 | solution: Inclusive design framework for multi-cultural teams | decision | lib/data/projects.ts:975 |
-| NAGARRO-17 | solution: Design evangelism strategy (50% brand recognition) | decision | lib/data/projects.ts:976 |
-| NAGARRO-18 | solution: Mentor-coaching program (+40% retention) | decision | lib/data/projects.ts:977 |
-| NAGARRO-19 | solution: Content strategy (10K+ subscribers, 100+ leads) | decision | lib/data/projects.ts:978 |
-| NAGARRO-20 | solution: Healthcare tech partnerships (ADT Health) | decision | lib/data/projects.ts:979 |
-| NAGARRO-21 | learning: Enterprise leadership balances innovation with scalability | learning | lib/data/projects.ts:982 |
-| NAGARRO-22 | learning: Accessibility-first drives compliance + competitive advantage | learning | lib/data/projects.ts:983 |
-| NAGARRO-23 | learning: Inclusive design frameworks more critical at global scale | learning | lib/data/projects.ts:984 |
-| NAGARRO-24 | learning: Content strategy directly impacts business development | learning | lib/data/projects.ts:985 |
-| NAGARRO-25 | learning: Designer retention foundational to design maturity | learning | lib/data/projects.ts:986 |
-| NAGARRO-26 | learning: Cross-industry partnerships accelerate accessibility innovation | learning | lib/data/projects.ts:987 |
-| NAGARRO-27 | role: "Head of Design" | attribution | lib/data/projects.ts:990 |
-| NAGARRO-28 | teamSize: 15 | attribution | lib/data/projects.ts:989 |
-| NAGARRO-29 | timeline: "Mar 2022 - Oct 2022" | outcome | lib/data/projects.ts:942 |
-| NAGARRO-30 | status: "completed" | outcome | lib/data/projects.ts:943 |
-| NAGARRO-31 | processStory.keyInsights[0]: Design Evangelism Over Enforcement (3x adoption) | rationale | lib/data/projects.ts:1051 |
-| NAGARRO-32 | processStory.keyInsights[1]: Accessibility as Competitive Advantage | rationale | lib/data/projects.ts:1052 |
-| NAGARRO-33 | processStory.keyInsights[2]: Global Team Development ROI | rationale | lib/data/projects.ts:1053 |
-| NAGARRO-34 | processStory.keyInsights[3]: Content Strategy Business Impact | rationale | lib/data/projects.ts:1054 |
+| Claim ID | Claim | Type | Source file:line | Verdict | Deck slide / source URL | Note |
+|---|---|---|---|---|---|---|
+| NAGARRO-01 | metric: Nagarrians Impacted 18,000+ | metric | lib/data/projects.ts:956 | Unbacked | — | No slide in the 48-page deck mentions Nagarro, IT consulting, or an 18,000-person design organization. |
+| NAGARRO-02 | metric: Brand Recognition Growth 50% | metric | lib/data/projects.ts:957 | Unbacked | — | No slide in the 48-page deck mentions Nagarro, IT consulting, or an 18,000-person design organization. |
+| NAGARRO-03 | metric: Design Event Leads Generated 100+ | metric | lib/data/projects.ts:958 | Unbacked | — | No slide in the 48-page deck mentions Nagarro, IT consulting, or an 18,000-person design organization. |
+| NAGARRO-04 | metric: Content Subscribers Reached 10K+ | metric | lib/data/projects.ts:959 | Unbacked | — | No slide in the 48-page deck mentions Nagarro, IT consulting, or an 18,000-person design organization. |
+| NAGARRO-05 | metric: Junior Designer Retention +40% | metric | lib/data/projects.ts:960 | Unbacked | — | No slide in the 48-page deck mentions Nagarro, IT consulting, or an 18,000-person design organization. |
+| NAGARRO-06 | metric: Website Traffic Improvement +40% | metric | lib/data/projects.ts:961 | Unbacked | — | No slide in the 48-page deck mentions Nagarro, IT consulting, or an 18,000-person design organization. |
+| NAGARRO-07 | metric: Lead Generation Increase +25% | metric | lib/data/projects.ts:962 | Unbacked | — | No slide in the 48-page deck mentions Nagarro, IT consulting, or an 18,000-person design organization. |
+| NAGARRO-08 | metric: Global Design Team Growth 15+ | metric | lib/data/projects.ts:963 | Unbacked | — | No slide in the 48-page deck mentions Nagarro, IT consulting, or an 18,000-person design organization. |
+| NAGARRO-09 | challenge: Scaling design leadership across 18,000+ employees/36 countries | challenge | lib/data/projects.ts:966 | Unbacked | — | No slide in the 48-page deck mentions Nagarro, IT consulting, or an 18,000-person design organization. |
+| NAGARRO-10 | challenge: Building unified design culture in growing organization | challenge | lib/data/projects.ts:967 | Unbacked | — | No slide in the 48-page deck mentions Nagarro, IT consulting, or an 18,000-person design organization. |
+| NAGARRO-11 | challenge: Establishing enterprise-wide accessibility compliance | challenge | lib/data/projects.ts:968 | Unbacked | — | No slide in the 48-page deck mentions Nagarro, IT consulting, or an 18,000-person design organization. |
+| NAGARRO-12 | challenge: Creating inclusive design frameworks for cultural contexts | challenge | lib/data/projects.ts:969 | Unbacked | — | No slide in the 48-page deck mentions Nagarro, IT consulting, or an 18,000-person design organization. |
+| NAGARRO-13 | challenge: Balancing design innovation with IT consulting requirements | challenge | lib/data/projects.ts:970 | Unbacked | — | No slide in the 48-page deck mentions Nagarro, IT consulting, or an 18,000-person design organization. |
+| NAGARRO-14 | challenge: Design evangelism during competitive market expansion | challenge | lib/data/projects.ts:971 | Unbacked | — | No slide in the 48-page deck mentions Nagarro, IT consulting, or an 18,000-person design organization. |
+| NAGARRO-15 | solution: Digital Accessibility Strategy 2023 | decision | lib/data/projects.ts:974 | Unbacked | — | No slide in the 48-page deck mentions Nagarro, IT consulting, or an 18,000-person design organization. |
+| NAGARRO-16 | solution: Inclusive design framework for multi-cultural teams | decision | lib/data/projects.ts:975 | Unbacked | — | No slide in the 48-page deck mentions Nagarro, IT consulting, or an 18,000-person design organization. |
+| NAGARRO-17 | solution: Design evangelism strategy (50% brand recognition) | decision | lib/data/projects.ts:976 | Unbacked | — | No slide in the 48-page deck mentions Nagarro, IT consulting, or an 18,000-person design organization. |
+| NAGARRO-18 | solution: Mentor-coaching program (+40% retention) | decision | lib/data/projects.ts:977 | Unbacked | — | No slide in the 48-page deck mentions Nagarro, IT consulting, or an 18,000-person design organization. |
+| NAGARRO-19 | solution: Content strategy (10K+ subscribers, 100+ leads) | decision | lib/data/projects.ts:978 | Unbacked | — | No slide in the 48-page deck mentions Nagarro, IT consulting, or an 18,000-person design organization. |
+| NAGARRO-20 | solution: Healthcare tech partnerships (ADT Health) | decision | lib/data/projects.ts:979 | Unbacked | — | No slide in the 48-page deck mentions Nagarro, IT consulting, or an 18,000-person design organization. |
+| NAGARRO-21 | learning: Enterprise leadership balances innovation with scalability | learning | lib/data/projects.ts:982 | Unbacked | — | No slide in the 48-page deck mentions Nagarro, IT consulting, or an 18,000-person design organization. |
+| NAGARRO-22 | learning: Accessibility-first drives compliance + competitive advantage | learning | lib/data/projects.ts:983 | Unbacked | — | No slide in the 48-page deck mentions Nagarro, IT consulting, or an 18,000-person design organization. |
+| NAGARRO-23 | learning: Inclusive design frameworks more critical at global scale | learning | lib/data/projects.ts:984 | Unbacked | — | No slide in the 48-page deck mentions Nagarro, IT consulting, or an 18,000-person design organization. |
+| NAGARRO-24 | learning: Content strategy directly impacts business development | learning | lib/data/projects.ts:985 | Unbacked | — | No slide in the 48-page deck mentions Nagarro, IT consulting, or an 18,000-person design organization. |
+| NAGARRO-25 | learning: Designer retention foundational to design maturity | learning | lib/data/projects.ts:986 | Unbacked | — | No slide in the 48-page deck mentions Nagarro, IT consulting, or an 18,000-person design organization. |
+| NAGARRO-26 | learning: Cross-industry partnerships accelerate accessibility innovation | learning | lib/data/projects.ts:987 | Unbacked | — | No slide in the 48-page deck mentions Nagarro, IT consulting, or an 18,000-person design organization. |
+| NAGARRO-27 | role: "Head of Design" | attribution | lib/data/projects.ts:990 | Unbacked | — | No slide in the 48-page deck mentions Nagarro, IT consulting, or an 18,000-person design organization. |
+| NAGARRO-28 | teamSize: 15 | attribution | lib/data/projects.ts:989 | Unbacked | — | No slide in the 48-page deck mentions Nagarro, IT consulting, or an 18,000-person design organization. |
+| NAGARRO-29 | timeline: "Mar 2022 - Oct 2022" | outcome | lib/data/projects.ts:942 | Unbacked | — | No slide in the 48-page deck mentions Nagarro, IT consulting, or an 18,000-person design organization. |
+| NAGARRO-30 | status: "completed" | outcome | lib/data/projects.ts:943 | Unbacked | — | No slide in the 48-page deck mentions Nagarro, IT consulting, or an 18,000-person design organization. |
+| NAGARRO-31 | processStory.keyInsights[0]: Design Evangelism Over Enforcement (3x adoption) | rationale | lib/data/projects.ts:1051 | Unbacked | — | No slide in the 48-page deck mentions Nagarro, IT consulting, or an 18,000-person design organization. |
+| NAGARRO-32 | processStory.keyInsights[1]: Accessibility as Competitive Advantage | rationale | lib/data/projects.ts:1052 | Unbacked | — | No slide in the 48-page deck mentions Nagarro, IT consulting, or an 18,000-person design organization. |
+| NAGARRO-33 | processStory.keyInsights[2]: Global Team Development ROI | rationale | lib/data/projects.ts:1053 | Unbacked | — | No slide in the 48-page deck mentions Nagarro, IT consulting, or an 18,000-person design organization. |
+| NAGARRO-34 | processStory.keyInsights[3]: Content Strategy Business Impact | rationale | lib/data/projects.ts:1054 | Unbacked | — | No slide in the 48-page deck mentions Nagarro, IT consulting, or an 18,000-person design organization. |
 | NAGARRO-35 | app/projects/nagarro/nagarro-client.tsx: "$50M+ in business impact" | metric | app/projects/nagarro/nagarro-client.tsx:575 | Unbacked | — | New figure not present in `lib/data/projects.ts`'s nagarro entry; coincidentally echoes the sitewide "$50M in product value" stat (SITE-03) but is a distinct, separately-fabricated claim scoped to Nagarro. |
 
 Rows NAGARRO-01 through NAGARRO-34: **Unbacked** — Deck slide / source URL: **—**.
@@ -487,42 +487,42 @@ Rows NAGARRO-01 through NAGARRO-34: **Unbacked** — Deck slide / source URL: **
 Deck has **zero** coverage of Rambis UI — no slide mentions a design system, component library,
 or a Chakra UI fork.
 
-| Claim ID | Claim | Type | Source file:line |
-|---|---|---|---|
-| RAMBIS-01 | metric: Components 50+ | metric | lib/data/projects.ts:1116 |
-| RAMBIS-02 | metric: Weekly Downloads 2.5K+ | metric | lib/data/projects.ts:1117 |
-| RAMBIS-03 | metric: GitHub Stars 150+ | metric | lib/data/projects.ts:1118 |
-| RAMBIS-04 | metric: Contributors 12 | metric | lib/data/projects.ts:1119 |
-| RAMBIS-05 | metric: Test Coverage 94% | metric | lib/data/projects.ts:1120 |
-| RAMBIS-06 | metric: Accessibility Score 100% | metric | lib/data/projects.ts:1121 |
-| RAMBIS-07 | challenge: Maintaining backward compatibility with breaking improvements | challenge | lib/data/projects.ts:1124 |
-| RAMBIS-08 | challenge: Balancing flexibility with opinionated design decisions | challenge | lib/data/projects.ts:1125 |
-| RAMBIS-09 | challenge: Optimizing bundle size without sacrificing functionality | challenge | lib/data/projects.ts:1126 |
-| RAMBIS-10 | challenge: Comprehensive documentation for complex APIs | challenge | lib/data/projects.ts:1127 |
-| RAMBIS-11 | challenge: Consistent behavior across React versions | challenge | lib/data/projects.ts:1128 |
-| RAMBIS-12 | challenge: Building sustainable open-source community | challenge | lib/data/projects.ts:1129 |
-| RAMBIS-13 | solution: Semantic versioning + migration guides | decision | lib/data/projects.ts:1132 |
-| RAMBIS-14 | solution: Composable primitives (flexibility + convenience) | decision | lib/data/projects.ts:1133 |
-| RAMBIS-15 | solution: Tree-shaking optimizations (40% bundle reduction) | decision | lib/data/projects.ts:1134 |
-| RAMBIS-16 | solution: Interactive documentation with live playground | decision | lib/data/projects.ts:1135 |
-| RAMBIS-17 | solution: Testing matrix for React 16/17/18 | decision | lib/data/projects.ts:1136 |
-| RAMBIS-18 | solution: Contributor guidelines + automated PR review | decision | lib/data/projects.ts:1137 |
-| RAMBIS-19 | learning: Adoption requires balancing innovation with familiarity | learning | lib/data/projects.ts:1140 |
-| RAMBIS-20 | learning: Performance must be measured against real-world usage | learning | lib/data/projects.ts:1141 |
-| RAMBIS-21 | learning: Documentation quality correlates with adoption | learning | lib/data/projects.ts:1142 |
-| RAMBIS-22 | learning: Accessibility must be built-in, not bolted-on | learning | lib/data/projects.ts:1143 |
-| RAMBIS-23 | learning: Open source success depends on maintainer engagement | learning | lib/data/projects.ts:1144 |
-| RAMBIS-24 | learning: APIs should prioritize intuition over flexibility | learning | lib/data/projects.ts:1145 |
-| RAMBIS-25 | role: "Lead Design System Architect" | attribution | lib/data/projects.ts:1148 |
-| RAMBIS-26 | teamSize: 4 | attribution | lib/data/projects.ts:1147 |
-| RAMBIS-27 | timeline: "Q3 2024 - Present" | outcome | lib/data/projects.ts:1098 |
-| RAMBIS-28 | status: "in-progress" | outcome | lib/data/projects.ts:1099 |
-| RAMBIS-29 | processStory.keyInsights[0]: Developer Ergonomics Matter (+60% adoption) | rationale | lib/data/projects.ts:1205 |
-| RAMBIS-30 | processStory.keyInsights[1]: Performance is a Feature | rationale | lib/data/projects.ts:1206 |
-| RAMBIS-31 | processStory.keyInsights[2]: Accessibility Drives Innovation | rationale | lib/data/projects.ts:1207 |
-| RAMBIS-32 | processStory.keyInsights[3]: Documentation as Code (-40% support questions) | rationale | lib/data/projects.ts:1208 |
-| RAMBIS-33 | processStory.keyInsights[4]: Community-Driven Development | rationale | lib/data/projects.ts:1209 |
-| RAMBIS-34 | processStory.methodology: "80% of developers used only 20% of component props" | metric | lib/data/projects.ts:1203 | Unbacked | — |
+| Claim ID | Claim | Type | Source file:line | Verdict | Deck slide / source URL | Note |
+|---|---|---|---|---|---|---|
+| RAMBIS-01 | metric: Components 50+ | metric | lib/data/projects.ts:1116 | Unbacked | — | No slide in the 48-page deck mentions a design system, component library, or a Chakra UI fork. |
+| RAMBIS-02 | metric: Weekly Downloads 2.5K+ | metric | lib/data/projects.ts:1117 | Unbacked | — | No slide in the 48-page deck mentions a design system, component library, or a Chakra UI fork. |
+| RAMBIS-03 | metric: GitHub Stars 150+ | metric | lib/data/projects.ts:1118 | Unbacked | — | No slide in the 48-page deck mentions a design system, component library, or a Chakra UI fork. |
+| RAMBIS-04 | metric: Contributors 12 | metric | lib/data/projects.ts:1119 | Unbacked | — | No slide in the 48-page deck mentions a design system, component library, or a Chakra UI fork. |
+| RAMBIS-05 | metric: Test Coverage 94% | metric | lib/data/projects.ts:1120 | Unbacked | — | No slide in the 48-page deck mentions a design system, component library, or a Chakra UI fork. |
+| RAMBIS-06 | metric: Accessibility Score 100% | metric | lib/data/projects.ts:1121 | Unbacked | — | No slide in the 48-page deck mentions a design system, component library, or a Chakra UI fork. |
+| RAMBIS-07 | challenge: Maintaining backward compatibility with breaking improvements | challenge | lib/data/projects.ts:1124 | Unbacked | — | No slide in the 48-page deck mentions a design system, component library, or a Chakra UI fork. |
+| RAMBIS-08 | challenge: Balancing flexibility with opinionated design decisions | challenge | lib/data/projects.ts:1125 | Unbacked | — | No slide in the 48-page deck mentions a design system, component library, or a Chakra UI fork. |
+| RAMBIS-09 | challenge: Optimizing bundle size without sacrificing functionality | challenge | lib/data/projects.ts:1126 | Unbacked | — | No slide in the 48-page deck mentions a design system, component library, or a Chakra UI fork. |
+| RAMBIS-10 | challenge: Comprehensive documentation for complex APIs | challenge | lib/data/projects.ts:1127 | Unbacked | — | No slide in the 48-page deck mentions a design system, component library, or a Chakra UI fork. |
+| RAMBIS-11 | challenge: Consistent behavior across React versions | challenge | lib/data/projects.ts:1128 | Unbacked | — | No slide in the 48-page deck mentions a design system, component library, or a Chakra UI fork. |
+| RAMBIS-12 | challenge: Building sustainable open-source community | challenge | lib/data/projects.ts:1129 | Unbacked | — | No slide in the 48-page deck mentions a design system, component library, or a Chakra UI fork. |
+| RAMBIS-13 | solution: Semantic versioning + migration guides | decision | lib/data/projects.ts:1132 | Unbacked | — | No slide in the 48-page deck mentions a design system, component library, or a Chakra UI fork. |
+| RAMBIS-14 | solution: Composable primitives (flexibility + convenience) | decision | lib/data/projects.ts:1133 | Unbacked | — | No slide in the 48-page deck mentions a design system, component library, or a Chakra UI fork. |
+| RAMBIS-15 | solution: Tree-shaking optimizations (40% bundle reduction) | decision | lib/data/projects.ts:1134 | Unbacked | — | No slide in the 48-page deck mentions a design system, component library, or a Chakra UI fork. |
+| RAMBIS-16 | solution: Interactive documentation with live playground | decision | lib/data/projects.ts:1135 | Unbacked | — | No slide in the 48-page deck mentions a design system, component library, or a Chakra UI fork. |
+| RAMBIS-17 | solution: Testing matrix for React 16/17/18 | decision | lib/data/projects.ts:1136 | Unbacked | — | No slide in the 48-page deck mentions a design system, component library, or a Chakra UI fork. |
+| RAMBIS-18 | solution: Contributor guidelines + automated PR review | decision | lib/data/projects.ts:1137 | Unbacked | — | No slide in the 48-page deck mentions a design system, component library, or a Chakra UI fork. |
+| RAMBIS-19 | learning: Adoption requires balancing innovation with familiarity | learning | lib/data/projects.ts:1140 | Unbacked | — | No slide in the 48-page deck mentions a design system, component library, or a Chakra UI fork. |
+| RAMBIS-20 | learning: Performance must be measured against real-world usage | learning | lib/data/projects.ts:1141 | Unbacked | — | No slide in the 48-page deck mentions a design system, component library, or a Chakra UI fork. |
+| RAMBIS-21 | learning: Documentation quality correlates with adoption | learning | lib/data/projects.ts:1142 | Unbacked | — | No slide in the 48-page deck mentions a design system, component library, or a Chakra UI fork. |
+| RAMBIS-22 | learning: Accessibility must be built-in, not bolted-on | learning | lib/data/projects.ts:1143 | Unbacked | — | No slide in the 48-page deck mentions a design system, component library, or a Chakra UI fork. |
+| RAMBIS-23 | learning: Open source success depends on maintainer engagement | learning | lib/data/projects.ts:1144 | Unbacked | — | No slide in the 48-page deck mentions a design system, component library, or a Chakra UI fork. |
+| RAMBIS-24 | learning: APIs should prioritize intuition over flexibility | learning | lib/data/projects.ts:1145 | Unbacked | — | No slide in the 48-page deck mentions a design system, component library, or a Chakra UI fork. |
+| RAMBIS-25 | role: "Lead Design System Architect" | attribution | lib/data/projects.ts:1148 | Unbacked | — | No slide in the 48-page deck mentions a design system, component library, or a Chakra UI fork. |
+| RAMBIS-26 | teamSize: 4 | attribution | lib/data/projects.ts:1147 | Unbacked | — | No slide in the 48-page deck mentions a design system, component library, or a Chakra UI fork. |
+| RAMBIS-27 | timeline: "Q3 2024 - Present" | outcome | lib/data/projects.ts:1098 | Unbacked | — | No slide in the 48-page deck mentions a design system, component library, or a Chakra UI fork. |
+| RAMBIS-28 | status: "in-progress" | outcome | lib/data/projects.ts:1099 | Unbacked | — | No slide in the 48-page deck mentions a design system, component library, or a Chakra UI fork. |
+| RAMBIS-29 | processStory.keyInsights[0]: Developer Ergonomics Matter (+60% adoption) | rationale | lib/data/projects.ts:1205 | Unbacked | — | No slide in the 48-page deck mentions a design system, component library, or a Chakra UI fork. |
+| RAMBIS-30 | processStory.keyInsights[1]: Performance is a Feature | rationale | lib/data/projects.ts:1206 | Unbacked | — | No slide in the 48-page deck mentions a design system, component library, or a Chakra UI fork. |
+| RAMBIS-31 | processStory.keyInsights[2]: Accessibility Drives Innovation | rationale | lib/data/projects.ts:1207 | Unbacked | — | No slide in the 48-page deck mentions a design system, component library, or a Chakra UI fork. |
+| RAMBIS-32 | processStory.keyInsights[3]: Documentation as Code (-40% support questions) | rationale | lib/data/projects.ts:1208 | Unbacked | — | No slide in the 48-page deck mentions a design system, component library, or a Chakra UI fork. |
+| RAMBIS-33 | processStory.keyInsights[4]: Community-Driven Development | rationale | lib/data/projects.ts:1209 | Unbacked | — | No slide in the 48-page deck mentions a design system, component library, or a Chakra UI fork. |
+| RAMBIS-34 | processStory.methodology: "80% of developers used only 20% of component props" | metric | lib/data/projects.ts:1203 | Unbacked | — | No slide in the 48-page deck mentions a design system, component library, or a Chakra UI fork. |
 
 All 34 rows above: **Unbacked** — Deck slide / source URL: **—**.
 `app/projects/rambis-ui/rambis-client.tsx` introduces no numeric claims beyond what
@@ -693,7 +693,7 @@ defect** — see "How To Read This" above.
 
 | Project | Backed | Partial | Unbacked | Total rows |
 |---|---|---|---|---|
-| growit | 2 | 3 | 31 | 36 |
+| growit | 1 | 4 | 31 | 36 |
 | ohplays | 0 | 0 | 42 | 42 |
 | ledgeriq | 0 | 0 | 35 | 35 |
 | addvanced | 12 | 8 | 49 | 69 |
@@ -701,7 +701,11 @@ defect** — see "How To Read This" above.
 | nagarro | 0 | 0 | 35 | 35 |
 | rambis-ui | 0 | 0 | 34 | 34 |
 | sitewide | 4 | 0 | 5 | 9 |
-| **Total** | **18** | **11** | **268** | **297** |
+| **Total** | **17** | **12** | **268** | **297** |
+
+(Corrected from an earlier 18/11/268 published alongside this table: a per-row tally found
+GrowIt's actual split is 1 Backed / 4 Partial, not 2/3 — GROWIT-01 is Partial, not Backed. This
+table is now a direct tally of the 297 rows in Part A above, not a hand count.)
 
 (LedgerIQ's 4-pair CONTRADICTION block is tracked separately from the 35-row table above per
 D-03 and is not double-counted in this table.)

@@ -28,6 +28,7 @@ key-decisions:
   - "Added Project.constraints as an audited claim-bearing field (not listed in the plan's <interfaces> block) because it is rendered live on every /projects/[slug] page (project-detail-client.tsx:703-784); consolidated to one row per category rather than one row per array entry to control volume"
   - "Addvance's systemic metric mismatch (15 of 15 site metrics Unbacked against the deck's real usability numbers) is flagged prominently in prose and in Part C but does not get a formal D-03 CONTRADICTION block, since that mechanism is reserved for LedgerIQ's two-clashing-source case"
   - "poppler-utils installed via Homebrew (system tool required by the Read tool's PDF page-rendering path, not a project dependency) to unblock reading the deck at all"
+  - "REPAIR (post-completion): the first pass emitted 4-column truncated rows (no Verdict/Deck-slide/Note cells) for all claims in 5 of 7 zero-deck-coverage projects (ohplays, ledgeriq, echo, nagarro, rambis-ui) plus one 6-column row (RAMBIS-34); a follow-up repair pass filled all 182 incomplete rows with an explicit Unbacked verdict, '—' citation, and a per-project rationale note, and recomputed the Phase 8 Gate counts table from an actual per-row tally rather than trusting the original hand count (which also had GrowIt's Backed/Partial split wrong: 1/4, not 2/3)"
 
 requirements-completed: [FND-03]
 
@@ -39,10 +40,12 @@ completed: 2026-08-15
 # Phase 5 Plan 1: Deck-Coverage Audit Summary
 
 **Verdicted all 297 claims rendered across GrowIt, Oh!Plays, LedgerIQ, Addvance, EchoDrive,
-Nagarro, and Rambis UI against Randy's full 48-page product design deck — 18 Backed, 11
-Partial, 268 Unbacked — and found the deck itself only documents two of the seven projects
-(GrowIt, Addvance), with Addvance's live metrics almost entirely fabricated against the deck's
-real usability numbers.**
+Nagarro, and Rambis UI against Randy's full 48-page product design deck — corrected tally: 17
+Backed, 12 Partial, 268 Unbacked — and found the deck itself only documents two of the seven
+projects (GrowIt, Addvance), with Addvance's live metrics almost entirely fabricated against the
+deck's real usability numbers. A post-completion repair pass fixed 182 rows the first pass had
+left truncated (missing Verdict/citation/Note cells) and corrected a hand-counting error in the
+original Phase 8 Gate totals (18/11/268).**
 
 ## Performance
 
@@ -151,6 +154,59 @@ real usability numbers.**
 - **Files modified:** `.planning/DECK-COVERAGE-AUDIT.md`.
 - **Commit:** `74bf1f2`.
 
+## Repair Pass (post-completion)
+
+The orchestrator's spot-check on the originally-committed artifact (commit `74bf1f2`) found that
+**181 of 297 Part A claim rows had only 4 columns instead of the required 7** — missing the
+`Verdict`, `Deck slide / source URL`, and `Note` cells entirely — plus one row (RAMBIS-34) with 6
+columns (missing only `Note`). All 182 affected rows belonged to the five projects the audit had
+already determined have zero deck coverage:
+
+| Project | Rows fixed | Total rows |
+|---|---|---|
+| ohplays | 42 | 42 |
+| ledgeriq | 35 | 35 |
+| echo | 37 | 37 |
+| nagarro | 34 (of 35 — NAGARRO-35 was already correctly formed) | 35 |
+| rambis-ui | 34 (33 fully truncated + 1 six-column) | 34 |
+
+The first pass appears to have treated "these five projects are all Unbacked anyway" as license
+to omit the verdict cell — which meant Task 3's acceptance criterion ("every row's Verdict cell
+contains exactly one of Backed/Partial/Unbacked") was never actually met for 61% of Part A, and
+the Phase 8 Gate counts table was an unverified assertion rather than a real tally.
+
+**Fix applied:** every truncated row was given an explicit `Unbacked` verdict, a `—` citation
+(correct for Unbacked rows), and a per-project rationale note explaining why the project has zero
+deck coverage (e.g., for Oh!Plays: "Deck's Agenda (Slide 2) scopes case studies to GrowIt and
+Addvance only; Oh!Plays never appears in the 48-page deck."). The three EchoDrive testimonial
+rows (ECHO-35/36/37) additionally kept their original note about generic-title attribution. No
+verdict was upgraded to Backed/Partial to improve the numbers — every fixed row remains Unbacked,
+consistent with the zero-deck-coverage finding already established for these five projects.
+
+**Additionally found and fixed while recomputing the Phase 8 Gate table:** the *original* Phase 8
+Gate table (which covered all 7 projects, not just the 5 broken ones) had a hand-counting error
+even for GrowIt's already-correctly-formatted rows — it reported 2 Backed / 3 Partial, but a
+direct tally of GrowIt's 36 Part A rows shows 1 Backed (GROWIT-02) / 4 Partial
+(GROWIT-01/03/22/25), not 2/3. GROWIT-01 was miscounted as Backed when its row's own Note text
+says the deck's figure "matches" but the deck's own metric definition ("New Active Users") is
+different in kind — the row was always Partial, not Backed. This changed the published Total from
+18/11/268 to the corrected **17/12/268** (297 total, unchanged).
+
+**Verification performed after the repair:**
+- Every Part A claim row now has exactly 7 columns (0 rows with 4 or 6 columns) — verified via
+  `awk`/column-count script across the full Part A range.
+- Zero Backed/Partial rows have an empty or `—` citation cell.
+- Part A row count is still 297 (columns were added, no rows were added or removed).
+- Deck Index (48 rows), the LedgerIQ CONTRADICTION block, Part B, and Part C are byte-for-byte
+  unchanged — confirmed via `git diff`, which shows edits scoped only to the five broken Part A
+  subsections and the Phase 8 Gate counts table.
+- Zero code files (`app/`, `components/`, `lib/`, `__tests__/`, `next.config.js`) modified by
+  this repair.
+
+**Files modified:** `.planning/DECK-COVERAGE-AUDIT.md`, this SUMMARY.
+**Commits:** `fix(05-01): add missing verdict cells to 181 truncated audit rows` (audit fix),
+plus this summary correction.
+
 ## Known Stubs
 
 - `app/projects/addvanced/addvanced-client.tsx:947-969` renders a "Stakeholder Feedback"
@@ -185,11 +241,35 @@ source link, per the locked non-deck-source rule.
 - `grep -c "echo-client-final"` → 0 → PASS (dead file correctly never cited)
 - Verdict tokens present are exactly `{Backed, Partial, Unbacked}` (no stray strings) → PASS
 - Zero Backed/Partial rows have an empty (`—`) citation cell (verified via `awk` column check)
-  → PASS
+  → PASS *(note: at the time this check ran, 181 rows had no `Verdict` cell at all — they were
+  neither Backed nor Partial nor properly Unbacked, so this check technically passed while
+  missing the real defect; see "Self-Check: REPAIR" below for the corrected verification)*
 - `wc -l .planning/DECK-COVERAGE-AUDIT.md` → 707 (meets "at least 150")
 - `git status --porcelain app/ components/ lib/ __tests__/ next.config.js` → empty → PASS (zero
   code files touched)
 - `.planning/STATE.md` and `.planning/ROADMAP.md` not modified by this plan → confirmed (only
   `.planning/DECK-COVERAGE-AUDIT.md` staged/committed)
 
-All checks PASSED. No missing items.
+All checks PASSED at the time. No missing items were flagged — but the orchestrator's later
+spot-check found the column-count defect this original self-check missed (see below).
+
+## Self-Check: REPAIR (post-completion, this pass)
+
+- `awk 'NR>=131 && NR<548' .planning/DECK-COVERAGE-AUDIT.md | grep -E "^\| *[A-Z-]+-[0-9]+ *\|" | awk -F'|' '{print NF-2}' | sort -n | uniq -c`
+  → `297 7` (every Part A claim row has exactly 7 columns; zero rows with 4 or 6 columns) → PASS
+- Backed/Partial rows with empty or `—` citation cell → 0 found → PASS
+- Part A claim row count → still 297 (columns added, no rows added/removed) → PASS
+- Deck Index row count → still 48 → PASS
+- `grep -c "CONTRADICTION"` → still 4 → PASS (LedgerIQ block untouched)
+- `wc -l .planning/DECK-COVERAGE-AUDIT.md` → 711 (was 707; +4 lines from the Phase 8 Gate
+  correction note, no rows added to Part A) → PASS
+- `git status --porcelain app/ components/ lib/ __tests__/ next.config.js` → non-empty, but all
+  entries pre-date this repair session (pre-existing working-tree state unrelated to this task —
+  confirmed this repair touched only `.planning/DECK-COVERAGE-AUDIT.md` and this SUMMARY) → PASS
+  for this repair's own scope
+- `.planning/STATE.md` and `.planning/ROADMAP.md` not modified by this repair → confirmed
+- Recomputed Phase 8 Gate per-project tally (Backed/Partial/Unbacked) via `awk` against the
+  actual Verdict column, cross-checked against the published table → corrected total is
+  **17 / 12 / 268** (was 18/11/268; GrowIt's split corrected from 2/3 to 1/4)
+
+All repair checks PASSED. No missing items.
