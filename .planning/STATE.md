@@ -1,17 +1,16 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.0
-milestone_name: Recruiter-Readiness
-current_phase: 04
-status: completed
-last_updated: "2026-08-15T14:31:26.404Z"
-last_activity: 2026-08-15 — Milestone v1.0 completed and archived
+milestone: v2.0
+milestone_name: Case-Study Depth
+status: planning
+last_updated: "2026-08-15T15:03:42.828Z"
+last_activity: 2026-08-15
 progress:
-  total_phases: 4
-  completed_phases: 4
-  total_plans: 3
-  completed_plans: 3
-  percent: 100
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # STATE — Randy Ellis Portfolio
@@ -25,10 +24,10 @@ See: .planning/PROJECT.md (updated 2026-08-15 after v1.0 milestone)
 
 ## Current Position
 
-Phase: Milestone v1.0 Recruiter-Readiness — complete, shipped, tagged
+Phase: Not started (defining requirements)
 Plan: —
-Status: Awaiting next milestone
-Last activity: 2026-08-15 — v1.0 merged to main (PR #47), audited (passed after remediation `514de29`), archived, tagged
+Status: Defining requirements
+Last activity: 2026-08-15 — Milestone v2.0 started
 
 ## Open Items (carried into next milestone)
 
