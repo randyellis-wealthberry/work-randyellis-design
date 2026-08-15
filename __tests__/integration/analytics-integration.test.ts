@@ -178,26 +178,26 @@ describe("Analytics Integration Tests", () => {
       });
     });
 
-    it("should track PWA install prompts", () => {
+    it("should track PWA installations", () => {
       const analytics = require("../../lib/analytics");
 
-      // Simulate PWA install prompt from service worker
-      analytics.trackPWAInstallPrompt("beforeinstallprompt", "automatic", 3);
+      // Simulate a completed install from the browser's own install flow
+      analytics.trackPWAInstallSuccess("accepted", "chrome", "desktop");
 
-      expect(mockGtag).toHaveBeenCalledWith("event", "pwa_install_prompt", {
+      expect(mockGtag).toHaveBeenCalledWith("event", "pwa_install_success", {
         event_category: "pwa_engagement",
-        event_label: "beforeinstallprompt",
-        event_type: "beforeinstallprompt",
-        trigger_source: "automatic",
-        session_visit_count: 3,
+        event_label: "accepted",
+        outcome: "accepted",
+        browser: "chrome",
+        platform: "desktop",
       });
 
-      expect(mockTrack).toHaveBeenCalledWith("pwa_install_prompt", {
+      expect(mockTrack).toHaveBeenCalledWith("pwa_install_success", {
         category: "pwa_engagement",
-        label: "beforeinstallprompt",
-        event_type: "beforeinstallprompt",
-        trigger_source: "automatic",
-        session_visit_count: 3,
+        label: "accepted",
+        outcome: "accepted",
+        browser: "chrome",
+        platform: "desktop",
       });
     });
 
@@ -255,7 +255,6 @@ describe("Analytics Integration Tests", () => {
       expect(typeof analytics.trackParallaxScroll).toBe("function");
 
       // PWA functions
-      expect(typeof analytics.trackPWAInstallPrompt).toBe("function");
       expect(typeof analytics.trackPWAInstallSuccess).toBe("function");
       expect(typeof analytics.trackOfflineUsage).toBe("function");
       expect(typeof analytics.trackServiceWorkerUpdate).toBe("function");
@@ -272,7 +271,7 @@ describe("Analytics Integration Tests", () => {
       expect(typeof defaultExport.trackStructuredDataView).toBe("function");
       expect(typeof defaultExport.trackBlogHeroImageView).toBe("function");
       expect(typeof defaultExport.trackAnimationInteraction).toBe("function");
-      expect(typeof defaultExport.trackPWAInstallPrompt).toBe("function");
+      expect(typeof defaultExport.trackPWAInstallSuccess).toBe("function");
     });
   });
 
@@ -288,7 +287,7 @@ describe("Analytics Integration Tests", () => {
         analytics.trackStructuredDataView("Article");
         analytics.trackBlogHeroImageView("test-blog");
         analytics.trackAnimationInteraction("fade", "scroll");
-        analytics.trackPWAInstallPrompt("manual");
+        analytics.trackPWAInstallSuccess("accepted");
       }).not.toThrow();
 
       // Verify Vercel Analytics was still called

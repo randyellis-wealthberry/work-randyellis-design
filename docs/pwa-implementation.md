@@ -1,5 +1,7 @@
 # PWA Implementation Summary
 
+> **Status: historical.** The PWA is disabled — `next-pwa` is commented out in `next.config.js`, no service worker is registered, and the `InstallPrompt` component was removed (it popped up on every iOS visit). This document describes the original implementation and no longer reflects runtime behavior.
+
 This document outlines the Progressive Web App (PWA) implementation for the Randy Ellis Portfolio website, following a comprehensive Test-Driven Development (TDD) approach.
 
 ## ✅ Implemented Features

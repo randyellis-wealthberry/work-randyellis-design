@@ -18,10 +18,7 @@ import {
 } from "@/components/seo/structured-data";
 import { getNonce } from "@/lib/security/nonce";
 import PWAProvider from "@/components/pwa/pwa-provider";
-import InstallPrompt from "@/components/pwa/install-prompt";
-import PWAStatus, {
-  ServiceWorkerUpdatePrompt,
-} from "@/components/pwa/pwa-status";
+import PWAStatus from "@/components/pwa/pwa-status";
 import ResourceHints from "@/components/cdn/resource-hints";
 import { createBaseMetadata } from "@/lib/metadata";
 import { MobileMenuProvider } from "@/context/mobile-menu-context";
@@ -159,10 +156,8 @@ export default async function RootLayout({
               <GlobalMobileMenu />
             </MobileMenuProvider>
 
-            {/* PWA Components */}
+            {/* Dev-only online/offline indicator */}
             {process.env.NODE_ENV !== "production" && <PWAStatus />}
-            <InstallPrompt />
-            <ServiceWorkerUpdatePrompt />
           </ThemeProvider>
         </PWAProvider>
         <Analytics />
