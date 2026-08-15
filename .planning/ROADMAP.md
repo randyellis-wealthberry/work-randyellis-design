@@ -46,7 +46,9 @@ with every claim deck-backed and cross-surface-consistent.
   3. A Backed / Partial / Unbacked coverage table exists for all 7 case-study projects against the 48-page deck, ready to gate Phase 8 content
   4. `echo-client-final.tsx` and the abandoned `components/case-study/*` files are deleted; only live, imported files remain in the rewrite path
   5. The POS-02 proof-chip subhead renders as chips (not dense text); clicking the Waffle "Live Product" badge has no dead zone
-**Plans**: TBD
+**Plans**: 2 plans (both wave 1, parallel)
+- [ ] 05-01-PLAN.md — Deck-coverage audit: per-claim Backed/Partial/Unbacked table for the 7 case studies (FND-03)
+- [ ] 05-02-PLAN.md — Code cleanup & tech debt: data-model consolidation, orphan/dead-route deletion, hero proof chips, badge click fix (FND-01, FND-02, FND-04, DEBT-01, DEBT-02)
 
 ### Phase 6: Narrative Template & Data Model
 **Goal**: A proven, reusable set of narrative components — decision-with-rationale, in-page nav, reflection, role narrative — exist and render the full problem-to-reflection arc on at least one project, de-risking the pattern before it's applied to 6 more files.
