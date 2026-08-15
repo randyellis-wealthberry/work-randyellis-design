@@ -1,8 +1,9 @@
 # ROADMAP — Recruiter-Readiness Milestone
 
-**3 phases** | **14 requirements mapped** | All v1 requirements covered ✓
+**4 phases** | **18 requirements mapped** | All v1 requirements covered ✓
 Granularity: coarse. Order: credibility first (highest liability), then excitement,
-then conversion.
+then conversion. Phase 4 (Waffle product page) added post-milestone as a
+ship-proof portfolio addition.
 
 ---
 
@@ -38,11 +39,30 @@ then conversion.
 3. Client logo bar renders recognizable employers/clients
 4. Testimonials section surfaces the Phase-1 verified quotes
 
+### Phase 4: Waffle Product Page
+**Goal:** Prove Randy is a design leader who *ships* + AI — a standalone `/projects/waffle` page showcasing Waffle (waffle.cards), his own live, monetized AI SaaS (AI interview-scorecard generator).
+**Mode:** mvp
+**Requirements:** WAF-01, WAF-02, WAF-03, WAF-04
+**Input:** `.planning/phases/04-waffle-product-page/04-CONTEXT.md`; product source-of-truth `/Users/MacBook/Developer/waffle.cards`
+**Success Criteria**:
+1. `/projects/waffle` renders a product showcase: hero (product + Randy's role) → 6-feature grid → 3-step how-it-works → product screenshot → CTA row
+2. Dual CTA (`View live product ↗` + `Try free`) both link to waffle.cards and fire `trackEvent`
+3. `/projects` grid shows a Waffle card with a "Live Product" badge that routes to `/projects/waffle` (not the `[slug]` case-study template)
+4. Waffle-orange accent + logo applied within the portfolio design system, contrast-safe in light + dark; `npm run lint` + `npx tsc --noEmit` + `npm test` green
+
 ---
 
 ## Coverage
 
-All 14 v1 requirements mapped to exactly one phase. See `REQUIREMENTS.md` traceability.
+All 18 requirements mapped to exactly one phase. Phases 1–3 (14 v1 reqs) traced in
+`REQUIREMENTS.md`; Phase 4 `WAF-*` reqs defined below (add to `REQUIREMENTS.md` when
+traceability is next refreshed).
+
+### Phase 4 requirements (WAF-*)
+- **WAF-01:** Standalone product page at `/projects/waffle` (showcase depth).
+- **WAF-02:** Badged "Live Product" card in the `/projects` grid linking to the page.
+- **WAF-03:** Dual CTA to waffle.cards, both tracked via `trackEvent`.
+- **WAF-04:** Portfolio design system + waffle-orange accent + Waffle logo assets.
 
 ---
-*Last updated: 2026-08-14*
+*Last updated: 2026-08-14 (added Phase 4: Waffle Product Page)*
