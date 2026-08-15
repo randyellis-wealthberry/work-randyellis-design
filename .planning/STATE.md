@@ -3,7 +3,7 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Case-Study Depth
 status: executing
-stopped_at: "Completed 05-02-PLAN.md (foundation cleanup: FND-01, FND-02, FND-04, DEBT-01, DEBT-02)"
+stopped_at: "Phase 6 complete (narrative components + growit pilot); Phase 7 structural wiring complete across 4 bespoke pages"
 last_updated: "2026-08-15T18:25:29.172Z"
 last_activity: 2026-08-15
 progress:
@@ -21,13 +21,13 @@ progress:
 See: .planning/PROJECT.md (updated 2026-08-15 after v1.0 milestone)
 
 **Core value:** A hiring manager finds a coherent, senior, *verifiable* story with an obvious way to book a conversation — shipped and audit-verified in v1.0. v2.0 adds proof of *how Randy decides*.
-**Current focus:** Phase 05 — foundation-cleanup
+**Current focus:** Phase 8 — content rewrite (blocked on per-project decision content from Randy)
 
 ## Current Position
 
-Phase: 05 (foundation-cleanup) — EXECUTING
-Plan: 2 of 2
-Status: Ready to execute
+Phase: 07 (bespoke-convergence) — STRUCTURE COMPLETE
+Plan: narrative components wired to all 7 in-scope case studies
+Status: Phase 8 content is the critical path
 Last activity: 2026-08-15
 
 Progress: [█████░░░░░] 50%
@@ -57,15 +57,23 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 
 - Roadmap: bespoke-page convergence strategy = insert shared narrative components into the 5 existing bespoke routes (Phase 7), NOT collapse them onto a single generic template — de-risked per architecture research
 - Roadmap: `ledgeriq` orphan-route deletion (FND-02) scheduled before its content rewrite so copy isn't authored twice
-- Roadmap: deck-coverage audit (FND-03) is a hard gate before Phase 8 content — mirrors v1.0's fabrication-purge lesson
+- ~~Roadmap: deck-coverage audit (FND-03) is a hard gate before Phase 8 content~~ — **REVERSED 2026-08-15 by Randy.** The deck is one record of his work, not its boundary; his firsthand account is a valid source. Audit demoted to advisory reference. Surviving guardrails: self-consistency across surfaces, credit attribution (CRED-06), NDA judgment (CRED-08)
 - Roadmap: CRED-09 cross-surface verification is its own final phase (9), not folded into "content done" — modeled on v1.0 audit remediation
 - [Phase 05]: D-12 accessibility contract carried forward for Phase 6: preserve deleted case-study-section.tsx's section id / role=region / aria-labelledby->{id}-heading contract while rendering the heading via ScrambleSectionTitle, not a plain h2
 - [Phase 05]: D-16 no-AI-slop chip allowlist for Phase 6 UI-SPEC.md: Badge primitive only, no lucide icons, no Card wrapper, no new tokens, amber accent reserved for the Live Product status badge
+- [Phase 06]: `TextScramble` no longer sets `role="button"`/`tabIndex` — it overrode heading semantics on every `ScrambleSectionTitle` site-wide, so screen readers got buttons instead of a document outline. Verified `role="button"` count is now 0 across all 7 case-study pages
+- [Phase 06]: `decisions[].outcome` is optional by design — omitting it is how the model declines to state a result instead of inventing one (CRED-07)
+- [Phase 07]: `CaseStudyNarrative` composite added so bespoke pages share one component set rather than four hand-copied JSX blocks that drift
 - [Phase 05]: FND-01 closed: Project type resolves exclusively from lib/data/types.ts; app/data.ts deleted; Phase 6 decisions[]/roleNarrative fields will typecheck against the live model
 
 ### Pending Todos
 
-None yet.
+- **Phase 8 — decision content: 2 of 7 done.** growit (5 decisions, all with outcomes) and addvanced (2 decisions) are populated. Remaining: ohplays, ledgeriq, echo, nagarro, rambis-ui. Each needs an interview round.
+- **addvanced claim purge done 2026-08-15.** Randy confirmed it was a 2-week prototype sprint only, never shipped. Removed 8 production-scale metrics, rewrote description/outcome/5 learnings that claimed retention drivers, competitor benchmarks and market capture. Kept the 7 genuine prototype-test figures.
+- **addvanced decisions lack outcomes.** Both are absent; worth a qualitative round like growit's.
+- ~~MIG-01 deviation — addvanced bespoke reflection~~ **RESOLVED 2026-08-15.** Randy chose to standardize. SpotlightCard/Award chrome retired; addvanced now renders `ReflectionBlock` like the other six. The 3-column metric grid was deleted with it after verifying all three figures (35%, 2 weeks, 800%) are already restated elsewhere on the same page — no unique claim lost.
+- **Echo data duplication (Phase 9).** `echo-client.tsx` defines a local `enhancedProcessStory` with its own `reflection`, overriding `PROJECTS`. Two sources of truth for one claim — exactly the cross-surface drift CRED-09 exists to catch.
+- ~~growit decision outcomes~~ **RESOLVED 2026-08-15.** All 5 now carry an outcome, sourced qualitatively from Randy (no invented figures). Two are honestly negative/mixed: experts complained about buried features under progressive disclosure, and radius-widening thinned relevance exactly where it filled the feed.
 
 ### Blockers/Concerns
 

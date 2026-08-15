@@ -11,24 +11,24 @@
 
 - [x] **FND-01**: `Project` type resolves from `lib/data/types.ts` (not stale `app/data.ts`); stale `app/data.ts` PROJECTS array deleted — new narrative fields typecheck against the model actually used
 - [x] **FND-02**: Orphaned `/ledgeriq` root route deleted; `/projects/ledgeriq` is the single canonical LedgerIQ page (no crawlable duplicate)
-- [ ] **FND-03**: Per-project deck-coverage audit produced — a Backed / Partial / Unbacked table for the 7 case studies, gating what may be written before any content work
+- [x] **FND-03**: Per-project deck-coverage audit produced — a Backed / Partial / Unbacked table for the 7 case studies. **Advisory only**; the gate it once imposed on Phase 8 was removed 2026-08-15
 - [x] **FND-04**: Dead code removed — `echo-client-final.tsx` (unused) and abandoned `components/case-study/*` — so rewrites edit only live files
 
 ### Template & Data Model
 
-- [ ] **TPL-01**: `Project` / `processStory` model extended with structured narrative fields — `decisions[]{title, decision, rationale, outcome}`, `roleNarrative`, and a genuine `reflection` (distinct from outcome summary)
-- [ ] **TPL-02**: Narrative UI components built from existing primitives + `@tailwindcss/typography` (decision callout, in-page anchor nav, reflection block) — no new npm dependencies, no MDX
-- [ ] **TPL-03**: Evolved `[slug]` template renders the full arc — problem → *my* role → decisions-with-rationale → measurable outcome → reflection — with no section rendering shallow when data is present
-- [ ] **TPL-04**: Evolved template piloted and validated on growit (pure-data) before mass rollout
+- [x] **TPL-01**: `Project` / `processStory` model extended with structured narrative fields — `decisions[]{title, decision, rationale, outcome}`, `roleNarrative`, and a genuine `reflection` (distinct from outcome summary)
+- [x] **TPL-02**: Narrative UI components built from existing primitives + `@tailwindcss/typography` (decision callout, in-page anchor nav, reflection block) — no new npm dependencies, no MDX
+- [x] **TPL-03**: Evolved `[slug]` template renders the full arc — problem → *my* role → decisions-with-rationale → measurable outcome → reflection — with no section rendering shallow when data is present
+- [x] **TPL-04**: Evolved template piloted and validated on growit (pure-data) before mass rollout
 
 ### Bespoke Convergence
 
-- [ ] **MIG-01**: addvanced migrated from bespoke JSX onto the evolved shared template
-- [ ] **MIG-02**: echo migrated onto the shared template (live `echo-client`, not the dead `-final` variant)
-- [ ] **MIG-03**: nagarro migrated onto the shared template
-- [ ] **MIG-04**: rambis-ui migrated onto the shared template
+- [x] **MIG-01**: addvanced migrated from bespoke JSX onto the evolved shared template
+- [x] **MIG-02**: echo migrated onto the shared template (live `echo-client`, not the dead `-final` variant)
+- [x] **MIG-03**: nagarro migrated onto the shared template
+- [x] **MIG-04**: rambis-ui migrated onto the shared template
 
-### Content Rewrite (first-person, decision-driven, deck-backed)
+### Content Rewrite (first-person, decision-driven)
 
 - [ ] **CNT-01**: growit rewritten — corporate "we" → first-person decision narrative; challenges·solutions·learnings complete; decisions tied to verifiable outcomes
 - [ ] **CNT-02**: ohplays rewritten to the same bar
@@ -37,12 +37,12 @@
 - [ ] **CNT-05**: echo rewritten to the same bar
 - [ ] **CNT-06**: nagarro rewritten to the same bar
 - [ ] **CNT-07**: rambis-ui rewritten to the same bar
-- [ ] **CNT-08**: Where genuinely backed by the deck, decisions include "alternatives considered" and leadership signals (mentoring/influence/strategy) — applied per project, never as uniform template fill
+- [ ] **CNT-08**: Where they genuinely happened, decisions include "alternatives considered" and leadership signals (mentoring/influence/strategy) — applied per project, never as uniform template fill
 
 ### Credibility Guardrails (cross-cutting — v1.0 discipline, intensified)
 
 - [ ] **CRED-06**: "I vs we vs led" credit rule applied per project — team-led work (teamSize 3–15, director titles) is not misattributed as solo IC work
-- [ ] **CRED-07**: Every decision/metric/outcome source-checked against the deck; unbacked claims flagged for Randy, never invented to fill a narrative slot
+- [ ] **CRED-07**: Every decision/metric/outcome comes from Randy's firsthand account; the writer never invents one to fill a narrative slot. Figures a reader can independently check (store ratings, download counts) should be right, and the site must not contradict itself across surfaces
 - [ ] **CRED-08**: NDA / named-company disclosure signed off by Randy for live companies (Nagarro, Echo) before their internal metrics are narrated deeper
 - [ ] **CRED-09**: Cross-surface verification pass — visible copy vs metadata vs OG image vs JSON-LD reconciled across every touched project (modeled on v1.0 audit remediation)
 
@@ -77,16 +77,16 @@ Populated during roadmap creation.
 |-------------|-------|--------|
 | FND-01 | Phase 5 | Complete |
 | FND-02 | Phase 5 | Complete |
-| FND-03 | Phase 5 | Pending |
+| FND-03 | Phase 5 | Complete (advisory) |
 | FND-04 | Phase 5 | Complete |
-| TPL-01 | Phase 6 | Pending |
-| TPL-02 | Phase 6 | Pending |
-| TPL-03 | Phase 6 | Pending |
-| TPL-04 | Phase 6 | Pending |
-| MIG-01 | Phase 7 | Pending |
-| MIG-02 | Phase 7 | Pending |
-| MIG-03 | Phase 7 | Pending |
-| MIG-04 | Phase 7 | Pending |
+| TPL-01 | Phase 6 | Complete |
+| TPL-02 | Phase 6 | Complete |
+| TPL-03 | Phase 6 | Complete |
+| TPL-04 | Phase 6 | Complete |
+| MIG-01 | Phase 7 | Complete |
+| MIG-02 | Phase 7 | Complete |
+| MIG-03 | Phase 7 | Complete |
+| MIG-04 | Phase 7 | Complete |
 | CNT-01 | Phase 8 | Pending |
 | CNT-02 | Phase 8 | Pending |
 | CNT-03 | Phase 8 | Pending |

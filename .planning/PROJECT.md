@@ -32,7 +32,7 @@ manager. (Waffle stays as its v1.0 product-showcase page — not a case study.)
   problem → *my* role → key decisions *with rationale* → measurable outcome →
   reflection (the current template can't carry this structure)
 - Content rewrite (7 case studies) — corporate "we developed…" voice →
-  first-person "I chose X because Y", deck-backed
+  first-person "I chose X because Y"
 - Data completeness — fill thin/empty challenges·solutions·learnings so no
   section renders shallow
 - Outcome proofing — every decision tied to a verifiable metric; the v1.0
@@ -40,9 +40,11 @@ manager. (Waffle stays as its v1.0 product-showcase page — not a case study.)
 - Tech-debt fold-in — POS-02 proof-chips, WAF-02 badge dead-zone, delete stale
   `app/data.ts` PROJECTS array
 
-**Key constraint:** Source-of-truth = 48-page deck + `.planning/CREDIBILITY-COPY.md`.
-Deck covers most projects; any project the deck doesn't back → flag for Randy,
-do not invent (carries CRED lessons from v1.0). Verify Chameleon URL + 4.8★
+**Key constraint:** Source-of-truth = Randy's firsthand account of each engagement.
+The 48-page deck and `.planning/CREDIBILITY-COPY.md` are supporting references, not
+a gate (deck-gate removed 2026-08-15). The writer still never invents content to
+fill a slot, the site must not contradict itself, and independently checkable
+figures should be right. Verify Chameleon URL + 4.8★
 App Store proof before either lands in copy.
 
 ## Core Value
@@ -65,7 +67,7 @@ conversation. **Shipped and audit-verified in v1.0.**
 ### Active (v2.0 Case-Study Depth — committed)
 
 - [ ] Narrative template evolution: `[slug]` layout expresses problem → my role → decisions-with-rationale → measurable outcome → reflection
-- [ ] Content rewrite (all 8): first-person senior-decision narrative, deck-backed
+- [ ] Content rewrite (all 8): first-person senior-decision narrative
 - [ ] Data completeness: fill thin/empty challenges·solutions·learnings
 - [ ] Outcome proofing: decisions tied to verifiable metrics (credibility guard holds)
 - [ ] Tech-debt fold-in: POS-02 proof-chips, WAF-02 badge dead-zone, delete stale `app/data.ts` PROJECTS array

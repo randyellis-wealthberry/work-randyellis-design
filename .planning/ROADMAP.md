@@ -26,12 +26,12 @@ Audit: [milestones/v1.0-MILESTONE-AUDIT.md](milestones/v1.0-MILESTONE-AUDIT.md) 
 ledgeriq, addvanced, echo, nagarro, rambis-ui — waffle excluded, it's a product
 showcase not a case study) from generic corporate summaries into first-person,
 decision-driven narratives that prove senior design leadership to a hiring manager,
-with every claim deck-backed and cross-surface-consistent.
+with every claim written from Randy's firsthand account and cross-surface-consistent.
 
 - [x] **Phase 5: Foundation & Cleanup** - Fix the type-import blocker, delete duplicate/orphaned code, audit deck coverage before any content is written, and fold in unrelated tech debt (completed 2026-08-15)
-- [ ] **Phase 6: Narrative Template & Data Model** - Build and pilot the decisions-with-rationale narrative components on growit before mass rollout
+- [x] **Phase 6: Narrative Template & Data Model** - Build and pilot the decisions-with-rationale narrative components on growit before mass rollout
 - [ ] **Phase 7: Bespoke Convergence** - Insert the proven narrative components into the 4 bespoke standalone project pages
-- [ ] **Phase 8: Content Rewrite & Credibility Guardrails** - Rewrite all 7 case studies first-person, decision-driven, deck-backed, with credit-attribution and NDA guardrails enforced as acceptance criteria
+- [ ] **Phase 8: Content Rewrite & Credibility Guardrails** - Rewrite all 7 case studies first-person and decision-driven, with credit-attribution and NDA guardrails enforced as acceptance criteria
 - [ ] **Phase 9: Cross-Surface Verification** - Reconcile visible copy, metadata, OG images, and JSON-LD across every touched project
 
 ## Phase Details
@@ -43,7 +43,7 @@ with every claim deck-backed and cross-surface-consistent.
 **Success Criteria** (what must be TRUE):
   1. `app/projects/[slug]/project-detail-client.tsx` imports `Project` from `lib/data/types.ts`; `app/data.ts` no longer exists; the project pages typecheck clean
   2. Only one LedgerIQ URL exists (`/projects/ledgeriq`); the orphaned `/ledgeriq` root route is gone and no page links to it
-  3. A Backed / Partial / Unbacked coverage table exists for all 7 case-study projects against the 48-page deck, ready to gate Phase 8 content
+  3. A Backed / Partial / Unbacked coverage table exists for all 7 case-study projects against the 48-page deck, as an advisory reference for Phase 8 (gate removed 2026-08-15)
   4. `echo-client-final.tsx` and the abandoned `components/case-study/*` files are deleted; only live, imported files remain in the rewrite path
   5. The POS-02 proof-chip subhead renders as chips (not dense text); clicking the Waffle "Live Product" badge has no dead zone
 **Plans**: 2 plans (both wave 1, parallel)
@@ -76,15 +76,15 @@ with every claim deck-backed and cross-surface-consistent.
 **UI hint**: yes
 
 ### Phase 8: Content Rewrite & Credibility Guardrails
-**Goal**: Every in-scope case study reads as a first-person, decision-driven, deck-backed narrative a hiring manager can trust — corporate "we" voice is gone and no claim is invented to fill a template slot.
-**Depends on**: Phase 7 (structural template must be in place on all 7 pages before content lands), Phase 5 (deck-coverage audit gates what may be written)
+**Goal**: Every in-scope case study reads as a first-person, decision-driven narrative a hiring manager can trust — corporate "we" voice is gone and no claim is invented to fill a template slot.
+**Depends on**: Phase 7 (structural template must be in place on all 7 pages before content lands)
 **Requirements**: CNT-01, CNT-02, CNT-03, CNT-04, CNT-05, CNT-06, CNT-07, CNT-08, CRED-06, CRED-07, CRED-08
 **Success Criteria** (what must be TRUE):
   1. All 7 projects (growit, ohplays, ledgeriq, addvanced, echo, nagarro, rambis-ui) read first-person ("I chose X because Y"), with challenges·solutions·learnings complete and no thin/empty sections
-  2. Every decision, rationale, and outcome traces to a Backed or Partial entry in the Phase 5 coverage audit; anything Unbacked is flagged to Randy, never invented
+  2. Every decision, rationale, and outcome comes from Randy's firsthand account of the engagement — no source-citation requirement, but nothing invented by the writer to fill a template slot either
   3. First-person "I" claims are checked against each project's `role`/`teamSize`; team-executed work (teamSize 3–15, director titles) is credited as "we"/"led," not misattributed as solo work
   4. Randy has signed off on publishing deeper internal specificity for the real, named, still-operating clients (Nagarro, Echo) before that content ships
-  5. "Alternatives considered" and leadership-signal callouts (mentoring, influence, strategy) appear only where the deck genuinely supports them per project — never as uniform template fill
+  5. "Alternatives considered" and leadership-signal callouts (mentoring, influence, strategy) appear only where they genuinely happened on that project — never as uniform template fill
 **Plans**: TBD
 
 ### Phase 9: Cross-Surface Verification
@@ -106,8 +106,8 @@ with every claim deck-backed and cross-surface-consistent.
 | 3. Candidate Readiness | v1.0 | pre-GSD (traced) | Complete | 2026-08-14 |
 | 4. Waffle Product Page | v1.0 | 3/3 | Complete | 2026-08-15 |
 | 5. Foundation & Cleanup | v2.0 | 2/2 | Complete   | 2026-08-15 |
-| 6. Narrative Template & Data Model | v2.0 | 0/TBD | Not started | - |
-| 7. Bespoke Convergence | v2.0 | 0/TBD | Not started | - |
+| 6. Narrative Template & Data Model | v2.0 | 1/1 | Complete | 2026-08-15 |
+| 7. Bespoke Convergence | v2.0 | 1/1 | Structural wiring complete (content pending Phase 8) | 2026-08-15 |
 | 8. Content Rewrite & Credibility Guardrails | v2.0 | 0/TBD | Not started | - |
 | 9. Cross-Surface Verification | v2.0 | 0/TBD | Not started | - |
 
