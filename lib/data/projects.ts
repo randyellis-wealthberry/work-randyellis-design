@@ -42,7 +42,7 @@ export const PROJECTS: Project[] = [
       "/projects/growit/phase3-screen2.jpg",
       "/projects/growit/phase3-screen3.jpg",
     ],
-    timeline: "Q1 2014 - Q4 2016",
+    timeline: "Q1 2014 - Q2 2016",
     status: "completed",
     technologies: [
       "React Native",
@@ -85,7 +85,7 @@ export const PROJECTS: Project[] = [
       "Expert validation builds trust in user-generated plant identification",
     ],
     teamSize: 8,
-    role: "Product Designer & Frontend Lead",
+    role: "Lead Product Designer",
     overview: {
       deliverables: [
         "Lead Product Designer",
@@ -94,12 +94,11 @@ export const PROJECTS: Project[] = [
         "User Flow",
         "Interaction Design",
         "Hi-Fi Prototyping",
-        "Three-Phase Development Strategy",
         "Community Building Framework",
       ],
       teamMembers: [
         "Software Engineer (iOS + Android)",
-        "UX Designer/Researcher (Me)",
+        "Lead Product Designer (Me)",
         "Visual Designer",
         "Project Manager",
         "Backend Engineer",
@@ -136,6 +135,55 @@ export const PROJECTS: Project[] = [
         "Regional expert network coordination and content localization",
       ],
     },
+    roleNarrative:
+      "I was the lead product designer on GrowIt!, one of eight people on the team. Design was my lane end to end—features vision, evaluative research, user flows, interaction design, and hi-fi prototyping—while a dedicated iOS/Android engineer built what I specified. Two things that shape this case study were not mine to decide: the client and PM set the three-phase sequencing, and the Ball Horticultural partnership was already in place when I arrived. What follows are the calls I actually made, inside those constraints.",
+    decisions: [
+      {
+        title: "One interface for novices and experts, not two",
+        decision:
+          "I designed a single interface with progressive disclosure—advanced controls surfaced as users demonstrated competence—instead of splitting the app into beginner and expert modes.",
+        rationale:
+          "Two distinct modes is the cleaner UX answer and I passed on it deliberately: it doubles the design and build surface, and it forces a self-identification choice on first run that novices routinely get wrong. Progressive disclosure kept one path through the product at the cost of burying expert features behind demonstrated behavior, which meant experienced gardeners had to earn their way to depth they already knew they wanted.",
+        outcome:
+          "It cut both ways, as designed. Novices stopped bouncing off the first run, and experienced gardeners told us plainly that features they knew existed were buried. I would make the same call again, but the complaint was real and I did not have a good answer for it.",
+      },
+      {
+        title: "Ranked candidates over a single confident answer",
+        decision:
+          "When plant recognition returned a match, I showed the top candidates and made the user confirm one, rather than presenting a single identification as fact.",
+        rationale:
+          "A single auto-answer is the better demo and the better first-run moment. But a wrong identification in a plant-care app doesn't just embarrass the product—it sends someone down an incorrect watering and light schedule for a living thing. Putting the model's uncertainty in front of the user cost one extra tap on every identification and made confirmation an explicit act, which is what let community verification mean something downstream.",
+        outcome:
+          "The confirmation step turned out to build trust rather than just protect against error — people believed an identification more once they had chosen it themselves than when the app simply asserted one.",
+      },
+      {
+        title: "A rating mechanic designed for volume, not depth",
+        decision:
+          "I kept photo rating to a single low-effort tap, so contributing required no writing and almost no thought.",
+        rationale:
+          "The alternative was a richer review—stars, tags, commentary—which produces better individual data and far less of it. I wanted contribution from the majority of users who would never write a review at all, and accepted shallower signal per interaction to get it.",
+        outcome:
+          "Photo ratings reached 3.4M against 350K uploads—roughly ten ratings for every photo contributed. The ratio is the mechanic working as intended, not an accident of traffic.",
+      },
+      {
+        title: "Widening the radius instead of shipping an empty feed",
+        decision:
+          "Location-scoped discovery expanded its radius automatically when local density was too low to fill a feed.",
+        rationale:
+          "Geographic relevance is the whole point in gardening—climate and plant availability decide whether advice is useful—but strict location scoping punishes exactly the users who need the app most, the ones with no gardening community nearby. Rather than choose between relevance and a populated feed, I let scope degrade gracefully: tight where there was density, wider where there wasn't.",
+        outcome:
+          "It did what it was built for: users in sparse regions got a populated feed instead of a blank screen. It also did what I expected it to cost — the further the radius stretched, the less climate-relevant the content became, so the people getting the most content were getting the least applicable content.",
+      },
+      {
+        title: "Treating winter as planning season, not dead season",
+        decision:
+          "I designed off-season content—planning, indoor plants—rather than letting engagement follow the gardening calendar into a trough.",
+        rationale:
+          "The easy read is that a gardening app is simply seasonal and the winter drop is a fact to be absorbed. I treated the trough as a content problem instead: the same users are still gardeners in January, they just aren't outdoors. Reframing the off-season around planning kept the app relevant in the months when the obvious move was to accept the churn and re-acquire in spring.",
+        outcome:
+          "The winter drop-off got shallower than pure seasonality would predict. It did not eliminate the trough, but the app stopped going quiet for a full quarter.",
+      },
+    ],
     processStory: {
       background:
         "The gardening community was fragmented—novices struggled with plant care while experts lacked platforms to share knowledge effectively. Existing solutions focused on either social networking or plant identification, but none bridged the gap between community building and horticultural expertise. Our vision was to create the first comprehensive platform that would connect gardening enthusiasts globally while providing expert-validated, location-relevant plant guidance through strategic partnership with Ball Horticultural Company, a leading horticultural innovation company.",
@@ -152,7 +200,7 @@ export const PROJECTS: Project[] = [
       outcome:
         "GrowIt! achieved remarkable success, reaching over 240,000 active users across 25,000+ cities globally. The platform facilitated 3.4 million photo ratings and 350,000 photo uploads, creating the largest user-generated gardening database in the U.S. The Ball Horticultural partnership resulted in expert-validated content for 15,000+ plant varieties, achieving 94% plant identification accuracy. Most importantly, user surveys showed 87% improved gardening success rates among novice users, validating our mission to democratize gardening expertise through community and expert collaboration.",
       reflection:
-        "Leading GrowIt! taught me that successful social platforms require both authentic community building and credible expertise integration. The three-phase approach proved essential—rushing to advanced features before establishing community trust would have failed. The Ball Horticultural partnership demonstrated how strategic collaborations can differentiate products in crowded markets. Most significantly, I learned that geographic relevance is crucial for specialized communities like gardening, where local climate and plant availability directly impact user success. This experience shaped my approach to community-driven product development and the importance of expert validation in user-generated content platforms.",
+        "Leading design on GrowIt! taught me that successful social platforms require both authentic community building and credible expertise integration. The phasing the client set proved essential—rushing to advanced features before establishing community trust would have failed. The Ball Horticultural partnership demonstrated how strategic collaborations can differentiate products in crowded markets. Most significantly, I learned that geographic relevance is crucial for specialized communities like gardening, where local climate and plant availability directly impact user success. This experience shaped my approach to community-driven product development and the importance of expert validation in user-generated content platforms.",
     },
   },
   {
@@ -227,67 +275,12 @@ export const PROJECTS: Project[] = [
       },
 
       // Performance & Technical Achievement
-      {
-        label: "Video Export Success Rate",
-        value: "97.8%",
-        performanceLevel: "excellent",
-      },
-      {
-        label: "Video Processing Speed",
-        value: "2.1x faster",
-        performanceLevel: "excellent",
-      },
-      {
-        label: "Cross-Platform Compatibility",
-        value: "94.5%",
-        performanceLevel: "excellent",
-      },
-      {
-        label: "Crash-Free Sessions",
-        value: "99.3%",
-        performanceLevel: "excellent",
-      },
-      {
-        label: "Time to First Video",
-        value: "47 sec",
-        performanceLevel: "excellent",
-      },
 
       // Engagement & Growth
       { label: "Weekly Active Users", value: "15K+", performanceLevel: "good" },
       { label: "Daily Active Users", value: "8.2K", performanceLevel: "good" },
-      {
-        label: "Average Session Duration",
-        value: "12.3 min",
-        performanceLevel: "good",
-      },
-      {
-        label: "User Retention (7-day)",
-        value: "68.9%",
-        performanceLevel: "good",
-      },
-      {
-        label: "Highlight Reels Created",
-        value: "50K+",
-        performanceLevel: "excellent",
-      },
 
       // Social & Sharing Success
-      {
-        label: "Social Share Success Rate",
-        value: "91.2%",
-        performanceLevel: "excellent",
-      },
-      {
-        label: "Editing Time Reduction",
-        value: "67%",
-        performanceLevel: "good",
-      },
-      {
-        label: "App Store Rating",
-        value: "4.6★",
-        performanceLevel: "excellent",
-      },
     ],
     challenges: [
       "Simplifying complex video editing for mobile-first experience",
@@ -311,7 +304,7 @@ export const PROJECTS: Project[] = [
       "Cross-platform consistency essential for team-based sharing and collaboration",
     ],
     teamSize: 6,
-    role: "UX Designer & Mobile Product Lead",
+    role: "UX Researcher & Designer",
     overview: {
       deliverables: [
         "User Research & Testing Strategy",
@@ -322,7 +315,7 @@ export const PROJECTS: Project[] = [
         "Video Editing Workflow Optimization",
       ],
       teamMembers: [
-        "UX Designer & Product Lead (Me)",
+        "UX Researcher & Designer (Me)",
         "iOS Developer",
         "Android Developer",
         "Backend Engineer",
@@ -359,6 +352,28 @@ export const PROJECTS: Project[] = [
         "Varying mobile device management and app installation restrictions",
       ],
     },
+    roleNarrative:
+      "My contribution to Oh!Plays was research-led. On a team of six I owned the user research and the design that came out of it \u2014 in particular getting the product in front of real student athletes and letting what happened there settle design arguments. Oh!Plays did ship, but the post-launch numbers (store rating, retention, total reels created) came from the product's life after my engagement; they are not results of my work and I do not claim them.",
+    decisions: [
+      {
+        title: "Testing both editing models instead of arguing about them",
+        decision:
+          "Rather than settle gesture-based editing versus a conventional timeline in a meeting, I prototyped both and put them in front of student athletes.",
+        rationale:
+          "Timeline editing is what every serious editor offers, and dropping it is the kind of call that gets overruled by whoever argues hardest. The counter-argument \u2014 that students want speed over control \u2014 was a hypothesis, not a fact, and I did not want to bet the product on my own taste. Building two prototypes cost time we could have spent polishing one.",
+        outcome:
+          "Gestures won clearly enough that the debate ended. Students went for speed and simplicity over editing control, which is what let us commit to sports presets without second-guessing it for the rest of the project.",
+      },
+      {
+        title: "Testing in schools instead of a lab",
+        decision:
+          "I pushed to run sessions in hallways and locker rooms rather than a research facility.",
+        rationale:
+          "A lab gets you a quiet room, a seated participant and their full attention \u2014 none of which describes a student editing a highlight between classes. Testing in the setting the product actually lives in costs control and repeatability, and it is harder to schedule, but the alternative is validating a product for conditions no user will ever be in.",
+        outcome:
+          "The real setting surfaced problems the lab version never would have: noise, bad lighting, one-handed use and genuine time pressure between periods. Those constraints ended up shaping the interface more than anything from the seated sessions.",
+      },
+    ],
     processStory: {
       background:
         "Student athletes struggled with existing video editing solutions that were either too complex for mobile use or too simplistic for creating compelling sports highlights. Eight Bit Studios identified this gap and envisioned Oh!Plays as the first mobile app specifically designed for student athletes who needed to quickly create, edit, and share sports highlights on their mobile devices. The challenge was balancing powerful editing capabilities with the simplicity and speed that busy student athletes demanded.",
@@ -467,7 +482,7 @@ export const PROJECTS: Project[] = [
         "White-label Platform Validation & Documentation",
       ],
       teamMembers: [
-        "AI Product Lead (Me)",
+        "AI Product Lead & Technical Architect (Me)",
         "Machine Learning Engineer",
         "Data Scientist",
         "Backend Engineers (2)",
@@ -500,6 +515,24 @@ export const PROJECTS: Project[] = [
         "Existing payroll workflows requiring seamless integration",
       ],
     },
+    roleNarrative:
+      "A note before anything else: LedgerIQ is a composite. It draws on real payroll-fraud and applied-AI work, but it is assembled and anonymized rather than a single named engagement, and it should be read that way. Within it, my lane covered both the product and the system design \u2014 how the detection models were structured and how a human auditor actually works alongside them.",
+    decisions: [
+      {
+        title: "Fixing false positives with context, not thresholds",
+        decision:
+          "Rather than tune the detection threshold until the false-positive rate looked acceptable, I made the models payroll-context-aware so ordinary variation stopped registering as anomalous in the first place.",
+        rationale:
+          "Threshold tuning is the fast fix and it trades one failure for the other: raise it and real fraud passes, lower it and honest employees get flagged. In payroll neither error is survivable, because a wrong accusation costs an employee's trust permanently and a miss is the entire reason the system exists. Bonus cycles, commission structures and seasonal overtime all look like anomalies to a model that does not know what month it is. Teaching the model the shape of normal payroll was much slower than moving a number, and it is the only version that improves both error rates at once.",
+      },
+      {
+        title: "Limiting what the system was allowed to see",
+        decision:
+          "I scoped detection to payroll anomalies specifically, and kept it away from broader employee behavior monitoring even where that data was reachable.",
+        rationale:
+          "Any tool that watches employees to catch a few of them is one scope expansion away from being surveillance infrastructure, and the expansion always sounds reasonable in the moment \u2014 more signal means better detection. Deciding the boundary up front, while nobody is asking, is far easier than defending it later under pressure to catch more. It caps the system's ceiling on purpose: there is fraud a wider net would find that this one will not.",
+      },
+    ],
     processStory: {
       background:
         "What if I told you that most companies are unknowingly hemorrhaging money through their payroll systems? The numbers were stark: payroll fraud costs businesses billions annually, while manual errors create endless cycles of corrections, compliance headaches, and eroded employee trust. But here's what really got my attention—the traditional 'solutions' weren't working. Rule-based systems catch obvious problems but miss the subtle patterns. Manual audits are slow, expensive, and inevitably let things slip through. Our target client was experiencing the perfect storm: 10 hours of manual audit work per pay cycle, persistent small errors slipping through, growing fraud risk exposure, and reactive problem-solving that damaged employee trust.",
@@ -525,7 +558,7 @@ export const PROJECTS: Project[] = [
     subtitle: "AI-Enhanced Career Intelligence Platform",
     slug: "addvanced",
     description:
-      "Revolutionary mobile-first career intelligence platform that reduced job search complexity by 67% through AI-powered application tracking, social network mining, and predictive analytics—validated with 94% user approval in sprint testing.",
+      "Two-week design sprint for a mobile-first career intelligence platform — application tracking, referral discovery across a user's extended network, and predictive matching — prototyped and user-tested to 94% approval.",
     longDescription:
       "In a $4.2B career services market, job seekers waste 67% of their time on administrative tasks rather than strategic networking. Addvance emerged from recognizing that existing solutions treated symptoms, not the core problem: job searching is fundamentally a relationship-driven process requiring intelligent organization. This isn't just another tracking app—it's a career intelligence platform that combines mobile-first UX with social network analysis, predictive job matching, and behavioral psychology to transform how professionals navigate their career journeys. Built during an intensive Alight case study, the platform achieved 94% prototype approval and demonstrated clear path to market leadership in the career tech space.",
     category: "Mobile App",
@@ -596,48 +629,8 @@ export const PROJECTS: Project[] = [
       },
 
       // Performance & Technical Achievement
-      {
-        label: "Mobile Load Time",
-        value: "< 2 sec",
-        performanceLevel: "excellent",
-      },
-      {
-        label: "Cross-Platform Compatibility",
-        value: "98.5%",
-        performanceLevel: "excellent",
-      },
-      {
-        label: "API Integration Success",
-        value: "100%",
-        performanceLevel: "excellent",
-      },
-      {
-        label: "Data Sync Accuracy",
-        value: "99.1%",
-        performanceLevel: "excellent",
-      },
-      {
-        label: "Touch Interaction Response",
-        value: "< 100ms",
-        performanceLevel: "excellent",
-      },
 
       // Business Impact & Efficiency
-      {
-        label: "Job Search Time Reduction",
-        value: "67%",
-        performanceLevel: "excellent",
-      },
-      {
-        label: "Application Organization Efficiency",
-        value: "73%",
-        performanceLevel: "good",
-      },
-      {
-        label: "Network Contact Discovery",
-        value: "156% increase",
-        performanceLevel: "excellent",
-      },
       {
         label: "Sprint Delivery Success",
         value: "100%",
@@ -660,7 +653,7 @@ export const PROJECTS: Project[] = [
     ],
     solutions: [
       "Unified Intelligence Platform: Created single source of truth consolidating 12+ job platforms with AI-powered duplicate detection and smart categorization",
-      "Predictive Network Mining: Developed algorithm analyzing 2nd and 3rd degree LinkedIn connections to surface hidden referral opportunities (156% contact discovery increase)",
+      "Predictive Network Mining: Prototyped surfacing referral opportunities through a user's 2nd- and 3rd-degree LinkedIn connections, with the connection path shown rather than hidden",
       "Progressive Mobile Architecture: Built touch-optimized component system with gesture-driven navigation, achieving sub-2 second load times on mobile",
       "Multi-Platform OAuth Orchestra: Engineered seamless authentication flow handling LinkedIn, Google, Twitter rate limits with fallback strategies and token refresh management",
       "Behavioral UX Psychology: Applied cognitive load theory to design stress-reducing interface patterns, achieving 4.8/5 usability scores in high-pressure testing scenarios",
@@ -668,16 +661,16 @@ export const PROJECTS: Project[] = [
       "Social Activity Intelligence: Real-time feed aggregation showing professional network activity patterns to identify optimal engagement timing",
     ],
     learnings: [
-      "Market Leadership Through Niche Focus: Career tech market rewards deep specialization over broad feature sets—our mobile-first approach captured 89% mobile usage trend before competitors",
-      "Network Effects Drive Adoption: Users stay for organization tools but advocate for social intelligence features—156% contact discovery became primary differentiator",
-      "Behavioral Psychology Trumps Feature Lists: Stress-reducing UX patterns more valuable than advanced functionality—4.8/5 usability under pressure vs. 3.2/5 for feature-rich competitors",
-      "API Strategy as Competitive Moat: Multi-platform integration complexity creates switching costs—seamless OAuth flow became 30% of user retention driver",
-      "Sprint Constraints Foster Innovation: 2-week deadline forced ruthless prioritization, eliminating feature bloat that plagues 67% of career apps",
+      "Niche Focus Beats Breadth: With ten working days, going deep on referral discovery tested better than spreading the sprint across a broad feature set",
+      "Where The Interest Was: In testing, participants were matter-of-fact about the tracking features and animated about the referral-discovery ones — the differentiator was the risky feature, not the safe one",
+      "Stress Changes The Design Problem: Job searching is high-anxiety, and interface patterns that lower cognitive load tested better than added functionality (4.8/5 usability in prototype testing)",
+      "Integration Complexity Is A Design Problem: Handling several platforms' auth flows shaped the onboarding experience far more than we expected going into the sprint",
+      "Sprint Constraints Force Real Choices: The two-week deadline made me cut tracking depth to protect the network feature — a call I would not have been forced into with more time",
       "Enterprise UX Thinking in Consumer Context: Applying B2B usability rigor to B2C product created unexpected competitive advantage in professional tools space",
       "Predictive Intelligence Over Reactive Tracking: Users value insights about what to do next 3x more than records of what they've done—forward-looking features drive engagement",
     ],
     teamSize: 3,
-    role: "Product Design Director & Strategic UX Lead",
+    role: "Product Design Director",
     overview: {
       deliverables: [
         "Market Research & Competitive Intelligence Analysis",
@@ -690,7 +683,7 @@ export const PROJECTS: Project[] = [
         "Stakeholder Management & Executive Presentation",
       ],
       teamMembers: [
-        "Product Design Director & Strategic UX Lead (Me)",
+        "Product Design Director (Me)",
         "Senior Visual Designer & Brand Specialist",
         "Technical Project Manager & Sprint Coordinator",
       ],
@@ -717,21 +710,43 @@ export const PROJECTS: Project[] = [
         "Varying user technical proficiency across target job seeker demographics",
       ],
     },
+    roleNarrative:
+      "I came into Addvance as product design director on a two-week case-study sprint for Alight, working with two other people. The title was a dual mandate rather than a management layer\u2014on a three-person team over ten working days, directing the design and doing the strategic UX work were the same job. Everything here is prototype-stage: we designed, prototyped, and user-tested, and the engagement ended at validation rather than at a shipped product.",
+    decisions: [
+      {
+        title: "Cut tracking depth to protect the network feature",
+        decision:
+          "I argued to shrink the application-tracking feature set\u2014the obvious core of a job-search tool\u2014so the sprint had room to prototype referral discovery across a user's extended network properly.",
+        rationale:
+          "Tracking is table stakes; every competing product already does it, and doing it slightly better would not have changed anyone's mind. The differentiation lived in surfacing referral paths a job seeker couldn't see on their own. Two weeks buys one thing done well or three things done shallowly, and I would rather have tested the risky idea than polished the safe one. The cost was real: the prototype's tracking felt thin next to shipping competitors.",
+        outcome:
+          "Thin tracking was the single most common complaint in testing. Participants noticed immediately and said so. The bet was that they would care more about referral discovery than about tracking parity, and they did \u2014 but the cost showed up exactly where I put it, and I would want a better answer for it before this became a real product.",
+      },
+      {
+        title: "Consent and transparency over the magic moment",
+        decision:
+          "When the prototype surfaced a referral path through someone's second- and third-degree connections, I showed how that connection was found and gave the user control over it, rather than presenting the result as if by magic.",
+        rationale:
+          "Mining an extended professional network is powerful precisely because it reveals things people did not realize were visible\u2014which is also what makes it feel invasive. An unexplained suggestion reads as surveillance the moment a user wonders how you knew. Naming the path costs the product its most impressive moment and buys the thing a career tool actually runs on, which is trust.",
+        outcome:
+          "Transparency did the work I hoped it would. Seeing how a connection was surfaced defused the discomfort that the same suggestion produced when it appeared unexplained \u2014 nobody in testing described the feature as invasive once the path was visible.",
+      },
+    ],
     processStory: {
       background:
         "The $4.2B career services market was ripe for disruption. Despite 67% of job searching happening on mobile, incumbent solutions like Indeed and LinkedIn remained desktop-first. Competitive analysis revealed a critical blind spot: existing tools treated job searching as administrative work, not the relationship-driven process it actually is. With 78% of roles filled through referrals yet job seekers having zero visibility into their extended networks, we identified a blue ocean opportunity. The average job seeker juggled 47 applications across 12+ platforms, losing 67% of their efficiency to context switching. This wasn't just a UX problem—it was a strategic intelligence gap that kept qualified candidates invisible to hiring managers.",
       approach:
-        "Our strategy targeted the convergence of three market forces: mobile-first behavior (89% usage), social network effects (78% referral hiring), and AI-powered insights (predictive vs. reactive). Rather than competing with LinkedIn's social features or Indeed's job listings, we created a new category: career intelligence platforms. The product vision centered on transforming scattered data into strategic advantage through behavioral psychology principles and network analysis algorithms. Our 2-week sprint constraint became a feature, not a bug—forcing ruthless prioritization that eliminated the feature bloat plaguing 67% of career apps.",
+        "Our strategy targeted the convergence of three market forces: mobile-first behavior (89% usage), social network effects (78% referral hiring), and AI-powered insights (predictive vs. reactive). Rather than competing with LinkedIn's social features or Indeed's job listings, we created a new category: career intelligence platforms. The product vision centered on transforming scattered data into strategic advantage through behavioral psychology principles and network analysis algorithms. The 2-week sprint constraint forced ruthless prioritization: I cut tracking depth to protect the referral-discovery feature rather than prototype both shallowly.",
       methodology:
         "Day 1-3: Competitive intelligence deep-dive analyzing 47+ career apps, identifying UX patterns that increase cognitive load vs. reduce decision fatigue. Behavioral psychology research revealed job search stress reduces decision quality by 43%—informing our 'calm interface' design principle. Days 4-8: Rapid prototyping using design system thinking, creating 23 reusable mobile components optimized for touch interactions. API integration strategy developed in parallel, solving LinkedIn/Google/Twitter authentication orchestration. Days 9-14: Dual-track validation using Maze for unmoderated testing (n=127 users) and in-person moderated sessions (n=15 users) achieving 94% prototype approval rate with statistically significant usability improvements over existing solutions.",
       keyInsights: [
         "Blue Ocean Strategy Validation: Creating 'career intelligence' category vs. competing in crowded 'job tracking' space resulted in 3x higher user engagement and zero direct competitors",
         "Behavioral Psychology as UX Differentiator: Applying cognitive load theory reduced user decision fatigue by 43%, creating measurable stress reduction vs. feature-heavy competitors",
-        "Network Effects as Growth Engine: 156% increase in connection discovery drove 67% of user referrals—social intelligence became self-reinforcing growth mechanism",
+        "Where The Energy Was: participants were matter-of-fact about tracking features and animated about referral discovery — the risky feature, not the safe one, was what they responded to",
         "API Integration as Competitive Moat: Multi-platform OAuth orchestration complexity created 18-month technical lead over potential competitors attempting similar integration",
       ],
       outcome:
-        "Addvance achieved exceptional validation metrics that exceeded enterprise software standards: 94% prototype approval rate, 4.8/5 mobile usability score, and 67% job search efficiency improvement. The platform created a new product category ('career intelligence') with zero direct competitors and 156% improvement in professional network discovery. Technical achievements included sub-2-second mobile load times, 98.5% cross-platform compatibility, and seamless multi-platform OAuth integration. Most significantly, user feedback revealed 43% stress reduction compared to existing solutions—transforming job search from administrative burden into strategic advantage. Stakeholder impact included 4.9/5 satisfaction score and clear path to $4.2B market disruption through mobile-first behavioral psychology approach.",
+        "The sprint ended at validation, not at launch, and the numbers are prototype-test numbers: 94% prototype approval, 91.7% task completion, 4.8/5 mobile usability, 89.2% feature discovery, and 87% of participants saying they would recommend it. Stakeholders rated the engagement 4.9/5. What the testing established was narrower than a market result but more useful than one: the referral-discovery concept held up with real job seekers, the consent-first framing of it did not scare people off, and the thinned-out tracking was the weakest part of the prototype — which is exactly the tradeoff I chose going in.",
       reflection:
         "Leading Addvance validated a hypothesis that's reshaping how I approach product strategy: constraint-driven innovation often outperforms resource-rich development. The 2-week timeline forced elimination of everything non-essential, creating a product 3x more focused than typical career apps. The behavioral psychology approach—treating job search stress as a design problem rather than feature problem—became a competitive differentiator worth patenting. Most importantly, this sprint demonstrated that creating new product categories ('career intelligence' vs. 'job tracking') generates blue ocean opportunities even in saturated markets. The technical complexity of multi-platform API orchestration created an 18-month competitive moat, proving that sophisticated architecture disguised as simple UX becomes sustainable competitive advantage. This project established a playbook for transforming administrative tools into strategic platforms through mobile-first behavioral design.",
     },
@@ -742,7 +757,7 @@ export const PROJECTS: Project[] = [
     subtitle: "Streamlining Logistics Through Digital Innovation",
     slug: "echo",
     description:
-      "Modern shipment tracking system improving communication and coordination between shippers, drivers, and dispatch teams—achieving 16% revenue increase and 10,000+ active drivers.",
+      "Modern shipment tracking system improving communication and coordination between shippers, drivers, and dispatch teams, designed from on-site research with drivers and dispatch officers.",
     longDescription:
       "EchoDrive was developed to revolutionize the trucking and logistics industry by replacing outdated coordination methods with modern digital solutions. Built through collaboration between Echo Global Logistics and Eight Bit Studios, this comprehensive platform addresses critical challenges in truckload management, ELD mandate compliance, and driver-dispatcher communication. The system consists of native mobile applications for drivers and a robust web platform for dispatch teams, facilitating real-time shipment tracking, electronic logging, and seamless communication. Through extensive field research including on-site interviews with drivers and dispatch officers, EchoDrive delivers practical solutions that reduce call-center stress, increase operational efficiency, and drive measurable revenue growth in the competitive logistics market.",
     category: "Mobile App",
@@ -816,7 +831,7 @@ export const PROJECTS: Project[] = [
       "Driver feedback integration during development phases significantly improves product adoption and user satisfaction",
     ],
     teamSize: 6,
-    role: "Product Designer & Frontend Lead",
+    role: "UX Researcher & Product Designer",
     overview: {
       deliverables: [
         "Stakeholder Interviews & User Research",
@@ -829,7 +844,7 @@ export const PROJECTS: Project[] = [
         "Interactive Onboarding Tutorials",
       ],
       teamMembers: [
-        "Product Designer & Frontend Lead (Me)",
+        "UX Researcher & Product Designer (Me)",
         "Mobile Developers (iOS & Android)",
         "Backend Engineers (2)",
         "UX Researchers",
@@ -863,6 +878,28 @@ export const PROJECTS: Project[] = [
         "Driver demographic diversity requiring intuitive, accessible interface design",
       ],
     },
+    roleNarrative:
+      "On Echo I worked as a researcher-designer in a team of six. My contribution started with going out to the people who would use this \u2014 on-site interviews with drivers and with dispatch officers \u2014 and the design followed from what those sessions showed. Everything described here is process and design work; the business specifics of the engagement stay with the client.",
+    decisions: [
+      {
+        title: "Designing the handoff, not two separate apps",
+        decision:
+          "I treated the driver mobile app and the dispatch web app as one system with a seam down the middle, and designed the handoff between them first, before designing either side in depth.",
+        rationale:
+          "Drivers and dispatchers are close to opposite users \u2014 one is in a cab with gloves and bad signal, the other is at a desk with several screens \u2014 and the tempting move is to build two good products independently. But nothing in logistics is done by one of them alone: a status a driver sets is only worth setting if it lands usefully on a dispatcher's screen, and a request a dispatcher sends is only worth sending if it is answerable from a truck. Designing the seam first meant accepting a more constrained design on both sides than either would have had on its own.",
+        outcome:
+          "It made the integration the thing we argued about early rather than the thing we discovered late, which is the usual failure mode when two platforms are designed in parallel by different people.",
+      },
+      {
+        title: "Going to the drivers before designing for them",
+        decision:
+          "I ran on-site interviews with drivers and dispatchers at the start rather than designing from the team's existing picture of how the work went.",
+        rationale:
+          "Low digital adoption among drivers was being treated as a fact about drivers \u2014 a resistant, traditional user base. That framing quietly blames the user and leads to designing persuasion rather than designing tools. I wanted to see the actual conditions before accepting it.",
+        outcome:
+          "The interviews changed assumptions the team had been designing against. What read as resistance to digital tools looked much more like tools that had never been designed for the conditions drivers work in, which redirected the driver-side design substantially.",
+      },
+    ],
     processStory: {
       background:
         "The shipping industry was struggling with outdated coordination methods that created communication gaps between shippers, drivers, and dispatch teams. Echo Global Logistics, a prominent technology-enabled transportation provider with over 30 offices nationwide and 40,000+ transportation providers, recognized the critical need for digital transformation. The traditional approaches were causing operational inefficiencies, compliance challenges with new ELD regulations, and limited shipment visibility. Through partnership with Eight Bit Studios, Echo envisioned a comprehensive solution that would modernize logistics operations while meeting multiple key objectives: ELD mandate compliance, enhanced truckload visibility, increased LTL shipment revenues, and improved driver engagement.",
@@ -878,19 +915,19 @@ export const PROJECTS: Project[] = [
         "Industry-Specific Workflows Matter: Generic logistics solutions failed to address the specific operational patterns and terminology used in trucking and transportation.",
       ],
       outcome:
-        "EchoDrive achieved exceptional results, meeting and exceeding all primary objectives. The platform successfully achieved full ELD Mandate compliance, eliminating manual logging processes and reducing regulatory risk. Operational improvements included 16% increase in LTL shipment revenues to $184.4 million and 12% increase in overall shipment volume through the self-serve booking application. Call-center stress was significantly reduced through improved truckload visibility and automated communication features. User engagement exceeded targets with 1,000 beta downloads during testing and over 10,000 active drivers on the platform post-launch. The solution demonstrated substantial year-over-year growth from alpha through beta to full launch phases, while streamlining internal processes and enhancing driver-dispatcher communication.",
+        "EchoDrive went from alpha through beta to launch, replacing manual logging with an electronic system that met the ELD Mandate and giving drivers and dispatch a shared view of a shipment for the first time. The client's commercial results are theirs to disclose, not mine — what I can speak to is the design work: a driver app built for the conditions drivers actually work in, a dispatch tool built around the same shipment state, and a handoff between them designed before either side was.",
       reflection:
         "The EchoDrive project validated that deep industry expertise combined with user-centered design can transform traditional logistics operations. Success required understanding the unique challenges of trucking and transportation, from driver working conditions to regulatory compliance requirements. The field research approach proved invaluable, revealing insights that shaped every aspect of the solution from mobile app interface design to communication workflow optimization. This project demonstrated that even in traditionally low-technology industries, thoughtful digital solutions can drive significant operational improvements and user adoption when they address real pain points and deliver clear value to all stakeholders. The collaboration between Echo Global Logistics and Eight Bit Studios showcased how combining domain expertise with digital innovation creates solutions that drive measurable business outcomes.",
       stakeholderQuotes: [
         {
           quote:
-            "EchoDrive transformed our logistics operations. The 16% revenue increase in LTL shipments demonstrates how digital solutions can create real business value in traditional industries.",
+            "EchoDrive transformed our logistics operations, showing how digital solutions can create real value in a traditional industry.",
           author: "Operations Director",
           role: "Echo Global Logistics",
         },
         {
           quote:
-            "The mobile app made our drivers' jobs easier while improving compliance. 10,000+ active adoption shows we solved real problems, not just technology challenges.",
+            "The mobile app made our drivers' jobs easier while improving compliance. Adoption showed we solved real problems, not just technology challenges.",
           author: "Fleet Manager",
           role: "Echo Global Logistics",
         },
@@ -1040,6 +1077,26 @@ export const PROJECTS: Project[] = [
         "Time zone coordination for global design team collaboration",
       ],
     },
+    roleNarrative:
+      "I was Head of Design at Nagarro from March to October 2022. The scale number that gets quoted \u2014 18,000+ people across 36 countries \u2014 is the organization, not my team. I had direct authority over 15 designers and influence over everyone else, which is the honest shape of design leadership at this size and worth stating plainly: I could set direction, author frameworks and make the case, but I could not mandate adoption outside my own group. Nearly every decision below is therefore about persuasion rather than control.",
+    decisions: [
+      {
+        title: "Aiming past the compliance floor",
+        decision:
+          "I wrote the Digital Accessibility Strategy 2023 to target genuinely usable design rather than the WCAG conformance bar, knowing conformance was the only part anyone could audit.",
+        rationale:
+          "Meeting the standard is measurable, defensible and easy to fund; it is also entirely possible to pass an audit and ship something a disabled user cannot actually use. Aiming at real usability meant committing to a goal I could not prove with a score, in an IT consultancy where unmeasurable goals are the first ones cut. The compliance floor stayed in the strategy as the minimum, not the target \u2014 which cost me the simpler story and a cleaner metric to report against.",
+      },
+      {
+        title: "Evangelism instead of enforcement",
+        decision:
+          "With no authority over the wider organization, I positioned design as a business driver and invested in advocacy, content and mentoring rather than trying to mandate standards through process.",
+        rationale:
+          "The instinct at this scale is to write a policy and attach it to a delivery gate. In an organization of 18,000 where I directly led 15, a mandate I could not enforce would have produced compliance theatre and quiet resentment from teams who did not report to me. Persuasion is slower, has no completion date, and is much harder to show progress on \u2014 but it was the only lever that actually existed.",
+        outcome:
+          "Positioning design as a strategic business driver rather than an operational requirement increased adoption threefold, and the mentor-coaching program improved junior designer retention by 40%. The content strategy reached 10K+ subscribers and generated 100+ qualified leads, which is what made the design function legible to the business.",
+      },
+    ],
     processStory: {
       background:
         "When I joined Nagarro as Head of Design in March 2022, the company was in a critical growth phase, scaling from 15,000 to 18,000+ employees while competing in the increasingly sophisticated enterprise IT consulting market. The design function existed but lacked strategic vision and organizational impact. With regulatory pressure mounting around digital accessibility and clients demanding more inclusive design approaches, Nagarro needed a comprehensive design leadership transformation. The challenge was creating design excellence that could scale across 36 countries, serve diverse clients from healthcare to finance, and establish Nagarro as a leader in accessibility-first design practices.",
@@ -1131,7 +1188,7 @@ export const PROJECTS: Project[] = [
     solutions: [
       "Implemented semantic versioning with detailed migration guides",
       "Created composable primitives allowing both flexibility and convenience",
-      "Developed tree-shaking optimizations reducing bundle size by 40%",
+      "Developed tree-shaking optimizations to cut bundle size",
       "Built interactive documentation with live code examples and playground",
       "Established comprehensive testing matrix for React 16, 17, and 18",
       "Created contributor guidelines and automated PR review workflows",
@@ -1158,7 +1215,7 @@ export const PROJECTS: Project[] = [
         "Open Source Community Management",
       ],
       teamMembers: [
-        "Design System Architect (Me)",
+        "Lead Design System Architect (Me)",
         "Senior React Developer",
         "UI/UX Designer",
         "Technical Writer",
@@ -1194,6 +1251,28 @@ export const PROJECTS: Project[] = [
         "Component behavior must respect regional accessibility standards",
       ],
     },
+    roleNarrative:
+      "I lead design-system architecture on Rambis UI, working with three others. It is an ongoing project rather than a finished one, and it started as a fork of Chakra UI rather than a clean sheet \u2014 both of those facts shape every decision below. My lane is the system's architecture and API surface: what a component should be responsible for, what it should refuse to do, and how much rope to give the developer using it.",
+    decisions: [
+      {
+        title: "Forking Chakra UI instead of starting from a clean sheet",
+        decision:
+          "I built Rambis UI as a fork of Chakra UI, inheriting its component API rather than designing a new one.",
+        rationale:
+          "Adoption is the hard part of a design system, not construction. A new API means every developer who picks it up has to relearn primitives they already know, and that cost is paid by every single user, forever. Starting from an API people already had in their hands meant the switching cost was close to zero. What I gave up was control of the foundation: I inherited Chakra's design decisions wholesale, the good ones and the awkward ones, and some of the awkward ones are now mine to carry.",
+        outcome:
+          "It was a clean win on speed. Forking got us to something real and usable in a fraction of the time a clean-sheet system would have taken, and the familiar API meant early users needed almost no onboarding.",
+      },
+      {
+        title: "Opinionated defaults with an escape hatch underneath",
+        decision:
+          "I made the common case a single obvious call, and put the composable primitives underneath for anyone who needed to go further.",
+        rationale:
+          "The two things a component library is pulled between are intuition and flexibility, and most systems pick one and suffer for it. Fully composable primitives are powerful and leave newcomers assembling boilerplate to do the obvious thing; fully opinionated components are teachable right up until someone needs the case you did not anticipate, and then they eject entirely. Layering them was the way to serve both, and the price is a two-layer API \u2014 twice the surface to document, and a real risk that people never discover the lower layer exists.",
+        outcome:
+          "The risk landed. People largely did not find the primitives on their own \u2014 they hit the edge of a default and asked rather than dropping down a layer. That is a documentation failure, not an architecture one, and it is mine to fix.",
+      },
+    ],
     processStory: {
       background:
         "The JavaScript ecosystem was saturated with design systems, yet developers consistently faced the same challenges: bloated bundle sizes, inflexible theming, and poor accessibility defaults. After working with Chakra UI on multiple production projects, I identified specific areas where the framework could be enhanced. Rather than creating yet another design system from scratch, I chose to fork and evolve Chakra UI, leveraging its solid foundation while addressing its limitations. The goal was to create a design system that developers would actually enjoy using—one that got out of their way while providing powerful capabilities when needed.",
@@ -1209,9 +1288,9 @@ export const PROJECTS: Project[] = [
         "Community-Driven Development: Open source contributors provided invaluable real-world testing and feature validation.",
       ],
       outcome:
-        "Rambis UI has exceeded initial adoption targets, with over 2,500 weekly downloads and active use in production applications ranging from startups to enterprise deployments. The design system achieved perfect Lighthouse accessibility scores across all components, while reducing average bundle sizes by 40% compared to the original framework. Developer feedback has been overwhelmingly positive, with particular praise for the intuitive API design and comprehensive documentation. The project has attracted a growing community of contributors, ensuring sustainable long-term development and continuous improvement based on real-world usage.",
+        "Rambis UI is in active development rather than finished. Forking got a usable system into people's hands far faster than building one from scratch would have, and the inherited API meant early adopters had almost nothing to relearn. The clearest signal so far is a negative one: developers are not finding the composable primitives underneath the opinionated defaults on their own, which points at documentation rather than architecture as the next real problem to solve.",
       reflection:
-        "Creating Rambis UI reinforced my belief that successful design systems must balance technical excellence with developer empathy. The decision to fork rather than create from scratch proved valuable, allowing us to build upon proven patterns while innovating where it mattered most. I learned that open source success requires more than good code—it demands excellent documentation, responsive maintenance, and genuine community engagement. Most importantly, this project demonstrated that even in a crowded ecosystem, there's room for thoughtful improvements that materially enhance developer productivity and user experience. The experience has shaped my approach to system design, emphasizing iterative improvement over revolutionary change.",
+        "Building Rambis UI keeps reinforcing that a design system is judged on developer empathy as much as on technical quality. Forking rather than starting clean is proving to be the right call — it let us build on patterns people already trusted and spend our own time where we actually differ. The open lesson is that good code is the smaller half: the layered API works, but developers are not discovering its lower layer without help, and no amount of architecture fixes what documentation has not explained. That is the part I am still working on.",
     },
   },
   {

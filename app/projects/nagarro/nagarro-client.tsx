@@ -23,6 +23,8 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import { PROJECTS } from "@/lib/data/projects";
+import { CaseStudyNarrative } from "@/components/case-study/case-study-narrative";
+import { ReflectionBlock } from "@/components/case-study/reflection-block";
 import { useRef, useState, useEffect, useCallback, memo, useMemo } from "react";
 import { AnimatedNumber } from "@/components/core/animated-number";
 import { parseMetricValue } from "@/lib/utils/parseMetricValue";
@@ -1037,22 +1039,20 @@ export default function NagarroClientPage() {
           </div>
         </motion.section>
 
+        <CaseStudyNarrative project={nagarroProject} />
+
         {/* Reflection */}
-        <motion.section
-          variants={VARIANTS_SECTION}
-          transition={TRANSITION_SECTION}
-        >
-          <ScrambleSectionTitle className="mb-5 text-lg font-medium">
-            Leadership Reflection
-          </ScrambleSectionTitle>
-          <Card>
-            <CardContent className="pt-6">
-              <p className="text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
-                {nagarroProject.processStory?.reflection}
-              </p>
-            </CardContent>
-          </Card>
-        </motion.section>
+        {nagarroProject.processStory?.reflection && (
+          <motion.div
+            variants={VARIANTS_SECTION}
+            transition={TRANSITION_SECTION}
+          >
+            <ReflectionBlock
+              reflection={nagarroProject.processStory.reflection}
+              heading="Leadership Reflection"
+            />
+          </motion.div>
+        )}
 
         {/* Navigation */}
         <motion.section

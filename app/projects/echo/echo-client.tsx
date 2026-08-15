@@ -15,6 +15,8 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { PROJECTS } from "@/lib/data/projects";
+import { CaseStudyNarrative } from "@/components/case-study/case-study-narrative";
+import { ReflectionBlock } from "@/components/case-study/reflection-block";
 
 // Get the Echo project data
 const echoProject = PROJECTS.find((p) => p.id === "echo")!;
@@ -156,19 +158,19 @@ export default function EchoClientPage() {
       "Cross-Platform Integration: Seamless communication between mobile driver apps and web dispatch tools proved crucial for operational efficiency and user adoption.",
     ],
     outcome:
-      "EchoDrive achieved exceptional results across all key objectives. The platform successfully achieved 100% ELD Mandate compliance, eliminating manual logging processes. Operational improvements included 16% increase in LTL shipment revenues to $184.4 million and 12% increase in shipment volume through the self-serve booking application. User engagement exceeded targets with 1,000 beta downloads and over 10,000 active drivers post-launch. The solution demonstrated substantial growth from alpha through beta to launch phases while significantly streamlining internal processes and driver-dispatcher communication.",
+      "EchoDrive went from alpha through beta to launch, replacing manual logging with an electronic system that met the ELD Mandate and giving drivers and dispatch a shared view of a shipment for the first time. The client's commercial results are theirs to disclose, not mine — what I can speak to is the design work: a driver app built for the conditions drivers actually work in, a dispatch tool built around the same shipment state, and a handoff between them designed before either side was.",
     reflection:
       "Building EchoDrive validated that deep industry expertise combined with user-centered design can transform traditional logistics operations. The field research approach proved invaluable, revealing insights that shaped every aspect of the solution from mobile app interface design to communication workflow optimization. This project demonstrated that even in traditionally low-technology industries, thoughtful digital solutions can drive significant operational improvements and user adoption when they address real pain points and deliver clear value to all stakeholders.",
     stakeholderQuotes: [
       {
         quote:
-          "EchoDrive transformed our logistics operations. The 16% revenue increase in LTL shipments demonstrates how digital solutions create real business value in traditional industries.",
+          "EchoDrive transformed our logistics operations, showing how digital solutions create real value in a traditional industry.",
         author: "Operations Director",
         role: "Echo Global Logistics",
       },
       {
         quote:
-          "The mobile app made our drivers' jobs easier while improving compliance. 10,000+ active adoption shows we solved real problems, not just technology challenges.",
+          "The mobile app made our drivers' jobs easier while improving compliance. Adoption showed we solved real problems, not just technology challenges.",
         author: "Fleet Manager",
         role: "Echo Global Logistics",
       },
@@ -192,15 +194,15 @@ export default function EchoClientPage() {
           <p className="max-w-3xl text-xl text-zinc-600 dark:text-zinc-400">
             Modern logistics platform transforming trucking operations through
             mobile innovation. Real-time shipment tracking, ELD compliance, and
-            driver communication—achieving 16% revenue growth and 10,000+ active
-            drivers.
+            driver communication, designed from on-site research with drivers
+            and dispatch teams.
           </p>
           <div className="flex flex-wrap gap-3">
             <span className="rounded-full bg-emerald-100 px-3 py-1 text-sm font-medium text-emerald-800 dark:bg-emerald-900 dark:text-emerald-100">
               Alpha → Beta → Launch
             </span>
             <span className="rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-100">
-              Product Designer & Frontend Lead
+              UX Researcher & Product Designer
             </span>
             <span className="rounded-full bg-zinc-100 px-3 py-1 text-sm font-medium text-zinc-800 dark:bg-zinc-800 dark:text-zinc-100">
               Mobile-First
@@ -437,19 +439,13 @@ export default function EchoClientPage() {
         </div>
       </section>
 
+      <CaseStudyNarrative project={echoProject} />
+
       {/* Reflection */}
-      <section>
-        <h2 className="mb-5 text-lg font-medium text-zinc-900 dark:text-zinc-100">
-          Product Design Leadership Reflection
-        </h2>
-        <Card>
-          <CardContent className="pt-6">
-            <p className="text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
-              {enhancedProcessStory.reflection}
-            </p>
-          </CardContent>
-        </Card>
-      </section>
+      <ReflectionBlock
+        reflection={enhancedProcessStory.reflection}
+        heading="Product Design Leadership Reflection"
+      />
 
       {/* Navigation */}
       <section className="mb-16 border-t border-zinc-200 px-4 pt-8 sm:mb-20 sm:px-6 lg:mb-24 lg:px-8 dark:border-zinc-700">

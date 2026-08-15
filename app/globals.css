@@ -270,6 +270,11 @@
     grid-column: span 2;
   }
 
+  /* Live-product showcase card (Waffle) spans full width — 2x1 */
+  .projects-grid-pattern > .projects-grid-item-wide {
+    grid-column: span 2;
+  }
+
   /* If odd number of projects, last item spans full width for balance */
   .projects-grid-pattern > *:last-child:nth-child(odd) {
     grid-column: span 2;

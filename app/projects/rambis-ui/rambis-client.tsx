@@ -17,6 +17,8 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { PROJECTS } from "@/lib/data/projects";
+import { CaseStudyNarrative } from "@/components/case-study/case-study-narrative";
+import { ReflectionBlock } from "@/components/case-study/reflection-block";
 
 // Get the Rambis UI project data
 const rambisProject = PROJECTS.find((p) => p.id === "rambis-ui")!;
@@ -171,7 +173,7 @@ export default function RambisClientPage() {
             </CardHeader>
             <CardContent className="text-zinc-700 dark:text-zinc-300">
               <p className="mb-3">
-                Reduced bundle size by 40% through strategic refactoring:
+                Reduced bundle size through strategic refactoring:
               </p>
               <ul className="ml-4 space-y-1 text-sm">
                 <li>• Eliminated unused utility functions and dependencies</li>
@@ -381,6 +383,16 @@ export default function RambisClientPage() {
           </CardContent>
         </Card>
       </section>
+
+      <CaseStudyNarrative project={rambisProject} />
+
+      {/* Reflection */}
+      {rambisProject.processStory?.reflection && (
+        <ReflectionBlock
+          reflection={rambisProject.processStory.reflection}
+          heading="Reflection"
+        />
+      )}
 
       {/* Navigation */}
       <section className="border-t border-zinc-200 pt-8 dark:border-zinc-700">

@@ -1,9 +1,21 @@
 # Deck-Coverage Audit
 
+> **SUPERSEDED AS A GATE — 2026-08-15.** Randy's firsthand knowledge of his own engagements is
+> a valid source. The deck is one record of that work, not the boundary of it. This document is
+> now a **reference index of what the deck happens to document** — it does not decide what may
+> be written. "Unbacked" below means *"not found in this 48-page PDF,"* nothing more. It is not
+> a finding of falsehood and does not require Randy to justify a claim.
+>
+> Two things survive this change, and neither is a deck rule:
+> 1. **Self-consistency** — where the site contradicts *itself* across surfaces (GrowIt scope,
+>    LedgerIQ's CONTRADICTION block), that is a defect a reader can catch with no source at all.
+>    Still tracked; see Part C.
+> 2. **NDA / attribution judgment** (CRED-06, CRED-08) — unchanged, unrelated to sourcing.
+
 **Source:** Randy's Product Design Deck.pdf (48pp, 16,263,989 bytes, verified on disk 2026-08-15)
 **Produced:** 2026-08-15
 **Requirement:** FND-03
-**Gates:** Phase 8 content
+**Gates:** nothing — advisory reference only
 
 **Page-count check:** The deck is exactly 48 pages (`pdfinfo` confirms `Pages: 48`), matching
 D-04's expectation. No discrepancy to flag.
@@ -12,18 +24,19 @@ D-04's expectation. No discrepancy to flag.
 
 ## Verdict Definitions
 
-These three verdicts are locked for this audit and all downstream phases. Do not re-litigate them.
+These verdicts are **descriptive labels about the deck's contents**, not permissions. They
+answer "did this 48-page PDF happen to mention this?" and nothing else.
 
 - **Backed** — the claim appears in the deck, or in another linked verifiable source, and the
   row carries a slide number or a source URL.
 - **Partial** — the deck supports the substance of the claim but not the exact figure or
   wording (e.g. deck says "cut audit time significantly", site says "65% time savings per cycle").
-- **Unbacked** — no source found in the deck or elsewhere.
+- **Unbacked** — not found in this deck. **This is not a defect and requires no action.** The
+  deck's own Agenda scopes it to two case studies; five of seven projects were never in it.
 
-**Non-deck source rule:** non-deck verifiable sources (App Store rating, the Chameleon
-Collective URL, LinkedIn) count as **Backed ONLY IF** the row carries the working source link.
-Without the link they are Unbacked. (Applied to the 4.8★ App Store rating and the Chameleon
-Collective claim below — neither carries a working, cited source URL, so both are Unbacked.)
+**Removed — non-deck source rule.** The prior rule demoted real, verifiable facts to Unbacked
+whenever a row lacked a cited URL (it did this to the 4.8★ App Store rating and the Chameleon
+Collective claim). That rule is gone. Randy's own account of his engagements is a source.
 
 ---
 
@@ -147,7 +160,7 @@ Columns: `Claim ID | Claim | Type | Source file:line | Verdict | Deck slide / so
 | GROWIT-09 | challenge: Integrating expert horticultural knowledge with user-generated content | challenge | lib/data/projects.ts:69 | Unbacked | — | |
 | GROWIT-10 | challenge: Balancing novice accessibility with expert-level functionality | challenge | lib/data/projects.ts:70 | Unbacked | — | |
 | GROWIT-11 | challenge: Creating sustainable engagement across seasonal gardening cycles | challenge | lib/data/projects.ts:71 | Unbacked | — | |
-| GROWIT-12 | solution: Developed three-phase growth strategy prioritizing community foundation | decision | lib/data/projects.ts:74 | Unbacked | — | Deck describes one 4-week pilot for a single feature (self-guided tour), not a 3-phase growth strategy. |
+| GROWIT-12 | solution: Developed three-phase growth strategy prioritizing community foundation | decision | lib/data/projects.ts:74 | Not in deck (inference void) | — | Deck covers one 4-week feature pilot; it does not speak to the engagement's phase structure either way. Independent artifact support exists in-repo: `public/projects/growit/phase{1,2,3}-screen{1,2,3}.jpg` — 9 screenshots across 3 phases. |
 | GROWIT-13 | solution: Built microservices architecture supporting global scaling | decision | lib/data/projects.ts:75 | Unbacked | — | |
 | GROWIT-14 | solution: Established Ball Horticultural partnership for expert content validation | decision | lib/data/projects.ts:76 | Unbacked | — | "Ball Horticultural" never appears in the deck. |
 | GROWIT-15 | solution: Implemented ML-powered plant recognition with community verification | decision | lib/data/projects.ts:77 | Unbacked | — | |
@@ -158,8 +171,8 @@ Columns: `Claim ID | Claim | Type | Source file:line | Verdict | Deck slide / so
 | GROWIT-20 | learning: Geographic relevance crucial for gardening content effectiveness | learning | lib/data/projects.ts:84 | Unbacked | — | |
 | GROWIT-21 | learning: Expert validation builds trust in user-generated plant identification | learning | lib/data/projects.ts:85 | Unbacked | — | |
 | GROWIT-22 | role: "Product Designer & Frontend Lead" | attribution | lib/data/projects.ts:88 | Partial | Slide 12 | Deck lists Randy's role as "Lead Product Designer" (deliverables: features vision, evaluative UX research, user flow, interaction design, hi-fi prototyping) and separately "UX Designer/Researcher (Me)" on the team roster; deck never names a "Frontend Lead" function — a separate "Software Engineer (iOS + Android)" teammate is listed. |
-| GROWIT-23 | teamSize: 8 | attribution | lib/data/projects.ts:87 | Unbacked | — | Deck's "Who I worked with" lists exactly 4 collaborators (Software Engineer, UX Designer/Researcher (me), Visual Designer, PM); site adds Backend Engineer, ML Engineer, Community Manager, Horticultural Expert with no deck support. |
-| GROWIT-24 | timeline: "Q1 2014 - Q4 2016" | outcome | lib/data/projects.ts:45 | Unbacked | — | Deck states the tour-feature project was a "4-weeks (pilot)" (Slide 12); no 3-year date range for a GrowIt engagement appears anywhere in the deck. |
+| GROWIT-23 | teamSize: 8 | attribution | lib/data/projects.ts:87 | Not in deck (inference void) | — | Deck's "Who I worked with" lists 4 collaborators — that is the roster of the **4-week tour pilot** (Slide 12), not of the 30-month engagement. Reading it as a ceiling on total team size was a scope-inference error. No conflict. |
+| GROWIT-24 | timeline: "Q1 2014 - Q2 2016" | outcome | lib/data/projects.ts:45 | Confirmed by Randy | — | **Corrected 2026-08-15**: was "Q1 2014 - Q4 2016" (36 months), which contradicted `timelineDuration: "30 months"` on the same project. Randy confirmed 30 months is correct; end quarter changed Q4→Q2. The earlier "Unbacked" verdict rested on reading the deck's "4-weeks (pilot)" (Slide 12) as refuting a multi-year engagement — a scope-inference error, now void: the deck documents one feature pilot nested inside the engagement, not the engagement. |
 | GROWIT-25 | status: "completed" | outcome | lib/data/projects.ts:46 | Partial | Slide 26 | Deck's Validation & Results slide states the prototype "tested exceptionally well," implying a finished pilot; it does not independently confirm a multi-year completed engagement matching the site's 2014-2016 dates. |
 | GROWIT-26 | processStory.methodology: "beta community of 500+ gardening enthusiasts" | metric | lib/data/projects.ts:145 | Unbacked | — | |
 | GROWIT-27 | processStory.methodology: "94% plant identification accuracy" (ML models) | metric | lib/data/projects.ts:145 | Unbacked | — | |
@@ -584,18 +597,21 @@ Columns: `Deck ref (slide) | Material | Project | Phase 8 usable as | Notes`
 
 ### growit
 
-1. The deck frames the GrowIt work as a 4-week self-guided-tour pilot with a 4-person team
-   (Slide 12), but the live site describes a 30-month, 3-phase, 8-person platform build with a
-   Ball Horticultural Company partnership (`lib/data/projects.ts:13,87,110,141-155`). Which is
-   the real scope of your GrowIt engagement — the 4-week pilot the deck documents, or the
-   larger 30-month build the site claims — and if the larger build is real, is there a second
-   source (not in this deck) that can back it?
-2. Is the "Ball Horticultural Company" partnership (GROWIT-14/18/29) real? It appears nowhere
-   in the deck's GrowIt section, which instead frames the client relationship as GrowIt ↔
-   Eight Bit Studios (Slide 23).
-3. Can you confirm or correct the App Store rating (4.8★, GROWIT-05/SITE-06) and city-count
-   (25,000+, GROWIT-04) figures with a dated screenshot or App Store Connect export? Neither
-   appears in the deck.
+1. ~~Which is the real scope — the deck's 4-week pilot or the site's 30-month build?~~
+   **RESOLVED 2026-08-15.** Both. The deck documents one 4-week self-guided-tour pilot
+   (Slide 12) nested inside a 30-month engagement; it was never an inventory of the whole
+   engagement. The question rested on a scope-inference error. Separately, a real arithmetic
+   defect surfaced and was fixed: `timeline` read "Q1 2014 - Q4 2016" (36 months) against
+   `timelineDuration: "30 months"` on the same project. Randy confirmed 30 months; timeline
+   corrected to "Q1 2014 - Q2 2016" (`lib/data/projects.ts:45`).
+2. The deck frames the client relationship as GrowIt ↔ Eight Bit Studios (Slide 23) and never
+   mentions Ball Horticultural. Not a conflict — just a gap worth filling: how did the Ball
+   partnership (GROWIT-14/18/29) actually work, and is it worth a sentence of narrative in the
+   rewrite?
+3. The 4.8★ App Store rating (GROWIT-05/SITE-06) and 25,000+ city count (GROWIT-04) are
+   figures a reader can go check independently. Worth confirming they're still accurate before
+   they carry more narrative weight — not because a rule demands a citation, but because a
+   stale public number is the one kind of error that costs credibility on its own.
 4. Should the live `constraints` object for GrowIt (currently: seasonal patterns, ML
    processing, global 25K-city deployment) be replaced with the deck's real constraints
    (Chicago climate, iBeacon signal strength, mounting/RF interference — Slide 20, see Part B)?
@@ -678,14 +694,24 @@ Columns: `Deck ref (slide) | Material | Project | Phase 8 usable as | Notes`
 
 ---
 
-## Phase 8 Gate
+## Phase 8 Reference (formerly "Gate" — REMOVED 2026-08-15)
 
-Phase 8 may write copy that traces to a **Backed** or **Partial** row in this document. Every
-**Unbacked** claim is either resolved by a Part C answer from Randy, or cut from the case study
-— it is never invented, and never softened into vague prose to survive without a source. Where
-Part B lists real, unused deck material, Phase 8 should prefer that material over an existing
-Unbacked claim covering the same ground (e.g., GrowIt's real constraints over the fabricated
-ones; Addvance's real "What did we learn?" over the fabricated `learnings[]` array).
+**The gate is gone.** Phase 8 is not restricted to Backed/Partial rows, and Unbacked rows are
+not cut. Randy lived these engagements; the deck is a portfolio presentation he assembled for
+one audience, not the ledger of his career. A 48-page deck whose own Agenda covers two projects
+was never capable of adjudicating seven.
+
+What this document is still good for:
+
+- **Part B** — real deck material that is *not yet on the site*. Free content, already yours.
+- **Part C** — questions worth answering because they sharpen the copy, not because a rule
+  demands a citation.
+- **Contradiction tracking** — the LedgerIQ CONTRADICTION block and the GrowIt duration mismatch
+  (see below) are places the site disagrees with *itself*. Those still need fixing; a reader
+  catches them with no source at all.
+
+The two rules that never came from the deck still stand: **credit attribution** (CRED-06 — "we"
+where a team did it, "I" where you did) and **NDA judgment** on named live clients (CRED-08).
 
 **Raw counts (Backed / Partial / Unbacked), per project.** A high Unbacked count is the expected
 result of a first extraction across a mostly-unverified 7-project case-study set, **not a

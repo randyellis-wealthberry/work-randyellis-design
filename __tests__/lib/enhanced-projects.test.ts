@@ -125,8 +125,11 @@ describe("Enhanced Projects Data Validation", () => {
       expect(
         metricLabels.some((label) => label.toLowerCase().includes("success")),
       ).toBe(true);
+      // "Editing Time Reduction" was removed with the other post-launch metrics:
+      // Oh!Plays shipped, but those numbers came from the product's life after
+      // Randy's engagement and are not his to claim.
       expect(
-        metricLabels.some((label) => label.toLowerCase().includes("editing")),
+        metricLabels.some((label) => label.toLowerCase().includes("testing")),
       ).toBe(true);
       expect(
         metricLabels.some((label) => label.toLowerCase().includes("recommend")),
