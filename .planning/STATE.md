@@ -1,14 +1,31 @@
+---
+gsd_state_version: 1.0
+milestone: v1.0
+milestone_name: milestone
+current_phase: MILESTONE COMPLETE ✅ — all 14 requirements shipped
+status: executing
+last_updated: "2026-08-15T04:56:24.822Z"
+progress:
+  total_phases: 4
+  completed_phases: 0
+  total_plans: 3
+  completed_plans: 0
+  percent: 0
+---
+
 # STATE — Recruiter-Readiness Milestone
 
 **Current phase:** MILESTONE COMPLETE ✅ — all 14 requirements shipped
-**Status:** CRED-01..05 + POS-01..05 + RDY-01..04 shipped on branch chore/recruiter-readiness (not merged/deployed). PR #44 open.
+**Status:** Ready to execute
 **Branch:** chore/recruiter-readiness (14 commits ahead of main)
 **Next action:** Merge PR #44 after domain transfer settles + a visual pass (esp. logo bar in dark mode).
 
 ## Booking link
+
 - Cal.com: https://cal.com/randyellis/30min (in lib/constants.ts as BOOKING_URL)
 
 ## Progress
+
 - [x] Project initialized (PROJECT.md, config.json, REQUIREMENTS.md, ROADMAP.md)
 - [x] Verified credibility copy drafted (`.planning/CREDIBILITY-COPY.md`)
 - [x] CRED-01 awards (6 → 4 named/verified)
@@ -20,20 +37,24 @@
 - [x] Phase 3 (readiness) — RDY-01 booking + RDY-02 resume + RDY-03 logo bar + RDY-04 testimonials
 
 ## Reconciliation decisions (resume vs site)
+
 - Experience: "20 years in design, 8+ leading teams" (qualified, both true)
 - Employer: hybrid — Chameleon Collective (Fractional VP Design) added alongside Wealthberry Labs
 - Location: remote (dropped Chicago geo from schema; project-history Chicago kept)
 - ⚠ Verify Chameleon Collective URL (https://www.chameleon.co) before deploy
 
 ## Follow-ups / notes
+
 - 4.8★ App Store rating kept per Randy (he'll provide proof); if not, revisit.
 - EchoDrive filesOrganized "1M+" metric is a real EchoDrive stat, untouched (not a user count).
 - Real testimonials currently render on /about; Phase 3 (RDY-04) can also surface them on homepage.
 
 ## Verification (last run)
+
 - `npx tsc --noEmit`: clean · `npm run lint`: clean · `npm test`: 77 passed / 33 skipped / 0 failed
 
 ## Key context for next session
+
 - Source-of-truth = `Randy's Product Design Deck.pdf` (~/Downloads) + `.planning/CREDIBILITY-COPY.md`
 - Live site claims were inflated/inconsistent; deck is verified. Do not add unbacked numbers.
 - Build is NOT a validation gate (ignores lint/type errors). Verify via: `npm run lint` → `npx tsc --noEmit` → `npm test`.
