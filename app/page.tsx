@@ -38,6 +38,9 @@ import {
 } from "@/lib/analytics";
 import { FeatureFlagDemo } from "@/components/feature-flag-demo";
 import { TextGradientScroll } from "@/components/ui/text-gradient-scroll";
+import { BOOKING_URL } from "@/lib/constants";
+import { testimonials } from "@/lib/data/testimonials";
+import { Card, CardContent } from "@/components/ui/card";
 
 const VARIANTS_CONTAINER = {
   hidden: { opacity: 0 },
@@ -542,6 +545,23 @@ export default function Personal() {
             textOpacity="soft"
             className="max-w-2xl text-base leading-snug tracking-tight text-zinc-600 dark:text-zinc-400"
           />
+          <div className="mt-6 flex flex-wrap gap-3">
+            <a
+              href={BOOKING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackContactIntent("booking", BOOKING_URL)}
+              className="inline-flex items-center gap-2 rounded-lg bg-zinc-900 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-zinc-700 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-200"
+            >
+              Book a 30-min call
+            </a>
+            <Link
+              href="/projects"
+              className="inline-flex items-center gap-2 rounded-lg border border-zinc-300 px-5 py-2.5 text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800"
+            >
+              View work
+            </Link>
+          </div>
         </div>
       </motion.section>
 
@@ -799,6 +819,34 @@ export default function Personal() {
       <motion.section
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
+        className="mt-32 sm:mt-24"
+      >
+        <ScrambleSectionTitle className="mb-5 text-lg font-medium">
+          What Colleagues Say
+        </ScrambleSectionTitle>
+        <div className="grid gap-6 md:grid-cols-2">
+          {testimonials.map((testimonial) => (
+            <Card key={testimonial.author}>
+              <CardContent className="pt-6">
+                <blockquote className="leading-relaxed text-zinc-600 italic dark:text-zinc-400">
+                  &ldquo;{testimonial.quote}&rdquo;
+                </blockquote>
+                <footer className="mt-4 text-sm text-zinc-500 dark:text-zinc-400">
+                  <span className="font-medium text-zinc-700 dark:text-zinc-300">
+                    {testimonial.author}
+                  </span>
+                  <br />
+                  {testimonial.role}
+                </footer>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </motion.section>
+
+      <motion.section
+        variants={VARIANTS_SECTION}
+        transition={TRANSITION_SECTION}
       >
         <ScrambleSectionTitle className="mb-5 text-lg font-medium">
           AI Product Design Case Studies & Results
@@ -820,6 +868,24 @@ export default function Personal() {
             <DecodedEmail />
           </a>
         </p>
+        <div className="mb-6 flex flex-wrap gap-3">
+          <a
+            href={BOOKING_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => trackContactIntent("booking", BOOKING_URL)}
+            className="inline-flex items-center gap-2 rounded-lg bg-zinc-900 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-zinc-700 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-200"
+          >
+            Book a 30-min call
+          </a>
+          <a
+            href={`mailto:${getEmail()}`}
+            onClick={() => trackContactIntent("email", getEmail())}
+            className="inline-flex items-center gap-2 rounded-lg border border-zinc-300 px-5 py-2.5 text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800"
+          >
+            Email me
+          </a>
+        </div>
         <div className="flex items-center justify-start space-x-3">
           {SOCIAL_LINKS.map((link) => (
             <MagneticSocialLink key={link.label} link={link.link}>
