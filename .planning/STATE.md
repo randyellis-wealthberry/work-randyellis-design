@@ -1,9 +1,9 @@
 # STATE — Recruiter-Readiness Milestone
 
-**Current phase:** 3 — Readiness (in progress: RDY-01/04 done; RDY-02/03 need Randy's files)
-**Status:** CRED-01..05 + POS-01..05 + RDY-01/04 shipped on branch chore/recruiter-readiness (not merged/deployed). PR #44 open.
-**Branch:** chore/recruiter-readiness (9 commits ahead of main)
-**Next action:** RDY-02 (resume PDF) + RDY-03 (client logos) need files from Randy. Otherwise merge PR #44.
+**Current phase:** MILESTONE COMPLETE ✅ — all 14 requirements shipped
+**Status:** CRED-01..05 + POS-01..05 + RDY-01..04 shipped on branch chore/recruiter-readiness (not merged/deployed). PR #44 open.
+**Branch:** chore/recruiter-readiness (14 commits ahead of main)
+**Next action:** Merge PR #44 after domain transfer settles + a visual pass (esp. logo bar in dark mode).
 
 ## Booking link
 - Cal.com: https://cal.com/randyellis/30min (in lib/constants.ts as BOOKING_URL)
@@ -17,7 +17,7 @@
 - [x] CRED-04 fabricated schema removed (aggregateRating, fake telephone, google-verify placeholder)
 - [x] CRED-05 hidden keyword-SEO block deleted
 - [x] Phase 2 (positioning) — leadership hero, single title lane; brand already consistent
-- [~] Phase 3 (readiness) — RDY-01 booking + RDY-02 resume + RDY-04 testimonials done; RDY-03 logos need files
+- [x] Phase 3 (readiness) — RDY-01 booking + RDY-02 resume + RDY-03 logo bar + RDY-04 testimonials
 
 ## Reconciliation decisions (resume vs site)
 - Experience: "20 years in design, 8+ leading teams" (qualified, both true)

@@ -48,7 +48,7 @@ REQ-ID format: `[CATEGORY]-[NN]`. All are v1 for this milestone.
 | POS-05 | 2 | ✅ Done — brand already consistent (no change needed) |
 | RDY-01 | 3 | ✅ Done (booking CTAs: hero + contact + about) |
 | RDY-02 | 3 | ✅ Done — resume PDF + download button; resume/site facts reconciled |
-| RDY-03 | 3 | ⏸ Blocked — needs client logo files |
+| RDY-03 | 3 | ✅ Done — logo bar (Nagarro, Alight, Digitas, Ball, Eight Bit) |
 | RDY-04 | 3 | ✅ Done (testimonials on homepage) |
 
 ---
