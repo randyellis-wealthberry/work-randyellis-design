@@ -83,7 +83,7 @@ export default async function OpengraphImage() {
               color: "transparent",
             }}
           >
-            AI Product Design Engineer & Leader
+            Head of Product & Fractional CDO
           </div>
 
           <div

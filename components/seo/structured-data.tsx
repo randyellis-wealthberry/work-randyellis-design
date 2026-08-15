@@ -78,9 +78,13 @@ export function PersonStructuredData() {
     "@context": "https://schema.org",
     "@type": "Person",
     name: "Randy Ellis",
-    jobTitle: ["AI Product Design Engineer", "Fractional Chief Design Officer"],
+    jobTitle: [
+      "Head of Product",
+      "Fractional Chief Design Officer",
+      "AI Product Design Engineer",
+    ],
     description:
-      "Leading Fractional Chief Design Officer & AI Product Design Engineer specializing in generative AI, design systems, and startup product leadership. Head of Product at Wealthberry Labs with 2.5M+ users impacted. Available for fractional CDO engagements through Chameleon Collective, Go Fractional, and direct startup partnerships.",
+      "Head of Product & Fractional Chief Design Officer specializing in generative AI, design systems, and startup product leadership. Head of Product at Wealthberry Labs with 2.5M+ users impacted. Available for fractional CDO engagements through Chameleon Collective, Go Fractional, and direct startup partnerships.",
     url: createAbsoluteUrl(),
     image: createAbsoluteUrl("/randy-ellis-profile.jpg"),
     sameAs: [
@@ -248,9 +252,9 @@ export function WebsiteStructuredData() {
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "Website",
-    name: "Randy Ellis - AI Product Design Engineer",
+    name: "Randy Ellis - Head of Product & Fractional CDO",
     description:
-      "Portfolio of Randy Ellis, AI Product Design Engineer specializing in generative AI, design systems, and product leadership.",
+      "Portfolio of Randy Ellis, Head of Product & Fractional Chief Design Officer specializing in generative AI, design systems, and product leadership.",
     url: createAbsoluteUrl(),
     author: {
       "@type": "Person",
@@ -398,7 +402,7 @@ export function ArticleStructuredData({
       "@type": "Person",
       name: "Randy Ellis",
       url: createAbsoluteUrl(),
-      jobTitle: "AI Product Design Engineer",
+      jobTitle: "Head of Product & Fractional Chief Design Officer",
       worksFor: {
         "@type": "Organization",
         name: "Wealthberry Labs",
@@ -475,7 +479,7 @@ export function CreativeWorkStructuredData({
       "@type": "Person",
       name: "Randy Ellis",
       url: createAbsoluteUrl(),
-      jobTitle: "AI Product Design Engineer",
+      jobTitle: "Head of Product & Fractional Chief Design Officer",
       worksFor: {
         "@type": "Organization",
         name: "Wealthberry Labs",
@@ -548,8 +552,9 @@ export function FractionalCDOServiceStructuredData() {
       "@type": "Person",
       name: "Randy Ellis",
       jobTitle: [
-        "AI Product Design Engineer",
         "Fractional Chief Design Officer",
+        "Head of Product",
+        "AI Product Design Engineer",
       ],
       url: createAbsoluteUrl(),
     },
@@ -717,7 +722,7 @@ export function LocalBusinessStructuredData() {
       "@type": "Person",
       name: "Randy Ellis",
       url: createAbsoluteUrl(),
-      jobTitle: "AI Product Design Engineer",
+      jobTitle: "Head of Product & Fractional Chief Design Officer",
     },
     address: {
       "@type": "PostalAddress",

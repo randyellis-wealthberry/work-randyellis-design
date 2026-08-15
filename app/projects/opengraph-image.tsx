@@ -147,7 +147,7 @@ export default async function OpengraphImage() {
                   textAlign: "center",
                 }}
               >
-                100K+ Users
+                240K+ Users
                 <br />
                 4.8★ Rating
               </div>

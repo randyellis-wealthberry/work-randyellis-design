@@ -19,11 +19,11 @@ export function createBaseMetadata(): Metadata {
     },
     title: {
       default:
-        "Randy Ellis - Fractional Chief Design Officer & AI Product Design Engineer | Startup Design Leadership",
+        "Randy Ellis - Head of Product & Fractional Chief Design Officer | Startup Design Leadership",
       template: "%s | Randy Ellis",
     },
     description:
-      "🚀 Fractional Chief Design Officer & AI Product Design Engineer transforming startups into design-led organizations. 2.5M+ users impacted, $50M+ product value delivered. Specializing in venture-backed startup design leadership, scalable design systems, and AI-powered product innovation. Available for fractional CDO engagements through Chameleon Collective, Go Fractional, and startup advisory partnerships.",
+      "🚀 Head of Product & Fractional Chief Design Officer transforming startups into design-led organizations. 2.5M+ users impacted, $50M+ product value delivered. Specializing in venture-backed startup design leadership, scalable design systems, and AI-powered product innovation. Available for fractional CDO engagements through Chameleon Collective, Go Fractional, and startup advisory partnerships.",
     keywords: [
       "AI Product Design Engineer",
       "Generative AI Design",
@@ -87,24 +87,24 @@ export function createBaseMetadata(): Metadata {
       locale: "en_US",
       url: baseUrl,
       siteName:
-        "Randy Ellis - Fractional Chief Design Officer & AI Product Design Engineer",
+        "Randy Ellis - Head of Product & Fractional Chief Design Officer",
       title:
-        "Randy Ellis - Fractional Chief Design Officer & AI Product Design Engineer | Startup Design Leadership",
+        "Randy Ellis - Head of Product & Fractional Chief Design Officer | Startup Design Leadership",
       description:
-        "🚀 Fractional Chief Design Officer & AI Product Design Engineer transforming startups into design-led organizations. 2.5M+ users impacted, $50M+ product value delivered. Specializing in venture-backed startup design leadership, scalable design systems, and AI-powered product innovation.",
+        "🚀 Head of Product & Fractional Chief Design Officer transforming startups into design-led organizations. 2.5M+ users impacted, $50M+ product value delivered. Specializing in venture-backed startup design leadership, scalable design systems, and AI-powered product innovation.",
       images: [
         {
           url: createAbsoluteUrl("/randy-ellis-og-image.jpg"),
           width: 1200,
           height: 630,
-          alt: "Randy Ellis - Fractional Chief Design Officer & AI Product Design Engineer Portfolio",
+          alt: "Randy Ellis - Head of Product & Fractional Chief Design Officer Portfolio",
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
       title:
-        "Randy Ellis - Fractional Chief Design Officer & AI Product Design Engineer | Startup Design Leadership",
+        "Randy Ellis - Head of Product & Fractional Chief Design Officer | Startup Design Leadership",
       description:
         "🚀 Fractional Chief Design Officer transforming startups into design-led organizations. 2.5M+ users impacted, $50M+ product value delivered. Available for fractional CDO engagements.",
       site: "@iamrandyellis",

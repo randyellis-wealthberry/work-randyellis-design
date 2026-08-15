@@ -34,7 +34,7 @@ const achievements = [
   },
   {
     icon: Award,
-    value: "6",
+    value: "4",
     label: "Design Awards",
     description: "Recognition for innovative design work",
   },
