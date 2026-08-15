@@ -4,7 +4,7 @@ import { BreadcrumbStructuredData } from "@/components/seo/structured-data";
 import { createPageMetadata } from "@/lib/metadata";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "AI Product Design Projects - Randy Ellis Portfolio",
+  title: "AI Product Design Projects",
   description:
     "🎯 Proven AI design results: GrowIt reached 240K+ active users & a 4.8★ rating, AI Design System Generator saves 40+ hours/week. See real projects that deliver business impact.",
   path: "/projects",

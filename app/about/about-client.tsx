@@ -19,7 +19,7 @@ import {
   ChevronUp,
   GraduationCap,
 } from "lucide-react";
-import { getEmail } from "../data";
+import { getEmail } from "@/lib/data";
 import AvatarCircularText from "@/components/ui/avatar-circular-text";
 import { testimonials } from "@/lib/data/testimonials";
 import { BOOKING_URL } from "@/lib/constants";

@@ -15,7 +15,7 @@ export function Header() {
         <div className="flex items-center gap-4 gap-6 pt-8 sm:pt-24 lg:gap-8">
           <div>
             <Link
-              href="https://work.randyellis.design"
+              href="/"
               className="font-medium whitespace-nowrap text-black dark:text-white"
             >
               Randy Ellis
@@ -35,7 +35,7 @@ export function Header() {
         {/* Desktop Navigation */}
         <nav className="hidden lg:flex lg:flex-row lg:items-center lg:gap-8 xl:gap-16">
           <Link
-            href="https://work.randyellis.design"
+            href="/"
             className="flex min-h-[44px] items-center rounded-md px-4 py-3 text-sm font-medium text-zinc-600 no-underline transition-colors hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
             style={{ textDecoration: "none" }}
           >
@@ -54,6 +54,13 @@ export function Header() {
             style={{ textDecoration: "none" }}
           >
             Projects
+          </Link>
+          <Link
+            href="/blog"
+            className="flex min-h-[44px] items-center rounded-md px-4 py-3 text-sm font-medium text-zinc-600 no-underline transition-colors hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
+            style={{ textDecoration: "none" }}
+          >
+            Blog
           </Link>
         </nav>
       </header>

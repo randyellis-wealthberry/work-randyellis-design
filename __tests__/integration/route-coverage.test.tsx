@@ -12,9 +12,7 @@ const EXPECTED_ROUTES = [
   { path: "/", name: "Homepage" },
   { path: "/about", name: "About" },
   { path: "/projects", name: "Projects" },
-  { path: "/archive", name: "Archive" },
   { path: "/metis", name: "METIS" },
-  { path: "/ledgeriq", name: "LedgerIQ" },
   { path: "/projects/addvanced", name: "Addvanced" },
   { path: "/privacy-policy", name: "Privacy Policy" },
   { path: "/terms-of-service", name: "Terms of Service" },
@@ -58,7 +56,7 @@ describe("TDD PHASE 1: Route Coverage Analysis", () => {
       );
 
       // This test will initially fail - we'll use it to identify missing routes
-      expect(staticRoutes).toHaveLength(11); // We actually have 11 static routes (including admin)
+      expect(staticRoutes).toHaveLength(9); // We actually have 9 static routes (including admin)
 
       staticRoutes.forEach((route) => {
         expect(route.path).toBeDefined();
@@ -127,9 +125,7 @@ describe("TDD PHASE 1: Route Coverage Analysis", () => {
         "/about/page",
         "/projects/page",
         "/projects/[slug]/page",
-        "/archive/page",
         "/metis/page",
-        "/ledgeriq/page",
         "/projects/addvanced/page",
         "/privacy-policy/page",
         "/terms-of-service/page",

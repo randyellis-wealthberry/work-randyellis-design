@@ -236,7 +236,7 @@ export default function ProjectsClient() {
                       <ProjectThumbnail project={project} />
                     </Link>
                     {project.isLiveProduct && (
-                      <div className="absolute top-3 right-3 z-10">
+                      <div className="pointer-events-none absolute top-3 right-3 z-10">
                         <Badge className="bg-amber-600 text-sm font-bold text-zinc-950 dark:bg-amber-500">
                           Live Product
                         </Badge>

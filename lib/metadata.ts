@@ -18,48 +18,22 @@ export function createBaseMetadata(): Metadata {
       canonical: "/",
     },
     title: {
-      default:
-        "Randy Ellis - Head of Product & Fractional Chief Design Officer | Startup Design Leadership",
+      default: "Randy Ellis | Head of Product & Fractional CDO",
       template: "%s | Randy Ellis",
     },
     description:
-      "🚀 Head of Product & Fractional Chief Design Officer transforming startups into design-led organizations. 2.5M+ users impacted, $50M+ product value delivered. Specializing in venture-backed startup design leadership, scalable design systems, and AI-powered product innovation. Available for fractional CDO engagements through Chameleon Collective, Go Fractional, and startup advisory partnerships.",
+      "Head of Product & Fractional Chief Design Officer helping startups ship design-led AI products. 2.5M+ users impacted, $50M+ product value delivered.",
     keywords: [
-      "AI Product Design Engineer",
-      "Generative AI Design",
-      "Product Design Leadership",
-      "AI Design Systems",
-      "UX Research AI",
-      "Design Engineering",
-      "AI Product Strategy",
-      "Wealthberry Labs",
-      "Portfolio Randy Ellis",
-      "AI Design Tools",
-      "React Design Systems",
-      "Next.js Developer",
-      "Design Leadership",
-      "Product Management",
-      "Design Systems Architecture",
       "Fractional Chief Design Officer",
       "Fractional CDO",
-      "Part-time Design Executive",
+      "AI Product Design Engineer",
       "Startup Design Leadership",
-      "Venture-backed Design Consultant",
-      "Chameleon Collective Fractional Executive",
-      "Go Fractional Design Leadership",
-      "Catalant Fractional Consulting",
-      "Toptal Design Executive",
-      "Business Talent Group Fractional CDO",
-      "Fractional Design Services",
-      "Startup Design Advisor",
-      "Design Systems Scaling",
-      "Remote Design Leadership",
+      "Design Systems",
+      "Generative AI Design",
+      "Design Engineering",
       "Interim Chief Design Officer",
-      "Contract Design Executive",
-      "Startup C-suite Design",
-      "Design Operations Fractional",
-      "Product Design Fractional",
-      "UX Leadership Fractional",
+      "Venture-backed Design Consultant",
+      "Product Design Consulting",
     ],
     authors: [{ name: "Randy Ellis", url: baseUrl }],
     creator: "Randy Ellis",
@@ -72,7 +46,6 @@ export function createBaseMetadata(): Metadata {
     robots: {
       index: true,
       follow: true,
-      nocache: true,
       googleBot: {
         index: true,
         follow: true,
@@ -86,30 +59,12 @@ export function createBaseMetadata(): Metadata {
       type: "website",
       locale: "en_US",
       url: baseUrl,
-      siteName:
-        "Randy Ellis - Head of Product & Fractional Chief Design Officer",
-      title:
-        "Randy Ellis - Head of Product & Fractional Chief Design Officer | Startup Design Leadership",
-      description:
-        "🚀 Head of Product & Fractional Chief Design Officer transforming startups into design-led organizations. 2.5M+ users impacted, $50M+ product value delivered. Specializing in venture-backed startup design leadership, scalable design systems, and AI-powered product innovation.",
-      images: [
-        {
-          url: createAbsoluteUrl("/randy-ellis-og-image.jpg"),
-          width: 1200,
-          height: 630,
-          alt: "Randy Ellis - Head of Product & Fractional Chief Design Officer Portfolio",
-        },
-      ],
+      siteName: "Randy Ellis - Head of Product & Fractional CDO",
     },
     twitter: {
       card: "summary_large_image",
-      title:
-        "Randy Ellis - Head of Product & Fractional Chief Design Officer | Startup Design Leadership",
-      description:
-        "🚀 Fractional Chief Design Officer transforming startups into design-led organizations. 2.5M+ users impacted, $50M+ product value delivered. Available for fractional CDO engagements.",
       site: "@iamrandyellis",
       creator: "@iamrandyellis",
-      images: [createAbsoluteUrl("/randy-ellis-og-image.jpg")],
     },
     category: "Technology",
     classification: "Business",
@@ -132,11 +87,8 @@ export function createPageMetadata({
   image?: string;
   keywords?: string[];
 }): Metadata {
-  // const baseUrl = getBaseUrl(); // Currently unused
   const canonicalUrl = createAbsoluteUrl(path);
-  const ogImage = image
-    ? createAbsoluteUrl(image)
-    : createAbsoluteUrl("/randy-ellis-og-image.jpg");
+  const ogImage = image ? createAbsoluteUrl(image) : undefined;
 
   return {
     title,
@@ -149,20 +101,22 @@ export function createPageMetadata({
       title,
       description,
       url: canonicalUrl,
-      images: [
-        {
-          url: ogImage,
-          width: 1200,
-          height: 630,
-          alt: title,
-        },
-      ],
+      ...(ogImage && {
+        images: [
+          {
+            url: ogImage,
+            width: 1200,
+            height: 630,
+            alt: title,
+          },
+        ],
+      }),
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [ogImage],
+      ...(ogImage && { images: [ogImage] }),
     },
   };
 }
@@ -188,9 +142,7 @@ export function createArticleMetadata({
   image?: string;
 }): Metadata {
   const canonicalUrl = createAbsoluteUrl(path);
-  const ogImage = image
-    ? createAbsoluteUrl(image)
-    : createAbsoluteUrl("/randy-ellis-og-image.jpg");
+  const ogImage = image ? createAbsoluteUrl(image) : undefined;
 
   return {
     title,
@@ -209,20 +161,22 @@ export function createArticleMetadata({
       modifiedTime: modifiedTime || publishedTime,
       authors: ["Randy Ellis"],
       tags,
-      images: [
-        {
-          url: ogImage,
-          width: 1200,
-          height: 630,
-          alt: title,
-        },
-      ],
+      ...(ogImage && {
+        images: [
+          {
+            url: ogImage,
+            width: 1200,
+            height: 630,
+            alt: title,
+          },
+        ],
+      }),
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      images: [ogImage],
+      ...(ogImage && { images: [ogImage] }),
     },
   };
 }

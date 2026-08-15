@@ -83,15 +83,39 @@ function applyCacheHeaders(
   return response;
 }
 
+const INDEXABLE_HOSTS = new Set([
+  "work.randyellis.design",
+  "localhost",
+  "127.0.0.1",
+]);
+
+function shouldBlockIndexing(pathname: string): boolean {
+  return (
+    pathname.startsWith("/admin") ||
+    pathname.startsWith("/api") ||
+    pathname.startsWith("/test-glow") ||
+    pathname.startsWith("/offline")
+  );
+}
+
 export function middleware(request: NextRequest) {
   const response = NextResponse.next();
+
+  const { pathname } = request.nextUrl;
+  const host = request.headers.get("host") || "";
+
+  // Keep previews and non-content routes out of search indexes
+  if (
+    shouldBlockIndexing(pathname) ||
+    (!INDEXABLE_HOSTS.has(host) && host !== "")
+  ) {
+    response.headers.set("X-Robots-Tag", "noindex, nofollow");
+  }
 
   // Apply cache headers based on request path
   const updatedResponse = applyCacheHeaders(request, response);
 
   // Add security headers for fonts and images
-  const { pathname } = request.nextUrl;
-
   if (pathname.match(/\.(woff|woff2|eot|ttf|otf)$/)) {
     updatedResponse.headers.set("Access-Control-Allow-Methods", "GET");
     updatedResponse.headers.set("Access-Control-Allow-Headers", "Content-Type");

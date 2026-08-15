@@ -8,7 +8,6 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: "*",
         allow: "/",
         disallow: ["/private/", "/admin/", "/api/", "/_next/", "/drafts/"],
-        crawlDelay: 1,
       },
       {
         userAgent: "GPTBot",
@@ -20,10 +19,6 @@ export default function robots(): MetadataRoute.Robots {
       },
       {
         userAgent: "ChatGPT-User",
-        disallow: "/",
-      },
-      {
-        userAgent: "CCBot",
         disallow: "/",
       },
       {

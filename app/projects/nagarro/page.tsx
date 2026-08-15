@@ -2,9 +2,12 @@ import { Metadata } from "next";
 import NagarroClientPage from "./nagarro-client";
 
 export const metadata: Metadata = {
-  title: "Design @Nagarro | Scaling Excellence Across 18,000+ Global Teams",
+  title: "Design @Nagarro | Design Leadership at Scale",
   description:
     "Discover how strategic design leadership at Nagarro drove digital accessibility initiatives, inclusive design practices, and design evangelism across 36 countries, generating $50M+ in business impact.",
+  alternates: {
+    canonical: "/projects/nagarro",
+  },
   openGraph: {
     title: "Design @Nagarro | Strategic Design Leadership Case Study",
     description:

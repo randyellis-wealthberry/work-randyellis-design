@@ -3,6 +3,9 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Terms of Service",
   description: "Terms of service for Randy Ellis Design portfolio website",
+  alternates: {
+    canonical: "/terms-of-service",
+  },
 };
 
 export default function TermsOfServicePage() {

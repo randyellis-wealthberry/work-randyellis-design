@@ -1,4 +1,4 @@
-import { WorkExperience, BlogPost, SocialLink, ArchiveItem } from "./types";
+import { WorkExperience, BlogPost, SocialLink } from "./types";
 
 // Static data that's commonly used across pages
 export const WORK_EXPERIENCE: WorkExperience[] = [
@@ -79,58 +79,5 @@ export const SOCIAL_LINKS: SocialLink[] = [
   {
     label: "LinkedIn",
     link: "https://www.linkedin.com/in/iamrandyellis/",
-  },
-];
-
-export const ARCHIVE_CATEGORIES = [
-  "All",
-  "Article",
-  "Project",
-  "Video",
-  "Course",
-] as const;
-
-export const ARCHIVE_ITEMS: ArchiveItem[] = [
-  {
-    id: "article-placeholder-1",
-    title: "Design Systems at Scale",
-    subtitle: "Building Consistent UI Libraries",
-    description:
-      "A comprehensive guide to building and maintaining design systems for large organizations.",
-    year: "2022",
-    category: "Article",
-    type: "article",
-    thumbnail: "/images/archive/article-placeholder-1.jpg",
-    link: "/blog/design-systems-at-scale",
-    featured: true,
-    tags: ["Design Systems", "UI/UX", "Frontend"],
-  },
-  {
-    id: "project-placeholder-1",
-    title: "AI Design Generator",
-    subtitle: "Automated Component Creation",
-    description:
-      "An experimental project exploring AI-powered design system generation and component automation.",
-    year: "2023",
-    category: "Project",
-    type: "project",
-    thumbnail: "/images/archive/project-placeholder-1.jpg",
-    link: "/projects/ai-design-generator",
-    featured: true,
-    tags: ["AI/ML", "Design Systems", "Automation"],
-  },
-  {
-    id: "video-placeholder-1",
-    title: "Design Leadership Workshop",
-    subtitle: "Building High-Performance Teams",
-    description:
-      "A workshop recording on building and leading design teams in fast-growing companies.",
-    year: "2023",
-    category: "Video",
-    type: "video",
-    thumbnail: "/images/archive/video-placeholder-1.jpg",
-    link: "https://youtube.com/watch?v=example",
-    featured: false,
-    tags: ["Leadership", "Team Building", "Design"],
   },
 ];

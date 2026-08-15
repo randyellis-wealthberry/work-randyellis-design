@@ -78,23 +78,6 @@ export type SocialLink = {
   link: string;
 };
 
-export type ArchiveItem = {
-  id: string;
-  title: string;
-  subtitle: string;
-  description: string;
-  year: string;
-  category: string;
-  type: "project" | "article" | "video" | "course" | "document";
-  thumbnail?: string;
-  video?: string;
-  link?: string;
-  featured?: boolean;
-  tags: string[];
-  company?: string;
-  event?: string;
-};
-
 export const PROJECT_CATEGORIES = [
   "All",
   "Enterprise (SaaS)",

@@ -7,7 +7,7 @@ import { TextEffect } from "@/components/motion-primitives/text-effect";
 import { createPageMetadata } from "@/lib/metadata";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Blog Archive - Randy Ellis",
+  title: "Blog",
   description:
     "📚 AI design insights from the trenches: Claude + Obsidian workflows, AI video creation with Remotion, and why profits beat pixels. Real-world tutorials that work.",
   path: "/blog",

@@ -20,9 +20,18 @@ export async function generateMetadata({
     };
   }
 
+  const imageThumbnail =
+    project.thumbnail &&
+    /\.(png|jpe?g|webp|avif|gif|svg)$/i.test(project.thumbnail)
+      ? project.thumbnail
+      : undefined;
+
   return {
-    title: `${project.name} | ${project.subtitle || project.category} | Randy Ellis`,
+    title: `${project.name} | ${project.subtitle || project.category}`,
     description: project.longDescription || project.description,
+    alternates: {
+      canonical: `/projects/${project.slug}`,
+    },
     keywords: [
       project.name,
       ...project.technologies,
@@ -35,11 +44,11 @@ export async function generateMetadata({
     openGraph: {
       title: `${project.name} - ${project.subtitle || project.category}`,
       description: project.longDescription || project.description,
-      url: `https://work.randyellis.design/projects/${project.slug}`,
-      images: project.thumbnail
+      url: `/projects/${project.slug}`,
+      images: imageThumbnail
         ? [
             {
-              url: `https://work.randyellis.design${project.thumbnail}`,
+              url: imageThumbnail,
               width: 1200,
               height: 630,
               alt: `${project.name} - ${project.subtitle || project.description}`,
@@ -52,9 +61,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: `${project.name} - ${project.subtitle || project.category}`,
       description: project.longDescription || project.description,
-      images: project.thumbnail
-        ? [`https://work.randyellis.design${project.thumbnail}`]
-        : [],
+      images: imageThumbnail ? [imageThumbnail] : [],
     },
   };
 }

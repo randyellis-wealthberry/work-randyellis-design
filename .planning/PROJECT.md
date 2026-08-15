@@ -20,6 +20,31 @@ monetized AI SaaS.
 - **Verification:** 18/18 REQ-IDs audited (17 satisfied, POS-02 documented deviation); lint/tsc clean; 1175 tests passing (1 known-flaky FPS test)
 - **Tag:** v1.0
 
+## Current Milestone: v2.0 Case-Study Depth
+
+**Goal:** Turn the 7 project case studies (growit, ohplays, ledgeriq, addvanced,
+echo, nagarro, rambis-ui) from generic corporate summaries into first-person,
+decision-driven case studies that prove senior design leadership to a hiring
+manager. (Waffle stays as its v1.0 product-showcase page — not a case study.)
+
+**Target features:**
+- Narrative template evolution — extend the `[slug]` layout to express
+  problem → *my* role → key decisions *with rationale* → measurable outcome →
+  reflection (the current template can't carry this structure)
+- Content rewrite (7 case studies) — corporate "we developed…" voice →
+  first-person "I chose X because Y", deck-backed
+- Data completeness — fill thin/empty challenges·solutions·learnings so no
+  section renders shallow
+- Outcome proofing — every decision tied to a verifiable metric; the v1.0
+  credibility guard stays (no unbacked numbers)
+- Tech-debt fold-in — POS-02 proof-chips, WAF-02 badge dead-zone, delete stale
+  `app/data.ts` PROJECTS array
+
+**Key constraint:** Source-of-truth = 48-page deck + `.planning/CREDIBILITY-COPY.md`.
+Deck covers most projects; any project the deck doesn't back → flag for Randy,
+do not invent (carries CRED lessons from v1.0). Verify Chameleon URL + 4.8★
+App Store proof before either lands in copy.
+
 ## Core Value
 
 **The ONE thing that must work:** a hiring manager landing on the site (or a recruiter
@@ -37,11 +62,17 @@ conversation. **Shipped and audit-verified in v1.0.**
 - ✓ Waffle product showcase: `/projects/waffle` page + "Live Product" badged grid card + dual tracked CTAs — v1.0
 - ✓ Pre-existing platform: Next.js 15 App Router on Vercel, SEO JSON-LD, Motion/Radix/Tailwind v4, MDX blog, Loops newsletter — existing
 
-### Active (next milestone candidates — not yet committed)
+### Active (v2.0 Case-Study Depth — committed)
 
-- [ ] Tech-debt sweep: POS-02 proof-chips spec (subhead still dense), WAF-02 badge click dead-zone, delete stale `app/data.ts` PROJECTS array
-- [ ] Visual polish pass (deferred from v1.0)
-- [ ] Additional case-study rewrites (deferred from v1.0)
+- [ ] Narrative template evolution: `[slug]` layout expresses problem → my role → decisions-with-rationale → measurable outcome → reflection
+- [ ] Content rewrite (all 8): first-person senior-decision narrative, deck-backed
+- [ ] Data completeness: fill thin/empty challenges·solutions·learnings
+- [ ] Outcome proofing: decisions tied to verifiable metrics (credibility guard holds)
+- [ ] Tech-debt fold-in: POS-02 proof-chips, WAF-02 badge dead-zone, delete stale `app/data.ts` PROJECTS array
+
+### Deferred (not this milestone)
+
+- [ ] Visual polish pass beyond case-study surfaces (deferred from v1.0)
 
 ### Out of Scope
 
@@ -80,4 +111,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Decisions to log? → Add to Key Decisions
 
 ---
-*Last updated: 2026-08-15 after v1.0 Recruiter-Readiness milestone*
+*Last updated: 2026-08-15 — started v2.0 Case-Study Depth milestone*

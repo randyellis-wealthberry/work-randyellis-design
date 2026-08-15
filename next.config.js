@@ -235,6 +235,16 @@ const nextConfig = {
   // OUTPUT OPTIMIZATION
   trailingSlash: false,
 
+  async redirects() {
+    return [
+      {
+        source: "/ledgeriq",
+        destination: "/projects/ledgeriq",
+        permanent: true,
+      },
+    ];
+  },
+
   // HEADERS FOR CACHING - Enhanced
   async headers() {
     return [
@@ -268,6 +278,17 @@ const nextConfig = {
             value: "max-age=63072000; includeSubDomains; preload",
           },
         ],
+      },
+    ];
+  },
+
+  // REDIRECTS
+  async redirects() {
+    return [
+      {
+        source: "/ledgeriq",
+        destination: "/projects/ledgeriq",
+        permanent: true,
       },
     ];
   },

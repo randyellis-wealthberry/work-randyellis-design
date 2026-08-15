@@ -8,6 +8,9 @@ const rambisProject = PROJECTS.find((p) => p.id === "rambis-ui")!;
 export const metadata: Metadata = {
   title: `${rambisProject.name} Case Study | ${rambisProject.subtitle}`,
   description: rambisProject.description,
+  alternates: {
+    canonical: "/projects/rambis-ui",
+  },
   openGraph: {
     title: `${rambisProject.name} Case Study | Modern Design System Innovation`,
     description: rambisProject.description,

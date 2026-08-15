@@ -191,11 +191,11 @@ export function generateResourceHints() {
         crossOrigin: "anonymous",
       },
       {
-        href: "/manifest.json",
+        href: "/manifest.webmanifest",
         as: "manifest",
       },
     ],
-    prefetch: ["/projects", "/about", "/contact", "/_next/static/css/app.css"],
+    prefetch: ["/projects", "/about", "/blog"],
   };
 }
 
