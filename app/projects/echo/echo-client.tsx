@@ -15,6 +15,8 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { PROJECTS } from "@/lib/data/projects";
+import { CaseStudyNarrative } from "@/components/case-study/case-study-narrative";
+import { ReflectionBlock } from "@/components/case-study/reflection-block";
 
 // Get the Echo project data
 const echoProject = PROJECTS.find((p) => p.id === "echo")!;
@@ -437,19 +439,13 @@ export default function EchoClientPage() {
         </div>
       </section>
 
+      <CaseStudyNarrative project={echoProject} />
+
       {/* Reflection */}
-      <section>
-        <h2 className="mb-5 text-lg font-medium text-zinc-900 dark:text-zinc-100">
-          Product Design Leadership Reflection
-        </h2>
-        <Card>
-          <CardContent className="pt-6">
-            <p className="text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
-              {enhancedProcessStory.reflection}
-            </p>
-          </CardContent>
-        </Card>
-      </section>
+      <ReflectionBlock
+        reflection={enhancedProcessStory.reflection}
+        heading="Product Design Leadership Reflection"
+      />
 
       {/* Navigation */}
       <section className="mb-16 border-t border-zinc-200 px-4 pt-8 sm:mb-20 sm:px-6 lg:mb-24 lg:px-8 dark:border-zinc-700">

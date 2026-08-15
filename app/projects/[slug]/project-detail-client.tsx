@@ -25,6 +25,10 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { ScrambleSectionTitle } from "@/components/ui/scramble-section-title";
+import { CaseStudyTOC } from "@/components/case-study/case-study-toc";
+import { DecisionCallout } from "@/components/case-study/decision-callout";
+import { ReflectionBlock } from "@/components/case-study/reflection-block";
+import { RoleNarrativeSection } from "@/components/case-study/role-narrative-section";
 import { BreadcrumbNav } from "@/components/ui/breadcrumb-nav";
 import {
   AnimatedVideo,
@@ -479,6 +483,9 @@ export default function ProjectDetailClient({
         {/* Background Story */}
         {project.processStory?.background && (
           <motion.section
+            id="the-challenge"
+            role="region"
+            aria-labelledby="the-challenge-heading"
             className="space-y-6"
             variants={VARIANTS_ITEM}
             transition={TRANSITION_ITEM}
@@ -487,7 +494,11 @@ export default function ProjectDetailClient({
               <p className="text-muted-foreground text-sm tracking-wide uppercase">
                 The Challenge
               </p>
-              <ScrambleSectionTitle as="h2" className="text-3xl font-bold">
+              <ScrambleSectionTitle
+                as="h2"
+                id="the-challenge-heading"
+                className="text-3xl font-bold"
+              >
                 The Challenge That Started It All
               </ScrambleSectionTitle>
             </div>
@@ -497,6 +508,81 @@ export default function ProjectDetailClient({
                   {project.processStory.background}
                 </p>
               </Card>
+            </div>
+          </motion.section>
+        )}
+
+        <Separator />
+
+        {/* In-page nav — only worth rendering once the narrative sections exist */}
+        {(project.roleNarrative ||
+          (project.decisions && project.decisions.length > 0)) && (
+          <motion.div variants={VARIANTS_ITEM} transition={TRANSITION_ITEM}>
+            <CaseStudyTOC
+              items={[
+                ...(project.processStory?.background
+                  ? [{ id: "the-challenge", label: "The Challenge" }]
+                  : []),
+                ...(project.roleNarrative
+                  ? [{ id: "my-role", label: "My Role" }]
+                  : []),
+                ...(project.decisions && project.decisions.length > 0
+                  ? [{ id: "key-decisions", label: "Key Decisions" }]
+                  : []),
+                ...(project.processStory?.outcome
+                  ? [{ id: "the-outcome", label: "Outcome" }]
+                  : []),
+                ...(project.processStory?.reflection
+                  ? [{ id: "reflection", label: "Reflection" }]
+                  : []),
+              ]}
+            />
+          </motion.div>
+        )}
+
+        {/* My Role — what Randy personally owned (CRED-06) */}
+        {project.roleNarrative && (
+          <motion.div variants={VARIANTS_ITEM} transition={TRANSITION_ITEM}>
+            <RoleNarrativeSection
+              narrative={project.roleNarrative}
+              role={project.role}
+              teamSize={project.teamSize}
+              deliverables={project.overview?.deliverables}
+            />
+          </motion.div>
+        )}
+
+        {/* Key Decisions — the fork, the rationale, and the result */}
+        {project.decisions && project.decisions.length > 0 && (
+          <motion.section
+            id="key-decisions"
+            role="region"
+            aria-labelledby="key-decisions-heading"
+            className="space-y-6"
+            variants={VARIANTS_ITEM}
+            transition={TRANSITION_ITEM}
+          >
+            <div className="mx-auto max-w-4xl space-y-2">
+              <p className="text-muted-foreground text-sm tracking-wide uppercase">
+                Key Decisions
+              </p>
+              <ScrambleSectionTitle
+                as="h2"
+                id="key-decisions-heading"
+                className="text-3xl font-bold"
+              >
+                What I Decided, And What I Passed On
+              </ScrambleSectionTitle>
+            </div>
+            <div className="mx-auto max-w-4xl space-y-8">
+              {project.decisions.map((decision, index) => (
+                <DecisionCallout
+                  key={decision.title}
+                  decision={decision}
+                  index={index + 1}
+                  sectionId="key-decisions"
+                />
+              ))}
             </div>
           </motion.section>
         )}
@@ -882,7 +968,7 @@ export default function ProjectDetailClient({
 
         {/* Outcome & Impact */}
         {(project.processStory?.outcome ||
-          project.processStory?.reflection) && (
+          project.processStory?.stakeholderQuotes) && (
           <motion.section
             className="space-y-6"
             variants={VARIANTS_ITEM}
@@ -898,7 +984,10 @@ export default function ProjectDetailClient({
             </div>
             <div className="mx-auto max-w-4xl space-y-6">
               {project.processStory.outcome && (
-                <Card className="border-muted hover:border-primary/30 p-6 transition-colors duration-200 md:p-8">
+                <Card
+                  id="the-outcome"
+                  className="border-muted hover:border-primary/30 p-6 transition-colors duration-200 md:p-8"
+                >
                   <ScrambleSectionTitle
                     as="h3"
                     className="mb-4 text-xl font-semibold"
@@ -944,22 +1033,18 @@ export default function ProjectDetailClient({
                   </div>
                 </div>
               )}
-
-              {project.processStory.reflection && (
-                <Card className="border-muted hover:border-primary/30 p-6 transition-colors duration-200 md:p-8">
-                  <ScrambleSectionTitle
-                    as="h3"
-                    className="mb-4 text-xl font-semibold"
-                  >
-                    The Bigger Picture
-                  </ScrambleSectionTitle>
-                  <p className="text-muted-foreground text-base leading-relaxed">
-                    {project.processStory.reflection}
-                  </p>
-                </Card>
-              )}
             </div>
           </motion.section>
+        )}
+
+        {/* Reflection — deliberately its own block, not a results sub-card (TPL-01) */}
+        {project.processStory?.reflection && (
+          <motion.div variants={VARIANTS_ITEM} transition={TRANSITION_ITEM}>
+            <ReflectionBlock
+              reflection={project.processStory.reflection}
+              heading="The Bigger Picture"
+            />
+          </motion.div>
         )}
 
         <Separator />

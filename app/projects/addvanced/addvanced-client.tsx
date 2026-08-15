@@ -36,6 +36,8 @@ import { AnimatedMetricCard } from "@/components/ui/animated-metric-card";
 
 // Data
 import { PROJECTS } from "@/lib/data/projects";
+import { CaseStudyNarrative } from "@/components/case-study/case-study-narrative";
+import { ReflectionBlock } from "@/components/case-study/reflection-block";
 
 // SpotlightCard Component (reused from existing projects)
 const SpotlightCard = ({
@@ -970,6 +972,8 @@ export default function AddvancedClient() {
         </div>
       </section>
 
+      <CaseStudyNarrative project={addvancedProject} />
+
       {/* Reflection & Learnings Section */}
       <section className="bg-muted/30 px-6 py-16 lg:px-8">
         <div className="mx-auto max-w-6xl">
@@ -1231,60 +1235,13 @@ export default function AddvancedClient() {
             </Tabs>
           </div>
 
-          {/* Final Reflection */}
-          <div>
-            <h3 className="mb-8 text-center text-2xl font-semibold">
-              Design Leadership Reflection
-            </h3>
-
-            <div className="mx-auto max-w-4xl">
-              <SpotlightCard className="p-8">
-                <div className="space-y-6">
-                  <div className="text-center">
-                    <div className="bg-primary/10 mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full">
-                      <Award className="text-primary h-8 w-8" />
-                    </div>
-                    <h4 className="mb-4 text-xl font-semibold">
-                      Innovation Lab Impact
-                    </h4>
-                  </div>
-
-                  <div className="prose prose-gray dark:prose-invert max-w-none">
-                    <p className="text-muted-foreground text-center leading-relaxed">
-                      {processStory?.reflection}
-                    </p>
-                  </div>
-
-                  <div className="grid gap-6 border-t pt-6 md:grid-cols-3">
-                    <div className="text-center">
-                      <div className="text-primary mb-2 text-2xl font-bold">
-                        35%
-                      </div>
-                      <p className="text-muted-foreground text-sm">
-                        Job Placement Improvement
-                      </p>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-primary mb-2 text-2xl font-bold">
-                        2 weeks
-                      </div>
-                      <p className="text-muted-foreground text-sm">
-                        Sprint Duration
-                      </p>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-primary mb-2 text-2xl font-bold">
-                        800%
-                      </div>
-                      <p className="text-muted-foreground text-sm">
-                        Optimized Path Success
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </SpotlightCard>
-            </div>
-          </div>
+          {/* Reflection — shared component, standardized across all 7 case studies */}
+          {processStory?.reflection && (
+            <ReflectionBlock
+              reflection={processStory.reflection}
+              heading="Design Leadership Reflection"
+            />
+          )}
         </div>
       </section>
 
