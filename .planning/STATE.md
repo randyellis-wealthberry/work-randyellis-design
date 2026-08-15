@@ -17,7 +17,13 @@
 - [x] CRED-04 fabricated schema removed (aggregateRating, fake telephone, google-verify placeholder)
 - [x] CRED-05 hidden keyword-SEO block deleted
 - [x] Phase 2 (positioning) — leadership hero, single title lane; brand already consistent
-- [~] Phase 3 (readiness) — RDY-01 booking + RDY-04 homepage testimonials done; RDY-02 resume + RDY-03 logos need files
+- [~] Phase 3 (readiness) — RDY-01 booking + RDY-02 resume + RDY-04 testimonials done; RDY-03 logos need files
+
+## Reconciliation decisions (resume vs site)
+- Experience: "20 years in design, 8+ leading teams" (qualified, both true)
+- Employer: hybrid — Chameleon Collective (Fractional VP Design) added alongside Wealthberry Labs
+- Location: remote (dropped Chicago geo from schema; project-history Chicago kept)
+- ⚠ Verify Chameleon Collective URL (https://www.chameleon.co) before deploy
 
 ## Follow-ups / notes
 - 4.8★ App Store rating kept per Randy (he'll provide proof); if not, revisit.
