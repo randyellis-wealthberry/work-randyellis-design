@@ -734,6 +734,8 @@ export const PROJECTS: Project[] = [
           "I argued to shrink the application-tracking feature set\u2014the obvious core of a job-search tool\u2014so the sprint had room to prototype referral discovery across a user's extended network properly.",
         rationale:
           "Tracking is table stakes; every competing product already does it, and doing it slightly better would not have changed anyone's mind. The differentiation lived in surfacing referral paths a job seeker couldn't see on their own. Two weeks buys one thing done well or three things done shallowly, and I would rather have tested the risky idea than polished the safe one. The cost was real: the prototype's tracking felt thin next to shipping competitors.",
+        outcome:
+          "Thin tracking was the single most common complaint in testing. Participants noticed immediately and said so. The bet was that they would care more about referral discovery than about tracking parity, and they did \u2014 but the cost showed up exactly where I put it, and I would want a better answer for it before this became a real product.",
       },
       {
         title: "Consent and transparency over the magic moment",
@@ -741,6 +743,8 @@ export const PROJECTS: Project[] = [
           "When the prototype surfaced a referral path through someone's second- and third-degree connections, I showed how that connection was found and gave the user control over it, rather than presenting the result as if by magic.",
         rationale:
           "Mining an extended professional network is powerful precisely because it reveals things people did not realize were visible\u2014which is also what makes it feel invasive. An unexplained suggestion reads as surveillance the moment a user wonders how you knew. Naming the path costs the product its most impressive moment and buys the thing a career tool actually runs on, which is trust.",
+        outcome:
+          "Transparency did the work I hoped it would. Seeing how a connection was surfaced defused the discomfort that the same suggestion produced when it appeared unexplained \u2014 nobody in testing described the feature as invasive once the path was visible.",
       },
     ],
     processStory: {
@@ -1220,6 +1224,24 @@ export const PROJECTS: Project[] = [
         "Component behavior must respect regional accessibility standards",
       ],
     },
+    roleNarrative:
+      "I lead design-system architecture on Rambis UI, working with three others. It is an ongoing project rather than a finished one, and it started as a fork of Chakra UI rather than a clean sheet \u2014 both of those facts shape every decision below. My lane is the system's architecture and API surface: what a component should be responsible for, what it should refuse to do, and how much rope to give the developer using it.",
+    decisions: [
+      {
+        title: "Forking Chakra UI instead of starting from a clean sheet",
+        decision:
+          "I built Rambis UI as a fork of Chakra UI, inheriting its component API rather than designing a new one.",
+        rationale:
+          "Adoption is the hard part of a design system, not construction. A new API means every developer who picks it up has to relearn primitives they already know, and that cost is paid by every single user, forever. Starting from an API people already had in their hands meant the switching cost was close to zero. What I gave up was control of the foundation: I inherited Chakra's design decisions wholesale, the good ones and the awkward ones, and some of the awkward ones are now mine to carry.",
+      },
+      {
+        title: "Opinionated defaults with an escape hatch underneath",
+        decision:
+          "I made the common case a single obvious call, and put the composable primitives underneath for anyone who needed to go further.",
+        rationale:
+          "The two things a component library is pulled between are intuition and flexibility, and most systems pick one and suffer for it. Fully composable primitives are powerful and leave newcomers assembling boilerplate to do the obvious thing; fully opinionated components are teachable right up until someone needs the case you did not anticipate, and then they eject entirely. Layering them was the way to serve both, and the price is a two-layer API \u2014 twice the surface to document, and a real risk that people never discover the lower layer exists.",
+      },
+    ],
     processStory: {
       background:
         "The JavaScript ecosystem was saturated with design systems, yet developers consistently faced the same challenges: bloated bundle sizes, inflexible theming, and poor accessibility defaults. After working with Chakra UI on multiple production projects, I identified specific areas where the framework could be enhanced. Rather than creating yet another design system from scratch, I chose to fork and evolve Chakra UI, leveraging its solid foundation while addressing its limitations. The goal was to create a design system that developers would actually enjoy using—one that got out of their way while providing powerful capabilities when needed.",

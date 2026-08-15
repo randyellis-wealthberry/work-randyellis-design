@@ -68,9 +68,9 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 
 ### Pending Todos
 
-- **Phase 8 — decision content: 2 of 7 done.** growit (5 decisions, all with outcomes) and addvanced (2 decisions) are populated. Remaining: ohplays, ledgeriq, echo, nagarro, rambis-ui. Each needs an interview round.
+- **Phase 8 — decision content: 3 of 7 done.** growit (5 decisions, all with outcomes), addvanced (2, both with outcomes), rambis-ui (2, outcomes pending). Remaining: ohplays, ledgeriq, echo, nagarro.
 - **addvanced claim purge done 2026-08-15.** Randy confirmed it was a 2-week prototype sprint only, never shipped. Removed 8 production-scale metrics, rewrote description/outcome/5 learnings that claimed retention drivers, competitor benchmarks and market capture. Kept the 7 genuine prototype-test figures.
-- **addvanced decisions lack outcomes.** Both are absent; worth a qualitative round like growit's.
+- **rambis-ui open questions.** (a) `status: "in-progress"` and `timeline: "Q3 2024 - Present"` contradict a reflection written entirely in past tense as a finished project. (b) The reflection claims 2,500+ weekly npm downloads, perfect Lighthouse a11y scores across all components, and 40% bundle reduction — the most independently checkable claims on the site. Confirm before they carry more narrative weight. (c) Its 2 decisions have no outcomes yet.
 - ~~MIG-01 deviation — addvanced bespoke reflection~~ **RESOLVED 2026-08-15.** Randy chose to standardize. SpotlightCard/Award chrome retired; addvanced now renders `ReflectionBlock` like the other six. The 3-column metric grid was deleted with it after verifying all three figures (35%, 2 weeks, 800%) are already restated elsewhere on the same page — no unique claim lost.
 - **Echo data duplication (Phase 9).** `echo-client.tsx` defines a local `enhancedProcessStory` with its own `reflection`, overriding `PROJECTS`. Two sources of truth for one claim — exactly the cross-surface drift CRED-09 exists to catch.
 - ~~growit decision outcomes~~ **RESOLVED 2026-08-15.** All 5 now carry an outcome, sourced qualitatively from Randy (no invented figures). Two are honestly negative/mixed: experts complained about buried features under progressive disclosure, and radius-widening thinned relevance exactly where it filled the feed.
