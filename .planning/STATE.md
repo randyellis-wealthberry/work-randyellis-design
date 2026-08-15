@@ -3,21 +3,20 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 current_phase: 04
-status: milestone_complete
-last_updated: 2026-08-15T13:21:38.344Z
+status: "Phase 04 shipped — PR #47"
+last_updated: "2026-08-15T13:40:42.594Z"
 progress:
   total_phases: 4
   completed_phases: 0
   total_plans: 3
   completed_plans: 3
   percent: 0
-stopped_at: Milestone complete (Phase 04 was final phase)
 ---
 
 # STATE — Recruiter-Readiness Milestone
 
 **Current phase:** 04
-**Status:** Milestone complete
+**Status:** Phase 04 shipped — PR #47
 **Branch:** chore/recruiter-readiness (14 commits ahead of main)
 **Next action:** Merge PR #44 after domain transfer settles + a visual pass (esp. logo bar in dark mode).
 
