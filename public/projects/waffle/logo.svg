@@ -1,0 +1,7 @@
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Transparent background: orange waffle, no background -->
+  <rect x="56" y="56" width="184" height="184" rx="24" fill="#f97316"/>
+  <rect x="272" y="56" width="184" height="184" rx="24" fill="#f97316"/>
+  <rect x="56" y="272" width="184" height="184" rx="24" fill="#f97316"/>
+  <rect x="272" y="272" width="184" height="184" rx="24" fill="#f97316"/>
+</svg>
