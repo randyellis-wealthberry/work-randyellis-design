@@ -161,9 +161,9 @@ describe("About Page Professional Experience", () => {
     });
 
     it("should display achievements for all roles", () => {
-      // Test that Key Achievements sections exist (7 professional + 2 teaching = 9 total)
+      // Test that Key Achievements sections exist (8 professional + 2 teaching = 10 total)
       const achievementHeaders = screen.getAllByText("Key Achievements:");
-      expect(achievementHeaders).toHaveLength(9); // Should have 7 professional + 2 teaching roles
+      expect(achievementHeaders).toHaveLength(10); // 8 professional (incl. Chameleon Collective) + 2 teaching roles
 
       // Test specific achievements from resume data (using getAllByText for potentially duplicate content)
       expect(

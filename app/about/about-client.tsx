@@ -54,6 +54,18 @@ const achievements = [
 
 const experience = [
   {
+    company: "Chameleon Collective",
+    companyUrl: "https://www.chameleon.co",
+    title: "Fractional VP, Design",
+    period: "Oct 2022 - Present",
+    description:
+      "Fractional design leadership for venture-backed startups and established brands — design strategy, scalable design systems, and remote team leadership.",
+    achievements: [
+      "Partner with startups and brands as an embedded fractional design executive",
+      "Drive end-to-end product design, design strategy, and design-system scale",
+    ],
+  },
+  {
     company: "Wealthberry Labs",
     companyUrl: "https://www.buildyourlegacywithai.com",
     title: "Head of Product",

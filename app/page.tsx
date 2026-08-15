@@ -541,7 +541,7 @@ export default function Personal() {
             Design leader who ships AI products.
           </p>
           <TextGradientScroll
-            text="I turn startups into design-led organizations — and write the code to prove it. Twenty years in product design, now focused on AI: I've led products for 2.5M+ users, mentored 800+ designers, and build in React, Next.js, and TypeScript."
+            text="I turn startups into design-led organizations — and write the code to prove it. 20 years in design and 8+ years leading design teams, now focused on AI: I've led products for 2.5M+ users, mentored 800+ designers, and build in React, Next.js, and TypeScript."
             type="letter"
             textOpacity="soft"
             className="max-w-2xl text-base leading-snug tracking-tight text-zinc-600 dark:text-zinc-400"
