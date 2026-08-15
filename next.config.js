@@ -201,23 +201,12 @@ const nextConfig = {
       );
     }
 
-    // DEVELOPMENT OPTIMIZATIONS
-    // NOTE: client only. Applying a custom `vendor` splitChunks group to the
-    // server build produces .next/server/vendor.js, which breaks the CommonJS
-    // server runtime with "exports is not defined". Next handles server bundling.
-    if (dev && !isServer) {
-      // Speed up development builds
-      config.optimization.splitChunks = {
-        chunks: "all",
-        cacheGroups: {
-          vendor: {
-            test: /[\\/]node_modules[\\/]/,
-            name: "vendor",
-            chunks: "all",
-          },
-        },
-      };
-    }
+    // DEVELOPMENT: no custom splitChunks. A hand-rolled `vendor` cache group
+    // fights Next 15's app-router webpack runtime and corrupts the dev module
+    // graph — it produced "exports is not defined" (server) and
+    // "Cannot read properties of undefined (reading 'call')" (client). Next's
+    // default dev chunking is correct; leave it alone. Custom splitChunks stays
+    // gated to production only (the `!isServer && !dev` block above).
 
     return config;
   },
