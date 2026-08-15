@@ -42,6 +42,7 @@ import { TextGradientScroll } from "@/components/ui/text-gradient-scroll";
 import { BOOKING_URL } from "@/lib/constants";
 import { testimonials } from "@/lib/data/testimonials";
 import { Card, CardContent } from "@/components/ui/card";
+import { ClientLogos } from "@/components/client-logos";
 
 const VARIANTS_CONTAINER = {
   hidden: { opacity: 0 },
@@ -571,6 +572,13 @@ export default function Personal() {
         transition={TRANSITION_SECTION}
       >
         <AnimatedNumberBasic />
+      </motion.section>
+
+      <motion.section
+        variants={VARIANTS_SECTION}
+        transition={TRANSITION_SECTION}
+      >
+        <ClientLogos />
       </motion.section>
 
       <motion.section
