@@ -8,6 +8,12 @@ interface FocusTrapProps {
   restoreFocus?: boolean;
   onEscape?: () => void;
   initialFocus?: HTMLElement | null;
+  /** Forwarded to the dialog element so a trigger's aria-controls can target it. */
+  id?: string;
+  /** Accessible name for the dialog — pass one of these; a dialog must be labelled. */
+  "aria-labelledby"?: string;
+  "aria-label"?: string;
+  className?: string;
 }
 
 /**
@@ -26,6 +32,10 @@ export function FocusTrap({
   restoreFocus = true,
   onEscape,
   initialFocus,
+  id,
+  "aria-labelledby": ariaLabelledBy,
+  "aria-label": ariaLabel,
+  className,
 }: FocusTrapProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const previousActiveElementRef = useRef<HTMLElement | null>(null);
@@ -56,20 +66,55 @@ export function FocusTrap({
     }) as HTMLElement[];
   }, []);
 
+  // Capture the opener and move focus in — ONLY on the transition to active.
+  // This used to live in the keydown effect below, whose deps include
+  // `onEscape`; a caller passing an inline arrow re-ran it every render, so
+  // "previous element" got overwritten with whatever was focused *inside* the
+  // trap and focus was never returned to the trigger on close.
+  // Focus in on activation, restore on deactivation *or* unmount.
+  //
+  // Two traps avoided here:
+  // 1. Callers inside <AnimatePresence> never see `active` flip to false —
+  //    the exiting subtree is frozen with its last props and then unmounted —
+  //    so restore must also run from the effect cleanup.
+  // 2. React StrictMode double-invokes effects in dev, so a naive cleanup
+  //    restore fires on the *simulated* unmount and yanks focus back to the
+  //    trigger right after focus was moved inside. The timeout below checks
+  //    whether the trap is (re)mounted before touching focus, and capture is
+  //    skipped when focus is already inside the container.
+  const isMountedActiveRef = useRef(false);
   useEffect(() => {
     if (!active) return;
 
-    // Store the currently focused element
-    previousActiveElementRef.current = document.activeElement as HTMLElement;
-
-    const focusableElements = getFocusableElements();
-    const firstElement = initialFocus || focusableElements[0];
-    // const lastElement = focusableElements[focusableElements.length - 1];
-
-    // Focus the first element
-    if (firstElement) {
-      firstElement.focus();
+    const focusIsInside = containerRef.current?.contains(
+      document.activeElement,
+    );
+    if (!focusIsInside) {
+      previousActiveElementRef.current = document.activeElement as HTMLElement;
+      const firstElement = initialFocus || getFocusableElements()[0];
+      if (firstElement) {
+        firstElement.focus();
+      }
     }
+    isMountedActiveRef.current = true;
+
+    return () => {
+      isMountedActiveRef.current = false;
+      const target = previousActiveElementRef.current;
+      if (restoreFocus && target) {
+        // Small delay so any exit animation / unmount settles first, and so a
+        // StrictMode remount can veto the restore.
+        setTimeout(() => {
+          if (!isMountedActiveRef.current && document.contains(target)) {
+            target.focus();
+          }
+        }, 0);
+      }
+    };
+  }, [active, getFocusableElements, initialFocus, restoreFocus]);
+
+  useEffect(() => {
+    if (!active) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
       // Handle Escape key
@@ -107,16 +152,8 @@ export function FocusTrap({
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
-
-      // Restore focus to previously focused element
-      if (restoreFocus && previousActiveElementRef.current) {
-        // Small delay to ensure DOM is ready
-        setTimeout(() => {
-          previousActiveElementRef.current?.focus();
-        }, 0);
-      }
     };
-  }, [active, getFocusableElements, initialFocus, onEscape, restoreFocus]);
+  }, [active, getFocusableElements, onEscape]);
 
   // If not active, render children without wrapper
   if (!active) {
@@ -126,8 +163,12 @@ export function FocusTrap({
   return (
     <div
       ref={containerRef}
+      id={id}
       role="dialog"
       aria-modal="true"
+      aria-labelledby={ariaLabelledBy}
+      aria-label={ariaLabel}
+      className={className}
       data-focus-trap="true"
     >
       {children}
