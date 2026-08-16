@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
+import { RelatedProjects } from "@/components/case-study/related-projects";
 import { trackEvent } from "@/lib/analytics";
 import {
   MessageSquare,
@@ -336,6 +337,8 @@ export default function WaffleClientPage() {
           ))}
         </div>
       </section>
+
+      <RelatedProjects currentId="waffle" />
 
       {/* Closing CTA band */}
       <section className="rounded-2xl bg-zinc-50 p-8 dark:bg-zinc-900/50">

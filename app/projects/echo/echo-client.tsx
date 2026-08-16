@@ -17,6 +17,7 @@ import Link from "next/link";
 import { PROJECTS } from "@/lib/data/projects";
 import { CaseStudyNarrative } from "@/components/case-study/case-study-narrative";
 import { ReflectionBlock } from "@/components/case-study/reflection-block";
+import { RelatedProjects } from "@/components/case-study/related-projects";
 
 // Get the Echo project data
 const echoProject = PROJECTS.find((p) => p.id === "echo")!;
@@ -439,6 +440,8 @@ export default function EchoClientPage() {
         reflection={enhancedProcessStory.reflection}
         heading="Product Design Leadership Reflection"
       />
+
+      <RelatedProjects currentId="echo" />
 
       {/* Navigation */}
       <section className="mb-16 border-t border-zinc-200 px-4 pt-8 sm:mb-20 sm:px-6 lg:mb-24 lg:px-8 dark:border-zinc-700">

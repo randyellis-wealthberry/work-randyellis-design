@@ -37,6 +37,7 @@ import { AnimatedMetricCard } from "@/components/ui/animated-metric-card";
 // Data
 import { PROJECTS } from "@/lib/data/projects";
 import { CaseStudyNarrative } from "@/components/case-study/case-study-narrative";
+import { RelatedProjects } from "@/components/case-study/related-projects";
 import { ReflectionBlock } from "@/components/case-study/reflection-block";
 
 // SpotlightCard Component (reused from existing projects)
@@ -247,14 +248,20 @@ export default function AddvancedClient() {
             Key Achievements
           </h3>
 
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          {/* Flex + centered rather than a 4-col grid: with 7 metrics a grid
+              leaves the last row left-aligned with a hole; this centres it. */}
+          <div className="flex flex-wrap justify-center gap-6">
             {metrics?.slice(0, 8).map((metric, index) => (
-              <AnimatedMetricCard
+              <div
                 key={metric.label}
-                label={metric.label}
-                value={metric.value}
-                animationDelay={index * 100}
-              />
+                className="flex w-full md:w-[calc(50%-0.75rem)] lg:w-[calc(25%-1.125rem)] [&>*]:w-full"
+              >
+                <AnimatedMetricCard
+                  label={metric.label}
+                  value={metric.value}
+                  animationDelay={index * 100}
+                />
+              </div>
             ))}
           </div>
         </div>
@@ -517,7 +524,9 @@ export default function AddvancedClient() {
                 <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
                   <Card>
                     <CardContent className="p-6 text-center">
-                      <Smartphone className="text-primary mx-auto mb-4 h-8 w-8" />
+                      <div className="bg-primary/10 mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full">
+                        <Smartphone className="text-primary h-8 w-8" />
+                      </div>
                       <h4 className="mb-2 font-semibold">Reachability</h4>
                       <p className="text-muted-foreground text-sm">
                         All functions accessible within thumb-friendly zones
@@ -527,7 +536,9 @@ export default function AddvancedClient() {
 
                   <Card>
                     <CardContent className="p-6 text-center">
-                      <Shield className="text-primary mx-auto mb-4 h-8 w-8" />
+                      <div className="bg-primary/10 mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full">
+                        <Shield className="text-primary h-8 w-8" />
+                      </div>
                       <h4 className="mb-2 font-semibold">
                         Heuristic Compliance
                       </h4>
@@ -539,7 +550,9 @@ export default function AddvancedClient() {
 
                   <Card>
                     <CardContent className="p-6 text-center">
-                      <ArrowRight className="text-primary mx-auto mb-4 h-8 w-8" />
+                      <div className="bg-primary/10 mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full">
+                        <ArrowRight className="text-primary h-8 w-8" />
+                      </div>
                       <h4 className="mb-2 font-semibold">Direct Navigation</h4>
                       <p className="text-muted-foreground text-sm">
                         Minimal steps to complete core tasks
@@ -549,7 +562,9 @@ export default function AddvancedClient() {
 
                   <Card>
                     <CardContent className="p-6 text-center">
-                      <Target className="text-primary mx-auto mb-4 h-8 w-8" />
+                      <div className="bg-primary/10 mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full">
+                        <Target className="text-primary h-8 w-8" />
+                      </div>
                       <h4 className="mb-2 font-semibold">Purposeful Tasks</h4>
                       <p className="text-muted-foreground text-sm">
                         Every interaction serves strategic career advancement
@@ -622,10 +637,12 @@ export default function AddvancedClient() {
               Comprehensive Usability Testing Methodology
             </h3>
 
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+            <div className="grid gap-8 md:grid-cols-2">
               <Card>
                 <CardContent className="p-6 text-center">
-                  <Users className="text-primary mx-auto mb-4 h-8 w-8" />
+                  <div className="bg-primary/10 mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full">
+                    <Users className="text-primary h-8 w-8" />
+                  </div>
                   <h4 className="mb-2 font-semibold">14 Participants</h4>
                   <p className="text-muted-foreground text-sm">
                     Moderated usability testing in open lab environment
@@ -635,7 +652,9 @@ export default function AddvancedClient() {
 
               <Card>
                 <CardContent className="p-6 text-center">
-                  <BarChart3 className="text-primary mx-auto mb-4 h-8 w-8" />
+                  <div className="bg-primary/10 mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full">
+                    <BarChart3 className="text-primary h-8 w-8" />
+                  </div>
                   <h4 className="mb-2 font-semibold">4 Task Scenarios</h4>
                   <p className="text-muted-foreground text-sm">
                     Core user journeys tested via Maze platform
@@ -645,7 +664,9 @@ export default function AddvancedClient() {
 
               <Card>
                 <CardContent className="p-6 text-center">
-                  <Smartphone className="text-primary mx-auto mb-4 h-8 w-8" />
+                  <div className="bg-primary/10 mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full">
+                    <Smartphone className="text-primary h-8 w-8" />
+                  </div>
                   <h4 className="mb-2 font-semibold">Cross-Platform</h4>
                   <p className="text-muted-foreground text-sm">
                     MAC/PC devices, virtual desktop/laptop sessions
@@ -655,7 +676,9 @@ export default function AddvancedClient() {
 
               <Card>
                 <CardContent className="p-6 text-center">
-                  <Clock className="text-primary mx-auto mb-4 h-8 w-8" />
+                  <div className="bg-primary/10 mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full">
+                    <Clock className="text-primary h-8 w-8" />
+                  </div>
                   <h4 className="mb-2 font-semibold">No Time Limits</h4>
                   <p className="text-muted-foreground text-sm">
                     Natural user behavior patterns encouraged
@@ -1240,6 +1263,13 @@ export default function AddvancedClient() {
               heading="Design Leadership Reflection"
             />
           )}
+        </div>
+      </section>
+
+      {/* Related Projects */}
+      <section className="px-6 py-16 lg:px-8">
+        <div className="mx-auto max-w-6xl">
+          <RelatedProjects currentId="addvanced" />
         </div>
       </section>
 

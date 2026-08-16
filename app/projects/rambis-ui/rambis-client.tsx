@@ -19,6 +19,7 @@ import Link from "next/link";
 import { PROJECTS } from "@/lib/data/projects";
 import { CaseStudyNarrative } from "@/components/case-study/case-study-narrative";
 import { ReflectionBlock } from "@/components/case-study/reflection-block";
+import { RelatedProjects } from "@/components/case-study/related-projects";
 
 // Get the Rambis UI project data
 const rambisProject = PROJECTS.find((p) => p.id === "rambis-ui")!;
@@ -393,6 +394,8 @@ export default function RambisClientPage() {
           heading="Reflection"
         />
       )}
+
+      <RelatedProjects currentId="rambis-ui" />
 
       {/* Navigation */}
       <section className="border-t border-zinc-200 pt-8 dark:border-zinc-700">

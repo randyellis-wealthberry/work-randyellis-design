@@ -84,10 +84,6 @@ export default async function ProjectDetailPage({
     notFound();
   }
 
-  const relatedProjects = PROJECTS.filter(
-    (p) => p.id !== project.id && p.category === project.category,
-  ).slice(0, 2);
-
   return (
     <>
       <CreativeWorkStructuredData
@@ -107,10 +103,7 @@ export default async function ProjectDetailPage({
         role={project.role}
       />
       <ProjectFAQStructuredData projectSlug={project.slug} />
-      <ProjectDetailClient
-        project={project}
-        relatedProjects={relatedProjects}
-      />
+      <ProjectDetailClient project={project} />
     </>
   );
 }

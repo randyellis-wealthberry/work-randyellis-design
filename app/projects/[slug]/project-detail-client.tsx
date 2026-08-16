@@ -14,13 +14,7 @@ import {
   Cloud,
   Cpu,
 } from "lucide-react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -29,12 +23,9 @@ import { CaseStudyTOC } from "@/components/case-study/case-study-toc";
 import { DecisionCallout } from "@/components/case-study/decision-callout";
 import { ReflectionBlock } from "@/components/case-study/reflection-block";
 import { RoleNarrativeSection } from "@/components/case-study/role-narrative-section";
+import { RelatedProjects } from "@/components/case-study/related-projects";
 import { BreadcrumbNav } from "@/components/ui/breadcrumb-nav";
-import {
-  AnimatedVideo,
-  AnimatedImage,
-  AnimatedIframe,
-} from "@/components/ui/animated-asset";
+import { AnimatedImage } from "@/components/ui/animated-asset";
 import { VideoPlayer } from "@/components/ui/video-player";
 import {
   VimeoEmbed,
@@ -100,7 +91,6 @@ function SectionCard({
 
 interface ProjectDetailClientProps {
   project: Project;
-  relatedProjects: Project[];
 }
 
 // Helper function to determine performance level based on metric value
@@ -160,7 +150,6 @@ function groupMetrics(metrics: { label: string; value: string }[]) {
 
 export default function ProjectDetailClient({
   project,
-  relatedProjects,
 }: ProjectDetailClientProps) {
   return (
     <div className="min-h-screen">
@@ -1083,58 +1072,10 @@ export default function ProjectDetailClient({
           </motion.section>
         )}
 
-        {/* Related Projects */}
-        {relatedProjects.length > 0 && (
-          <motion.section
-            className="space-y-6"
-            variants={VARIANTS_ITEM}
-            transition={TRANSITION_ITEM}
-          >
-            <ScrambleSectionTitle as="h2" className="text-2xl font-bold">
-              Related Projects
-            </ScrambleSectionTitle>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-              {relatedProjects.map((relatedProject) => (
-                <Card
-                  key={relatedProject.id}
-                  className="group transition-all duration-300 hover:shadow-lg"
-                >
-                  <div className="aspect-video overflow-hidden">
-                    {isVimeoUrl(relatedProject.video) ? (
-                      <AnimatedIframe
-                        src={relatedProject.video}
-                        title={`${relatedProject.name} Demo Video`}
-                        hoverScale={1.05}
-                      />
-                    ) : (
-                      <AnimatedVideo
-                        src={relatedProject.video}
-                        poster={relatedProject.thumbnail}
-                        hoverScale={1.05}
-                      />
-                    )}
-                  </div>
-                  <CardHeader>
-                    <CardTitle className="transition-colors group-hover:text-blue-600">
-                      {relatedProject.name}
-                    </CardTitle>
-                    <CardDescription>
-                      {relatedProject.description}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <Link
-                      href={`/projects/${relatedProject.slug}`}
-                      className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-blue-600 px-6 py-3 text-white transition-colors hover:bg-blue-700"
-                    >
-                      View Project
-                    </Link>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </motion.section>
-        )}
+        {/* Related Projects — shared component, same on every project page */}
+        <motion.div variants={VARIANTS_ITEM} transition={TRANSITION_ITEM}>
+          <RelatedProjects currentId={project.id} />
+        </motion.div>
 
         {/* Global Recommendations */}
         <motion.div variants={VARIANTS_ITEM} transition={TRANSITION_ITEM}>

@@ -25,6 +25,7 @@ import Image from "next/image";
 import { PROJECTS } from "@/lib/data/projects";
 import { CaseStudyNarrative } from "@/components/case-study/case-study-narrative";
 import { ReflectionBlock } from "@/components/case-study/reflection-block";
+import { RelatedProjects } from "@/components/case-study/related-projects";
 import { useRef, useState, useEffect, useCallback, memo, useMemo } from "react";
 import { AnimatedNumber } from "@/components/core/animated-number";
 import { parseMetricValue } from "@/lib/utils/parseMetricValue";
@@ -1053,6 +1054,10 @@ export default function NagarroClientPage() {
             />
           </motion.div>
         )}
+
+        <motion.div variants={VARIANTS_SECTION} transition={TRANSITION_SECTION}>
+          <RelatedProjects currentId="nagarro-design-leadership" />
+        </motion.div>
 
         {/* Navigation */}
         <motion.section
