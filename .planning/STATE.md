@@ -51,6 +51,10 @@ Progress: [█████░░░░░] 50%
 
 ## Accumulated Context
 
+### Roadmap Evolution
+
+- Phase 10 added 2026-08-16: SEO Remediation — scoped from `.planning/research/SEO-AUDIT.md` (codebase audit: stale sw.js kill switch, robots `/_next/` block, `/test` noindex, structured-data consolidation sequenced after Phase 9 CRED-09, sitemap lastModified, live post-deploy verification). Depends on Phase 9.
+
 ### Decisions
 
 Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecting current work:

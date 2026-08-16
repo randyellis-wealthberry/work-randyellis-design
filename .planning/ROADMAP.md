@@ -110,6 +110,19 @@ with every claim written from Randy's firsthand account and cross-surface-consis
 | 7. Bespoke Convergence | v2.0 | 1/1 | Structural wiring complete (content pending Phase 8) | 2026-08-15 |
 | 8. Content Rewrite & Credibility Guardrails | v2.0 | 0/TBD | Not started | - |
 | 9. Cross-Surface Verification | v2.0 | 0/TBD | Not started | - |
+| 10. SEO Remediation | v2.0 | 0/TBD | Not started | - |
+
+### Phase 10: SEO Remediation
+**Goal**: Close every finding from `.planning/research/SEO-AUDIT.md` (2026-08-16) so the site is fully crawlable, consistently indexed, and emits one coherent entity story in structured data — built on top of Phase 9's reconciled claims, not duplicating that work.
+**Depends on**: Phase 9 (CRED-09 claim reconciliation must land first; Phase 10 consumes its output)
+**Requirements**: SEO-01..SEO-05 (derived from audit T-01..T-07 — see SEO-AUDIT.md)
+**Success Criteria** (what must be TRUE):
+  1. `public/sw.js` is a self-unregistering kill switch (or removed with an uninstall path); no returning visitor receives the stale precache (audit T-01)
+  2. robots.ts no longer disallows `/_next/`; `/test/*` routes receive X-Robots-Tag noindex or are deleted (T-02, T-03)
+  3. Structured data is consolidated to Person + WebSite + per-project CreativeWork + blog Article (+ one agreed service representation), server-rendered, with valid properties only — LocalBusiness and Wealthberry Organization removed unless Randy confirms them; Chameleon Collective URL resolved or removed (T-04, T-06)
+  4. Sitemap carries lastModified for static and project URLs (T-05)
+  5. Live post-deploy verification recorded: robots.txt + sitemap.xml fetch, Rich Results Test on home / one project / one blog post, Search Console property + sitemap submission confirmed (audit "Limitation" section)
+**Plans**: TBD
 
 ---
 *Last updated: 2026-08-15 — v2.0 Case-Study Depth roadmap created (Phases 5-9)*
