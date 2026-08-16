@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Case-Study Depth
-status: Phase 9 partially run — role-title drift and Echo business figures found and fixed; full CRED-09 metadata/OG/JSON-LD reconciliation still outstanding
+status: executing
 stopped_at: Phase 9 context gathered
-last_updated: "2026-08-16T19:04:36.203Z"
-last_activity: 2026-08-15
+last_updated: "2026-08-16T19:50:43.586Z"
+last_activity: 2026-08-16 -- Phase 9 planning complete
 progress:
-  total_phases: 5
+  total_phases: 6
   completed_phases: 1
-  total_plans: 2
+  total_plans: 7
   completed_plans: 2
-  percent: 20
+  percent: 17
 ---
 
 # STATE — Randy Ellis Portfolio
@@ -27,8 +27,8 @@ See: .planning/PROJECT.md (updated 2026-08-15 after v1.0 milestone)
 
 Phase: 08 (content rewrite) — COMPLETE
 Plan: decisions, attribution, claim purge and voice conversion done for all 7
-Status: Phase 9 partially run — role-title drift and Echo business figures found and fixed; full CRED-09 metadata/OG/JSON-LD reconciliation still outstanding
-Last activity: 2026-08-15
+Status: Ready to execute
+Last activity: 2026-08-16 -- Phase 9 planning complete
 
 Progress: [█████░░░░░] 50%
 
