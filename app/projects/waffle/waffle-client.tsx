@@ -276,10 +276,10 @@ export default function WaffleClientPage() {
         <div className="relative mx-auto max-w-4xl overflow-hidden rounded-2xl bg-zinc-300/30 p-[1px] dark:bg-zinc-600/30">
           <div className="relative h-full w-full overflow-hidden rounded-[15px] bg-white p-6 dark:bg-zinc-950">
             <Image
-              src="/projects/waffle/screenshot.png"
-              alt="Waffle interview scorecard interface"
-              width={1440}
-              height={900}
+              src="/projects/waffle/landing.png"
+              alt="waffle.cards landing page: 'Untangle Your Hiring Process', with a job-description field that generates a scorecard"
+              width={1920}
+              height={1159}
               className="h-auto w-full rounded-lg"
             />
           </div>
