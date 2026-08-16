@@ -301,3 +301,8 @@ storybook-static/
 # Source deck for FND-03 deck-coverage audit (16MB binary, client material).
 # Must exist on disk at this path per plan 05-01 D-04, but is not committed.
 .planning/Randy's Product Design Deck.pdf
+
+# Playwright MCP artifacts
+.playwright-mcp/
+*-hero.png
+projects-grid.png

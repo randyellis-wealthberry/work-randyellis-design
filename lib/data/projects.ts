@@ -799,13 +799,12 @@ export const PROJECTS: Project[] = [
       "Cloud Infrastructure",
     ],
     featured: true,
+    // Client business figures (adoption counts, revenue and volume growth)
+    // removed per the CRED-08 line Randy set for Echo: process and design only.
     metrics: [
-      { label: "Active Drivers", value: "10,000+" },
-      { label: "LTL Revenue Increase", value: "16%" },
-      { label: "Shipment Volume Growth", value: "12%" },
-      { label: "Beta Downloads", value: "1,000+" },
-      { label: "Call Center Stress Reduction", value: "Significant" },
       { label: "ELD Compliance", value: "100%" },
+      { label: "Platforms Designed", value: "2" },
+      { label: "Call Center Stress Reduction", value: "Significant" },
     ],
     challenges: [
       "Outdated shipping industry methods struggling with coordination between shippers, drivers, and dispatch teams",
@@ -869,7 +868,7 @@ export const PROJECTS: Project[] = [
         "Real-time GPS and location services integration for accurate shipment tracking",
         "Cross-platform mobile development ensuring consistent experience across iOS and Android devices",
         "Secure authentication and data protection for sensitive logistics information",
-        "Scalable backend architecture supporting 10,000+ concurrent drivers",
+        "Scalable backend architecture supporting concurrent drivers at fleet scale",
         "Integration with existing Echo Global Logistics systems and workflows",
       ],
       environmental: [

@@ -21,12 +21,13 @@ import { ReflectionBlock } from "@/components/case-study/reflection-block";
 // Get the Echo project data
 const echoProject = PROJECTS.find((p) => p.id === "echo")!;
 
-// Enhanced metrics for EchoDrive
+// Client business figures removed per the CRED-08 line for Echo
+// (process and design only). What remains describes the product, not
+// the client's commercial results.
 const enhancedMetrics = [
-  { label: "Active Drivers", value: "10,000+" },
-  { label: "Revenue Increase", value: "16%" },
-  { label: "Shipment Growth", value: "12%" },
   { label: "ELD Compliance", value: "100%" },
+  { label: "Platforms Designed", value: "2" },
+  { label: "Research Method", value: "On-site" },
 ];
 
 function MetricCard({ metric }: { metric: { label: string; value: string } }) {
@@ -105,7 +106,7 @@ export default function EchoClientPage() {
       title: "Logistics Technology Integration Case Study",
       url: "#",
       description:
-        "How digital transformation increased LTL shipment revenues by 16% and reduced call center stress",
+        "How digital transformation reduced call center stress through better truckload visibility",
     },
     {
       title: "EchoDrive Fleet Management Documentation",
@@ -139,7 +140,7 @@ export default function EchoClientPage() {
     {
       title: "Self-serve LTL Booking",
       description:
-        "Streamlined Less Than Truckload shipment booking application that increased LTL revenues by 16% and grew shipment volume by 12% through automated pricing and scheduling.",
+        "Streamlined Less Than Truckload shipment booking application with automated pricing and scheduling, replacing a call-center-dependent workflow.",
     },
   ];
 
@@ -296,29 +297,21 @@ export default function EchoClientPage() {
                 <p className="leading-relaxed text-zinc-600 dark:text-zinc-400">
                   {enhancedProcessStory.outcome}
                 </p>
-                <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
-                  <div className="rounded-lg bg-zinc-50 p-4 text-center dark:bg-zinc-900/50">
-                    <div className="mb-1 text-2xl font-bold text-emerald-600">
-                      16%
-                    </div>
-                    <div className="text-sm text-zinc-600 dark:text-zinc-400">
-                      LTL Revenue Increase
-                    </div>
-                  </div>
-                  <div className="rounded-lg bg-zinc-50 p-4 text-center dark:bg-zinc-900/50">
-                    <div className="mb-1 text-2xl font-bold text-blue-600">
-                      10,000+
-                    </div>
-                    <div className="text-sm text-zinc-600 dark:text-zinc-400">
-                      Active Drivers
-                    </div>
-                  </div>
+                <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
                   <div className="rounded-lg bg-zinc-50 p-4 text-center dark:bg-zinc-900/50">
                     <div className="mb-1 text-2xl font-bold text-cyan-600">
                       100%
                     </div>
                     <div className="text-sm text-zinc-600 dark:text-zinc-400">
                       ELD Compliance
+                    </div>
+                  </div>
+                  <div className="rounded-lg bg-zinc-50 p-4 text-center dark:bg-zinc-900/50">
+                    <div className="mb-1 text-2xl font-bold text-blue-600">
+                      2
+                    </div>
+                    <div className="text-sm text-zinc-600 dark:text-zinc-400">
+                      Platforms Designed
                     </div>
                   </div>
                 </div>
