@@ -418,7 +418,11 @@ describe.skip("MobileMenu - Component structure changed, needs test update", () 
         <MobileMenu isOpen={true} onOpenChange={mockOnOpenChange} />,
       );
 
-      expect(screen.getByText(/© 2024 Randy Ellis/)).toBeInTheDocument();
+      expect(
+        screen.getByText(
+          new RegExp(`© ${new Date().getFullYear()} Randy Ellis`),
+        ),
+      ).toBeInTheDocument();
     });
   });
 
