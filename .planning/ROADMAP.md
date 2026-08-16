@@ -95,7 +95,13 @@ with every claim written from Randy's firsthand account and cross-surface-consis
   1. For each of the 7 touched projects, visible copy, `generateMetadata()` description, OG image, and JSON-LD (`CreativeWorkStructuredData`, `ProjectFAQStructuredData`) all agree — including the 5 standalone-route pages that don't inherit `[slug]`'s `generateMetadata()`
   2. A grep sweep across `app/`, `lib/`, `components/seo/` finds no claim that was changed in one surface but left stale in another
   3. `npm run lint`, `npx tsc --noEmit`, and `npm test` all pass clean across the full touched surface
-**Plans**: TBD
+**Plans**: 5 plans (4 waves)
+Plans:
+- [ ] 09-01-PLAN.md — TDD: `projectMetadata` + JSON-LD prop helpers in `lib/metadata.ts` with the D-14 regression test (wave 1)
+- [ ] 09-02-PLAN.md — Wire `[slug]` + 4 standalone routes to the helpers; drop FAQ JSON-LD; add CreativeWork + Breadcrumb; route-wiring drift test (wave 2)
+- [ ] 09-03-PLAN.md — Delete dead schema exports; align `$50M` wording; verify/fix Chameleon URL; bounded placeholder sweep (wave 2)
+- [ ] 09-04-PLAN.md — Author `09-CROSS-SURFACE-MATRIX.md` (7 projects + Waffle verify-only) with D-18 conformance fixes and open items (wave 3)
+- [ ] 09-05-PLAN.md — Stale-claim grep register, lint → tsc → test gate recorded in the matrix, ROADMAP Phases 6–8 reconciled (wave 4)
 
 ## Progress
 
@@ -109,7 +115,7 @@ with every claim written from Randy's firsthand account and cross-surface-consis
 | 6. Narrative Template & Data Model | v2.0 | 1/1 | Complete | 2026-08-15 |
 | 7. Bespoke Convergence | v2.0 | 1/1 | Structural wiring complete (content pending Phase 8) | 2026-08-15 |
 | 8. Content Rewrite & Credibility Guardrails | v2.0 | 0/TBD | Not started | - |
-| 9. Cross-Surface Verification | v2.0 | 0/TBD | Not started | - |
+| 9. Cross-Surface Verification | v2.0 | 0/5 | Planned | - |
 | 10. SEO Remediation | v2.0 | 0/TBD | Not started | - |
 
 ### Phase 10: SEO Remediation
