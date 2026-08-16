@@ -205,7 +205,7 @@ export function MobileMenu({ isOpen, onOpenChange }: MobileMenuProps) {
             {/* Footer Info */}
             <div className="mt-auto border-t border-zinc-200 p-4 dark:border-zinc-800">
               <p className="text-xs text-zinc-500 dark:text-zinc-400">
-                © 2024 Randy Ellis
+                © {new Date().getFullYear()} Randy Ellis
               </p>
             </div>
           </div>

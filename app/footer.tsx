@@ -3,13 +3,16 @@ import Link from "next/link";
 import { TextLoop } from "@/components/ui/text-loop";
 import { FooterThemeToggle } from "@/components/ui/simple-theme-toggle";
 
+// Derived rather than hardcoded — the footer year was still 2025 in August 2026.
+const COPYRIGHT_YEAR = new Date().getFullYear();
+
 export function Footer() {
   return (
     <footer className="mt-24 border-t border-zinc-100 px-0 py-4 dark:border-zinc-800">
       <div className="flex items-center justify-between">
         <Link href="/">
           <TextLoop className="text-xs text-zinc-500">
-            <span>© 2025 Randy Ellis.</span>
+            <span>© {COPYRIGHT_YEAR} Randy Ellis.</span>
             <span>Built with Pride and Passion.</span>
           </TextLoop>
         </Link>

@@ -104,23 +104,42 @@ const STEPS = [
 const SCREENSHOTS = [
   {
     src: "/projects/waffle/scorecard-overview.png",
+    width: 1920,
+    height: 1218,
     alt: "Waffle scorecard for a Grocery Store Clerk role showing a 7.5/10 overall score weighted across five competencies",
     caption:
       "A generated scorecard: competency cards on the left, a weighted overall score rolled up from all five on the right.",
   },
   {
     src: "/projects/waffle/scorecard-questions.png",
+    width: 1920,
+    height: 1218,
     alt: "Waffle side panel listing behavioral interview questions with follow-ups and what each question assesses",
     caption:
       "Each competency opens into behavioral questions, follow-up prompts, and a note on what the question is actually assessing.",
   },
   {
     src: "/projects/waffle/scorecard-templates.png",
+    width: 1920,
+    height: 1218,
     alt: "Waffle scorecard template library filtered by Engineering, Product and Design, Sales and Marketing, and Operations",
     caption:
       "Pre-built templates for common roles, so teams start from a reviewed rubric instead of a blank prompt.",
   },
+  {
+    src: "/projects/waffle/landing.png",
+    width: 1920,
+    height: 1159,
+    alt: "waffle.cards landing page: 'Untangle Your Hiring Process', with a job-description field that generates a scorecard",
+    caption:
+      "The public landing page at waffle.cards: paste a job description and watch the scorecard build itself live.",
+  },
 ] as const;
+
+// Layout: the first two shots sit side by side; everything after runs full
+// width. Keeps the wide template-library shot and the square device mockup
+// from being forced into half-width cells of very different heights.
+const SIDE_BY_SIDE_COUNT = 2;
 
 export default function WaffleClientPage() {
   return (
@@ -276,26 +295,36 @@ export default function WaffleClientPage() {
         <div className="relative mx-auto max-w-4xl overflow-hidden rounded-2xl bg-zinc-300/30 p-[1px] dark:bg-zinc-600/30">
           <div className="relative h-full w-full overflow-hidden rounded-[15px] bg-white p-6 dark:bg-zinc-950">
             <Image
-              src="/projects/waffle/screenshot.png"
-              alt="Waffle interview scorecard interface"
-              width={1440}
-              height={900}
+              src="/projects/waffle/dashboard-macbook.jpg"
+              alt="Waffle dashboard on a MacBook Pro: a 'Good morning, Randy' greeting, role cards for Software Engineer, Product Manager, Sales Representative and Designer, and a prompt to describe the role you're hiring for"
+              width={1080}
+              height={1080}
+              priority
               className="h-auto w-full rounded-lg"
             />
           </div>
         </div>
 
-        <div className="mx-auto mt-6 grid max-w-4xl gap-6 sm:grid-cols-2">
-          {SCREENSHOTS.map((shot) => (
-            <figure key={shot.src} className="sm:last:col-span-2">
+        <div className="mx-auto mt-6 grid max-w-4xl items-start gap-6 sm:grid-cols-2">
+          {SCREENSHOTS.map((shot, index) => (
+            <figure
+              key={shot.src}
+              className={
+                index >= SIDE_BY_SIDE_COUNT ? "sm:col-span-2" : undefined
+              }
+            >
               <div className="overflow-hidden rounded-xl bg-zinc-300/30 p-[1px] dark:bg-zinc-600/30">
                 <div className="overflow-hidden rounded-[11px] bg-white p-3 dark:bg-zinc-950">
                   <Image
                     src={shot.src}
                     alt={shot.alt}
-                    width={1920}
-                    height={1218}
-                    sizes="(min-width: 640px) 50vw, 100vw"
+                    width={shot.width}
+                    height={shot.height}
+                    sizes={
+                      index >= SIDE_BY_SIDE_COUNT
+                        ? "(min-width: 896px) 896px, 100vw"
+                        : "(min-width: 640px) 50vw, 100vw"
+                    }
                     className="h-auto w-full rounded-lg"
                   />
                 </div>
