@@ -185,12 +185,12 @@ export default function AddvancedClient() {
               {/* Success Metric */}
               <div className="bg-card flex items-center justify-between rounded-lg border p-4">
                 <div>
-                  <div className="text-primary text-2xl font-bold">35%</div>
+                  <div className="text-primary text-2xl font-bold">94%</div>
                   <div className="text-muted-foreground mt-1 text-xs">
-                    Job Placement Success
+                    Prototype Approval
                   </div>
                   <div className="mt-0.5 text-xs text-green-600 dark:text-green-400">
-                    ↑ Improvement
+                    ↑ In sprint testing
                   </div>
                 </div>
                 <TrendingUp className="text-muted-foreground/20 h-8 w-8" />
@@ -860,10 +860,10 @@ export default function AddvancedClient() {
                     <TrendingUp className="text-primary h-8 w-8" />
                   </div>
                 </div>
-                <h4 className="mb-2 text-3xl font-bold">35%</h4>
+                <h4 className="mb-2 text-3xl font-bold">94%</h4>
                 <p className="text-muted-foreground text-sm">
-                  Improvement in customer job placement success - primary
-                  success metric
+                  Prototype approval in sprint testing - the sprint ended at
+                  validation, not launch
                 </p>
               </SpotlightCard>
 
