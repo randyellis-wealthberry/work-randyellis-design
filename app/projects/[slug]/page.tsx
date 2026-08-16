@@ -20,11 +20,17 @@ export async function generateMetadata({
     };
   }
 
+  // Some projects use a video as their thumbnail (LedgerIQ is an .mp4), which
+  // cannot be an og:image. Fall back to the first real image rather than
+  // emitting no preview at all — a shared link with no card is worse than one
+  // using a secondary shot.
+  const isImage = (path: string) =>
+    /\.(png|jpe?g|webp|avif|gif|svg)$/i.test(path);
+
   const imageThumbnail =
-    project.thumbnail &&
-    /\.(png|jpe?g|webp|avif|gif|svg)$/i.test(project.thumbnail)
+    project.thumbnail && isImage(project.thumbnail)
       ? project.thumbnail
-      : undefined;
+      : project.images?.find(isImage);
 
   return {
     title: `${project.name} | ${project.subtitle || project.category}`,

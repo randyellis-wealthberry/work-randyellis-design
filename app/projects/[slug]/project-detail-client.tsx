@@ -213,7 +213,16 @@ export default function ProjectDetailClient({
                       ? "In Progress"
                       : project.status}
                   </Badge>
+                  {project.isComposite && (
+                    <Badge variant="secondary">Composite Case Study</Badge>
+                  )}
                 </div>
+                {project.isComposite && (
+                  <p className="text-muted-foreground text-sm">
+                    This case study is assembled and anonymized from real work
+                    rather than a single named engagement.
+                  </p>
+                )}
 
                 <ScrambleSectionTitle
                   as="h1"

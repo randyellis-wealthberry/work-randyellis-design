@@ -25,9 +25,9 @@ See: .planning/PROJECT.md (updated 2026-08-15 after v1.0 milestone)
 
 ## Current Position
 
-Phase: 08 (content rewrite) — IN PROGRESS
-Plan: decisions + attribution + claim purge done for all 7; prose voice conversion remains
-Status: Phase 9 cross-surface sweep run once (role-title drift found and fixed)
+Phase: 08 (content rewrite) — COMPLETE
+Plan: decisions, attribution, claim purge and voice conversion done for all 7
+Status: Phase 9 partially run — role-title drift and Echo business figures found and fixed; full CRED-09 metadata/OG/JSON-LD reconciliation still outstanding
 Last activity: 2026-08-15
 
 Progress: [█████░░░░░] 50%
@@ -69,17 +69,19 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 ### Pending Todos
 
 - **Decision content: 7 of 7 projects populated** (17 decisions total). growit 5, addvanced 2, rambis-ui 2, ohplays 2, echo 2, nagarro 2, ledgeriq 2. Outcomes present on 14 of 17; ledgeriq's 2 and one nagarro decision are absent by choice rather than invented.
-- **CNT-01..08 are NOT complete.** Decisions, roleNarrative, attribution corrections and the false-claim purge are done for all 7. What remains is converting the existing `challenges`/`solutions`/`learnings`/`processStory` prose from corporate "we" into first person, and filling genuinely thin sections. That is the rest of Phase 8.
-- **LedgerIQ composite disclosure needs a stronger surface.** It is currently stated in the first sentence of `roleNarrative`, which renders inside the "My Role" section. Consider a visible badge at the top of the page — an unlabeled composite is the single riskiest item in the portfolio.
+- **CNT-01..08 complete 2026-08-16.** Voice pass done: corporate "we/our" went 41 → 14 across the 7 projects, and every surviving instance is deliberate — the 3 Echo stakeholder quotes (other people speaking), genuine team execution on 3-person and 4-person teams, and Nagarro's org-level "our". Not a find/replace: CRED-06 requires "we" where a team executed and "I" only for Randy's own calls. No sections were thin, so nothing needed filling.
+- **Voice pass also caught two attribution leftovers**: ohplays' reflection opened "Leading Oh!Plays" (he was UX Researcher & Designer) and leaned on "the success of Oh!Plays", a post-launch outcome he had already said was not his. Both rewritten.
+- ~~LedgerIQ composite disclosure surface~~ **RESOLVED 2026-08-16.** Added `Project.isComposite`, driving a "Composite" badge on the grid card and a "Composite Case Study" badge plus a one-line explanation in the detail-page hero. Grid status badges now share one stacking container so Live Product and Composite cannot overlap.
 - **Echo NDA line applied (CRED-08 RESOLVED).** Randy set it at process-and-design-only. Removed "$184.4 million" LTL revenue, "16% revenue increase", "12% shipment volume", "1,000 beta downloads" and "10,000+ active drivers" from five surfaces: project data, the bespoke client hero, `processStory.outcome`, two stakeholder quotes, and page metadata (description + OpenGraph).
 - **Nagarro NDA: none (CRED-08 RESOLVED).** Randy confirmed a public-facing role; its metrics are publishable and stay.
-- **Two Echo stakeholder quotes were edited, not removed.** Both are attributed to named roles at Echo Global Logistics and contained business figures. Figures stripped, attribution kept. If these quotes are not independently sourceable, they should come out entirely — Randy's call.
+- ~~Echo stakeholder quote sourcing~~ **RESOLVED 2026-08-16.** Randy confirmed the quotes come from real project retros and emails. They stay, with the business figures already stripped.
 
 ### Blockers/Concerns
 
 - Phase 8 requires Randy's sign-off (CRED-08) on NDA/confidentiality depth for Nagarro and Echo before that content ships — not resolvable without his input
 - LedgerIQ's real-vs-composite status is ambiguous (existing copy reads hypothetical/composite) — confirm with Randy before deepening its narrative in Phase 8
-- Verify Chameleon Collective URL and 4.8★ App Store rating before either lands in deeper copy (carried from v1.0)
+- ~~Verify 4.8★ App Store rating and 240K+ users~~ RESOLVED 2026-08-16: Randy confirmed both are real and sourceable. They appear on 6 surfaces (homepage, projects metadata, OG image, JSON-LD FAQ, structured data, project metrics) and stay. Optional follow-up: add an as-of date so they age honestly — needs the date from Randy.
+- Verify Chameleon Collective URL (carried from v1.0) — appears in `app/about/about-client.tsx` and 3 places in `components/seo/structured-data.tsx`
 - ~~LedgerIQ real-vs-composite ambiguity~~ RESOLVED 2026-08-15: it is a composite, now disclosed in roleNarrative
 - ~~Phase 8 requires Randy's sign-off (CRED-08) on Nagarro and Echo~~ RESOLVED 2026-08-15: Echo = process/design only, Nagarro = unrestricted
 

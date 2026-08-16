@@ -30,20 +30,20 @@
 
 ### Content Rewrite (first-person, decision-driven)
 
-- [ ] **CNT-01**: growit rewritten — corporate "we" → first-person decision narrative; challenges·solutions·learnings complete; decisions tied to verifiable outcomes
-- [ ] **CNT-02**: ohplays rewritten to the same bar
-- [ ] **CNT-03**: ledgeriq rewritten to the same bar
-- [ ] **CNT-04**: addvanced rewritten to the same bar
-- [ ] **CNT-05**: echo rewritten to the same bar
-- [ ] **CNT-06**: nagarro rewritten to the same bar
-- [ ] **CNT-07**: rambis-ui rewritten to the same bar
-- [ ] **CNT-08**: Where they genuinely happened, decisions include "alternatives considered" and leadership signals (mentoring/influence/strategy) — applied per project, never as uniform template fill
+- [x] **CNT-01**: growit rewritten — corporate "we" → first-person decision narrative; challenges·solutions·learnings complete; decisions tied to verifiable outcomes
+- [x] **CNT-02**: ohplays rewritten to the same bar
+- [x] **CNT-03**: ledgeriq rewritten to the same bar
+- [x] **CNT-04**: addvanced rewritten to the same bar
+- [x] **CNT-05**: echo rewritten to the same bar
+- [x] **CNT-06**: nagarro rewritten to the same bar
+- [x] **CNT-07**: rambis-ui rewritten to the same bar
+- [x] **CNT-08**: Where they genuinely happened, decisions include "alternatives considered" and leadership signals (mentoring/influence/strategy) — applied per project, never as uniform template fill
 
 ### Credibility Guardrails (cross-cutting — v1.0 discipline, intensified)
 
-- [ ] **CRED-06**: "I vs we vs led" credit rule applied per project — team-led work (teamSize 3–15, director titles) is not misattributed as solo IC work
-- [ ] **CRED-07**: Every decision/metric/outcome comes from Randy's firsthand account; the writer never invents one to fill a narrative slot. Figures a reader can independently check (store ratings, download counts) should be right, and the site must not contradict itself across surfaces
-- [ ] **CRED-08**: NDA / named-company disclosure signed off by Randy for live companies (Nagarro, Echo) before their internal metrics are narrated deeper
+- [x] **CRED-06**: "I vs we vs led" credit rule applied per project — team-led work (teamSize 3–15, director titles) is not misattributed as solo IC work
+- [x] **CRED-07**: Every decision/metric/outcome comes from Randy's firsthand account; the writer never invents one to fill a narrative slot. Figures a reader can independently check (store ratings, download counts) should be right, and the site must not contradict itself across surfaces
+- [x] **CRED-08**: NDA / named-company disclosure signed off by Randy for live companies (Nagarro, Echo) before their internal metrics are narrated deeper
 - [ ] **CRED-09**: Cross-surface verification pass — visible copy vs metadata vs OG image vs JSON-LD reconciled across every touched project (modeled on v1.0 audit remediation)
 
 ### Tech-Debt Fold-In
@@ -87,17 +87,17 @@ Populated during roadmap creation.
 | MIG-02 | Phase 7 | Complete |
 | MIG-03 | Phase 7 | Complete |
 | MIG-04 | Phase 7 | Complete |
-| CNT-01 | Phase 8 | Pending |
-| CNT-02 | Phase 8 | Pending |
-| CNT-03 | Phase 8 | Pending |
-| CNT-04 | Phase 8 | Pending |
-| CNT-05 | Phase 8 | Pending |
-| CNT-06 | Phase 8 | Pending |
-| CNT-07 | Phase 8 | Pending |
-| CNT-08 | Phase 8 | Pending |
-| CRED-06 | Phase 8 | Pending |
-| CRED-07 | Phase 8 | Pending |
-| CRED-08 | Phase 8 | Pending |
+| CNT-01 | Phase 8 | Complete |
+| CNT-02 | Phase 8 | Complete |
+| CNT-03 | Phase 8 | Complete |
+| CNT-04 | Phase 8 | Complete |
+| CNT-05 | Phase 8 | Complete |
+| CNT-06 | Phase 8 | Complete |
+| CNT-07 | Phase 8 | Complete |
+| CNT-08 | Phase 8 | Complete |
+| CRED-06 | Phase 8 | Complete |
+| CRED-07 | Phase 8 | Complete |
+| CRED-08 | Phase 8 | Complete |
 | CRED-09 | Phase 9 | Pending |
 | DEBT-01 | Phase 5 | Complete |
 | DEBT-02 | Phase 5 | Complete |

@@ -5,7 +5,7 @@ import { BreadcrumbStructuredData } from "@/components/seo/structured-data";
 export const metadata: Metadata = {
   title: "Addvanced Career Tracker Case Study",
   description:
-    "Transforming job search from reactive to strategic through AI-powered insights. A comprehensive case study of innovation lab leadership delivering 35% improvement in customer job placement success.",
+    "A two-week design sprint for a career intelligence platform: referral discovery across a job seeker's extended network, mobile-first tracking, and a prototype user-tested to 94% approval.",
   alternates: {
     canonical: "/projects/addvanced",
   },
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Addvanced Career Tracker Case Study",
     description:
-      "Innovation lab leadership delivering 35% improvement in customer job placement success through strategic UX design and rapid prototyping methodology.",
+      "A two-week design sprint: referral discovery, mobile-first career tracking, and a prototype user-tested to 94% approval.",
     url: "/projects/addvanced",
     images: [
       {
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Addvanced Career Tracker Case Study",
     description:
-      "Innovation lab leadership delivering 35% improvement in customer job placement success through strategic UX design and rapid prototyping.",
+      "A two-week design sprint: referral discovery, mobile-first career tracking, and a prototype user-tested to 94% approval.",
     images: ["/projects/addvanced/A1-Home.png"],
   },
 };

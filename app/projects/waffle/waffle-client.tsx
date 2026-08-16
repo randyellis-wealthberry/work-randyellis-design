@@ -100,6 +100,28 @@ const STEPS = [
   },
 ];
 
+/** Secondary product shots shown under the hero screenshot. */
+const SCREENSHOTS = [
+  {
+    src: "/projects/waffle/scorecard-overview.png",
+    alt: "Waffle scorecard for a Grocery Store Clerk role showing a 7.5/10 overall score weighted across five competencies",
+    caption:
+      "A generated scorecard: competency cards on the left, a weighted overall score rolled up from all five on the right.",
+  },
+  {
+    src: "/projects/waffle/scorecard-questions.png",
+    alt: "Waffle side panel listing behavioral interview questions with follow-ups and what each question assesses",
+    caption:
+      "Each competency opens into behavioral questions, follow-up prompts, and a note on what the question is actually assessing.",
+  },
+  {
+    src: "/projects/waffle/scorecard-templates.png",
+    alt: "Waffle scorecard template library filtered by Engineering, Product and Design, Sales and Marketing, and Operations",
+    caption:
+      "Pre-built templates for common roles, so teams start from a reviewed rubric instead of a blank prompt.",
+  },
+] as const;
+
 export default function WaffleClientPage() {
   return (
     <main className="relative space-y-16 sm:space-y-24">
@@ -261,6 +283,28 @@ export default function WaffleClientPage() {
               className="h-auto w-full rounded-lg"
             />
           </div>
+        </div>
+
+        <div className="mx-auto mt-6 grid max-w-4xl gap-6 sm:grid-cols-2">
+          {SCREENSHOTS.map((shot) => (
+            <figure key={shot.src} className="sm:last:col-span-2">
+              <div className="overflow-hidden rounded-xl bg-zinc-300/30 p-[1px] dark:bg-zinc-600/30">
+                <div className="overflow-hidden rounded-[11px] bg-white p-3 dark:bg-zinc-950">
+                  <Image
+                    src={shot.src}
+                    alt={shot.alt}
+                    width={1920}
+                    height={1218}
+                    sizes="(min-width: 640px) 50vw, 100vw"
+                    className="h-auto w-full rounded-lg"
+                  />
+                </div>
+              </div>
+              <figcaption className="mt-3 text-sm text-zinc-600 dark:text-zinc-400">
+                {shot.caption}
+              </figcaption>
+            </figure>
+          ))}
         </div>
       </section>
 
