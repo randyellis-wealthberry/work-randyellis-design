@@ -1307,9 +1307,9 @@ export const PROJECTS: Project[] = [
     tags: ["AI SaaS", "Interview Tech", "Generative UI", "Recruiting"],
     link: "https://waffle.cards",
     video: "",
-    thumbnail: "/projects/waffle/screenshot.png",
+    thumbnail: "/projects/waffle/dashboard.png",
     images: [
-      "/projects/waffle/screenshot.png",
+      "/projects/waffle/dashboard.png",
       "/projects/waffle/scorecard-overview.png",
       "/projects/waffle/scorecard-questions.png",
       "/projects/waffle/scorecard-templates.png",
