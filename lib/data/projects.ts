@@ -1314,6 +1314,7 @@ export const PROJECTS: Project[] = [
       "/projects/waffle/scorecard-questions.png",
       "/projects/waffle/scorecard-templates.png",
       "/projects/waffle/dashboard-macbook.jpg",
+      "/projects/waffle/landing.png",
     ],
     timeline: "2025 – Present",
     status: "completed",

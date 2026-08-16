@@ -127,12 +127,12 @@ const SCREENSHOTS = [
       "Pre-built templates for common roles, so teams start from a reviewed rubric instead of a blank prompt.",
   },
   {
-    src: "/projects/waffle/dashboard-macbook.jpg",
-    width: 1080,
-    height: 1080,
-    alt: "Waffle dashboard on a MacBook Pro: a 'Good morning, Randy' greeting, role cards for Software Engineer, Product Manager, Sales Representative and Designer, and a prompt to describe the role you're hiring for",
+    src: "/projects/waffle/landing.png",
+    width: 1920,
+    height: 1159,
+    alt: "waffle.cards landing page: 'Untangle Your Hiring Process', with a job-description field that generates a scorecard",
     caption:
-      "The signed-in home: start from a role card or describe the role in plain language, and the scorecard builds from there.",
+      "The public landing page at waffle.cards: paste a job description and watch the scorecard build itself live.",
   },
 ] as const;
 
@@ -295,10 +295,11 @@ export default function WaffleClientPage() {
         <div className="relative mx-auto max-w-4xl overflow-hidden rounded-2xl bg-zinc-300/30 p-[1px] dark:bg-zinc-600/30">
           <div className="relative h-full w-full overflow-hidden rounded-[15px] bg-white p-6 dark:bg-zinc-950">
             <Image
-              src="/projects/waffle/landing.png"
-              alt="waffle.cards landing page: 'Untangle Your Hiring Process', with a job-description field that generates a scorecard"
-              width={1920}
-              height={1159}
+              src="/projects/waffle/dashboard-macbook.jpg"
+              alt="Waffle dashboard on a MacBook Pro: a 'Good morning, Randy' greeting, role cards for Software Engineer, Product Manager, Sales Representative and Designer, and a prompt to describe the role you're hiring for"
+              width={1080}
+              height={1080}
+              priority
               className="h-auto w-full rounded-lg"
             />
           </div>
