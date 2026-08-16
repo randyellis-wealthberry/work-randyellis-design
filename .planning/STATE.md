@@ -4,8 +4,8 @@ milestone: v2.0
 milestone_name: Case-Study Depth
 status: executing
 stopped_at: "Phase 6 complete (narrative components + growit pilot); Phase 7 structural wiring complete across 4 bespoke pages"
-last_updated: "2026-08-15T18:25:29.172Z"
-last_activity: 2026-08-15
+last_updated: "2026-08-16T18:45:00.000Z"
+last_activity: 2026-08-16
 progress:
   total_phases: 5
   completed_phases: 0
@@ -98,9 +98,10 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-08-15T18:25:29.096Z
-Stopped at: Completed 05-02-PLAN.md (foundation cleanup: FND-01, FND-02, FND-04, DEBT-01, DEBT-02)
+Last session: 2026-08-16T12:45:00-06:00
+Stopped at: Session resumed on main @ 453d917 (PR #53 merged); proceeding to plan Phase 9 (CRED-09 cross-surface verification)
 Resume file: None
+Note: local branch `wealthberry` holds 2 unmerged commits (WealthBerry AI estate project data, hydration fix) — not part of v2.0; rebase later if wanted
 
 ---
 *Last updated: 2026-08-15 — v2.0 roadmap created*
