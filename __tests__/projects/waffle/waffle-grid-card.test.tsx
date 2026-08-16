@@ -1,6 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import ProjectsClient from "@/app/projects/projects-client";
 import { PROJECTS } from "@/lib/data/projects";
+import { existsSync } from "fs";
+import { join } from "path";
 
 // motion/react is globally mocked via jest.config.js moduleNameMapper
 // (__mocks__/motion/react.js) — no inline mock needed here.
@@ -28,9 +30,14 @@ describe("Waffle grid card — data shape", () => {
     expect(waffle?.name).toBe("Waffle");
   });
 
-  it("the waffle entry has thumbnail === '/projects/waffle/screenshot.png'", () => {
+  it("the waffle entry's thumbnail is the app dashboard and the file exists", () => {
     const waffle = PROJECTS.find((p) => p.slug === "waffle");
-    expect(waffle?.thumbnail).toBe("/projects/waffle/screenshot.png");
+    // Was screenshot.png — a marketing mock. Randy swapped it for the real
+    // signed-in dashboard on 2026-08-16; the grid card should show the product.
+    expect(waffle?.thumbnail).toBe("/projects/waffle/dashboard.png");
+    expect(existsSync(join(process.cwd(), "public", waffle!.thumbnail!))).toBe(
+      true,
+    );
   });
 
   it("the waffle entry has a non-empty longDescription", () => {

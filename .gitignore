@@ -310,3 +310,21 @@ logo-bar*.png
 nagarro-cell.png
 waffle-card.png
 waffle-gallery.png
+
+# Local visual-verification captures (Playwright), never repo content
+menu-*.png
+logo-bar*.png
+nagarro-cell.png
+waffle-card.png
+waffle-gallery.png
+before-*.png
+after-*.png
+ba-*.png
+item*.png
+cta-*.png
+addv-*.png
+addvanced-feedback-*.png
+addvanced-recheck-*.png
+projects-grid.png
+*-hero.png
+.playwright-mcp/

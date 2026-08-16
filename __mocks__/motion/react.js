@@ -45,6 +45,8 @@ export const useInView = jest.fn((ref, options) => {
 
 export const useIsomorphicLayoutEffect = jest.fn();
 
+export const useReducedMotion = jest.fn(() => false);
+
 export const useScroll = jest.fn((options) => {
   return {
     scrollYProgress: { ...mockMotionValue, get: jest.fn(() => 0.5) },
@@ -76,6 +78,10 @@ const createMotionComponent = (element) => {
         dragConstraints,
         dragElastic,
         dragMomentum,
+        dragSnapToOrigin,
+        onDragEnd,
+        onDragStart,
+        onDrag,
         style,
         layoutId,
         layout,
