@@ -19,6 +19,13 @@ export type Project = {
   technologies: string[];
   featured: boolean;
   isLiveProduct?: boolean; // drives the "Live Product" grid badge (D-05)
+  /**
+   * True when the case study is assembled/anonymized from real work rather
+   * than a single named engagement. Drives a visible disclosure badge on both
+   * the grid card and the detail page — an unlabelled composite is the thing
+   * this field exists to prevent.
+   */
+  isComposite?: boolean;
   archived?: boolean;
   metrics?: {
     label: string;

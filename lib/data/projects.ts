@@ -395,6 +395,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "ledgeriq",
+    isComposite: true,
     name: "LedgerIQ",
     subtitle: "AI-Powered Payroll Fraud Detection Platform",
     slug: "ledgeriq",

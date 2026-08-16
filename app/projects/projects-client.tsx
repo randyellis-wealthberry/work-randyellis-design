@@ -205,11 +205,22 @@ export default function ProjectsClient() {
                 <Link href={`/projects/${project.slug}`} className="block">
                   <ProjectThumbnail project={project} />
                 </Link>
-                {project.isLiveProduct && (
-                  <div className="pointer-events-none absolute top-3 right-3 z-10">
-                    <Badge className="bg-amber-600 text-sm font-bold text-zinc-950 dark:bg-amber-500">
-                      Live Product
-                    </Badge>
+                {/* Single slot so status badges stack instead of overlapping */}
+                {(project.isLiveProduct || project.isComposite) && (
+                  <div className="pointer-events-none absolute top-3 right-3 z-10 flex flex-col items-end gap-1.5">
+                    {project.isLiveProduct && (
+                      <Badge className="bg-amber-600 text-sm font-bold text-zinc-950 dark:bg-amber-500">
+                        Live Product
+                      </Badge>
+                    )}
+                    {project.isComposite && (
+                      <Badge
+                        variant="secondary"
+                        className="text-xs font-semibold"
+                      >
+                        Composite
+                      </Badge>
+                    )}
                   </div>
                 )}
                 <CardHeader className="px-4 pt-4 pb-3">
