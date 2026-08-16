@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Case-Study Depth
-status: executing
-stopped_at: "Phase 6 complete (narrative components + growit pilot); Phase 7 structural wiring complete across 4 bespoke pages"
-last_updated: "2026-08-16T18:45:00.000Z"
-last_activity: 2026-08-16
+status: Phase 9 partially run — role-title drift and Echo business figures found and fixed; full CRED-09 metadata/OG/JSON-LD reconciliation still outstanding
+stopped_at: Phase 9 context gathered
+last_updated: "2026-08-16T19:04:36.203Z"
+last_activity: 2026-08-15
 progress:
   total_phases: 5
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 2
-  completed_plans: 1
-  percent: 0
+  completed_plans: 2
+  percent: 20
 ---
 
 # STATE — Randy Ellis Portfolio
@@ -98,9 +98,9 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-08-16T12:45:00-06:00
-Stopped at: Session resumed on main @ 453d917 (PR #53 merged); proceeding to plan Phase 9 (CRED-09 cross-surface verification)
-Resume file: None
+Last session: 2026-08-16T19:04:36.161Z
+Stopped at: Phase 9 context gathered
+Resume file: .planning/phases/09-cross-surface-verification/09-CONTEXT.md
 Note: local branch `wealthberry` holds 2 unmerged commits (WealthBerry AI estate project data, hydration fix) — not part of v2.0; rebase later if wanted
 
 ---
