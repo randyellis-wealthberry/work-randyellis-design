@@ -456,7 +456,7 @@ export function CreativeWorkStructuredData({
   name: string;
   description: string;
   url: string;
-  dateCreated: string;
+  dateCreated?: string;
   technologies: string[];
   category: string;
   metrics?: Array<{ label: string; value: string }>;
@@ -480,7 +480,7 @@ export function CreativeWorkStructuredData({
         name: "Wealthberry Labs",
       },
     },
-    dateCreated: dateCreated,
+    ...(dateCreated && { dateCreated }),
     genre: category,
     keywords: technologies.join(", "),
     inLanguage: "en-US",
