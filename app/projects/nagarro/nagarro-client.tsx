@@ -535,10 +535,10 @@ export default function NagarroClientPage() {
               data-cursor-hover
             >
               <Image
-                src="/projects/nagarro/nagarro-logo.png"
+                src="/projects/nagarro/nagarro-logo.webp"
                 alt="Nagarro company logo - Global digital engineering leader"
                 width={800}
-                height={400}
+                height={800}
                 className="mx-auto w-full max-w-2xl rounded-xl shadow-2xl dark:shadow-blue-500/20"
                 priority
               />
