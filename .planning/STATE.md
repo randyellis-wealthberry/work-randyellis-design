@@ -3,9 +3,9 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Case-Study Depth
 status: executing
-stopped_at: Phase 9 context gathered
-last_updated: "2026-08-16T19:50:43.586Z"
-last_activity: 2026-08-16 -- Phase 9 planning complete
+stopped_at: Session resumed 2026-08-18 — Phase 9 planned (5 plans, 0 executed), awaiting execute-phase
+last_updated: "2026-08-18T19:55:51.912Z"
+last_activity: 2026-08-18 -- Phase 09 execution started
 progress:
   total_phases: 6
   completed_phases: 1
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-08-15 after v1.0 milestone)
 
 **Core value:** A hiring manager finds a coherent, senior, *verifiable* story with an obvious way to book a conversation — shipped and audit-verified in v1.0. v2.0 adds proof of *how Randy decides*.
-**Current focus:** Phase 8 — content rewrite (blocked on per-project decision content from Randy)
+**Current focus:** Phase 09 — cross-surface-verification
 
 ## Current Position
 
-Phase: 08 (content rewrite) — COMPLETE
-Plan: decisions, attribution, claim purge and voice conversion done for all 7
-Status: Ready to execute
-Last activity: 2026-08-16 -- Phase 9 planning complete
+Phase: 09 (cross-surface-verification) — EXECUTING
+Plan: 1 of 5
+Status: Executing Phase 09
+Last activity: 2026-08-18 -- Phase 09 execution started
 
 Progress: [█████░░░░░] 50%
 
@@ -102,8 +102,8 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-08-16T19:04:36.161Z
-Stopped at: Phase 9 context gathered
+Last session: 2026-08-18T19:53:12Z
+Stopped at: Session resumed 2026-08-18 — Phase 9 planned (5 plans, 0 executed), awaiting execute-phase
 Resume file: .planning/phases/09-cross-surface-verification/09-CONTEXT.md
 Note: local branch `wealthberry` holds 2 unmerged commits (WealthBerry AI estate project data, hydration fix) — not part of v2.0; rebase later if wanted
 
