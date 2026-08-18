@@ -1,0 +1,9 @@
+Searched. "1.3.162" match nothing here:
+
+- GSD installed: **1.42.3**
+- Project `package.json`: **0.1.0**
+- Not in repo, lockfile, or configs (only coincidental hits in three.js font data)
+
+Side note: untracked `ghostty` file at repo root is **empty** — likely accidental shell redirect. Safe to delete.
+
+Need context — what is 1.3.162? Package to install? Version to bump? Changelog to look up? Tell target and action.

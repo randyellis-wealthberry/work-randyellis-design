@@ -21,8 +21,8 @@ type DecisionCalloutProps = {
  *
  * Deliberately not wrapped in <Card> (D-16): the surrounding section already
  * uses cards for prose blocks, and nesting another card flattens the visual
- * hierarchy exactly where the reader should slow down. A left border does the
- * separating work at a fraction of the visual weight.
+ * hierarchy exactly where the reader should slow down. A subtle background
+ * provides visual separation without excessive weight.
  */
 export function DecisionCallout({
   decision,
@@ -34,7 +34,7 @@ export function DecisionCallout({
   return (
     <article
       aria-labelledby={headingId}
-      className="border-primary/40 hover:border-primary/70 border-l-2 py-1 pl-5 transition-colors duration-200 md:pl-6"
+      className="bg-muted/30 hover:bg-muted/50 rounded-lg p-5 transition-colors duration-200 md:p-6"
     >
       <div className="mb-3 flex flex-wrap items-center gap-2">
         <Badge variant="outline" className="px-2 py-0.5 text-xs">
