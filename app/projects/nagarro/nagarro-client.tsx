@@ -365,10 +365,6 @@ export default function NagarroClientPage() {
     return () => mediaQuery.removeEventListener("change", handleChange);
   }, []);
 
-  // Removed custom cursor device check
-    return () => window.removeEventListener("resize", checkDevice);
-  }, []);
-
   // Celebration handler for metrics
   const handleCelebration = useCallback(() => {
     setGlobalCelebrationCount((prev) => {
