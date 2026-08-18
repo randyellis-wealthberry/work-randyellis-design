@@ -268,7 +268,7 @@ const CODE_SCENARIOS = [
     steps: [
       {
         delay: 1000,
-        text: "🚀 Starting Next.js development server...",
+        text: "Starting Next.js development server...",
         className: "text-blue-500",
       },
       {

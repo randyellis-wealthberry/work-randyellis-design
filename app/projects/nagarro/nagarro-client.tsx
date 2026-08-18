@@ -28,10 +28,7 @@ import { ReflectionBlock } from "@/components/case-study/reflection-block";
 import { useRef, useState, useEffect, useCallback, memo, useMemo } from "react";
 import { AnimatedNumber } from "@/components/core/animated-number";
 import { parseMetricValue } from "@/lib/utils/parseMetricValue";
-import { CelebrationParticles } from "@/components/ui/celebration-particles";
-import { CustomCursor } from "@/components/ui/custom-cursor";
 import { ReadingProgress } from "@/components/ui/reading-progress";
-import { KonamiEasterEgg } from "@/components/ui/konami-easter-egg";
 
 const VARIANTS_CONTAINER = {
   hidden: { opacity: 0 },
@@ -353,8 +350,6 @@ const ProjectCard = memo(function ProjectCard({
 export default function NagarroClientPage() {
   const [celebrationMode, setCelebrationMode] = useState(false);
   const [, setGlobalCelebrationCount] = useState(0);
-  const [showCustomCursor, setShowCustomCursor] = useState(false);
-  const [konamiActivated, setKonamiActivated] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
   // Respect user's motion preferences
@@ -368,19 +363,6 @@ export default function NagarroClientPage() {
 
     mediaQuery.addEventListener("change", handleChange);
     return () => mediaQuery.removeEventListener("change", handleChange);
-  }, []);
-
-  // Enable custom cursor on desktop
-  useEffect(() => {
-    const checkDevice = () => {
-      setShowCustomCursor(
-        window.innerWidth > 1024 && "ontouchstart" in window === false,
-      );
-    };
-
-    checkDevice();
-    window.addEventListener("resize", checkDevice);
-    return () => window.removeEventListener("resize", checkDevice);
   }, []);
 
   // Celebration handler for metrics
@@ -492,11 +474,6 @@ export default function NagarroClientPage() {
 
   return (
     <>
-      <CustomCursor isActive={showCustomCursor && !prefersReducedMotion} />
-      <CelebrationParticles
-        isActive={celebrationMode && !prefersReducedMotion}
-      />
-      <KonamiEasterEgg isActive={konamiActivated && !prefersReducedMotion} />
       <ReadingProgress />
 
       <motion.main
@@ -516,7 +493,6 @@ export default function NagarroClientPage() {
             <motion.h1
               className="text-4xl font-bold text-zinc-900 md:text-6xl dark:text-zinc-100"
               data-cursor-hover
-              data-cursor-text="🎨"
               whileHover={{
                 textShadow: "0 0 20px rgba(59, 130, 246, 0.3)",
                 transition: { duration: 0.3 },
@@ -557,7 +533,6 @@ export default function NagarroClientPage() {
               transition={{ delay: 0.2, duration: 0.5 }}
               whileHover={{ scale: 1.02 }}
               data-cursor-hover
-              data-cursor-text="🚀"
             >
               <Image
                 src="/projects/nagarro/nagarro-logo.png"
@@ -585,7 +560,6 @@ export default function NagarroClientPage() {
                   variant="secondary"
                   className="bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100"
                   data-cursor-hover
-                  data-cursor-text="📅"
                 >
                   Mar 2022 - Oct 2022
                 </Badge>
@@ -598,7 +572,6 @@ export default function NagarroClientPage() {
                   variant="secondary"
                   className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100"
                   data-cursor-hover
-                  data-cursor-text="👑"
                 >
                   Head of Design
                 </Badge>
@@ -607,11 +580,7 @@ export default function NagarroClientPage() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <Badge
-                  variant="secondary"
-                  data-cursor-hover
-                  data-cursor-text="🌍"
-                >
+                <Badge variant="secondary" data-cursor-hover>
                   Enterprise Scale
                 </Badge>
               </motion.div>
@@ -676,7 +645,6 @@ export default function NagarroClientPage() {
             <ScrambleSectionTitle
               className="text-lg font-medium"
               data-cursor-hover
-              data-cursor-text="📊"
             >
               Impact Metrics
             </ScrambleSectionTitle>
@@ -711,8 +679,7 @@ export default function NagarroClientPage() {
                 aria-live="polite"
               >
                 <p className="text-lg font-medium text-blue-600">
-                  🎉 Amazing! These metrics represent real impact on 18,000+
-                  lives! 🎉
+                  Amazing! These metrics represent real impact on 18,000+ lives!
                 </p>
                 <div className="sr-only">
                   Celebration activated! All design metrics have been animated,
@@ -733,7 +700,6 @@ export default function NagarroClientPage() {
             <ScrambleSectionTitle
               className="text-lg font-medium"
               data-cursor-hover
-              data-cursor-text="🎯"
             >
               Strategic Design Initiatives
             </ScrambleSectionTitle>
@@ -784,13 +750,12 @@ export default function NagarroClientPage() {
             className="mt-8 text-center text-xs text-zinc-500 opacity-0 transition-opacity duration-1000 hover:opacity-100 dark:text-zinc-400"
             whileHover={{ scale: 1.05 }}
             data-cursor-hover
-            data-cursor-text="💝"
           >
             <Heart className="mr-1 inline h-3 w-3" />
             <span role="img" aria-label="Hidden message for engaged users">
               Thank you for taking the time to explore these design leadership
               initiatives! Your engagement helps us create better, more
-              inclusive experiences. ✨
+              inclusive experiences.
             </span>
           </motion.div>
         </motion.section>
@@ -936,7 +901,6 @@ export default function NagarroClientPage() {
           <ScrambleSectionTitle
             className="mb-5 text-lg font-medium"
             data-cursor-hover
-            data-cursor-text="📚"
           >
             Strategic Resources & Publications
           </ScrambleSectionTitle>

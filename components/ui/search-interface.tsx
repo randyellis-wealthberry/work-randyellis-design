@@ -130,7 +130,7 @@ export function SearchInterface({
       case "project":
         return "💼";
       case "blog":
-        return "📝";
+        return "";
       case "page":
         return "📄";
       default:

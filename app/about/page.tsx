@@ -5,7 +5,7 @@ import { BreadcrumbStructuredData } from "@/components/seo/structured-data";
 export const metadata: Metadata = {
   title: "About — AI Product Design Engineer & Leader",
   description:
-    "💡 From design leader to AI product engineer: Built teams at Nagarro (100+ leads, 40% retention boost) to Head of Product at Wealthberry Labs. The story behind 2.5M+ users impacted.",
+    "From design leader to AI product engineer: Built teams at Nagarro (100+ leads, 40% retention boost) to Head of Product at Wealthberry Labs. The story behind 2.5M+ users impacted.",
   alternates: {
     canonical: "/about",
   },
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "About Randy Ellis - Head of Product & Fractional CDO",
     description:
-      "💡 The journey of a design leader who ships AI products: 2.5M+ users impacted, 4 awards won, $50M value delivered. See how it all started.",
+      "The journey of a design leader who ships AI products: 2.5M+ users impacted, 4 awards won, $50M value delivered. See how it all started.",
     url: "/about",
   },
 };

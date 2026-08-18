@@ -37,65 +37,98 @@ with every claim written from Randy's firsthand account and cross-surface-consis
 ## Phase Details
 
 ### Phase 5: Foundation & Cleanup
+
 **Goal**: The codebase is type-safe, duplicate-free, and audited for what content is genuinely backed by the deck — and unrelated pre-existing tech debt is cleared — before any narrative work begins.
 **Depends on**: Nothing (first phase of v2.0)
 **Requirements**: FND-01, FND-02, FND-03, FND-04, DEBT-01, DEBT-02
 **Success Criteria** (what must be TRUE):
+
   1. `app/projects/[slug]/project-detail-client.tsx` imports `Project` from `lib/data/types.ts`; `app/data.ts` no longer exists; the project pages typecheck clean
   2. Only one LedgerIQ URL exists (`/projects/ledgeriq`); the orphaned `/ledgeriq` root route is gone and no page links to it
   3. A Backed / Partial / Unbacked coverage table exists for all 7 case-study projects against the 48-page deck, as an advisory reference for Phase 8 (gate removed 2026-08-15)
   4. `echo-client-final.tsx` and the abandoned `components/case-study/*` files are deleted; only live, imported files remain in the rewrite path
   5. The POS-02 proof-chip subhead renders as chips (not dense text); clicking the Waffle "Live Product" badge has no dead zone
+
 **Plans**: 2 plans (both wave 1, parallel)
+
 - [x] 05-01-PLAN.md — Deck-coverage audit: per-claim Backed/Partial/Unbacked table for the 7 case studies (FND-03)
 - [x] 05-02-PLAN.md — Code cleanup & tech debt: data-model consolidation, orphan/dead-route deletion, hero proof chips, badge click fix (FND-01, FND-02, FND-04, DEBT-01, DEBT-02)
 
 ### Phase 6: Narrative Template & Data Model
+
 **Goal**: A proven, reusable set of narrative components — decision-with-rationale, in-page nav, reflection, role narrative — exist and render the full problem-to-reflection arc on at least one project, de-risking the pattern before it's applied to 6 more files.
 **Depends on**: Phase 5
 **Requirements**: TPL-01, TPL-02, TPL-03, TPL-04
 **Success Criteria** (what must be TRUE):
+
   1. `lib/data/types.ts` has typed `decisions[]{title, decision, rationale, outcome}` and `roleNarrative` fields, populated for growit
   2. `DecisionCallout`, `CaseStudyTOC`, `ReflectionBlock`, and `RoleNarrativeSection` render from props only (no project-specific strings/paths baked in), built from existing primitives + `@tailwindcss/typography` with zero new npm dependencies
   3. growit's page renders problem → my role → decisions-with-rationale → measurable outcome → reflection, with no section rendering shallow
   4. The pilot passes `npm run lint`, `npx tsc --noEmit`, and `npm test` clean before any other project is touched
+
 **Plans**: TBD
 **UI hint**: yes
 
 ### Phase 7: Bespoke Convergence
+
 **Goal**: All 4 bespoke standalone project pages render the same narrative components proven in Phase 6, so all 7 in-scope case studies share one structurally consistent pattern before content is rewritten.
 **Depends on**: Phase 6
 **Requirements**: MIG-01, MIG-02, MIG-03, MIG-04
 **Success Criteria** (what must be TRUE):
+
   1. addvanced's page renders `DecisionCallout`/`CaseStudyTOC`/`ReflectionBlock`/`RoleNarrativeSection` alongside its existing bespoke layout
   2. echo is migrated via the live `echo-client.tsx` (the dead `-final` variant is never touched or reintroduced)
   3. nagarro's page renders the same shared narrative components
   4. rambis-ui's page renders the same shared narrative components
   5. All 7 in-scope case-study pages (growit, ohplays, ledgeriq, addvanced, echo, nagarro, rambis-ui) share the identical narrative component set, verified file-by-file
+
 **Plans**: TBD
 **UI hint**: yes
 
 ### Phase 8: Content Rewrite & Credibility Guardrails
+
 **Goal**: Every in-scope case study reads as a first-person, decision-driven narrative a hiring manager can trust — corporate "we" voice is gone and no claim is invented to fill a template slot.
 **Depends on**: Phase 7 (structural template must be in place on all 7 pages before content lands)
 **Requirements**: CNT-01, CNT-02, CNT-03, CNT-04, CNT-05, CNT-06, CNT-07, CNT-08, CRED-06, CRED-07, CRED-08
 **Success Criteria** (what must be TRUE):
+
   1. All 7 projects (growit, ohplays, ledgeriq, addvanced, echo, nagarro, rambis-ui) read first-person ("I chose X because Y"), with challenges·solutions·learnings complete and no thin/empty sections
   2. Every decision, rationale, and outcome comes from Randy's firsthand account of the engagement — no source-citation requirement, but nothing invented by the writer to fill a template slot either
   3. First-person "I" claims are checked against each project's `role`/`teamSize`; team-executed work (teamSize 3–15, director titles) is credited as "we"/"led," not misattributed as solo work
   4. Randy has signed off on publishing deeper internal specificity for the real, named, still-operating clients (Nagarro, Echo) before that content ships
   5. "Alternatives considered" and leadership-signal callouts (mentoring, influence, strategy) appear only where they genuinely happened on that project — never as uniform template fill
+
 **Plans**: TBD
 
 ### Phase 9: Cross-Surface Verification
+
 **Goal**: For every project touched this milestone, what a hiring manager reads on the page matches what a recruiter sees in metadata, the OG image, and the page source — closing the milestone the way v1.0's audit remediation did.
 **Depends on**: Phase 8
 **Requirements**: CRED-09
 **Success Criteria** (what must be TRUE):
+
   1. For each of the 7 touched projects, visible copy, `generateMetadata()` description, OG image, and JSON-LD (`CreativeWorkStructuredData`, `ProjectFAQStructuredData`) all agree — including the 5 standalone-route pages that don't inherit `[slug]`'s `generateMetadata()`
   2. A grep sweep across `app/`, `lib/`, `components/seo/` finds no claim that was changed in one surface but left stale in another
   3. `npm run lint`, `npx tsc --noEmit`, and `npm test` all pass clean across the full touched surface
-**Plans**: TBD
+
+**Plans**: 5 plans (4 waves)
+Plans:
+**Wave 1**
+
+- [x] 09-01-PLAN.md — TDD: `projectMetadata` + JSON-LD prop helpers in `lib/metadata.ts` with the D-14 regression test (wave 1)
+
+**Wave 2** *(blocked on Wave 1 completion)*
+
+- [ ] 09-02-PLAN.md — Wire `[slug]` + 4 standalone routes to the helpers; drop FAQ JSON-LD; add CreativeWork + Breadcrumb; route-wiring drift test (wave 2)
+- [ ] 09-03-PLAN.md — Delete dead schema exports; align `$50M` wording; verify/fix Chameleon URL; bounded placeholder sweep (wave 2)
+
+**Wave 3** *(blocked on Wave 2 completion)*
+
+- [ ] 09-04-PLAN.md — Author `09-CROSS-SURFACE-MATRIX.md` (7 projects + Waffle verify-only) with D-18 conformance fixes and open items (wave 3)
+
+**Wave 4** *(blocked on Wave 3 completion)*
+
+- [ ] 09-05-PLAN.md — Stale-claim grep register, lint → tsc → test gate recorded in the matrix, ROADMAP Phases 6–8 reconciled (wave 4)
 
 ## Progress
 
@@ -109,7 +142,23 @@ with every claim written from Randy's firsthand account and cross-surface-consis
 | 6. Narrative Template & Data Model | v2.0 | 1/1 | Complete | 2026-08-15 |
 | 7. Bespoke Convergence | v2.0 | 1/1 | Structural wiring complete (content pending Phase 8) | 2026-08-15 |
 | 8. Content Rewrite & Credibility Guardrails | v2.0 | 0/TBD | Not started | - |
-| 9. Cross-Surface Verification | v2.0 | 0/TBD | Not started | - |
+| 9. Cross-Surface Verification | v2.0 | 1/5 | In Progress|  |
+| 10. SEO Remediation | v2.0 | 0/TBD | Not started | - |
+
+### Phase 10: SEO Remediation
+
+**Goal**: Close every finding from `.planning/research/SEO-AUDIT.md` (2026-08-16) so the site is fully crawlable, consistently indexed, and emits one coherent entity story in structured data — built on top of Phase 9's reconciled claims, not duplicating that work.
+**Depends on**: Phase 9 (CRED-09 claim reconciliation must land first; Phase 10 consumes its output)
+**Requirements**: SEO-01..SEO-05 (derived from audit T-01..T-07 — see SEO-AUDIT.md)
+**Success Criteria** (what must be TRUE):
+
+  1. `public/sw.js` is a self-unregistering kill switch (or removed with an uninstall path); no returning visitor receives the stale precache (audit T-01)
+  2. robots.ts no longer disallows `/_next/`; `/test/*` routes receive X-Robots-Tag noindex or are deleted (T-02, T-03)
+  3. Structured data is consolidated to Person + WebSite + per-project CreativeWork + blog Article (+ one agreed service representation), server-rendered, with valid properties only — LocalBusiness and Wealthberry Organization removed unless Randy confirms them; Chameleon Collective URL resolved or removed (T-04, T-06)
+  4. Sitemap carries lastModified for static and project URLs (T-05)
+  5. Live post-deploy verification recorded: robots.txt + sitemap.xml fetch, Rich Results Test on home / one project / one blog post, Search Console property + sitemap submission confirmed (audit "Limitation" section)
+
+**Plans**: TBD
 
 ---
 *Last updated: 2026-08-15 — v2.0 Case-Study Depth roadmap created (Phases 5-9)*

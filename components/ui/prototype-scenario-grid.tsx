@@ -37,7 +37,7 @@ const cardData = [
     label: "View Report",
     url: "https://app.maze.co/report/Addvance-v1-WIP/bxqeilh40ohf5/intro",
     openInNewTab: true,
-    icon: "📊",
+    icon: "",
     cursorIcon: BarChart3,
     imageUrl:
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop&crop=center",

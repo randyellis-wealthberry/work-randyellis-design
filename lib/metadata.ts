@@ -187,3 +187,114 @@ export function createArticleMetadata({
 export function getMetadataBase(): URL {
   return new URL(getBaseUrl());
 }
+
+import type { Project } from "./data/types";
+import { WEBSITE_URL } from "./constants";
+
+/**
+ * Extract OG-suitable image from project data (D-05)
+ * Returns thumbnail if it's an image, otherwise falls back to first image
+ * in the images array (handles video thumbnails like LedgerIQ's .mp4)
+ */
+export function projectOgImage(project: Project): string | undefined {
+  const isImage = (path: string) =>
+    /\.(png|jpe?g|webp|avif|gif|svg)$/i.test(path);
+
+  if (project.thumbnail && isImage(project.thumbnail)) {
+    return project.thumbnail;
+  }
+
+  return project.images?.find(isImage);
+}
+
+/**
+ * Extract first 4-digit year from project timeline (D-11)
+ * Returns undefined when timeline contains no year (e.g. "Alpha → Beta → Launch")
+ */
+export function projectDateCreated(project: Project): string | undefined {
+  const yearMatch = project.timeline.match(/\b(?:19|20)\d{2}\b/);
+  return yearMatch ? yearMatch[0] : undefined;
+}
+
+/**
+ * Single implementation of project metadata for all 7 case-study routes (D-02)
+ * Uses project.description (not longDescription) per D-03
+ */
+export function projectMetadata(project: Project): Metadata {
+  const title = `${project.name} | ${project.subtitle ?? project.category}`;
+  const img = projectOgImage(project);
+
+  return {
+    title,
+    description: project.description,
+    alternates: {
+      canonical: `/projects/${project.slug}`,
+    },
+    keywords: [
+      project.name,
+      ...project.technologies,
+      ...project.tags,
+      project.category,
+      "Randy Ellis",
+      "AI Product Design",
+      "Design Engineering",
+    ],
+    openGraph: {
+      type: "article",
+      title,
+      description: project.description,
+      url: `/projects/${project.slug}`,
+      authors: ["Randy Ellis"],
+      images: img
+        ? [
+            {
+              url: img,
+              width: 1200,
+              height: 630,
+              alt: title,
+            },
+          ]
+        : [],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: project.description,
+      images: img ? [img] : [],
+    },
+  };
+}
+
+/**
+ * Props builder for CreativeWorkStructuredData JSON-LD (D-11)
+ */
+export function projectCreativeWorkProps(project: Project) {
+  const img = projectOgImage(project);
+  return {
+    name: project.name,
+    description: project.description,
+    url: `${WEBSITE_URL}/projects/${project.slug}`,
+    dateCreated: projectDateCreated(project),
+    technologies: project.technologies,
+    category: project.category,
+    metrics: project.metrics,
+    imageUrl: img ? `${WEBSITE_URL}${img}` : undefined,
+    teamSize: project.teamSize,
+    role: project.role,
+  };
+}
+
+export type ProjectCreativeWorkProps = ReturnType<
+  typeof projectCreativeWorkProps
+>;
+
+/**
+ * Breadcrumb items builder for BreadcrumbStructuredData (D-12)
+ */
+export function projectBreadcrumbItems(project: Project) {
+  return [
+    { name: "Home", url: WEBSITE_URL },
+    { name: "Projects", url: `${WEBSITE_URL}/projects` },
+    { name: project.name, url: `${WEBSITE_URL}/projects/${project.slug}` },
+  ];
+}

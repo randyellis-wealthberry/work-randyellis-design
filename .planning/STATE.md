@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Case-Study Depth
 status: executing
-stopped_at: "Phase 6 complete (narrative components + growit pilot); Phase 7 structural wiring complete across 4 bespoke pages"
-last_updated: "2026-08-15T18:25:29.172Z"
-last_activity: 2026-08-15
+stopped_at: Session resumed 2026-08-18 — Phase 9 planned (5 plans, 0 executed), awaiting execute-phase
+last_updated: "2026-08-18T19:55:51.912Z"
+last_activity: 2026-08-18 -- Phase 09 execution started
 progress:
-  total_phases: 5
-  completed_phases: 0
-  total_plans: 2
-  completed_plans: 1
-  percent: 0
+  total_phases: 6
+  completed_phases: 1
+  total_plans: 7
+  completed_plans: 2
+  percent: 17
 ---
 
 # STATE — Randy Ellis Portfolio
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-08-15 after v1.0 milestone)
 
 **Core value:** A hiring manager finds a coherent, senior, *verifiable* story with an obvious way to book a conversation — shipped and audit-verified in v1.0. v2.0 adds proof of *how Randy decides*.
-**Current focus:** Phase 8 — content rewrite (blocked on per-project decision content from Randy)
+**Current focus:** Phase 09 — cross-surface-verification
 
 ## Current Position
 
-Phase: 08 (content rewrite) — COMPLETE
-Plan: decisions, attribution, claim purge and voice conversion done for all 7
-Status: Phase 9 partially run — role-title drift and Echo business figures found and fixed; full CRED-09 metadata/OG/JSON-LD reconciliation still outstanding
-Last activity: 2026-08-15
+Phase: 09 (cross-surface-verification) — EXECUTING
+Plan: 1 of 5
+Status: Executing Phase 09
+Last activity: 2026-08-18 -- Phase 09 execution started
 
 Progress: [█████░░░░░] 50%
 
@@ -50,6 +50,10 @@ Progress: [█████░░░░░] 50%
 | Phase 05 P02 | 19min | 5 tasks | 24 files |
 
 ## Accumulated Context
+
+### Roadmap Evolution
+
+- Phase 10 added 2026-08-16: SEO Remediation — scoped from `.planning/research/SEO-AUDIT.md` (codebase audit: stale sw.js kill switch, robots `/_next/` block, `/test` noindex, structured-data consolidation sequenced after Phase 9 CRED-09, sitemap lastModified, live post-deploy verification). Depends on Phase 9.
 
 ### Decisions
 
@@ -98,9 +102,10 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-08-15T18:25:29.096Z
-Stopped at: Completed 05-02-PLAN.md (foundation cleanup: FND-01, FND-02, FND-04, DEBT-01, DEBT-02)
-Resume file: None
+Last session: 2026-08-18T19:53:12Z
+Stopped at: Session resumed 2026-08-18 — Phase 9 planned (5 plans, 0 executed), awaiting execute-phase
+Resume file: .planning/phases/09-cross-surface-verification/09-CONTEXT.md
+Note: local branch `wealthberry` holds 2 unmerged commits (WealthBerry AI estate project data, hydration fix) — not part of v2.0; rebase later if wanted
 
 ---
 *Last updated: 2026-08-15 — v2.0 roadmap created*
