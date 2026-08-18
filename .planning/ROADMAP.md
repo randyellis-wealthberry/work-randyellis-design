@@ -115,7 +115,7 @@ with every claim written from Randy's firsthand account and cross-surface-consis
 Plans:
 **Wave 1**
 
-- [ ] 09-01-PLAN.md — TDD: `projectMetadata` + JSON-LD prop helpers in `lib/metadata.ts` with the D-14 regression test (wave 1)
+- [x] 09-01-PLAN.md — TDD: `projectMetadata` + JSON-LD prop helpers in `lib/metadata.ts` with the D-14 regression test (wave 1)
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
@@ -142,7 +142,7 @@ Plans:
 | 6. Narrative Template & Data Model | v2.0 | 1/1 | Complete | 2026-08-15 |
 | 7. Bespoke Convergence | v2.0 | 1/1 | Structural wiring complete (content pending Phase 8) | 2026-08-15 |
 | 8. Content Rewrite & Credibility Guardrails | v2.0 | 0/TBD | Not started | - |
-| 9. Cross-Surface Verification | v2.0 | 0/5 | Planned | - |
+| 9. Cross-Surface Verification | v2.0 | 1/5 | In Progress|  |
 | 10. SEO Remediation | v2.0 | 0/TBD | Not started | - |
 
 ### Phase 10: SEO Remediation
