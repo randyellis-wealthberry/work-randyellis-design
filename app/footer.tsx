@@ -16,10 +16,10 @@ export function Footer() {
             <span>Built with Pride and Passion.</span>
           </TextLoop>
         </Link>
-        <div className="flex items-center space-x-4 text-xs text-zinc-400">
+        <div className="flex items-center space-x-4 text-xs text-zinc-500 dark:text-zinc-400">
           <a
             href="/blog"
-            className="text-zinc-400 transition-colors hover:text-zinc-600 dark:hover:text-zinc-300"
+            className="text-zinc-500 transition-colors hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-300"
           >
             Blog
           </a>

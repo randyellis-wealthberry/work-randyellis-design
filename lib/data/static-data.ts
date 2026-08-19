@@ -3,16 +3,16 @@ import { WorkExperience, BlogPost, SocialLink } from "./types";
 // Static data that's commonly used across pages
 export const WORK_EXPERIENCE: WorkExperience[] = [
   {
-    company: "Wealthberry Labs",
-    title: "Head of Product",
+    company: "Chameleon Collective",
+    title: "Fractional VP, Design",
     start: "Oct 2022",
     end: "Present",
-    link: "https://www.buildyourlegacywithai.com",
-    id: "work1",
+    link: "https://www.chameleon.co",
+    id: "work2",
     description: [
-      "Leading product strategy for wealth management platform serving HNW clients",
-      "Built design team and established design systems across multiple products",
-      "Increased user engagement by 150% through data-driven UX improvements",
+      "Partner with startups and brands as embedded fractional design executive",
+      "Drive end-to-end product design, design strategy, and design-system scale",
+      "Lead remote design teams for venture-backed companies",
     ],
   },
   {
@@ -21,7 +21,7 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
     start: "Apr 2023",
     end: "Oct 2023",
     link: "https://www.clockwork.com",
-    id: "work2",
+    id: "work3",
     description: [
       "Developed wireframes, reducing onboarding time",
       "Interviewed planners to optimize financial tools",
@@ -34,7 +34,7 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
     start: "Mar 2022",
     end: "Oct 2022",
     link: "https://www.nagarro.com",
-    id: "work3",
+    id: "work4",
     description: [
       "Spearheaded IT firm's design strategy, boosting brand recognition by 50% and generating 100+ leads",
       "Coached 15+ designers, enhancing skills and increasing retention by 40%",

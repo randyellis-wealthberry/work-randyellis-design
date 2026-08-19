@@ -2,6 +2,7 @@
 
 import { motion } from "motion/react";
 import Link from "next/link";
+import { CTASection } from "@/components/ui/cta-section";
 import {
   ExternalLink,
   Github,
@@ -1149,25 +1150,7 @@ export default function ProjectDetailClient({
         </motion.div>
 
         {/* CTA */}
-        <motion.section
-          className="space-y-4 py-8 text-center"
-          variants={VARIANTS_ITEM}
-          transition={TRANSITION_ITEM}
-        >
-          <ScrambleSectionTitle as="h2" className="text-3xl font-bold">
-            Like what you see?
-          </ScrambleSectionTitle>
-          <p className="text-muted-foreground mx-auto max-w-2xl">
-            I&apos;m always excited to discuss new projects and opportunities.
-            Let&apos;s create something amazing together.
-          </p>
-          <Link
-            href="/#connect"
-            className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-6 py-3 text-white transition-colors hover:bg-blue-700"
-          >
-            Get in Touch
-          </Link>
-        </motion.section>
+        <CTASection />
       </motion.div>
     </div>
   );

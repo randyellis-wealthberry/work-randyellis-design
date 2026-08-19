@@ -4,9 +4,6 @@ export type { InViewProps } from "./in-view";
 
 export { AnimatedGroup } from "./animated-group";
 
-export { GlowEffect } from "./glow-effect";
-export type { GlowEffectProps } from "./glow-effect";
-
 export { AnimatedNumber } from "./animated-number";
 
 export { Disclosure } from "./disclosure";

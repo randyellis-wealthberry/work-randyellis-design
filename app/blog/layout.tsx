@@ -5,6 +5,7 @@ import { BreadcrumbNav } from "@/components/ui/breadcrumb-nav";
 import { BreadcrumbStructuredData } from "@/components/seo/structured-data";
 // import { RelatedContent } from "@/components/seo/related-content";
 import { GlobalRecommendations } from "@/components/ui/global-recommendations";
+import { CTASection } from "@/components/ui/cta-section";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
@@ -91,9 +92,9 @@ export default function LayoutBlogPost({
   return (
     <>
       {schemaItems && <BreadcrumbStructuredData items={schemaItems} />}
-      <div className="pointer-events-none fixed top-0 left-0 z-10 h-12 w-full bg-gray-100 to-transparent backdrop-blur-xl [-webkit-mask-image:linear-gradient(to_bottom,black,transparent)] dark:bg-zinc-950" />
+      <div className="pointer-events-none fixed top-0 left-0 z-10 h-12 w-full bg-zinc-100 to-transparent backdrop-blur-xl [-webkit-mask-image:linear-gradient(to_bottom,black,transparent)] dark:bg-zinc-950" />
       <ScrollProgress
-        className="fixed top-0 z-20 h-0.5 bg-gray-300 dark:bg-zinc-600"
+        className="fixed top-0 z-20 h-0.5 bg-zinc-300 dark:bg-zinc-600"
         springOptions={{
           bounce: 0,
         }}
@@ -118,6 +119,13 @@ export default function LayoutBlogPost({
             articleTitle="More Articles"
             className="mb-20"
           />
+        </div>
+      )}
+
+      {/* CTA Section */}
+      {pathname !== "/blog" && (
+        <div className="not-prose">
+          <CTASection />
         </div>
       )}
     </>

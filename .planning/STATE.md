@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Case-Study Depth
 status: executing
-stopped_at: Session resumed 2026-08-18 — Phase 9 planned (5 plans, 0 executed), awaiting execute-phase
-last_updated: "2026-08-18T19:55:51.912Z"
+stopped_at: context exhaustion at 75% (2026-08-18)
+last_updated: "2026-08-18T23:15:05.807Z"
 last_activity: 2026-08-18 -- Phase 09 execution started
 progress:
   total_phases: 6
   completed_phases: 1
   total_plans: 7
-  completed_plans: 2
+  completed_plans: 3
   percent: 17
 ---
 
@@ -102,9 +102,9 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-08-18T19:53:12Z
-Stopped at: Session resumed 2026-08-18 — Phase 9 planned (5 plans, 0 executed), awaiting execute-phase
-Resume file: .planning/phases/09-cross-surface-verification/09-CONTEXT.md
+Last session: 2026-08-18T23:15:05.796Z
+Stopped at: context exhaustion at 75% (2026-08-18)
+Resume file: None
 Note: local branch `wealthberry` holds 2 unmerged commits (WealthBerry AI estate project data, hydration fix) — not part of v2.0; rebase later if wanted
 
 ---

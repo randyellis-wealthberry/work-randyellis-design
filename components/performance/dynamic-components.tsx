@@ -46,12 +46,7 @@ export const DynamicVideoPlayer = lazy(() =>
   ).then((module) => ({ default: module.VideoPlayer })),
 );
 
-export const DynamicDelightParticles = lazy(() =>
-  import(
-    /* webpackChunkName: "ui-particles" */
-    "@/components/ui/delight-particles"
-  ).then((module) => ({ default: module.DelightParticles })),
-);
+// Removed: delight-particles component doesn't exist
 
 // Three.js scene components
 export const DynamicOrganicScene = lazy(() =>
@@ -140,12 +135,7 @@ export const LazyVideoPlayer = (props: any) => (
   </Suspense>
 );
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const LazyDelightParticles = (props: any) => (
-  <Suspense fallback={<div className="h-full w-full" />}>
-    <DynamicDelightParticles {...props} />
-  </Suspense>
-);
+// Removed: LazyDelightParticles - component doesn't exist
 
 // Generic lazy component factory with intersection observer
 export function createIntersectionLazyComponent<T = Record<string, unknown>>(

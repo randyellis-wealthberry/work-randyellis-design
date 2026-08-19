@@ -65,7 +65,7 @@ export function ScrollProgressIndicator({
       {/* Percentage Display */}
       {showPercentage && percentage > 5 && (
         <motion.div
-          className="fixed right-4 bottom-4 z-50 rounded-full bg-black/80 px-3 py-1.5 text-sm font-medium text-white backdrop-blur-sm"
+          className="fixed right-4 bottom-4 z-50 rounded-full bg-zinc-900/80 px-3 py-1.5 text-sm font-medium text-white backdrop-blur-sm dark:bg-white/80 dark:text-zinc-900"
           initial={{ opacity: 0, scale: 0.8, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.8, y: 20 }}

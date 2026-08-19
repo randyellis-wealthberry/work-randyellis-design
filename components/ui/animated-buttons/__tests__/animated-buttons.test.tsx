@@ -2,13 +2,7 @@ import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { axe, toHaveNoViolations } from "jest-axe";
-import {
-  MagneticButton,
-  LiquidButton,
-  ParticleButton,
-  GradientButton,
-  RippleButton,
-} from "../index";
+import { MagneticButton, LiquidButton, RippleButton } from "../index";
 
 expect.extend(toHaveNoViolations);
 
@@ -91,6 +85,8 @@ describe.skip("Animated Buttons Test Suite - Components need implementation upda
     });
   });
 
+  // Commented out: ParticleButton and GradientButton components don't exist
+  /*
   describe("ParticleButton", () => {
     it("spawns particles on hover", async () => {
       const { container } = render(
@@ -146,6 +142,7 @@ describe.skip("Animated Buttons Test Suite - Components need implementation upda
       expect(button).toHaveClass("hover:animate-gradient");
     });
   });
+  */
 
   describe("RippleButton", () => {
     it("creates ripple effect on click", async () => {
@@ -197,8 +194,6 @@ describe.skip("Animated Buttons Test Suite - Components need implementation upda
     const buttons = [
       { Component: MagneticButton, name: "Magnetic" },
       { Component: LiquidButton, name: "Liquid" },
-      { Component: ParticleButton, name: "Particle" },
-      { Component: GradientButton, name: "Gradient" },
       { Component: RippleButton, name: "Ripple" },
     ];
 
@@ -220,14 +215,12 @@ describe.skip("Animated Buttons Test Suite - Components need implementation upda
         <>
           <MagneticButton>Button 1</MagneticButton>
           <LiquidButton>Button 2</LiquidButton>
-          <ParticleButton>Button 3</ParticleButton>
-          <GradientButton>Button 4</GradientButton>
-          <RippleButton>Button 5</RippleButton>
+          <RippleButton>Button 3</RippleButton>
         </>,
       );
 
       const buttons = container.querySelectorAll("button");
-      expect(buttons).toHaveLength(5);
+      expect(buttons).toHaveLength(3);
 
       buttons.forEach((button) => {
         const styles = window.getComputedStyle(button);
@@ -263,10 +256,10 @@ describe.skip("Animated Buttons Test Suite - Components need implementation upda
     it("supports dark mode", () => {
       document.documentElement.classList.add("dark");
 
-      const { container } = render(<GradientButton>Dark Mode</GradientButton>);
+      const { container } = render(<MagneticButton>Dark Mode</MagneticButton>);
       const button = container.querySelector("button");
 
-      expect(button).toHaveClass("dark:bg-gradient-to-r");
+      expect(button).toHaveClass("dark:bg-gray-800");
 
       document.documentElement.classList.remove("dark");
     });

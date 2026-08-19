@@ -114,8 +114,9 @@ const CircularText = ({
         const angle = (rotationDeg * Math.PI) / 180;
 
         const radius = 90;
-        const x = Math.cos(angle) * radius;
-        const y = Math.sin(angle) * radius;
+        // Round to 4 decimal places to ensure server/client match
+        const x = Math.round(Math.cos(angle) * radius * 10000) / 10000;
+        const y = Math.round(Math.sin(angle) * radius * 10000) / 10000;
 
         const transform = `translate(-50%, -50%) translate(${x}px, ${y}px) rotate(${
           rotationDeg + 90
@@ -135,6 +136,7 @@ const CircularText = ({
               WebkitFontSmoothing: "antialiased",
               MozOsxFontSmoothing: "grayscale",
             }}
+            suppressHydrationWarning
           >
             {letter}
           </span>

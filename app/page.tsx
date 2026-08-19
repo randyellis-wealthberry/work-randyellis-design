@@ -24,26 +24,24 @@ import {
   Terminal,
   TypingAnimation,
 } from "@/components/magicui/terminal";
-import {
-  WORK_EXPERIENCE,
-  BLOG_POSTS,
-  getEmail,
-  SOCIAL_LINKS,
-} from "@/lib/data";
+import { WORK_EXPERIENCE, BLOG_POSTS, SOCIAL_LINKS } from "@/lib/data";
 import { PROJECTS } from "@/lib/data/projects";
 import {
   trackProjectHover,
   trackProjectView,
   trackContactIntent,
-  trackResumeDownload,
 } from "@/lib/analytics";
 import { FeatureFlagDemo } from "@/components/feature-flag-demo";
 import { TextGradientScroll } from "@/components/ui/text-gradient-scroll";
+import { LetsChatButton } from "@/components/ui/lets-chat-dialog";
 import { BOOKING_URL } from "@/lib/constants";
 import { testimonials } from "@/lib/data/testimonials";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ClientLogos } from "@/components/client-logos";
+import { CalButton } from "@/components/booking/cal-embed";
+import { BuyMeACoffeeButton } from "@/components/ui/buy-me-a-coffee";
+import { CTASection } from "@/components/ui/cta-section";
 
 const VARIANTS_CONTAINER = {
   hidden: { opacity: 0 },
@@ -78,7 +76,7 @@ function MagneticSocialLink({
         target="_blank"
         rel="noopener noreferrer"
         onClick={() => trackContactIntent("social_link", link)}
-        className="group relative inline-flex shrink-0 items-center gap-[1px] rounded-full bg-zinc-100 px-2.5 py-1 text-sm text-black transition-colors duration-200 hover:bg-zinc-950 hover:text-zinc-50 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700"
+        className="group relative inline-flex shrink-0 items-center gap-[1px] rounded-full bg-zinc-100 px-2.5 py-1 text-sm text-zinc-900 transition-colors duration-200 hover:bg-zinc-950 hover:text-zinc-50 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700"
       >
         {children}
         <svg
@@ -249,16 +247,6 @@ function AccordionIcons() {
       </AccordionItem>
     </Accordion>
   );
-}
-
-function DecodedEmail() {
-  const [email, setEmail] = useState("");
-
-  useEffect(() => {
-    setEmail(getEmail());
-  }, []);
-
-  return email;
 }
 
 // Move codeScenarios outside component to prevent recreation on every render
@@ -542,12 +530,10 @@ export default function Personal() {
           <p className="mb-5 text-3xl font-semibold tracking-tight text-zinc-900 sm:text-4xl dark:text-zinc-50">
             Design leader who ships AI products.
           </p>
-          <TextGradientScroll
-            text="I turn startups into design-led organizations — and write the code to prove it."
-            type="letter"
-            textOpacity="soft"
-            className="max-w-2xl text-base leading-snug tracking-tight text-zinc-600 dark:text-zinc-400"
-          />
+          <p className="max-w-2xl text-base leading-snug tracking-tight text-zinc-600 dark:text-zinc-400">
+            I turn startups into design-led organizations — and write the code
+            to prove it.
+          </p>
           <div className="mt-6 flex flex-wrap gap-2">
             <Badge variant="secondary" className="text-sm">
               20 years in design
@@ -560,21 +546,19 @@ export default function Personal() {
             </Badge>
           </div>
           <div className="mt-6 flex flex-wrap gap-3">
-            <a
-              href={BOOKING_URL}
-              target="_blank"
-              rel="noopener noreferrer"
+            <CalButton
               onClick={() => trackContactIntent("booking", BOOKING_URL)}
-              className="inline-flex items-center gap-2 rounded-lg bg-zinc-900 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-zinc-700 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-200"
+              className="inline-flex cursor-pointer items-center gap-2 rounded-lg bg-zinc-900 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-zinc-700 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-200"
             >
               Book a 30-min call
-            </a>
+            </CalButton>
             <Link
               href="/projects"
               className="inline-flex items-center gap-2 rounded-lg border border-zinc-300 px-5 py-2.5 text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800"
             >
               View work
             </Link>
+            <BuyMeACoffeeButton className="px-5 py-2.5 text-sm focus-visible:ring-offset-white dark:focus-visible:ring-offset-zinc-950" />
           </div>
         </div>
       </motion.section>
@@ -748,6 +732,25 @@ export default function Personal() {
           </Link>
         </div>
         <div className="flex flex-col space-y-2">
+          <div
+            data-testid="next-journey-banner"
+            className="rounded-2xl border-2 border-dashed border-zinc-300 bg-transparent p-4 dark:border-zinc-700"
+          >
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <h4 className="font-normal dark:text-zinc-100">
+                  Looking for my next journey
+                </h4>
+                <p className="text-zinc-500 dark:text-zinc-400">
+                  Open to Head of Product / Design roles and fractional
+                  engagements. Let&apos;s chat.
+                </p>
+              </div>
+              <LetsChatButton className="shrink-0">
+                Let&apos;s chat
+              </LetsChatButton>
+            </div>
+          </div>
           {WORK_EXPERIENCE.map((job) => (
             <a
               className="relative overflow-hidden rounded-2xl bg-zinc-300/30 p-[1px] dark:bg-zinc-600/30"
@@ -878,43 +881,7 @@ export default function Personal() {
           textOpacity="medium"
           className="mb-8 max-w-3xl text-base leading-snug tracking-tight text-zinc-700 dark:text-zinc-300"
         />
-        <p className="mb-5 text-zinc-600 dark:text-zinc-400">
-          Interested in AI product design consulting or generative AI
-          integration? Contact me at{" "}
-          <a
-            className="underline dark:text-zinc-300"
-            href={`mailto:${getEmail()}`}
-            onClick={() => trackContactIntent("email", getEmail())}
-          >
-            <DecodedEmail />
-          </a>
-        </p>
-        <div className="mb-6 flex flex-wrap gap-3">
-          <a
-            href={BOOKING_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => trackContactIntent("booking", BOOKING_URL)}
-            className="inline-flex items-center gap-2 rounded-lg bg-zinc-900 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-zinc-700 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-200"
-          >
-            Book a 30-min call
-          </a>
-          <a
-            href={`mailto:${getEmail()}`}
-            onClick={() => trackContactIntent("email", getEmail())}
-            className="inline-flex items-center gap-2 rounded-lg border border-zinc-300 px-5 py-2.5 text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800"
-          >
-            Email me
-          </a>
-          <a
-            href="/randy-ellis-resume.pdf"
-            download
-            onClick={() => trackResumeDownload()}
-            className="inline-flex items-center gap-2 rounded-lg border border-zinc-300 px-5 py-2.5 text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800"
-          >
-            Résumé (PDF)
-          </a>
-        </div>
+        <CTASection />
         <div className="flex items-center justify-start space-x-3">
           {SOCIAL_LINKS.map((link) => (
             <MagneticSocialLink key={link.label} link={link.link}>

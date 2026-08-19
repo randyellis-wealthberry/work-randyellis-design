@@ -247,16 +247,23 @@ const nextConfig = {
 
   // HEADERS FOR CACHING - Enhanced
   async headers() {
+    const isProd = process.env.NODE_ENV === "production";
     return [
-      {
-        source: "/_next/static/(.*)",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=31536000, immutable",
-          },
-        ],
-      },
+      // Only in production: dev chunks are NOT content-hashed, so an
+      // immutable cache header makes browsers run stale JS after edits.
+      ...(isProd
+        ? [
+            {
+              source: "/_next/static/(.*)",
+              headers: [
+                {
+                  key: "Cache-Control",
+                  value: "public, max-age=31536000, immutable",
+                },
+              ],
+            },
+          ]
+        : []),
       {
         source: "/fonts/(.*)",
         headers: [

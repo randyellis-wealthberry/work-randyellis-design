@@ -29,14 +29,7 @@ const UnicornWebGL = lazy(() =>
   })),
 );
 
-const DelightParticles = lazy(() =>
-  import(
-    /* webpackChunkName: "particles" */
-    "@/components/ui/delight-particles"
-  ).then((module) => ({
-    default: module.DelightParticles,
-  })),
-);
+// Removed: delight-particles component doesn't exist
 
 // Three.js related imports in separate chunks
 const ThreeJSCore = lazy(() =>
@@ -202,22 +195,7 @@ export const LazyUnicornWebGL = (props: any) => {
   );
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const LazyDelightParticles = (props: any) => {
-  const { ref, hasIntersected } = useIntersectionObserver(0.2);
-
-  return (
-    <div ref={ref} className="h-full w-full">
-      {hasIntersected ? (
-        <Suspense fallback={<div className="h-full w-full" />}>
-          <DelightParticles {...props} />
-        </Suspense>
-      ) : (
-        <div className="h-full w-full" />
-      )}
-    </div>
-  );
-};
+// Removed: LazyDelightParticles - component doesn't exist
 
 // Enhanced generic lazy wrapper with intersection observer
 export function createLazyComponent(
@@ -275,4 +253,3 @@ export { ThreeJSCore };
 WebGLLoader.displayName = "WebGLLoader";
 LazyAnimatedWebGL.displayName = "LazyAnimatedWebGL";
 LazyUnicornWebGL.displayName = "LazyUnicornWebGL";
-LazyDelightParticles.displayName = "LazyDelightParticles";

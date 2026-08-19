@@ -8,32 +8,12 @@ export function Header() {
     <>
       <UtilityBar />
       <header
-        className="mb-6 flex flex-col gap-4 sm:mb-8 sm:flex-row sm:items-center sm:justify-between sm:gap-6 lg:mb-12"
+        className="mb-6 flex flex-col sm:mb-8 lg:mb-12"
         role="banner"
         data-testid="main-header"
       >
-        <div className="flex items-center gap-4 gap-6 pt-8 sm:pt-24 lg:gap-8">
-          <div>
-            <Link
-              href="/"
-              className="font-medium whitespace-nowrap text-black dark:text-white"
-            >
-              Randy Ellis
-            </Link>
-            <TextEffect
-              as="p"
-              preset="fade"
-              per="char"
-              className="whitespace-nowrap text-zinc-600 dark:text-zinc-500"
-              delay={0.5}
-            >
-              Generative AI & Product Design Engineer
-            </TextEffect>
-          </div>
-        </div>
-
-        {/* Desktop Navigation */}
-        <nav className="hidden lg:flex lg:flex-row lg:items-center lg:gap-8 xl:gap-16">
+        {/* Desktop Navigation — own row, flush-left with content edge */}
+        <nav className="-ml-4 hidden pt-4 lg:flex lg:items-center lg:gap-12">
           <Link
             href="/"
             className="flex min-h-[44px] items-center rounded-md px-4 py-3 text-sm font-medium text-zinc-600 no-underline transition-colors hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
@@ -63,6 +43,24 @@ export function Header() {
             Blog
           </Link>
         </nav>
+
+        <div className="pt-8 sm:pt-24">
+          <Link
+            href="/"
+            className="font-medium whitespace-nowrap text-zinc-900 dark:text-white"
+          >
+            Randy Ellis
+          </Link>
+          <TextEffect
+            as="p"
+            preset="fade"
+            per="char"
+            className="whitespace-nowrap text-zinc-600 dark:text-zinc-500"
+            delay={0.5}
+          >
+            Taste, made executable.
+          </TextEffect>
+        </div>
       </header>
     </>
   );

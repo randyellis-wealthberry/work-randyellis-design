@@ -1,5 +1,9 @@
 import { render, screen } from "@testing-library/react";
+import { existsSync } from "fs";
+import { join } from "path";
 import { PROJECTS } from "@/lib/data/projects";
+
+const NAGARRO_THUMBNAIL = "/projects/nagarro/nagarro-logo.webp";
 
 // Mock the ProjectThumbnail component from the main page
 function ProjectThumbnail({ project }: { project: (typeof PROJECTS)[0] }) {
@@ -62,10 +66,7 @@ describe("Nagarro Project Thumbnail", () => {
 
     // Thumbnail should have correct src
     if (thumbnailElement) {
-      expect(thumbnailElement).toHaveAttribute(
-        "src",
-        "/projects/nagarro/nagarro-logo.png",
-      );
+      expect(thumbnailElement).toHaveAttribute("src", NAGARRO_THUMBNAIL);
       expect(thumbnailElement).toHaveAttribute(
         "alt",
         "Design Leadership @ Nagarro",
@@ -74,9 +75,15 @@ describe("Nagarro Project Thumbnail", () => {
   });
 
   it("should have correct thumbnail path configured", () => {
-    expect(nagarroProject?.thumbnail).toBe(
-      "/projects/nagarro/nagarro-logo.png",
-    );
+    expect(nagarroProject?.thumbnail).toBe(NAGARRO_THUMBNAIL);
+  });
+
+  it("should point at a thumbnail file that actually exists in /public", () => {
+    // Regression guard: fd2c515 swapped the PNG for a WebP on disk but left
+    // the data pointing at the deleted PNG, so the portfolio card 404'd.
+    const thumbnail = nagarroProject?.thumbnail ?? "";
+    expect(thumbnail).not.toBe("");
+    expect(existsSync(join(process.cwd(), "public", thumbnail))).toBe(true);
   });
 
   it("should be marked as featured project", () => {

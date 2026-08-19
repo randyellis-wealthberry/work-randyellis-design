@@ -44,9 +44,9 @@ export function WireframeCard({
         data-testid="wireframe-card"
         data-animation-delay={animationDelay}
         aria-label="Wireframe card with missing data"
-        className={`rounded-lg border border-gray-200 bg-gray-50 p-4 dark:border-gray-800 dark:bg-gray-900 ${className}`}
+        className={`rounded-lg border border-zinc-200 bg-zinc-50 p-4 dark:border-zinc-800 dark:bg-zinc-900 ${className}`}
       >
-        <div className="text-center text-gray-500">
+        <div className="text-center text-zinc-500 dark:text-zinc-400">
           <p>Wireframe data unavailable</p>
         </div>
       </div>
@@ -59,7 +59,7 @@ export function WireframeCard({
         data-testid="wireframe-card"
         data-animation-delay={animationDelay}
         aria-label={`Wireframe: ${wireframe.title}`}
-        className={`group relative h-full transform overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-all transition-transform duration-300 hover:shadow-lg focus:ring-2 focus:ring-blue-500 focus:outline-none dark:border-gray-800 dark:bg-gray-900 ${className} `}
+        className={`group relative h-full transform overflow-hidden rounded-lg border border-zinc-200 bg-white shadow-sm transition-all transition-transform duration-300 hover:shadow-lg focus:ring-2 focus:ring-blue-500 focus:outline-none dark:border-zinc-800 dark:bg-zinc-900 ${className} `}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{
@@ -70,14 +70,14 @@ export function WireframeCard({
         tabIndex={0}
       >
         {/* Image Container */}
-        <div className="relative aspect-[4/3] bg-gray-100 dark:bg-gray-800">
+        <div className="relative aspect-[4/3] bg-zinc-100 dark:bg-zinc-800">
           {imageLoading && (
             <div
               data-testid="image-loading-skeleton"
-              className="absolute inset-0 animate-pulse bg-gray-200 dark:bg-gray-700"
+              className="absolute inset-0 animate-pulse bg-zinc-200 dark:bg-zinc-700"
             >
               <div className="flex h-full w-full items-center justify-center">
-                <div className="h-8 w-8 animate-spin rounded-full border-2 border-gray-300 border-t-blue-500" />
+                <div className="h-8 w-8 animate-spin rounded-full border-2 border-zinc-300 border-t-blue-500 dark:border-zinc-600" />
               </div>
             </div>
           )}
@@ -85,9 +85,11 @@ export function WireframeCard({
           {imageError ? (
             <div
               data-testid="image-error-state"
-              className="absolute inset-0 flex flex-col items-center justify-center bg-gray-100 dark:bg-gray-800"
+              className="absolute inset-0 flex flex-col items-center justify-center bg-zinc-100 dark:bg-zinc-800"
             >
-              <p className="mb-2 text-sm text-gray-500">Failed to load image</p>
+              <p className="mb-2 text-sm text-zinc-500 dark:text-zinc-400">
+                Failed to load image
+              </p>
               <button
                 onClick={handleRetry}
                 className="rounded bg-blue-500 px-3 py-1 text-xs text-white transition-colors hover:bg-blue-600"
@@ -113,9 +115,9 @@ export function WireframeCard({
           ) : (
             <div
               data-testid="placeholder-image"
-              className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-800"
+              className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-zinc-200 to-zinc-300 dark:from-zinc-700 dark:to-zinc-800"
             >
-              <div className="text-center text-gray-400 dark:text-gray-500">
+              <div className="text-center text-zinc-400 dark:text-zinc-500">
                 <div className="mx-auto mb-2 h-12 w-12 opacity-50">
                   <svg fill="currentColor" viewBox="0 0 20 20">
                     <path
@@ -133,12 +135,12 @@ export function WireframeCard({
 
         {/* Content */}
         <div className="space-y-3 p-4">
-          <h3 className="text-sm leading-tight font-semibold text-gray-900 dark:text-white">
+          <h3 className="text-sm leading-tight font-semibold text-zinc-900 dark:text-white">
             {wireframe.title}
           </h3>
 
           {wireframe.features && wireframe.features.length > 0 && (
-            <ul className="space-y-1 text-xs text-gray-600 dark:text-gray-400">
+            <ul className="space-y-1 text-xs text-zinc-600 dark:text-zinc-400">
               {wireframe.features.map((feature, idx) => (
                 <li key={idx} className="flex items-start space-x-2">
                   <span className="mt-2 h-1 w-1 flex-shrink-0 rounded-full bg-blue-500" />

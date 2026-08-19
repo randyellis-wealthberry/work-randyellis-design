@@ -19,11 +19,9 @@ import {
   ChevronUp,
   GraduationCap,
 } from "lucide-react";
-import { getEmail } from "@/lib/data";
 import AvatarCircularText from "@/components/ui/avatar-circular-text";
 import { testimonials } from "@/lib/data/testimonials";
-import { BOOKING_URL } from "@/lib/constants";
-import { trackResumeDownload } from "@/lib/analytics";
+import { CTASection } from "@/components/ui/cta-section";
 
 const achievements = [
   {
@@ -703,50 +701,7 @@ export default function AboutClient() {
       </motion.section>
 
       {/* Contact CTA */}
-      <motion.section
-        className="space-y-6 py-8 text-center"
-        variants={VARIANTS_SECTION}
-        transition={TRANSITION_SECTION}
-      >
-        <ScrambleSectionTitle
-          as="h2"
-          className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100"
-        >
-          Let&apos;s Build Something Amazing
-        </ScrambleSectionTitle>
-        <p className="mx-auto max-w-2xl text-zinc-600 dark:text-zinc-400">
-          Interested in collaborating on AI-powered products or discussing
-          design leadership? I&apos;m always excited to connect with fellow
-          innovators and explore new opportunities.
-        </p>
-        <div className="flex flex-wrap justify-center gap-3">
-          <a
-            href={BOOKING_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-lg bg-zinc-900 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-zinc-700 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-200"
-          >
-            Book a 30-min call
-            <ExternalLink className="h-4 w-4" />
-          </a>
-          <a
-            href={`mailto:${getEmail()}`}
-            className="inline-flex items-center gap-2 rounded-lg border border-zinc-300 px-6 py-3 text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800"
-          >
-            Email me
-            <ExternalLink className="h-4 w-4" />
-          </a>
-          <a
-            href="/randy-ellis-resume.pdf"
-            download
-            onClick={() => trackResumeDownload()}
-            className="inline-flex items-center gap-2 rounded-lg border border-zinc-300 px-6 py-3 text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800"
-          >
-            Résumé (PDF)
-            <ExternalLink className="h-4 w-4" />
-          </a>
-        </div>
-      </motion.section>
+      <CTASection />
     </motion.main>
   );
 }

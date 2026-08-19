@@ -350,15 +350,15 @@ const ProjectCard = memo(function ProjectCard({
 export default function NagarroClientPage() {
   const [celebrationMode, setCelebrationMode] = useState(false);
   const [, setGlobalCelebrationCount] = useState(0);
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [, setKonamiActivated] = useState(false);
 
   // Respect user's motion preferences
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setPrefersReducedMotion(mediaQuery.matches);
 
     const handleChange = (e: MediaQueryListEvent) => {
-      setPrefersReducedMotion(e.matches);
+      // Motion preference tracking for future use
+      console.debug("Motion preference:", e.matches);
     };
 
     mediaQuery.addEventListener("change", handleChange);
@@ -535,10 +535,10 @@ export default function NagarroClientPage() {
               data-cursor-hover
             >
               <Image
-                src="/projects/nagarro/nagarro-logo.png"
+                src="/projects/nagarro/nagarro-logo.webp"
                 alt="Nagarro company logo - Global digital engineering leader"
                 width={800}
-                height={400}
+                height={800}
                 className="mx-auto w-full max-w-2xl rounded-xl shadow-2xl dark:shadow-blue-500/20"
                 priority
               />
