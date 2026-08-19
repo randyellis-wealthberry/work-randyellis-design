@@ -33,6 +33,7 @@ import {
 } from "@/lib/analytics";
 import { FeatureFlagDemo } from "@/components/feature-flag-demo";
 import { TextGradientScroll } from "@/components/ui/text-gradient-scroll";
+import { LetsChatButton } from "@/components/ui/lets-chat-dialog";
 import { BOOKING_URL } from "@/lib/constants";
 import { testimonials } from "@/lib/data/testimonials";
 import { Card, CardContent } from "@/components/ui/card";
@@ -731,6 +732,25 @@ export default function Personal() {
           </Link>
         </div>
         <div className="flex flex-col space-y-2">
+          <div
+            data-testid="next-journey-banner"
+            className="rounded-2xl border-2 border-dashed border-zinc-300 bg-transparent p-4 dark:border-zinc-700"
+          >
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <h4 className="font-normal dark:text-zinc-100">
+                  Looking for my next journey
+                </h4>
+                <p className="text-zinc-500 dark:text-zinc-400">
+                  Open to Head of Product / Design roles and fractional
+                  engagements. Let&apos;s chat.
+                </p>
+              </div>
+              <LetsChatButton className="shrink-0">
+                Let&apos;s chat
+              </LetsChatButton>
+            </div>
+          </div>
           {WORK_EXPERIENCE.map((job) => (
             <a
               className="relative overflow-hidden rounded-2xl bg-zinc-300/30 p-[1px] dark:bg-zinc-600/30"
