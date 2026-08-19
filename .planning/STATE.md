@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Case-Study Depth
 status: executing
-stopped_at: context exhaustion at 75% (2026-08-18)
-last_updated: "2026-08-18T23:15:05.807Z"
-last_activity: 2026-08-18 -- Phase 09 execution started
+stopped_at: Phase 6 UI-SPEC approved
+last_updated: "2026-08-19T23:04:02.297Z"
+last_activity: 2026-08-19 -- Phase 06 planning complete
 progress:
   total_phases: 6
   completed_phases: 1
-  total_plans: 7
+  total_plans: 8
   completed_plans: 3
   percent: 17
 ---
@@ -27,8 +27,8 @@ See: .planning/PROJECT.md (updated 2026-08-15 after v1.0 milestone)
 
 Phase: 09 (cross-surface-verification) — EXECUTING
 Plan: 1 of 5
-Status: Executing Phase 09
-Last activity: 2026-08-18 -- Phase 09 execution started
+Status: Ready to execute
+Last activity: 2026-08-19 -- Phase 06 planning complete
 
 Progress: [█████░░░░░] 50%
 
@@ -102,10 +102,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-08-18T23:15:05.796Z
-Stopped at: context exhaustion at 75% (2026-08-18)
-Resume file: None
-Note: local branch `wealthberry` holds 2 unmerged commits (WealthBerry AI estate project data, hydration fix) — not part of v2.0; rebase later if wanted
-
----
-*Last updated: 2026-08-15 — v2.0 roadmap created*
+Last session: 2026-08-19T22:37:59.613Z
+Stopped at: Phase 6 UI-SPEC approved
+Resume file: .planning/phases/06-narrative-template-data-model/06-UI-SPEC.md
