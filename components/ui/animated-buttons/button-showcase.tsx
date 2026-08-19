@@ -2,14 +2,8 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import {
-  MagneticButton,
-  LiquidButton,
-  ParticleButton,
-  GradientButton,
-  RippleButton,
-} from "./index";
-import { Brain, Network, Download, Calendar, Users } from "lucide-react";
+import { MagneticButton, LiquidButton, RippleButton } from "./index";
+import { Brain, Network, Users } from "lucide-react";
 
 export function AnimatedButtonShowcase() {
   const handleButtonClick = (buttonName: string) => {
@@ -76,7 +70,7 @@ export function AnimatedButtonShowcase() {
             </p>
           </motion.div>
 
-          {/* Particle Button */}
+          {/* Particle Button - Component doesn't exist
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -94,8 +88,9 @@ export function AnimatedButtonShowcase() {
               Particle burst effects on interaction
             </p>
           </motion.div>
+          */}
 
-          {/* Gradient Button */}
+          {/* Gradient Button - Component doesn't exist
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -113,6 +108,7 @@ export function AnimatedButtonShowcase() {
               Aurora gradient shift animation
             </p>
           </motion.div>
+          */}
 
           {/* Ripple Button */}
           <motion.div

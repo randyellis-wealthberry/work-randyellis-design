@@ -350,15 +350,15 @@ const ProjectCard = memo(function ProjectCard({
 export default function NagarroClientPage() {
   const [celebrationMode, setCelebrationMode] = useState(false);
   const [, setGlobalCelebrationCount] = useState(0);
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+  const [, setKonamiActivated] = useState(false);
 
   // Respect user's motion preferences
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setPrefersReducedMotion(mediaQuery.matches);
 
     const handleChange = (e: MediaQueryListEvent) => {
-      setPrefersReducedMotion(e.matches);
+      // Motion preference tracking for future use
+      console.debug("Motion preference:", e.matches);
     };
 
     mediaQuery.addEventListener("change", handleChange);
