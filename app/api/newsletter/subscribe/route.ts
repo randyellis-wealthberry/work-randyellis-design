@@ -133,6 +133,18 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Send welcome email via Resend (optional - don't fail if this fails)
+    if (process.env.RESEND_API_KEY) {
+      try {
+        const { sendWelcomeEmail } = await import("@/lib/email");
+        await sendWelcomeEmail({ email, name: firstName });
+        console.log(`Welcome email sent via Resend to: ${email}`);
+      } catch (emailError) {
+        console.error("Resend welcome email error:", emailError);
+        // Don't fail the request if welcome email fails
+      }
+    }
+
     // Trigger Zapier webhook (optional - don't fail if this fails)
     if (process.env.ZAPIER_WEBHOOK_URL) {
       try {
