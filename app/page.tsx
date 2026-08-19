@@ -39,6 +39,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ClientLogos } from "@/components/client-logos";
 import { CalButton } from "@/components/booking/cal-embed";
+import { BuyMeACoffeeButton } from "@/components/ui/buy-me-a-coffee";
 import { CTASection } from "@/components/ui/cta-section";
 
 const VARIANTS_CONTAINER = {
@@ -558,6 +559,7 @@ export default function Personal() {
             >
               View work
             </Link>
+            <BuyMeACoffeeButton className="px-5 py-2.5 text-sm focus-visible:ring-offset-white dark:focus-visible:ring-offset-zinc-950" />
           </div>
         </div>
       </motion.section>

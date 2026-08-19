@@ -48,7 +48,7 @@ export function BuyMeACoffeeButton({
           className,
         )}
       >
-        <Coffee className="size-5" aria-hidden="true" />
+        <Coffee className="size-[1.25em]" aria-hidden="true" />
         {children}
       </button>
 
