@@ -5,6 +5,7 @@ status: draft
 shadcn_initialized: true
 preset: "style: default, base: radix, baseColor: zinc"
 created: 2026-08-19
+revised: 2026-08-19
 ---
 
 # Phase 6 — UI Design Contract
@@ -30,14 +31,12 @@ created: 2026-08-19
 
 ## Spacing Scale
 
-Declared values (standard Tailwind 4-point scale):
+Declared values (strict 4-point multiples only):
 
 | Token | Value | Usage |
 |-------|-------|-------|
-| 0.5 | 2px | Decorative borders |
-| 1 | 4px | Micro adjustments |
-| 1.5 | 6px | Badge gaps |
-| 2 | 8px | Compact element spacing |
+| 1 | 4px | Micro adjustments, decorative borders |
+| 2 | 8px | Compact element spacing, badge gaps |
 | 3 | 12px | Default vertical rhythm (space-y-3) |
 | 4 | 16px | Section spacing (space-y-4) |
 | 5 | 20px | Component padding mobile (p-5) |
@@ -48,9 +47,9 @@ Declared values (standard Tailwind 4-point scale):
 
 **Container widths:** max-w-4xl (896px) for content, max-w-7xl (1280px) for outer wrapper
 
-Exceptions: 6px gap (gap-1.5) for deliverable chips — chosen for visual balance, not a recurring scale token
+**No exceptions:** All spacing values are multiples of 4. Previously used 2px borders replaced with 4px (gap-1). Previously used 6px gaps replaced with 8px (gap-2).
 
-**Source:** Extracted from implemented components (decision-callout.tsx, role-narrative-section.tsx, case-study-toc.tsx, reflection-block.tsx, case-study-narrative.tsx)
+**Source:** Extracted from implemented components (decision-callout.tsx, role-narrative-section.tsx, case-study-toc.tsx, reflection-block.tsx, case-study-narrative.tsx), revised to enforce strict 4-point grid
 
 ---
 
@@ -58,26 +57,26 @@ Exceptions: 6px gap (gap-1.5) for deliverable chips — chosen for visual balanc
 
 | Role | Size | Weight | Line Height | Usage |
 |------|------|--------|-------------|-------|
-| Meta label | 12px (xs) | 400 | default | "My Role", "Key Decisions", field labels |
-| Body | 16px (base) | 400 | relaxed (1.625) | Narrative text, decision rationale |
-| Decision statement | 16px (base) | 500 | relaxed (1.625) | Decision declaration (what was chosen) |
-| TOC heading | 14px (sm) | 600 | default | "On this page" label |
-| Decision title (h3) | 20px (xl) | 600 | default | Individual decision heading |
-| Reflection heading (h2) | 24px (2xl) | 700 | default | Closing reflection |
-| Section heading (h2) | 30px (3xl) | 700 | default | "My Role", "Key Decisions" |
+| Meta label | 14px (sm) | 400 | default | "My Role", "Key Decisions", field labels (uppercase + tracking-wide for distinction) |
+| Body | 16px (base) | 400 | relaxed (1.625) | Narrative text, decision rationale, decision statements |
+| Decision title (h3) | 24px (2xl) | 700 | default | Individual decision heading |
+| Section heading (h2) | 30px (3xl) | 700 | default | "My Role", "Key Decisions", "Reflection", "On this page" |
 
 **Font families:**
 - Sans: Geist (var(--font-geist)), system-ui fallback
 - Mono: Geist Mono (var(--font-geist-mono)), ui-monospace fallback
 
 **Typography patterns:**
-- Meta labels: `text-xs tracking-wide uppercase` in muted-foreground
+- Meta labels: `text-sm tracking-wide uppercase` in muted-foreground (was text-xs, now consolidated to 14px)
 - Section headings: ScrambleSectionTitle component (h2/h3) with hover scramble effect
 - Body prose: `text-base leading-relaxed` in foreground or muted-foreground
+- TOC heading: same 30px h2 treatment via ScrambleSectionTitle (was 14px, now consolidated)
 
-**Note:** Template specifies "exactly 2 weights" but Phase 6 implementation uses 4 (400, 500, 600, 700) to establish proper typographic hierarchy across decision components. Primary weights: 400 (body) + 600/700 (headings).
+**Weights consolidated:** Only 400 (body/labels) and 700 (all headings). Previously used weight 500 (decision statements) and 600 (decision titles, TOC heading) replaced with 400 and 700 respectively. Emphasis achieved through size and color contrast instead of intermediate weights.
 
-**Source:** component implementation + CONTEXT.md D-12 (existing primitives only)
+**Sizes consolidated:** Reduced from 6 sizes to 4. Removed 12px (meta labels now 14px with uppercase styling), merged 20px decision titles into 24px tier.
+
+**Source:** component implementation + CONTEXT.md D-12 (existing primitives only), revised to meet typography dimension limits
 
 ---
 
