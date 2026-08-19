@@ -529,12 +529,10 @@ export default function Personal() {
           <p className="mb-5 text-3xl font-semibold tracking-tight text-zinc-900 sm:text-4xl dark:text-zinc-50">
             Design leader who ships AI products.
           </p>
-          <TextGradientScroll
-            text="I turn startups into design-led organizations — and write the code to prove it."
-            type="letter"
-            textOpacity="soft"
-            className="max-w-2xl text-base leading-snug tracking-tight text-zinc-600 dark:text-zinc-400"
-          />
+          <p className="max-w-2xl text-base leading-snug tracking-tight text-zinc-600 dark:text-zinc-400">
+            I turn startups into design-led organizations — and write the code
+            to prove it.
+          </p>
           <div className="mt-6 flex flex-wrap gap-2">
             <Badge variant="secondary" className="text-sm">
               20 years in design
