@@ -45,7 +45,7 @@ export default function TestResultsDemo() {
     <div className="container mx-auto max-w-4xl px-4 py-8">
       <div className="mb-8">
         <h1 className="mb-4 text-3xl font-bold">Test Results Component Demo</h1>
-        <p className="mb-6 text-gray-600">
+        <p className="mb-6 text-zinc-600 dark:text-zinc-400">
           This demo showcases the TestResults component with different status
           types: pending, error, and success states. Each result can include
           expandable details.
@@ -54,9 +54,9 @@ export default function TestResultsDemo() {
 
       <TestResults results={mockTestResults} />
 
-      <div className="mt-12 rounded-lg bg-gray-50 p-6">
+      <div className="mt-12 rounded-lg bg-zinc-50 p-6 dark:bg-zinc-900">
         <h2 className="mb-4 text-xl font-semibold">Usage Example</h2>
-        <pre className="overflow-x-auto rounded border bg-white p-4 text-sm">
+        <pre className="overflow-x-auto rounded border border-zinc-200 bg-white p-4 text-sm dark:border-zinc-800 dark:bg-zinc-950">
           {`import { TestResults, type TestResult } from "@/components/ui/test-results";
 
 const results: TestResult[] = [

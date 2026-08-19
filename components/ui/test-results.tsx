@@ -146,7 +146,7 @@ const TestResultItem = React.memo(({ result }: TestResultItemProps) => {
 
     return (
       <pre
-        className="max-h-96 overflow-auto text-xs whitespace-pre-wrap text-gray-800"
+        className="max-h-96 overflow-auto text-xs whitespace-pre-wrap text-zinc-800 dark:text-zinc-200"
         dangerouslySetInnerHTML={{ __html: highlightJson(content) }}
       />
     );
@@ -174,7 +174,7 @@ const TestResultItem = React.memo(({ result }: TestResultItemProps) => {
   return (
     <div
       className={cn(
-        "border-l-4 bg-white p-4 shadow-sm",
+        "border-l-4 bg-white p-4 shadow-sm dark:bg-zinc-900",
         borderColors[result.status],
       )}
     >
@@ -183,14 +183,18 @@ const TestResultItem = React.memo(({ result }: TestResultItemProps) => {
         <div className="flex-1 space-y-2">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <h3 className="font-medium text-gray-900">{result.title}</h3>
+              <h3 className="font-medium text-zinc-900 dark:text-zinc-100">
+                {result.title}
+              </h3>
               <StatusBadge status={result.status} />
             </div>
           </div>
 
-          <p className="text-sm text-gray-600">{result.message}</p>
+          <p className="text-sm text-zinc-600 dark:text-zinc-400">
+            {result.message}
+          </p>
 
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-zinc-500 dark:text-zinc-400">
             {formatTimestamp(result.timestamp)}
           </p>
 
@@ -225,13 +229,13 @@ const TestResultItem = React.memo(({ result }: TestResultItemProps) => {
           role="region"
           aria-label="Additional details"
         >
-          <div className="rounded-md bg-gray-50 p-3">
+          <div className="rounded-md bg-zinc-50 p-3 dark:bg-zinc-800">
             {(() => {
               const formatted = formatDetails(result.details!);
               return formatted.isJson ? (
                 <JsonHighlighter content={formatted.content} />
               ) : (
-                <pre className="max-h-96 overflow-auto text-xs whitespace-pre-wrap text-gray-800">
+                <pre className="max-h-96 overflow-auto text-xs whitespace-pre-wrap text-zinc-800 dark:text-zinc-200">
                   {formatted.content}
                 </pre>
               );
@@ -251,8 +255,10 @@ export const TestResults = React.memo(
     if (!results || results.length === 0) {
       return (
         <div className={cn("space-y-4", className)}>
-          <h2 className="text-2xl font-bold text-gray-900">Test Results</h2>
-          <div className="py-8 text-center text-gray-500">
+          <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">
+            Test Results
+          </h2>
+          <div className="py-8 text-center text-zinc-500 dark:text-zinc-400">
             No test results available
           </div>
         </div>
@@ -261,13 +267,16 @@ export const TestResults = React.memo(
 
     return (
       <div className={cn("space-y-4", className)}>
-        <h2 className="text-2xl font-bold text-gray-900">Test Results</h2>
-        <div className="space-y-0 overflow-hidden rounded-lg border border-gray-200">
+        <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">
+          Test Results
+        </h2>
+        <div className="space-y-0 overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-800">
           {results.map((result, index) => (
             <div
               key={result.id}
               className={cn(
-                index !== results.length - 1 && "border-b border-gray-200",
+                index !== results.length - 1 &&
+                  "border-b border-zinc-200 dark:border-zinc-800",
               )}
             >
               <TestResultItem result={result} />

@@ -31,15 +31,15 @@ export default function OfflinePage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-black px-4 text-white">
+    <div className="flex min-h-screen items-center justify-center bg-white px-4 text-zinc-900 dark:bg-zinc-950 dark:text-white">
       <div className="mx-auto max-w-md text-center">
         <div className="mb-8">
           <Wifi
-            className="mx-auto mb-4 h-16 w-16 text-gray-400"
+            className="mx-auto mb-4 h-16 w-16 text-zinc-400 dark:text-zinc-500"
             strokeDasharray="4 4"
           />
           <h1 className="mb-2 text-2xl font-bold">You&apos;re offline</h1>
-          <p className="mb-6 text-gray-400">
+          <p className="mb-6 text-zinc-600 dark:text-zinc-400">
             It looks like you&apos;ve lost your internet connection. Don&apos;t
             worry, you can still browse previously visited pages.
           </p>
@@ -48,7 +48,7 @@ export default function OfflinePage() {
         <div className="space-y-4">
           <button
             onClick={handleRefresh}
-            className="flex w-full items-center justify-center gap-2 rounded-lg bg-white px-6 py-3 font-medium text-black transition-colors hover:bg-gray-100"
+            className="flex w-full items-center justify-center gap-2 rounded-lg bg-zinc-900 px-6 py-3 font-medium text-white transition-colors hover:bg-zinc-700 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200"
             aria-label="Try again"
           >
             <RefreshCw className="h-4 w-4" />
@@ -57,25 +57,25 @@ export default function OfflinePage() {
 
           <button
             onClick={handleGoHome}
-            className="w-full rounded-lg border border-gray-600 px-6 py-3 font-medium text-white transition-colors hover:bg-gray-900"
+            className="w-full rounded-lg border border-zinc-300 px-6 py-3 font-medium text-zinc-900 transition-colors hover:bg-zinc-100 dark:border-zinc-600 dark:text-white dark:hover:bg-zinc-900"
             aria-label="Go to homepage"
           >
             Go to homepage
           </button>
         </div>
 
-        <div className="mt-8 rounded-lg bg-gray-900 p-4">
-          <h2 className="mb-2 text-sm font-medium text-gray-300">
+        <div className="mt-8 rounded-lg bg-zinc-100 p-4 dark:bg-zinc-900">
+          <h2 className="mb-2 text-sm font-medium text-zinc-700 dark:text-zinc-300">
             Offline features
           </h2>
-          <ul className="space-y-1 text-sm text-gray-400">
+          <ul className="space-y-1 text-sm text-zinc-600 dark:text-zinc-400">
             <li>• Browse previously visited pages</li>
             <li>• View cached project details</li>
             <li>• Access offline-ready content</li>
           </ul>
         </div>
 
-        <div className="mt-6 text-xs text-gray-500">
+        <div className="mt-6 text-xs text-zinc-500">
           <p>This app works offline thanks to Progressive Web App technology</p>
         </div>
       </div>
