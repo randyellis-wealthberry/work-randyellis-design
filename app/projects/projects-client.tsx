@@ -52,7 +52,7 @@ function ProjectThumbnail({ project }: { project: (typeof PROJECTS)[0] }) {
   // Special handling for Nagarro project - always show the logo
   if (
     project.slug === "nagarro" &&
-    project.thumbnail?.includes("nagarro-logo.png")
+    project.thumbnail?.includes("nagarro-logo")
   ) {
     return (
       <div className="aspect-video overflow-hidden">

@@ -967,7 +967,7 @@ export const PROJECTS: Project[] = [
     ],
     link: "https://www.nagarro.com",
     video: "", // No video available for this project - falls back to thumbnail
-    thumbnail: "/projects/nagarro/nagarro-logo.png",
+    thumbnail: "/projects/nagarro/nagarro-logo.webp",
     images: [
       "/projects/nagarro/digital-accessibility-strategy.svg",
       "/projects/nagarro/inclusive-design-keynote.svg",
