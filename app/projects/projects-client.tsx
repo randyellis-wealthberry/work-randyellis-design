@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ScrambleSectionTitle } from "@/components/ui/scramble-section-title";
 import Image from "next/image";
 import { ExternalLink, Github, Calendar, Users } from "lucide-react";
+import { CTASection } from "@/components/ui/cta-section";
 import {
   Card,
   CardContent,
@@ -372,6 +373,9 @@ export default function ProjectsClient() {
           ))}
         </motion.div>
       </motion.section>
+
+      {/* Contact CTA */}
+      <CTASection />
     </motion.main>
   );
 }
