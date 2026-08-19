@@ -30,11 +30,12 @@ describe("Waffle grid card — data shape", () => {
     expect(waffle?.name).toBe("Waffle");
   });
 
-  it("the waffle entry's thumbnail is the app dashboard and the file exists", () => {
+  it("the waffle entry's thumbnail is the brand illustration and the file exists", () => {
     const waffle = PROJECTS.find((p) => p.slug === "waffle");
-    // Was screenshot.png — a marketing mock. Randy swapped it for the real
-    // signed-in dashboard on 2026-08-16; the grid card should show the product.
-    expect(waffle?.thumbnail).toBe("/projects/waffle/dashboard.png");
+    // History: screenshot.png (marketing mock) → dashboard.png (2026-08-16,
+    // real signed-in dashboard) → hero-thumbnail.webp (2026-08-18, orange
+    // "WAFFLE" brand illustration). dashboard.png stays in the gallery.
+    expect(waffle?.thumbnail).toBe("/projects/waffle/hero-thumbnail.webp");
     expect(existsSync(join(process.cwd(), "public", waffle!.thumbnail!))).toBe(
       true,
     );
