@@ -58,7 +58,7 @@ export function Header() {
             className="whitespace-nowrap text-zinc-600 dark:text-zinc-500"
             delay={0.5}
           >
-            Generative AI & Product Design Engineer
+            Taste, made executable.
           </TextEffect>
         </div>
       </header>

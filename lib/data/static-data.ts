@@ -3,19 +3,6 @@ import { WorkExperience, BlogPost, SocialLink } from "./types";
 // Static data that's commonly used across pages
 export const WORK_EXPERIENCE: WorkExperience[] = [
   {
-    company: "Wealthberry Labs",
-    title: "Head of Product",
-    start: "Oct 2022",
-    end: "Present",
-    link: "https://www.buildyourlegacywithai.com",
-    id: "work1",
-    description: [
-      "Leading product strategy for wealth management platform serving HNW clients",
-      "Built design team and established design systems across multiple products",
-      "Increased user engagement by 150% through data-driven UX improvements",
-    ],
-  },
-  {
     company: "Chameleon Collective",
     title: "Fractional VP, Design",
     start: "Oct 2022",
