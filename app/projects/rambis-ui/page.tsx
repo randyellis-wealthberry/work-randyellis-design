@@ -1,41 +1,28 @@
 import { Metadata } from "next";
-import RambisClientPage from "./rambis-client";
 import { PROJECTS } from "@/lib/data/projects";
+import {
+  projectMetadata,
+  projectCreativeWorkProps,
+  projectBreadcrumbItems,
+} from "@/lib/metadata";
+import {
+  CreativeWorkStructuredData,
+  BreadcrumbStructuredData,
+} from "@/components/seo/structured-data";
+import RambisClientPage from "./rambis-client";
 
-// Get the Rambis UI project data
-const rambisProject = PROJECTS.find((p) => p.id === "rambis-ui")!;
+const project = PROJECTS.find((p) => p.slug === "rambis-ui")!;
 
-export const metadata: Metadata = {
-  title: `${rambisProject.name} Case Study | ${rambisProject.subtitle}`,
-  description: rambisProject.description,
-  alternates: {
-    canonical: "/projects/rambis-ui",
-  },
-  openGraph: {
-    title: `${rambisProject.name} Case Study | Modern Design System Innovation`,
-    description: rambisProject.description,
-    type: "article",
-    images: [
-      {
-        url: rambisProject.thumbnail || "/projects/rambis-ui/hero-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: `${rambisProject.name} design system showcase`,
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: `${rambisProject.name} Case Study | Design System Excellence`,
-    description: rambisProject.description,
-    images: [rambisProject.thumbnail || "/projects/rambis-ui/hero-image.jpg"],
-  },
-};
+export const metadata: Metadata = projectMetadata(project);
 
 export default function RambisUICaseStudy() {
   return (
-    <div className="container mx-auto max-w-6xl px-4 py-16">
-      <RambisClientPage />
-    </div>
+    <>
+      <CreativeWorkStructuredData {...projectCreativeWorkProps(project)} />
+      <BreadcrumbStructuredData items={projectBreadcrumbItems(project)} />
+      <div className="container mx-auto max-w-6xl px-4 py-16">
+        <RambisClientPage />
+      </div>
+    </>
   );
 }
