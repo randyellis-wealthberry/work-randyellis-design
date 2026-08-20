@@ -189,11 +189,6 @@ export function PersonStructuredData() {
         name: "AI Design System Generator",
         description: "Open-source tool for generating design systems using AI",
       },
-      {
-        "@type": "Project",
-        name: "METIS: AI Business Strategy Agent",
-        description: "AI-powered business strategy tool for product designers",
-      },
     ],
   };
 

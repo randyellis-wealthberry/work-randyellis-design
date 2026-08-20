@@ -7,7 +7,7 @@ export const WORK_EXPERIENCE: WorkExperience[] = [
     title: "Fractional VP, Design",
     start: "Oct 2022",
     end: "Present",
-    link: "https://www.chameleon.co",
+    link: "https://chameleoncollective.com",
     id: "work2",
     description: [
       "Partner with startups and brands as embedded fractional design executive",
