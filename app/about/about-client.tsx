@@ -53,7 +53,7 @@ const achievements = [
 const experience = [
   {
     company: "Chameleon Collective",
-    companyUrl: "https://www.chameleon.co",
+    companyUrl: "https://chameleoncollective.com",
     title: "Fractional VP, Design",
     period: "Oct 2022 - Present",
     description:

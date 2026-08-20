@@ -4,8 +4,8 @@ milestone: v2.0
 milestone_name: Case-Study Depth
 status: executing
 stopped_at: context exhaustion at 76% (2026-08-19)
-last_updated: "2026-08-19T23:06:26.112Z"
-last_activity: 2026-08-19 -- Phase 06 planning complete
+last_updated: "2026-08-20T19:35:16.623Z"
+last_activity: 2026-08-20 -- Phase 09 execution started
 progress:
   total_phases: 6
   completed_phases: 1
@@ -27,8 +27,8 @@ See: .planning/PROJECT.md (updated 2026-08-15 after v1.0 milestone)
 
 Phase: 09 (cross-surface-verification) — EXECUTING
 Plan: 1 of 5
-Status: Ready to execute
-Last activity: 2026-08-19 -- Phase 06 planning complete
+Status: Executing Phase 09
+Last activity: 2026-08-20 -- Phase 09 execution started
 
 Progress: [█████░░░░░] 50%
 

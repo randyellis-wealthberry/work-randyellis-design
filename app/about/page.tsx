@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "About Randy Ellis - Head of Product & Fractional CDO",
     description:
-      "The journey of a design leader who ships AI products: 2.5M+ users impacted, 4 awards won, $50M value delivered. See how it all started.",
+      "The journey of a design leader who ships AI products: 2.5M+ users impacted, 4 awards won, $50M product value delivered. See how it all started.",
     url: "/about",
   },
 };
