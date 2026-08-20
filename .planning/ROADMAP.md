@@ -30,8 +30,8 @@ with every claim written from Randy's firsthand account and cross-surface-consis
 
 - [x] **Phase 5: Foundation & Cleanup** - Fix the type-import blocker, delete duplicate/orphaned code, audit deck coverage before any content is written, and fold in unrelated tech debt (completed 2026-08-15)
 - [x] **Phase 6: Narrative Template & Data Model** - Build and pilot the decisions-with-rationale narrative components on growit before mass rollout
-- [ ] **Phase 7: Bespoke Convergence** - Insert the proven narrative components into the 4 bespoke standalone project pages
-- [ ] **Phase 8: Content Rewrite & Credibility Guardrails** - Rewrite all 7 case studies first-person and decision-driven, with credit-attribution and NDA guardrails enforced as acceptance criteria
+- [x] **Phase 7: Bespoke Convergence** - Insert the proven narrative components into the 4 bespoke standalone project pages (completed 2026-08-15)
+- [x] **Phase 8: Content Rewrite & Credibility Guardrails** - Rewrite all 7 case studies first-person and decision-driven, with credit-attribution and NDA guardrails enforced as acceptance criteria (completed 2026-08-16)
 - [ ] **Phase 9: Cross-Surface Verification** - Reconcile visible copy, metadata, OG images, and JSON-LD across every touched project
 
 ## Phase Details
@@ -142,8 +142,8 @@ Plans:
 | 4. Waffle Product Page | v1.0 | 3/3 | Complete | 2026-08-15 |
 | 5. Foundation & Cleanup | v2.0 | 2/2 | Complete   | 2026-08-15 |
 | 6. Narrative Template & Data Model | v2.0 | 1/1 | Complete | 2026-08-15 |
-| 7. Bespoke Convergence | v2.0 | 1/1 | Structural wiring complete (content pending Phase 8) | 2026-08-15 |
-| 8. Content Rewrite & Credibility Guardrails | v2.0 | 0/TBD | Not started | - |
+| 7. Bespoke Convergence | v2.0 | 1/1 | Complete | 2026-08-15 |
+| 8. Content Rewrite & Credibility Guardrails | v2.0 | pre-GSD (traced) | Complete | 2026-08-16 |
 | 9. Cross-Surface Verification | v2.0 | 4/5 | In Progress|  |
 | 10. SEO Remediation | v2.0 | 0/TBD | Not started | - |
 
