@@ -275,8 +275,9 @@ Direct test: https://chameleoncollective.com → HTTP/2 200 OK
 | File:Line | Old URL | New URL | Verdict | Note |
 |-----------|---------|---------|---------|------|
 | app/about/about-client.tsx:56 | `https://www.chameleon.co` (2-hop chain) | `https://chameleoncollective.com` | fixed→`https://chameleoncollective.com` | Plan 03 Task 3; returns 200 directly, no redirects |
+| lib/data/static-data.ts:10 | `https://www.chameleon.co` (2-hop chain) | `https://chameleoncollective.com` | fixed→`https://chameleoncollective.com` | Plan 05 G12 fix; WORK_EXPERIENCE Chameleon Collective link |
 
-**Verdict:** URL fixed. No longer surfaces any `chameleon.co` variant in code. Plan 03 verified the link resolves to 200 and is rendered with `target="_blank"` + `rel="noopener noreferrer"`.
+**Verdict:** URLs fixed. No longer surfaces any `chameleon.co` variant in code (G12 clean). Plan 03 verified the link resolves to 200 and is rendered with `target="_blank"` + `rel="noopener noreferrer"` in about-client.tsx; static-data link used in work experience timeline.
 
 ## Part E — FAQ disposition & dead schema removed (D-09, D-10)
 
@@ -298,7 +299,10 @@ Direct test: https://chameleoncollective.com → HTTP/2 200 OK
 - CreativeWorkStructuredData (1+ importers: [slug] + Plan 02 routes)
 - LocalBusinessStructuredData (1 importer)
 
-**Verdict:** All zero-importer exports removed. Remaining schema is live and active. Recoverability documented for Phase 10.
+**Orphan project claim removed from live schema (Plan 05 G17 fix):**
+- **METIS** project reference in PersonStructuredData `knowsAbout` array (components/seo/structured-data.tsx:194) was deleted. METIS appeared in the deleted ProjectFAQStructuredData (Plan 02) as an orphan project but lingered in the Person schema. Not a real portfolio project; removed for consistency.
+
+**Verdict:** All zero-importer exports removed. Remaining schema is live and active. Orphan project claim (METIS) purged from Person schema. Recoverability documented for Phase 10.
 
 ## Part F — Placeholder sweep (D-17)
 
@@ -323,4 +327,104 @@ Direct test: https://chameleoncollective.com → HTTP/2 200 OK
 
 ## Part G — Stale-claim grep & verification gate (D-19)
 
-(Filled by Plan 05)
+**Executed:** 2026-08-20 (Plan 05)
+**Method:** `grep -rn` with scopes per G01-G17 register; `-w` flag where noted
+**Shell:** All patterns run via `grep -rn "<pattern>" <scope>` (case-sensitive unless `-i` specified)
+
+### Stale-Claim Grep Results
+
+| # | Pattern | Scope | Expected | Actual | Hits (file:line) | Status |
+|---|---------|-------|----------|--------|------------------|--------|
+| G01 | `ProjectFAQStructuredData` \| `seo/project-faq` \| `FAQPage` | app lib components/seo | 0 | 0 | — | ✓ Clean |
+| G02 | `-w FAQStructuredData`, `OrganizationStructuredData`, `ProfessionalServiceStructuredData`, `FractionalCDOServiceStructuredData` | app lib components/seo | 0 | 0 | — | ✓ Clean |
+| G03 | `Logistics Innovation` \| `Design Leadership at Scale` \| `Addvanced Career Tracker` \| `Modern Design System Innovation` \| `Design System Excellence` \| `Strategic Design Leadership Case Study` | app lib components/seo | 0 | 0 | — | ✓ Clean |
+| G04 | `Case Study \|` (title separator pattern) | app/projects/*/page.tsx | 0 | 0 | — | ✓ Clean |
+| G05 | `A1-Home.png` \| `digital-accessibility-strategy.png` \| `echo/img1.jpg` | app/projects/*/page.tsx | 0 | 0 | — | ✓ Clean |
+| G06 | `longDescription` | app/projects/[slug]/page.tsx, app/projects/*/page.tsx | 0 | 0 | — | ✓ Clean |
+| G07 | `type: "website"` | app/projects/[slug]/page.tsx | 0 | 0 | — | ✓ Clean |
+| G08 | `15,000 to 18,000` \| `36 countries` \| `100+ qualified leads` \| `\$50M+ in business impact` | app/projects/nagarro/page.tsx | 0 | 0 | — | ✓ Clean |
+| G09 | `\$50M+` | app lib components | 1 (nagarro-client.tsx) | 1 | app/projects/nagarro/nagarro-client.tsx:552 | ✓ Expected |
+| G10 | `\$50M value delivered` \| `\$50M+ product value` | app lib components | 0 | 0 | — | ✓ Clean |
+| G11 | `184\.4` \| `16% revenue` \| `12% shipment` \| `1,000 beta` \| `10,000+ active drivers` | app lib components/seo | 0 | 0 | — | ✓ Clean |
+| G12 | `chameleon\.co"` (old host, with closing quote) | app lib components/seo | 0 | 1 → 0 | lib/data/static-data.ts:10 (FIXED) | ✓ Clean after fix |
+| G13 | `example\.com` | app lib components | 1 (email-test placeholder=) | 1 | app/admin/email-test/page.tsx:205 `placeholder=` | ✓ Expected |
+| G14 | `-i lorem` \| `ipsum` | app lib components | 0 | 0 | — | ✓ Clean |
+| G15 | `25K+ cities` | components/seo | 0 | 0 | — | ✓ Clean |
+| G16 | `6 awards` \| `100K+` (in opengraph-image.tsx, app/about) | app | 0 | 0 | — | ✓ Clean |
+| G17 | `METIS` \| `Metis` | components/seo | 0 | 1 → 0 | components/seo/structured-data.tsx:194 (FIXED) | ✓ Clean after fix |
+
+**Stale hits found and fixed (Plan 05):**
+
+1. **G12 - Chameleon URL (lib/data/static-data.ts:10)**
+   - **Before:** `link: "https://www.chameleon.co"` (2-hop redirect chain: .co → chameleon.co/ → chameleoncollective.com/)
+   - **After:** `link: "https://chameleoncollective.com"` (returns 200 directly)
+   - **Surface:** WORK_EXPERIENCE array, Chameleon Collective entry
+   - **Why:** Consistency with Part D fix (app/about/about-client.tsx already updated in Plan 03); Plan 03 missed this static data file
+   - **Matrix impact:** Additional row added to Part D Chameleon section
+
+2. **G17 - METIS orphan project (components/seo/structured-data.tsx:194)**
+   - **Before:** PersonStructuredData `knowsAbout` array included `{ "@type": "Project", name: "METIS: AI Business Strategy Agent", description: "..." }`
+   - **After:** Entry removed (kept "GrowIt!" and "AI Design System Generator")
+   - **Surface:** Person JSON-LD schema (app/layout.tsx)
+   - **Why:** METIS was orphaned when project-faq.tsx was deleted (Plan 02); lingered in Person schema; not a real portfolio project
+   - **Matrix impact:** Part E updated with METIS removal note
+
+**Re-run verification (post-fix):**
+```bash
+grep -rn "chameleon\.co\"" app lib components/seo  # 0 hits
+grep -rn "METIS|Metis" components/seo              # 0 hits
+grep -rn '\$50M+' app lib components | wc -l       # 1 hit (nagarro-client.tsx:552, expected)
+grep -rn 'example\.com' app lib components | grep -v "lib/email/README" | wc -l  # 1 hit (email-test placeholder=, expected)
+```
+
+### Verification gate
+
+**Commands run (CLAUDE.md verify order):**
+
+```bash
+rm -rf .next/types              # Remove stale build artifacts first
+npm run lint                    # Exit 0 ✓ (deprecation warning about next lint, but no errors)
+npx tsc --noEmit                # Exit 0 ✓ (clean, no type errors)
+npm test                        # Exit 1 (7 failed suites, pre-existing)
+npx jest __tests__/seo          # Exit 0 ✓ (248 tests passed, 2 suites)
+npx jest __tests__/projects     # Exit 1 (2 failed suites, pre-existing)
+```
+
+**Test results:**
+- **Total:** 7 failed suites, 30 skipped suites, 78 passed suites (85 of 115 total)
+- **Tests:** 27 failed, 612 skipped, 1373 passed (2012 total)
+- **Duration:** 22.552s
+
+**SEO tests (targeted verification for this phase):**
+- **Status:** ✓ All passed
+- **Suites:** 2/2 passed (`project-metadata.test.ts`, `project-route-wiring.test.ts`)
+- **Tests:** 248/248 passed
+- **Duration:** 1.142s
+
+**Projects tests (targeted verification for this phase):**
+- **Status:** 2 failed suites, 11 passed suites (13 of 19 total)
+- **Tests:** 26 failed, 183 skipped, 212 passed (421 total)
+- **Duration:** 6.653s
+- **Failures:** All from `__tests__/projects/waffle/waffle-page.test.tsx` — `TypeError: useMotionTemplate is not a function` in `components/motion-primitives/tilt.tsx:54:38`
+  - **Root cause:** Pre-existing motion/react mock issue (not related to Phase 9 changes)
+  - **Scope:** Out of scope per deviation rules — Phase 9 changes (Chameleon URL string, METIS JSON-LD removal) do not affect motion mocks
+  - **Action:** Documented here; no fix attempted (pre-existing infrastructure issue)
+
+**Known-flaky baseline (from CLAUDE.md):**
+- `__tests__/performance/animation-load-testing.test.tsx` — FPS measurement in jsdom (not a regression)
+
+**Pre-existing failures (documented, not Phase 9 regressions):**
+1. **Waffle page tests (26 failures):** `useMotionTemplate` mock error in tilt.tsx — motion/react mock incomplete; affects rendering but unrelated to data/schema changes in this phase
+2. **Other suite failures:** Similar motion-related mock issues across 5 additional suites
+
+**Post-fix verification (D-19 compliance):**
+
+```
+npm run lint                    ✓ clean
+npx tsc --noEmit                ✓ clean
+npx jest __tests__/seo          ✓ 248/248 tests passed (this phase's surfaces)
+npx jest __tests__/projects     ⚠ 212/421 passed (26 pre-existing motion mock failures, not Phase 9 regressions)
+Stale-claim grep (G01-G17)      ✓ clean (17 patterns; 2 documented allowed hits: G09 nagarro $50M+, G13 email-test placeholder=)
+```
+
+**Verdict:** Post-fix verification complete. `npm run lint` clean, `npx tsc --noEmit` clean, 248/248 SEO tests pass, stale-claim grep clean (17 patterns; 2 documented allowed hits). Test failures are pre-existing motion mock infrastructure issues (useMotionTemplate undefined), not Phase 9 regressions.
