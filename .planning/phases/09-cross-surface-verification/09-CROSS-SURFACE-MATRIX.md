@@ -103,6 +103,95 @@ Grid surfaces shared by all: app/projects/projects-client.tsx (renders PROJECTS 
 | LEDGERIQ-B01 | Badge: "Composite Case Study" | agree | agree | — | — | agree | lib/data/projects.ts:398 isComposite: true; grid card + detail page render badge; metadata does not carry it; disclosure in roleNarrative line 520 |
 | LEDGERIQ-N01 | Note: metrics never source-verified | — | — | — | — | open | STATE.md deferred item (05-CONTEXT); not a surface claim but a verification note; listed in Part C |
 
+### addvanced
+
+| Claim ID | Claim | Visible copy | Metadata | OG image | JSON-LD | Verdict | Note |
+|---|---|---|---|---|---|---|---|
+| ADDVANCED-T01 | Title: "Addvance | AI-Enhanced Career Intelligence Platform" | agree | agree | — | agree | agree | lib/data/projects.ts:558-559 name + subtitle; Plan 02 fixed from "Addvanced Career Tracker Case Study" |
+| ADDVANCED-T02 | Description (short) | agree | agree | — | agree | agree | lib/data/projects.ts:561-562 description (172 chars) |
+| ADDVANCED-T03 | og:type | — | article | — | — | agree | Plan 02 fixed from hand-typed metadata |
+| ADDVANCED-T04 | og:image | — | A0-Addvanced Splash Screen.png | A0-Addvanced Splash Screen.png | — | agree | lib/data/projects.ts:583 thumbnail (654×1414 portrait, space in filename); listed in Part C as open (thumbnail choice) |
+| ADDVANCED-T05 | Breadcrumb | — | — | — | Home › Projects › Addvance | agree | Plan 02 already had BreadcrumbStructuredData |
+| ADDVANCED-T06 | Breadcrumb name fixed | — | — | — | fixed→"Addvance" | fixed→"Addvance" | Was "Addvanced Career Tracker"; Plan 02 fixed to match project.name |
+| ADDVANCED-R01 | Role: "Lead UX Designer" (bespoke) vs data | visible: "Lead UX Designer" | — | — | — | agree | addvanced-client uses custom text; lib/data/projects.ts role field not shown; no conflict |
+| ADDVANCED-R02 | Team size: 4 | agree | — | — | agree | agree | Derived from overview.teamMembers count |
+| ADDVANCED-R03 | Timeline: "2-week sprint (Alight Case Study)" | agree | — | — | — | agree | lib/data/projects.ts:592 timeline; no 4-digit year → dateCreated omitted from JSON-LD |
+| ADDVANCED-R04 | Timeline token: "2 weeks (Sprint)" | agree | — | — | — | agree | addvanced-client.tsx line ~768 hard-coded; matches data timeline substance |
+| ADDVANCED-M01 | Metric: Prototype Approval Rate 94% | agree | — | — | agree | agree | lib/data/projects.ts:607-610 metrics[0]; also hard-coded at client lines 188, 863 |
+| ADDVANCED-M02 | Metric: User Task Completion 91.7% | agree | — | — | agree | agree | lib/data/projects.ts:611-615 metrics[1] |
+| ADDVANCED-M03 | Metric: Mobile Usability Score 4.8/5 | agree | — | — | agree | agree | lib/data/projects.ts:616-620 metrics[2] |
+| ADDVANCED-M04 | Metric: Feature Discovery Rate 89.2% | agree | — | — | agree | agree | lib/data/projects.ts:621-625 metrics[3] |
+| ADDVANCED-M05 | Metric: User Recommendation Rate 87% | agree | — | — | agree | agree | lib/data/projects.ts:626-630 metrics[4] |
+| ADDVANCED-M06 | Metric: Sprint Delivery Success 100% | agree | — | — | agree | agree | lib/data/projects.ts:635-639 metrics[5] |
+| ADDVANCED-M07 | Metric: Stakeholder Satisfaction 4.9/5 | agree | — | — | agree | agree | lib/data/projects.ts:640-644 metrics[6] |
+| ADDVANCED-H01 | Hard-coded: 50% (deviated testers) | agree | — | — | — | agree | addvanced-client.tsx:768; visible-only claim (usability detail) |
+| ADDVANCED-H02 | Hard-coded: 60% mission unfinished | agree | — | — | — | agree | addvanced-client.tsx:781; visible-only claim (usability detail) |
+| ADDVANCED-H03 | Hard-coded: 800% higher success rate | agree | — | — | — | agree | addvanced-client.tsx:800, 834; visible-only claim (comparative metric) |
+| ADDVANCED-H04 | Hard-coded: 86%+ success rate | agree | — | — | — | agree | addvanced-client.tsx:806; visible-only claim (networking features) |
+| ADDVANCED-H05 | Hard-coded: 93+ usability scores | agree | — | — | — | agree | addvanced-client.tsx:812; visible-only claim (social intelligence) |
+| ADDVANCED-N01 | Partner: Alight Innovation Lab | agree | — | — | — | agree | lib/data/projects.ts:564 longDescription; visible in copy |
+| ADDVANCED-N02 | Location: 1871 Chicago | agree | — | — | — | agree | lib/data/projects.ts:564; visible in copy |
+
+### echo
+
+| Claim ID | Claim | Visible copy | Metadata | OG image | JSON-LD | Verdict | Note |
+|---|---|---|---|---|---|---|---|
+| ECHO-T01 | Title: "EchoDrive | Streamlining Logistics Through Digital Innovation" | agree | agree | — | agree | agree | lib/data/projects.ts name + subtitle; Plan 02 fixed from "EchoDrive Case Study | Logistics Innovation" |
+| ECHO-T02 | Description (short) | agree | agree | — | agree | agree | lib/data/projects.ts description (NDA-compliant, process/design only) |
+| ECHO-T03 | og:type | — | article | — | — | agree | Plan 02 fixed from hand-typed |
+| ECHO-T04 | og:image | — | poster.png | poster.png | — | agree | lib/data/projects.ts thumbnail |
+| ECHO-T05 | Breadcrumb | — | — | — | Home › Projects › EchoDrive | agree | Plan 02 added BreadcrumbStructuredData |
+| ECHO-T06 | dateCreated omitted | — | — | — | — | agree | Timeline "Alpha → Beta → Launch" has no 4-digit year; projectDateCreated returns undefined (D-11) |
+| ECHO-R01 | Role: (visible copy custom) vs data | visible copy custom | — | — | — | agree | echo-client uses bespoke role narrative; no conflict |
+| ECHO-R02 | Team size: (not disclosed) | — | — | — | — | — | Echo data lacks teamSize field; not rendered |
+| ECHO-R03 | Timeline: "Alpha → Beta → Launch" | agree | — | — | — | agree | lib/data/projects.ts timeline |
+| ECHO-M01 | Metric: ELD Compliance 100% | agree | — | — | agree | agree | echo-client.tsx:28 + data metrics; also hard-coded at lines 123, 303 |
+| ECHO-M02 | Metric: (other metrics removed per NDA) | pulled | pulled | pulled | pulled | pulled | CRED-08: Echo = process/design only; all business figures removed ($184.4M revenue, 16% revenue, 12% shipment, 1K beta, 10K+ drivers) |
+| ECHO-H01 | Hard-coded: "40,000+" transportation providers | agree | — | — | — | agree | echo-client.tsx:150; visible background context (Echo Global Logistics scale); not a result claim |
+| ECHO-N01 | Company: Echo Global Logistics | agree | — | — | — | agree | lib/data/projects.ts + echo-client.tsx:150; client company named |
+
+### nagarro
+
+| Claim ID | Claim | Visible copy | Metadata | OG image | JSON-LD | Verdict | Note |
+|---|---|---|---|---|---|---|---|
+| NAGARRO-T01 | Title: "Design Leadership @ Nagarro | Scaling Design Excellence Across 18,000+ Global Teams" | agree | agree | — | agree | agree | lib/data/projects.ts name + subtitle; Plan 02 fixed from "Design @Nagarro | Design Leadership at Scale" |
+| NAGARRO-T02 | Description (short) | agree | agree | — | agree | agree | lib/data/projects.ts description |
+| NAGARRO-T03 | og:type | — | article | — | — | agree | Plan 02 fixed |
+| NAGARRO-T04 | og:image | — | nagarro-logo.png | nagarro-logo.png | — | agree | lib/data/projects.ts thumbnail; listed in Part C as open (logo vs richer image) |
+| NAGARRO-T05 | Breadcrumb | — | — | — | Home › Projects › Design Leadership @ Nagarro | agree | Plan 02 added BreadcrumbStructuredData |
+| NAGARRO-R01 | Role: (bespoke visible copy) | visible copy custom | — | — | — | agree | nagarro-client uses custom narrative; no conflict |
+| NAGARRO-R02 | Team size: (global, not numbered) | — | — | — | — | — | Data lacks teamSize; Nagarro is org-level leadership role |
+| NAGARRO-R03 | Timeline: "Mar 2022 - Oct 2022" (8 months) | agree | — | — | 2022 | agree | lib/data/projects.ts timeline; JSON-LD dateCreated = 2022 |
+| NAGARRO-M01 | Metric: (Plan 02 derivation removed 4 metadata claims) | — | pulled | — | pulled | pulled | "$50M+ in business impact", "36 countries", "15,000 to 18,000+", "100+ qualified leads" removed from metadata/description by Plan 02; visible copy KEEPS them |
+| NAGARRO-H01 | Hard-coded: 18,000+ (team scale) | agree | — | — | — | agree | nagarro-client.tsx:549,655,682,687; visible-only after derivation removed it from data description |
+| NAGARRO-H02 | Hard-coded: 36 countries | agree | — | — | — | agree | nagarro-client.tsx:549; visible-only after derivation |
+| NAGARRO-H03 | Hard-coded: $50M+ in business impact | agree | — | — | — | agree | nagarro-client.tsx:552; Nagarro-specific claim (different from career-wide $50M product value); Randy confirmed real (D-15) |
+| NAGARRO-H04 | Hard-coded: 50% brand recognition growth | agree | — | — | — | agree | nagarro-client.tsx:551,815; visible-only |
+| NAGARRO-H05 | Hard-coded: 100+ (thought leadership reach) | agree | — | — | — | agree | nagarro-client.tsx:823; visible-only after derivation |
+| NAGARRO-H06 | Hard-coded: 40% retention improvement | agree | — | — | — | agree | nagarro-client.tsx:831; visible-only |
+| NAGARRO-H07 | Hard-coded: 25% lead generation increase | agree | — | — | — | agree | nagarro-client.tsx:451; visible-only |
+| NAGARRO-H08 | Hard-coded: 15+ articles | agree | — | — | — | agree | nagarro-client.tsx:466; visible-only |
+| NAGARRO-H09 | Hard-coded: 10,000+ subscribers | agree | — | — | — | agree | nagarro-client.tsx:466; visible-only |
+| NAGARRO-N01 | Company: Nagarro | agree | — | — | — | agree | Visible throughout; client company |
+
+### rambis-ui
+
+| Claim ID | Claim | Visible copy | Metadata | OG image | JSON-LD | Verdict | Note |
+|---|---|---|---|---|---|---|---|
+| RAMBIS-T01 | Title: "Rambis UI | Modern Design System & Component Library" | agree | agree | — | agree | agree | lib/data/projects.ts name + subtitle; Plan 02 fixed from "Rambis UI Case Study | Modern Design System..." |
+| RAMBIS-T02 | Description (short) | agree | agree | — | agree | agree | lib/data/projects.ts description |
+| RAMBIS-T03 | og:type | — | article | — | — | agree | Plan 02 fixed |
+| RAMBIS-T04 | og:image | — | hero-thumbnail.jpg | hero-thumbnail.jpg | — | agree | lib/data/projects.ts thumbnail |
+| RAMBIS-T05 | Breadcrumb | — | — | — | Home › Projects › Rambis UI | agree | Plan 02 added BreadcrumbStructuredData |
+| RAMBIS-T06 | Lookup changed from id to slug | — | — | — | — | agree | Plan 02 Task 3: rambis-ui/page.tsx now uses `p.slug === "rambis-ui"` instead of id |
+| RAMBIS-R01 | Role: (visible copy custom) | visible copy custom | — | — | — | agree | rambis-client uses custom narrative; no conflict |
+| RAMBIS-R02 | Team size: (solo, not numbered) | — | — | — | — | — | Data lacks teamSize; solo project per narrative |
+| RAMBIS-R03 | Timeline: (not disclosed as date range) | — | — | — | — | — | Data lacks explicit timeline; solo open-source project |
+| RAMBIS-H01 | Hard-coded: 40% faster development | agree | — | — | — | agree | rambis-client.tsx:306; visible-only claim |
+| RAMBIS-H02 | Hard-coded: 50+ components | agree | — | — | — | agree | rambis-client.tsx:314; visible-only claim |
+| RAMBIS-H03 | Hard-coded: 100% TypeScript coverage | agree | — | — | — | agree | rambis-client.tsx:322; visible-only claim |
+| RAMBIS-N01 | Fork of: Chakra UI | agree | — | — | — | agree | Visible in copy; attribution |
+
 ## Part B — Waffle (verify-only, D-13)
 
 | Claim ID | Claim | Grid card | /projects/waffle page | Metadata (createPageMetadata) | OG image (opengraph.png transcription) | Verdict | Note |
@@ -133,6 +222,22 @@ None. All claims self-consistent and data-driven.
 ### ledgeriq
 
 - **Metrics source verification** (non-blocking but noted): LedgerIQ is a composite case study (isComposite: true, disclosed in roleNarrative). Per 05-CONTEXT deferred item in STATE.md, its metrics were never independently source-verified the way growit's were. Not a blocker for CRED-09 (composite is disclosed), but Randy may want to add a note or revise figures before v2.0 ships.
+
+### addvanced
+
+- **OG image choice** (open): Thumbnail is a 654×1414 portrait splash screen (`A0-Addvanced Splash Screen.png`) with a space in the filename. Functional but not typical case-study hero image. Randy may want to select a different thumbnail (e.g., one of the wireframe/sitemap images) for richer link unfurls.
+
+### echo
+
+None. All surfaces NDA-compliant (process/design only); business figures removed per CRED-08.
+
+### nagarro
+
+- **OG image choice** (open): Thumbnail is the Nagarro logo PNG (`nagarro-logo.png`). Functional for branding but Randy may want a richer image (e.g., a design system screenshot or team photo) for link unfurls.
+
+### rambis-ui
+
+None. All claims self-consistent and data-driven.
 
 ## Part D — Site-wide claims (D-15 $50M, D-16 Chameleon)
 
