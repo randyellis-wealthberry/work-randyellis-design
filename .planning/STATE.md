@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Case-Study Depth
-status: executing
-stopped_at: context exhaustion at 75% (2026-08-20)
-last_updated: "2026-08-20T20:11:02.334Z"
+status: ready_to_plan
+stopped_at: Phase 09 complete (5/5) — ready to discuss Phase 10
+last_updated: 2026-08-20T20:38:50.629Z
 last_activity: 2026-08-20 -- Phase 09 execution started
 progress:
   total_phases: 6
   completed_phases: 1
   total_plans: 8
-  completed_plans: 6
+  completed_plans: 7
   percent: 17
 ---
 
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-08-15 after v1.0 milestone)
 
 **Core value:** A hiring manager finds a coherent, senior, *verifiable* story with an obvious way to book a conversation — shipped and audit-verified in v1.0. v2.0 adds proof of *how Randy decides*.
-**Current focus:** Phase 09 — cross-surface-verification
+**Current focus:** Phase 10 — seo remediation
 
 ## Current Position
 
-Phase: 09 (cross-surface-verification) — EXECUTING
-Plan: 1 of 5
-Status: Executing Phase 09
-Last activity: 2026-08-20 -- Phase 09 execution started
+Phase: 10
+Plan: Not started
+Status: Ready to plan
+Last activity: 2026-08-20
 
 Progress: [█████░░░░░] 50%
 
@@ -36,7 +36,7 @@ Progress: [█████░░░░░] 50%
 
 **Velocity:**
 
-- Total plans completed: 0 (v2.0 not yet started)
+- Total plans completed: 5 (v2.0 not yet started)
 - Average duration: —
 - Total execution time: —
 
@@ -44,7 +44,7 @@ Progress: [█████░░░░░] 50%
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| - | - | - | - |
+| 09 | 5 | - | - |
 
 **Recent Trend:** — (no v2.0 plans executed yet)
 | Phase 05 P02 | 19min | 5 tasks | 24 files |
