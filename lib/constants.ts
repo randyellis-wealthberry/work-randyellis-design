@@ -8,4 +8,4 @@ export const ZINLEY_URL = "https://zinley.com/card/randyellis";
 
 /** Zinley card embed (iframe src) — loaded inside the "let's chat" dialog. */
 export const ZINLEY_EMBED_URL =
-  "https://gw.zinley.com/v2/api/card/randyellis/embed";
+  "https://gw.zinley.com/v2/api/card/angela/embed";

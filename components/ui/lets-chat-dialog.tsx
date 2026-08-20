@@ -161,10 +161,10 @@ export function LetsChatButton({
                   pinned to zinc-950 (#09090b) in BOTH themes — intentionally
                   no `dark:` variant — and the iframe stays transparent so
                   the card blends into it edge to edge. */}
-              <div className="flex justify-center bg-zinc-950 px-4 py-3">
+              <div className="flex items-center justify-center bg-zinc-950 px-4 py-3">
                 <iframe
                   src={ZINLEY_EMBED_URL}
-                  title="Randy's Zinley card"
+                  title="My Zinley card"
                   loading="lazy"
                   width={360}
                   height={400}

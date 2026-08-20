@@ -66,8 +66,10 @@ with every claim written from Randy's firsthand account and cross-surface-consis
   3. growit's page renders problem → my role → decisions-with-rationale → measurable outcome → reflection, with no section rendering shallow
   4. The pilot passes `npm run lint`, `npx tsc --noEmit`, and `npm test` clean before any other project is touched
 
-**Plans**: TBD
-**UI hint**: yes
+**Plans**: 1 plan (wave 1)
+
+Plans:
+- [x] 06-01-PLAN.md — Build narrative components (DecisionCallout, CaseStudyTOC, RoleNarrativeSection, ReflectionBlock, CaseStudyNarrative) and data model (decisions[], roleNarrative), pilot on growit
 
 ### Phase 7: Bespoke Convergence
 

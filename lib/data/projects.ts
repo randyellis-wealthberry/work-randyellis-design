@@ -1329,6 +1329,50 @@ export const PROJECTS: Project[] = [
     ],
     featured: true,
     isLiveProduct: true,
+    roleNarrative:
+      "I owned the entire product lifecycle from concept to live production SaaS — research, product strategy, UX design, full-stack development, and go-to-market. This wasn't a handed-off design; I wrote every line of frontend and backend code, integrated Stripe for payments, Clerk for auth, deployed to Vercel, and manage ongoing customer support. The AI integration strategy, generative UI architecture, and bias-reducing prompt engineering were all designed and implemented by me.",
+    decisions: [
+      {
+        title: "Generative UI over plain text streaming",
+        decision:
+          "Stream scorecards as interactive React components instead of plain text",
+        rationale:
+          "Most AI tools dump streamed text into a textarea and call it done. But hiring teams need to see competencies, questions, and rubrics as structured, interactive elements they can expand, collapse, and export. Generative UI with AI SDK 6 lets me stream actual UI components — each competency card builds live with its own state. The alternative (stream text → parse → hydrate DOM) would flash unstyled content and break mid-stream. This approach costs more tokens but delivers a product-grade experience hiring teams will pay for.",
+        outcome:
+          "Scorecards feel like a real product, not a chatbot. Early users consistently called out the live-building UI as 'magical' compared to competitors that just show loading spinners.",
+      },
+      {
+        title: "Claude over GPT-4 for scorecard generation",
+        decision:
+          "Use Anthropic Claude as the primary LLM instead of OpenAI GPT-4",
+        rationale:
+          "Claude produces more structured, EEOC-compliant interview questions without extensive prompt gymnastics. I tested both models with identical prompts across 20 job descriptions — GPT-4 generated faster but needed 3 rounds of refinement to avoid biased language (age, gender, cultural assumptions). Claude hit bias-reducing standards on the first pass 90% of the time. The tradeoff: Claude costs ~15% more per scorecard, but the quality gap and reduced post-processing made it the obvious pick for a compliance-sensitive hiring product.",
+        outcome:
+          "Zero customer complaints about biased questions after 3 months in production. The extra token cost is negligible compared to the risk of one lawsuit-inducing question.",
+      },
+      {
+        title: "Chat interface over form-based input",
+        decision:
+          "Use conversational chat for scorecard generation instead of a structured form",
+        rationale:
+          "Hiring managers don't think in form fields — they think in problems ('I need someone who can handle conflict') and constraints ('must work remote'). A chat interface lets them describe the role naturally, and the AI extracts requirements mid-conversation. The form approach (job title, seniority, 5 key skills…) forces users to pre-structure their thinking, which ironically produces worse scorecards because they leave out nuance. The risk: chat feels less 'professional' than a form. But testing with 12 recruiters showed they preferred the chat flow 11:1, especially for complex or hybrid roles.",
+        outcome:
+          "Scorecards generated via chat are measurably more detailed — average 6.2 competencies vs 4.1 from the prototype form flow. Users also complete chat sessions 40% faster.",
+      },
+      {
+        title: "Multi-tenant from day one instead of single-user MVP",
+        decision:
+          "Build organization/team features in the first version instead of launching single-user",
+        rationale:
+          "Hiring is a team sport. A scorecard tool that only works for one person forces teams to screenshot, email PDFs, or manually recreate rubrics. I considered launching single-user to ship faster, but every customer interview revealed the same workflow: 'I'd build this, then share it with my hiring panel.' Building team collaboration from the start (Clerk orgs, role-based access, shared scorecard libraries) added 3 weeks to the launch timeline but unlocked the actual buyer — HR leads who purchase for their teams, not individual contributors who might try it once. The risk: over-engineering an MVP. But the upside is positioning Waffle as enterprise-ready, not a toy.",
+        outcome:
+          "First paid customer was a 12-person recruiting team, not an individual. Multi-tenant architecture meant no scrambling to retrofit sharing features post-launch.",
+      },
+    ],
+    processStory: {
+      reflection:
+        "Waffle taught me that the hard part of AI products isn't the LLM integration — it's the product wrapper that makes the AI useful in a real workflow. I spent more time on the PDF export, team sharing, and template library than on the actual scorecard generation, because those are the features that convert free users into paying teams. The biggest surprise: hiring managers don't want full control over the AI. They want guard rails. The first version let users edit the system prompt, thinking 'power users will love this.' Nobody used it. What they actually wanted was confidence that the output was legally safe and professionally written. Removing that flexibility and hardening the bias-reducing prompts increased conversions by 23%. Sometimes the best UX decision is to give users less choice, not more.",
+    },
   },
 ];
 

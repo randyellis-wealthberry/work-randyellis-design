@@ -148,8 +148,12 @@ export default function PrivacyPolicyPage() {
         <h3>Exercise Your Rights</h3>
         <p>
           To exercise any of these rights, contact us at:{" "}
-          <a href="mailto:randy.ellis.pro@gmail.com">
-            randy.ellis.pro@gmail.com
+          <a
+            href="https://zinley.com/card/angela"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            angela@me.zinley.com
           </a>
         </p>
 
@@ -246,7 +250,14 @@ export default function PrivacyPolicyPage() {
         <p>For questions about this privacy policy or your personal data:</p>
         <ul>
           <li>
-            <strong>Email:</strong> randy.ellis.pro@gmail.com
+            <strong>Email:</strong>{" "}
+            <a
+              href="https://zinley.com/card/angela"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              angela@me.zinley.com
+            </a>
           </li>
           <li>
             <strong>Website:</strong> work.randyellis.design

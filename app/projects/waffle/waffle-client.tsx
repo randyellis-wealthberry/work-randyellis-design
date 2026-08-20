@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import Image from "next/image";
 import { trackEvent } from "@/lib/analytics";
@@ -14,6 +15,17 @@ import {
   ShieldCheck,
   Users,
 } from "lucide-react";
+import { TextEffect } from "@/components/motion-primitives/text-effect";
+import { GlowEffect } from "@/components/motion-primitives/glow-effect";
+import { Magnetic } from "@/components/motion-primitives/magnetic";
+import { InView } from "@/components/motion-primitives/in-view";
+import { Tilt } from "@/components/motion-primitives/tilt";
+import { CaseStudyNarrative } from "@/components/case-study/case-study-narrative";
+import { ReflectionBlock } from "@/components/case-study/reflection-block";
+import { PROJECTS } from "@/lib/data/projects";
+
+// Get the Waffle project data
+const waffleProject = PROJECTS.find((p) => p.id === "waffle")!;
 
 const CATEGORY = "waffle_product_page";
 const VIEW_LIVE_LABEL = "View live product CTA";
@@ -77,7 +89,7 @@ const FEATURES = [
     description:
       "Multi-tenant organizations with role-based access let hiring teams collaborate on scorecards together.",
   },
-];
+] as const;
 
 const STEPS = [
   {
@@ -85,20 +97,23 @@ const STEPS = [
     title: "Paste your job description",
     description:
       "Drop in the role's job description and Waffle gets to work identifying the competencies that matter.",
+    span: 1,
   },
   {
     number: 2,
     title: "Watch the scorecard stream live",
     description:
       "Weighted competencies, behavioral questions, and scoring rubrics stream in as interactive components in 2–4 minutes.",
+    span: 1,
   },
   {
     number: 3,
     title: "Export to PDF or share with your team",
     description:
       "Export a print-ready PDF or share the scorecard directly with your hiring team inside Waffle.",
+    span: 2,
   },
-];
+] as const;
 
 /** Secondary product shots shown under the hero screenshot. */
 const SCREENSHOTS = [
@@ -165,12 +180,13 @@ export default function WaffleClientPage() {
             height={48}
           />
         </motion.div>
-        <motion.h1
-          variants={VARIANTS_ITEM}
-          className="text-4xl font-bold text-zinc-900 md:text-6xl dark:text-zinc-100"
-        >
-          Waffle
-        </motion.h1>
+        <motion.div variants={VARIANTS_ITEM}>
+          <h1 className="text-4xl font-bold text-zinc-900 md:text-6xl dark:text-zinc-100">
+            <TextEffect per="char" preset="fade">
+              Waffle
+            </TextEffect>
+          </h1>
+        </motion.div>
         <motion.p
           variants={VARIANTS_ITEM}
           className="max-w-3xl text-zinc-600 dark:text-zinc-400"
@@ -188,34 +204,43 @@ export default function WaffleClientPage() {
           Neon/Prisma, Clerk).
         </motion.p>
         <motion.div variants={VARIANTS_ITEM} className="flex flex-wrap gap-3">
-          <Button
-            asChild
-            size="lg"
-            className="min-h-[44px] bg-amber-600 text-zinc-950 hover:bg-amber-700 dark:bg-amber-500 dark:hover:bg-amber-600"
-          >
-            <a
-              href="https://waffle.cards"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() =>
-                trackEvent("waffle_view_live", CATEGORY, VIEW_LIVE_LABEL)
-              }
+          <Magnetic>
+            <Button
+              asChild
+              size="lg"
+              className="min-h-[44px] bg-amber-600 text-zinc-950 hover:bg-amber-700 dark:bg-amber-500 dark:hover:bg-amber-600"
             >
-              View live product ↗
-            </a>
-          </Button>
-          <Button asChild variant="outline" size="lg" className="min-h-[44px]">
-            <a
-              href="https://app.waffle.cards/sign-up"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() =>
-                trackEvent("waffle_try_free", CATEGORY, TRY_FREE_LABEL)
-              }
+              <a
+                href="https://waffle.cards"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() =>
+                  trackEvent("waffle_view_live", CATEGORY, VIEW_LIVE_LABEL)
+                }
+              >
+                View live product ↗
+              </a>
+            </Button>
+          </Magnetic>
+          <Magnetic>
+            <Button
+              asChild
+              variant="outline"
+              size="lg"
+              className="min-h-[44px]"
             >
-              Try free
-            </a>
-          </Button>
+              <a
+                href="https://app.waffle.cards/sign-up"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() =>
+                  trackEvent("waffle_try_free", CATEGORY, TRY_FREE_LABEL)
+                }
+              >
+                Try free
+              </a>
+            </Button>
+          </Magnetic>
         </motion.div>
       </motion.section>
 
@@ -234,20 +259,20 @@ export default function WaffleClientPage() {
         </motion.h2>
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
           {FEATURES.map((feature) => (
-            <motion.div
-              key={feature.title}
-              variants={VARIANTS_ITEM}
-              className="rounded-2xl border border-zinc-200 bg-zinc-50 p-6 dark:border-zinc-800 dark:bg-zinc-900/50"
-            >
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-amber-600/10 dark:bg-amber-500/10">
-                <feature.icon className="h-6 w-6 text-amber-600 dark:text-amber-500" />
-              </div>
-              <h3 className="mb-2 text-2xl font-bold text-zinc-900 dark:text-zinc-100">
-                {feature.title}
-              </h3>
-              <p className="text-base text-zinc-600 dark:text-zinc-400">
-                {feature.description}
-              </p>
+            <motion.div key={feature.title} variants={VARIANTS_ITEM}>
+              <Tilt>
+                <Card className="h-full rounded-2xl border-zinc-200 bg-zinc-50 p-6 dark:border-zinc-800 dark:bg-zinc-900/50">
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-amber-600/10 dark:bg-amber-500/10">
+                    <feature.icon className="h-6 w-6 text-amber-600 dark:text-amber-500" />
+                  </div>
+                  <CardTitle className="mb-2 text-2xl font-bold text-zinc-900 dark:text-zinc-100">
+                    {feature.title}
+                  </CardTitle>
+                  <CardDescription className="text-base text-zinc-600 dark:text-zinc-400">
+                    {feature.description}
+                  </CardDescription>
+                </Card>
+              </Tilt>
             </motion.div>
           ))}
         </div>
@@ -263,29 +288,28 @@ export default function WaffleClientPage() {
         </h2>
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
           {STEPS.map((step) => (
-            <div
+            <Card
               key={step.number}
-              className={
-                step.number === 3
-                  ? "rounded-2xl border border-zinc-200 bg-zinc-50 p-6 md:col-span-2 dark:border-zinc-800 dark:bg-zinc-900/50"
-                  : "rounded-2xl border border-zinc-200 bg-zinc-50 p-6 dark:border-zinc-800 dark:bg-zinc-900/50"
-              }
+              className={`rounded-2xl border-zinc-200 bg-zinc-50 p-6 dark:border-zinc-800 dark:bg-zinc-900/50 ${step.span === 2 ? "md:col-span-2" : ""}`}
             >
               <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-amber-600/10 dark:bg-amber-500/10">
                 <span className="font-bold text-amber-600 dark:text-amber-500">
                   {step.number}
                 </span>
               </div>
-              <h3 className="mb-2 text-2xl font-bold text-zinc-900 dark:text-zinc-100">
+              <CardTitle className="mb-2 text-2xl font-bold text-zinc-900 dark:text-zinc-100">
                 {step.title}
-              </h3>
-              <p className="text-base text-zinc-600 dark:text-zinc-400">
+              </CardTitle>
+              <CardDescription className="text-base text-zinc-600 dark:text-zinc-400">
                 {step.description}
-              </p>
-            </div>
+              </CardDescription>
+            </Card>
           ))}
         </div>
       </section>
+
+      {/* My Role & Key Decisions */}
+      <CaseStudyNarrative project={waffleProject} />
 
       {/* Product screenshot */}
       <section>
@@ -293,6 +317,11 @@ export default function WaffleClientPage() {
           See it in action
         </h2>
         <div className="relative mx-auto max-w-4xl overflow-hidden rounded-2xl bg-zinc-300/30 p-[1px] dark:bg-zinc-600/30">
+          <GlowEffect
+            colors={["#d97706", "#f59e0b", "#fbbf24", "#f97316"]}
+            mode="breathe"
+            blur="soft"
+          />
           <div className="relative h-full w-full overflow-hidden rounded-[15px] bg-white p-6 dark:bg-zinc-950">
             <Image
               src="/projects/waffle/dashboard-macbook.jpg"
@@ -307,82 +336,111 @@ export default function WaffleClientPage() {
 
         <div className="mx-auto mt-6 grid max-w-4xl items-start gap-6 sm:grid-cols-2">
           {SCREENSHOTS.map((shot, index) => (
-            <figure
+            <InView
               key={shot.src}
-              className={
-                index >= SIDE_BY_SIDE_COUNT ? "sm:col-span-2" : undefined
-              }
+              variants={{
+                hidden: { opacity: 0, y: 30, filter: "blur(4px)" },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  filter: "blur(0px)",
+                  transition: { duration: 0.6, delay: index * 0.1 },
+                },
+              }}
+              viewOptions={{ margin: "0px 0px -100px 0px" }}
             >
-              <div className="overflow-hidden rounded-xl bg-zinc-300/30 p-[1px] dark:bg-zinc-600/30">
-                <div className="overflow-hidden rounded-[11px] bg-white p-3 dark:bg-zinc-950">
-                  <Image
-                    src={shot.src}
-                    alt={shot.alt}
-                    width={shot.width}
-                    height={shot.height}
-                    sizes={
-                      index >= SIDE_BY_SIDE_COUNT
-                        ? "(min-width: 896px) 896px, 100vw"
-                        : "(min-width: 640px) 50vw, 100vw"
-                    }
-                    className="h-auto w-full rounded-lg"
-                  />
+              <figure
+                className={
+                  index >= SIDE_BY_SIDE_COUNT ? "sm:col-span-2" : undefined
+                }
+              >
+                <div className="overflow-hidden rounded-xl bg-zinc-300/30 p-[1px] dark:bg-zinc-600/30">
+                  <div className="overflow-hidden rounded-[11px] bg-white p-3 dark:bg-zinc-950">
+                    <Image
+                      src={shot.src}
+                      alt={shot.alt}
+                      width={shot.width}
+                      height={shot.height}
+                      sizes={
+                        index >= SIDE_BY_SIDE_COUNT
+                          ? "(min-width: 896px) 896px, 100vw"
+                          : "(min-width: 640px) 50vw, 100vw"
+                      }
+                      className="h-auto w-full rounded-lg"
+                    />
+                  </div>
                 </div>
-              </div>
-              <figcaption className="mt-3 text-sm text-zinc-600 dark:text-zinc-400">
-                {shot.caption}
-              </figcaption>
-            </figure>
+                <figcaption className="mt-3 text-sm text-zinc-600 dark:text-zinc-400">
+                  {shot.caption}
+                </figcaption>
+              </figure>
+            </InView>
           ))}
         </div>
       </section>
 
+      {/* Reflection */}
+      {waffleProject.processStory?.reflection && (
+        <ReflectionBlock
+          reflection={waffleProject.processStory.reflection}
+          heading="Building a Live AI Product"
+        />
+      )}
+
       {/* Closing CTA band */}
-      <section className="rounded-2xl bg-zinc-50 p-8 dark:bg-zinc-900/50">
-        <h2 className="mb-4 text-2xl font-bold text-zinc-900 dark:text-zinc-100">
-          Ready to see it live?
-        </h2>
-        <div className="flex flex-wrap gap-3">
-          <Button
-            asChild
-            size="lg"
-            className="min-h-[44px] bg-amber-600 text-zinc-950 hover:bg-amber-700 dark:bg-amber-500 dark:hover:bg-amber-600"
-          >
-            <a
-              href="https://waffle.cards"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() =>
-                trackEvent("waffle_view_live", CATEGORY, VIEW_LIVE_LABEL)
-              }
-            >
-              View live product ↗
-            </a>
-          </Button>
-          <Button asChild variant="outline" size="lg" className="min-h-[44px]">
-            <a
-              href="https://app.waffle.cards/sign-up"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() =>
-                trackEvent("waffle_try_free", CATEGORY, TRY_FREE_LABEL)
-              }
-            >
-              Try free
-            </a>
-          </Button>
-        </div>
+      <section>
+        <Card className="rounded-2xl bg-zinc-50 p-8 dark:bg-zinc-900/50">
+          <CardTitle className="mb-4 text-2xl font-bold text-zinc-900 dark:text-zinc-100">
+            Ready to see it live?
+          </CardTitle>
+          <div className="flex flex-wrap gap-3">
+            <Magnetic>
+              <Button
+                asChild
+                size="lg"
+                className="min-h-[44px] bg-amber-600 text-zinc-950 hover:bg-amber-700 dark:bg-amber-500 dark:hover:bg-amber-600"
+              >
+                <a
+                  href="https://waffle.cards"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() =>
+                    trackEvent("waffle_view_live", CATEGORY, VIEW_LIVE_LABEL)
+                  }
+                >
+                  View live product ↗
+                </a>
+              </Button>
+            </Magnetic>
+            <Magnetic>
+              <Button
+                asChild
+                variant="outline"
+                size="lg"
+                className="min-h-[44px]"
+              >
+                <a
+                  href="https://app.waffle.cards/sign-up"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() =>
+                    trackEvent("waffle_try_free", CATEGORY, TRY_FREE_LABEL)
+                  }
+                >
+                  Try free
+                </a>
+              </Button>
+            </Magnetic>
+          </div>
+        </Card>
       </section>
 
       {/* Back-to-projects nav */}
       <section className="border-t border-zinc-200 pt-8 dark:border-zinc-700">
         <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
-          <Link
-            href="/projects"
-            className="inline-flex items-center gap-2 rounded-lg bg-zinc-100 px-6 py-3 text-zinc-900 transition-all duration-200 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700"
-          >
-            ← Back to Projects
-          </Link>
+          <Button asChild variant="outline" size="lg">
+            <Link href="/projects">← Back to Projects</Link>
+          </Button>
         </div>
       </section>
     </main>
