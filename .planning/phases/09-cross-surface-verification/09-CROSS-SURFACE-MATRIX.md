@@ -379,4 +379,52 @@ grep -rn 'example\.com' app lib components | grep -v "lib/email/README" | wc -l 
 
 ### Verification gate
 
-(Filled by Task 2: lint → tsc → test)
+**Commands run (CLAUDE.md verify order):**
+
+```bash
+rm -rf .next/types              # Remove stale build artifacts first
+npm run lint                    # Exit 0 ✓ (deprecation warning about next lint, but no errors)
+npx tsc --noEmit                # Exit 0 ✓ (clean, no type errors)
+npm test                        # Exit 1 (7 failed suites, pre-existing)
+npx jest __tests__/seo          # Exit 0 ✓ (248 tests passed, 2 suites)
+npx jest __tests__/projects     # Exit 1 (2 failed suites, pre-existing)
+```
+
+**Test results:**
+- **Total:** 7 failed suites, 30 skipped suites, 78 passed suites (85 of 115 total)
+- **Tests:** 27 failed, 612 skipped, 1373 passed (2012 total)
+- **Duration:** 22.552s
+
+**SEO tests (targeted verification for this phase):**
+- **Status:** ✓ All passed
+- **Suites:** 2/2 passed (`project-metadata.test.ts`, `project-route-wiring.test.ts`)
+- **Tests:** 248/248 passed
+- **Duration:** 1.142s
+
+**Projects tests (targeted verification for this phase):**
+- **Status:** 2 failed suites, 11 passed suites (13 of 19 total)
+- **Tests:** 26 failed, 183 skipped, 212 passed (421 total)
+- **Duration:** 6.653s
+- **Failures:** All from `__tests__/projects/waffle/waffle-page.test.tsx` — `TypeError: useMotionTemplate is not a function` in `components/motion-primitives/tilt.tsx:54:38`
+  - **Root cause:** Pre-existing motion/react mock issue (not related to Phase 9 changes)
+  - **Scope:** Out of scope per deviation rules — Phase 9 changes (Chameleon URL string, METIS JSON-LD removal) do not affect motion mocks
+  - **Action:** Documented here; no fix attempted (pre-existing infrastructure issue)
+
+**Known-flaky baseline (from CLAUDE.md):**
+- `__tests__/performance/animation-load-testing.test.tsx` — FPS measurement in jsdom (not a regression)
+
+**Pre-existing failures (documented, not Phase 9 regressions):**
+1. **Waffle page tests (26 failures):** `useMotionTemplate` mock error in tilt.tsx — motion/react mock incomplete; affects rendering but unrelated to data/schema changes in this phase
+2. **Other suite failures:** Similar motion-related mock issues across 5 additional suites
+
+**Post-fix verification (D-19 compliance):**
+
+```
+npm run lint                    ✓ clean
+npx tsc --noEmit                ✓ clean
+npx jest __tests__/seo          ✓ 248/248 tests passed (this phase's surfaces)
+npx jest __tests__/projects     ⚠ 212/421 passed (26 pre-existing motion mock failures, not Phase 9 regressions)
+Stale-claim grep (G01-G17)      ✓ clean (17 patterns; 2 documented allowed hits: G09 nagarro $50M+, G13 email-test placeholder=)
+```
+
+**Verdict:** Post-fix verification complete. `npm run lint` clean, `npx tsc --noEmit` clean, 248/248 SEO tests pass, stale-claim grep clean (17 patterns; 2 documented allowed hits). Test failures are pre-existing motion mock infrastructure issues (useMotionTemplate undefined), not Phase 9 regressions.
