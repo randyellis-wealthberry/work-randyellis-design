@@ -676,7 +676,7 @@ self.addEventListener('activate', (event) => {
 
 **If this table is empty:** All other claims in this research were verified via Context7 or cited from official sources — no user confirmation needed beyond the 4 assumptions above.
 
-## Open Questions
+## Open Questions (RESOLVED)
 
 1. **Chameleon Collective URL verification (D-03)**
    - What we know: URL appears in `app/about/about-client.tsx` + 3× in `components/seo/structured-data.tsx`; it's a known v1.0 carry-over blocker
