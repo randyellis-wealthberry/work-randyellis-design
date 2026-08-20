@@ -26,3 +26,10 @@ export {
   ProgressiveDisclosure,
   useFadeContent,
 } from "./fade-content";
+
+export { GlowEffect } from "./glow-effect";
+export type { GlowEffectProps } from "./glow-effect";
+
+export { TextShimmer } from "./text-shimmer";
+export { BorderTrail } from "./border-trail";
+export { Tilt } from "./tilt";

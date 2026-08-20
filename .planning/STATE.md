@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Case-Study Depth
 status: executing
-stopped_at: Phase 6 UI-SPEC approved
-last_updated: "2026-08-19T23:04:02.297Z"
+stopped_at: context exhaustion at 76% (2026-08-19)
+last_updated: "2026-08-19T23:06:26.112Z"
 last_activity: 2026-08-19 -- Phase 06 planning complete
 progress:
   total_phases: 6
@@ -102,6 +102,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-08-19T22:37:59.613Z
-Stopped at: Phase 6 UI-SPEC approved
-Resume file: .planning/phases/06-narrative-template-data-model/06-UI-SPEC.md
+Last session: 2026-08-19T23:06:26.104Z
+Stopped at: context exhaustion at 76% (2026-08-19)
+Resume file: None
