@@ -126,7 +126,7 @@ Plans:
 
 **Wave 3** *(blocked on Wave 2 completion)*
 
-- [ ] 09-04-PLAN.md — Author `09-CROSS-SURFACE-MATRIX.md` (7 projects + Waffle verify-only) with D-18 conformance fixes and open items (wave 3)
+- [x] 09-04-PLAN.md — Author `09-CROSS-SURFACE-MATRIX.md` (7 projects + Waffle verify-only) with D-18 conformance fixes and open items (wave 3)
 
 **Wave 4** *(blocked on Wave 3 completion)*
 
@@ -144,7 +144,7 @@ Plans:
 | 6. Narrative Template & Data Model | v2.0 | 1/1 | Complete | 2026-08-15 |
 | 7. Bespoke Convergence | v2.0 | 1/1 | Structural wiring complete (content pending Phase 8) | 2026-08-15 |
 | 8. Content Rewrite & Credibility Guardrails | v2.0 | 0/TBD | Not started | - |
-| 9. Cross-Surface Verification | v2.0 | 3/5 | In Progress|  |
+| 9. Cross-Surface Verification | v2.0 | 4/5 | In Progress|  |
 | 10. SEO Remediation | v2.0 | 0/TBD | Not started | - |
 
 ### Phase 10: SEO Remediation
