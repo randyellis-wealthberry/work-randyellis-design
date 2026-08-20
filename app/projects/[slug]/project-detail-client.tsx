@@ -178,6 +178,7 @@ export default function ProjectDetailClient({
               { label: "Projects", href: "/projects" },
               { label: project.name, current: true },
             ]}
+            structuredData={false}
           />
         </motion.div>
 
