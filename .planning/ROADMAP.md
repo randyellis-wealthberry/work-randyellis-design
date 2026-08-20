@@ -160,7 +160,17 @@ Plans:
   4. Sitemap carries lastModified for static and project URLs (T-05)
   5. Live post-deploy verification recorded: robots.txt + sitemap.xml fetch, Rich Results Test on home / one project / one blog post, Search Console property + sitemap submission confirmed (audit "Limitation" section)
 
-**Plans**: TBD
+**Plans: 4 plans in 3 waves
+
+**Wave 1 (parallel):**
+- [ ] 10-01-PLAN.md — Crawl Control & Indexation (robots.txt, test routes, sitemap lastModified)
+- [ ] 10-02-PLAN.md — PWA Cleanup & Service Worker Kill-Switch (replace stale SW, delete PWA artifacts)
+
+**Wave 2:**
+- [ ] 10-03-PLAN.md — Schema Consolidation (Chameleon URL checkpoint, server-rendered Person/WebSite/Organization, delete LocalBusiness/FAQ)
+
+**Wave 3:**
+- [ ] 10-04-PLAN.md — Live Verification (post-deploy checkpoint: robots.txt fetch, Rich Results Test, Search Console)
 
 ---
 *Last updated: 2026-08-15 — v2.0 Case-Study Depth roadmap created (Phases 5-9)*
