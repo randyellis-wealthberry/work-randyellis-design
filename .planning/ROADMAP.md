@@ -32,7 +32,7 @@ with every claim written from Randy's firsthand account and cross-surface-consis
 - [x] **Phase 6: Narrative Template & Data Model** - Build and pilot the decisions-with-rationale narrative components on growit before mass rollout
 - [ ] **Phase 7: Bespoke Convergence** - Insert the proven narrative components into the 4 bespoke standalone project pages
 - [ ] **Phase 8: Content Rewrite & Credibility Guardrails** - Rewrite all 7 case studies first-person and decision-driven, with credit-attribution and NDA guardrails enforced as acceptance criteria
-- [ ] **Phase 9: Cross-Surface Verification** - Reconcile visible copy, metadata, OG images, and JSON-LD across every touched project
+- [x] **Phase 9: Cross-Surface Verification** - Reconcile visible copy, metadata, OG images, and JSON-LD across every touched project (completed 2026-08-20)
 
 ## Phase Details
 
@@ -130,7 +130,7 @@ Plans:
 
 **Wave 4** *(blocked on Wave 3 completion)*
 
-- [ ] 09-05-PLAN.md — Stale-claim grep register, lint → tsc → test gate recorded in the matrix, ROADMAP Phases 6–8 reconciled (wave 4)
+- [x] 09-05-PLAN.md — Stale-claim grep register, lint → tsc → test gate recorded in the matrix, ROADMAP Phases 6–8 reconciled (wave 4)
 
 ## Progress
 
@@ -144,7 +144,7 @@ Plans:
 | 6. Narrative Template & Data Model | v2.0 | 1/1 | Complete | 2026-08-15 |
 | 7. Bespoke Convergence | v2.0 | 1/1 | Structural wiring complete (content pending Phase 8) | 2026-08-15 |
 | 8. Content Rewrite & Credibility Guardrails | v2.0 | 0/TBD | Not started | - |
-| 9. Cross-Surface Verification | v2.0 | 4/5 | In Progress|  |
+| 9. Cross-Surface Verification | v2.0 | 5/5 | Complete   | 2026-08-20 |
 | 10. SEO Remediation | v2.0 | 0/TBD | Not started | - |
 
 ### Phase 10: SEO Remediation
