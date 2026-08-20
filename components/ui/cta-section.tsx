@@ -5,7 +5,7 @@ import { BuyMeACoffeeButton } from "@/components/ui/buy-me-a-coffee";
 import { trackContactIntent } from "@/lib/analytics";
 
 const BOOKING_URL = "https://cal.com/randyellis/30min";
-const EMAIL_URL = "mailto:randy@wealthbrry.com";
+const EMAIL_URL = "https://zinley.com/card/angela";
 
 // Shared interactive states: hover, focus-visible, active, disabled.
 const BASE_BUTTON =
@@ -17,7 +17,7 @@ const SECONDARY_BUTTON = `${BASE_BUTTON} border-2 border-zinc-300 bg-transparent
 
 export function CTASection() {
   return (
-    <section className="my-16 rounded-2xl bg-zinc-100 px-6 py-16 text-center sm:px-12 sm:py-20 dark:bg-zinc-900">
+    <section className="my-16 rounded-2xl border-2 border-white/10 bg-transparent px-6 py-16 text-center sm:px-12 sm:py-20">
       <h2 className="mb-4 text-3xl font-bold tracking-tight text-zinc-900 sm:text-4xl dark:text-white">
         Let&apos;s Build Something Amazing
       </h2>
@@ -39,10 +39,12 @@ export function CTASection() {
         {/* Email button */}
         <a
           href={EMAIL_URL}
+          target="_blank"
+          rel="noopener noreferrer"
           onClick={() => trackContactIntent("email", EMAIL_URL)}
           className={SECONDARY_BUTTON}
         >
-          Email me
+          Talk to Assistant
         </a>
 
         {/* Buy Me a Coffee — popup */}

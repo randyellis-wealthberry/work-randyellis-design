@@ -20,6 +20,12 @@ import { GlowEffect } from "@/components/motion-primitives/glow-effect";
 import { Magnetic } from "@/components/motion-primitives/magnetic";
 import { InView } from "@/components/motion-primitives/in-view";
 import { Tilt } from "@/components/motion-primitives/tilt";
+import { CaseStudyNarrative } from "@/components/case-study/case-study-narrative";
+import { ReflectionBlock } from "@/components/case-study/reflection-block";
+import { PROJECTS } from "@/lib/data/projects";
+
+// Get the Waffle project data
+const waffleProject = PROJECTS.find((p) => p.id === "waffle")!;
 
 const CATEGORY = "waffle_product_page";
 const VIEW_LIVE_LABEL = "View live product CTA";
@@ -302,6 +308,9 @@ export default function WaffleClientPage() {
         </div>
       </section>
 
+      {/* My Role & Key Decisions */}
+      <CaseStudyNarrative project={waffleProject} />
+
       {/* Product screenshot */}
       <section>
         <h2 className="mb-8 text-2xl font-bold text-zinc-900 dark:text-zinc-100">
@@ -369,6 +378,14 @@ export default function WaffleClientPage() {
           ))}
         </div>
       </section>
+
+      {/* Reflection */}
+      {waffleProject.processStory?.reflection && (
+        <ReflectionBlock
+          reflection={waffleProject.processStory.reflection}
+          heading="Building a Live AI Product"
+        />
+      )}
 
       {/* Closing CTA band */}
       <section>

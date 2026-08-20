@@ -231,7 +231,14 @@ export default function TermsOfServicePage() {
         <p>For questions about these Terms of Service:</p>
         <ul>
           <li>
-            <strong>Email:</strong> randy.ellis.pro@gmail.com
+            <strong>Email:</strong>{" "}
+            <a
+              href="https://zinley.com/card/angela"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              angela@me.zinley.com
+            </a>
           </li>
           <li>
             <strong>Website:</strong> work.randyellis.design

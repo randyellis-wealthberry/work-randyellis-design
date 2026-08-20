@@ -42,6 +42,7 @@
     "claude-remotion-demo",
     "portfolio-feature-flags",
     "__tests__",
-    "open-websearch"
+    "open-websearch",
+    "test"
   ]
 }
