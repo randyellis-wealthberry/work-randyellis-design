@@ -145,7 +145,7 @@ Plans:
 | 7. Bespoke Convergence | v2.0 | 1/1 | Complete | 2026-08-15 |
 | 8. Content Rewrite & Credibility Guardrails | v2.0 | pre-GSD (traced) | Complete | 2026-08-16 |
 | 9. Cross-Surface Verification | v2.0 | 5/5 | Complete   | 2026-08-20 |
-| 10. SEO Remediation | v2.0 | 7/10 | In Progress|  |
+| 10. SEO Remediation | v2.0 | 8/10 | In Progress|  |
 
 ### Phase 10: SEO Remediation
 
@@ -178,7 +178,7 @@ Plans:
 
 **Wave 3** *(blocked on Wave 2)*
 
-- [ ] 10-08-PLAN.md — Delete legacy `structured-data.tsx` + `project-faq.tsx` with no-legacy-schema regression test; Chameleon URL resolved on visible surfaces; `10-VERIFICATION-CHECKLIST.md` skeleton + screenshots dir; full gate (SEO-04, SEO-05; D-08..D-11, D-16, D-19)
+- [x] 10-08-PLAN.md — Delete legacy `structured-data.tsx` + `project-faq.tsx` with no-legacy-schema regression test; Chameleon URL resolved on visible surfaces; `10-VERIFICATION-CHECKLIST.md` skeleton + screenshots dir; full gate (SEO-04, SEO-05; D-08..D-11, D-16, D-19)
 
 **Wave 4** *(post-deploy — human gate, autonomous: false)*
 
