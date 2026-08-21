@@ -145,7 +145,7 @@ Plans:
 | 7. Bespoke Convergence | v2.0 | 1/1 | Complete | 2026-08-15 |
 | 8. Content Rewrite & Credibility Guardrails | v2.0 | pre-GSD (traced) | Complete | 2026-08-16 |
 | 9. Cross-Surface Verification | v2.0 | 5/5 | Complete   | 2026-08-20 |
-| 10. SEO Remediation | v2.0 | 0/10 | Planned | - |
+| 10. SEO Remediation | v2.0 | 4/10 | In Progress|  |
 
 ### Phase 10: SEO Remediation
 
@@ -165,10 +165,10 @@ Plans:
 Plans:
 **Wave 1** *(parallel — no shared files)*
 
-- [ ] 10-01-PLAN.md — Kill-switch `public/sw.js` (sandbox-tested) + complete PWA removal: manifest/offline/pwa components/fallback, layout unwiring, `next-pwa` uninstall, PWA test suites dropped (SEO-01; D-01, D-02, D-03)
-- [ ] 10-02-PLAN.md — robots.ts without `/_next/` + explicit AI-crawler allow group; single merged `redirects()` with `/test-glow` + `/test/:path*` → `/`; middleware dead-check cleanup + `/sw.js` no-cache; D-05 route audit; root `test/` scaffold disposal (SEO-02, SEO-03; D-04..D-07, D-21)
-- [ ] 10-03-PLAN.md — TDD: server-safe JSON-LD builders (`lib/seo/json-ld.ts`: Person/WebSite+SearchAction/CreativeWork/Article/Breadcrumb + escaping serializer) and RSC `<JsonLd>` (SEO-04; D-08, D-11..D-15)
-- [ ] 10-04-PLAN.md — TDD: sitemap `lastModified` on every entry + legal pages (SEO-05; D-20)
+- [x] 10-01-PLAN.md — Kill-switch `public/sw.js` (sandbox-tested) + complete PWA removal: manifest/offline/pwa components/fallback, layout unwiring, `next-pwa` uninstall, PWA test suites dropped (SEO-01; D-01, D-02, D-03)
+- [x] 10-02-PLAN.md — robots.ts without `/_next/` + explicit AI-crawler allow group; single merged `redirects()` with `/test-glow` + `/test/:path*` → `/`; middleware dead-check cleanup + `/sw.js` no-cache; D-05 route audit; root `test/` scaffold disposal (SEO-02, SEO-03; D-04..D-07, D-21)
+- [x] 10-03-PLAN.md — TDD: server-safe JSON-LD builders (`lib/seo/json-ld.ts`: Person/WebSite+SearchAction/CreativeWork/Article/Breadcrumb + escaping serializer) and RSC `<JsonLd>` (SEO-04; D-08, D-11..D-15)
+- [x] 10-04-PLAN.md — TDD: sitemap `lastModified` on every entry + legal pages (SEO-05; D-20)
 
 **Wave 2** *(blocked on Wave 1)*
 
