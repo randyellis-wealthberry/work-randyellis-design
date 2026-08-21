@@ -51,6 +51,14 @@
 - [x] **DEBT-01**: POS-02 proof-chips — dense subhead resolved to the intended chip treatment
 - [x] **DEBT-02**: WAF-02 — Waffle "Live Product" badge click dead-zone fixed
 
+### SEO Remediation
+
+- [ ] **SEO-01**: Service worker kill-switch + PWA cleanup — replace stale Workbox SW with self-unregistering kill-switch, delete PWA artifacts (manifest, fallback files, components/pwa/, app/offline/)
+- [ ] **SEO-02**: robots.txt `/_next/` unblocking + AI crawler policy — remove `/_next/` from disallow list so Googlebot can render client-side content, open site to AI crawlers (GPTBot, CCBot, Claude-Web, etc.)
+- [ ] **SEO-03**: Test route deletion/blocking — delete `/test/codeblock` and `/test-glow` entirely, audit all `/app` routes for other dev-only pages and delete or noindex
+- [ ] **SEO-04**: Structured data consolidation + server-render migration — emit only Person, WebSite, CreativeWork, Article (server-rendered in RSC pages); delete LocalBusiness, Organization, ProfessionalService, and all FAQ schema (CONTEXT D-08/D-09, CRED-07 no-fabrication)
+- [ ] **SEO-05**: Sitemap lastModified + live verification — add lastModified dates to sitemap URLs; mandatory post-deploy verification (robots.txt fetch, Rich Results Test, Search Console sitemap submission)
+
 ## v2 Requirements (deferred)
 
 ### Polish
@@ -99,14 +107,20 @@ Populated during roadmap creation.
 | CRED-07 | Phase 8 | Complete |
 | CRED-08 | Phase 8 | Complete |
 | CRED-09 | Phase 9 | Pending |
+| SEO-01 | Phase 10 | Pending |
+| SEO-02 | Phase 10 | Pending |
+| SEO-03 | Phase 10 | Pending |
+| SEO-04 | Phase 10 | Pending |
+| SEO-05 | Phase 10 | Pending |
 | DEBT-01 | Phase 5 | Complete |
 | DEBT-02 | Phase 5 | Complete |
 
 **Coverage:**
 - v1 requirements: 26 total
-- Mapped to phases: 26/26 ✓
+- v2 requirements (SEO): 5 total
+- Mapped to phases: 31/31 ✓
 - Unmapped: 0
 
 ---
 *Requirements defined: 2026-08-15*
-*Last updated: 2026-08-15 — mapped to roadmap Phases 5-9*
+*Last updated: 2026-08-20 — SEO requirements added (Phase 10)*
