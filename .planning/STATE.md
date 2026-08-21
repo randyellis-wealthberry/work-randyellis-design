@@ -3,9 +3,9 @@ gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Case-Study Depth
 status: executing
-stopped_at: context exhaustion at 76% (2026-08-19)
-last_updated: "2026-08-19T23:06:26.112Z"
-last_activity: 2026-08-19 -- Phase 06 planning complete
+stopped_at: Phase 10 context gathered
+last_updated: "2026-08-21T01:18:03.531Z"
+last_activity: 2026-08-20 -- Phase 10 execution started
 progress:
   total_phases: 6
   completed_phases: 1
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-08-15 after v1.0 milestone)
 
 **Core value:** A hiring manager finds a coherent, senior, *verifiable* story with an obvious way to book a conversation — shipped and audit-verified in v1.0. v2.0 adds proof of *how Randy decides*.
-**Current focus:** Phase 09 — cross-surface-verification
+**Current focus:** Phase 10 — seo-remediation
 
 ## Current Position
 
-Phase: 09 (cross-surface-verification) — EXECUTING
-Plan: 1 of 5
-Status: Ready to execute
-Last activity: 2026-08-19 -- Phase 06 planning complete
+Phase: 10 (seo-remediation) — EXECUTING
+Plan: 1 of 4
+Status: Executing Phase 10
+Last activity: 2026-08-20 -- Phase 10 execution started
 
 Progress: [█████░░░░░] 50%
 
@@ -102,6 +102,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-08-19T23:06:26.104Z
-Stopped at: context exhaustion at 76% (2026-08-19)
-Resume file: None
+Last session: 2026-08-21T01:18:03.505Z
+Stopped at: Phase 10 context gathered
+Resume file: .planning/phases/10-seo-remediation/10-CONTEXT.md
