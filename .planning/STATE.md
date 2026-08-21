@@ -4,8 +4,8 @@ milestone: v2.0
 milestone_name: Case-Study Depth
 status: executing
 stopped_at: Phase 10 context gathered
-last_updated: "2026-08-21T19:15:00.809Z"
-last_activity: 2026-08-21 -- Phase 10 planning complete
+last_updated: "2026-08-21T19:30:25.736Z"
+last_activity: 2026-08-21 -- Phase 10 execution started
 progress:
   total_phases: 6
   completed_phases: 2
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-08-15 after v1.0 milestone)
 
 **Core value:** A hiring manager finds a coherent, senior, *verifiable* story with an obvious way to book a conversation — shipped and audit-verified in v1.0. v2.0 adds proof of *how Randy decides*.
-**Current focus:** Phase 10 — seo remediation
+**Current focus:** Phase 10 — seo-remediation
 
 ## Current Position
 
-Phase: 10
-Plan: Not started
-Status: Ready to execute
-Last activity: 2026-08-21 -- Phase 10 planning complete
+Phase: 10 (seo-remediation) — EXECUTING
+Plan: 1 of 10
+Status: Executing Phase 10
+Last activity: 2026-08-21 -- Phase 10 execution started
 
 Progress: [█████░░░░░] 50%
 
