@@ -1,62 +1,3 @@
-// Temporarily commented out next-pwa due to Next.js 15 compatibility issues
-// TODO: Update to @ducanh2912/next-pwa when ready
-// const withPWA = require("next-pwa")({
-//   dest: "public",
-//   register: true,
-//   skipWaiting: true,
-//   disable: process.env.NODE_ENV === "development",
-//   fallbacks: {
-//     image: "/static/images/fallback.png",
-//     document: "/offline",
-//   },
-//   runtimeCaching: [
-//     {
-//       urlPattern: /^https:\/\/fonts\.(googleapis|gstatic)\.com\/.*/i,
-//       handler: "CacheFirst",
-//       options: {
-//         cacheName: "google-fonts",
-//         expiration: {
-//           maxEntries: 4,
-//           maxAgeSeconds: 365 * 24 * 60 * 60, // 365 days
-//         },
-//       },
-//     },
-//     {
-//       urlPattern: /\.(?:jpg|jpeg|gif|png|svg|ico|webp)$/i,
-//       handler: "StaleWhileRevalidate",
-//       options: {
-//         cacheName: "static-image-assets",
-//         expiration: {
-//           maxEntries: 64,
-//           maxAgeSeconds: 24 * 60 * 60, // 24 hours
-//         },
-//       },
-//     },
-//     {
-//       urlPattern: /\.(?:js)$/i,
-//       handler: "StaleWhileRevalidate",
-//       options: {
-//         cacheName: "static-js-assets",
-//         expiration: {
-//           maxEntries: 32,
-//           maxAgeSeconds: 24 * 60 * 60, // 24 hours
-//         },
-//       },
-//     },
-//     {
-//       urlPattern: /\.(?:css|less)$/i,
-//       handler: "StaleWhileRevalidate",
-//       options: {
-//         cacheName: "static-style-assets",
-//         expiration: {
-//           maxEntries: 32,
-//           maxAgeSeconds: 24 * 60 * 60, // 24 hours
-//         },
-//       },
-//     },
-//   ],
-// });
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // PERFORMANCE OPTIMIZATION ENHANCEMENTS
@@ -242,6 +183,17 @@ const nextConfig = {
         destination: "/projects/ledgeriq",
         permanent: true,
       },
+      // T-03 / D-04: deleted dev routes 301 to home
+      {
+        source: "/test-glow",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/test/:path*",
+        destination: "/",
+        permanent: true,
+      },
     ];
   },
 
@@ -288,17 +240,6 @@ const nextConfig = {
       },
     ];
   },
-
-  // REDIRECTS
-  async redirects() {
-    return [
-      {
-        source: "/ledgeriq",
-        destination: "/projects/ledgeriq",
-        permanent: true,
-      },
-    ];
-  },
 };
 
 const withMDX = require("@next/mdx")({
@@ -309,6 +250,4 @@ const withMDX = require("@next/mdx")({
   },
 });
 
-// Temporarily disable PWA to test build
 module.exports = withMDX(nextConfig);
-// module.exports = withPWA(withMDX(nextConfig));
