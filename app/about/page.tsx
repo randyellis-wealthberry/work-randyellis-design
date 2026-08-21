@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import AboutClient from "./about-client";
-import { BreadcrumbStructuredData } from "@/components/seo/structured-data";
+import { JsonLd } from "@/components/seo/json-ld";
+import { buildBreadcrumbSchema } from "@/lib/seo/json-ld";
+import { WEBSITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "About — AI Product Design Engineer & Leader",
@@ -29,13 +31,16 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   const breadcrumbItems = [
-    { name: "Home", url: "https://work.randyellis.design" },
-    { name: "About", url: "https://work.randyellis.design/about" },
+    { name: "Home", url: WEBSITE_URL },
+    { name: "About", url: `${WEBSITE_URL}/about` },
   ];
 
   return (
     <>
-      <BreadcrumbStructuredData items={breadcrumbItems} />
+      <JsonLd
+        id="breadcrumb-jsonld"
+        data={buildBreadcrumbSchema(breadcrumbItems)}
+      />
       <AboutClient />
     </>
   );

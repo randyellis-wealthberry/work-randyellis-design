@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import MetisClient from "./metis-client";
-import { BreadcrumbStructuredData } from "@/components/seo/structured-data";
+import { JsonLd } from "@/components/seo/json-ld";
+import { buildBreadcrumbSchema } from "@/lib/seo/json-ld";
+import { WEBSITE_URL } from "@/lib/constants";
 
 export const metadata: Metadata = {
   title: "METIS — AI Business Strategy Agent",
@@ -28,13 +30,16 @@ export const metadata: Metadata = {
 
 export default function MetisPage() {
   const breadcrumbItems = [
-    { name: "Home", url: "https://work.randyellis.design" },
-    { name: "METIS", url: "https://work.randyellis.design/metis" },
+    { name: "Home", url: WEBSITE_URL },
+    { name: "METIS", url: `${WEBSITE_URL}/metis` },
   ];
 
   return (
     <>
-      <BreadcrumbStructuredData items={breadcrumbItems} />
+      <JsonLd
+        id="breadcrumb-jsonld"
+        data={buildBreadcrumbSchema(breadcrumbItems)}
+      />
       <MetisClient />
     </>
   );
