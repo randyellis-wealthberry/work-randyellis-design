@@ -7,10 +7,8 @@ import { NewsletterSignup } from "@/components/ui/newsletter-signup";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import { Analytics } from "@vercel/analytics/next";
 import { GoogleAnalytics } from "@/components/analytics/google-analytics";
-import {
-  PersonStructuredData,
-  WebsiteStructuredData,
-} from "@/components/seo/structured-data";
+import { JsonLd } from "@/components/seo/json-ld";
+import { buildPersonSchema, buildWebSiteSchema } from "@/lib/seo/json-ld";
 import { getNonce } from "@/lib/security/nonce";
 import ResourceHints from "@/components/cdn/resource-hints";
 import { createBaseMetadata } from "@/lib/metadata";
@@ -106,9 +104,9 @@ export default async function RootLayout({
           href="/icons/icon-512x512.png"
         />
 
-        {/* Structured Data */}
-        <PersonStructuredData />
-        <WebsiteStructuredData />
+        {/* Structured Data — server-rendered (D-10); entity story per D-08 */}
+        <JsonLd id="person-jsonld" data={buildPersonSchema()} />
+        <JsonLd id="website-jsonld" data={buildWebSiteSchema()} />
       </head>
       <body
         className={`${geist.variable} ${geistMono.variable} bg-white tracking-tight antialiased dark:bg-zinc-950`}
