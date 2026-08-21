@@ -45,6 +45,16 @@ function applyCacheHeaders(
 ): NextResponse {
   const { pathname } = request.nextUrl;
 
+  // D-03: Kill-switch service worker must always be re-fetched so returning
+  // visitors pick it up on their first visit instead of waiting up to 24h on
+  // a cached immutable copy (Plan 10-01 replaced sw.js with a kill switch).
+  if (pathname === "/sw.js") {
+    response.headers.set("Cache-Control", "public, max-age=0, must-revalidate");
+    response.headers.set("CDN-Cache-Control", "max-age=0");
+    response.headers.set("Vercel-CDN-Cache-Control", "max-age=0");
+    return response;
+  }
+
   // Static assets (JS, CSS) - immutable with long cache
   if (pathname.match(/\.(js|css)$/)) {
     Object.entries(CACHE_HEADERS.staticAssets).forEach(([key, value]) => {
@@ -90,12 +100,7 @@ const INDEXABLE_HOSTS = new Set([
 ]);
 
 function shouldBlockIndexing(pathname: string): boolean {
-  return (
-    pathname.startsWith("/admin") ||
-    pathname.startsWith("/api") ||
-    pathname.startsWith("/test-glow") ||
-    pathname.startsWith("/offline")
-  );
+  return pathname.startsWith("/admin") || pathname.startsWith("/api");
 }
 
 export function middleware(request: NextRequest) {
