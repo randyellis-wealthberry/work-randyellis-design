@@ -16,9 +16,14 @@ interface BreadcrumbItem {
 interface BreadcrumbNavProps {
   items: BreadcrumbItem[];
   className?: string;
+  structuredData?: boolean;
 }
 
-export function BreadcrumbNav({ items, className }: BreadcrumbNavProps) {
+export function BreadcrumbNav({
+  items,
+  className,
+  structuredData = true,
+}: BreadcrumbNavProps) {
   // Prepare structured data items (include home + items)
   const structuredDataItems = [
     { name: "Home", url: createAbsoluteUrl("/") },
@@ -34,7 +39,9 @@ export function BreadcrumbNav({ items, className }: BreadcrumbNavProps) {
 
   return (
     <>
-      <BreadcrumbStructuredData items={structuredDataItems} />
+      {structuredData && (
+        <BreadcrumbStructuredData items={structuredDataItems} />
+      )}
       <nav
         aria-label="Breadcrumb"
         className={cn(

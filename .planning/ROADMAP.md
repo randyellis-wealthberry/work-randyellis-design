@@ -30,9 +30,9 @@ with every claim written from Randy's firsthand account and cross-surface-consis
 
 - [x] **Phase 5: Foundation & Cleanup** - Fix the type-import blocker, delete duplicate/orphaned code, audit deck coverage before any content is written, and fold in unrelated tech debt (completed 2026-08-15)
 - [x] **Phase 6: Narrative Template & Data Model** - Build and pilot the decisions-with-rationale narrative components on growit before mass rollout
-- [ ] **Phase 7: Bespoke Convergence** - Insert the proven narrative components into the 4 bespoke standalone project pages
-- [ ] **Phase 8: Content Rewrite & Credibility Guardrails** - Rewrite all 7 case studies first-person and decision-driven, with credit-attribution and NDA guardrails enforced as acceptance criteria
-- [ ] **Phase 9: Cross-Surface Verification** - Reconcile visible copy, metadata, OG images, and JSON-LD across every touched project
+- [x] **Phase 7: Bespoke Convergence** - Insert the proven narrative components into the 4 bespoke standalone project pages
+- [x] **Phase 8: Content Rewrite & Credibility Guardrails** - Rewrite all 7 case studies first-person and decision-driven, with credit-attribution and NDA guardrails enforced as acceptance criteria
+- [x] **Phase 9: Cross-Surface Verification** - Reconcile visible copy, metadata, OG images, and JSON-LD across every touched project (completed 2026-08-20)
 
 ## Phase Details
 
@@ -121,16 +121,16 @@ Plans:
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
-- [ ] 09-02-PLAN.md — Wire `[slug]` + 4 standalone routes to the helpers; drop FAQ JSON-LD; add CreativeWork + Breadcrumb; route-wiring drift test (wave 2) — *note: Phase 10 plan 10-05 now owns the server-rendered CreativeWork/Breadcrumb emission on all 7 routes; 09-02 retains the `projectMetadata()` metadata wiring*
-- [ ] 09-03-PLAN.md — Delete dead schema exports; align `$50M` wording; verify/fix Chameleon URL; bounded placeholder sweep (wave 2) — *note: Phase 10 plans 10-08 (legacy schema deletion + Chameleon URL) supersede those two tasks*
+- [x] 09-02-PLAN.md — Wire `[slug]` + 4 standalone routes to the helpers; drop FAQ JSON-LD; add CreativeWork + Breadcrumb; route-wiring drift test (wave 2)
+- [x] 09-03-PLAN.md — Delete dead schema exports; align `$50M` wording; verify/fix Chameleon URL; bounded placeholder sweep (wave 2)
 
 **Wave 3** *(blocked on Wave 2 completion)*
 
-- [ ] 09-04-PLAN.md — Author `09-CROSS-SURFACE-MATRIX.md` (7 projects + Waffle verify-only) with D-18 conformance fixes and open items (wave 3)
+- [x] 09-04-PLAN.md — Author `09-CROSS-SURFACE-MATRIX.md` (7 projects + Waffle verify-only) with D-18 conformance fixes and open items (wave 3)
 
 **Wave 4** *(blocked on Wave 3 completion)*
 
-- [ ] 09-05-PLAN.md — Stale-claim grep register, lint → tsc → test gate recorded in the matrix, ROADMAP Phases 6–8 reconciled (wave 4)
+- [x] 09-05-PLAN.md — Stale-claim grep register, lint → tsc → test gate recorded in the matrix, ROADMAP Phases 6–8 reconciled (wave 4)
 
 ## Progress
 
@@ -142,9 +142,9 @@ Plans:
 | 4. Waffle Product Page | v1.0 | 3/3 | Complete | 2026-08-15 |
 | 5. Foundation & Cleanup | v2.0 | 2/2 | Complete   | 2026-08-15 |
 | 6. Narrative Template & Data Model | v2.0 | 1/1 | Complete | 2026-08-15 |
-| 7. Bespoke Convergence | v2.0 | 1/1 | Structural wiring complete (content pending Phase 8) | 2026-08-15 |
-| 8. Content Rewrite & Credibility Guardrails | v2.0 | 0/TBD | Not started | - |
-| 9. Cross-Surface Verification | v2.0 | 1/5 | In Progress|  |
+| 7. Bespoke Convergence | v2.0 | 1/1 | Complete | 2026-08-15 |
+| 8. Content Rewrite & Credibility Guardrails | v2.0 | pre-GSD (traced) | Complete | 2026-08-16 |
+| 9. Cross-Surface Verification | v2.0 | 5/5 | Complete   | 2026-08-20 |
 | 10. SEO Remediation | v2.0 | 0/10 | Planned | - |
 
 ### Phase 10: SEO Remediation

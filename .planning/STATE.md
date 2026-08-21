@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Case-Study Depth
-status: executing
+status: planning
 stopped_at: Phase 10 context gathered
-last_updated: "2026-08-21T01:18:03.531Z"
-last_activity: 2026-08-20 -- Phase 10 execution started
+last_updated: "2026-08-20T21:47:58.526Z"
+last_activity: 2026-08-20
 progress:
   total_phases: 6
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 8
-  completed_plans: 3
-  percent: 17
+  completed_plans: 7
+  percent: 33
 ---
 
 # STATE — Randy Ellis Portfolio
@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-08-15 after v1.0 milestone)
 
 **Core value:** A hiring manager finds a coherent, senior, *verifiable* story with an obvious way to book a conversation — shipped and audit-verified in v1.0. v2.0 adds proof of *how Randy decides*.
-**Current focus:** Phase 10 — seo-remediation
+**Current focus:** Phase 10 — seo remediation
 
 ## Current Position
 
-Phase: 10 (seo-remediation) — EXECUTING
-Plan: 1 of 4
-Status: Executing Phase 10
-Last activity: 2026-08-20 -- Phase 10 execution started
+Phase: 10
+Plan: Not started
+Status: Ready to plan
+Last activity: 2026-08-20
 
 Progress: [█████░░░░░] 50%
 
@@ -36,7 +36,7 @@ Progress: [█████░░░░░] 50%
 
 **Velocity:**
 
-- Total plans completed: 0 (v2.0 not yet started)
+- Total plans completed: 5 (v2.0 not yet started)
 - Average duration: —
 - Total execution time: —
 
@@ -44,7 +44,7 @@ Progress: [█████░░░░░] 50%
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| - | - | - | - |
+| 09 | 5 | - | - |
 
 **Recent Trend:** — (no v2.0 plans executed yet)
 | Phase 05 P02 | 19min | 5 tasks | 24 files |
@@ -102,6 +102,6 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-08-21T01:18:03.505Z
+Last session: 2026-08-20T21:47:58.491Z
 Stopped at: Phase 10 context gathered
 Resume file: .planning/phases/10-seo-remediation/10-CONTEXT.md
