@@ -513,27 +513,33 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 **If this table is empty:** All claims in this research were verified or cited — no user confirmation needed.
 *Note: Table is NOT empty—5 assumptions exist due to external tool failures (Context7, WebSearch, WebFetch all errored). Next.js-specific claims are VERIFIED from official docs; Service Worker and structured data best practices are training knowledge.*
 
-## Open Questions
+## Open Questions (RESOLVED)
+
+> All four were resolved during planning (2026-08-21) — see the `RESOLVED:` line under each.
 
 1. **Should privacy-policy and terms-of-service be added to sitemap?**
    - What we know: They're linked in footer, so they're indexed. Sitemap currently omits them.
    - What's unclear: User decision on whether to include. Audit says "defensible either way."
    - Recommendation: Include them—they're public, indexed pages. Omission doesn't hide them from Google, just removes a freshness signal.
+   - RESOLVED: Plan 10-04 adds `/privacy-policy` and `/terms-of-service` to `app/sitemap.ts` with `lastModified` (audit T-05).
 
 2. **Should project URLs get content-derived lastModified dates?**
    - What we know: `Project` type doesn't currently have `updatedAt` field. Build time is available.
    - What's unclear: Whether Randy wants to track per-project update dates going forward.
    - Recommendation: Use build time for now (simple, no schema change). If Phase 11+ adds project versioning, switch to content-derived dates then.
+   - RESOLVED: Plan 10-04 uses a module-scope `BUILD_TIME` for static + project URLs (D-20); no `updatedAt` field is added.
 
 3. **Does Chameleon Collective URL still resolve?**
    - What we know: It's a v1.0 carry-over blocker (STATE.md). Appears in `about-client.tsx` and 3× in `structured-data.tsx`.
    - What's unclear: Does it 404? Does it link to Randy's profile or work?
    - Recommendation: Mandatory verification task in Wave 0—open URL in browser, confirm it resolves to Randy-relevant content. If broken/irrelevant, remove from Person schema `sameAs`.
+   - RESOLVED: Phase 9 plan 09-03 verified the chain (www.chameleon.co → 308 → chameleon.co → 308 → chameleoncollective.com, HTTP 200) and normalized the About/work-experience links to `https://chameleoncollective.com`; Plan 10-08 re-verifies live; Plan 10-03 keeps the URL out of Person.sameAs (D-11 — the firm's homepage is not the same entity as Randy).
 
 4. **Should Wealthberry Labs Organization schema remain on this site?**
    - What we know: D-07 says "keep it — represents Randy's company." External URL is `buildyourlegacywithai.com`.
    - What's unclear: Whether Google treats this as entity confusion (is this Randy's portfolio or Wealthberry's site?).
    - Recommendation: Keep per user decision, but ensure Person schema clarifies the relationship (`worksFor` or `affiliation`). If Phase 11+ adds Wealthberry-specific pages, Organization schema is justified. For now it's borderline.
+   - RESOLVED: The final 10-CONTEXT.md D-08 excludes Organization schemas entirely (Person + WebSite + CreativeWork + Article only) — no Wealthberry Organization node and no `worksFor` on Person (Plans 10-03/10-05/10-08). The "D-07 keep it" cited above is the superseded numbering from the pre-discussion draft.
 
 ## User Constraints
 
