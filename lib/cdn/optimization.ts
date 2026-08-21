@@ -190,10 +190,6 @@ export function generateResourceHints() {
         type: "font/woff2",
         crossOrigin: "anonymous",
       },
-      {
-        href: "/manifest.webmanifest",
-        as: "manifest",
-      },
     ],
     prefetch: ["/projects", "/about", "/blog"],
   };
@@ -254,25 +250,4 @@ export function generateCriticalCSS(): string {
     .header { display: flex; align-items: center; }
     .hero { min-height: 100vh; }
   `;
-}
-
-/**
- * Check if service worker is available for caching strategies
- */
-export function isServiceWorkerSupported(): boolean {
-  return typeof window !== "undefined" && "serviceWorker" in navigator;
-}
-
-/**
- * Register service worker for additional caching
- */
-export async function registerServiceWorker(swPath = "/sw.js"): Promise<void> {
-  if (!isServiceWorkerSupported()) return;
-
-  try {
-    const registration = await navigator.serviceWorker.register(swPath);
-    console.log("Service Worker registered:", registration);
-  } catch (error) {
-    console.error("Service Worker registration failed:", error);
-  }
 }
