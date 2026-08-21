@@ -4,13 +4,13 @@ milestone: v2.0
 milestone_name: Case-Study Depth
 status: executing
 stopped_at: Phase 10 context gathered
-last_updated: "2026-08-21T20:01:06.825Z"
+last_updated: "2026-08-21T20:24:24.510Z"
 last_activity: 2026-08-21
 progress:
   total_phases: 6
   completed_phases: 2
   total_plans: 18
-  completed_plans: 11
+  completed_plans: 14
   percent: 33
 ---
 
@@ -26,8 +26,8 @@ See: .planning/PROJECT.md (updated 2026-08-15 after v1.0 milestone)
 ## Current Position
 
 Phase: 10 (seo-remediation) — EXECUTING
-Plan: 5 of 10
-Status: Executing Phase 10 (wave 2 of 5)
+Plan: 8 of 10
+Status: Executing Phase 10 (wave 3 of 5)
 Last activity: 2026-08-21
 
 Progress: [█████░░░░░] 50%

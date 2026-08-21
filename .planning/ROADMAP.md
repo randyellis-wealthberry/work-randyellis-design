@@ -145,7 +145,7 @@ Plans:
 | 7. Bespoke Convergence | v2.0 | 1/1 | Complete | 2026-08-15 |
 | 8. Content Rewrite & Credibility Guardrails | v2.0 | pre-GSD (traced) | Complete | 2026-08-16 |
 | 9. Cross-Surface Verification | v2.0 | 5/5 | Complete   | 2026-08-20 |
-| 10. SEO Remediation | v2.0 | 4/10 | In Progress|  |
+| 10. SEO Remediation | v2.0 | 7/10 | In Progress|  |
 
 ### Phase 10: SEO Remediation
 
@@ -172,9 +172,9 @@ Plans:
 
 **Wave 2** *(blocked on Wave 1)*
 
-- [ ] 10-05-PLAN.md — Wire server-rendered Person/WebSite (layout), CreativeWork+Breadcrumb on all 7 case-study routes (FAQ dropped), about/metis breadcrumbs; breadcrumb-nav visual-only; wiring regression test (SEO-04; D-08, D-09, D-10)
-- [ ] 10-06-PLAN.md — `/projects?category=` URL-driven filter backing the WebSite SearchAction + projects breadcrumb via JsonLd (SEO-04; D-13)
-- [ ] 10-07-PLAN.md — `<BlogPostJsonLd>` RSC: Article (author → Person @id) + Breadcrumb on the 4 MDX posts; blog layout client schema removed (SEO-04; D-10, D-15)
+- [x] 10-05-PLAN.md — Wire server-rendered Person/WebSite (layout), CreativeWork+Breadcrumb on all 7 case-study routes (FAQ dropped), about/metis breadcrumbs; breadcrumb-nav visual-only; wiring regression test (SEO-04; D-08, D-09, D-10)
+- [x] 10-06-PLAN.md — `/projects?category=` URL-driven filter backing the WebSite SearchAction + projects breadcrumb via JsonLd (SEO-04; D-13)
+- [x] 10-07-PLAN.md — `<BlogPostJsonLd>` RSC: Article (author → Person @id) + Breadcrumb on the 4 MDX posts; blog layout client schema removed (SEO-04; D-10, D-15)
 
 **Wave 3** *(blocked on Wave 2)*
 
