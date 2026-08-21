@@ -3,6 +3,47 @@
  */
 
 /**
+ * Filters projects by category, tags, or name
+ *
+ * Backs the `/projects?category=` URL filter that the WebSite SearchAction advertises (Phase 10 D-13).
+ * Searches across project.name, project.category, project.categories[], and project.tags[].
+ * Case-insensitive, trims whitespace. Returns all projects when term is empty/null/undefined.
+ *
+ * @template T Object with name, category, tags, and optional categories
+ * @param projects - Array of projects to filter
+ * @param term - Search term (case-insensitive, trimmed)
+ * @returns Filtered array of projects matching the term
+ *
+ * @example
+ * ```typescript
+ * const mobileProjects = filterProjectsByCategory(PROJECTS, "Mobile App");
+ * const gardeningProjects = filterProjectsByCategory(PROJECTS, "gardening");
+ * ```
+ */
+export function filterProjectsByCategory<
+  T extends {
+    name: string;
+    category: string;
+    categories?: string[];
+    tags: string[];
+  },
+>(projects: readonly T[], term: string | null | undefined): T[] {
+  const q = term?.trim().toLowerCase() ?? "";
+  if (!q) return [...projects];
+
+  return projects.filter((p) => {
+    const searchableFields = [
+      p.name,
+      p.category,
+      ...(p.categories ?? []),
+      ...p.tags,
+    ];
+
+    return searchableFields.some((field) => field.toLowerCase().includes(q));
+  });
+}
+
+/**
  * Randomly selects a specified number of items from an array
  * Uses Fisher-Yates shuffle algorithm for optimal performance and fairness
  *

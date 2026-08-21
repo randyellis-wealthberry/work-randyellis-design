@@ -2,6 +2,7 @@
 
 import { motion } from "motion/react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { ScrambleSectionTitle } from "@/components/ui/scramble-section-title";
 import Image from "next/image";
 import { ExternalLink, Github, Calendar, Users } from "lucide-react";
@@ -25,6 +26,7 @@ import { UnicornStudioEmbed } from "@/components/ui/unicorn-studio-embed";
 import { HoverIframe } from "@/components/ui/hover-iframe";
 import { HoverVideo } from "@/components/ui/hover-video";
 import { PROJECTS } from "@/lib/data/projects";
+import { filterProjectsByCategory } from "@/lib/project-utils";
 import { cn } from "@/lib/utils";
 
 const VARIANTS_CONTAINER = {
@@ -164,6 +166,12 @@ function ProjectThumbnail({ project }: { project: (typeof PROJECTS)[0] }) {
 }
 
 export default function ProjectsClient() {
+  // URL-driven filter backing the WebSite SearchAction (/projects?category=…) — Phase 10 D-13;
+  // keep the param name in sync with lib/seo/json-ld.ts
+  const searchParams = useSearchParams();
+  const categoryTerm = searchParams?.get("category")?.trim() ?? "";
+  const visibleProjects = filterProjectsByCategory(PROJECTS, categoryTerm);
+
   return (
     <motion.main
       className="space-y-6 sm:space-y-8"
@@ -183,6 +191,36 @@ export default function ProjectsClient() {
             A collection of projects showcasing my work in AI-powered product
             design, design systems, and innovative user experiences.
           </p>
+          {categoryTerm && (
+            <p
+              className="text-sm text-zinc-600 dark:text-zinc-400"
+              role="status"
+            >
+              {visibleProjects.length === 0 ? (
+                <>
+                  No projects match &quot;{categoryTerm}&quot;.{" "}
+                  <Link
+                    href="/projects"
+                    className="underline underline-offset-4"
+                  >
+                    Clear filter
+                  </Link>
+                </>
+              ) : (
+                <>
+                  Showing {visibleProjects.length}{" "}
+                  {visibleProjects.length === 1 ? "project" : "projects"}{" "}
+                  matching &quot;{categoryTerm}&quot; ·{" "}
+                  <Link
+                    href="/projects"
+                    className="underline underline-offset-4"
+                  >
+                    Clear filter
+                  </Link>
+                </>
+              )}
+            </p>
+          )}
         </div>
       </motion.section>
 
@@ -193,7 +231,7 @@ export default function ProjectsClient() {
           initial="hidden"
           animate="visible"
         >
-          {PROJECTS.map((project) => (
+          {visibleProjects.map((project) => (
             <motion.div
               key={project.id}
               variants={VARIANTS_ITEM}
