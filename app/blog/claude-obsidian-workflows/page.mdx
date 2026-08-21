@@ -1,5 +1,5 @@
 import { BlogHeroWrapper } from "@/components/blog/blog-hero-wrapper";
-import { ArticleStructuredData } from "@/components/seo/structured-data";
+import { BlogPostJsonLd } from "@/components/seo/blog-post-json-ld";
 
 export const metadata = {
   title: "Claude + Obsidian: The Ultimate Knowledge System",
@@ -14,11 +14,11 @@ export const metadata = {
   },
 };
 
-<ArticleStructuredData
+<BlogPostJsonLd
   title="Claude + Obsidian: The Ultimate Knowledge Management System"
   description="Transform two tools into a knowledge management system that revolutionizes how you capture, connect, and leverage information."
   datePublished="2025-01-15"
-  url="https://work.randyellis.design/blog/claude-obsidian-workflows"
+  slug="claude-obsidian-workflows"
   imageUrl="https://work.randyellis.design/images/blog/claude-obsidian-workflows/hero.png"
   keywords={[
     "Claude Code",

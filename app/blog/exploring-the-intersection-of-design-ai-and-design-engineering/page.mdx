@@ -1,5 +1,5 @@
 import { Cover } from "@/mdx-components";
-import { ArticleStructuredData } from "@/components/seo/structured-data";
+import { BlogPostJsonLd } from "@/components/seo/blog-post-json-ld";
 import { BlogHeroWrapper } from "@/components/blog/blog-hero-wrapper";
 
 export const metadata = {
@@ -12,11 +12,11 @@ export const metadata = {
   },
 };
 
-<ArticleStructuredData
+<BlogPostJsonLd
   title="Exploring the Intersection of Design, AI, and Design Engineering"
   description="Design and artificial intelligence (AI) are increasingly intertwined, driving innovation across industries. As technology evolves, the role of design engineering is more critical than ever, bridging creativity and functionality."
   datePublished="2024-01-15"
-  url="https://work.randyellis.design/blog/exploring-the-intersection-of-design-ai-and-design-engineering"
+  slug="exploring-the-intersection-of-design-ai-and-design-engineering"
   imageUrl="https://cdn.cosmos.so/affd4b79-e848-4dfd-bd42-5f2c4a847365?format=jpeg"
   keywords={[
     "AI",

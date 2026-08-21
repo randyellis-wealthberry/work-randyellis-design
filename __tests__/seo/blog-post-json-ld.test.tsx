@@ -32,9 +32,7 @@ describe("BlogPostJsonLd", () => {
         keywords={["A", "B"]}
       />,
     );
-    const scriptMatch = html.match(
-      /<script[^>]*>(.*?)<\/script>/s,
-    );
+    const scriptMatch = html.match(/<script[^>]*>(.*?)<\/script>/s);
     expect(scriptMatch).not.toBeNull();
     const parsed = JSON.parse(scriptMatch![1]);
     expect(Array.isArray(parsed)).toBe(true);
@@ -125,9 +123,9 @@ describe("BlogPostJsonLd", () => {
         slug="test"
       />,
     );
-    const stringified = JSON.stringify(JSON.parse(
-      html.match(/<script[^>]*>(.*?)<\/script>/s)![1],
-    ));
+    const stringified = JSON.stringify(
+      JSON.parse(html.match(/<script[^>]*>(.*?)<\/script>/s)![1]),
+    );
     expect(stringified).not.toContain("Organization");
     expect(stringified).not.toContain("articleSection");
   });
@@ -164,5 +162,89 @@ describe("BlogPostJsonLd source assertions", () => {
     const source = fs.readFileSync(componentPath, "utf-8");
     expect(source).toContain("buildArticleSchema");
     expect(source).toContain("buildBreadcrumbSchema");
+  });
+});
+
+describe("MDX blog posts migration", () => {
+  const mdxPosts = [
+    {
+      path: "app/blog/claude-obsidian-workflows/page.mdx",
+      slug: "claude-obsidian-workflows",
+    },
+    {
+      path: "app/blog/create-professional-videos-claude-code-guide/page.mdx",
+      slug: "create-professional-videos-claude-code-guide",
+    },
+    {
+      path: "app/blog/exploring-the-intersection-of-design-ai-and-design-engineering/page.mdx",
+      slug: "exploring-the-intersection-of-design-ai-and-design-engineering",
+    },
+    {
+      path: "app/blog/profits-not-pixels/page.mdx",
+      slug: "profits-not-pixels",
+    },
+  ];
+
+  mdxPosts.forEach(({ path: mdxPath, slug }) => {
+    describe(`${slug}`, () => {
+      const fullPath = path.join(process.cwd(), mdxPath);
+      let source: string;
+
+      beforeAll(() => {
+        source = fs.readFileSync(fullPath, "utf-8");
+      });
+
+      test("imports BlogPostJsonLd from blog-post-json-ld", () => {
+        expect(source).toContain('from "@/components/seo/blog-post-json-ld"');
+      });
+
+      test("renders BlogPostJsonLd component", () => {
+        expect(source).toContain("<BlogPostJsonLd");
+      });
+
+      test(`has slug="${slug}" prop`, () => {
+        expect(source).toContain(`slug="${slug}"`);
+      });
+
+      test("does not contain ArticleStructuredData", () => {
+        expect(source).not.toContain("ArticleStructuredData");
+      });
+
+      test("does not import from structured-data", () => {
+        expect(source).not.toContain("structured-data");
+      });
+
+      test("does not have url prop with full URL", () => {
+        expect(source).not.toContain(
+          ` url="https://work.randyellis.design/blog/`,
+        );
+      });
+    });
+  });
+});
+
+describe("Blog layout cleanup", () => {
+  const layoutPath = path.join(process.cwd(), "app/blog/layout.tsx");
+  let source: string;
+
+  beforeAll(() => {
+    source = fs.readFileSync(layoutPath, "utf-8");
+  });
+
+  test("does not contain BreadcrumbStructuredData", () => {
+    expect(source).not.toContain("BreadcrumbStructuredData");
+  });
+
+  test("does not import from structured-data", () => {
+    expect(source).not.toContain("structured-data");
+  });
+
+  test("does not contain schemaItems variable", () => {
+    expect(source).not.toContain("schemaItems");
+  });
+
+  test("still contains BreadcrumbNav import and usage", () => {
+    expect(source).toContain("BreadcrumbNav");
+    expect(source).toContain("<BreadcrumbNav");
   });
 });
