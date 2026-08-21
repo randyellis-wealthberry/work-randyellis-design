@@ -39,10 +39,6 @@ const resourceHints = {
       type: "font/woff2",
       crossOrigin: "anonymous",
     },
-    {
-      href: "/manifest.json",
-      as: "manifest",
-    },
   ],
 
   // Prefetch for likely navigation
@@ -187,14 +183,6 @@ describe("CDN Resource Hints", () => {
       expect(geistMonoFont?.crossOrigin).toBe("anonymous");
     });
 
-    it("should preload PWA manifest", () => {
-      const hints = resourceHints.getPreloadHints();
-
-      const manifestHint = hints.find((hint) => hint.href === "/manifest.json");
-      expect(manifestHint).toBeDefined();
-      expect(manifestHint?.as).toBe("manifest");
-    });
-
     it("should have correct resource types", () => {
       const hints = resourceHints.getPreloadHints();
 
@@ -202,9 +190,6 @@ describe("CDN Resource Hints", () => {
         if (hint.as === "font") {
           expect(hint.type).toBe("font/woff2");
           expect(hint.crossOrigin).toBe("anonymous");
-        }
-        if (hint.as === "manifest") {
-          expect(hint.href).toBe("/manifest.json");
         }
       });
     });
@@ -296,12 +281,10 @@ describe("CDN Resource Hints", () => {
     it("should prioritize critical resources in preload hints", () => {
       const hints = resourceHints.getPreloadHints();
 
-      // Should include fonts and manifest as critical resources
+      // Should include fonts as critical resources
       const fontHints = hints.filter((hint) => hint.as === "font");
-      const manifestHints = hints.filter((hint) => hint.as === "manifest");
 
       expect(fontHints.length).toBeGreaterThan(0);
-      expect(manifestHints.length).toBeGreaterThan(0);
     });
   });
 
