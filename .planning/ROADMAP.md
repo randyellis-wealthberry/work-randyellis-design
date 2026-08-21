@@ -121,8 +121,8 @@ Plans:
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
-- [ ] 09-02-PLAN.md — Wire `[slug]` + 4 standalone routes to the helpers; drop FAQ JSON-LD; add CreativeWork + Breadcrumb; route-wiring drift test (wave 2)
-- [ ] 09-03-PLAN.md — Delete dead schema exports; align `$50M` wording; verify/fix Chameleon URL; bounded placeholder sweep (wave 2)
+- [ ] 09-02-PLAN.md — Wire `[slug]` + 4 standalone routes to the helpers; drop FAQ JSON-LD; add CreativeWork + Breadcrumb; route-wiring drift test (wave 2) — *note: Phase 10 plan 10-05 now owns the server-rendered CreativeWork/Breadcrumb emission on all 7 routes; 09-02 retains the `projectMetadata()` metadata wiring*
+- [ ] 09-03-PLAN.md — Delete dead schema exports; align `$50M` wording; verify/fix Chameleon URL; bounded placeholder sweep (wave 2) — *note: Phase 10 plans 10-08 (legacy schema deletion + Chameleon URL) supersede those two tasks*
 
 **Wave 3** *(blocked on Wave 2 completion)*
 
@@ -145,7 +145,7 @@ Plans:
 | 7. Bespoke Convergence | v2.0 | 1/1 | Structural wiring complete (content pending Phase 8) | 2026-08-15 |
 | 8. Content Rewrite & Credibility Guardrails | v2.0 | 0/TBD | Not started | - |
 | 9. Cross-Surface Verification | v2.0 | 1/5 | In Progress|  |
-| 10. SEO Remediation | v2.0 | 0/TBD | Not started | - |
+| 10. SEO Remediation | v2.0 | 0/10 | Planned | - |
 
 ### Phase 10: SEO Remediation
 
@@ -160,7 +160,33 @@ Plans:
   4. Sitemap carries lastModified for static and project URLs (T-05)
   5. Live post-deploy verification recorded: robots.txt + sitemap.xml fetch, Rich Results Test on home / one project / one blog post, Search Console property + sitemap submission confirmed (audit "Limitation" section)
 
-**Plans**: TBD
+**Plans**: 10 plans (5 waves)
+
+Plans:
+**Wave 1** *(parallel — no shared files)*
+
+- [ ] 10-01-PLAN.md — Kill-switch `public/sw.js` (sandbox-tested) + complete PWA removal: manifest/offline/pwa components/fallback, layout unwiring, `next-pwa` uninstall, PWA test suites dropped (SEO-01; D-01, D-02, D-03)
+- [ ] 10-02-PLAN.md — robots.ts without `/_next/` + explicit AI-crawler allow group; single merged `redirects()` with `/test-glow` + `/test/:path*` → `/`; middleware dead-check cleanup + `/sw.js` no-cache; D-05 route audit; root `test/` scaffold disposal (SEO-02, SEO-03; D-04..D-07, D-21)
+- [ ] 10-03-PLAN.md — TDD: server-safe JSON-LD builders (`lib/seo/json-ld.ts`: Person/WebSite+SearchAction/CreativeWork/Article/Breadcrumb + escaping serializer) and RSC `<JsonLd>` (SEO-04; D-08, D-11..D-15)
+- [ ] 10-04-PLAN.md — TDD: sitemap `lastModified` on every entry + legal pages (SEO-05; D-20)
+
+**Wave 2** *(blocked on Wave 1)*
+
+- [ ] 10-05-PLAN.md — Wire server-rendered Person/WebSite (layout), CreativeWork+Breadcrumb on all 7 case-study routes (FAQ dropped), about/metis breadcrumbs; breadcrumb-nav visual-only; wiring regression test (SEO-04; D-08, D-09, D-10)
+- [ ] 10-06-PLAN.md — `/projects?category=` URL-driven filter backing the WebSite SearchAction + projects breadcrumb via JsonLd (SEO-04; D-13)
+- [ ] 10-07-PLAN.md — `<BlogPostJsonLd>` RSC: Article (author → Person @id) + Breadcrumb on the 4 MDX posts; blog layout client schema removed (SEO-04; D-10, D-15)
+
+**Wave 3** *(blocked on Wave 2)*
+
+- [ ] 10-08-PLAN.md — Delete legacy `structured-data.tsx` + `project-faq.tsx` with no-legacy-schema regression test; Chameleon URL resolved on visible surfaces; `10-VERIFICATION-CHECKLIST.md` skeleton + screenshots dir; full gate (SEO-04, SEO-05; D-08..D-11, D-16, D-19)
+
+**Wave 4** *(post-deploy — human gate, autonomous: false)*
+
+- [ ] 10-09-PLAN.md — Production deploy checkpoint; live curl proof (robots, sitemap lastmod, sw.js, redirects, raw-HTML JSON-LD) rows 1–8; browser-automation attempt for Rich Results + SW registration rows 9–12 (SEO-01..05; D-16, D-17, D-22, D-23)
+
+**Wave 5** *(human verification, autonomous: false)*
+
+- [ ] 10-10-PLAN.md — Human-confirmed Rich Results Test (3 URLs) + Search Console sitemap submission with screenshots; checklist finalized 13/13 or BLOCKED per D-23 (SEO-05; D-17, D-18, D-19, D-23)
 
 ---
-*Last updated: 2026-08-15 — v2.0 Case-Study Depth roadmap created (Phases 5-9)*
+*Last updated: 2026-08-21 — Phase 10 SEO Remediation planned (10 plans, 5 waves)*
