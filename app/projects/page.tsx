@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import ProjectsClient from "./projects-client";
-import { BreadcrumbStructuredData } from "@/components/seo/structured-data";
+import { JsonLd } from "@/components/seo/json-ld";
+import { buildBreadcrumbSchema } from "@/lib/seo/json-ld";
+import { WEBSITE_URL } from "@/lib/constants";
 import { createPageMetadata } from "@/lib/metadata";
 
 export const metadata: Metadata = createPageMetadata({
@@ -22,14 +25,20 @@ export const metadata: Metadata = createPageMetadata({
 
 export default function ProjectsPage() {
   const breadcrumbItems = [
-    { name: "Home", url: "https://work.randyellis.design" },
-    { name: "Projects", url: "https://work.randyellis.design/projects" },
+    { name: "Home", url: WEBSITE_URL },
+    { name: "Projects", url: `${WEBSITE_URL}/projects` },
   ];
 
   return (
     <>
-      <BreadcrumbStructuredData items={breadcrumbItems} />
-      <ProjectsClient />
+      <JsonLd
+        id="breadcrumb-jsonld"
+        data={buildBreadcrumbSchema(breadcrumbItems)}
+      />
+      {/* Suspense is required by Next 15 for useSearchParams on a statically prerendered route — without it `next build` fails; build is not in the verify gate, so do not remove */}
+      <Suspense fallback={null}>
+        <ProjectsClient />
+      </Suspense>
     </>
   );
 }

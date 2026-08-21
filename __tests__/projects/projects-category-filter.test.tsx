@@ -1,6 +1,13 @@
 import { render, screen } from "@testing-library/react";
-import ProjectsClient from "@/app/projects/projects-client";
 import type { Project } from "@/lib/data/types";
+
+// Controllable mock for useSearchParams
+let mockSearchParams: URLSearchParams | null = null;
+
+// Mock next/navigation at the top level
+jest.mock("next/navigation", () => ({
+  useSearchParams: () => mockSearchParams,
+}));
 
 // Mock motion components to avoid animation issues in tests
 jest.mock("motion/react", () => ({
@@ -14,80 +21,73 @@ jest.mock("motion/react", () => ({
   AnimatePresence: ({ children }: any) => children,
 }));
 
-// Mock project data with exactly 3 projects for clear test expectations
-const MOCK_PROJECTS: Project[] = [
-  {
-    id: "alpha",
-    name: "Alpha App",
-    slug: "alpha",
-    description: "Mobile app test project",
-    longDescription: "Long description for Alpha App",
-    category: "Mobile App",
-    categories: ["Mobile App"],
-    tags: ["Gardening"],
-    link: "https://example.com/alpha",
-    video: "/alpha-video.mp4",
-    images: [],
-    timeline: "2024",
-    status: "completed",
-    technologies: ["React Native"],
-    featured: true,
-  },
-  {
-    id: "beta",
-    name: "Beta Web",
-    slug: "beta",
-    description: "Web app test project",
-    longDescription: "Long description for Beta Web",
-    category: "Web App",
-    tags: ["Dashboard"],
-    link: "https://example.com/beta",
-    video: "/beta-video.mp4",
-    images: [],
-    timeline: "2024",
-    status: "completed",
-    technologies: ["Next.js"],
-    featured: true,
-  },
-  {
-    id: "gamma",
-    name: "Gamma",
-    slug: "gamma",
-    description: "Design system test project",
-    longDescription: "Long description for Gamma",
-    category: "Design System",
-    categories: ["UI/UX"],
-    tags: [],
-    link: "https://example.com/gamma",
-    video: "/gamma-video.mp4",
-    images: [],
-    timeline: "2024",
-    status: "completed",
-    technologies: ["Figma"],
-    featured: false,
-  },
-];
-
+// Mock project data - defined inline in the jest.mock call to avoid hoisting issues
 jest.mock("@/lib/data/projects", () => ({
-  PROJECTS: MOCK_PROJECTS,
+  PROJECTS: [
+    {
+      id: "alpha",
+      name: "Alpha App",
+      slug: "alpha",
+      description: "Mobile app test project",
+      longDescription: "Long description for Alpha App",
+      category: "Mobile App",
+      categories: ["Mobile App"],
+      tags: ["Gardening"],
+      link: "https://example.com/alpha",
+      video: "/alpha-video.mp4",
+      images: [],
+      timeline: "2024",
+      status: "completed",
+      technologies: ["React Native"],
+      featured: true,
+    },
+    {
+      id: "beta",
+      name: "Beta Web",
+      slug: "beta",
+      description: "Web app test project",
+      longDescription: "Long description for Beta Web",
+      category: "Web App",
+      tags: ["Dashboard"],
+      link: "https://example.com/beta",
+      video: "/beta-video.mp4",
+      images: [],
+      timeline: "2024",
+      status: "completed",
+      technologies: ["Next.js"],
+      featured: true,
+    },
+    {
+      id: "gamma",
+      name: "Gamma",
+      slug: "gamma",
+      description: "Design system test project",
+      longDescription: "Long description for Gamma",
+      category: "Design System",
+      categories: ["UI/UX"],
+      tags: [],
+      link: "https://example.com/gamma",
+      video: "/gamma-video.mp4",
+      images: [],
+      timeline: "2024",
+      status: "completed",
+      technologies: ["Figma"],
+      featured: false,
+    },
+  ],
 }));
+
+// Import after mocks are set up
+import ProjectsClient from "@/app/projects/projects-client";
 
 describe("Projects Category Filter", () => {
   describe("when category query param is set", () => {
     beforeEach(() => {
-      // Mock next/navigation for category=mobile app
-      jest.resetModules();
-      jest.doMock("next/navigation", () => ({
-        useSearchParams: () => new URLSearchParams("category=mobile app"),
-      }));
-    });
-
-    afterEach(() => {
-      jest.unmock("next/navigation");
+      // Set mock to return category=mobile app
+      mockSearchParams = new URLSearchParams("category=mobile app");
     });
 
     test("shows only matching project (Alpha App)", () => {
-      const { default: ProjectsClient } = require("@/app/projects/projects-client");
       render(<ProjectsClient />);
 
       // Should show Alpha App (matches "Mobile App" category)
@@ -99,7 +99,6 @@ describe("Projects Category Filter", () => {
     });
 
     test("shows status line with count", () => {
-      const { default: ProjectsClient } = require("@/app/projects/projects-client");
       render(<ProjectsClient />);
 
       // Should show "Showing 1 project matching..."
@@ -107,7 +106,6 @@ describe("Projects Category Filter", () => {
     });
 
     test("shows clear filter link", () => {
-      const { default: ProjectsClient } = require("@/app/projects/projects-client");
       render(<ProjectsClient />);
 
       const clearLink = screen.getByRole("link", { name: /clear filter/i });
@@ -118,18 +116,11 @@ describe("Projects Category Filter", () => {
 
   describe("when category query param matches nothing", () => {
     beforeEach(() => {
-      jest.resetModules();
-      jest.doMock("next/navigation", () => ({
-        useSearchParams: () => new URLSearchParams("category=zzz"),
-      }));
-    });
-
-    afterEach(() => {
-      jest.unmock("next/navigation");
+      // Set mock to return category=zzz
+      mockSearchParams = new URLSearchParams("category=zzz");
     });
 
     test("shows no project cards", () => {
-      const { default: ProjectsClient } = require("@/app/projects/projects-client");
       render(<ProjectsClient />);
 
       expect(screen.queryByText("Alpha App")).not.toBeInTheDocument();
@@ -138,14 +129,12 @@ describe("Projects Category Filter", () => {
     });
 
     test('shows "No projects match" message', () => {
-      const { default: ProjectsClient } = require("@/app/projects/projects-client");
       render(<ProjectsClient />);
 
       expect(screen.getByText(/No projects match/i)).toBeInTheDocument();
     });
 
     test("shows clear filter link", () => {
-      const { default: ProjectsClient } = require("@/app/projects/projects-client");
       render(<ProjectsClient />);
 
       const clearLink = screen.getByRole("link", { name: /clear filter/i });
@@ -156,18 +145,11 @@ describe("Projects Category Filter", () => {
 
   describe("when useSearchParams returns null (no router context)", () => {
     beforeEach(() => {
-      jest.resetModules();
-      jest.doMock("next/navigation", () => ({
-        useSearchParams: () => null,
-      }));
-    });
-
-    afterEach(() => {
-      jest.unmock("next/navigation");
+      // Set mock to return null
+      mockSearchParams = null;
     });
 
     test("shows all projects", () => {
-      const { default: ProjectsClient } = require("@/app/projects/projects-client");
       render(<ProjectsClient />);
 
       expect(screen.getByText("Alpha App")).toBeInTheDocument();
@@ -176,11 +158,12 @@ describe("Projects Category Filter", () => {
     });
 
     test("does not show status line or clear link", () => {
-      const { default: ProjectsClient } = require("@/app/projects/projects-client");
       render(<ProjectsClient />);
 
       expect(screen.queryByText(/Showing/i)).not.toBeInTheDocument();
-      expect(screen.queryByRole("link", { name: /clear filter/i })).not.toBeInTheDocument();
+      expect(
+        screen.queryByRole("link", { name: /clear filter/i }),
+      ).not.toBeInTheDocument();
     });
   });
 });
