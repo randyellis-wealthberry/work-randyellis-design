@@ -40,12 +40,7 @@ const RESOURCE_HINTS = {
   // NOTE: Geist / Geist Mono are loaded via next/font/google, which self-hosts
   // and preloads them under hashed /_next/static/media paths — do NOT preload
   // /fonts/*.woff2 here (those files don't exist and 404).
-  preload: [
-    {
-      href: "/manifest.webmanifest",
-      as: "manifest",
-    },
-  ] as PreloadHint[],
+  preload: [] as PreloadHint[],
 
   // Prefetch for likely navigation (real routes only)
   prefetch: ["/projects", "/about"],

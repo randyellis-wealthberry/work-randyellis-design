@@ -146,7 +146,6 @@ describe("TDD PHASE 1: Route Coverage Analysis", () => {
       const seoRoutes = [
         "/sitemap.xml",
         "/robots.txt",
-        "/manifest.webmanifest",
         "/opengraph-image",
         "/icon",
         "/apple-icon",

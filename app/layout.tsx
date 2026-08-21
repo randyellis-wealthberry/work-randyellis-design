@@ -12,8 +12,6 @@ import {
   WebsiteStructuredData,
 } from "@/components/seo/structured-data";
 import { getNonce } from "@/lib/security/nonce";
-import PWAProvider from "@/components/pwa/pwa-provider";
-import PWAStatus from "@/components/pwa/pwa-status";
 import ResourceHints from "@/components/cdn/resource-hints";
 import { createBaseMetadata } from "@/lib/metadata";
 import { MobileMenuProvider } from "@/context/mobile-menu-context";
@@ -56,13 +54,6 @@ export default async function RootLayout({
 
         {/* CDN Resource Hints for Performance */}
         <ResourceHints />
-        {/* PWA Meta Tags */}
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta
-          name="apple-mobile-web-app-status-bar-style"
-          content="black-translucent"
-        />
-        <meta name="apple-mobile-web-app-title" content="Randy Ellis" />
         <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/icon" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico" />
@@ -123,29 +114,24 @@ export default async function RootLayout({
         className={`${geist.variable} ${geistMono.variable} bg-white tracking-tight antialiased dark:bg-zinc-950`}
         suppressHydrationWarning={true}
       >
-        <PWAProvider>
-          <ThemeProvider
-            enableSystem={true}
-            attribute="class"
-            storageKey="theme"
-            defaultTheme="system"
-          >
-            <MobileMenuProvider>
-              <div className="flex min-h-screen w-full flex-col font-[family-name:var(--font-inter-tight)]">
-                <div className="relative mx-auto w-full max-w-screen-md flex-1 px-4 pt-8 sm:px-6 sm:pt-6 lg:px-8">
-                  <Header />
-                  {children}
-                  <NewsletterSignup />
-                  <Footer />
-                </div>
+        <ThemeProvider
+          enableSystem={true}
+          attribute="class"
+          storageKey="theme"
+          defaultTheme="system"
+        >
+          <MobileMenuProvider>
+            <div className="flex min-h-screen w-full flex-col font-[family-name:var(--font-inter-tight)]">
+              <div className="relative mx-auto w-full max-w-screen-md flex-1 px-4 pt-8 sm:px-6 sm:pt-6 lg:px-8">
+                <Header />
+                {children}
+                <NewsletterSignup />
+                <Footer />
               </div>
-              <GlobalMobileMenu />
-            </MobileMenuProvider>
-
-            {/* Dev-only online/offline indicator */}
-            {process.env.NODE_ENV !== "production" && <PWAStatus />}
-          </ThemeProvider>
-        </PWAProvider>
+            </div>
+            <GlobalMobileMenu />
+          </MobileMenuProvider>
+        </ThemeProvider>
         <Analytics />
         {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
           <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
