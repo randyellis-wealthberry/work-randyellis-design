@@ -44,7 +44,7 @@
 - [x] **CRED-06**: "I vs we vs led" credit rule applied per project — team-led work (teamSize 3–15, director titles) is not misattributed as solo IC work
 - [x] **CRED-07**: Every decision/metric/outcome comes from Randy's firsthand account; the writer never invents one to fill a narrative slot. Figures a reader can independently check (store ratings, download counts) should be right, and the site must not contradict itself across surfaces
 - [x] **CRED-08**: NDA / named-company disclosure signed off by Randy for live companies (Nagarro, Echo) before their internal metrics are narrated deeper
-- [ ] **CRED-09**: Cross-surface verification pass — visible copy vs metadata vs OG image vs JSON-LD reconciled across every touched project (modeled on v1.0 audit remediation)
+- [x] **CRED-09**: Cross-surface verification pass — visible copy vs metadata vs OG image vs JSON-LD reconciled across every touched project (modeled on v1.0 audit remediation)
 
 ### Tech-Debt Fold-In
 
@@ -106,7 +106,7 @@ Populated during roadmap creation.
 | CRED-06 | Phase 8 | Complete |
 | CRED-07 | Phase 8 | Complete |
 | CRED-08 | Phase 8 | Complete |
-| CRED-09 | Phase 9 | Pending |
+| CRED-09 | Phase 9 | Complete |
 | SEO-01 | Phase 10 | Pending |
 | SEO-02 | Phase 10 | Pending |
 | SEO-03 | Phase 10 | Pending |
