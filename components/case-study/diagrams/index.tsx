@@ -10,13 +10,16 @@ import { GrowItRankedCandidatesDiagram } from "./growit-ranked-candidates";
 import { GrowItRatingVolumeDiagram } from "./growit-rating-volume";
 import { GrowItWinterCycleDiagram } from "./growit-winter-cycle";
 import { DiagramFigure } from "./diagram-figure";
+import { EchoDriveAssumptionDiagram } from "./echodrive-assumption";
 import { EchoDriveHandoffDiagram } from "./echodrive-handoff";
 import { GrowItRadiusDiagram } from "./growit-radius";
 import { LedgerIqScopeDiagram } from "./ledgeriq-scope";
 import { LedgerIqThresholdDiagram } from "./ledgeriq-threshold";
 import { NagarroAuthorityDiagram } from "./nagarro-authority";
+import { NagarroComplianceFloorDiagram } from "./nagarro-compliance-floor";
 import { OhPlaysFieldConditionsDiagram } from "./ohplays-field-conditions";
 import { OhPlaysForkDiagram } from "./ohplays-fork";
+import { RambisForkCostDiagram } from "./rambis-fork-cost";
 import { RambisTwoLayersDiagram } from "./rambis-two-layers";
 import { WaffleChatCaptureDiagram } from "./waffle-chat-capture";
 import { WaffleStreamDiagram } from "./waffle-generative-stream";
@@ -200,6 +203,30 @@ const DECISION_FIGURES: Record<string, Record<string, DecisionFigure>> = {
         "Two weeks is a fixed width. Spread across three features it produces three things too shallow to answer anything, which is a sprint that ends knowing nothing. Spent on the risky half it clears the line once — and the bill arrives exactly where it was placed, on tracking, as the single most common complaint in testing.",
       minWidth: 900,
       Diagram: AddvancedSprintBudgetDiagram,
+    },
+  },
+  echo: {
+    "Going to the drivers before designing for them": {
+      caption:
+        "Nobody disputed that drivers were not adopting the tools. The question was what that sentence was resting on, and both available answers fit it exactly — but only one had been looked at, and it was the one that blames the user. Swap the block at the bottom and everything built on top changes from persuasion to tools.",
+      minWidth: 880,
+      Diagram: EchoDriveAssumptionDiagram,
+    },
+  },
+  nagarro: {
+    "Aiming past the compliance floor": {
+      caption:
+        "The scale has tick marks up to the conformance line and none above it, which is the entire problem: the target worth hitting sits in the part that cannot be scored. Stopping at the line buys a number, a defensible story and an easy budget conversation. Aiming past it buys the thing the standard was standing in for, and gives up every one of those.",
+      minWidth: 880,
+      Diagram: NagarroComplianceFloorDiagram,
+    },
+  },
+  "rambis-ui": {
+    "Forking Chakra UI instead of starting from a clean sheet": {
+      caption:
+        "Both routes cost something; they cost it in different shapes. A new API charges the same relearning fee to every developer who ever picks the system up, and there is always another one. A fork charges almost nothing per adopter and instead carries one block that never goes away — somebody else's foundation, good decisions and awkward ones together, now permanently mine.",
+      minWidth: 900,
+      Diagram: RambisForkCostDiagram,
     },
   },
 };
