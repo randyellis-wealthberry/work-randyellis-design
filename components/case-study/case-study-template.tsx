@@ -528,6 +528,7 @@ export function CaseStudyTemplate({
                       </div>
                     ) : (
                       <AnimatedAsset
+                        label={item.alt}
                         // Contained evidence sits in the frame the wireframe
                         // figures already use — a full hairline on a Wash
                         // ground — so the page has one vocabulary for a screen

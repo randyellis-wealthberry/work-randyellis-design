@@ -13,6 +13,12 @@ import { motion } from "motion/react";
 
 type AnimatedAssetProps = {
   children: React.ReactNode;
+  /**
+   * What the asset is. It names the button that opens the lightbox and the
+   * dialog that opens, so both announce the artifact rather than "button" and
+   * an unnamed dialog. Pass the image's alt text.
+   */
+  label?: string;
   expandedChildren?: React.ReactNode;
   className?: string;
   containerClassName?: string;
@@ -23,6 +29,7 @@ type AnimatedAssetProps = {
 
 export const AnimatedAsset = ({
   children,
+  label,
   expandedChildren,
   className,
   containerClassName,
@@ -38,20 +45,25 @@ export const AnimatedAsset = ({
       )}
     >
       <MorphingDialog>
-        <MorphingDialogTrigger>
-          <motion.div
+        <MorphingDialogTrigger
+          label={label ? `Enlarge: ${label}` : undefined}
+          hoverScale={hoverScale}
+        >
+          {/* The trigger itself now carries the hover and the focus ring, so
+              this stays a plain box: two nested scales on one pointer read as
+              a stutter. */}
+          <div
             className={cn(
               "aspect-video w-full cursor-zoom-in overflow-hidden rounded-xl",
               className,
             )}
-            whileHover={{ scale: hoverScale }}
-            transition={{ duration: 0.2 }}
           >
             {children}
-          </motion.div>
+          </div>
         </MorphingDialogTrigger>
         <MorphingDialogContainer>
           <MorphingDialogContent
+            label={label ?? "Enlarged view"}
             className={cn(
               "relative aspect-video rounded-2xl bg-zinc-50 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950 dark:ring-zinc-800/50",
               expandedClassName,
