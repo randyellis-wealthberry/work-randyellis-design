@@ -8,51 +8,11 @@ import { AnimatedMetricValue } from "@/components/ui/animated-metric-value";
 import { TestimonialCarousel } from "@/components/ui/testimonial-carousel";
 import { testimonials } from "@/lib/data/testimonials";
 import { trackContactIntent } from "@/lib/analytics";
+import { RETAINER_LEDGER, PROOF_EXHIBITS } from "@/lib/data/retainer";
 
 const BOOKING_URL = "https://cal.com/randyellis/30min";
 
 const RECOMMENDATIONS_LABEL = "What people who have worked with me say";
-
-/**
- * Paired ledger rows. Left is the state a founder arrives in; right is what
- * the retainer puts in its place. The pairing is the argument — neither
- * column reads as a claim on its own, which is why they share a row.
- */
-const LEDGER: ReadonlyArray<{ without: string; with: string }> = [
-  {
-    without: "Design decisions made by whoever has time that week",
-    with: "One accountable owner for every design decision",
-  },
-  {
-    without: "Four design systems wearing one name",
-    with: "One system — versioned, documented, enforced",
-  },
-  {
-    without: "AI features that demo well and ship badly",
-    with: "AI surfaces designed to survive real users",
-  },
-  {
-    without: "Design reviewed at the end, when changing it is expensive",
-    with: "Design in the room where the roadmap gets set",
-  },
-  {
-    without: "A CDO search that runs a quarter, then costs equity",
-    with: "Start this month — fixed hours, no equity",
-  },
-];
-
-/**
- * The proof exhibits. Every row carries the same fields so the band is
- * scannable by structure before any of it is read: the quantity, then the
- * context that makes it mean something. The period is shared by all four and
- * is stated once beneath the band.
- */
-const EXHIBITS: ReadonlyArray<{ value: string; context: string }> = [
-  { value: "2.5M+", context: "Users reached by shipped product" },
-  { value: "$50M", context: "Product value delivered" },
-  { value: "800+", context: "Designers mentored" },
-  { value: "4", context: "Design awards won" },
-];
 
 /**
  * Terms of the engagement. `pending` marks a figure awaiting a real value.
@@ -202,7 +162,7 @@ export default function ServicesClient() {
               What the retainer puts in place
             </h2>
 
-            {LEDGER.map((row) => (
+            {RETAINER_LEDGER.map((row) => (
               <div key={row.without} className="contents">
                 <p className="border-t border-zinc-200 pt-5 pb-2 text-base text-zinc-500 sm:pr-8 sm:pb-5 dark:border-zinc-800 dark:text-zinc-400">
                   {row.without}
@@ -226,7 +186,7 @@ export default function ServicesClient() {
                 astride a centred rule. It stays because it reads as two pairs
                 rather than four loose figures. */}
             <dl className="mt-8 grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-4 sm:gap-x-16">
-              {EXHIBITS.map((exhibit) => (
+              {PROOF_EXHIBITS.map((exhibit) => (
                 <div key={exhibit.context} className="flex flex-col">
                   <dd className="text-3xl font-semibold tracking-[-0.03em] text-zinc-900 tabular-nums sm:text-4xl dark:text-white">
                     <AnimatedMetricValue value={exhibit.value} />
