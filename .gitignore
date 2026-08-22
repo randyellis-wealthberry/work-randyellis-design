@@ -328,3 +328,10 @@ addvanced-recheck-*.png
 projects-grid.png
 *-hero.png
 .playwright-mcp/
+
+# Local design/verification screenshot byproducts.
+# Screenshots taken while checking a page render are working files, not
+# deliverables — every one of them so far has landed at the repo root and then
+# been added to this list by name. One root-only glob replaces that ritual.
+/*.png
+/.impeccable/review/
