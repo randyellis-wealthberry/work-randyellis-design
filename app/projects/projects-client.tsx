@@ -33,8 +33,10 @@ import { PROJECTS } from "@/lib/data/projects";
 import { filterProjectsByCategory } from "@/lib/project-utils";
 import { cn } from "@/lib/utils";
 
+// Visible At Zero (DESIGN.md): the hidden state stays fully opaque so the page
+// paints complete on first byte — entrance motion only settles the y-offset.
 const VARIANTS_CONTAINER = {
-  hidden: { opacity: 0 },
+  hidden: { opacity: 1 },
   visible: {
     opacity: 1,
     transition: {
@@ -44,7 +46,7 @@ const VARIANTS_CONTAINER = {
 };
 
 const VARIANTS_ITEM = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 1, y: 10 },
   visible: {
     opacity: 1,
     y: 0,

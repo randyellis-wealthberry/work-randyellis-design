@@ -1,13 +1,14 @@
 "use client";
 import { motion } from "motion/react";
 import Image from "next/image";
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
 import { CometCard } from "@/components/ui/comet-card";
 import { CometCardDemo } from "@/components/ui/comet-card-demo";
 
+// Visible At Zero (DESIGN.md): the hidden state stays fully opaque and unblurred
+// so the page paints complete on first byte — entrance motion only settles the
+// y-offset.
 const VARIANTS_CONTAINER = {
-  hidden: { opacity: 0 },
+  hidden: { opacity: 1 },
   visible: {
     opacity: 1,
     transition: {
@@ -17,8 +18,8 @@ const VARIANTS_CONTAINER = {
 };
 
 const VARIANTS_SECTION = {
-  hidden: { opacity: 0, y: 20, filter: "blur(8px)" },
-  visible: { opacity: 1, y: 0, filter: "blur(0px)" },
+  hidden: { opacity: 1, y: 10 },
+  visible: { opacity: 1, y: 0 },
 };
 
 const TRANSITION_SECTION = {
@@ -26,13 +27,6 @@ const TRANSITION_SECTION = {
 };
 
 export default function MetisClient() {
-  const { resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   return (
     <motion.main
       className="mx-auto max-w-5xl space-y-16 px-4"
@@ -117,22 +111,24 @@ export default function MetisClient() {
       >
         <p className="text-base text-zinc-600 dark:text-zinc-400">Sincerely,</p>
 
-        {/* Signature Image with Left Tilt */}
+        {/* Signature Image with Left Tilt — both sources render so the markup is
+            complete in server HTML; CSS picks the theme, not hydration. */}
         <div className="flex justify-start">
           <div className="-rotate-2 transform">
-            {mounted && (
-              <Image
-                src={
-                  resolvedTheme === "dark"
-                    ? "/images/randyellis-signature.png"
-                    : "/images/randyellis-signature-light.png"
-                }
-                alt="Randy Ellis Handwritten Signature"
-                width={200}
-                height={80}
-                className="opacity-90"
-              />
-            )}
+            <Image
+              src="/images/randyellis-signature-light.png"
+              alt="Randy Ellis Handwritten Signature"
+              width={200}
+              height={80}
+              className="opacity-90 dark:hidden"
+            />
+            <Image
+              src="/images/randyellis-signature.png"
+              alt="Randy Ellis Handwritten Signature"
+              width={200}
+              height={80}
+              className="hidden opacity-90 dark:block"
+            />
           </div>
         </div>
 

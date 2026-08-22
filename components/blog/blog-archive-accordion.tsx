@@ -151,8 +151,8 @@ export function BlogArchiveAccordion({ className }: BlogArchiveAccordionProps) {
         <InView
           key={article.slug}
           variants={{
-            hidden: { opacity: 0, y: 50, scale: 0.95 },
-            visible: { opacity: 1, y: 0, scale: 1 },
+            hidden: { opacity: 1, y: 10 },
+            visible: { opacity: 1, y: 0 },
           }}
           transition={{
             duration: 0.6,

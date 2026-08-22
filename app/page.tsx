@@ -15,6 +15,11 @@ import {
 } from "@/components/core/accordion";
 import { AnimatedNumberBasic } from "@/components/core/animated-number-basic";
 import { TransitionPanel } from "@/components/motion-primitives/transition-panel";
+import { TextShimmer } from "@/components/motion-primitives/text-shimmer";
+import {
+  GlareHover,
+  GlarePresets,
+} from "@/components/motion-primitives/glare-hover";
 import { ScrambleSectionTitle } from "@/components/ui/scramble-section-title";
 import { isVideoUrl } from "@/lib/video-utils";
 import { LazyHoverVideo } from "@/components/ui/lazy-hover-video";
@@ -44,7 +49,7 @@ import { BuyMeACoffeeButton } from "@/components/ui/buy-me-a-coffee";
 import { CTASection } from "@/components/ui/cta-section";
 
 const VARIANTS_CONTAINER = {
-  hidden: { opacity: 0 },
+  hidden: { opacity: 1 },
   visible: {
     opacity: 1,
     transition: {
@@ -54,8 +59,8 @@ const VARIANTS_CONTAINER = {
 };
 
 const VARIANTS_SECTION = {
-  hidden: { opacity: 0, y: 20, filter: "blur(8px)" },
-  visible: { opacity: 1, y: 0, filter: "blur(0px)" },
+  hidden: { opacity: 1, y: 10 },
+  visible: { opacity: 1, y: 0 },
 };
 
 const TRANSITION_SECTION = {
@@ -121,9 +126,9 @@ function TransitionPanelExample() {
   ];
 
   const variants = {
-    enter: { opacity: 0, y: 20, filter: "blur(4px)" },
-    center: { opacity: 1, y: 0, filter: "blur(0px)" },
-    exit: { opacity: 0, y: -20, filter: "blur(4px)" },
+    enter: { opacity: 1, y: 20 },
+    center: { opacity: 1, y: 0 },
+    exit: { opacity: 0, y: -20 },
   };
 
   return (
@@ -250,7 +255,15 @@ function AccordionIcons() {
 }
 
 // Move codeScenarios outside component to prevent recreation on every render
-const CODE_SCENARIOS = [
+type TerminalStep = {
+  delay: number;
+  text: string;
+  className: string;
+  /** In-progress lines shimmer until the next step lands. */
+  shimmer?: boolean;
+};
+
+const CODE_SCENARIOS: { command: string; steps: TerminalStep[] }[] = [
   {
     command: "> npm run dev",
     steps: [
@@ -258,6 +271,7 @@ const CODE_SCENARIOS = [
         delay: 1000,
         text: "Starting Next.js development server...",
         className: "text-blue-500",
+        shimmer: true,
       },
       {
         delay: 1500,
@@ -273,6 +287,7 @@ const CODE_SCENARIOS = [
         delay: 2500,
         text: "○ Compiling /",
         className: "text-yellow-500",
+        shimmer: true,
       },
       {
         delay: 3000,
@@ -426,7 +441,13 @@ function TerminalDemo() {
             delay={step.delay}
             className={step.className}
           >
-            <span>{step.text}</span>
+            {step.shimmer ? (
+              <TextShimmer as="span" duration={1.6} spread={1}>
+                {step.text}
+              </TextShimmer>
+            ) : (
+              <span>{step.text}</span>
+            )}
           </AnimatedSpan>
         ))}
       </Terminal>
@@ -625,7 +646,13 @@ export default function Personal() {
             ? selectedProjects.map((project) => (
                 <div key={project.id} className="flex h-full flex-col">
                   <div className="mb-4 flex-shrink-0">
-                    <ProjectThumbnail project={project} />
+                    <GlareHover
+                      {...GlarePresets.card}
+                      borderRadius="0.5rem"
+                      className="rounded-lg"
+                    >
+                      <ProjectThumbnail project={project} />
+                    </GlareHover>
                   </div>
                   <div className="flex flex-grow flex-col px-1">
                     <Link

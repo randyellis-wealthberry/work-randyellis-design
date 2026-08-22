@@ -43,9 +43,11 @@ export function AnimatedContent({
       }
     };
 
+    // Visible At Zero Rule: the hidden state stays fully opaque so content is
+    // painted before the viewport observer fires; only the offset animates.
     return {
       hidden: {
-        opacity: 0,
+        opacity: 1,
         ...getInitialPosition(),
       },
       visible: {
@@ -106,8 +108,9 @@ export function AnimatedContentItem({
   delay?: number;
 }) {
   const itemVariants: Variants = {
+    // Visible At Zero Rule: painted at full opacity, settles 10px on reveal.
     hidden: {
-      opacity: 0,
+      opacity: 1,
       y: 10,
     },
     visible: {

@@ -5,6 +5,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { ScrambleSectionTitle } from "@/components/ui/scramble-section-title";
 import {
+  AnimatedContent,
+  AnimatedContentItem,
+} from "@/components/motion-primitives/animated-content";
+import {
   Accordion,
   AccordionItem,
   AccordionTrigger,
@@ -283,8 +287,11 @@ const skills = [
   "AI/ML Integration",
 ];
 
+// Visible At Zero Rule: entrance motion moves, it never hides. The hidden
+// state stays fully opaque (and carries no blur) so the content is painted
+// before any observer fires; only the y-offset settles on reveal.
 const VARIANTS_CONTAINER = {
-  hidden: { opacity: 0 },
+  hidden: { opacity: 1 },
   visible: {
     opacity: 1,
     transition: {
@@ -294,8 +301,8 @@ const VARIANTS_CONTAINER = {
 };
 
 const VARIANTS_SECTION = {
-  hidden: { opacity: 0, y: 20, filter: "blur(8px)" },
-  visible: { opacity: 1, y: 0, filter: "blur(0px)" },
+  hidden: { opacity: 1, y: 20 },
+  visible: { opacity: 1, y: 0 },
 };
 
 const TRANSITION_SECTION = {
@@ -397,24 +404,34 @@ export default function AboutClient() {
         >
           Career Impact
         </ScrambleSectionTitle>
-        <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
-          {achievements.map((achievement, index) => (
-            <Card key={index} className="text-center">
-              <CardContent className="pt-6">
-                <achievement.icon className="mx-auto mb-3 h-8 w-8 text-blue-600" />
-                <div className="mb-1 text-2xl font-bold text-zinc-900 dark:text-zinc-100">
-                  {achievement.value}
-                </div>
-                <div className="mb-1 flex justify-center text-sm font-medium text-zinc-700 dark:text-zinc-300">
-                  <span className="whitespace-nowrap">{achievement.label}</span>
-                </div>
-                <div className="text-xs text-zinc-500 dark:text-zinc-400">
-                  {achievement.description}
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+        <AnimatedContent staggerDelay={0.1} staggerDirection="bottom">
+          <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
+            {achievements.map((achievement, index) => (
+              <AnimatedContentItem
+                key={index}
+                delay={index * 0.1}
+                className="h-full"
+              >
+                <Card className="h-full text-center">
+                  <CardContent className="pt-6">
+                    <achievement.icon className="mx-auto mb-3 h-8 w-8 text-blue-600" />
+                    <div className="mb-1 text-2xl font-bold text-zinc-900 dark:text-zinc-100">
+                      {achievement.value}
+                    </div>
+                    <div className="mb-1 flex justify-center text-sm font-medium text-zinc-700 dark:text-zinc-300">
+                      <span className="whitespace-nowrap">
+                        {achievement.label}
+                      </span>
+                    </div>
+                    <div className="text-xs text-zinc-500 dark:text-zinc-400">
+                      {achievement.description}
+                    </div>
+                  </CardContent>
+                </Card>
+              </AnimatedContentItem>
+            ))}
+          </div>
+        </AnimatedContent>
       </motion.section>
 
       <Separator />
@@ -680,24 +697,32 @@ export default function AboutClient() {
         >
           What Colleagues Say
         </ScrambleSectionTitle>
-        <div className="grid gap-6 md:grid-cols-2">
-          {testimonials.map((testimonial) => (
-            <Card key={testimonial.author}>
-              <CardContent className="pt-6">
-                <blockquote className="leading-relaxed text-zinc-600 italic dark:text-zinc-400">
-                  &ldquo;{testimonial.quote}&rdquo;
-                </blockquote>
-                <footer className="mt-4 text-sm text-zinc-500 dark:text-zinc-400">
-                  <span className="font-medium text-zinc-700 dark:text-zinc-300">
-                    {testimonial.author}
-                  </span>
-                  <br />
-                  {testimonial.role}
-                </footer>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+        <AnimatedContent staggerDelay={0.12} staggerDirection="bottom">
+          <div className="grid gap-6 md:grid-cols-2">
+            {testimonials.map((testimonial, index) => (
+              <AnimatedContentItem
+                key={testimonial.author}
+                delay={index * 0.12}
+                className="h-full"
+              >
+                <Card className="h-full">
+                  <CardContent className="pt-6">
+                    <blockquote className="leading-relaxed text-zinc-600 italic dark:text-zinc-400">
+                      &ldquo;{testimonial.quote}&rdquo;
+                    </blockquote>
+                    <footer className="mt-4 text-sm text-zinc-500 dark:text-zinc-400">
+                      <span className="font-medium text-zinc-700 dark:text-zinc-300">
+                        {testimonial.author}
+                      </span>
+                      <br />
+                      {testimonial.role}
+                    </footer>
+                  </CardContent>
+                </Card>
+              </AnimatedContentItem>
+            ))}
+          </div>
+        </AnimatedContent>
       </motion.section>
 
       {/* Contact CTA */}

@@ -42,8 +42,18 @@ const defaultStaggerTimes: Record<PerType, number> = {
   line: 0.1,
 };
 
+/*
+  Entrance motion moves; it never hides. Every `hidden` state below paints the
+  text and offsets it 10px, so the header tagline is in the server HTML rather
+  than conditional on a script. `exit` keeps `opacity: 0` — that state is
+  content being removed, never content arriving.
+
+  (This is the second copy of TextEffect in the tree; the canonical one is
+  components/motion-primitives/text-effect.tsx. Only app/header.tsx imports
+  this one. They should be consolidated.)
+*/
 const defaultContainerVariants: Variants = {
-  hidden: { opacity: 0 },
+  hidden: { opacity: 1 },
   visible: {
     opacity: 1,
     transition: {
@@ -56,9 +66,10 @@ const defaultContainerVariants: Variants = {
 };
 
 const defaultItemVariants: Variants = {
-  hidden: { opacity: 0 },
+  hidden: { opacity: 1, y: 10 },
   visible: {
     opacity: 1,
+    y: 0,
   },
   exit: { opacity: 0 },
 };
@@ -70,41 +81,41 @@ const presetVariants: Record<
   blur: {
     container: defaultContainerVariants,
     item: {
-      hidden: { opacity: 0, filter: "blur(12px)" },
-      visible: { opacity: 1, filter: "blur(0px)" },
+      hidden: { opacity: 1, y: 10 },
+      visible: { opacity: 1, y: 0 },
       exit: { opacity: 0, filter: "blur(12px)" },
     },
   },
   "fade-in-blur": {
     container: defaultContainerVariants,
     item: {
-      hidden: { opacity: 0, y: 20, filter: "blur(12px)" },
-      visible: { opacity: 1, y: 0, filter: "blur(0px)" },
-      exit: { opacity: 0, y: 20, filter: "blur(12px)" },
+      hidden: { opacity: 1, y: 10 },
+      visible: { opacity: 1, y: 0 },
+      exit: { opacity: 0, y: 10 },
     },
   },
   scale: {
     container: defaultContainerVariants,
     item: {
-      hidden: { opacity: 0, scale: 0 },
-      visible: { opacity: 1, scale: 1 },
+      hidden: { opacity: 1, y: 10 },
+      visible: { opacity: 1, y: 0 },
       exit: { opacity: 0, scale: 0 },
     },
   },
   fade: {
     container: defaultContainerVariants,
     item: {
-      hidden: { opacity: 0 },
-      visible: { opacity: 1 },
+      hidden: { opacity: 1, y: 10 },
+      visible: { opacity: 1, y: 0 },
       exit: { opacity: 0 },
     },
   },
   slide: {
     container: defaultContainerVariants,
     item: {
-      hidden: { opacity: 0, y: 20 },
+      hidden: { opacity: 1, y: 10 },
       visible: { opacity: 1, y: 0 },
-      exit: { opacity: 0, y: 20 },
+      exit: { opacity: 0, y: 10 },
     },
   },
 };

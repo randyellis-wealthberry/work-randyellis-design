@@ -137,7 +137,7 @@ export function GlobalRecommendationsGrid({
     <div className={cn("space-y-6", className)}>
       <InView
         variants={{
-          hidden: { opacity: 0, y: 30 },
+          hidden: { opacity: 1, y: 10 },
           visible: { opacity: 1, y: 0 },
         }}
         transition={{ duration: 0.8, ease: [0.21, 1.11, 0.81, 0.99] }}
@@ -158,8 +158,8 @@ export function GlobalRecommendationsGrid({
           <InView
             key={article.slug}
             variants={{
-              hidden: { opacity: 0, y: 40, scale: 0.9 },
-              visible: { opacity: 1, y: 0, scale: 1 },
+              hidden: { opacity: 1, y: 10 },
+              visible: { opacity: 1, y: 0 },
             }}
             transition={{
               duration: 0.7,

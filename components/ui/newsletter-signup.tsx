@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import "@/styles/performance-optimized.css";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -18,7 +19,18 @@ const emailSchema = z.object({
 
 type EmailForm = z.infer<typeof emailSchema>;
 
+/**
+ * Routes whose own primary action must not compete with the subscribe button.
+ * The services page ends on "Book a 30-minute call"; a full-width form beneath
+ * it outranks that action and imports a palette the page does not use.
+ */
+const ROUTES_WITHOUT_NEWSLETTER = ["/services"];
+
+/** Every case study ends on "Book a 30-minute call"; see above. */
+const PREFIXES_WITHOUT_NEWSLETTER = ["/projects/"];
+
 export function NewsletterSignup() {
+  const pathname = usePathname();
   const isNewsletterEnabled = useFeatureFlag("newsletterEnabled");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<
@@ -46,8 +58,16 @@ export function NewsletterSignup() {
     resolver: zodResolver(emailSchema),
   });
 
-  // Return null if newsletter is disabled via feature flag
-  if (!isNewsletterEnabled) {
+  // Return null if newsletter is disabled via feature flag, or if this route
+  // owns a primary action the subscribe form would compete with.
+  // usePathname returns null outside a router context (and in tests), so the
+  // route checks have to tolerate it rather than throwing.
+  const route = pathname ?? "";
+  const suppressed =
+    ROUTES_WITHOUT_NEWSLETTER.includes(route) ||
+    PREFIXES_WITHOUT_NEWSLETTER.some((prefix) => route.startsWith(prefix));
+
+  if (!isNewsletterEnabled || suppressed) {
     return null;
   }
 
@@ -110,14 +130,14 @@ export function NewsletterSignup() {
   return (
     <motion.section
       className="mt-24 min-h-[600px] border-t border-zinc-100 pt-16 pb-8 dark:border-zinc-800"
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 1, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
       {submitStatus === "success" ? (
         <motion.div
           ref={successElementRef}
-          initial={{ opacity: 0, scale: 0.8, rotateZ: 0 }}
+          initial={{ opacity: 1, scale: 1, rotateZ: 0 }}
           animate={{ opacity: 1, scale: 1, rotateZ: 0 }}
           transition={{
             duration: 0.4,
@@ -166,7 +186,7 @@ export function NewsletterSignup() {
             </div>
             <motion.div
               className="space-y-2 text-center"
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 1, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
                 duration: 0.3,
@@ -234,7 +254,7 @@ export function NewsletterSignup() {
           </div>
 
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
+            initial={{ opacity: 1, scale: 1 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             className="mx-auto w-full max-w-md"
@@ -266,7 +286,7 @@ export function NewsletterSignup() {
               {(submitStatus === "error" ||
                 submitStatus === "rate_limited") && (
                 <motion.div
-                  initial={{ opacity: 0, y: 10 }}
+                  initial={{ opacity: 1, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   className={`rounded-lg border p-3 ${
                     submitStatus === "rate_limited"

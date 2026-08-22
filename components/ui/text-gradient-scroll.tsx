@@ -50,7 +50,11 @@ function TextGradientScroll({
   text,
   className,
   type = "letter",
-  textOpacity = "soft",
+  // "medium" is the default because it is the only tier that clears the
+  // contrast floor for body copy at rest (5.00:1 on Paper, 7.73:1 on Ink Deep).
+  // "soft" sits at roughly 3.3:1 on white — reserve it for large display type
+  // or a tinted ground, and "none" only where the text is decorative.
+  textOpacity = "medium",
 }: TextGradientScrollType) {
   const ref = useRef<HTMLParagraphElement>(null);
   const { scrollYProgress } = useScroll({
@@ -89,10 +93,24 @@ export { TextGradientScroll };
 
 const Word = ({ children, progress, range }: WordType) => {
   const opacity = useTransform(progress, range, [0, 1]);
+  const { textOpacity } = useGradientScroll();
 
   return (
     <span className="relative me-1 mt-2">
-      <span style={{ position: "absolute", opacity: 0.1 }}>{children}</span>
+      {/* The understudy holds the structure at progress 0, so it has to be
+          legible on its own — the scroll darkens already-readable text rather
+          than revealing text that was invisible. It also honours the
+          `textOpacity` prop, which this branch used to ignore in favour of a
+          hardcoded 0.1. */}
+      <span
+        className={cn("absolute", {
+          "opacity-0": textOpacity == "none",
+          "opacity-60": textOpacity == "soft",
+          "opacity-75": textOpacity == "medium",
+        })}
+      >
+        {children}
+      </span>
       <motion.span style={{ transition: "all .5s", opacity: opacity }}>
         {children}
       </motion.span>
@@ -130,8 +148,8 @@ const Char = ({ children, progress, range }: CharType) => {
       <span
         className={cn("absolute", {
           "opacity-0": textOpacity == "none",
-          "opacity-10": textOpacity == "soft",
-          "opacity-30": textOpacity == "medium",
+          "opacity-60": textOpacity == "soft",
+          "opacity-75": textOpacity == "medium",
         })}
       >
         {children}

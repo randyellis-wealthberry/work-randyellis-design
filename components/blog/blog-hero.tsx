@@ -12,8 +12,8 @@ interface BlogHeroProps {
 }
 
 const VARIANTS_SECTION = {
-  hidden: { opacity: 0, y: 20, filter: "blur(8px)" },
-  visible: { opacity: 1, y: 0, filter: "blur(0px)" },
+  hidden: { opacity: 1, y: 10 },
+  visible: { opacity: 1, y: 0 },
 };
 
 const TRANSITION_SECTION = {

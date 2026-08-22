@@ -12,7 +12,7 @@ interface BlogHeroWrapperProps {
 }
 
 const VARIANTS_CONTAINER = {
-  hidden: { opacity: 0 },
+  hidden: { opacity: 1 },
   visible: {
     opacity: 1,
     transition: {

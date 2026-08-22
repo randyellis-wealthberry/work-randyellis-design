@@ -42,7 +42,7 @@ const defaultStaggerTimes: Record<PerType, number> = {
 };
 
 const defaultContainerVariants: Variants = {
-  hidden: { opacity: 0 },
+  hidden: { opacity: 1 },
   visible: {
     opacity: 1,
     transition: {
@@ -55,9 +55,10 @@ const defaultContainerVariants: Variants = {
 };
 
 const defaultItemVariants: Variants = {
-  hidden: { opacity: 0 },
+  hidden: { opacity: 1, y: 10 },
   visible: {
     opacity: 1,
+    y: 0,
   },
   exit: { opacity: 0 },
 };
@@ -69,41 +70,41 @@ const presetVariants: Record<
   blur: {
     container: defaultContainerVariants,
     item: {
-      hidden: { opacity: 0, filter: "blur(12px)" },
-      visible: { opacity: 1, filter: "blur(0px)" },
-      exit: { opacity: 0, filter: "blur(12px)" },
+      hidden: { opacity: 1, y: 10 },
+      visible: { opacity: 1, y: 0 },
+      exit: { opacity: 0 },
     },
   },
   "fade-in-blur": {
     container: defaultContainerVariants,
     item: {
-      hidden: { opacity: 0, y: 20, filter: "blur(12px)" },
-      visible: { opacity: 1, y: 0, filter: "blur(0px)" },
-      exit: { opacity: 0, y: 20, filter: "blur(12px)" },
+      hidden: { opacity: 1, y: 10 },
+      visible: { opacity: 1, y: 0 },
+      exit: { opacity: 0, y: 10 },
     },
   },
   scale: {
     container: defaultContainerVariants,
     item: {
-      hidden: { opacity: 0, scale: 0 },
-      visible: { opacity: 1, scale: 1 },
-      exit: { opacity: 0, scale: 0 },
+      hidden: { opacity: 1, y: 10 },
+      visible: { opacity: 1, y: 0 },
+      exit: { opacity: 0 },
     },
   },
   fade: {
     container: defaultContainerVariants,
     item: {
-      hidden: { opacity: 0 },
-      visible: { opacity: 1 },
+      hidden: { opacity: 1, y: 10 },
+      visible: { opacity: 1, y: 0 },
       exit: { opacity: 0 },
     },
   },
   slide: {
     container: defaultContainerVariants,
     item: {
-      hidden: { opacity: 0, y: 20 },
+      hidden: { opacity: 1, y: 10 },
       visible: { opacity: 1, y: 0 },
-      exit: { opacity: 0, y: 20 },
+      exit: { opacity: 0, y: 10 },
     },
   },
 };
