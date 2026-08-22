@@ -27,9 +27,10 @@ export function BreadcrumbNav({ items, className }: BreadcrumbNavProps) {
         className,
       )}
     >
+      {/* Negative margin keeps the row tight while the target stays 44px. */}
       <Link
         href="/"
-        className="rounded p-1 transition-colors hover:text-zinc-700 dark:hover:text-zinc-200"
+        className="-my-3 inline-flex min-h-[44px] items-center rounded px-1 py-3 transition-colors hover:text-zinc-700 focus-visible:ring-2 focus-visible:ring-zinc-900 focus-visible:ring-offset-2 focus-visible:outline-none dark:hover:text-zinc-200 dark:focus-visible:ring-white"
         aria-label="Home"
         onClick={() => trackBreadcrumbClick("/", "Home", 0)}
       >
@@ -42,7 +43,7 @@ export function BreadcrumbNav({ items, className }: BreadcrumbNavProps) {
           {item.href && !item.current ? (
             <Link
               href={item.href}
-              className="rounded px-1 py-0.5 transition-colors hover:text-zinc-700 dark:hover:text-zinc-200"
+              className="-my-3 inline-flex min-h-[44px] items-center rounded px-1 py-3 transition-colors hover:text-zinc-700 focus-visible:ring-2 focus-visible:ring-zinc-900 focus-visible:ring-offset-2 focus-visible:outline-none dark:hover:text-zinc-200 dark:focus-visible:ring-white"
               onClick={() =>
                 trackBreadcrumbClick(item.href!, item.label, index + 1)
               }

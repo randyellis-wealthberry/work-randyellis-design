@@ -25,6 +25,10 @@ import {
 import { UnicornStudioEmbed } from "@/components/ui/unicorn-studio-embed";
 import { HoverIframe } from "@/components/ui/hover-iframe";
 import { HoverVideo } from "@/components/ui/hover-video";
+import {
+  GlareHover,
+  GlarePresets,
+} from "@/components/motion-primitives/glare-hover";
 import { PROJECTS } from "@/lib/data/projects";
 import { filterProjectsByCategory } from "@/lib/project-utils";
 import { cn } from "@/lib/utils";
@@ -242,7 +246,9 @@ export default function ProjectsClient() {
             >
               <Card className="group relative flex h-full flex-col gap-0 overflow-hidden p-0 shadow-lg">
                 <Link href={`/projects/${project.slug}`} className="block">
-                  <ProjectThumbnail project={project} />
+                  <GlareHover {...GlarePresets.card} className="block">
+                    <ProjectThumbnail project={project} />
+                  </GlareHover>
                 </Link>
                 {/* Single slot so status badges stack instead of overlapping */}
                 {(project.isLiveProduct || project.isComposite) && (

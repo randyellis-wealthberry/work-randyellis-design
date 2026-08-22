@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "./header";
 import { Footer } from "./footer";
 import { NewsletterSignup } from "@/components/ui/newsletter-signup";
+import { RouteContainer } from "@/components/layout/route-container";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import { Analytics } from "@vercel/analytics/next";
 import { GoogleAnalytics } from "@/components/analytics/google-analytics";
@@ -20,7 +21,9 @@ export const viewport: Viewport = {
   initialScale: 1,
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#000000" },
+    // zinc-950, matching the page ground — pure black left a seam between the
+    // browser chrome and the page on mobile.
+    { media: "(prefers-color-scheme: dark)", color: "#09090b" },
   ],
 };
 
@@ -119,13 +122,18 @@ export default async function RootLayout({
           defaultTheme="system"
         >
           <MobileMenuProvider>
-            <div className="flex min-h-screen w-full flex-col font-[family-name:var(--font-inter-tight)]">
-              <div className="relative mx-auto w-full max-w-screen-md flex-1 px-4 pt-8 sm:px-6 sm:pt-6 lg:px-8">
+            {/* Geist is the site's face. This wrapper referenced
+                --font-inter-tight, a leftover from the template this project
+                started from that was never defined, so every page silently
+                rendered in the platform sans stack instead of the font being
+                loaded above. */}
+            <div className="flex min-h-screen w-full flex-col font-[family-name:var(--font-geist),system-ui,sans-serif]">
+              <RouteContainer>
                 <Header />
                 {children}
                 <NewsletterSignup />
                 <Footer />
-              </div>
+              </RouteContainer>
             </div>
             <GlobalMobileMenu />
           </MobileMenuProvider>

@@ -927,13 +927,13 @@ export const PROJECTS: Project[] = [
         },
         {
           quote:
-            "The mobile app made our drivers' jobs easier while improving compliance. Adoption showed we solved real problems, not just technology challenges.",
+            "The mobile app made our drivers’ jobs easier while improving compliance. Adoption showed we solved real problems, not just technology challenges.",
           author: "Fleet Manager",
           role: "Echo Global Logistics",
         },
         {
           quote:
-            "The field research approach made all the difference. Eight Bit Studios understood our drivers' needs because they actually spent time with them in their work environment.",
+            "The field research approach made all the difference. Eight Bit Studios understood our drivers’ needs because they actually spent time with them in their work environment.",
           author: "Dispatch Team Lead",
           role: "Echo Global Logistics",
         },

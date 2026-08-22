@@ -19,6 +19,10 @@ jest.mock("motion/react", () => ({
     div: ({ children, ...props }: any) => <div {...props}>{children}</div>,
   },
   AnimatePresence: ({ children }: any) => children,
+  // GlareHover (project thumbnails) uses these hooks
+  useMotionValue: jest.fn(() => ({ get: jest.fn(() => 0), set: jest.fn() })),
+  useSpring: jest.fn(() => ({ get: jest.fn(() => 0), set: jest.fn() })),
+  useTransform: jest.fn(() => ({ get: jest.fn(() => 0), set: jest.fn() })),
 }));
 
 // Mock project data - defined inline in the jest.mock call to avoid hoisting issues

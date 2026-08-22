@@ -1,171 +1,247 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+/**
+ * Waffle case study page.
+ *
+ * The page renders through `components/case-study/case-study-template.tsx`, so
+ * these tests describe what a reader (or a screen reader) actually gets: the
+ * claim, the lead, the two outbound product actions and the analytics they
+ * fire, the "How it runs" sequence, and the proof figures.
+ *
+ * Deliberately NOT asserted: Tailwind utility classes. The previous suite
+ * pinned `bg-amber-600` / `text-zinc-950` onto the CTAs and the badge, which
+ * made every visual revision a test failure without protecting any behavior.
+ */
+
+import { render, screen, fireEvent, within } from "@testing-library/react";
+import { axe, toHaveNoViolations } from "jest-axe";
 import WaffleClientPage from "@/app/projects/waffle/waffle-client";
 
-// motion/react is globally mocked via jest.config.js moduleNameMapper
-// (__mocks__/motion/react.js) — no inline mock needed here.
+expect.extend(toHaveNoViolations);
+
+// motion/react and @vercel/analytics are globally mocked via jest.config.js
+// moduleNameMapper (root __mocks__/) — no inline mock needed for those.
+
+// The template wraps each media figure in `InView`, which resolves
+// `motion.figure`; the shared motion mock only defines a fixed element list, so
+// the wrapper is stubbed down to the element it was asked to render. Same
+// approach as __tests__/components/ui/global-case-study-grid.test.tsx.
+jest.mock("@/components/motion-primitives/in-view", () => ({
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  InView: ({ children, as: Component = "div" }: any) => (
+    <Component>{children}</Component>
+  ),
+}));
 
 const mockTrackEvent = jest.fn();
 
+// Only trackEvent is swapped; the rest of the module stays real so the
+// template's own analytics imports resolve to the genuine functions.
 jest.mock("@/lib/analytics", () => ({
+  ...jest.requireActual("@/lib/analytics"),
   trackEvent: (...args: unknown[]) => mockTrackEvent(...args),
 }));
 
-describe("Waffle Product Page", () => {
+const LIVE_URL = "https://waffle.cards";
+const SIGNUP_URL = "https://app.waffle.cards/sign-up";
+
+/** Both actions appear twice: once under the lead, once in the closing band. */
+const ACTIONS = [
+  {
+    name: "View the live product",
+    pattern: /View the live product/i,
+    href: LIVE_URL,
+    event: "waffle_view_live",
+    label: "View live product CTA",
+  },
+  {
+    name: "Try it free",
+    pattern: /Try it free/i,
+    href: SIGNUP_URL,
+    event: "waffle_try_free",
+    label: "Try free CTA",
+  },
+] as const;
+
+const STEPS = [
+  {
+    title: "Paste the job description",
+    description: /the only required input/i,
+  },
+  {
+    title: "Watch the scorecard build",
+    description: /stream in as interactive components/i,
+  },
+  {
+    title: "Export it, or hand it to the panel",
+    description: /print-ready PDF for the ATS record/i,
+  },
+] as const;
+
+/** Figure plus the line that says what the figure counts. */
+const PROOF = [
+  ["2–4 min", "From job description to a complete scorecard"],
+  ["6.2", /Average competencies per scorecard from the chat flow/i],
+  ["11:1", /Recruiters who preferred the chat flow to a form/i],
+  ["+23%", /Conversion after removing prompt editing/i],
+] as const;
+
+describe("Waffle case study page", () => {
   beforeEach(() => {
     mockTrackEvent.mockClear();
     render(<WaffleClientPage />);
   });
 
-  describe("Hero", () => {
-    it("renders the H1 'Waffle'", () => {
+  describe("Opening", () => {
+    it("leads with the product's claim as the page's only h1", () => {
+      const headings = screen.getAllByRole("heading", { level: 1 });
+
+      expect(headings).toHaveLength(1);
+      expect(headings[0]).toHaveTextContent(
+        "Interview scorecards, written before the panel meets.",
+      );
+    });
+
+    it("states in the lead that Waffle is live, paid, and built end to end", () => {
       expect(
-        screen.getByRole("heading", { level: 1, name: "Waffle" }),
+        screen.getByText(
+          /a live, paid AI product I designed and built end to end/i,
+        ),
       ).toBeInTheDocument();
     });
 
-    it("renders the one-liner subhead", () => {
+    it("says how long a scorecard takes in the lead", () => {
       expect(
-        screen.getByText(/interview scorecard generator/i),
+        screen.getByText(/the rubric streams back in two to four minutes/i),
       ).toBeInTheDocument();
     });
 
-    it("renders a 'Live Product' badge", () => {
-      expect(screen.getByText("Live Product")).toBeInTheDocument();
+    it("offers a breadcrumb back to the projects index", () => {
+      const breadcrumb = screen.getByRole("navigation", { name: "Breadcrumb" });
+
+      expect(
+        within(breadcrumb).getByRole("link", { name: "Projects" }),
+      ).toHaveAttribute("href", "/projects");
+    });
+  });
+
+  describe.each(ACTIONS)(
+    "Outbound action — $name",
+    ({ pattern, href, event, label }) => {
+      it("is offered twice: under the lead and again in the closing band", () => {
+        expect(screen.getAllByRole("link", { name: pattern })).toHaveLength(2);
+      });
+
+      it(`points at ${href}`, () => {
+        for (const link of screen.getAllByRole("link", { name: pattern })) {
+          expect(link).toHaveAttribute("href", href);
+        }
+      });
+
+      it("opens in a new tab without handing the opener to the destination", () => {
+        for (const link of screen.getAllByRole("link", { name: pattern })) {
+          expect(link).toHaveAttribute("target", "_blank");
+
+          const rel = link.getAttribute("rel") ?? "";
+          expect(rel).toEqual(expect.stringContaining("noopener"));
+          expect(rel).toEqual(expect.stringContaining("noreferrer"));
+        }
+      });
+
+      it("warns assistive tech that it leaves the page", () => {
+        for (const link of screen.getAllByRole("link", { name: pattern })) {
+          expect(link).toHaveAccessibleName(
+            expect.stringContaining("opens in a new tab"),
+          );
+        }
+      });
+
+      it(`fires trackEvent("${event}") from either copy`, () => {
+        const links = screen.getAllByRole("link", { name: pattern });
+
+        links.forEach((link, index) => {
+          fireEvent.click(link);
+          expect(mockTrackEvent).toHaveBeenCalledTimes(index + 1);
+          expect(mockTrackEvent).toHaveBeenLastCalledWith(
+            event,
+            "waffle_product_page",
+            label,
+          );
+        });
+      });
+    },
+  );
+
+  describe("How it runs", () => {
+    it("names the sequence", () => {
+      expect(
+        screen.getByRole("heading", { level: 2, name: "How it runs" }),
+      ).toBeInTheDocument();
     });
 
-    it("renders Randy's build-credit role line", () => {
+    it.each(STEPS)("renders the step '$title'", ({ title, description }) => {
       expect(
-        screen.getByText(/Designed and built end-to-end by Randy Ellis/i),
+        screen.getByRole("heading", { level: 3, name: title }),
+      ).toBeInTheDocument();
+      expect(screen.getByText(description)).toBeInTheDocument();
+    });
+
+    it("keeps the three steps in order — the sequence is the product", () => {
+      const ordered = screen
+        .getAllByRole("heading", { level: 3 })
+        .map((heading) => heading.textContent ?? "")
+        .filter((text) => STEPS.some((step) => text.endsWith(step.title)));
+
+      expect(ordered).toHaveLength(STEPS.length);
+      STEPS.forEach((step, index) => {
+        // Each step is numbered; the digit is aria-hidden, so it shows up in
+        // textContent but never in the accessible name.
+        expect(ordered[index]).toBe(`${index + 1}${step.title}`);
+      });
+    });
+  });
+
+  describe("Proof", () => {
+    it("names the section", () => {
+      expect(
+        screen.getByRole("heading", { level: 2, name: "What it produced" }),
+      ).toBeInTheDocument();
+    });
+
+    it.each(PROOF)(
+      "reports %s with the line that explains it",
+      (value, context) => {
+        // The figure counts up, so its digits are split across nodes; the
+        // accessible label always carries the whole value.
+        expect(screen.getByLabelText(value)).toBeInTheDocument();
+        expect(screen.getByText(context)).toBeInTheDocument();
+      },
+    );
+
+    it("says where the figures came from rather than leaving them bare", () => {
+      expect(
+        screen.getByText(
+          /Figures from the product's own instrumentation and from pre-launch testing with twelve recruiters/i,
+        ),
       ).toBeInTheDocument();
     });
   });
 
-  describe("Section headings", () => {
+  describe("Regression guard — the old marketing page is gone", () => {
     it.each([
+      "Live Product",
       "Key Features",
       "How It Works",
       "See it in action",
       "Ready to see it live?",
-    ])("renders the '%s' heading", (heading) => {
-      expect(
-        screen.getByRole("heading", { name: heading }),
-      ).toBeInTheDocument();
+    ])("no longer renders '%s'", (removed) => {
+      expect(screen.queryByText(removed)).not.toBeInTheDocument();
     });
   });
+});
 
-  describe("Feature grid (6 features)", () => {
-    it.each([
-      ["chat-based scorecard generation", /Chat/i],
-      ["generative UI", /Generative UI/i],
-      ["PDF export", /PDF/i],
-      ["universal transcript ingestion", /transcript/i],
-      ["EEOC-compliant / bias-reducing", /EEOC/i],
-      ["team collaboration", /collaboration/i],
-    ])("renders a feature referencing %s", (_label, keyword) => {
-      expect(screen.getAllByText(keyword).length).toBeGreaterThan(0);
-    });
-  });
+describe("Waffle case study page — accessibility", () => {
+  it("has no axe violations", async () => {
+    const { container } = render(<WaffleClientPage />);
 
-  describe("How it works (3 steps)", () => {
-    it.each([
-      "Paste your job description",
-      "Watch the scorecard stream live",
-      "Export to PDF or share with your team",
-    ])("renders the step '%s'", (step) => {
-      expect(screen.getByText(step)).toBeInTheDocument();
-    });
-  });
-
-  describe("Primary CTA — View live product", () => {
-    it("appears twice (hero row + closing band)", () => {
-      const links = screen.getAllByRole("link", {
-        name: /View live product/i,
-      });
-      expect(links).toHaveLength(2);
-    });
-
-    it("links to https://waffle.cards with safe new-tab attributes", () => {
-      const links = screen.getAllByRole("link", {
-        name: /View live product/i,
-      });
-      links.forEach((link) => {
-        expect(link).toHaveAttribute("href", "https://waffle.cards");
-        expect(link).toHaveAttribute("target", "_blank");
-        expect(link).toHaveAttribute("rel", "noopener noreferrer");
-      });
-    });
-
-    it("carries amber-fill + zinc-950 text contrast classes", () => {
-      const links = screen.getAllByRole("link", {
-        name: /View live product/i,
-      });
-      links.forEach((link) => {
-        expect(link.className).toEqual(expect.stringContaining("bg-amber-600"));
-        expect(link.className).toEqual(
-          expect.stringContaining("text-zinc-950"),
-        );
-      });
-    });
-
-    it("fires trackEvent('waffle_view_live', ...) on click", () => {
-      const [link] = screen.getAllByRole("link", {
-        name: /View live product/i,
-      });
-      fireEvent.click(link);
-      expect(mockTrackEvent).toHaveBeenCalledWith(
-        "waffle_view_live",
-        "waffle_product_page",
-        "View live product CTA",
-      );
-    });
-  });
-
-  describe("Secondary CTA — Try free", () => {
-    it("appears twice (hero row + closing band)", () => {
-      const links = screen.getAllByRole("link", { name: "Try free" });
-      expect(links).toHaveLength(2);
-    });
-
-    it("links to https://app.waffle.cards/sign-up with safe new-tab attributes", () => {
-      const links = screen.getAllByRole("link", { name: "Try free" });
-      links.forEach((link) => {
-        expect(link).toHaveAttribute(
-          "href",
-          "https://app.waffle.cards/sign-up",
-        );
-        expect(link).toHaveAttribute("target", "_blank");
-        expect(link).toHaveAttribute("rel", "noopener noreferrer");
-      });
-    });
-
-    it("fires trackEvent('waffle_try_free', ...) on click", () => {
-      const [link] = screen.getAllByRole("link", { name: "Try free" });
-      fireEvent.click(link);
-      expect(mockTrackEvent).toHaveBeenCalledWith(
-        "waffle_try_free",
-        "waffle_product_page",
-        "Try free CTA",
-      );
-    });
-  });
-
-  describe("Accent contrast proof", () => {
-    it("the hero Live Product badge uses amber fill + zinc-950 text (never white)", () => {
-      const badge = screen.getByText("Live Product");
-      expect(badge.className).toEqual(expect.stringContaining("bg-amber-600"));
-      expect(badge.className).toEqual(
-        expect.stringContaining("text-zinc-950"),
-      );
-      expect(badge.className).not.toEqual(
-        expect.stringContaining("text-white"),
-      );
-    });
-  });
-
-  describe("Back-to-projects nav", () => {
-    it("renders a link back to /projects", () => {
-      const link = screen.getByRole("link", { name: /Back to Projects/i });
-      expect(link).toHaveAttribute("href", "/projects");
-    });
-  });
+    expect(await axe(container)).toHaveNoViolations();
+  }, 30000);
 });

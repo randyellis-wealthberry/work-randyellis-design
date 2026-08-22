@@ -1,5 +1,6 @@
-import { Badge } from "@/components/ui/badge";
-import { ScrambleSectionTitle } from "@/components/ui/scramble-section-title";
+"use client";
+
+import { SectionLabel, SECTION } from "./section-chrome";
 
 type RoleNarrativeSectionProps = {
   /** First-person account of what this person actually owned. */
@@ -7,65 +8,46 @@ type RoleNarrativeSectionProps = {
   /** Job title as held on the engagement. */
   role?: string;
   teamSize?: number;
-  /** Artifacts personally produced — rendered as chips (D-16: Badge only). */
-  deliverables?: string[];
   sectionId?: string;
 };
 
 /**
- * "My role" — what the person actually owned, separate from what the team shipped.
+ * "My role" — what the person actually owned, separate from what the team
+ * shipped, for the case studies whose work does not break into problem/response
+ * pairs.
  *
  * Exists because a case study that says "we built X" leaves a hiring manager
- * unable to tell which parts were this person's. Deliverables render as chips
- * rather than a bulleted list so they read as scope, not as accomplishments.
+ * unable to tell which parts were this person's. The title and team size run as
+ * one quiet line above the account rather than as chips: they are context for
+ * the paragraph, not accomplishments in their own right.
  */
 export function RoleNarrativeSection({
   narrative,
   role,
   teamSize,
-  deliverables,
   sectionId = "my-role",
 }: RoleNarrativeSectionProps) {
   const headingId = `${sectionId}-heading`;
+  const context = [
+    role,
+    typeof teamSize === "number" ? `team of ${teamSize}` : null,
+  ]
+    .filter(Boolean)
+    .join(" · ");
 
   return (
-    <section
-      id={sectionId}
-      role="region"
-      aria-labelledby={headingId}
-      className="mx-auto max-w-4xl space-y-4"
-    >
-      <div className="space-y-2">
-        <p className="text-muted-foreground text-sm tracking-wide uppercase">
-          My Role
+    <section id={sectionId} aria-labelledby={headingId} className={SECTION}>
+      <SectionLabel id={headingId}>My role</SectionLabel>
+      {context && (
+        <p className="mt-6 text-base text-zinc-900 dark:text-white">
+          {context}
         </p>
-        <ScrambleSectionTitle
-          as="h2"
-          id={headingId}
-          className="text-3xl font-bold"
-        >
-          {role || "My Role"}
-        </ScrambleSectionTitle>
-        {typeof teamSize === "number" && (
-          <p className="text-muted-foreground text-base">
-            {`One of ${teamSize} on the team`}
-          </p>
-        )}
-      </div>
-
-      <p className="text-muted-foreground text-base leading-relaxed">
+      )}
+      <p
+        className={`${context ? "mt-3" : "mt-6"} max-w-[62ch] text-base leading-relaxed text-zinc-600 dark:text-zinc-400`}
+      >
         {narrative}
       </p>
-
-      {deliverables && deliverables.length > 0 && (
-        <div className="flex flex-wrap gap-1.5">
-          {deliverables.map((item) => (
-            <Badge key={item} variant="outline" className="px-2 py-0.5 text-xs">
-              {item}
-            </Badge>
-          ))}
-        </div>
-      )}
     </section>
   );
 }
