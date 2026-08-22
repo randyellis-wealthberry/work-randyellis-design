@@ -171,6 +171,18 @@ export const motion = {
   ul: createMotionComponent("ul"),
   ol: createMotionComponent("ol"),
   li: createMotionComponent("li"),
+  figure: createMotionComponent("figure"),
+  figcaption: createMotionComponent("figcaption"),
+  form: createMotionComponent("form"),
+  input: createMotionComponent("input"),
+  label: createMotionComponent("label"),
+  path: createMotionComponent("path"),
+  circle: createMotionComponent("circle"),
+  rect: createMotionComponent("rect"),
+  g: createMotionComponent("g"),
+  video: createMotionComponent("video"),
+  tr: createMotionComponent("tr"),
+  td: createMotionComponent("td"),
 };
 
 // AnimatePresence component

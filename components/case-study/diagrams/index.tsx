@@ -4,6 +4,7 @@ import { SECTION, SectionLabel } from "@/components/case-study/section-chrome";
 import type { TocItem } from "@/components/case-study/case-study-toc";
 
 import { AddvancedConsentPathDiagram } from "./addvanced-consent-path";
+import { AddvancedSprintBudgetDiagram } from "./addvanced-sprint-budget";
 import { GrowItProgressiveDisclosureDiagram } from "./growit-progressive-disclosure";
 import { GrowItRankedCandidatesDiagram } from "./growit-ranked-candidates";
 import { GrowItRatingVolumeDiagram } from "./growit-rating-volume";
@@ -12,7 +13,9 @@ import { DiagramFigure } from "./diagram-figure";
 import { EchoDriveHandoffDiagram } from "./echodrive-handoff";
 import { GrowItRadiusDiagram } from "./growit-radius";
 import { LedgerIqScopeDiagram } from "./ledgeriq-scope";
+import { LedgerIqThresholdDiagram } from "./ledgeriq-threshold";
 import { NagarroAuthorityDiagram } from "./nagarro-authority";
+import { OhPlaysFieldConditionsDiagram } from "./ohplays-field-conditions";
 import { OhPlaysForkDiagram } from "./ohplays-fork";
 import { RambisTwoLayersDiagram } from "./rambis-two-layers";
 import { WaffleChatCaptureDiagram } from "./waffle-chat-capture";
@@ -173,6 +176,30 @@ const DECISION_FIGURES: Record<string, Record<string, DecisionFigure>> = {
         "Single-user does not mean the panel never sees the scorecard. It means the scorecard leaves the product to reach them — as a screenshot, a PDF, a rubric retyped by hand — and three people end up holding three documents. Three weeks before launch bought the version where nothing leaves, and the first customer was a twelve-person team.",
       minWidth: 900,
       Diagram: WaffleMultiTenantDiagram,
+    },
+  },
+  ohplays: {
+    "Testing in schools instead of a lab": {
+      caption:
+        "A lab is not a neutral room; it is a room that pins the exact four variables a student edits under. Sound, light, one free hand and the time until the next bell were held constant in the facility and left alone in the hallway — and holding them still is precisely how a session fails to show you what they do.",
+      minWidth: 880,
+      Diagram: OhPlaysFieldConditionsDiagram,
+    },
+  },
+  ledgeriq: {
+    "Fixing false positives with context, not thresholds": {
+      caption:
+        "A threshold cannot fix an overlap; it can only choose which side of it to pay for. Once bonus cycles, commissions and seasonal overtime stop reading as anomalies, ordinary payroll tightens and the two shapes pull apart — which is the only move that shrinks both errors instead of trading one for the other. The curves are shapes, not measurements.",
+      minWidth: 880,
+      Diagram: LedgerIqThresholdDiagram,
+    },
+  },
+  addvanced: {
+    "Cut tracking depth to protect the network feature": {
+      caption:
+        "Two weeks is a fixed width. Spread across three features it produces three things too shallow to answer anything, which is a sprint that ends knowing nothing. Spent on the risky half it clears the line once — and the bill arrives exactly where it was placed, on tracking, as the single most common complaint in testing.",
+      minWidth: 900,
+      Diagram: AddvancedSprintBudgetDiagram,
     },
   },
 };
