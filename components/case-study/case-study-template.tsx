@@ -18,6 +18,7 @@ import { InView } from "@/components/motion-primitives/in-view";
 import { CalButton } from "@/components/booking/cal-embed";
 import { CaseStudyTOC, type TocItem } from "./case-study-toc";
 import { DecisionCallout } from "./decision-callout";
+import { decisionFigure } from "./diagrams";
 import { ReflectionBlock } from "./reflection-block";
 import { RoleNarrativeSection } from "./role-narrative-section";
 import { SectionLabel, SECTION, LABEL, ROW } from "./section-chrome";
@@ -612,6 +613,7 @@ export function CaseStudyTemplate({
                   decision={decision}
                   index={index + 1}
                   sectionId="decisions"
+                  figure={decisionFigure(project.slug, decision.title)}
                 />
               ))}
             </div>

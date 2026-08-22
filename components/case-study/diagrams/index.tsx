@@ -4,6 +4,10 @@ import { SECTION, SectionLabel } from "@/components/case-study/section-chrome";
 import type { TocItem } from "@/components/case-study/case-study-toc";
 
 import { AddvancedConsentPathDiagram } from "./addvanced-consent-path";
+import { GrowItProgressiveDisclosureDiagram } from "./growit-progressive-disclosure";
+import { GrowItRankedCandidatesDiagram } from "./growit-ranked-candidates";
+import { GrowItRatingVolumeDiagram } from "./growit-rating-volume";
+import { GrowItWinterCycleDiagram } from "./growit-winter-cycle";
 import { DiagramFigure } from "./diagram-figure";
 import { EchoDriveHandoffDiagram } from "./echodrive-handoff";
 import { GrowItRadiusDiagram } from "./growit-radius";
@@ -99,6 +103,74 @@ const DIAGRAMS: Record<string, CaseStudyDiagram> = {
   },
 };
 
+/**
+ * Figures that belong to one named decision rather than to the page.
+ *
+ * Keyed by slug, then by the decision's exact `title` from `lib/data/projects`.
+ * These render inside the decision they draw — under its outcome, where the
+ * reader already has the claim the figure argues — so they need no anchor of
+ * their own and never appear in the contents line.
+ *
+ * The bar is the same one the section-level figures clear: a figure earns its
+ * place only when it shows a mechanism the prose asserts, and it may chart only
+ * numbers the page already shows. Statistics that live in the data file but
+ * never reach a rendered surface stay out, because a chart makes any number
+ * look measured.
+ */
+type DecisionFigure = {
+  /** The claim the figure makes. Not a restatement of the decision above it. */
+  caption: string;
+  /** Width below which the figure scrolls rather than shrinking, in px. */
+  minWidth: number;
+  Diagram: () => React.ReactElement;
+};
+
+const DECISION_FIGURES: Record<string, Record<string, DecisionFigure>> = {
+  growit: {
+    "One interface for novices and experts, not two": {
+      caption:
+        "Two modes is the tidier answer on a whiteboard and it asks its question at the worst possible moment — before anyone has used the thing they are being asked to classify themselves against. One surface with depth that surfaces on demonstrated competence removes the question entirely, and hands the bill to the experienced gardener instead.",
+      minWidth: 860,
+      Diagram: GrowItProgressiveDisclosureDiagram,
+    },
+    "Ranked candidates over a single confident answer": {
+      caption:
+        "The model returns a ranked set whether or not the product shows one, so the only real question is who gets to see it. Keeping the top row and asserting it is the better first-run moment, right up against the six per cent where identification is wrong and the consequence is a watering schedule for a living thing. Making the user pick costs a tap on every identification and is what gives community verification an act to rest on.",
+      minWidth: 860,
+      Diagram: GrowItRankedCandidatesDiagram,
+    },
+    "A rating mechanic designed for volume, not depth": {
+      caption:
+        "Height is what one contribution tells you; width is how many contributions you get. A written review wins on height and loses the argument, because the people who would write one are a rounding error against the people who will tap. Ten ratings per photo is the exchange working exactly as designed — worse signal per interaction, and vastly more of it.",
+      minWidth: 900,
+      Diagram: GrowItRatingVolumeDiagram,
+    },
+    "Treating winter as planning season, not dead season": {
+      caption:
+        "A seasonal app has no winter state — it has a gap, and a return edge that runs through re-acquisition every spring. Giving winter something to be, rather than something to wait out, closes the same loop inside the product. It made the trough shallower rather than flat, which is why the figure draws a state machine and not an engagement curve nobody measured.",
+      minWidth: 880,
+      Diagram: GrowItWinterCycleDiagram,
+    },
+  },
+};
+
+/** The figure that draws one named decision, already framed. Or nothing. */
+export function decisionFigure(
+  slug: string,
+  decisionTitle: string,
+): React.ReactElement | null {
+  const entry = DECISION_FIGURES[slug]?.[decisionTitle];
+  if (!entry) return null;
+
+  const { caption, minWidth, Diagram } = entry;
+
+  return (
+    <DiagramFigure caption={caption} label={decisionTitle} minWidth={minWidth}>
+      <Diagram />
+    </DiagramFigure>
+  );
+}
+
 /** The contents-line entry for a slug's diagram, or nothing. */
 export function diagramTocExtra(slug: string): readonly TocItem[] {
   const entry = DIAGRAMS[slug];
@@ -115,7 +187,7 @@ export function CaseStudyDiagramSection({ slug }: { slug: string }) {
   return (
     <section id={id} aria-labelledby={`${id}-heading`} className={SECTION}>
       <SectionLabel id={`${id}-heading`}>{label}</SectionLabel>
-      <DiagramFigure caption={caption} minWidth={minWidth}>
+      <DiagramFigure caption={caption} label={label} minWidth={minWidth}>
         <Diagram />
       </DiagramFigure>
     </section>

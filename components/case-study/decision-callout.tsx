@@ -19,6 +19,12 @@ type DecisionCalloutProps = {
   index: number;
   /** Section id this callout belongs to, used to build unique heading ids. */
   sectionId: string;
+  /**
+   * The figure that draws this decision, if one exists. It renders last, after
+   * the outcome, because a drawing argues a claim the reader has already been
+   * given — it is evidence, not an illustration of the heading.
+   */
+  figure?: React.ReactNode;
 };
 
 /**
@@ -33,6 +39,7 @@ export function DecisionCallout({
   decision,
   index,
   sectionId,
+  figure,
 }: DecisionCalloutProps) {
   const headingId = `${sectionId}-decision-${index}-heading`;
 
@@ -70,6 +77,7 @@ export function DecisionCallout({
           {decision.outcome}
         </p>
       )}
+      {figure}
     </article>
   );
 }
