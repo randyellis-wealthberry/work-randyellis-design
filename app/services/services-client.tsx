@@ -9,6 +9,10 @@ import { TestimonialCarousel } from "@/components/ui/testimonial-carousel";
 import { testimonials } from "@/lib/data/testimonials";
 import { trackContactIntent } from "@/lib/analytics";
 import { RETAINER_LEDGER, PROOF_EXHIBITS } from "@/lib/data/retainer";
+import {
+  PRIMARY_BUTTON,
+  SECONDARY_BUTTON,
+} from "@/components/ui/button-styles";
 
 const BOOKING_URL = "https://cal.com/randyellis/30min";
 
@@ -67,13 +71,6 @@ function Pending({ children }: { children: React.ReactNode }) {
   );
 }
 
-const BUTTON_BASE =
-  "inline-flex min-h-[44px] cursor-pointer items-center justify-center rounded-lg px-6 py-3 text-base font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white focus-visible:outline-none active:scale-[0.98] dark:focus-visible:ring-offset-zinc-950";
-
-const PRIMARY_BUTTON = `${BUTTON_BASE} bg-zinc-900 text-white hover:bg-zinc-700 focus-visible:ring-zinc-900 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200 dark:focus-visible:ring-white`;
-
-const SECONDARY_BUTTON = `${BUTTON_BASE} border border-zinc-300 text-zinc-900 hover:border-zinc-400 hover:bg-zinc-100 focus-visible:ring-zinc-400 dark:border-zinc-700 dark:text-white dark:hover:border-zinc-600 dark:hover:bg-zinc-900 dark:focus-visible:ring-zinc-500`;
-
 export default function ServicesClient() {
   // The timeline is bound to exactly what the rule spans — ledger plus proof
   // band — so the ink completes while the rule is still on screen rather than
@@ -99,7 +96,10 @@ export default function ServicesClient() {
     // widened for header, content, and footer together in RouteContainer. Text
     // keeps its own reading measures below. The browser's own surfaces —
     // selection and caret — are themed rather than left on their defaults.
-    <main className="pb-8 caret-zinc-900 selection:bg-zinc-900 selection:text-white dark:caret-zinc-100 dark:selection:bg-zinc-100 dark:selection:text-zinc-900">
+    <main
+      id="main-content"
+      className="pb-8 caret-zinc-900 selection:bg-zinc-900 selection:text-white dark:caret-zinc-100 dark:selection:bg-zinc-100 dark:selection:text-zinc-900"
+    >
       <h1 className="max-w-[18ch] text-4xl leading-[1.05] font-semibold tracking-[-0.03em] text-zinc-900 sm:text-5xl dark:text-white">
         A design leader on your team, by the month.
       </h1>

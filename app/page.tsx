@@ -23,6 +23,10 @@ import { testimonials } from "@/lib/data/testimonials";
 import { RETAINER_LEDGER, PROOF_EXHIBITS } from "@/lib/data/retainer";
 import { trackContactIntent } from "@/lib/analytics";
 import { BOOKING_URL } from "@/lib/constants";
+import {
+  PRIMARY_BUTTON,
+  SECONDARY_BUTTON,
+} from "@/components/ui/button-styles";
 
 // Visible At Zero: the hidden state paints the content and only settles the
 // y-offset, so the page is complete in server HTML.
@@ -37,11 +41,6 @@ const VARIANTS_SECTION = {
 };
 
 const TRANSITION_SECTION = { duration: 0.3 };
-
-const BUTTON_BASE =
-  "inline-flex min-h-[44px] cursor-pointer items-center justify-center rounded-lg px-6 py-3 text-base font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white focus-visible:outline-none active:scale-[0.98] dark:focus-visible:ring-offset-zinc-950";
-const PRIMARY_BUTTON = `${BUTTON_BASE} bg-zinc-900 text-white hover:bg-zinc-700 focus-visible:ring-zinc-900 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200 dark:focus-visible:ring-white`;
-const SECONDARY_BUTTON = `${BUTTON_BASE} border border-zinc-300 text-zinc-900 hover:border-zinc-400 hover:bg-zinc-100 focus-visible:ring-zinc-400 dark:border-zinc-700 dark:text-white dark:hover:border-zinc-600 dark:hover:bg-zinc-900 dark:focus-visible:ring-zinc-500`;
 
 const TEXT_LINK =
   "-my-3 inline-flex min-h-[44px] w-fit items-center gap-1.5 py-3 font-medium text-zinc-900 underline decoration-zinc-300 underline-offset-4 transition-colors hover:decoration-zinc-900 focus-visible:ring-2 focus-visible:ring-zinc-900 focus-visible:ring-offset-2 focus-visible:outline-none dark:text-white dark:decoration-zinc-700 dark:hover:decoration-zinc-100 dark:focus-visible:ring-white";

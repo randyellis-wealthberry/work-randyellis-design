@@ -6,15 +6,10 @@ import { BuyMeACoffeeButton } from "@/components/ui/buy-me-a-coffee";
 import { SECTION } from "@/components/case-study/section-chrome";
 import { trackContactIntent } from "@/lib/analytics";
 import { ASSISTANT_URL, BOOKING_URL } from "@/lib/constants";
-
-// Buttons, matching the close on `/` and `/services`: 44px target, 8px radius,
-// transition-colors only, and a zinc focus ring — never a themed one.
-const BUTTON_BASE =
-  "inline-flex min-h-[44px] cursor-pointer items-center justify-center rounded-lg px-6 py-3 text-base font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white focus-visible:outline-none active:scale-[0.98] dark:focus-visible:ring-offset-zinc-950";
-
-const PRIMARY_BUTTON = `${BUTTON_BASE} bg-zinc-900 text-white hover:bg-zinc-700 focus-visible:ring-zinc-900 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200 dark:focus-visible:ring-white`;
-
-const SECONDARY_BUTTON = `${BUTTON_BASE} gap-1.5 border border-zinc-300 text-zinc-900 hover:border-zinc-400 hover:bg-zinc-100 focus-visible:ring-zinc-400 dark:border-zinc-700 dark:text-white dark:hover:border-zinc-600 dark:hover:bg-zinc-900 dark:focus-visible:ring-zinc-500`;
+import {
+  PRIMARY_BUTTON,
+  SECONDARY_BUTTON_OUTBOUND,
+} from "@/components/ui/button-styles";
 
 /**
  * The shared close, rendered at the foot of `/about`, `/projects`, and every
@@ -58,7 +53,7 @@ export function CTASection() {
           onClick={() =>
             trackContactIntent("virtual_assistant_open", ASSISTANT_URL)
           }
-          className={SECONDARY_BUTTON}
+          className={SECONDARY_BUTTON_OUTBOUND}
         >
           Talk to Assistant
           <ArrowUpRight aria-hidden="true" className="h-4 w-4 shrink-0" />
