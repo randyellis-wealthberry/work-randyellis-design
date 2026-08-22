@@ -27,10 +27,9 @@ monetized AI SaaS.
 
 </details>
 
-## Next Milestone: v3.0 Enterprise Credibility
+## Current Milestone: v3.0 Enterprise Credibility
 
-**Status:** staged, not started. Scope lives in `.planning/MILESTONE-CONTEXT.md`,
-which `/gsd:new-milestone` consumes.
+**Phases:** 11-12 (numbering continues from v2.0)
 
 **Goal:** Every figure on the site is deck-backed or gone, and the two
 large-organization engagements read as proof of operating inside regulatory and
@@ -65,7 +64,7 @@ conversation. **Shipped and audit-verified in v1.0.**
 - ✓ Waffle product showcase: `/projects/waffle` page + "Live Product" badged grid card + dual tracked CTAs — v1.0
 - ✓ Pre-existing platform: Next.js 15 App Router on Vercel, SEO JSON-LD, Motion/Radix/Tailwind v4, MDX blog, Loops newsletter — existing
 
-### Active (v3.0 Enterprise Credibility — staged, not started)
+### Active (v3.0 Enterprise Credibility — committed)
 
 - [ ] CRED-10/11/12: the three `Unbacked` sitewide figures removed at source and
       pinned with a regression test; the 4 named awards preserved
@@ -111,11 +110,17 @@ validation gate — ignores lint/type errors). Known flaky: `animation-load-test
 
 This document evolves at phase transitions and milestone boundaries.
 
-**After each phase transition:**
+**After each phase transition** (via `/gsd-transition`):
 1. Requirements invalidated? → Move to Out of Scope with reason
 2. Requirements validated? → Move to Validated with phase reference
 3. New requirements emerged? → Add to Active
 4. Decisions to log? → Add to Key Decisions
 
+**After each milestone** (via `/gsd:complete-milestone`):
+1. Full review of all sections
+2. Core Value check — still the right priority?
+3. Audit Out of Scope — reasons still valid?
+4. Update Context with current state
+
 ---
-*Last updated: 2026-08-22 — v2.0 Case-Study Depth shipped and archived*
+*Last updated: 2026-08-22 — started v3.0 Enterprise Credibility milestone*

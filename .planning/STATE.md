@@ -1,17 +1,16 @@
 ---
 gsd_state_version: 1.0
-milestone: v2.0
-milestone_name: Case-Study Depth
-status: complete
-stopped_at: v2.0 archived; v3.0 staged in MILESTONE-CONTEXT.md
-last_updated: "2026-08-22T22:26:40.178Z"
-last_activity: 2026-08-22 — v2.0 Case-Study Depth completed and archived
+milestone: v3.0
+milestone_name: Enterprise Credibility
+status: planning
+last_updated: "2026-08-22T22:40:11.814Z"
+last_activity: 2026-08-22
 progress:
-  total_phases: 6
-  completed_phases: 6
-  total_plans: 18
-  completed_plans: 18
-  percent: 100
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # STATE — Randy Ellis Portfolio
@@ -21,27 +20,20 @@ progress:
 See: .planning/PROJECT.md (updated 2026-08-15 after v1.0 milestone)
 
 **Core value:** A hiring manager finds a coherent, senior, *verifiable* story with an obvious way to book a conversation — shipped and audit-verified in v1.0. v2.0 adds proof of *how Randy decides*.
-**Current focus:** Phase 10 — seo-remediation
+**Current focus:** v3.0 Enterprise Credibility — defining requirements
 
 ## Current Position
 
-Milestone: v2.0 Case-Study Depth — **COMPLETE**, archived 2026-08-22
-Phase: none active
+Phase: Not started (defining requirements)
 Plan: —
-Status: Awaiting v3.0 kickoff
-Last activity: 2026-08-22
-
-Progress: [██████████] 100%
-
-**Next:** `/gsd:new-milestone` — it consumes `.planning/MILESTONE-CONTEXT.md`
-(v3.0 Enterprise Credibility, Phases 11-12) and writes fresh ROADMAP and
-REQUIREMENTS entries. `REQUIREMENTS.md` was removed at close by design.
+Status: Defining requirements
+Last activity: 2026-08-22 — Milestone v3.0 started
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 5 (v2.0 not yet started)
+- Total plans completed: 18 (v1.0 + v2.0); v3.0 not yet started
 - Average duration: —
 - Total execution time: —
 
@@ -51,7 +43,7 @@ REQUIREMENTS entries. `REQUIREMENTS.md` was removed at close by design.
 |-------|-------|-------|----------|
 | 09 | 5 | - | - |
 
-**Recent Trend:** — (no v2.0 plans executed yet)
+**Recent Trend:** — (no v3.0 plans executed yet)
 | Phase 05 P02 | 19min | 5 tasks | 24 files |
 
 ## Accumulated Context
