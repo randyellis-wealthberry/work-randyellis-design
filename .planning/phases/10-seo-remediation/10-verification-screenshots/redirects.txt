@@ -1,0 +1,8 @@
+=== REDIRECTS ===
+https://work.randyellis.design/test-glow 308 https://work.randyellis.design/
+https://work.randyellis.design/test/codeblock 308 https://work.randyellis.design/
+https://work.randyellis.design/ledgeriq 308 https://work.randyellis.design/projects/ledgeriq
+
+=== DELETED ROUTES ===
+https://work.randyellis.design/offline 404
+https://work.randyellis.design/manifest.webmanifest 404
