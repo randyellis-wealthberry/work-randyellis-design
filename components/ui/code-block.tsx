@@ -99,7 +99,9 @@ export function CodeBlock({ children, language, className }: CodeBlockProps) {
           </span>
           <button
             onClick={handleCopy}
-            className="flex items-center gap-1.5 rounded-md bg-zinc-200 px-2 py-1 text-xs font-medium text-zinc-700 transition-all hover:bg-zinc-300 dark:bg-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-600"
+            // 44px of target from the negative margin against padded height,
+            // without loosening the 33px header it sits in.
+            className="-my-3 flex min-h-[44px] items-center gap-1.5 rounded-md px-2 py-3 text-xs font-medium text-zinc-700 transition-colors hover:bg-zinc-200 focus-visible:ring-2 focus-visible:ring-zinc-900 focus-visible:ring-offset-2 focus-visible:outline-none dark:text-zinc-300 dark:hover:bg-zinc-700 dark:focus-visible:ring-zinc-100"
             aria-label={copied ? "Copied!" : "Copy code"}
           >
             {copied ? (
@@ -128,29 +130,19 @@ export function CodeBlock({ children, language, className }: CodeBlockProps) {
   );
 }
 
-// Inline code component (for backtick code)
+/**
+ * Inline code — a filename, a prop, a flag, mid-sentence.
+ *
+ * This used to run sugar-high's JavaScript tokenizer over its contents and
+ * inject the result with `dangerouslySetInnerHTML`. Inline code is almost never
+ * JavaScript, so the tokenizer was assigning syntax colours to prose words on a
+ * guess, and it loaded a highlighter on the client to do it. The chip and the
+ * mono face already say "this is code"; the words inside it are just text.
+ */
 export function InlineCode({ children }: { children: string }) {
-  const [codeHTML, setCodeHTML] = useState(children);
-
-  useEffect(() => {
-    const highlightCode = async () => {
-      const highlighter = await getHighlighter();
-      if (highlighter) {
-        try {
-          setCodeHTML(highlighter(children));
-        } catch (error) {
-          console.warn("Sugar-high highlighting failed:", error);
-          setCodeHTML(children);
-        }
-      }
-    };
-    highlightCode();
-  }, [children]);
-
   return (
-    <code
-      className="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800"
-      dangerouslySetInnerHTML={{ __html: codeHTML }}
-    />
+    <code className="rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800">
+      {children}
+    </code>
   );
 }

@@ -240,15 +240,40 @@
   }
 }
 
+/*
+  Syntax highlighting, in the zinc ramp.
+
+  These tokens used to carry a Tokyo Night palette declared once on :root with
+  no light-mode variant, painted onto the zinc-50 ground the code blocks use.
+  Measured on that ground: string #9ece6a was 1.8:1, sign #89ddff 1.4:1,
+  property #73daca 1.7:1 — unreadable, on a blog whose posts are mostly code.
+
+  The fix is weight and darkness rather than a second light-mode palette. This
+  system has exactly one hue (Live Amber, on the Live Product badge); seven more
+  for code would empty that of meaning. Token type reads from contrast instead:
+  keywords carry the most, comments the least, and every value clears 4.5:1 in
+  both themes.
+*/
 :root {
-  --sh-class: #7aa2f7;
-  --sh-sign: #89ddff;
-  --sh-string: #9ece6a;
-  --sh-keyword: #bb9af7;
-  --sh-comment: #565f89;
-  --sh-jsxliterals: #7aa2f7;
-  --sh-property: #73daca;
-  --sh-entity: #e0af68;
+  --sh-class: #27272a; /* 14.6:1 on the zinc-50 ground */
+  --sh-sign: #52525b; /* 7.0:1 */
+  --sh-string: #3f3f46; /* 9.4:1 */
+  --sh-keyword: #18181b; /* 16.8:1 — the darkest thing in the block */
+  --sh-comment: #71717a; /* 4.9:1 — the quietest that still clears the floor */
+  --sh-jsxliterals: #27272a;
+  --sh-property: #52525b;
+  --sh-entity: #3f3f46;
+}
+
+.dark {
+  --sh-class: #e4e4e7;
+  --sh-sign: #a1a1aa;
+  --sh-string: #d4d4d8;
+  --sh-keyword: #fafafa;
+  --sh-comment: #a1a1aa;
+  --sh-jsxliterals: #e4e4e7;
+  --sh-property: #a1a1aa;
+  --sh-entity: #d4d4d8;
 }
 
 /* Screen reader only utility for hidden SEO content */
@@ -266,8 +291,16 @@
   }
 }
 
-/* Code Block Styling */
-@layer components {
+/*
+  Code Block Styling.
+
+  These live in `utilities`, not `components`. Tailwind Typography emits its own
+  `pre`/`code` rules into the utilities layer, so a `components`-layer override
+  loses the cascade and the blocks silently render on Typography's default
+  gray-800 ground — in both themes, including light. Same layer, declared after
+  the import, is what actually wins.
+*/
+@layer utilities {
   /* Override default prose code block styles */
   .prose pre {
     @apply bg-transparent dark:bg-transparent;
@@ -278,12 +311,27 @@
   .prose pre code {
     @apply bg-transparent dark:bg-transparent;
     @apply text-sm;
+    /* Anything the tokenizer does not classify falls back to this. Typography
+       sets it to gray-200, which is legible only on the dark `pre` ground we
+       just overrode — on the Wash ground it measured 1.18:1. */
+    @apply text-zinc-800 dark:text-zinc-200;
   }
 
   /* Ensure inline code doesn't inherit block styles */
   .prose code:not(pre code) {
     @apply rounded bg-zinc-100 px-1.5 py-0.5 text-sm dark:bg-zinc-800;
     @apply border-0;
+  }
+
+  /*
+    Tailwind Typography wraps inline code in literal backtick characters via
+    `code::before`/`::after`. Inside a tinted chip that reads as a typo — the
+    chip already says "this is code", so the punctuation is doing the same job
+    twice and getting in the way of the word.
+  */
+  .prose code:not(pre code)::before,
+  .prose code:not(pre code)::after {
+    content: none;
   }
 
   /* Custom scrollbar for code blocks */
