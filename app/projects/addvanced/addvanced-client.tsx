@@ -6,6 +6,10 @@ import {
   SECTION,
   ROW,
 } from "@/components/case-study/case-study-template";
+import {
+  CaseStudyDiagramSection,
+  diagramTocExtra,
+} from "@/components/case-study/diagrams";
 import { WireframesSection } from "@/components/ui/wireframes-section";
 import { PROJECT_MEDIA } from "@/lib/data/project-media";
 import { PROJECTS } from "@/lib/data/projects";
@@ -201,6 +205,7 @@ export default function AddvancedClient() {
         { id: "research", label: "The research" },
         { id: "wireframes", label: "Wireframes" },
         { id: "testing", label: "How it was tested" },
+        ...diagramTocExtra("addvanced"),
         { id: "established", label: "What it established" },
       ]}
     >
@@ -405,6 +410,11 @@ export default function AddvancedClient() {
           aimed at.
         </p>
       </section>
+
+      {/* The consent decision, drawn. It sits after the testing section because
+          its claim is a testing result: the same suggestion read as
+          surveillance unexplained and did not once the path was visible. */}
+      <CaseStudyDiagramSection slug="addvanced" />
 
       <section
         id="established"

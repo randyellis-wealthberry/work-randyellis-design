@@ -9,6 +9,10 @@ import {
   type LedgerRow,
   type PageAction,
 } from "@/components/case-study/case-study-template";
+import {
+  CaseStudyDiagramSection,
+  diagramTocExtra,
+} from "@/components/case-study/diagrams";
 import { PROJECT_MEDIA } from "@/lib/data/project-media";
 import { PROJECTS } from "@/lib/data/projects";
 import { trackEvent } from "@/lib/analytics";
@@ -140,7 +144,10 @@ export default function WaffleClientPage() {
       closeHeadline="The fastest way to judge it is to point it at a role you are actually hiring for."
       closeBody="Paste a job description at waffle.cards and watch the scorecard build itself. Free tier, no credit card."
       closeActions={ACTIONS}
-      tocExtra={[{ id: "how-it-runs", label: "How it runs" }]}
+      tocExtra={[
+        { id: "how-it-runs", label: "How it runs" },
+        ...diagramTocExtra("waffle"),
+      ]}
     >
       <section
         id="how-it-runs"
@@ -167,6 +174,10 @@ export default function WaffleClientPage() {
           ))}
         </ol>
       </section>
+
+      {/* The steps above say what happens; this says when, which is the whole
+          case for streaming typed parts instead of text. */}
+      <CaseStudyDiagramSection slug="waffle" />
     </CaseStudyTemplate>
   );
 }

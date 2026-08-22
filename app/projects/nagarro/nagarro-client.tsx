@@ -5,6 +5,10 @@ import {
   type LedgerRow,
   type RecordLink,
 } from "@/components/case-study/case-study-template";
+import {
+  CaseStudyDiagramSection,
+  diagramTocExtra,
+} from "@/components/case-study/diagrams";
 import { PROJECTS } from "@/lib/data/projects";
 
 const project = PROJECTS.find((p) => p.id === "nagarro-design-leadership")!;
@@ -104,6 +108,12 @@ export default function NagarroClientPage() {
       record={RECORD}
       closeHeadline="If your design org has this shape, the same problem is already waiting."
       closeBody="Bring the design decision your roadmap is currently stuck on. We will work through it on the call, and you will leave with the answer whether or not we work together."
-    />
+      tocExtra={diagramTocExtra("nagarro")}
+    >
+      {/* The span of control above states the numbers; this states what they
+          cost. It follows the ledger because it is the argument the ledger
+          implies, not a second telling of it. */}
+      <CaseStudyDiagramSection slug="nagarro" />
+    </CaseStudyTemplate>
   );
 }

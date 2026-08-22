@@ -6,6 +6,10 @@ import {
   SECTION,
 } from "@/components/case-study/case-study-template";
 import {
+  CaseStudyDiagramSection,
+  diagramTocExtra,
+} from "@/components/case-study/diagrams";
+import {
   Accordion,
   AccordionItem,
   AccordionTrigger,
@@ -68,8 +72,15 @@ export default function RambisClientPage() {
       media={PROJECT_MEDIA["rambis-ui"]}
       deliverablesLabel="What shipped"
       closeHeadline="Design systems fail on adoption, not on components."
-      tocExtra={[{ id: "fork", label: IMPROVEMENTS_LABEL }]}
+      tocExtra={[
+        ...diagramTocExtra("rambis-ui"),
+        { id: "fork", label: IMPROVEMENTS_LABEL },
+      ]}
     >
+      {/* The layered API drawn before the list of what the fork changed, because
+          every item in that list is a choice made at one of these two layers. */}
+      <CaseStudyDiagramSection slug="rambis-ui" />
+
       <section id="fork" aria-labelledby="fork-heading" className={SECTION}>
         <SectionLabel id="fork-heading">{IMPROVEMENTS_LABEL}</SectionLabel>
         <Accordion
