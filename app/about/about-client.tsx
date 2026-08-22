@@ -1,55 +1,40 @@
 "use client";
 import { motion } from "motion/react";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import { ScrambleSectionTitle } from "@/components/ui/scramble-section-title";
+import { ArrowUpRight } from "lucide-react";
 import {
-  AnimatedContent,
-  AnimatedContentItem,
-} from "@/components/motion-primitives/animated-content";
-import {
-  Accordion,
-  AccordionItem,
-  AccordionTrigger,
-  AccordionContent,
-} from "@/components/core/accordion";
-import {
-  ExternalLink,
-  Award,
-  Users,
-  TrendingUp,
-  Lightbulb,
-  ChevronUp,
-  GraduationCap,
-} from "lucide-react";
+  SectionLabel,
+  SECTION,
+  ROW,
+} from "@/components/case-study/section-chrome";
+import { CaseStudyTOC } from "@/components/case-study/case-study-toc";
 import AvatarCircularText from "@/components/ui/avatar-circular-text";
 import { testimonials } from "@/lib/data/testimonials";
 import { CTASection } from "@/components/ui/cta-section";
 
+/**
+ * The proof exhibits. No icons: the Proof Exhibit signature is a figure over a
+ * context line, and a decorative glyph above each one adds nothing the number
+ * does not already say.
+ */
 const achievements = [
   {
-    icon: Users,
     value: "2.5M+",
-    label: "Users Impacted",
+    label: "Users impacted",
     description: "Across multiple products and platforms",
   },
   {
-    icon: Award,
     value: "4",
-    label: "Design Awards",
+    label: "Design awards",
     description: "Recognition for innovative design work",
   },
   {
-    icon: TrendingUp,
     value: "$50M",
-    label: "Product Value",
+    label: "Product value",
     description: "Generated through strategic design decisions",
   },
   {
-    icon: Lightbulb,
     value: "800+",
-    label: "Designers Mentored",
+    label: "Designers mentored",
     description: "Growing the next generation of design talent",
   },
 ];
@@ -309,80 +294,141 @@ const TRANSITION_SECTION = {
   duration: 0.3,
 };
 
-function CertificationsAccordion() {
+/** Named once, so each heading and the contents line cannot drift apart. */
+const SECTIONS = [
+  { id: "impact", label: "Career impact" },
+  { id: "journey", label: "Career journey" },
+  { id: "experience", label: "Professional experience" },
+  { id: "teaching", label: "Adjunct instructor experience" },
+  { id: "certifications", label: "Certifications" },
+  { id: "expertise", label: "Areas of expertise" },
+  { id: "philosophy", label: "Design philosophy" },
+  { id: "colleagues", label: "What colleagues say" },
+];
+
+const labelFor = (id: string) =>
+  SECTIONS.find((section) => section.id === id)?.label ?? id;
+
+type Role = {
+  company: string;
+  companyUrl: string;
+  title: string;
+  period: string;
+  description: string;
+  achievements: string[];
+  colleges?: string[];
+  promotion?: boolean;
+};
+
+/**
+ * A link that leaves the site says so twice: an arrow for the eye and an
+ * `sr-only` note for everyone else. The negative margin buys a 44px target
+ * without loosening the row it sits in.
+ */
+function OutboundLink({
+  href,
+  children,
+}: {
+  href: string;
+  children: React.ReactNode;
+}) {
   return (
-    <Accordion
-      className="flex w-full flex-col divide-y divide-zinc-200 dark:divide-zinc-700"
-      transition={{ duration: 0.2 }}
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="-my-3 inline-flex w-fit items-start gap-1.5 py-3 text-zinc-900 underline decoration-zinc-300 underline-offset-4 transition-colors hover:decoration-zinc-900 focus-visible:ring-2 focus-visible:ring-zinc-900 focus-visible:ring-offset-2 focus-visible:outline-none dark:text-white dark:decoration-zinc-700 dark:hover:decoration-zinc-100 dark:focus-visible:ring-white"
     >
-      {certifications.map((cert, index) => (
-        <AccordionItem key={index} value={`cert-${index}`} className="py-2">
-          <AccordionTrigger className="w-full text-left text-zinc-950 dark:text-zinc-50">
-            <div className="flex items-center justify-between">
-              <div>{cert.certName}</div>
-              <ChevronUp className="h-4 w-4 text-zinc-950 transition-transform duration-200 group-data-expanded:-rotate-180 dark:text-zinc-50" />
-            </div>
-          </AccordionTrigger>
-          <AccordionContent>
-            <div className="space-y-3">
-              <div className="flex items-center gap-2">
-                <span className="font-medium text-blue-600">
-                  {cert.universityName}
-                </span>
-                <Badge variant="outline">
-                  {new Date(cert.certDateIssued).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "short",
-                    day: "numeric",
-                  })}
-                </Badge>
-              </div>
-              <a
-                href={cert.validationLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm text-zinc-600 transition-colors hover:text-blue-600 dark:text-zinc-400 dark:hover:text-blue-400"
-              >
-                Verify Certificate
-                <ExternalLink className="h-3 w-3" />
-              </a>
-            </div>
-          </AccordionContent>
-        </AccordionItem>
-      ))}
-    </Accordion>
+      {children}
+      <ArrowUpRight aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0" />
+      <span className="sr-only">(opens in a new tab)</span>
+    </a>
+  );
+}
+
+/**
+ * One role as a ledger row rather than a card: the employer and dates are the
+ * subordinate column, the role itself is the assertion and carries the weight.
+ */
+function RoleRow({ role }: { role: Role }) {
+  return (
+    <div className={ROW}>
+      <div className="text-base text-zinc-500 sm:pr-8 dark:text-zinc-400">
+        <OutboundLink href={role.companyUrl}>{role.company}</OutboundLink>
+        <span className="mt-1 block tabular-nums">{role.period}</span>
+        {role.promotion && <span className="mt-1 block">Promotion</span>}
+      </div>
+      <div className="mt-2 sm:mt-0">
+        <p className="text-base font-medium text-zinc-900 dark:text-white">
+          {role.title}
+        </p>
+        <p className="mt-2 max-w-[62ch] text-base text-zinc-600 dark:text-zinc-300">
+          {role.description}
+        </p>
+        {role.colleges && (
+          <p className="mt-3 max-w-[62ch] text-sm text-zinc-500 dark:text-zinc-400">
+            Taught through {role.colleges.join(" · ")}
+          </p>
+        )}
+        <ul className="mt-3 max-w-[62ch]">
+          {role.achievements.map((achievement) => (
+            <li
+              key={achievement}
+              className="border-t border-zinc-200 py-2 text-sm text-zinc-600 dark:border-zinc-800 dark:text-zinc-300"
+            >
+              {achievement}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
+
+/** Someone else's words: attribution subordinate, the quote itself in Ink. */
+function QuoteRow({
+  quote,
+  author,
+  role,
+}: {
+  quote: string;
+  author: string;
+  role: string;
+}) {
+  return (
+    <figure className={ROW}>
+      <figcaption className="text-base text-zinc-500 sm:pr-8 dark:text-zinc-400">
+        <span className="block text-zinc-900 dark:text-white">{author}</span>
+        {role}
+      </figcaption>
+      <blockquote className="mt-2 max-w-[68ch] text-base font-medium text-zinc-900 sm:mt-0 dark:text-white">
+        {`“${quote}”`}
+      </blockquote>
+    </figure>
   );
 }
 
 export default function AboutClient() {
   return (
     <motion.main
-      className="space-y-12 sm:space-y-16"
+      // The browser's own surfaces carry the design too: selection and caret
+      // are themed from the palette rather than left on their defaults.
+      className="pb-8 caret-zinc-900 selection:bg-zinc-900 selection:text-white dark:caret-zinc-100 dark:selection:bg-zinc-100 dark:selection:text-zinc-900"
       variants={VARIANTS_CONTAINER}
       initial="hidden"
       animate="visible"
     >
-      {/* Hero Section */}
       <motion.section
-        className="space-y-8"
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
-        {/* Avatar with Circular Text */}
-        <div className="flex flex-col md:flex-row md:items-center md:gap-12">
-          <motion.div
-            className="mb-8 flex justify-center md:mb-0 md:justify-start"
-            variants={VARIANTS_SECTION}
-            transition={{ ...TRANSITION_SECTION, delay: 0.1 }}
-          >
-            <AvatarCircularText />
-          </motion.div>
-
-          <div className="flex-1 space-y-6">
-            <h1 className="text-center text-4xl font-bold text-zinc-900 md:text-left dark:text-zinc-100">
+        <div className="flex flex-col gap-8 sm:flex-row sm:items-center sm:gap-12">
+          <AvatarCircularText />
+          <div>
+            <h1 className="max-w-[18ch] text-4xl leading-[1.05] font-semibold tracking-[-0.03em] text-balance text-zinc-900 sm:text-5xl dark:text-white">
               Randy Ellis
             </h1>
-            <p className="text-center text-xl leading-relaxed text-zinc-600 md:text-left dark:text-zinc-400">
+            <p className="mt-5 max-w-[62ch] text-lg text-zinc-600 dark:text-zinc-300">
               AI Product Design Engineer bridging the gap between cutting-edge
               artificial intelligence and human-centered design. Passionate
               about creating products that amplify human potential through
@@ -390,74 +436,57 @@ export default function AboutClient() {
             </p>
           </div>
         </div>
+
+        {/* Eight sections, well past the six the contents line is for. */}
+        <div className="mt-10">
+          <CaseStudyTOC items={SECTIONS} sectionId="about-toc" />
+        </div>
       </motion.section>
 
-      {/* Achievements */}
       <motion.section
-        className="space-y-6"
+        id="impact"
+        aria-labelledby="impact-heading"
+        className={SECTION}
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
-        <ScrambleSectionTitle
-          as="h2"
-          className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100"
-        >
-          Career Impact
-        </ScrambleSectionTitle>
-        <AnimatedContent staggerDelay={0.1} staggerDirection="bottom">
-          <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
-            {achievements.map((achievement, index) => (
-              <AnimatedContentItem
-                key={index}
-                delay={index * 0.1}
-                className="h-full"
-              >
-                <Card className="h-full text-center">
-                  <CardContent className="pt-6">
-                    <achievement.icon className="mx-auto mb-3 h-8 w-8 text-blue-600" />
-                    <div className="mb-1 text-2xl font-bold text-zinc-900 dark:text-zinc-100">
-                      {achievement.value}
-                    </div>
-                    <div className="mb-1 flex justify-center text-sm font-medium text-zinc-700 dark:text-zinc-300">
-                      <span className="whitespace-nowrap">
-                        {achievement.label}
-                      </span>
-                    </div>
-                    <div className="text-xs text-zinc-500 dark:text-zinc-400">
-                      {achievement.description}
-                    </div>
-                  </CardContent>
-                </Card>
-              </AnimatedContentItem>
-            ))}
-          </div>
-        </AnimatedContent>
+        <SectionLabel id="impact-heading">{labelFor("impact")}</SectionLabel>
+        <dl className="mt-8 grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-4 sm:gap-x-16">
+          {achievements.map((achievement) => (
+            <div key={achievement.label} className="flex flex-col">
+              <dd className="text-3xl font-semibold tracking-[-0.03em] text-zinc-900 tabular-nums sm:text-4xl dark:text-white">
+                {achievement.value}
+              </dd>
+              <dt className="mt-3 text-sm leading-snug text-zinc-700 dark:text-zinc-300">
+                {achievement.label}
+                {/* Each figure's context differs, so it stays with its figure
+                    rather than collapsing into one shared qualifier. */}
+                <span className="mt-1 block text-xs text-zinc-500 dark:text-zinc-400">
+                  {achievement.description}
+                </span>
+              </dt>
+            </div>
+          ))}
+        </dl>
       </motion.section>
 
-      <Separator />
-
-      {/* Career Story */}
       <motion.section
-        className="space-y-6"
+        id="journey"
+        aria-labelledby="journey-heading"
+        className={SECTION}
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
-        <ScrambleSectionTitle
-          as="h2"
-          className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100"
-        >
-          Career Journey
-        </ScrambleSectionTitle>
-        <div className="space-y-8">
-          <p className="leading-relaxed text-zinc-600 dark:text-zinc-400">
+        <SectionLabel id="journey-heading">{labelFor("journey")}</SectionLabel>
+        <div className="mt-6 space-y-5">
+          <p className="max-w-[62ch] text-base text-zinc-600 dark:text-zinc-300">
             My journey in product design began with a fascination for how
             technology can solve real human problems. Over the past decade,
             I&apos;ve evolved from a traditional designer to an AI-powered
             product engineer, always maintaining focus on the human experience
             at the center of technological innovation.
           </p>
-
-          <p className="leading-relaxed text-zinc-600 dark:text-zinc-400">
+          <p className="max-w-[62ch] text-base text-zinc-600 dark:text-zinc-300">
             The emergence of generative AI has fundamentally changed how I
             approach product design. Rather than replacing human creativity, I
             believe AI amplifies our ability to create more personalized,
@@ -468,264 +497,143 @@ export default function AboutClient() {
         </div>
       </motion.section>
 
-      {/* Experience */}
       <motion.section
-        className="space-y-6"
+        id="experience"
+        aria-labelledby="experience-heading"
+        className={SECTION}
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
-        <ScrambleSectionTitle
-          as="h2"
-          className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100"
-        >
-          Professional Experience
-        </ScrambleSectionTitle>
-        <div className="space-y-8">
-          {experience.map((role, index) => (
-            <Card key={index}>
-              <CardHeader>
-                <div className="flex items-start justify-between">
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <CardTitle className="text-lg">{role.title}</CardTitle>
-                      {role.promotion && (
-                        <Badge
-                          variant="secondary"
-                          className="border-yellow-200 bg-yellow-100 text-xs text-yellow-800 dark:border-yellow-700 dark:bg-yellow-900/20 dark:text-yellow-400"
-                        >
-                          ⭐ Promotion
-                        </Badge>
-                      )}
-                    </div>
-                    <div className="mt-1 flex items-center gap-2">
-                      <a
-                        href={role.companyUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-1 font-medium text-blue-600 transition-colors hover:text-blue-700"
-                      >
-                        {role.company}
-                        <ExternalLink className="h-4 w-4" />
-                      </a>
-                    </div>
-                  </div>
-                  <Badge variant="outline">{role.period}</Badge>
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-zinc-600 dark:text-zinc-400">
-                  {role.description}
+        <SectionLabel id="experience-heading">
+          {labelFor("experience")}
+        </SectionLabel>
+        <div className="mt-6">
+          {experience.map((role) => (
+            <RoleRow key={`${role.company}-${role.title}`} role={role} />
+          ))}
+        </div>
+      </motion.section>
+
+      <motion.section
+        id="teaching"
+        aria-labelledby="teaching-heading"
+        className={SECTION}
+        variants={VARIANTS_SECTION}
+        transition={TRANSITION_SECTION}
+      >
+        <SectionLabel id="teaching-heading">
+          {labelFor("teaching")}
+        </SectionLabel>
+        <div className="mt-6">
+          {adjunctExperience.map((role) => (
+            <RoleRow key={`${role.company}-${role.title}`} role={role} />
+          ))}
+        </div>
+      </motion.section>
+
+      <motion.section
+        id="certifications"
+        aria-labelledby="certifications-heading"
+        className={SECTION}
+        variants={VARIANTS_SECTION}
+        transition={TRANSITION_SECTION}
+      >
+        <SectionLabel id="certifications-heading">
+          {labelFor("certifications")}
+        </SectionLabel>
+        {/* Not a disclosure: the issuer, the date and the verification link are
+            the parts a reader came for, so none of them hide behind a toggle. */}
+        <dl className="mt-6">
+          {certifications.map((cert) => (
+            <div key={cert.validationLink} className={ROW}>
+              <dt className="text-base text-zinc-500 sm:pr-8 dark:text-zinc-400">
+                <span className="block text-zinc-900 dark:text-white">
+                  {cert.universityName}
+                </span>
+                <span className="tabular-nums">
+                  {new Date(cert.certDateIssued).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                  })}
+                </span>
+              </dt>
+              <dd className="mt-2 sm:mt-0">
+                <p className="max-w-[62ch] text-base font-medium text-zinc-900 dark:text-white">
+                  {cert.certName}
                 </p>
-                <div className="space-y-2">
-                  <h4 className="text-sm font-medium text-zinc-900 dark:text-zinc-100">
-                    Key Achievements:
-                  </h4>
-                  <ul className="space-y-1">
-                    {role.achievements.map((achievement, achievementIndex) => (
-                      <li
-                        key={achievementIndex}
-                        className="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400"
-                      >
-                        <span className="mt-1 text-blue-600">•</span>
-                        {achievement}
-                      </li>
-                    ))}
-                  </ul>
+                <div className="mt-1 text-sm">
+                  <OutboundLink href={cert.validationLink}>
+                    Verify certificate
+                  </OutboundLink>
                 </div>
-              </CardContent>
-            </Card>
+              </dd>
+            </div>
           ))}
+        </dl>
+      </motion.section>
+
+      <motion.section
+        id="expertise"
+        aria-labelledby="expertise-heading"
+        className={SECTION}
+        variants={VARIANTS_SECTION}
+        transition={TRANSITION_SECTION}
+      >
+        <SectionLabel id="expertise-heading">
+          {labelFor("expertise")}
+        </SectionLabel>
+        {/* One set line rather than a dozen rounded pills — these are text, and
+            text structures in this system are square or they are not boxes. */}
+        <p className="mt-6 max-w-[62ch] text-base text-zinc-900 dark:text-white">
+          {skills.join(" · ")}
+        </p>
+      </motion.section>
+
+      <motion.section
+        id="philosophy"
+        aria-labelledby="philosophy-heading"
+        className={SECTION}
+        variants={VARIANTS_SECTION}
+        transition={TRANSITION_SECTION}
+      >
+        <SectionLabel id="philosophy-heading">
+          {labelFor("philosophy")}
+        </SectionLabel>
+        <div className="mt-6">
+          <QuoteRow
+            quote="The best AI products don’t feel like AI products—they feel like magic. They anticipate needs, remove friction, and amplify human capabilities without getting in the way. My goal is to create these magical experiences where technology serves humanity, not the other way around."
+            author="Randy Ellis"
+            role="On AI product design"
+          />
         </div>
       </motion.section>
 
-      <Separator />
-
-      {/* Adjunct Instructor Experience */}
       <motion.section
-        className="space-y-6"
+        id="colleagues"
+        aria-labelledby="colleagues-heading"
+        className={SECTION}
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
-        <ScrambleSectionTitle
-          as="h2"
-          className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100"
-        >
-          Adjunct Instructor Experience
-        </ScrambleSectionTitle>
-        <div className="space-y-8">
-          {adjunctExperience.map((role, index) => (
-            <Card key={index}>
-              <CardHeader>
-                <div className="flex items-start justify-between">
-                  <div>
-                    <CardTitle className="text-lg">{role.title}</CardTitle>
-                    <div className="mt-1 flex items-center gap-2">
-                      <a
-                        href={role.companyUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-1 font-medium text-blue-600 transition-colors hover:text-blue-700"
-                      >
-                        {role.company}
-                        <ExternalLink className="h-4 w-4" />
-                      </a>
-                    </div>
-                  </div>
-                  <Badge variant="outline">{role.period}</Badge>
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <p className="text-zinc-600 dark:text-zinc-400">
-                  {role.description}
-                </p>
-                {role.colleges && (
-                  <div className="space-y-2">
-                    <h4 className="flex items-center gap-2 text-sm font-medium text-zinc-900 dark:text-zinc-100">
-                      <GraduationCap className="h-4 w-4" />
-                      Partner Universities:
-                    </h4>
-                    <div className="flex flex-wrap gap-2">
-                      {role.colleges.map((college, collegeIndex) => (
-                        <Badge
-                          key={collegeIndex}
-                          variant="outline"
-                          className="text-xs"
-                        >
-                          {college}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                )}
-                <div className="space-y-2">
-                  <h4 className="text-sm font-medium text-zinc-900 dark:text-zinc-100">
-                    Key Achievements:
-                  </h4>
-                  <ul className="space-y-1">
-                    {role.achievements.map((achievement, achievementIndex) => (
-                      <li
-                        key={achievementIndex}
-                        className="flex items-start gap-2 text-sm text-zinc-600 dark:text-zinc-400"
-                      >
-                        <span className="mt-1 text-blue-600">•</span>
-                        {achievement}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </CardContent>
-            </Card>
+        <SectionLabel id="colleagues-heading">
+          {labelFor("colleagues")}
+        </SectionLabel>
+        <div className="mt-6">
+          {testimonials.map((testimonial) => (
+            <QuoteRow
+              key={testimonial.author}
+              quote={testimonial.quote}
+              author={testimonial.author}
+              role={testimonial.role}
+            />
           ))}
         </div>
+        <p className="mt-4 text-xs text-zinc-500 dark:text-zinc-400">
+          LinkedIn recommendations, quoted in full and attributed.
+        </p>
       </motion.section>
 
-      <Separator />
-
-      {/* Certifications */}
-      <motion.section
-        className="space-y-6"
-        variants={VARIANTS_SECTION}
-        transition={TRANSITION_SECTION}
-      >
-        <ScrambleSectionTitle
-          as="h2"
-          className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100"
-        >
-          Certifications
-        </ScrambleSectionTitle>
-        <CertificationsAccordion />
-      </motion.section>
-
-      {/* Skills */}
-      <motion.section
-        className="space-y-6"
-        variants={VARIANTS_SECTION}
-        transition={TRANSITION_SECTION}
-      >
-        <ScrambleSectionTitle
-          as="h2"
-          className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100"
-        >
-          Areas of Expertise
-        </ScrambleSectionTitle>
-        <div className="flex flex-wrap gap-2">
-          {skills.map((skill, index) => (
-            <Badge key={index} variant="secondary" className="text-sm">
-              {skill}
-            </Badge>
-          ))}
-        </div>
-      </motion.section>
-
-      {/* Philosophy */}
-      <motion.section
-        className="space-y-6"
-        variants={VARIANTS_SECTION}
-        transition={TRANSITION_SECTION}
-      >
-        <ScrambleSectionTitle
-          as="h2"
-          className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100"
-        >
-          Design Philosophy
-        </ScrambleSectionTitle>
-        <Card>
-          <CardContent className="pt-6">
-            <blockquote className="text-lg leading-relaxed text-zinc-600 italic dark:text-zinc-400">
-              &quot;The best AI products don&apos;t feel like AI products—they
-              feel like magic. They anticipate needs, remove friction, and
-              amplify human capabilities without getting in the way. My goal is
-              to create these magical experiences where technology serves
-              humanity, not the other way around.&quot;
-            </blockquote>
-            <footer className="mt-4 text-sm text-zinc-500 dark:text-zinc-400">
-              — Randy Ellis, on AI Product Design
-            </footer>
-          </CardContent>
-        </Card>
-      </motion.section>
-
-      {/* Testimonials — real, attributable LinkedIn recommendations */}
-      <motion.section
-        className="space-y-6"
-        variants={VARIANTS_SECTION}
-        transition={TRANSITION_SECTION}
-      >
-        <ScrambleSectionTitle
-          as="h2"
-          className="text-2xl font-semibold text-zinc-900 dark:text-zinc-100"
-        >
-          What Colleagues Say
-        </ScrambleSectionTitle>
-        <AnimatedContent staggerDelay={0.12} staggerDirection="bottom">
-          <div className="grid gap-6 md:grid-cols-2">
-            {testimonials.map((testimonial, index) => (
-              <AnimatedContentItem
-                key={testimonial.author}
-                delay={index * 0.12}
-                className="h-full"
-              >
-                <Card className="h-full">
-                  <CardContent className="pt-6">
-                    <blockquote className="leading-relaxed text-zinc-600 italic dark:text-zinc-400">
-                      &ldquo;{testimonial.quote}&rdquo;
-                    </blockquote>
-                    <footer className="mt-4 text-sm text-zinc-500 dark:text-zinc-400">
-                      <span className="font-medium text-zinc-700 dark:text-zinc-300">
-                        {testimonial.author}
-                      </span>
-                      <br />
-                      {testimonial.role}
-                    </footer>
-                  </CardContent>
-                </Card>
-              </AnimatedContentItem>
-            ))}
-          </div>
-        </AnimatedContent>
-      </motion.section>
-
-      {/* Contact CTA */}
       <CTASection />
     </motion.main>
   );

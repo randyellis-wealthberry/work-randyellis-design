@@ -1,7 +1,12 @@
 "use client";
 
 import { useEffect } from "react";
-import { motion, useAnimation, useMotionValue } from "motion/react";
+import {
+  motion,
+  useAnimation,
+  useMotionValue,
+  useReducedMotion,
+} from "motion/react";
 
 const getRotationTransition = (
   duration: number,
@@ -43,19 +48,27 @@ const CircularText = ({
   const letters = Array.from(text);
   const controls = useAnimation();
   const rotation = useMotionValue(0);
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
+    // A ring that turns forever is the one element on the page that never
+    // settles. Anyone who has asked for less motion gets it held still.
+    if (reduceMotion) {
+      controls.set({ rotate: rotation.get(), scale: 1 });
+      return;
+    }
+
     const start = rotation.get();
     controls.start({
       rotate: start + 360,
       scale: 1,
       transition: getTransition(spinDuration, start),
     });
-  }, [spinDuration, text, onHover, controls, rotation]);
+  }, [spinDuration, text, onHover, controls, rotation, reduceMotion]);
 
   const handleHoverStart = () => {
     const start = rotation.get();
-    if (!onHover) return;
+    if (!onHover || reduceMotion) return;
 
     let transitionConfig;
     let scaleVal = 1;
@@ -90,6 +103,7 @@ const CircularText = ({
   };
 
   const handleHoverEnd = () => {
+    if (reduceMotion) return;
     const start = rotation.get();
     controls.start({
       rotate: start + 360,
