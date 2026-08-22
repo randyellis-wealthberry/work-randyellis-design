@@ -22,7 +22,9 @@ describe("Enhanced Projects Data Validation", () => {
 
       // Should have the new comprehensive metrics
       const metricLabels = growItProject.metrics!.map((m) => m.label);
-      expect(metricLabels).toContain("Active Users");
+      // The user count and the rating are peak figures, not current ones, and
+      // the labels say so — see lib/data/projects.ts.
+      expect(metricLabels).toContain("Active users at peak");
       expect(metricLabels).toContain("Photo Ratings");
       expect(metricLabels).toContain("Photo Uploads");
       expect(metricLabels).toContain("Cities Served");

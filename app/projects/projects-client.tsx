@@ -9,7 +9,9 @@ import { BreadcrumbNav } from "@/components/ui/breadcrumb-nav";
 import { CTASection } from "@/components/ui/cta-section";
 import { Badge } from "@/components/ui/badge";
 import { SECTION, SectionLabel } from "@/components/case-study/section-chrome";
+import { ProjectThumbnail } from "@/components/ui/project-thumbnail";
 import { PROJECTS } from "@/lib/data/projects";
+import { projectThumbnail } from "@/lib/data/project-thumbnails";
 import type { Project } from "@/lib/data/types";
 import { filterProjectsByCategory } from "@/lib/project-utils";
 
@@ -58,17 +60,23 @@ const STATUS_LABEL: Record<Project["status"], string> = {
  */
 function ProjectRow({ project }: { project: Project }) {
   const headline = project.metrics?.[0];
+  const thumbnail = projectThumbnail(project.slug);
 
   return (
     <motion.li
       variants={VARIANTS_ITEM}
-      className="border-t border-zinc-200 dark:border-zinc-800"
+      className="grid grid-cols-1 gap-4 border-t border-zinc-200 py-5 sm:grid-cols-[minmax(0,18rem)_1fr] sm:gap-8 dark:border-zinc-800"
     >
+      {/* Sibling of the link, never a child of it: the lightbox trigger is a
+          button, and a button inside an anchor is invalid and ambiguous to
+          click. The picture enlarges, the words navigate. */}
+      {thumbnail && <ProjectThumbnail thumbnail={thumbnail} />}
+
       <Link
         href={`/projects/${project.slug}`}
-        className="group grid grid-cols-1 py-5 focus-visible:ring-2 focus-visible:ring-zinc-900 focus-visible:ring-offset-2 focus-visible:outline-none sm:grid-cols-[minmax(0,18rem)_1fr] dark:focus-visible:ring-white"
+        className="group flex flex-col gap-2 focus-visible:ring-2 focus-visible:ring-zinc-900 focus-visible:ring-offset-2 focus-visible:outline-none dark:focus-visible:ring-white"
       >
-        <span className="flex flex-col gap-2 sm:pr-8">
+        <span className="flex flex-col gap-2">
           <span className="flex items-start gap-1.5 text-base font-medium text-zinc-900 underline decoration-zinc-300 underline-offset-4 transition-colors group-hover:decoration-zinc-900 dark:text-white dark:decoration-zinc-700 dark:group-hover:decoration-zinc-100">
             {project.name}
             <ArrowRight
@@ -96,7 +104,7 @@ function ProjectRow({ project }: { project: Project }) {
           </span>
         </span>
 
-        <span className="mt-3 flex flex-col gap-2 sm:mt-0">
+        <span className="flex flex-col gap-2">
           <span className="max-w-[62ch] text-base text-zinc-500 dark:text-zinc-400">
             {project.description}
           </span>

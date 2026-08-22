@@ -8,7 +8,7 @@ export const PROJECTS: Project[] = [
     subtitle: "Social Gardening Platform",
     slug: "growit",
     description:
-      "One of the fastest-growing social gardening platforms in the U.S., connecting 240K+ active plant enthusiasts through community-driven discovery and expert horticultural partnerships.",
+      "One of the fastest-growing social gardening platforms in the U.S., which reached 240K+ active plant enthusiasts at its peak through community-driven discovery and expert horticultural partnerships.",
     longDescription:
       "GrowIt! set out to bridge novice gardeners and horticultural experts in one social platform. I led product design across a 30-month engagement: the app combined social networking, plant identification, geolocation, and expert guidance backed by a Ball Horticultural Company partnership that was already in place when I joined. The client and PM set the three-phase sequencing — community first, then engagement, then deep horticultural integration — and I designed within it.",
     category: "Mobile App",
@@ -56,11 +56,11 @@ export const PROJECTS: Project[] = [
     ],
     featured: true,
     metrics: [
-      { label: "Active Users", value: "240K+" },
+      { label: "Active users at peak", value: "240K+" },
       { label: "Photo Ratings", value: "3.4M" },
       { label: "Photo Uploads", value: "350K" },
       { label: "Cities Served", value: "25K+" },
-      { label: "App Store Rating", value: "4.8★" },
+      { label: "App Store rating at peak", value: "4.8★" },
       { label: "Community Engagement", value: "73%" },
     ],
     challenges: [

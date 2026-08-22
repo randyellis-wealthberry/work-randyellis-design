@@ -58,7 +58,7 @@ export function SearchInterface({
         id: "growit",
         title: "GrowIt!",
         description:
-          "Social Gardening Platform with 240K+ active users globally",
+          "Social Gardening Platform that reached 240K+ active users at its peak",
         type: "project",
         url: "/projects/growit",
         category: "Mobile App",
