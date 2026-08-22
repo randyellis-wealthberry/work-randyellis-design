@@ -3,35 +3,15 @@
 import { motion } from "motion/react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { ArrowRight } from "lucide-react";
 import { ScrambleSectionTitle } from "@/components/ui/scramble-section-title";
-import Image from "next/image";
-import { ExternalLink, Github, Calendar, Users } from "lucide-react";
+import { BreadcrumbNav } from "@/components/ui/breadcrumb-nav";
 import { CTASection } from "@/components/ui/cta-section";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import {
-  isVideoUrl,
-  isUnicornStudioId,
-  extractUnicornStudioId,
-} from "@/lib/video-utils";
-import { UnicornStudioEmbed } from "@/components/ui/unicorn-studio-embed";
-import { HoverIframe } from "@/components/ui/hover-iframe";
-import { HoverVideo } from "@/components/ui/hover-video";
-import {
-  GlareHover,
-  GlarePresets,
-} from "@/components/motion-primitives/glare-hover";
+import { SECTION, SectionLabel } from "@/components/case-study/section-chrome";
 import { PROJECTS } from "@/lib/data/projects";
+import type { Project } from "@/lib/data/types";
 import { filterProjectsByCategory } from "@/lib/project-utils";
-import { cn } from "@/lib/utils";
 
 // Visible At Zero (DESIGN.md): the hidden state stays fully opaque so the page
 // paints complete on first byte — entrance motion only settles the y-offset.
@@ -56,118 +36,81 @@ const VARIANTS_ITEM = {
   },
 };
 
-function ProjectThumbnail({ project }: { project: (typeof PROJECTS)[0] }) {
-  // Special handling for Nagarro project - always show the logo
-  if (
-    project.slug === "nagarro" &&
-    project.thumbnail?.includes("nagarro-logo")
-  ) {
-    return (
-      <div className="aspect-video overflow-hidden">
-        <Image
-          src={project.thumbnail}
-          alt={`${project.name} - ${project.subtitle || project.description} showcasing ${project.technologies.slice(0, 3).join(", ")} implementation`}
-          width={500}
-          height={300}
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-        />
-      </div>
-    );
-  }
+/**
+ * The record stores an enum; a label is authored text. Sentence case, spelled
+ * out — "in-progress" is a database value, not something a reader should see.
+ */
+const STATUS_LABEL: Record<Project["status"], string> = {
+  completed: "Completed",
+  "in-progress": "In progress",
+  concept: "Concept",
+};
 
-  // Check for UnicornStudio content first (highest priority)
-  const unicornVideoId = isUnicornStudioId(project.video)
-    ? extractUnicornStudioId(project.video)
-    : null;
-  const unicornThumbnailId = isUnicornStudioId(project.thumbnail || "")
-    ? extractUnicornStudioId(project.thumbnail || "")
-    : null;
-  const unicornId = unicornVideoId || unicornThumbnailId;
-
-  // Check for local MP4 files (second priority)
-  const isLocalMp4Video =
-    project.video &&
-    project.video.includes(".mp4") &&
-    project.video.startsWith("/");
-  const isLocalMp4Thumbnail =
-    project.thumbnail &&
-    project.thumbnail.includes(".mp4") &&
-    project.thumbnail.startsWith("/");
-
-  // Check for external video URLs (third priority)
-  const videoSrc = isVideoUrl(project.video) ? project.video : null;
-  const thumbnailSrc = isVideoUrl(project.thumbnail || "")
-    ? project.thumbnail
-    : null;
-
-  const staticThumbnail =
-    !isVideoUrl(project.thumbnail || "") &&
-    !isUnicornStudioId(project.thumbnail || "") &&
-    !isLocalMp4Thumbnail &&
-    project.thumbnail
-      ? project.thumbnail
-      : "/images/projects/placeholder-thumbnail.jpg";
-
-  // Priority: UnicornStudio > Local MP4 > External Video > Static thumbnail
-  if (unicornId) {
-    return (
-      <div className="aspect-video overflow-hidden">
-        <UnicornStudioEmbed
-          projectId={unicornId}
-          width={1920}
-          height={1080}
-          className="h-full w-full transition-transform duration-300 group-hover:scale-105"
-        />
-      </div>
-    );
-  }
-
-  // Handle local MP4 files with HoverVideo
-  const localMp4Src = isLocalMp4Thumbnail
-    ? project.thumbnail
-    : isLocalMp4Video
-      ? project.video
-      : null;
-  if (localMp4Src) {
-    return (
-      <div className="aspect-video overflow-hidden">
-        <HoverVideo
-          src={localMp4Src}
-          alt={`${project.name} - ${project.subtitle || project.description} showcasing ${project.technologies.slice(0, 3).join(", ")} implementation`}
-          className="h-full w-full transition-transform duration-300 group-hover:scale-105"
-          resetOnLeave={true}
-          projectName={project.name}
-        />
-      </div>
-    );
-  }
-
-  // Handle external video URLs with HoverIframe
-  const displaySrc = videoSrc || thumbnailSrc;
-  if (displaySrc) {
-    return (
-      <div className="aspect-video overflow-hidden">
-        <HoverIframe
-          src={displaySrc}
-          title={project.name}
-          className="h-full w-full transition-transform duration-300 group-hover:scale-105"
-        />
-      </div>
-    );
-  }
+/**
+ * One project as a row in a hairline list — the Recommendations List grammar
+ * (DESIGN.md), applied to the index. The name is the only link in the row, its
+ * description sits in the second column. The term column is 18rem, not the
+ * signature's 22rem: this route keeps the narrow 768px measure, where 22rem
+ * resolves to a literal half-and-half split — the case the Label-Width Rule
+ * warns about — and leaves the description at roughly 45ch. The row
+ * carries just the facts that help a reader choose what to read: what kind of
+ * work it was, where it stands, and the one result the case study argues.
+ */
+function ProjectRow({ project }: { project: Project }) {
+  const headline = project.metrics?.[0];
 
   return (
-    <div className="aspect-video overflow-hidden">
-      <Image
-        src={staticThumbnail}
-        alt={`${project.name} - ${project.subtitle || project.description} showcasing ${project.technologies.slice(0, 3).join(", ")} implementation`}
-        width={500}
-        height={300}
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-      />
-    </div>
+    <motion.li
+      variants={VARIANTS_ITEM}
+      className="border-t border-zinc-200 dark:border-zinc-800"
+    >
+      <Link
+        href={`/projects/${project.slug}`}
+        className="group grid grid-cols-1 py-5 focus-visible:ring-2 focus-visible:ring-zinc-900 focus-visible:ring-offset-2 focus-visible:outline-none sm:grid-cols-[minmax(0,18rem)_1fr] dark:focus-visible:ring-white"
+      >
+        <span className="flex flex-col gap-2 sm:pr-8">
+          <span className="flex items-start gap-1.5 text-base font-medium text-zinc-900 underline decoration-zinc-300 underline-offset-4 transition-colors group-hover:decoration-zinc-900 dark:text-white dark:decoration-zinc-700 dark:group-hover:decoration-zinc-100">
+            {project.name}
+            <ArrowRight
+              aria-hidden="true"
+              className="mt-1 h-4 w-4 shrink-0 text-zinc-400 transition-transform group-hover:translate-x-0.5 dark:text-zinc-500"
+            />
+          </span>
+          <span className="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-xs text-zinc-500 dark:text-zinc-400">
+            <span>{project.category}</span>
+            <span aria-hidden="true">·</span>
+            <span>{STATUS_LABEL[project.status]}</span>
+            {/* The single hue exception in the whole system: a product a
+                reader can open today is a different kind of claim, and it is
+                the one place the zinc ramp cannot say what it means. */}
+            {project.isLiveProduct && (
+              <Badge className="border-transparent bg-amber-600 text-zinc-950 dark:bg-amber-500">
+                Live Product
+              </Badge>
+            )}
+            {/* An unlabelled composite is the thing this badge exists to
+                prevent — it is a disclosure, not decoration. */}
+            {project.isComposite && (
+              <Badge variant="secondary">Composite</Badge>
+            )}
+          </span>
+        </span>
+
+        <span className="mt-3 flex flex-col gap-2 sm:mt-0">
+          <span className="max-w-[62ch] text-base text-zinc-500 dark:text-zinc-400">
+            {project.description}
+          </span>
+          {headline && (
+            <span className="text-sm text-zinc-500 dark:text-zinc-400">
+              <span className="font-medium text-zinc-900 tabular-nums dark:text-white">
+                {headline.value}
+              </span>{" "}
+              {headline.label}
+            </span>
+          )}
+        </span>
+      </Link>
+    </motion.li>
   );
 }
 
@@ -180,244 +123,82 @@ export default function ProjectsClient() {
 
   return (
     <motion.main
-      className="space-y-6 sm:space-y-8"
+      id="main-content"
+      className="pb-8 caret-zinc-900 selection:bg-zinc-900 selection:text-white dark:caret-zinc-100 dark:selection:bg-zinc-100 dark:selection:text-zinc-900"
       variants={VARIANTS_CONTAINER}
       initial="hidden"
       animate="visible"
     >
-      <motion.section variants={VARIANTS_ITEM}>
-        <div className="space-y-4">
-          <ScrambleSectionTitle
-            as="h1"
-            className="text-3xl font-bold text-zinc-900 dark:text-zinc-100"
-          >
-            Projects
-          </ScrambleSectionTitle>
-          <p className="text-lg text-zinc-600 dark:text-zinc-400">
-            A collection of projects showcasing my work in AI-powered product
-            design, design systems, and innovative user experiences.
-          </p>
-          {categoryTerm && (
-            <p
-              className="text-sm text-zinc-600 dark:text-zinc-400"
-              role="status"
-            >
-              {visibleProjects.length === 0 ? (
-                <>
-                  No projects match &quot;{categoryTerm}&quot;.{" "}
-                  <Link
-                    href="/projects"
-                    className="underline underline-offset-4"
-                  >
-                    Clear filter
-                  </Link>
-                </>
-              ) : (
-                <>
-                  Showing {visibleProjects.length}{" "}
-                  {visibleProjects.length === 1 ? "project" : "projects"}{" "}
-                  matching &quot;{categoryTerm}&quot; ·{" "}
-                  <Link
-                    href="/projects"
-                    className="underline underline-offset-4"
-                  >
-                    Clear filter
-                  </Link>
-                </>
-              )}
-            </p>
-          )}
-        </div>
-      </motion.section>
+      <motion.div variants={VARIANTS_ITEM}>
+        {/* BreadcrumbNav renders its own home link, so the trail starts at
+            Projects — the page never ships two links to the same destination.
+            It is also what the BreadcrumbList schema in page.tsx describes. */}
+        <BreadcrumbNav
+          className="mb-8"
+          items={[{ label: "Projects", current: true }]}
+        />
 
-      <motion.section variants={VARIANTS_ITEM}>
-        <motion.div
-          className="projects-grid-pattern"
-          variants={VARIANTS_CONTAINER}
-          initial="hidden"
-          animate="visible"
+        <ScrambleSectionTitle
+          as="h1"
+          className="max-w-[18ch] text-4xl leading-[1.05] font-semibold tracking-[-0.03em] text-balance text-zinc-900 sm:text-5xl dark:text-white"
         >
-          {visibleProjects.map((project) => (
-            <motion.div
-              key={project.id}
-              variants={VARIANTS_ITEM}
-              className={cn(
-                "h-full",
-                project.isLiveProduct && "projects-grid-item-wide",
-              )}
-            >
-              <Card className="group relative flex h-full flex-col gap-0 overflow-hidden p-0 shadow-lg">
-                <Link href={`/projects/${project.slug}`} className="block">
-                  <GlareHover {...GlarePresets.card} className="block">
-                    <ProjectThumbnail project={project} />
-                  </GlareHover>
+          Projects
+        </ScrambleSectionTitle>
+
+        <p className="mt-6 max-w-[62ch] text-lg leading-relaxed text-zinc-600 dark:text-zinc-300">
+          A collection of projects showcasing my work in AI-powered product
+          design, design systems, and innovative user experiences.
+        </p>
+
+        {categoryTerm && (
+          <p
+            className="mt-4 text-sm text-zinc-500 dark:text-zinc-400"
+            role="status"
+          >
+            {visibleProjects.length === 0 ? (
+              <>
+                No projects match &quot;{categoryTerm}&quot;.{" "}
+                <Link
+                  href="/projects"
+                  className="-my-3 inline-flex min-h-[44px] items-center font-medium text-zinc-900 underline decoration-zinc-300 underline-offset-4 transition-colors hover:decoration-zinc-900 focus-visible:ring-2 focus-visible:ring-zinc-900 focus-visible:ring-offset-2 focus-visible:outline-none dark:text-white dark:decoration-zinc-700 dark:hover:decoration-zinc-100 dark:focus-visible:ring-white"
+                >
+                  Clear filter
                 </Link>
-                {/* Single slot so status badges stack instead of overlapping */}
-                {(project.isLiveProduct || project.isComposite) && (
-                  <div className="pointer-events-none absolute top-3 right-3 z-10 flex flex-col items-end gap-1.5">
-                    {project.isLiveProduct && (
-                      <Badge className="bg-amber-600 text-sm font-bold text-zinc-950 dark:bg-amber-500">
-                        Live Product
-                      </Badge>
-                    )}
-                    {project.isComposite && (
-                      <Badge
-                        variant="secondary"
-                        className="text-xs font-semibold"
-                      >
-                        Composite
-                      </Badge>
-                    )}
-                  </div>
-                )}
-                <CardHeader className="px-4 pt-4 pb-3">
-                  <div className="space-y-2">
-                    <div className="flex items-start justify-between">
-                      <CardTitle className="transition-colors group-hover:text-blue-600">
-                        {project.name}
-                      </CardTitle>
-                      <Badge
-                        variant={
-                          project.status === "completed"
-                            ? "default"
-                            : project.status === "in-progress"
-                              ? "secondary"
-                              : "outline"
-                        }
-                      >
-                        {project.status}
-                      </Badge>
-                    </div>
-                    <CardDescription className="w-full">
-                      {project.description}
-                    </CardDescription>
-                  </div>
-                </CardHeader>
-                <CardContent className="flex flex-1 flex-col px-4 pt-0 pb-4">
-                  <div className="flex-1 space-y-3">
-                    {/* Project Metrics */}
-                    {project.metrics && (
-                      <div className="space-y-3">
-                        <div className="grid grid-cols-3 gap-3 text-center">
-                          {project.metrics.slice(0, 3).map((metric, index) => (
-                            <div
-                              key={index}
-                              className="flex h-14 flex-col justify-between p-2"
-                            >
-                              <div className="text-lg leading-tight font-semibold text-zinc-900 dark:text-zinc-100">
-                                {metric.value}
-                              </div>
-                              <div className="text-xs leading-tight break-words text-zinc-500">
-                                {metric.label}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                        {project.metrics.length > 3 && (
-                          <div className="grid grid-cols-3 gap-3 text-center">
-                            {project.metrics
-                              .slice(3, 6)
-                              .map((metric, index) => (
-                                <div
-                                  key={index + 3}
-                                  className="flex h-14 flex-col justify-between p-2"
-                                >
-                                  <div className="text-lg leading-tight font-semibold text-zinc-900 dark:text-zinc-100">
-                                    {metric.value}
-                                  </div>
-                                  <div className="text-xs leading-tight break-words text-zinc-500">
-                                    {metric.label}
-                                  </div>
-                                </div>
-                              ))}
-                          </div>
-                        )}
-                      </div>
-                    )}
+              </>
+            ) : (
+              <>
+                Showing {visibleProjects.length}{" "}
+                {visibleProjects.length === 1 ? "project" : "projects"} matching
+                &quot;{categoryTerm}&quot; ·{" "}
+                <Link
+                  href="/projects"
+                  className="-my-3 inline-flex min-h-[44px] items-center font-medium text-zinc-900 underline decoration-zinc-300 underline-offset-4 transition-colors hover:decoration-zinc-900 focus-visible:ring-2 focus-visible:ring-zinc-900 focus-visible:ring-offset-2 focus-visible:outline-none dark:text-white dark:decoration-zinc-700 dark:hover:decoration-zinc-100 dark:focus-visible:ring-white"
+                >
+                  Clear filter
+                </Link>
+              </>
+            )}
+          </p>
+        )}
+      </motion.div>
 
-                    {project.metrics && <Separator />}
-
-                    {/* Project Details */}
-                    <div className="grid grid-cols-2 gap-3 text-sm">
-                      <div className="flex items-center gap-1.5">
-                        <Calendar className="h-3.5 w-3.5 text-zinc-500" />
-                        <span className="text-zinc-600 dark:text-zinc-400">
-                          {project.timeline}
-                        </span>
-                      </div>
-                      {project.teamSize && (
-                        <div className="flex items-center gap-1.5">
-                          <Users className="h-3.5 w-3.5 text-zinc-500" />
-                          <span className="text-zinc-600 dark:text-zinc-400">
-                            {project.teamSize} people
-                          </span>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Technologies */}
-                    <div className="flex flex-wrap gap-1.5">
-                      {project.technologies.slice(0, 4).map((tech) => (
-                        <Badge
-                          key={tech}
-                          variant="outline"
-                          className="px-2 py-0.5 text-xs"
-                        >
-                          {tech}
-                        </Badge>
-                      ))}
-                      {project.technologies.length > 4 && (
-                        <Badge
-                          variant="outline"
-                          className="px-2 py-0.5 text-xs"
-                        >
-                          +{project.technologies.length - 4} more
-                        </Badge>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Action Buttons - Always at bottom */}
-                  <div className="flex gap-2 pt-3">
-                    <Button
-                      asChild
-                      variant="ghost"
-                      size="sm"
-                      className="flex-1 border border-zinc-200 transition-all duration-200 hover:bg-zinc-900 hover:text-white dark:border-zinc-700 dark:hover:bg-zinc-100 dark:hover:text-zinc-900"
-                    >
-                      <Link href={`/projects/${project.slug}`}>
-                        View Details
-                      </Link>
-                    </Button>
-                    {project.link && (
-                      <Button asChild variant="outline" size="sm">
-                        <a
-                          href={project.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          aria-label={`View ${project.name} live project`}
-                        >
-                          <ExternalLink className="h-4 w-4" />
-                        </a>
-                      </Button>
-                    )}
-                    {project.githubLink && (
-                      <Button asChild variant="outline" size="sm">
-                        <a
-                          href={project.githubLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <Github className="h-4 w-4" />
-                        </a>
-                      </Button>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
-        </motion.div>
+      <motion.section
+        id="case-studies"
+        aria-labelledby="case-studies-heading"
+        variants={VARIANTS_ITEM}
+        className={SECTION}
+      >
+        <SectionLabel id="case-studies-heading">Case studies</SectionLabel>
+        {visibleProjects.length > 0 && (
+          <motion.ul
+            variants={VARIANTS_CONTAINER}
+            className="mt-6 border-b border-zinc-200 dark:border-zinc-800"
+          >
+            {visibleProjects.map((project) => (
+              <ProjectRow key={project.id} project={project} />
+            ))}
+          </motion.ul>
+        )}
       </motion.section>
 
       {/* Contact CTA */}

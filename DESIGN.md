@@ -193,6 +193,10 @@ A single zinc ramp on paper white, inverted wholesale for dark mode; the only "a
 - **Edge** (#d4d4d8) / **Edge Inverse** (#3f3f46): Secondary-button strokes, link underline decoration at rest, input borders.
 - **Wash** (#f4f4f5) / **Wash Inverse** (#18181b): Hover grounds for navigation and ghost controls, and the tinted ground a contained figure sits on.
 
+### The One Exception
+
+- **Live Amber** (#d97706 light / #f59e0b dark): The status badge on a project a reader can open and use today, and nothing else. It is the single hue in the system, and it exists because "this one is live" is a different kind of claim than anything weight and darkness can make. Zinc-950 text on the light value, for contrast. Any second use of it — a highlight, a callout, an accent — makes it mean nothing.
+
 ### Named Rules
 
 **The One Family Rule.** Editorial surfaces use zinc and nothing else. If something needs to stand out, make it darker or heavier — never more colorful. A new hue on a text surface is a bug report, not a design decision. This extends to focus rings: the ring is Ink on light and Paper on dark, never a browser blue and never a themed blue.
