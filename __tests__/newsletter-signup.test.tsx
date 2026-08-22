@@ -197,11 +197,15 @@ describe("NewsletterSignup", () => {
       ).toBeInTheDocument();
     });
 
-    // Check that the error message has the orange styling for rate limiting
-    const errorDiv = screen
-      .getByText(/please wait a moment before trying again/i)
-      .closest("div");
-    expect(errorDiv).toHaveClass("bg-orange-100");
+    // A rate limit is an error, and it is announced as one. There is no longer
+    // a separate orange treatment: two hues for two subtypes of the same
+    // outcome was a distinction the reader never acted on, and the filled
+    // panel it sat in was a fill doing a hairline's job. What matters is that
+    // the message reaches assistive tech, so that is what this asserts.
+    const alert = screen.getByRole("alert");
+    expect(alert).toHaveTextContent(
+      /please wait a moment before trying again/i,
+    );
   });
 
   it("has proper accessibility attributes", () => {

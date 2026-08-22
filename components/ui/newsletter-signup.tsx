@@ -8,7 +8,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { motion } from "motion/react";
 import { FloatingInput } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { SECTION, SectionLabel } from "@/components/case-study/section-chrome";
+import { PRIMARY_BUTTON } from "@/components/ui/button-styles";
+import { cn } from "@/lib/utils";
 import { trackNewsletterAttempt } from "@/lib/analytics";
 import { useFeatureFlag } from "@/hooks/use-feature-flag";
 import { useAnimationPerformance } from "@/hooks/use-animation-performance";
@@ -128,12 +130,25 @@ export function NewsletterSignup() {
   };
 
   return (
+    // Opens through the shared `SECTION` rule like every other section on the
+    // site. What stood here was `mt-24 min-h-[600px] border-zinc-100 pt-16` —
+    // a bespoke rule weight the palette does not contain, and 600px of forced
+    // height appended to the bottom of every page whether the form needed it
+    // or not.
+    //
+    // It is deliberately quieter than `CTASection`, which still runs above it
+    // on `/about`, `/projects`, and every blog post. Two closes on one page is
+    // a hierarchy problem, and the fix is that the second one is a label, a
+    // line, and a field — not a second display heading with its own hero.
     <motion.section
-      className="mt-24 min-h-[600px] border-t border-zinc-100 pt-16 pb-8 dark:border-zinc-800"
+      className={cn(SECTION, "pb-8")}
+      aria-labelledby="newsletter-heading"
       initial={{ opacity: 1, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
+      <SectionLabel id="newsletter-heading">Newsletter</SectionLabel>
+
       {submitStatus === "success" ? (
         <motion.div
           ref={successElementRef}
@@ -150,13 +165,19 @@ export function NewsletterSignup() {
             transitionTimingFunction: "cubic-bezier(0.34, 1.56, 0.64, 1)",
             transitionDuration: "0.4s",
           }}
-          className="performance-optimized-animation hw-accelerated mx-auto flex h-full min-h-[520px] max-w-lg flex-col justify-center text-center"
+          className="performance-optimized-animation hw-accelerated mt-6"
         >
-          <div className="flex flex-col items-center space-y-4">
-            <div className="hw-accelerated flex h-[200px] w-[200px] items-center justify-center">
+          <div className="flex flex-col space-y-4">
+            <div className="hw-accelerated flex h-16 w-16 items-center justify-center">
+              {/* Ink, not `bg-green-500`. The One Family Rule: zinc plus weight
+                  is the whole vocabulary, and the tick already says "success"
+                  without recruiting a hue to repeat it. */}
               <motion.div
-                className="flex h-16 w-16 items-center justify-center rounded-full bg-green-500"
-                initial={{ scale: 0, opacity: 0 }}
+                className="flex h-12 w-12 items-center justify-center rounded-full bg-zinc-900 dark:bg-white"
+                // Visible At Zero: entrance motion moves, it never hides. This
+                // opened at `scale: 0, opacity: 0`, so the confirmation a
+                // reader was waiting for was invisible until a script ran.
+                initial={{ scale: 1, opacity: 1 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{
                   duration: 0.4,
@@ -170,7 +191,8 @@ export function NewsletterSignup() {
                 }}
               >
                 <svg
-                  className="h-8 w-8 text-white"
+                  aria-hidden="true"
+                  className="h-6 w-6 text-white dark:text-zinc-900"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -185,7 +207,7 @@ export function NewsletterSignup() {
               </motion.div>
             </div>
             <motion.div
-              className="space-y-2 text-center"
+              className="space-y-2"
               initial={{ opacity: 1, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
@@ -198,9 +220,13 @@ export function NewsletterSignup() {
                 backfaceVisibility: "hidden",
               }}
             >
-              <motion.h4
-                className="stagger-title text-2xl font-bold text-zinc-900 dark:text-zinc-100"
-                initial={{ opacity: 0 }}
+              {/* h3, not h4: the section's own heading is the h2 above, so a
+                  h4 here skipped a level. Subhead voice — Body at
+                  `font-medium` — because the section is already announced. */}
+              <motion.h3
+                className="stagger-title text-base font-medium text-zinc-900 dark:text-white"
+                // Visible At Zero, again: this opened invisible.
+                initial={{ opacity: 1 }}
                 animate={{ opacity: 1 }}
                 transition={{
                   duration: 0.2,
@@ -213,10 +239,10 @@ export function NewsletterSignup() {
                 }}
               >
                 Successfully subscribed!
-              </motion.h4>
+              </motion.h3>
               <motion.p
-                className="stagger-description text-zinc-600 dark:text-zinc-400"
-                initial={{ opacity: 0 }}
+                className="stagger-description max-w-[62ch] text-base text-zinc-600 dark:text-zinc-300"
+                initial={{ opacity: 1 }}
                 animate={{ opacity: 1 }}
                 transition={{
                   duration: 0.2,
@@ -234,22 +260,21 @@ export function NewsletterSignup() {
           </div>
         </motion.div>
       ) : (
-        <div className="mx-auto flex min-h-[520px] max-w-lg flex-col justify-center space-y-6 text-center">
+        <div className="mt-6">
+          {/* No decorative dots. Three descending circles in `bg-blue-600`,
+              `bg-blue-400`, `bg-blue-300` sat above this heading: pure
+              ornament, in the one hue family the site does not use. */}
           <div className="space-y-3">
-            <div className="mb-4 flex items-center justify-center gap-3">
-              <div className="h-2 w-2 rounded-full bg-blue-600"></div>
-              <div className="h-1 w-1 rounded-full bg-blue-400"></div>
-              <div className="h-0.5 w-0.5 rounded-full bg-blue-300"></div>
-            </div>
-            <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">
-              Business Strategy Prompts
-              <br />
-              for Product Designers
+            {/* Subhead, and no `<br />`. A forced line break is a layout
+                decision frozen at one viewport width; `text-balance` is the
+                tool that actually knows how wide the column is. */}
+            <h3 className="max-w-[40ch] text-base font-medium text-balance text-zinc-900 dark:text-white">
+              Business strategy prompts for product designers
             </h3>
-            <p className="leading-relaxed text-zinc-600 dark:text-zinc-400">
-              Get weekly insights that bridge design thinking with business
-              strategy. Transform from pixel-pusher to strategic partner in the
-              boardroom.
+            <p className="max-w-[62ch] text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
+              Weekly insights that bridge design thinking with business strategy
+              — how to argue for design in the language the boardroom already
+              speaks.
             </p>
           </div>
 
@@ -257,59 +282,63 @@ export function NewsletterSignup() {
             initial={{ opacity: 1, scale: 1 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="mx-auto w-full max-w-md"
+            className="mt-6 w-full max-w-xl"
           >
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className="space-y-4"
+              className="flex flex-col gap-3 sm:flex-row sm:items-start"
               noValidate
             >
-              <FloatingInput
-                {...register("email")}
-                type="email"
-                label="Email Address"
-                required
-                aria-describedby={errors.email ? "email-error" : "email-help"}
-                disabled={isSubmitting}
-                error={errors.email?.message}
-              />
+              <div className="flex-1">
+                <FloatingInput
+                  {...register("email")}
+                  type="email"
+                  label="Email Address"
+                  required
+                  aria-describedby={errors.email ? "email-error" : "email-help"}
+                  disabled={isSubmitting}
+                  error={errors.email?.message}
+                />
+              </div>
 
-              <Button
+              {/* The shared primary: Ink fill, 44px target, transition-colors,
+                  zinc focus ring. It was `bg-blue-600 hover:bg-blue-700
+                  focus-visible:ring-blue-500/20` — a hue the palette does not
+                  contain, on the one control that appears on every page. */}
+              <button
                 type="submit"
                 disabled={isSubmitting}
-                className="h-12 w-full bg-blue-600 hover:bg-blue-700 focus-visible:ring-blue-500/20"
-                size="lg"
+                className={cn(
+                  PRIMARY_BUTTON,
+                  "shrink-0 disabled:cursor-not-allowed disabled:opacity-60",
+                )}
               >
-                {isSubmitting ? "Subscribing..." : "Subscribe"}
-              </Button>
-
-              {(submitStatus === "error" ||
-                submitStatus === "rate_limited") && (
-                <motion.div
-                  initial={{ opacity: 1, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className={`rounded-lg border p-3 ${
-                    submitStatus === "rate_limited"
-                      ? "border-orange-300 bg-orange-100 dark:border-orange-700 dark:bg-orange-900/30"
-                      : "border-red-300 bg-red-100 dark:border-red-700 dark:bg-red-900/30"
-                  }`}
-                >
-                  <p
-                    className={`text-sm ${
-                      submitStatus === "rate_limited"
-                        ? "text-orange-700 dark:text-orange-300"
-                        : "text-red-700 dark:text-red-300"
-                    }`}
-                  >
-                    {errorMessage || "Something went wrong. Please try again."}
-                  </p>
-                </motion.div>
-              )}
+                {isSubmitting ? "Subscribing…" : "Subscribe"}
+              </button>
             </form>
+
+            {(submitStatus === "error" || submitStatus === "rate_limited") && (
+              // Red text, no filled panel, and one treatment for both states.
+              // A rate limit is an error; two hues for two subtypes of the same
+              // outcome is a distinction the reader does not act on. The tone
+              // matches `input.tsx`, which already owns validation errors —
+              // this is the form layer's signal, not decorative emphasis.
+              <motion.p
+                role="alert"
+                initial={{ opacity: 1, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="mt-3 max-w-[62ch] text-sm text-red-600 dark:text-red-400"
+              >
+                {errorMessage || "Something went wrong. Please try again."}
+              </motion.p>
+            )}
           </motion.div>
 
-          <p className="text-xs text-zinc-500 dark:text-zinc-400">
-            No spam. Unsubscribe anytime. Your privacy matters to us.
+          {/* Footnote voice. "Your privacy matters to us" — there is no "us";
+              this is one person's mailing list, and the site speaks as "I"
+              everywhere else. */}
+          <p className="mt-4 text-xs text-zinc-500 dark:text-zinc-400">
+            No spam, and you can unsubscribe from any email.
           </p>
         </div>
       )}
