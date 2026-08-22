@@ -128,6 +128,18 @@ export default async function RootLayout({
                 rendered in the platform sans stack instead of the font being
                 loaded above. */}
             <div className="flex min-h-screen w-full flex-col font-[family-name:var(--font-geist),system-ui,sans-serif]">
+              {/* Four surfaces already carried `id="main-content"` and nothing
+                  on the site linked to it — a target with no link. A keyboard
+                  reader had to tab the whole nav on every page. Off-screen
+                  until focused, then it lands as a normal primary button at
+                  the top-left, using the same 44px target and zinc focus ring
+                  as every other control. */}
+              <a
+                href="#main-content"
+                className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:inline-flex focus:min-h-[44px] focus:items-center focus:rounded-lg focus:bg-zinc-900 focus:px-6 focus:py-3 focus:text-base focus:font-medium focus:text-white focus:ring-2 focus:ring-zinc-900 focus:ring-offset-2 focus:outline-none dark:focus:bg-white dark:focus:text-zinc-900 dark:focus:ring-white dark:focus:ring-offset-zinc-950"
+              >
+                Skip to content
+              </a>
               <RouteContainer>
                 <Header />
                 {children}

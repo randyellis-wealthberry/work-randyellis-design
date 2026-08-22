@@ -411,6 +411,7 @@ function QuoteRow({
 export default function AboutClient() {
   return (
     <motion.main
+      id="main-content"
       // The browser's own surfaces carry the design too: selection and caret
       // are themed from the palette rather than left on their defaults.
       className="pb-8 caret-zinc-900 selection:bg-zinc-900 selection:text-white dark:caret-zinc-100 dark:selection:bg-zinc-100 dark:selection:text-zinc-900"
