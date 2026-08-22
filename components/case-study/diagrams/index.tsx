@@ -15,7 +15,10 @@ import { LedgerIqScopeDiagram } from "./ledgeriq-scope";
 import { NagarroAuthorityDiagram } from "./nagarro-authority";
 import { OhPlaysForkDiagram } from "./ohplays-fork";
 import { RambisTwoLayersDiagram } from "./rambis-two-layers";
+import { WaffleChatCaptureDiagram } from "./waffle-chat-capture";
 import { WaffleStreamDiagram } from "./waffle-generative-stream";
+import { WaffleModelBakeoffDiagram } from "./waffle-model-bakeoff";
+import { WaffleMultiTenantDiagram } from "./waffle-multi-tenant";
 
 /**
  * Which case studies carry a diagram, keyed by slug.
@@ -150,6 +153,26 @@ const DECISION_FIGURES: Record<string, Record<string, DecisionFigure>> = {
         "A seasonal app has no winter state — it has a gap, and a return edge that runs through re-acquisition every spring. Giving winter something to be, rather than something to wait out, closes the same loop inside the product. It made the trough shallower rather than flat, which is why the figure draws a state machine and not an engagement curve nobody measured.",
       minWidth: 880,
       Diagram: GrowItWinterCycleDiagram,
+    },
+  },
+  waffle: {
+    "Claude over GPT-4 for scorecard generation": {
+      caption:
+        "Twenty job descriptions, the same prompts, both models. Eighteen of twenty came back usable from Claude without a second prompt; GPT-4 was quicker to generate and took three rounds to get bias out. The extra fifteen per cent per scorecard buys the part that matters on a hiring product, which is not a benchmark — it is three months in production with nobody complaining about a question.",
+      minWidth: 900,
+      Diagram: WaffleModelBakeoffDiagram,
+    },
+    "Chat interface over form-based input": {
+      caption:
+        "A form is a fixed set of shaped openings, and whatever a hiring manager says that does not fit one of them is simply never collected. That is not a UI preference, it is a capture problem, and it shows up in the output: 4.1 competencies from the form flow against 6.2 from the same people talking normally.",
+      minWidth: 900,
+      Diagram: WaffleChatCaptureDiagram,
+    },
+    "Multi-tenant from day one instead of single-user MVP": {
+      caption:
+        "Single-user does not mean the panel never sees the scorecard. It means the scorecard leaves the product to reach them — as a screenshot, a PDF, a rubric retyped by hand — and three people end up holding three documents. Three weeks before launch bought the version where nothing leaves, and the first customer was a twelve-person team.",
+      minWidth: 900,
+      Diagram: WaffleMultiTenantDiagram,
     },
   },
 };
