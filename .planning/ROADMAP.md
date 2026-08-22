@@ -145,7 +145,7 @@ Plans:
 | 7. Bespoke Convergence | v2.0 | 1/1 | Complete | 2026-08-15 |
 | 8. Content Rewrite & Credibility Guardrails | v2.0 | pre-GSD (traced) | Complete | 2026-08-16 |
 | 9. Cross-Surface Verification | v2.0 | 5/5 | Complete   | 2026-08-20 |
-| 10. SEO Remediation | v2.0 | 8/10 | In Progress|  |
+| 10. SEO Remediation | v2.0 | 9/10 | In Progress|  |
 
 ### Phase 10: SEO Remediation
 
@@ -182,7 +182,7 @@ Plans:
 
 **Wave 4** *(post-deploy — human gate, autonomous: false)*
 
-- [ ] 10-09-PLAN.md — Production deploy checkpoint; live curl proof (robots, sitemap lastmod, sw.js, redirects, raw-HTML JSON-LD) rows 1–8; browser-automation attempt for Rich Results + SW registration rows 9–12 (SEO-01..05; D-16, D-17, D-22, D-23)
+- [x] 10-09-PLAN.md — Production deploy checkpoint; live curl proof (robots, sitemap lastmod, sw.js, redirects, raw-HTML JSON-LD) rows 1–8; browser-automation attempt for Rich Results + SW registration rows 9–12 (SEO-01..05; D-16, D-17, D-22, D-23)
 
 **Wave 5** *(human verification, autonomous: false)*
 
