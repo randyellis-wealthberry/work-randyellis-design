@@ -71,6 +71,12 @@ const TERMS: ReadonlyArray<{
   value: string;
   pending?: boolean;
 }> = [
+  // The on-ramp sits first on purpose: six months is a long first date, and a
+  // reader meets the cheap yes before the expensive one.
+  {
+    label: "Start with",
+    value: "A two-week diagnostic — $4,000, credited to month one",
+  },
   { label: "Commitment", value: "20 hours a month, guaranteed" },
   { label: "Cadence", value: "Weekly working session, async access between" },
   {
