@@ -41,10 +41,14 @@ export function BuyMeACoffeeButton({
           setOpen(true);
         }}
         className={cn(
-          "inline-flex cursor-pointer items-center gap-2 rounded-lg px-6 py-3 text-base font-medium transition-colors",
-          "bg-[#FFDD00] text-[#0D0C22] hover:bg-[#FFE94D]",
-          "focus-visible:ring-2 focus-visible:ring-[#FFDD00] focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-100 focus-visible:outline-none dark:focus-visible:ring-offset-zinc-900",
-          "active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50",
+          // The quiet voice: a text link at a 44px target, not a brand chip.
+          // The One Family Rule covers the fill and the focus ring alike, so
+          // both are zinc here; the brand lives inside the dialog it opens.
+          "-my-3 inline-flex min-h-[44px] w-fit cursor-pointer items-center gap-1.5 py-3 text-sm transition-colors",
+          "text-zinc-500 underline decoration-zinc-300 underline-offset-4 hover:text-zinc-900 hover:decoration-zinc-900",
+          "dark:text-zinc-400 dark:decoration-zinc-700 dark:hover:text-white dark:hover:decoration-zinc-100",
+          "focus-visible:ring-2 focus-visible:ring-zinc-900 focus-visible:ring-offset-2 focus-visible:ring-offset-white focus-visible:outline-none dark:focus-visible:ring-white dark:focus-visible:ring-offset-zinc-950",
+          "disabled:pointer-events-none disabled:opacity-50",
           className,
         )}
       >

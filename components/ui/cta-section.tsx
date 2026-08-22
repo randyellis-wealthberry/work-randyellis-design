@@ -1,34 +1,49 @@
 "use client";
 
+import { ArrowUpRight } from "lucide-react";
 import { CalButton } from "@/components/booking/cal-embed";
 import { BuyMeACoffeeButton } from "@/components/ui/buy-me-a-coffee";
+import { SECTION } from "@/components/case-study/section-chrome";
 import { trackContactIntent } from "@/lib/analytics";
+import { ASSISTANT_URL, BOOKING_URL } from "@/lib/constants";
 
-const BOOKING_URL = "https://cal.com/randyellis/30min";
-const EMAIL_URL = "https://zinley.com/card/angela";
+// Buttons, matching the close on `/` and `/services`: 44px target, 8px radius,
+// transition-colors only, and a zinc focus ring — never a themed one.
+const BUTTON_BASE =
+  "inline-flex min-h-[44px] cursor-pointer items-center justify-center rounded-lg px-6 py-3 text-base font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white focus-visible:outline-none active:scale-[0.98] dark:focus-visible:ring-offset-zinc-950";
 
-// Shared interactive states: hover, focus-visible, active, disabled.
-const BASE_BUTTON =
-  "inline-flex cursor-pointer items-center rounded-lg px-6 py-3 text-base font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-100 focus-visible:outline-none active:scale-[0.98] disabled:pointer-events-none disabled:opacity-50 dark:focus-visible:ring-offset-zinc-900";
+const PRIMARY_BUTTON = `${BUTTON_BASE} bg-zinc-900 text-white hover:bg-zinc-700 focus-visible:ring-zinc-900 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200 dark:focus-visible:ring-white`;
 
-const PRIMARY_BUTTON = `${BASE_BUTTON} bg-zinc-900 text-white hover:bg-zinc-700 focus-visible:ring-zinc-900 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-200 dark:focus-visible:ring-white`;
+const SECONDARY_BUTTON = `${BUTTON_BASE} gap-1.5 border border-zinc-300 text-zinc-900 hover:border-zinc-400 hover:bg-zinc-100 focus-visible:ring-zinc-400 dark:border-zinc-700 dark:text-white dark:hover:border-zinc-600 dark:hover:bg-zinc-900 dark:focus-visible:ring-zinc-500`;
 
-const SECONDARY_BUTTON = `${BASE_BUTTON} border-2 border-zinc-300 bg-transparent text-zinc-900 hover:border-zinc-400 hover:bg-zinc-200 focus-visible:ring-zinc-400 dark:border-zinc-700 dark:text-white dark:hover:border-zinc-600 dark:hover:bg-zinc-800 dark:focus-visible:ring-zinc-500`;
-
+/**
+ * The shared close, rendered at the foot of `/about`, `/projects`, and every
+ * blog post.
+ *
+ * It opens the way every other section on those pages opens — the `SECTION`
+ * rule at full contrast, type set on the page ground — rather than as a
+ * bordered card floating in the middle of an editorial column. One primary
+ * (the call), one secondary (the assistant), and the coffee link demoted to the
+ * quiet voice underneath, where it can stay reachable without reading as an
+ * advert.
+ */
 export function CTASection() {
   return (
-    <section className="my-16 rounded-2xl border-2 border-white/10 bg-transparent px-6 py-16 text-center sm:px-12 sm:py-20">
-      <h2 className="mb-4 text-3xl font-bold tracking-tight text-zinc-900 sm:text-4xl dark:text-white">
+    <section className={SECTION} aria-labelledby="cta-heading">
+      <h2
+        id="cta-heading"
+        className="max-w-[24ch] text-2xl leading-tight font-semibold tracking-[-0.03em] text-zinc-900 sm:text-3xl dark:text-white"
+      >
         Let&apos;s Build Something Amazing
       </h2>
-      <p className="mx-auto mb-10 max-w-2xl text-base text-zinc-600 sm:text-lg dark:text-zinc-300">
+      <p className="mt-4 max-w-[62ch] text-base text-zinc-600 dark:text-zinc-300">
         Interested in collaborating on AI-powered products or discussing design
         leadership? I&apos;m always excited to connect with fellow innovators
         and explore new opportunities.
       </p>
 
-      <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-        {/* Book a call button - Cal.com popup */}
+      {/* Order is the hierarchy: the call is the primary because it is first. */}
+      <div className="mt-8 flex flex-col gap-3 sm:flex-row">
         <CalButton
           onClick={() => trackContactIntent("booking", BOOKING_URL)}
           className={PRIMARY_BUTTON}
@@ -36,18 +51,23 @@ export function CTASection() {
           Book a 30-min call
         </CalButton>
 
-        {/* Email button */}
         <a
-          href={EMAIL_URL}
+          href={ASSISTANT_URL}
           target="_blank"
           rel="noopener noreferrer"
-          onClick={() => trackContactIntent("email", EMAIL_URL)}
+          onClick={() =>
+            trackContactIntent("virtual_assistant_open", ASSISTANT_URL)
+          }
           className={SECONDARY_BUTTON}
         >
           Talk to Assistant
+          <ArrowUpRight aria-hidden="true" className="h-4 w-4 shrink-0" />
+          <span className="sr-only">(opens in a new tab)</span>
         </a>
+      </div>
 
-        {/* Buy Me a Coffee — popup */}
+      {/* Third in line, so not in the row: a quiet text link at a 44px target. */}
+      <div className="mt-10">
         <BuyMeACoffeeButton />
       </div>
     </section>
