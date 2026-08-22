@@ -1,217 +1,564 @@
-# Architecture Research: Narrative Case-Study Template Integration
+# Architecture Research: v3.0 Enterprise Credibility Integration
 
-**Domain:** Existing Next.js 15 App Router portfolio — extending the `[slug]` case-study
-template to carry a first-person narrative structure (problem → my role →
-decisions-with-rationale → measurable outcome → reflection), and reconciling it with
-6 bespoke per-project route directories.
-**Researched:** 2026-08-15
-**Confidence:** HIGH (all findings verified by direct file reads, not framework docs)
+**Domain:** Next.js 15 App Router portfolio — integrating 3 capabilities into a shipped v2.0 codebase
+**Researched:** 2026-08-22
+**Confidence:** HIGH — every claim below is traced to file:line in the actual worktree, not the prompt's assumed map. Where a claim could not be verified live, it is marked LOW and flagged.
 
-## Current State (verified by reading the codebase, not assumed)
+---
 
-### The "8 projects" are NOT 2-pure-data + 5-bespoke + 1-custom as briefed — they are messier
+## 0. Headline correction to the brief
 
-| Slug | Route that actually renders | Data source | Lines of bespoke JSX |
-|---|---|---|---|
-| `growit` | `app/projects/[slug]/page.tsx` (dynamic) | 100% `lib/data/projects.ts` | 0 (shared template) |
-| `ohplays` | `app/projects/[slug]/page.tsx` (dynamic) | 100% `lib/data/projects.ts` | 0 (shared template) |
-| `addvanced` | `app/projects/addvanced/page.tsx` (static, shadows `[slug]`) | **0 references** to `PROJECTS` data despite importing it | 1,317 (`addvanced-client.tsx`) |
-| `echo` | `app/projects/echo/page.tsx` (static) | Imports `PROJECTS` but component is hand-written JSX | 481 (`echo-client.tsx`, the one actually imported) |
-| `nagarro` | `app/projects/nagarro/page.tsx` (static) | 8 references to `nagarroProject.*` (partial) | 1,118 (`nagarro-client.tsx`) |
-| `rambis-ui` | `app/projects/rambis-ui/page.tsx` (static) | 6 references to `rambisProject.*` (partial) | 406 (`rambis-client.tsx`) |
-| `waffle` | `app/projects/waffle/page.tsx` (static) | Live-product showcase, not a case study | 317 (`waffle-client.tsx`) |
-| `ledgeriq` | **Two competing routes** — see below | Partial | 1,144 (`ledgeriq-client.tsx`) |
+The brief's propagation map (`animated-number-basic.tsx` → `/about`, `/services`,
+`lib/metadata.ts`, both OG generators, `PROOF_EXHIBITS`) **is not how the code is wired.**
+Verified against the tree:
 
-**LedgerIQ is a hidden 7th bespoke page, not a clean data-driven case, and it's currently duplicated/orphaned:**
-- The projects grid (`app/projects/projects-client.tsx:235,362`) links every card to `/projects/${project.slug}`. For `ledgeriq` that resolves to `/projects/ledgeriq`, which has no static folder, so it falls through to `app/projects/[slug]/page.tsx` and renders the **generic data-driven template** using `lib/data/projects.ts` (which does have full `processStory`/`overview`/`metrics` for ledgeriq).
-- A second, much more elaborate bespoke page exists at **`app/ledgeriq/page.tsx`** (root-level route `/ledgeriq`, *not* under `/projects/`) with its own 1,144-line client component. Nothing in the app — not the grid, not the header, not `app/sitemap.ts`, not `related projects` links — points to `/ledgeriq`. It is fully orphaned: unreachable from any nav, unindexed in the sitemap, but still built, deployed, and crawlable if guessed. This is a duplicate-content and dead-code liability that should be resolved (delete or redirect) as part of this milestone, since the milestone's own goal ("all 8 projects... this inconsistency matters") is not achievable while a project has two different case studies live at two different URLs.
+1. **`components/core/animated-number-basic.tsx` is dead code.** `grep -rn
+   "AnimatedNumberBasic\|animated-number-basic"` across `app/`, `components/`, `lib/`
+   returns **zero import sites**. The only files that reference it are `.planning/`
+   history and one stale accessibility report. Nothing imports it, so editing it
+   propagates to nothing live.
+2. **It was retired by `8de7262` "refactor(home): rewrite the homepage as one
+   argument"** (same day as this research, 2026-08-22). That commit's own message says
+   the four-stat counter "used to count up from zero... The proof band states its
+   figures in the markup" now, and "the retainer ledger and the proof exhibits move to
+   `lib/data/retainer.ts`." The homepage counter component was replaced; the file was
+   simply never deleted.
+3. **What actually happened is independent duplication, not propagation-by-import.**
+   Six live surfaces each hold their own **hand-typed literal copy** of the same three
+   numbers. There is no shared constant, no shared data source, no import graph
+   connecting them. "They propagate" (the phrasing used in
+   `.planning/milestones/v2.0-MILESTONE-AUDIT.md:138` and repeated in this brief) is
+   editorial shorthand for "the same mistake was pasted six times," not an
+   architectural fact. This distinction changes the fix: there is no single source to
+   edit — there are 6-8 independent edits, and a missed one is invisible until grepped.
+4. **A genuinely new, previously-unflagged defect:** `app/about/opengraph-image.tsx:238`
+   still renders **"6"** for Design Awards — the exact fabricated number v1.0's
+   `CRED-01` was supposed to have purged sitewide. It never got fixed in the OG
+   generator; every other surface (including the *root* `app/opengraph-image.tsx`,
+   which has no awards figure at all) says 4 or omits awards entirely. `v1.0-ROADMAP.md`
+   and `CREDIBILITY-COPY.md` both warned "grep all surfaces incl. OG generators" — this
+   is the exact failure mode they warned about, still live in the current tree.
+5. **One deck-audit finding is now stale.** `.planning/DECK-COVERAGE-AUDIT.md:494`
+   (`NAGARRO-35`) and the Phase 9 matrix both document `"$50M+ in business impact"` at
+   `nagarro-client.tsx:552/577`. That file no longer exists in that form — it was
+   rewritten from 1,118 lines to 119 lines by `4c15468` "converge 8 case studies on one
+   editorial template," and the current file (read in full) contains no `$50M` text
+   anywhere. **This finding should be dropped from the v3.0 scope**, not carried
+   forward as a blocker — it was resolved as a side effect of unrelated template work.
 
-**So the real count is: 2 pure data-driven (`growit`, `ohplays`) + 6 bespoke JSX case-study components (`addvanced`, `echo`, `nagarro`, `rambis-ui`, `ledgeriq` ×2 counted once, `waffle` — waffle being product-showcase not narrative case study).**
+---
 
-### The `[slug]` template's own `Project` type is pulled from the wrong (stale) module
+## 1. Corrected propagation map (metric integrity)
 
-`app/projects/[slug]/project-detail-client.tsx:42`:
-```ts
-import type { Project } from "../../data"; // = app/data.ts, NOT lib/data/types.ts
-```
-`app/data.ts` is a 775-line duplicate of `lib/data/projects.ts` + a duplicate, **older** `Project` type (missing `isLiveProduct`, missing the stricter `metrics[].performanceLevel` union). It is dead weight already flagged in `.planning/PROJECT.md` for deletion ("delete stale `app/data.ts` PROJECTS array"). **Any new narrative fields must be added to `lib/data/types.ts` and the `[slug]` template's import must be repointed to it in the same change**, or the new fields will not typecheck against what the template actually imports.
+### 1a. Where the four figures actually live, structurally
 
-### A prior, abandoned attempt at a shared case-study component system already exists — and is dead code
+`components/core/animated-number-basic.tsx:5-16` — four independent `useState` hooks,
+each set by its own `setTimeout` in one `useEffect`, each rendered in its own sibling
+`<div className="flex flex-col items-center py-1">` grid cell (lines 22-129, four
+cells in a `grid-cols-2 md:grid-cols-4`):
 
-`components/case-study/` (`case-study-layout.tsx` 478 lines, `case-study-hero.tsx`, `case-study-section.tsx`, `metrics-card.tsx`, `image-gallery.tsx`, `video-player.tsx`) is **imported by zero files in `app/` or `components/`**. It was built to be generic (`CaseStudyLayout({ data: CaseStudyData })`) but hardcodes `echo`-specific image paths (`/projects/echo/research1.jpg`, etc.) inside the "shared" component — the exact anti-pattern that makes shared components unusable for other projects. `CaseStudySection` (35 lines: `id`, `role="region"`, `aria-labelledby`) is the one clean, genuinely reusable piece — it is a reasonable seed for a TOC-anchor section wrapper, but it isn't used anywhere today.
+| State | Value | Cell (lines) | Renders as | Label |
+|---|---|---|---|---|
+| `value1` | `2.5` | 22-48 | `{AnimatedNumber}M` | "Users Impacted" |
+| `value2` | `4` | 50-73 | `{AnimatedNumber}` (bare, no prefix/suffix) | "Design Awards" |
+| `value3` | `50` | 75-104 | `${AnimatedNumber}M` | "in product value" |
+| `value4` | `800` | 106-129 | `{AnimatedNumber}` (bare, no `+`) | "Designers Mentored" |
 
-**Implication:** this is not the team's first attempt at "one template for all case studies." It failed by hardcoding project-specific content into a "shared" layout instead of accepting narrative content as data. The new template evolution must not repeat that mistake — treat this milestone as an opportunity to either resurrect `CaseStudySection` properly or delete the whole `components/case-study/` directory as tech debt (recommend: **delete**, since `case-study-layout.tsx`/`case-study-hero.tsx`/`metrics-card.tsx`/`image-gallery.tsx`/`video-player.tsx` duplicate functionality that already exists and is used elsewhere — `AnimatedMetricCard`, `ImageGallery`-equivalent inline grids, `VideoPlayer` in `components/ui/`).
+**The four are not interdependent** — no shared state, no derived values, four fully
+separate JSX blocks with their own SVG icon markup. Deleting cells 1, 3, 4 and keeping
+cell 2 (`value2` / "Design Awards") is mechanically trivial *in this file*. But per
+finding #1 above, **this file is unreachable from any route** — editing it has zero
+effect on the live site. It should be deleted outright as dead code, not "fixed," unless
+Phase 11 wants to keep it around as a documented historical artifact (not recommended —
+dead components that still hold fabricated numbers are exactly the kind of thing a
+future grep-based audit re-flags as a false positive).
 
-### Other dead code found in the same area (fold into "Tech-debt fold-in")
-- `app/projects/echo/echo-client-final.tsx` (734 lines) — not imported by `app/projects/echo/page.tsx` (which imports `./echo-client`, 481 lines). Appears to be an abandoned rewrite left in the tree.
-- `components/seo/project-faq.tsx` FAQ content for `echo` describes a "design system... AI-powered design workflows" while the actual EchoDrive project (per `lib/data/projects.ts` and `echo-client.tsx` metadata) is trucking-logistics mobile software. This FAQ schema is stale/mismatched content that will read as incoherent to a hiring manager who views source — flag for the content-rewrite phase, not this architecture phase, but it must be touched since FAQ copy has to match the rewritten narrative voice.
+Every *live* surface reproduces the same "4 independent entries, no shared source"
+shape — confirmed by reading each one:
 
-## Data-Model Decision: (a) Extend the typed `Project` model — not MDX, not hybrid
+- `lib/data/retainer.ts:44-52` `PROOF_EXHIBITS` — a 4-element readonly array literal,
+  each `{ value, context }`. Comment at line 41 explicitly says "The period is shared by
+  all four" — i.e. the design already treats this as a 4-item unit, not arbitrary rows.
+- `app/about/about-client.tsx:19-40` `achievements` — a 4-element array literal,
+  `{ value, label, description }`, structurally parallel to `PROOF_EXHIBITS` but a
+  separate, non-shared array in a separate file.
+- `app/opengraph-image.tsx:96-179` — a hand-built 3-cell flex row (Users Impacted,
+  Product Value, Designers Mentored — **no awards cell at all** in the root OG image).
+- `app/about/opengraph-image.tsx:166-276` — a hand-built 3-cell "Career Impact" card
+  (Users Impacted, **Design Awards = "6" [BUG]**, Product Value) plus a *separate*
+  bullet list at lines 145-163 that independently states "Mentored 800+ Designers
+  Globally" in prose, not a stat cell. So this one file carries the 800 figure in a
+  *different shape* than every other surface.
 
-### Comparison
+### 1b. Full corrected surface list, file:line, live vs. dead
 
-| Criterion | (a) Extend typed model | (b) MDX per project | (c) Hybrid (typed metadata + MDX body) |
-|---|---|---|---|
-| Fits existing `generateMetadata()` pattern (`app/projects/[slug]/page.tsx:8-60`), which needs synchronous plain strings for `description`/`openGraph`/`twitter` | Yes, no change to pattern | No — needs async content loading + a plaintext-extraction step just for metadata | Partial — still needs a separate plaintext summary field, defeating some of MDX's benefit |
-| Fits `CreativeWorkStructuredData` / `ProjectFAQStructuredData` (both consume typed fields directly, server components) | Yes | Requires a parser to pull structured facts back out of prose | Same problem for the MDX body portion |
-| Fits the milestone's own acceptance bar ("no section renders shallow") — needs to be **programmatically checkable** | Yes — a script can assert `project.decisions.length >= 3 && every(d => d.rationale && d.outcome)` | Hard — would need frontmatter-only checks, prose completeness is not type-checkable | Only the frontmatter half is checkable |
-| New tooling required | None — reuses existing `@next/mdx`-free, typed-data pattern already used by 100% of non-blog content | `next-mdx-remote` or a `contentlayer`-style pipeline, TOC-from-headings tooling (remark plugin), custom MDX components registered per case study | Same MDX tooling, scoped down |
-| Consistency with existing convention | Matches `lib/data/index.ts` barrel + "content is code, not CMS" pattern already documented in `.planning/codebase/ARCHITECTURE.md` | Breaks convention — MDX is currently blog-only (`app/blog/**/page.mdx`) | Partially breaks convention |
-| Risk of reopening the `app/data.ts` duplication problem | Low if the type is fixed to live in `lib/data/types.ts` only | New risk surface: content files could drift from typed fields the same way `app/data.ts` drifted | Same partial risk |
-| Match for the actual content shape (problem/role/decisions/outcome/reflection are fixed narrative *beats*, not open-ended prose) | Strong — decisions are naturally `{decision, rationale, outcome}[]`, not prose | Weak — MDX shines for free-flowing long-form with embedded rich media, which this content mostly isn't (it's structured bullet-and-paragraph beats, matching what's already in `processStory`) | Strong for body paragraphs, weak justification for the added complexity given (a) already covers the shape |
+| # | Surface | File:line | Figures present | Status |
+|---|---|---|---|---|
+| 1 | Homepage proof band | `app/page.tsx:165-179` (renders `PROOF_EXHIBITS`) + `lib/data/retainer.ts:48-51` (data) | 2.5M+, $50M, 800+, 4 | **LIVE** |
+| 2 | Homepage FAQ copy | `app/page.tsx:85` | "mentored 800+ designers" (prose, not a stat) | **LIVE** |
+| 3 | `/services` proof band | `app/services/services-client.tsx:189-199` (renders `PROOF_EXHIBITS`) — same data as #1 | 2.5M+, $50M, 800+, 4 | **LIVE** |
+| 4 | `/services` metadata description | `app/services/page.tsx:10` | 2.5M+, $50M | **LIVE** |
+| 5 | `/about` stats grid | `app/about/about-client.tsx:19-40` (data) + `:455-469` (render) | 2.5M+, 4, $50M, 800+ | **LIVE** |
+| 6 | `/about` bio metadata description | `app/about/page.tsx:10` | 2.5M+ ("100+ leads, 40% retention boost" is Nagarro-specific, separate claim) | **LIVE** |
+| 7 | `/about` OG metadata description | `app/about/page.tsx:27` | 2.5M+, 4 awards, $50M | **LIVE** |
+| 8 | Root OG image | `app/opengraph-image.tsx:118,143,168` | 2.5M+, $50M, 800+ (no awards cell) | **LIVE** |
+| 9 | About OG image | `app/about/opengraph-image.tsx:212,238,264,161` | 2.5M+, **"6" [BUG]**, $50M, "800+" (prose bullet, not a cell) | **LIVE** |
+| 10 | Sitewide base metadata | `lib/metadata.ts:25` | 2.5M+, $50M | **LIVE** — feeds every page's default `<meta name="description">` unless overridden by `createPageMetadata`/`projectMetadata` |
+| 11 | Homepage regression test | `__tests__/integration/home-page-argument.test.tsx:59-66` | asserts `["2.5M+", "$50M", "800+", "4"]` are present in rendered HTML | **LIVE TEST — will fail the moment #1 changes; must be rewritten in the same commit** |
+| 12 | `AnimatedNumberBasic` component | `components/core/animated-number-basic.tsx:12-15` | 2.5, 4, 50, 800 | **DEAD** — unreferenced by any route |
+| 13 | `RelatedContent` component | `components/seo/related-content.tsx:255` | "2.5M+ users" (one prose line) | **DEAD** — import is commented out at `app/blog/layout.tsx:4`; component is never rendered |
+| 14 | Nagarro "$50M+ business impact" | previously `nagarro-client.tsx:552/577` per `.planning/DECK-COVERAGE-AUDIT.md:494` | — | **NO LONGER EXISTS** — file was rewritten to 119 lines by `4c15468`; confirmed absent by full read |
+| 15 | `projects/opengraph-image.tsx` | `app/projects/opengraph-image.tsx` (full file read) | none of the three figures | **NOT A CONSUMING SURFACE** — worth ruling out explicitly since it's a third OG generator the brief didn't ask about but a naive grep might hit |
+| 16 | Doc/comment mentions | `PRODUCT.md:19,43,57`, `README.md:11`, `SEO_OPTIMIZATION_REPORT.md:52-53` (still says "6 design awards" too), `docs/reports/accessibility/implementation-roadmap.md:636,693`, `.impeccable/design.json:366` (generated artifact, `generatedAt` field, not hand-authored) | all three | **NOT SHIPPED HTML** — repo docs, not rendered pages. Low priority; `PRODUCT.md`/`README.md` are worth a pass for hygiene but are not a credibility surface a recruiter's browser renders. |
+| 17 | Design-system doc-comment | `components/ui/animated-metric-value.tsx:10,38` | "2.5M+", "$50M" cited as *examples* in JSDoc | **NOT A CLAIM** — documents the "True Precision Rule" (a figure renders at the precision it was authored with); no edit needed unless the example itself should be swapped for hygiene |
 
-**Recommendation: (a).** The codebase already has 90% of the target shape sitting in `lib/data/types.ts`'s `processStory` (`background`, `approach`, `methodology`, `keyInsights`, `outcome`, `reflection`, `stakeholderQuotes`) and top-level `challenges`/`solutions`/`learnings`/`overview`/`constraints`. This is evidence the domain (decision-driven case studies) fits structured data better than prose — someone already modeled it that way once. The gap is not "we need free-form prose," it's "we need an explicit `decisions[]` array with rationale + tie-back-to-metric, and a first-person role narrative field," both of which are structured, not prose-shaped. MDX would be a disproportionate infrastructure change (new render pipeline, new async data flow in a route that is currently 100% synchronous data lookup) for a milestone whose stated risk to de-risk is the *template*, not a content-authoring-format migration.
+**Net correction:** the brief names 6 surfaces; the true count is **9 live rendering
+surfaces + 1 live regression test + 3 confirmed-dead files + 1 stale audit finding to
+drop.** The single most important miss in the brief's map is `app/about/opengraph-image.tsx`
+carrying the **live "6 Design Awards" bug** — exactly the class of surface (an OG
+generator) that the v1.0 postmortem already warned gets missed.
 
-### Proposed type additions (`lib/data/types.ts`)
+### 1c. "4 Design Awards must survive" — surgical shape
 
-```ts
-export type Project = {
-  // ...existing fields unchanged...
+The backed figure is never entangled with the three unbacked ones at the data level —
+every surface stores it as one array element or one JSX cell alongside, not intermixed
+with, the others:
 
-  /** First-person "what I owned" — distinct from the short `role` label already present */
-  roleNarrative?: string;
+- `retainer.ts:51` — `{ value: "4", context: "Design awards won" }` is PROOF_EXHIBITS[3].
+- `about-client.tsx:25-29` — `{ value: "4", label: "Design awards", ... }` is
+  achievements[1].
+- `animated-number-basic.tsx:50-73` — its own grid cell, independent state.
+- Root OG image (`app/opengraph-image.tsx`) carries **no awards cell at all** — nothing
+  to touch there.
+- About OG image (`app/about/opengraph-image.tsx:230-248`) has the buggy "6" cell to
+  fix →  "4".
+- `lib/seo/json-ld.ts:80-85` (`personSchema`, read during this research) already lists
+  the 4 named awards verbatim with issuer/category as `Person.award` — this is the
+  canonical backed source and does not need to change.
 
-  /** The decisions-with-rationale beat. Renders via new <DecisionCallout> */
-  decisions?: {
-    decision: string;      // "I chose X"
-    rationale: string;     // "because Y" — the senior-signal payload
-    outcome?: string;      // "which led to Z" — free text tie-back
-    metricLabel?: string;  // optional cross-link to an existing `metrics[].label` for the UI to bold/link the number
-  }[];
+**Surgical rule for every surface:** remove the array element / JSX block / state hook
+for the other three; do not touch the "4" element. Because every surface stores these as
+independent array entries or independent JSX blocks (never a single interpolated string
+mixing multiple figures), there is no risk of a regex/string edit clipping the awards
+figure by accident — each removal is a discrete block deletion.
 
-  // processStory.reflection already exists — reuse it, don't duplicate.
-  // processStory.background already exists — reuse as "the problem."
-};
-```
+**Design-system side effect (flag for Phase 11 planning, not just data deletion):**
+`retainer.ts:39-43`'s own comment says the proof band is deliberately "four fields... so
+the band is scannable by structure" and DESIGN.md's grids are all `grid-cols-2
+sm:grid-cols-4`. Deleting 3 of 4 entries leaves a 4-column grid with 1 item — every one
+of surfaces #1, #3, #5, #8, #9 needs a **layout decision**, not just a data edit (e.g.
+collapse to a single stated credential, or replace the removed slots with new
+deck-backed figures if any exist). This is the single biggest scope-sizing risk for
+Phase 11: it is not "delete 3 array elements," it is "redesign 5 stat bands around 1
+surviving figure."
 
-`processStory.reflection` and `processStory.background` are kept as-is (avoids a second migration); only `decisions[]` and `roleNarrative` are new. This is additive — exactly the pattern already used for `isLiveProduct` in v1.0 (`.planning/PROJECT.md` Key Decisions: "Additive data-model change, zero routing special-cases... Good"). Precedent supports doing it again the same way.
+---
 
-**Do not** repurpose `processStory.keyInsights` (currently rendered as "Key Design Decisions" at `project-detail-client.tsx:800-840`) as a permanent second decisions mechanism — during content rewrite, migrate its content into `decisions[]` and stop rendering `keyInsights` once all 8 projects have `decisions[]` populated, to avoid two divergent "decisions" sections on the same page.
+## 2. Echo + Nagarro reframing (enterprise legibility)
 
-## New Components Needed
+### 2a. What changes and what doesn't
 
-| Component | Location (convention: kebab-case, PascalCase export) | Responsibility | New or extends existing |
-|---|---|---|---|
-| `DecisionCallout` | `components/case-study/decision-callout.tsx` (new dir, or reuse-and-clean `components/case-study/` after deleting the dead files) | Renders one `{decision, rationale, outcome}` — visually distinct (bordered card + icon), NOT a plain `<SectionCard>` bullet, so it reads as "the senior-signal moment" on the page | New |
-| `CaseStudyTOC` | `components/case-study/case-study-toc.tsx` | Sticky/inline anchor nav built from a **static array of `{id, label}` per page** (not parsed from prose — content is structured, so the section list is known at render time), scroll-spy optional | New |
-| `ReflectionBlock` | `components/case-study/reflection-block.tsx` | Pull-quote-styled treatment for `processStory.reflection` — distinct typography (italic/serif accent, "Looking back" framing) instead of the current plain `<Card>` treatment at `project-detail-client.tsx:948-960`, so reflection reads as a voice shift, not another content card | New (replaces existing inline JSX block) |
-| `RoleNarrativeSection` | `components/case-study/role-narrative.tsx` | Renders `roleNarrative` alongside the existing `overview.deliverables`/`overview.teamMembers` cards — bridges "my role" beat to data already collected in `overview` | New |
-| `CaseStudySection` | `components/case-study/case-study-section.tsx` (already exists, unused) | Generic `<section id aria-labelledby>` wrapper — **resurrect this one file**, delete the other 5 dead files in `components/case-study/` | Extend/resurrect existing |
+**The `Project` type does not need to change.** `lib/data/types.ts:2-81` already has
+every field ENT-01..03 needs: `category: string` (freeform — see below), `categories?:
+string[]`, `metrics?: {label,value,performanceLevel?}[]`, `featured: boolean`. No new
+field is required for recategorization or reframing.
 
-All five should be built to accept **props, not the whole `Project` object** (e.g. `<DecisionCallout decision={...} rationale={...} outcome={...} />`, not `<DecisionCallout project={project} />`). This is what makes them usable from bespoke pages later without forcing those pages onto the full `Project` type.
+**`category` is already freeform text, not a constrained enum, in practice.** `lib/data/types.ts:105-113`
+exports `PROJECT_CATEGORIES` (`"All" | "Enterprise (SaaS)" | "Mobile App" | ...`), but
+grepping actual data shows it is **not enforced**: `nagarro`'s category is
+`"Design Leadership"` (`lib/data/projects.ts:952`) and `rambis-ui`'s is
+`"Design System"` (singular — not `"Design Systems"`, the enum's plural form) — neither
+value is in the enum. `PROJECT_CATEGORIES` itself is dead — it's re-exported by
+`lib/data/index.ts:14` but never imported into any filter UI. **This means Echo's
+`category` can be changed to any string, including a brand-new one shared with Nagarro,
+with zero type friction.**
 
-## Bespoke-vs-Data Convergence Strategy
+Current `category` values, all 8 projects (`lib/data/projects.ts`):
 
-**Do not force full data-model convergence this milestone.** Six bespoke components (5,517 combined lines) already contain hand-authored, project-specific layout decisions (Tabs, Progress bars, Alert banners, hover-video grids) that took real effort and, per the git log, are the *product* of prior work, not accidental drift. Rewriting all six onto a single generic `[slug]`-style template in the same milestone as the content rewrite is exactly the kind of disproportionate, high-risk change the milestone's own build-order request is trying to avoid.
-
-**Recommended approach: converge on shared narrative *components*, not a shared page template.**
-
-1. Build the five new components above as standalone, prop-driven pieces (not baked into `CaseStudyLayout`-style monoliths — that's the mistake the dead `components/case-study/case-study-layout.tsx` already made).
-2. `[slug]`'s `project-detail-client.tsx` (serving `growit`, `ohplays`) composes them directly from `Project` fields — this is the "pure data" path and is nearly free (template already has slots for all the surrounding sections).
-3. Each bespoke client (`addvanced-client.tsx`, `echo-client.tsx`, `nagarro-client.tsx`, `rambis-client.tsx`, `ledgeriq-client.tsx`) gets the **same five components inserted into its existing JSX**, fed either from its partial `PROJECTS` reference (nagarro, rambis, ledgeriq already do this partially) or from new inline props (addvanced, echo, which currently ignore the data layer entirely and would need the new narrative content authored as literal JSX props — consistent with how the rest of those files already work).
-4. Result: all 8 pages get **visually and structurally consistent** decision callouts, TOC, and reflection treatment — the part a hiring manager actually perceives as "this feels like one coherent site" — without a risky full rewrite of 5,517 lines of working bespoke layout into a generic template this milestone.
-5. `waffle` is explicitly out of this narrative pattern (it's a live-product showcase per v1.0 Key Decisions, not a case study) — do not force `DecisionCallout`/`ReflectionBlock` onto it.
-6. **Resolve the `ledgeriq` duplicate-route problem first**, independent of the narrative work: either (a) delete `app/ledgeriq/` and let `/projects/ledgeriq` continue rendering off the data-driven template (simplest, keeps the count at 2 pure-data), or (b) delete `app/projects/[slug]`'s implicit handling of `ledgeriq` by giving it a real `app/projects/ledgeriq/` static folder built from the existing orphaned 1,144-line component (keeps the more elaborate bespoke version, matches the "6 bespoke" reality). Recommend (a) — the orphaned page has had zero traffic/indexing and the data-driven `processStory` for ledgeriq is already reasonably complete (verified: `lib/data/projects.ts` has `processStory`, `overview`, `constraints`, full `challenges/solutions/learnings` for ledgeriq), so deleting the 1,144-line orphan is a pure debt reduction, not a content loss, once its unique content (if any) is diffed against the data-driven version and folded in.
-
-**A future milestone** (not this one) can revisit whether full convergence to one generic, data-driven template is worth it once all 8 pages share the same section-level building blocks — at that point the remaining bespoke-vs-data gap is mostly plumbing (moving literal JSX content into `decisions[]`/`overview` fields), which is a much lower-risk mechanical migration than doing content strategy and template design at the same time.
-
-## Data Flow Changes
-
-### Current (unchanged for the 2 pure-data pages)
-```
-lib/data/projects.ts (PROJECTS)
-    → app/projects/[slug]/page.tsx (generateMetadata, notFound, structured data)
-        → project-detail-client.tsx (renders project.* fields into fixed JSX sections)
-```
-
-### After this milestone
-```
-lib/data/types.ts (Project + decisions[] + roleNarrative)   ← type fix: point import here, not app/data.ts
-    → lib/data/projects.ts (PROJECTS, content-completed)
-        → app/projects/[slug]/page.tsx (unchanged: generateMetadata still reads description/longDescription/technologies — NOT decisions[], see SEO note below)
-            → project-detail-client.tsx
-                → NEW: <RoleNarrativeSection roleNarrative={project.roleNarrative} .../>
-                → NEW: <DecisionCallout decision=... rationale=... outcome=.../> per project.decisions[]
-                → NEW: <ReflectionBlock reflection={project.processStory.reflection} />
-                → NEW: <CaseStudyTOC sections={[...]} /> (static section list per render, inserted near hero)
-
-    (parallel, per bespoke page)
-    addvanced-client.tsx / echo-client.tsx / nagarro-client.tsx / rambis-client.tsx / ledgeriq-client.tsx
-        → same 5 new components, fed by literal props or partial PROJECTS lookups (unchanged data source per file)
-```
-
-**No change to the request/render pipeline** described in `.planning/codebase/ARCHITECTURE.md` ("Primary Request Path") — this is additive within the existing server-page-reads-data → client-half-renders pattern, not a new data-fetching mechanism.
-
-## SEO / JSON-LD / OG Impact
-
-- **`generateMetadata()` (`app/projects/[slug]/page.tsx:8-60`) needs no structural change.** It already falls back `project.longDescription || project.description` for `description`/`openGraph.description`/`twitter.description`. New `decisions[]`/`roleNarrative` content should **not** be auto-concatenated into meta description (risk of keyword-stuffing / incoherent meta text) — if the rewritten `longDescription` itself becomes more first-person as part of content rewrite, that flows through automatically with zero code change.
-- **`CreativeWorkStructuredData`** (`components/seo/structured-data.tsx:449+`) already accepts `role` and `metrics` and emits `contributor.roleName` / `additionalProperty`. Consider (optional, not required) adding `Project.roleNarrative` as the schema's `description`-adjacent context, but do not invent new schema.org properties for `decisions[]` — there is no clean CreativeWork mapping for "decision rationale," and forcing one risks the kind of fabricated/awkward schema v1.0 explicitly removed ("Remove fabricated schema... Trust + search-penalty risk," per `.planning/PROJECT.md` Key Decisions). Leave `decisions[]` as UI-only content, not JSON-LD.
-- **No per-project dynamic OG image exists today** — `app/projects/opengraph-image.tsx` is the shared `/projects` list OG, not per-slug. Per-slug OG comes from `openGraph.images: [project.thumbnail]` (static asset) in `page.tsx`. Narrative content changes don't require touching OG image generation, **except**: verify all 6 bespoke-page slugs still have a valid `project.thumbnail` in `lib/data/projects.ts` for their `/projects/${slug}` fallback metadata (used when someone shares the canonical `/projects/${slug}` URL rather than the bespoke one) — this matters more once the `ledgeriq` duplicate-route decision is made, since whichever URL becomes canonical needs correct OG.
-- **`ProjectFAQStructuredData`** (`components/seo/project-faq.tsx`) is hand-authored per slug, independent of `Project` fields. It is NOT touched by the type/component changes here, but its content must be re-voiced during the content-rewrite phase to match the new first-person narrative (the `echo` FAQ entry currently describes an unrelated "AI design system" — a pre-existing content mismatch, flagged here because it's adjacent to structured data, but it's a content-rewrite-phase fix, not an architecture-phase one).
-- **`app/sitemap.ts`** maps every `PROJECTS` entry to `/projects/${slug}` — once the `ledgeriq` route duplication is resolved, sitemap output is automatically correct (it already only advertises `/projects/ledgeriq`, never the orphan `/ledgeriq`).
-
-## Recommended Build Order (de-risk template before content)
-
-**Phase A — Template evolution, pilot on 1–2 projects (do this first, alone)**
-1. Fix `app/projects/[slug]/project-detail-client.tsx:42` to import `Project` from `@/lib/data/types` instead of `../../data` (unblocks everything else; currently blocks type-safety of any new field).
-2. Add `decisions[]` and `roleNarrative` to `lib/data/types.ts`.
-3. Build the 5 new components (`DecisionCallout`, `CaseStudyTOC`, `ReflectionBlock`, `RoleNarrativeSection`, resurrected `CaseStudySection`) as standalone, prop-driven, unit-testable pieces — delete `case-study-layout.tsx`/`case-study-hero.tsx`/`metrics-card.tsx`/`image-gallery.tsx`/`video-player.tsx` from `components/case-study/` in the same pass (dead code, superseded).
-4. Wire the 5 components into `project-detail-client.tsx` and populate `decisions[]`/`roleNarrative` for **`growit` only** (simplest case, already fully data-driven, no bespoke JSX to touch) as the structural pilot. Verify visually, verify `npm run lint` / `npx tsc --noEmit` / `npm test` clean.
-5. Wire the same 5 components into **one bespoke page** (`rambis-client.tsx`, 406 lines — smallest bespoke file, already partially data-driven) as the second pilot, proving the components work when fed by literal props instead of the full `Project` object. This is the load-bearing proof for "converge on components, not templates."
-6. Only after both pilots are verified: this phase is "done," and the template shape is considered de-risked.
-
-**Phase B — Content rewrite (all 8), now that the template shape is proven**
-7. Resolve the `ledgeriq` duplicate-route decision (delete `app/ledgeriq/` recommended) before rewriting ledgeriq content, so content isn't written twice.
-8. Fill `decisions[]`/`roleNarrative` (and any thin `challenges`/`solutions`/`learnings`) for the remaining 7 projects, deck-backed per `.planning/CREDIBILITY-COPY.md` sourcing rules.
-9. Migrate `processStory.keyInsights` content into `decisions[]` where overlapping, then stop rendering the old `keyInsights` section once all 8 have `decisions[]`.
-10. Re-voice `ProjectFAQStructuredData` entries to match first-person narrative (and fix the `echo` content mismatch found above).
-
-**Phase C — Tech-debt fold-in (can interleave with Phase B, lower risk, independent files)**
-11. Delete `app/data.ts` (now unreferenced once step 1 lands).
-12. Delete `app/projects/echo/echo-client-final.tsx` (unreferenced dead file).
-13. POS-02 proof-chips, WAF-02 badge dead-zone (per `.planning/PROJECT.md` — unrelated to narrative template, safe to interleave).
-
-**Why this order de-risks the milestone:** the single riskiest unknown is "does the 5-component narrative pattern actually work when retrofitted into pre-existing, differently-structured bespoke JSX?" Phase A answers that on 2 cheap pilots (1 pure-data, 1 bespoke) before committing to writing ~7,000+ words of new first-person content across 8 files. If the component design needs to change, it changes once, not after 6 more bespoke files have already been touched.
-
-## Anti-Patterns to Avoid (found in this codebase, not generic)
-
-### Anti-Pattern 1: "Shared" layout components that hardcode one project's data
-**What happened:** `components/case-study/case-study-layout.tsx` was built as a generic `CaseStudyLayout` but hardcodes `/projects/echo/research1.jpg` etc. inside it — unusable for any other project, hence zero adoption.
-**Do instead:** New components take content via props only; no project-specific strings, paths, or copy inside `components/case-study/*`.
-
-### Anti-Pattern 2: Two Project types, two data files
-**What happened:** `app/data.ts` duplicates `lib/data/projects.ts`/`types.ts`; the `[slug]` template imports the wrong one.
-**Do instead:** Single source `lib/data/types.ts` / `lib/data/projects.ts`; delete `app/data.ts` once nothing imports it.
-
-### Anti-Pattern 3: Orphaned route duplicating a canonical one
-**What happened:** `/ledgeriq` (root) and `/projects/ledgeriq` (via `[slug]`) both render a LedgerIQ case study; only one is linked/sitemapped.
-**Do instead:** One canonical URL per project; if a bespoke page is kept, it must replace (not sit alongside) the dynamic-route fallback, and must be in the sitemap.
-
-## Integration Points
-
-### Internal Boundaries
-
-| Boundary | Communication | Notes |
+| Project | slug | category (line) |
 |---|---|---|
-| `lib/data/types.ts` ↔ `lib/data/projects.ts` | Direct import, typed array | Add `decisions[]`, `roleNarrative` here only |
-| `lib/data/types.ts` ↔ `app/projects/[slug]/project-detail-client.tsx` | Currently broken — imports from `app/data.ts` instead | Fix import path as step 1 of Phase A |
-| New `components/case-study/*` ↔ `[slug]` template and bespoke `*-client.tsx` files | Props-only React components | No component should import `Project` type or `PROJECTS` directly — keeps them usable from both data-driven and bespoke callers |
-| `app/projects/[slug]/page.tsx` (`generateMetadata`) ↔ new narrative fields | No new coupling | Meta description continues to derive from `longDescription`/`description` only |
-| `components/seo/structured-data.tsx` (`CreativeWorkStructuredData`) ↔ new narrative fields | No new coupling (by design) | Do not add `decisions[]` to JSON-LD — no clean schema.org mapping, risk of the fabricated-schema problem v1.0 already fixed |
-| `app/sitemap.ts` ↔ route duplication | Currently correct (`/projects/${slug}` only) | Becomes fully correct once `/ledgeriq` orphan is deleted |
+| GrowIt! | growit | "Mobile App" (:14) |
+| Oh!Plays | ohplays | "Mobile App" (:215) |
+| LedgerIQ | ledgeriq | "Enterprise (SaaS)" (:406) |
+| Addvance | addvanced | "Mobile App" (:565) |
+| **EchoDrive** | echo | **"Mobile App" (:764/766)** |
+| **Design Leadership @ Nagarro** | nagarro | **"Design Leadership" (:952)** |
+| Rambis UI | rambis-ui | "Design System" (:1128) |
+| Waffle | waffle | "AI/ML" (:1305) |
+
+### 2b. Downstream effects of changing Echo's `category` — traced, not assumed
+
+1. **`/projects` grid row label** — `app/projects/projects-client.tsx:88`:
+   `<span>{project.category}</span>` renders the raw string directly. Change is
+   immediate and visible.
+2. **Related-projects on the detail page — the one genuine behavioral dependency.**
+   `app/projects/[slug]/page.tsx:42-44`:
+   ```ts
+   const relatedProjects = PROJECTS.filter(
+     (p) => p.id !== project.id && p.category === project.category,
+   ).slice(0, 2);
+   ```
+   This is **exact string equality**, computed server-side, passed to
+   `ProjectDetailClient`. Today, three projects share `"Mobile App"`: Oh!Plays,
+   Addvance, EchoDrive. If Echo's category changes:
+   - Echo's own related-projects list changes (currently would show 2 of the other
+     "Mobile App" projects, but Echo has its *own* standalone route/client — verify
+     whether `echo-client.tsx` even consumes `relatedProjects`; it does not — Echo,
+     Nagarro, Addvance, Rambis UI and Waffle are the 5 standalone routes and none of
+     them import `ProjectDetailClient`; only `[slug]` (serving growit/ohplays/ledgeriq)
+     does). **So changing Echo's category has no effect on Echo's own page's related
+     list** — it only affects growit/ohplays/ledgeriq's rendering, if any of those
+     shared Echo's category. They don't (Oh!Plays does, growit/ledgeriq don't).
+   - Oh!Plays and Addvance's related-projects picks: today, each other + Echo (2 of 2
+     slots filled from a pool of "the other 2 Mobile App projects"). After Echo moves
+     off "Mobile App," Oh!Plays and Addvance each only have one remaining match (each
+     other) — not a break, just a smaller related-list. Worth a note in the plan, not a
+     blocker.
+   - **If Echo's new `category` is set to match Nagarro's** (e.g. both become
+     `"Enterprise (SaaS)"` or a new value like `"Enterprise & Regulated"`), this same
+     exact-match mechanism makes them **mutually related for free** — no new code, just
+     a shared string. This directly serves ENT-04 (see §3).
+3. **JSON-LD `CreativeWork.genre`** — `lib/seo/json-ld.ts:140` (`buildCreativeWorkSchema`)
+   sets `genre: props.category`, and `props` comes from
+   `lib/metadata.ts:271-279` (`projectCreativeWorkProps`), which passes
+   `category: project.category` straight through. No code change needed in either file
+   — output changes automatically when the data changes.
+4. **`projectMetadata()` title and keywords** — `lib/metadata.ts:223-241`. Title is
+   `${project.name} | ${project.subtitle ?? project.category}` — Echo has a `subtitle`
+   (`"Streamlining Logistics Through Digital Innovation"`), so **the category change
+   does not touch the page `<title>`.** But `keywords` at line 237 includes
+   `project.category` directly in the array, so Echo's SEO keywords list changes.
+5. **OG image** — `projectOgImage()` (`lib/metadata.ts:199-208`) reads
+   `project.thumbnail`/`project.images`, never `category`. **No effect.**
+6. **`/projects?category=` search filter** — `lib/project-utils.ts:23-44`
+   `filterProjectsByCategory` does a case-insensitive **substring** match across
+   `name`, `category`, `categories[]`, and `tags[]` combined — not an exact match on
+   `category` alone. So Echo is *already* findable under many terms via its `tags`
+   array (`lib/data/projects.ts` echo tags include "Logistics Technology," "Fleet
+   Management," etc. — none currently overlap Nagarro's tags). Recategorizing changes
+   what `?category=Mobile%20App` returns for Echo, and what a new shared term (e.g.
+   `?category=Enterprise`) would return once both `category` and/or `tags` carry it.
+
+### 2c. "Promoted" — what infrastructure already exists
+
+Echo is **already featured** on the homepage: `app/page.tsx:55`
+`const FEATURED_SLUGS = ["waffle", "echo", "growit"];`. "Promoted" per ENT-01 most
+plausibly means promoted *within the enterprise framing* (category, badge, grouped
+listing) rather than needing new homepage-featured plumbing — that part is done.
+
+### 2d. Echo's qualitative metric — exact location and clean removal options
+
+`lib/data/projects.ts` echo entry, `metrics` array (comment at the line above it reads
+*"Client business figures... removed per the CRED-08 line Randy set for Echo: process
+and design only"*):
+```ts
+metrics: [
+  { label: "ELD Compliance", value: "100%" },
+  { label: "Platforms Designed", value: "2" },
+  { label: "Call Center Stress Reduction", value: "Significant" },  // ← the qualitative row
+],
+```
+`metrics.value` is typed `string` (`lib/data/types.ts:32`), so `"Significant"` is not a
+type violation — it's a content problem, not a schema problem.
+
+**Where it actually renders — this is the one non-obvious finding for this question.**
+Echo's own visible page does **not** show this array: `echo-client.tsx:67-71` passes an
+explicit `proof` prop to `CaseStudyTemplate`, which **overrides** the template's default
+`(project.metrics ?? []).slice(0,4)` fallback (`case-study-template.tsx:281-283`). The
+hand-authored `proof` array already reads `100%`, `2`, `"On-site"` (a *different*,
+intentional qualitative value used for "Research method" — that one is fine, it's
+explicitly a method label, not a metric standing in for a number). **So the qualitative
+"Significant" row is invisible on the rendered page.** It is not invisible everywhere,
+though: `lib/metadata.ts:271-284` (`projectCreativeWorkProps`) passes `metrics:
+project.metrics` straight through, and `lib/seo/json-ld.ts:166-171`
+(`buildCreativeWorkSchema`) maps every entry to a schema.org `PropertyValue`:
+```ts
+if (props.metrics && props.metrics.length > 0) {
+  schema.additionalProperty = props.metrics.map((metric) => ({
+    "@type": "PropertyValue", name: metric.label, value: metric.value,
+  }));
+}
+```
+**So `"Significant"` ships live today in Echo's server-rendered JSON-LD
+`additionalProperty` array on `/projects/echo`** — a structured-data surface, invisible
+on the page itself. This is the same class of miss as the About OG "6" bug: a
+non-visible-copy surface holding a problem the visible page already fixed.
+
+**Options, cleanest first:**
+1. **Delete the row.** `buildCreativeWorkSchema` already guards with `.length > 0`, so
+   dropping to a 2-entry `metrics` array requires no other code change anywhere. This is
+   the surgical fix — it matches what the visible page already implicitly decided
+   (the page's own `proof` override never showed this row).
+2. Replace `"Significant"` with a real number if Randy's source material has one for
+   call-center stress reduction — same shape, no structural change either way.
+3. Move the claim into prose (`processStory` / a `capabilities` entry) if it's worth
+   keeping qualitatively — do **not** leave it in `metrics[]`, which is the one field
+   both the type comment and the JSON-LD builder treat as quantitative-shaped data.
+
+Cross-check: no other project's `metrics[]` has a qualitative value — growit,
+addvanced (both read in full) are 100% numeric/percentage-styled. Echo is the only
+offender, confirming the brief's framing.
+
+---
+
+## 3. `/projects` filter / grouping
+
+### 3a. What's already built — this changes the entire question
+
+`app/projects/page.tsx` is a **server component** (default export, no `"use client"`,
+static `export const metadata`). It renders `<ProjectsClient />` inside
+`<Suspense fallback={null}>` — the code comment at line 38 explains this Suspense
+wrapper exists specifically because Next 15 requires it for `useSearchParams()` on a
+statically prerendered route.
+
+`app/projects/projects-client.tsx` **is a client component that already reads a URL
+search param and filters with it — this infrastructure exists today, unused by any
+visible UI:**
+```ts
+// projects-client.tsx:143-145
+const searchParams = useSearchParams();
+const categoryTerm = searchParams?.get("category")?.trim() ?? "";
+const visibleProjects = filterProjectsByCategory(PROJECTS, categoryTerm);
+```
+This was built in Phase 10 (D-13) **to back the `WebSite` JSON-LD `SearchAction`**
+(`lib/seo/json-ld.ts:108-111`: `urlTemplate:
+"${WEBSITE_URL}/projects?category={search_term_string}"`), i.e. so Google's sitelinks
+search box can deep-link into a filtered view — not originally built for a human-facing
+filter UI. But the plumbing is generic and already includes:
+- Case-insensitive substring match across name/category/categories/tags
+  (`lib/project-utils.ts:23-44`).
+- An accessible result-count summary: `role="status"` region
+  (`projects-client.tsx:177-205`) that announces "Showing N projects matching 'X'" or
+  "No projects match 'X'" with a "Clear filter" link back to `/projects`.
+- A real `<Link href="/projects?...">`-based navigation model (shareable, bookmarkable,
+  works without JS beyond the client-component hydration Next already requires here).
+
+**There is currently no visible trigger UI** — no buttons/pills/dropdown that set
+`?category=`. A user can only reach a filtered view via a typed URL or Google's search
+box. That's the gap ENT-04 needs to close.
+
+### 3b. Status badge container — confirmed shared stacking container
+
+`projects-client.tsx:86-119`, inside `ProjectRow`:
+```tsx
+<span className="flex flex-wrap items-center gap-x-2 gap-y-1.5 ...">
+  <span>{project.category}</span>
+  <span aria-hidden="true">·</span>
+  <Badge ...>{STATUS_LABEL[project.status]}</Badge>
+  {project.isLiveProduct && <Badge className="...bg-amber-600...">Live Product</Badge>}
+  {project.isComposite && <Badge variant="secondary">Composite</Badge>}
+</span>
+```
+This single `flex flex-wrap` span is the "shared stacking container" the milestone
+context refers to — category text, status badge, Live Product badge, and Composite
+badge already coexist here without overlap because they're siblings in one wrapping
+flex row, not absolutely positioned. **Any new category-driven visual treatment (a
+badge, a pill) must be added as another sibling in this same container**, not as a
+separately positioned element, or it will reintroduce the overlap problem v2.0 already
+solved.
+
+### 3c. Recommendation: extend the existing `?category=` mechanism with a visible link/pill row — not client state, not a new route
+
+**Pick: reuse the existing `searchParams`-driven filter, and add a small set of
+visible `<Link href="/projects?category=...">` pills/buttons above the list, styled
+consistently with the existing `Badge`/tag vocabulary.**
+
+Rejected alternatives, with reasoning:
+- **Client-side `useState` filter** — would duplicate a mechanism that already exists
+  and already has an accessible announcement pattern, tests, and SEO wiring
+  (`SearchAction`). Building a second, unrelated filter state would fork the "what does
+  `/projects?category=X` mean" contract into two inconsistent implementations (one
+  driven by URL, one by memory) and orphan the `SearchAction` schema's promise that the
+  URL param does something. No reason to introduce this.
+- **A brand-new route (e.g. `/projects/enterprise`)** — explicitly ruled out by the
+  question's constraint. It would also duplicate `ProjectsClient`'s entire rendering
+  path for one grouping, and a new route needs its own metadata/OG/breadcrumb wiring
+  that `/projects?category=` gets for free from the existing page.
+- **Static section grouping** (hard-split the list into "Enterprise" vs. everything
+  else, unconditionally, no filter) — simplest to build, but throws away the one thing
+  already built and tested (the `?category=` mechanism, its `SearchAction` schema, its
+  accessible status region) and produces a page that never shrinks back to "show
+  everything," which is worse for a reader who lands on `/projects` cold.
+
+**The cleanest single integration path, concretely:**
+1. Give Echo and Nagarro **the same `category` (or an added shared `tags[]` entry)** —
+   e.g. `"Enterprise & Regulated"` — as part of ENT-01/03 (§2). This is a data-only
+   change with the downstream effects already traced in §2b: it also makes them
+   mutually appear in each other's `relatedProjects` for free via
+   `[slug]/page.tsx:42-44`'s existing exact-match logic (a bonus, not the primary
+   mechanism, since neither Echo nor Nagarro renders through `[slug]`/`ProjectDetailClient`
+   — only the *category label itself* changes on their own pages).
+2. Add a small row of `<Link href={`/projects?category=${encodeURIComponent(term)}`}>`
+   elements to `projects-client.tsx`, near the page heading (around line 174, before or
+   after the existing `categoryTerm` status paragraph) — no new component required, this
+   is a few lines inside the existing client component.
+3. **No change to `filterProjectsByCategory` or the `SearchAction` schema** — both
+   already handle arbitrary terms.
+4. **No change to the badge-stacking container** — the grouping is a page-level entry
+   point (pills above the list), not a per-card badge, so §3b's container is unaffected
+   unless the plan also wants a visible "Enterprise" chip on the grid row itself, in
+   which case it must be added as a sibling inside that exact `flex flex-wrap` span.
+
+**Accessibility contract this must meet** (all already established by the existing
+code, so this is "match it," not "invent it"):
+- Each filter trigger is a real `<a href>` (via `next/link`), not a `<button>` with a
+  client-only `onClick` — keyboard/no-JS/share-URL parity, consistent with every other
+  nav element on this page (`BreadcrumbNav`, "Clear filter").
+- The result-count/empty-state message stays in a `role="status"` live region
+  (`projects-client.tsx:177-205` pattern) so screen-reader users get the same
+  "Showing N projects" / "No projects match" announcement a sighted user gets visually.
+- Active-filter state needs a visible + programmatic indicator (e.g.
+  `aria-current="true"` on the active pill) since none of the current three badges
+  (`STATUS_LABEL`, Live Product, Composite) currently model an "active/selected" state —
+  this is new, not reused, and should not be skipped.
+- Minimum 44px touch target on each pill, matching every other interactive control on
+  this page (`min-h-[44px]` appears throughout `projects-client.tsx`'s other links).
+
+---
+
+## 4. Suggested build order — Phase 11 (metric integrity) then Phase 12 (enterprise legibility)
+
+### 4a. Why 11 before 12, not interleaved or parallel
+
+- **No data dependency runs 12→11.** Phase 12's Echo/Nagarro work is entirely inside
+  `lib/data/projects.ts` and the `app/projects/*` tree; Phase 11's figure removal is
+  entirely inside sitewide surfaces (`retainer.ts`, `about-client.tsx`,
+  `services/page.tsx`, both root/about OG generators, `lib/metadata.ts`) that never
+  touch `lib/data/projects.ts`. They are architecturally independent.
+- **But `app/page.tsx` is touched by both**, which is the real reason to sequence
+  rather than parallelize:
+  - Phase 11 edits `app/page.tsx:85` (FAQ prose: "mentored 800+ designers") and
+    consumes `PROOF_EXHIBITS` at `:165` (no code change there, just data change
+    upstream in `retainer.ts`, but the rendered section is on this file's route).
+  - Phase 12, if the homepage's "Selected work" paragraph (`app/page.tsx`, the text
+    naming "EchoDrive carried two logistics platforms..." and "Nagarro's design
+    practice reached 18,000 employees across 36 countries") is reworded as part of the
+    enterprise reframing, touches the same file.
+  - Running them as parallel plan waves risks two uncoordinated edits to the same
+    ~250-line client component. Running Phase 11 to completion first removes its edits
+    from the diff surface before Phase 12 opens the file.
+- **Phase 12's grouped entry point (§3c) benefits from Phase 11 shipping first for a
+  narrower reason: test hygiene.** `__tests__/integration/home-page-argument.test.tsx`
+  needs rewriting in Phase 11 regardless (its `"2.5M+"/"$50M"/"800+"` assertions will
+  fail the moment the figures are removed). If Phase 12 also touches
+  `app/page.tsx` (Selected-work copy), doing so against a homepage whose test suite is
+  already green post-Phase-11 avoids stacking two waves of red tests on the same file.
+
+### 4b. Phase 11 internal order
+
+1. Fix the live "6 Design Awards" bug (`app/about/opengraph-image.tsx:238`) as its own
+   small, independently-shippable commit — it's a pure bug fix (contradicts the
+   already-correct "4" everywhere else), not a scope decision, and shouldn't wait on
+   the harder "what replaces the 3 unbacked figures" design work.
+2. Delete `components/core/animated-number-basic.tsx` and
+   `components/seo/related-content.tsx`'s dead `2.5M+` line (or the whole
+   commented-out-consumer file, if nothing else needs it — confirm no other planned
+   Phase 12 work wants `RelatedContent` revived before deleting it outright).
+3. Decide the replacement layout for the "4 items → 1 item" grids (§1c design-system
+   side effect) once, and apply that single decision across all five surfaces
+   (`retainer.ts` `PROOF_EXHIBITS`, `about-client.tsx` `achievements`, root OG image,
+   about OG image, — the FAQ prose and `lib/metadata.ts`/`page.tsx` metadata
+   descriptions are prose, not grids, and can be edited independently of the layout
+   decision).
+4. Update `__tests__/integration/home-page-argument.test.tsx`'s figures assertion to
+   pin the new state (assert absence of the removed figures / presence of whatever
+   replaces them) — this **is** the "pinned with a regression test" requirement in
+   `PROJECT.md`, not a separate new test file.
+5. Run the same `grep -rn '2\.5M\|\$50M\|800+' app lib components` sweep this research
+   used, as the phase's own closing gate, mirroring how Phase 9 closed the `$50M`
+   wording task (`09-03-PLAN.md`'s pattern is a good template to reuse literally).
+
+### 4c. Phase 12 internal order
+
+1. **ENT-02 (Echo qualitative metric) first, smallest and fully isolated** — delete one
+   array entry in `lib/data/projects.ts`'s echo `metrics[]`. Zero downstream code
+   changes (§2d). Ships independently of everything else in the phase.
+2. **ENT-01 (Echo recategorized) next** — change `echo.category` (and/or add to
+   `echo.tags`). This is the one edit every other Phase 12 item depends on, because §3c's
+   grouped-entry-point pill needs the *final* string. Verify the related-projects
+   side effect on Oh!Plays/Addvance (§2b.2) is acceptable (it is — a cosmetic reduction
+   from 2 to 1 related items, not a break) as part of this step, not as an
+   afterthought.
+3. **ENT-03 (Nagarro reframing)** can run in parallel with ENT-01/02 if the plan wants
+   — it touches a different object in the same `lib/data/projects.ts` file (the
+   `nagarro-design-leadership` entry, not `echo`) and, if it also touches
+   `nagarro-client.tsx`, that file is not touched by anything else in either phase. The
+   only reason to sequence it after ENT-01 rather than alongside is if the "shared
+   category" decision in §3c also changes Nagarro's `category` field (today
+   `"Design Leadership"`) — if so, do ENT-01 and ENT-03's category change together, in
+   the same plan, since they're setting the same target string.
+4. **ENT-04 (grouped entry point) last** — depends on ENT-01/03's final category value
+   being settled; adds the pill row to `projects-client.tsx` per §3c.
+
+### 4d. File-level conflict matrix, both phases
+
+| File | Phase 11 touches | Phase 12 touches | Risk |
+|---|---|---|---|
+| `app/page.tsx` | Yes — FAQ line :85, `PROOF_EXHIBITS` consumption :165 | Maybe — Selected-work paragraph naming Echo/Nagarro, if reworded | **Medium — sequence phases, don't parallelize** |
+| `lib/data/retainer.ts` | Yes — `PROOF_EXHIBITS` data | No | None |
+| `app/about/about-client.tsx` | Yes — `achievements` data + render | No | None |
+| `app/about/opengraph-image.tsx`, `app/opengraph-image.tsx` | Yes | No | None |
+| `lib/metadata.ts`, `app/about/page.tsx`, `app/services/page.tsx` | Yes — description strings | No | None |
+| `__tests__/integration/home-page-argument.test.tsx` | Yes | No | None |
+| `lib/data/projects.ts` | No | Yes — echo + nagarro entries | None (Phase 11 never opens this file) |
+| `app/projects/projects-client.tsx` | No | Yes — new pill row | None |
+| `app/projects/echo/echo-client.tsx`, `app/projects/nagarro/nagarro-client.tsx` | No | Maybe — if visible copy is reworded alongside the data change | None (Phase 11 doesn't touch these) |
+| `components/core/animated-number-basic.tsx` | Yes — deleted | No | None |
+| `lib/seo/json-ld.ts`, `lib/project-utils.ts` | No | No (output changes via data, not code edits) | None |
+
+**Single actionable conflict: `app/page.tsx`.** Everything else is a clean split. This
+alone is sufficient reason to run Phase 11 to completion (including its
+`__tests__/integration/home-page-argument.test.tsx` rewrite) before opening Phase 12
+work that might touch the homepage's Selected-work copy.
+
+---
+
+## 5. New vs. modified — explicit per touchpoint
+
+| Touchpoint | New or Modified | Phase |
+|---|---|---|
+| `app/about/opengraph-image.tsx` "6"→"4" | Modified (bug fix) | 11 |
+| `lib/data/retainer.ts` `PROOF_EXHIBITS` (3 entries removed) | Modified | 11 |
+| `app/about/about-client.tsx` `achievements` (3 entries removed) | Modified | 11 |
+| `app/opengraph-image.tsx`, `app/about/opengraph-image.tsx` (3 figures removed) | Modified | 11 |
+| `lib/metadata.ts:25`, `app/about/page.tsx:10,27`, `app/services/page.tsx:10` | Modified | 11 |
+| `app/page.tsx:85` FAQ prose | Modified | 11 |
+| `components/core/animated-number-basic.tsx` | **Deleted** | 11 |
+| `components/seo/related-content.tsx` (2.5M+ line, or whole file) | Modified or deleted | 11 |
+| `__tests__/integration/home-page-argument.test.tsx` | Modified (the "pinned regression test") | 11 |
+| `lib/data/projects.ts` echo `metrics[]` (1 entry removed) | Modified | 12 |
+| `lib/data/projects.ts` echo `category`/`tags` | Modified | 12 |
+| `lib/data/projects.ts` nagarro entry (reframing copy/category) | Modified | 12 |
+| `app/projects/projects-client.tsx` (pill row) | **New** UI, existing file | 12 |
+| `app/projects/echo/echo-client.tsx`, `nagarro-client.tsx` (if copy reworded) | Modified | 12 |
+| `Project` type (`lib/data/types.ts`) | **Not touched by either phase** — every field needed already exists | — |
+| `lib/project-utils.ts`, `lib/seo/json-ld.ts` | **Not touched by either phase** — generic code, output changes via data only | — |
+
+---
 
 ## Sources
 
-All findings verified by direct file reads in this repository (not external docs — this is a codebase-integration question):
-- `lib/data/types.ts`, `lib/data/projects.ts`, `app/data.ts` (duplication)
-- `app/projects/[slug]/page.tsx`, `app/projects/[slug]/project-detail-client.tsx` (full read, 1080 lines)
-- `app/projects/{addvanced,echo,nagarro,rambis-ui,waffle}/page.tsx` and their `*-client.tsx` line counts
-- `app/ledgeriq/page.tsx`, `app/ledgeriq/ledgeriq-client.tsx` (orphaned route)
-- `components/case-study/*` (dead code, 6 files)
-- `components/seo/structured-data.tsx`, `components/seo/project-faq.tsx`
-- `app/sitemap.ts`, `app/projects/opengraph-image.tsx`
-- `.planning/PROJECT.md`, `.planning/codebase/ARCHITECTURE.md`, `.planning/codebase/CONVENTIONS.md`
+All findings sourced directly from the working tree at commit history through
+`8de7262` (2026-08-22), read via `Read`/`grep`/`git log` in this session:
+- `components/core/animated-number-basic.tsx`, `lib/data/types.ts`, `lib/data/retainer.ts`,
+  `lib/metadata.ts`, `lib/seo/json-ld.ts`, `lib/project-utils.ts`
+- `app/opengraph-image.tsx`, `app/about/opengraph-image.tsx`, `app/projects/opengraph-image.tsx`
+- `app/page.tsx`, `app/about/page.tsx`, `app/about/about-client.tsx`, `app/services/page.tsx`,
+  `app/services/services-client.tsx`
+- `app/projects/page.tsx`, `app/projects/projects-client.tsx`, `app/projects/[slug]/page.tsx`,
+  `app/projects/echo/echo-client.tsx`, `app/projects/nagarro/nagarro-client.tsx`
+- `lib/data/projects.ts` (full echo, nagarro, growit entries + all 8 `category` lines)
+- `components/case-study/case-study-template.tsx`, `components/ui/badge.tsx`,
+  `components/ui/animated-metric-value.tsx`, `components/seo/related-content.tsx`,
+  `app/blog/layout.tsx`
+- `__tests__/integration/home-page-argument.test.tsx`
+- `.planning/PROJECT.md`, `.planning/MILESTONES.md`, `.planning/DECK-COVERAGE-AUDIT.md`,
+  `.planning/milestones/v2.0-MILESTONE-AUDIT.md`,
+  `.planning/milestones/v2.0-phases/09-cross-surface-verification/09-CROSS-SURFACE-MATRIX.md`
+  and `09-03-PLAN.md`/`09-03-SUMMARY.md`, `.planning/CREDIBILITY-COPY.md`
+- `git log --oneline` for `app/page.tsx`, `app/projects/nagarro/nagarro-client.tsx`,
+  `components/core/animated-number-basic.tsx`, `lib/data/retainer.ts`; `git show 8de7262`
 
 ---
-*Architecture research for: v2.0 Case-Study Depth narrative template integration*
-*Researched: 2026-08-15*
+*Architecture research for: v3.0 Enterprise Credibility (Phases 11-12)*
+*Researched: 2026-08-22*
