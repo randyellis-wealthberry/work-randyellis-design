@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, ChevronUp } from "lucide-react";
 import {
@@ -14,6 +15,7 @@ import {
   SECTION,
   ROW,
 } from "@/components/case-study/section-chrome";
+import { AnimatedAsset } from "@/components/ui/animated-asset";
 import { ClientLogos } from "@/components/client-logos";
 import { CalButton } from "@/components/booking/cal-embed";
 import { FeatureFlagDemo } from "@/components/feature-flag-demo";
@@ -51,6 +53,51 @@ const TEXT_LINK =
  * rest are one link away.
  */
 const FEATURED_SLUGS = ["waffle", "echo", "growit"];
+
+/**
+ * The still each featured row shows, named rather than derived.
+ *
+ * Taking the first non-video item from PROJECT_MEDIA was the obvious rule and
+ * the wrong one: echo's is a workshop wall of sticky notes and growit's is a
+ * photograph of a garden, so two of the three rows would advertise the research
+ * rather than the product. These are chosen instead — the artifact that shows
+ * what was built, at a size that survives a 288px column. growit's is not in
+ * PROJECT_MEDIA at all; it is the strongest thing in that folder and it happens
+ * to show the one-tap rating mechanic the case study argues about.
+ *
+ * Video is deliberately absent. Echo and growit both lead with an mp4 on their
+ * own pages, and three autoloading videos is not a trade the homepage makes for
+ * three thumbnails.
+ */
+const HOME_STILLS: Record<
+  string,
+  { src: string; alt: string; width: number; height: number }
+> = {
+  waffle: {
+    src: "/projects/waffle/scorecard-overview.png",
+    alt: "A Waffle scorecard for a Grocery Store Clerk role, competency cards on the left and a weighted 7.5 out of 10 rolled up on the right",
+    width: 1920,
+    height: 1218,
+  },
+  echo: {
+    src: "/projects/echo/showcase1.jpg",
+    alt: "A driver holding the EchoDrive app in a truck yard, showing an on-time pickup history and 80 per cent on-time for the month",
+    width: 1500,
+    height: 1000,
+  },
+  growit: {
+    src: "/projects/growit/hero-mockup.jpg",
+    alt: "The GrowIt! Rate Plants screen on a phone, showing a community plant photo above a single-tap rating with 5 left it and 9 love it",
+    width: 2000,
+    height: 1251,
+  },
+};
+
+const leadStill = (slug: string) => HOME_STILLS[slug];
+
+/** The evidence frame, at list scale. Same vocabulary as the case-study pages. */
+const HOME_MEDIA_FRAME =
+  "rounded-xl border border-zinc-200 bg-zinc-100 p-2 ring-0 dark:border-zinc-800 dark:bg-zinc-900";
 
 /**
  * What a founder asks before booking. Kept verbatim from the previous page —
@@ -196,16 +243,38 @@ export default function Home() {
           countries.
         </p>
         <ul className="mt-8">
-          {featured.map((project) => (
-            <li
-              key={project.slug}
-              className="border-t border-zinc-200 dark:border-zinc-800"
-            >
-              <Link
-                href={`/projects/${project.slug}`}
-                className="group grid grid-cols-1 py-5 focus-visible:ring-2 focus-visible:ring-zinc-900 focus-visible:ring-offset-2 focus-visible:outline-none sm:grid-cols-[minmax(0,18rem)_1fr] dark:focus-visible:ring-white"
+          {featured.map((project) => {
+            const still = leadStill(project.slug);
+
+            return (
+              <li
+                key={project.slug}
+                className="grid grid-cols-1 gap-4 border-t border-zinc-200 py-5 sm:grid-cols-[minmax(0,18rem)_1fr] sm:gap-8 dark:border-zinc-800"
               >
-                <span className="flex flex-col gap-2 sm:pr-8">
+                {/* The image is a sibling of the link, never a child of it: a
+                    lightbox trigger is a button, and a button inside an anchor
+                    is both invalid and ambiguous to click. Two targets, each
+                    doing one thing — the picture enlarges, the words navigate. */}
+                {still && (
+                  <AnimatedAsset
+                    label={still.alt}
+                    className="aspect-[16/10] rounded-lg"
+                    containerClassName={HOME_MEDIA_FRAME}
+                  >
+                    <Image
+                      src={still.src}
+                      alt={still.alt}
+                      width={still.width}
+                      height={still.height}
+                      sizes="(min-width: 640px) 18rem, 100vw"
+                      className="h-full w-full object-cover"
+                    />
+                  </AnimatedAsset>
+                )}
+                <Link
+                  href={`/projects/${project.slug}`}
+                  className="group flex flex-col gap-2 focus-visible:ring-2 focus-visible:ring-zinc-900 focus-visible:ring-offset-2 focus-visible:outline-none dark:focus-visible:ring-white"
+                >
                   <span className="flex items-start gap-1.5 text-base font-medium text-zinc-900 underline decoration-zinc-300 underline-offset-4 transition-colors group-hover:decoration-zinc-900 dark:text-white dark:decoration-zinc-700 dark:group-hover:decoration-zinc-100">
                     {project.name}
                     <ArrowRight
@@ -216,8 +285,6 @@ export default function Home() {
                   <span className="text-xs text-zinc-500 dark:text-zinc-400">
                     {project.category}
                   </span>
-                </span>
-                <span className="mt-3 flex flex-col gap-2 sm:mt-0">
                   <span className="max-w-[62ch] text-base text-zinc-500 dark:text-zinc-400">
                     {project.description}
                   </span>
@@ -229,10 +296,10 @@ export default function Home() {
                       {project.metrics[0].label}
                     </span>
                   )}
-                </span>
-              </Link>
-            </li>
-          ))}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
         <div className="mt-6 flex flex-col gap-4">
           <Link href="/projects" className={TEXT_LINK}>
