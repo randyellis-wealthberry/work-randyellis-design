@@ -34,6 +34,7 @@ const WireframesSectionComponent = ({
   if (memoizedWireframes.length === 0) {
     return (
       <section
+        id="wireframes"
         data-testid="wireframes-section"
         aria-labelledby="wireframes-title"
         className={`${SECTION} ${className}`}
