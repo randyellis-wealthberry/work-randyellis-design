@@ -116,6 +116,7 @@ export default function Home() {
 
   return (
     <motion.main
+      id="main-content"
       className="pb-8 caret-zinc-900 selection:bg-zinc-900 selection:text-white dark:caret-zinc-100 dark:selection:bg-zinc-100 dark:selection:text-zinc-900"
       variants={VARIANTS_CONTAINER}
       initial="hidden"
