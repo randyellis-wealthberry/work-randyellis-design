@@ -57,27 +57,29 @@ const EXHIBITS: ReadonlyArray<{ value: string; context: string }> = [
 /**
  * Terms of the engagement. `pending` marks a figure awaiting a real value.
  *
- * The rate is stated as a floor rather than withheld. "On request" makes every
- * unqualified enquiry cost a call, and a founder who cannot reach $20k a month
- * finds that out on the page instead of thirty minutes in. A floor also leaves
- * room to price a larger scope up, which a single published number does not.
+ * The numbers have to survive division. $8,000 against the guaranteed 20 hours
+ * is $400 an hour, which is exactly the rate quoted for hours beyond it — a
+ * reader who does the arithmetic finds the page agreeing with itself rather
+ * than catching it out. It is also a rate that stands on its own next to any
+ * other senior design executive, which "on request" never gets the chance to.
+ *
+ * Stated per engagement, not per year: this is one retainer, and the practice
+ * runs several concurrently.
  */
 const TERMS: ReadonlyArray<{
   label: string;
   value: string;
   pending?: boolean;
 }> = [
-  {
-    label: "Commitment",
-    value: "Two days a week — about 64 hours a month",
-  },
-  { label: "Cadence", value: "Weekly working sessions, async access between" },
+  { label: "Commitment", value: "20 hours a month, guaranteed" },
+  { label: "Cadence", value: "Weekly working session, async access between" },
   {
     label: "Scope",
     value: "Design strategy, systems, product surfaces, team guidance",
   },
-  { label: "Term", value: "Three-month minimum, then month to month" },
-  { label: "Rate", value: "From $20,000 a month" },
+  { label: "Term", value: "Six months, then month to month" },
+  { label: "Rate", value: "$8,000 a month" },
+  { label: "Beyond the guarantee", value: "$400 an hour, agreed in advance" },
 ];
 
 /**
