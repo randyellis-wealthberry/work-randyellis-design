@@ -87,7 +87,22 @@ function ProjectRow({ project }: { project: Project }) {
           <span className="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-xs text-zinc-500 dark:text-zinc-400">
             <span>{project.category}</span>
             <span aria-hidden="true">·</span>
-            <span>{STATUS_LABEL[project.status]}</span>
+            {/* Status reads as a chip in every state, not only when it is
+                green: badging one value and leaving the others as running text
+                would make "Completed" look like the only status that counts.
+                The green is the only one that carries a hue — zinc-950 on it
+                rather than white, because emerald-600 under white text clears
+                3.8:1 and fails the small-text bar. */}
+            <Badge
+              className={
+                project.status === "completed"
+                  ? "border-transparent bg-emerald-600 text-zinc-950 dark:bg-emerald-500"
+                  : undefined
+              }
+              variant={project.status === "completed" ? "default" : "secondary"}
+            >
+              {STATUS_LABEL[project.status]}
+            </Badge>
             {/* The single hue exception in the whole system: a product a
                 reader can open today is a different kind of claim, and it is
                 the one place the zinc ramp cannot say what it means. */}
