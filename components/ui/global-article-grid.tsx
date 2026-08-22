@@ -2,28 +2,14 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Star } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { AdvancedReadTimeBadge } from "@/components/ui/advanced-read-time-badge";
-import { Badge } from "@/components/ui/badge";
-import { Card } from "@/components/ui/card";
 import { getBlogArticles, type BlogArticle } from "@/lib/utils/blog-data";
-import { InView } from "@/components/motion-primitives/in-view";
-import { TextEffect } from "@/components/motion-primitives/text-effect";
+import { SECTION, SectionLabel } from "@/components/case-study/section-chrome";
 import {
   trackRecommendationArticleClick,
   trackRecommendationCardHover,
 } from "@/lib/analytics";
-
-// Animation variants matching existing patterns
-const VARIANTS_ITEM = {
-  hidden: { opacity: 0, y: 20, filter: "blur(8px)" },
-  visible: { opacity: 1, y: 0, filter: "blur(0px)" },
-};
-
-const TRANSITION_ITEM = {
-  duration: 0.4,
-};
 
 interface GlobalArticleGridProps {
   currentSlug?: string;
@@ -50,6 +36,14 @@ function formatPublishedDate(dateString: string): string {
   } catch {
     return dateString;
   }
+}
+
+/** A stable id for `aria-labelledby`, derived from the section's own title. */
+function slugifyTitle(title: string): string {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
 }
 
 export function GlobalArticleGrid({
@@ -131,102 +125,92 @@ export function GlobalArticleGrid({
     return null;
   }
 
-  return (
-    <section
-      className={cn("space-y-6", className)}
-      data-testid="article-grid-container"
-    >
-      {/* Section Title */}
-      <TextEffect as="h2" className="text-2xl font-bold" preset="fade-in-blur">
-        {title}
-      </TextEffect>
+  const headingId = `${slugifyTitle(title)}-heading`;
 
-      {/* Grid */}
-      <div
-        className="grid auto-rows-fr grid-cols-1 gap-6 md:grid-cols-2"
-        data-testid="article-grid"
+  return (
+    // "More Articles" at the foot of a post is the Recommendations List
+    // (DESIGN.md): a hairline list of links, not a card grid. The shadcn `Card`
+    // with `shadow-sm`/`hover:shadow-md` that stood here grouped content with a
+    // shadow — the Hairline-First Rule reserves shadows for things that
+    // genuinely overlay the page — and lifted on hover, which Buttons →
+    // Hover/Focus rules out ("transition-colors only").
+    <section
+      className={cn(SECTION, className)}
+      aria-labelledby={headingId}
+      data-testid="article-list-container"
+    >
+      <SectionLabel id={headingId}>{title}</SectionLabel>
+
+      <ul
+        className="mt-6 border-b border-zinc-200 dark:border-zinc-800"
+        data-testid="article-list"
       >
         {articles.map((article, index) => (
-          <InView
+          // No featured star. What sat here was an amber-filled `Star` in an
+          // amber chip; The One Family Rule keeps Live Amber for "this project
+          // is live and you can open it" and nothing else. Featured articles
+          // already sort to the top, which is what the flag is for.
+          <li
             key={article.slug}
-            variants={VARIANTS_ITEM}
-            transition={{ ...TRANSITION_ITEM, delay: index * 0.1 }}
-            viewOptions={{ once: true }}
+            className="border-t border-zinc-200 dark:border-zinc-800"
+            data-testid="article-row"
           >
-            <Card
-              className="group h-full transition-all duration-200 hover:border-zinc-300 hover:shadow-md dark:hover:border-zinc-600"
-              data-testid="article-card"
+            {/* No hero image. What sat here was a random photograph pulled
+                from picsum.photos per slug — a placeholder service standing
+                in for article art, cropped to 16:9 and unrelated to the
+                writing. An article's title and description are its preview. */}
+            <Link
+              href={`/blog/${article.slug}`}
+              className="group grid grid-cols-1 py-5 focus-visible:ring-2 focus-visible:ring-zinc-900 focus-visible:ring-offset-2 focus-visible:outline-none sm:grid-cols-[minmax(0,22rem)_1fr] dark:focus-visible:ring-white"
+              aria-label={`Read ${article.title}`}
+              onClick={() => handleArticleClick?.(article, index)}
+              onMouseEnter={() => handleArticleHover?.(article, index)}
             >
-              {/* Featured Star Indicator */}
-              {article.featured && (
-                <div
-                  className="absolute top-3 right-3 z-10"
-                  data-testid="featured-star"
-                >
-                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-amber-100 dark:bg-amber-900/50">
-                    <Star className="h-3 w-3 fill-amber-500 text-amber-500" />
-                  </div>
-                </div>
-              )}
+              <span className="flex flex-col gap-2 sm:pr-8">
+                <span className="flex items-start gap-1.5 text-base font-medium text-zinc-900 underline decoration-zinc-300 underline-offset-4 transition-colors group-hover:decoration-zinc-900 dark:text-white dark:decoration-zinc-700 dark:group-hover:decoration-zinc-100">
+                  {article.title}
+                  <ArrowRight
+                    aria-hidden="true"
+                    className="mt-1 h-4 w-4 shrink-0 text-zinc-400 transition-transform group-hover:translate-x-0.5 dark:text-zinc-500"
+                  />
+                </span>
 
-              {/* No hero image. What sat here was a random photograph pulled
-                  from picsum.photos per slug — a placeholder service standing
-                  in for article art, cropped to 16:9 and unrelated to the
-                  writing. An article's title and description are its preview. */}
-              <Link
-                href={`/blog/${article.slug}`}
-                className="block h-full p-6 no-underline"
-                style={{ textDecoration: "none" }}
-                aria-label={`Read ${article.title}`}
-                onClick={() => handleArticleClick?.(article, index)}
-                onMouseEnter={() => handleArticleHover?.(article, index)}
-              >
-                <div className="flex h-full flex-col">
-                  {/* Header with category and read time */}
-                  <div className="mb-4 flex items-center justify-between gap-2">
-                    {showCategory && (
-                      <Badge variant="outline" className="text-xs">
-                        {article.category}
-                      </Badge>
-                    )}
-                    {showReadTime && (
-                      <div data-testid="read-time-badge">
-                        <AdvancedReadTimeBadge
-                          readTime={article.readTime}
-                          variant="outline"
-                          size="sm"
-                        />
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Article title with hover effects */}
-                  <TextEffect
-                    as="h3"
-                    preset="fade"
-                    className="mb-3 line-clamp-2 min-h-[3.5rem] font-semibold text-zinc-950 group-hover:text-blue-600 dark:text-zinc-50 dark:group-hover:text-blue-400"
-                    delay={0.1}
-                  >
-                    {article.title}
-                  </TextEffect>
-
-                  {/* Description */}
-                  {showDescription && article.description && (
-                    <p className="mb-4 line-clamp-3 flex-1 text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
-                      {article.description}
-                    </p>
+                {/* The Tabular Figures Rule: read times and dates are numbers a
+                    reader compares down the column. */}
+                <span className="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-xs text-zinc-500 dark:text-zinc-400">
+                  {showCategory && <span>{article.category}</span>}
+                  {showCategory && showReadTime && (
+                    <span aria-hidden="true">·</span>
                   )}
-
-                  {/* Publication date */}
-                  <div className="mt-auto text-xs font-medium text-zinc-500 dark:text-zinc-400">
+                  {showReadTime && (
+                    <span
+                      className="tabular-nums"
+                      data-testid="read-time-badge"
+                    >
+                      {article.readTime} min read
+                    </span>
+                  )}
+                  {(showCategory || showReadTime) && (
+                    <span aria-hidden="true">·</span>
+                  )}
+                  <time
+                    className="tabular-nums"
+                    dateTime={article.publishedDate}
+                  >
                     {formatPublishedDate(article.publishedDate)}
-                  </div>
-                </div>
-              </Link>
-            </Card>
-          </InView>
+                  </time>
+                </span>
+              </span>
+
+              {showDescription && article.description && (
+                <span className="mt-3 max-w-[62ch] text-base text-zinc-500 sm:mt-0 dark:text-zinc-400">
+                  {article.description}
+                </span>
+              )}
+            </Link>
+          </li>
         ))}
-      </div>
+      </ul>
     </section>
   );
 }

@@ -28,8 +28,11 @@ export function BlogHeroWrapper(props: BlogHeroWrapperProps) {
   if (!heroImage) return null;
 
   return (
+    // The hero sits at the page's own measure, flush with the left edge the
+    // body copy uses — `max-w-5xl mx-auto` centred it inside a 768px column,
+    // which reads as a second, narrower page inside the first.
     <motion.div
-      className="mx-auto mb-16 max-w-5xl space-y-16"
+      className="not-prose mb-16"
       variants={VARIANTS_CONTAINER}
       initial="hidden"
       animate="visible"

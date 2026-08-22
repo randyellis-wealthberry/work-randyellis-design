@@ -2,8 +2,7 @@ import { Metadata } from "next";
 import { BlogArchiveAccordion } from "@/components/blog/blog-archive-accordion";
 import { GlobalRecommendationsGrid } from "@/components/blog/global-recommendations-grid";
 import { getBlogArchiveData } from "@/lib/utils/blog-data";
-import { ScrollProgress } from "@/components/motion-primitives/scroll-progress";
-import { TextEffect } from "@/components/motion-primitives/text-effect";
+import { SECTION, SectionLabel } from "@/components/case-study/section-chrome";
 import { createPageMetadata } from "@/lib/metadata";
 
 export const metadata: Metadata = createPageMetadata({
@@ -18,78 +17,57 @@ export default function BlogPage() {
   const { categories, totalCount } = archiveData;
 
   return (
-    <div className="min-h-screen bg-white dark:bg-zinc-950">
-      {/* Scroll Progress Indicator */}
-      <ScrollProgress
-        className="fixed top-0 left-0 z-50 h-1 bg-gradient-to-r from-blue-500 to-purple-600 shadow-sm"
-        springOptions={{ stiffness: 100, damping: 30 }}
-      />
+    // No floating scroll-progress bar. The One Crank Rule names its removal
+    // explicitly ("no floating reading-progress widget"), and the one that sat
+    // here was a blue→purple gradient with a shadow — two hues and an
+    // elevation on a surface whose whole vocabulary is zinc and hairlines.
+    //
+    // The Browser Surfaces Rule: selection and caret are part of the palette.
+    // Copied verbatim from the case-study template's <main>.
+    //
+    // Vertical rhythm comes from SECTION's own mt-20 (80px between movements),
+    // not from a `space-y` on the container — a space-y utility outranks the
+    // section's margin and would flatten the documented rhythm to 48px.
+    <main
+      id="main-content"
+      className="pb-8 caret-zinc-900 selection:bg-zinc-900 selection:text-white dark:caret-zinc-100 dark:selection:bg-zinc-100 dark:selection:text-zinc-900"
+    >
+      {/* Header Section */}
+      <header className="space-y-6">
+        <h1 className="max-w-[18ch] text-4xl leading-[1.05] font-semibold tracking-[-0.03em] text-balance text-zinc-900 sm:text-5xl dark:text-white">
+          Blog Archive
+        </h1>
+        <p className="max-w-[62ch] text-lg leading-relaxed text-zinc-600 dark:text-zinc-300">
+          Explore insights, tutorials, and thoughts on design, development, and
+          product strategy. A collection of{" "}
+          <span className="tabular-nums">{totalCount}</span> articles covering
+          topics like {categories.slice(0, -1).join(", ")}
+          {categories.length > 1
+            ? `, and ${categories[categories.length - 1]}`
+            : categories[0]}
+          .
+        </p>
+      </header>
 
-      <div className="container mx-auto px-4 py-16">
-        <main className="space-y-12" role="main">
-          {/* Header Section */}
-          <header className="space-y-6 text-center">
-            <div className="space-y-4">
-              <TextEffect
-                as="h1"
-                preset="scale"
-                className="text-4xl font-bold text-zinc-950 md:text-5xl dark:text-zinc-50"
-                delay={0.3}
-                speedSegment={1.5}
-              >
-                Blog Archive
-              </TextEffect>
-              <p className="mx-auto max-w-3xl text-lg text-zinc-600 dark:text-zinc-400">
-                Explore insights, tutorials, and thoughts on design,
-                development, and product strategy. A collection of {totalCount}{" "}
-                articles covering topics like{" "}
-                {categories.slice(0, -1).join(", ")}
-                {categories.length > 1
-                  ? `, and ${categories[categories.length - 1]}`
-                  : categories[0]}
-                .
-              </p>
-            </div>
-          </header>
+      {/* Archive Section */}
+      <section className={SECTION} aria-labelledby="all-articles-heading">
+        <SectionLabel id="all-articles-heading">All articles</SectionLabel>
+        <BlogArchiveAccordion className="mt-6 w-full" />
+      </section>
 
-          {/* Archive Section */}
-          <section className="space-y-8">
-            <div className="mx-auto max-w-4xl">
-              <h2 className="mb-6 text-2xl font-bold text-zinc-950 dark:text-zinc-50">
-                All Articles
-              </h2>
-              <BlogArchiveAccordion className="w-full" />
-            </div>
-          </section>
+      {/* Recommendations Section */}
+      <GlobalRecommendationsGrid title="Latest articles" limit={6} />
 
-          {/* Recommendations Section */}
-          <section className="space-y-8">
-            <div className="mx-auto max-w-6xl">
-              <GlobalRecommendationsGrid
-                title="Latest Articles"
-                limit={6}
-                className="w-full"
-              />
-            </div>
-          </section>
-
-          {/* Footer Section */}
-          <footer className="border-t border-zinc-200 pt-12 text-center dark:border-zinc-700">
-            <div className="space-y-4">
-              <p className="text-zinc-600 dark:text-zinc-400">
-                Stay updated with the latest articles and insights.
-              </p>
-              <div className="flex justify-center gap-4 text-sm text-zinc-500 dark:text-zinc-400">
-                <span>{totalCount} Total Articles</span>
-                <span>•</span>
-                <span>{categories.length} Categories</span>
-                <span>•</span>
-                <span>Updated Regularly</span>
-              </div>
-            </div>
-          </footer>
-        </main>
-      </div>
-    </div>
+      {/* Footer Section */}
+      <footer className="mt-20 border-t border-zinc-200 pt-8 dark:border-zinc-800">
+        <p className="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-sm text-zinc-500 dark:text-zinc-400">
+          <span className="tabular-nums">{totalCount}</span>
+          <span>{totalCount === 1 ? "article" : "articles"}</span>
+          <span aria-hidden="true">·</span>
+          <span className="tabular-nums">{categories.length}</span>
+          <span>{categories.length === 1 ? "category" : "categories"}</span>
+        </p>
+      </footer>
+    </main>
   );
 }

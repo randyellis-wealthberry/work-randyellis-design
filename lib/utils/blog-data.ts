@@ -9,6 +9,16 @@ export interface BlogArticle {
   readTime: number;
   category: string;
   tags: string[];
+  /**
+   * NOT FOR DISPLAY. These counts are hardcoded below; no analytics source
+   * produced them. PRODUCT.md's first principle is credibility through proof,
+   * which bans invented numbers, so the blog archive no longer prints them as
+   * confirmed figures. The field stays because three call sites still read it
+   * as a relative sort key — `getPopularArticles` here, and the featured-then-
+   * views ordering in `components/ui/global-article-grid.tsx` and
+   * `components/blog/global-recommendations-grid.tsx`. Wire a real source in
+   * before any surface shows a number.
+   */
   views?: number;
   featured?: boolean;
 }
