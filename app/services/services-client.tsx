@@ -54,20 +54,30 @@ const EXHIBITS: ReadonlyArray<{ value: string; context: string }> = [
   { value: "4", context: "Design awards won" },
 ];
 
-/** Terms of the engagement. `pending` marks a figure awaiting a real value. */
+/**
+ * Terms of the engagement. `pending` marks a figure awaiting a real value.
+ *
+ * The rate is stated as a floor rather than withheld. "On request" makes every
+ * unqualified enquiry cost a call, and a founder who cannot reach $20k a month
+ * finds that out on the page instead of thirty minutes in. A floor also leaves
+ * room to price a larger scope up, which a single published number does not.
+ */
 const TERMS: ReadonlyArray<{
   label: string;
   value: string;
   pending?: boolean;
 }> = [
-  { label: "Commitment", value: "Fixed hours each month", pending: true },
+  {
+    label: "Commitment",
+    value: "Two days a week — about 64 hours a month",
+  },
   { label: "Cadence", value: "Weekly working sessions, async access between" },
   {
     label: "Scope",
     value: "Design strategy, systems, product surfaces, team guidance",
   },
-  { label: "Term", value: "Month to month", pending: true },
-  { label: "Rate", value: "On request" },
+  { label: "Term", value: "Three-month minimum, then month to month" },
+  { label: "Rate", value: "From $20,000 a month" },
 ];
 
 /**
