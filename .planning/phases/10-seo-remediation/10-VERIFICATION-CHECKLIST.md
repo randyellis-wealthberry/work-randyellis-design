@@ -27,11 +27,11 @@ Any Rich Results Test **ERROR** blocks phase completion until fixed and re-verif
 | 6 | Home raw HTML JSON-LD | `curl -s https://work.randyellis.design/ \| grep -o 'application/ld+json' \| wc -l` | ≥ 2 and body contains `"@type":"Person"` and `"@type":"WebSite"` (server-rendered proof, D-10) | 4 ld+json scripts, Person + WebSite types, x.com (not twitter.com), no Organization/FAQPage | 10-verification-screenshots/jsonld-home.txt | pass | Server-rendered Person + WebSite schemas |
 | 7 | /projects/growit raw HTML | `curl -s https://work.randyellis.design/projects/growit` | Contains `"@type":"CreativeWork"` and `"@type":"BreadcrumbList"`, no `FAQPage` | CreativeWork + BreadcrumbList present, no FAQPage | 10-verification-screenshots/jsonld-growit.txt | pass | Server-rendered project schemas |
 | 8 | /blog/profits-not-pixels raw HTML | `curl -s https://work.randyellis.design/blog/profits-not-pixels` | Contains `"@type":"Article"` and `"@type":"BreadcrumbList"` | Article + BreadcrumbList + Person reference present | 10-verification-screenshots/jsonld-blog.txt | pass | Server-rendered blog schemas |
-| 9 | Rich Results Test — Home | https://search.google.com/test/rich-results?url=https://work.randyellis.design/ | No errors; detected items listed | Tool refused the run: "Something went wrong — Log in and try again" | 10-verification-screenshots/rrt-home.png | blocked | RRT now requires a signed-in Google account; headless run cannot authenticate. Vocabulary conformance covered by row 14. Needs Randy's login |
-| 10 | Rich Results Test — GrowIt project | https://search.google.com/test/rich-results?url=https://work.randyellis.design/projects/growit | No errors | Same login wall | 10-verification-screenshots/rrt-growit.png | blocked | See row 9. Needs Randy's login |
-| 11 | Rich Results Test — Blog post | https://search.google.com/test/rich-results?url=https://work.randyellis.design/blog/profits-not-pixels | No errors; Article detected | Same login wall | 10-verification-screenshots/rrt-blog.png | blocked | See row 9. Needs Randy's login |
+| 9 | Rich Results Test — Home | https://search.google.com/test/rich-results?url=https://work.randyellis.design/ | No errors; detected items listed | "No items detected" — zero errors. Crawled successfully Aug 22 2026, 3:39:06 PM. Person/WebSite are not rich-result types, so "no items" is the expected outcome, not an error | 10-verification-screenshots/rrt-home.png | pass | Re-run 2026-08-22 in Randy's signed-in Chrome session (authorized). Earlier login wall cleared |
+| 10 | Rich Results Test — GrowIt project | https://search.google.com/test/rich-results?url=https://work.randyellis.design/projects/growit | No errors | "1 valid item detected" — Breadcrumbs, green. Crawled successfully Aug 22 2026, 3:40:17 PM. Zero errors, zero warnings | 10-verification-screenshots/rrt-growit.png | pass | The D-14 `teamSize` exception raises no RRT warning: CreativeWork is not a Google rich-result type, so RRT never evaluates it. Row 14 remains the vocabulary-conformance evidence |
+| 11 | Rich Results Test — Blog post | https://search.google.com/test/rich-results?url=https://work.randyellis.design/blog/profits-not-pixels | No errors; Article detected | "3 valid items detected" — Articles, Breadcrumbs, Paywalled Content, all green. Crawled successfully Aug 22 2026, 3:41:22 PM. **Zero errors.** 5 non-critical issues on the Article item: missing field "image" (optional); invalid datetime value for "datePublished" (optional); "datePublished" missing a timezone (optional); invalid datetime value for "dateModified" (optional); "dateModified" missing a timezone (optional) | 10-verification-screenshots/rrt-blog.png, 10-verification-screenshots/rrt-blog-warnings.png | pass | Every issue is marked (optional) → warnings, non-blocking per D-23. Both dates render as bare `2025-07-21` with no time or offset. Carried as an observation for Randy, not a Phase 10 gate |
 | 12 | Returning-visitor SW unregistration | Browser DevTools → Application → Service Workers (or `navigator.serviceWorker.getRegistrations()` in console) after loading the site | Zero registrations | `navigator.serviceWorker.getRegistrations()` returned `[]` after a full production page load | 10-verification-screenshots/sw-registrations.png | pass | Kill-switch confirmed: no registration survives on a returning visit |
-| 13 | Search Console | https://search.google.com/search-console | Property for work.randyellis.design exists; sitemap `https://work.randyellis.design/sitemap.xml` submitted with status Success (D-18) | | gsc-sitemap.png | pending | Requires Randy's Google account |
+| 13 | Search Console | https://search.google.com/search-console | Property for work.randyellis.design exists; sitemap `https://work.randyellis.design/sitemap.xml` submitted with status Success (D-18) | **Blocked — the property does not exist.** Signed in as the account on this machine, Search Console returns "Oops, you don't have access to this property" for `https://work.randyellis.design/`, and the property picker returns "No matching property" (the account holds zero properties). No `google-site-verification` meta tag is present in `app/layout.tsx`, `lib/metadata.ts`, or the live production HTML, so ownership has never been verified | — | blocked | Sitemap submission is not reachable yet: the property must first be created **and ownership verified**. Options — (a) DNS TXT record at the registrar for a domain property, (b) `metadata.verification.google` in `lib/metadata.ts` + deploy, then Verify, (c) HTML file in `public/`. (b) is a code change Claude can make once Randy starts the Add-property flow and supplies the token. Live sitemap itself is healthy: HTTP 200, 19 URLs |
 | 14 | schema.org validator (substitute for rows 9–11) | `curl -s -X POST https://validator.schema.org/validate --data-urlencode url=<page>` for all three URLs | No severe errors other than the D-14 `teamSize`/`role` exception | Home: 0 errors (WebSite, Person, SearchAction). Blog: 0 errors (Article, BreadcrumbList, Person, WebPage). GrowIt: 1 error — `INVALID_PREDICATE teamSize on CreativeWork`, the expected D-14 exception. All three `isRendered: true` | 10-verification-screenshots/schemaorg-home.json, schemaorg-projects-growit.json, schemaorg-blog-profits-not-pixels.json | pass | Not a like-for-like RRT substitute: this validates schema.org vocabulary conformance, not Google's rich-result eligibility. It does establish that no malformed markup exists for RRT to report |
 
 ## Run Log
@@ -44,24 +44,58 @@ Any Rich Results Test **ERROR** blocks phase completion until fixed and re-verif
 
 ## D-23 Gate
 
-**Not blocked.** D-23 blocks on a Rich Results Test *ERROR*. No RRT error was
-reported, because RRT never ran — it refused before testing and asked for a
-login. The independent schema.org validator (row 14) found zero severe errors
-on two of the three URLs and, on the third, only the `teamSize` predicate that
-D-14 already declared expected and non-blocking. Nothing in the markup can
-produce an RRT error that this pass would have hidden.
+**Not blocked.** All three Rich Results Tests ran clean on 2026-08-22 against
+production: home reported "No items detected" (expected — Person and WebSite are
+not rich-result types), `/projects/growit` reported 1 valid Breadcrumbs item with
+no errors and no warnings, and the blog post reported 3 valid items (Articles,
+Breadcrumbs, Paywalled Content). **Zero errors on all three URLs.** The five
+issues on the blog Article are each marked `(optional)` by the tool, which is the
+warning class D-23 declares non-blocking.
 
-`automate-verification.js` recorded rows 9–11 as `fail` with "Rich Results Test
-reported errors in page content". That is a false negative: the script matched
+### History — the earlier `fail` was a false negative
+
+`automate-verification.js` previously recorded rows 9–11 as `fail` with "Rich
+Results Test reported errors in page content". That was wrong: the script matched
 error text on the page without distinguishing Google's *"Something went wrong —
-Log in and try again"* dialog from a structured-data finding. The screenshots it
-saved are the proof of the login wall, and the checklist above is authoritative
-over `automation-results.json`.
+Log in and try again"* dialog from a structured-data finding. RRT had refused to
+run at all, because it now requires a signed-in Google account and the headless
+run could not authenticate. Rows 9–11 were then correctly reclassified `blocked`.
+The 2026-08-22 re-run in Randy's authenticated session cleared them properly.
+`automation-results.json` is superseded by this checklist and should not be read
+as a verdict.
+
+## Observations for Randy (not Phase 10 gates)
+
+- **Blog article dates carry no time or timezone.** `datePublished` and
+  `dateModified` both serialize as `2025-07-21`. Google flags each twice —
+  invalid datetime value, and missing timezone — four of the five warnings on the
+  Article. Emitting full ISO-8601 with an offset would clear them.
+- **The Article has no `image`.** Optional for validity, but articles with an
+  image are eligible for richer treatment in Search.
+- **`Paywalled Content` is being detected** on a post that is not paywalled. Worth
+  confirming the `isAccessibleForFree` markup says what is intended.
+- **The Person carries two `jobTitle` values** — "Head of Product" and "Fractional
+  Chief Design Officer". Valid, and consistent with the v1.0 single-title-lane
+  decision, but worth a deliberate look given the reader question logged in
+  `MILESTONE-CONTEXT.md`.
 
 ## Open for Randy
 
-- **Rows 9–11 (Rich Results Test)** — needs a signed-in Google account. Paste each
-  URL into https://search.google.com/test/rich-results while logged in; expect the
-  `teamSize`/`role` warnings on GrowIt and nothing else.
-- **Row 13 (Search Console)** — needs Randy's account to confirm the property exists
-  and the sitemap shows status Success.
+- **Row 13 (Search Console)** — the only remaining gate. No property exists for
+  work.randyellis.design under the account signed in on this machine, and the site
+  carries no verification meta tag, so ownership has never been established.
+  Creating the property requires a DNS TXT record, a deployed meta tag, or an
+  uploaded HTML file — none of which Claude can complete alone. Start the
+  Add-property flow, and if you choose the meta-tag route, hand over the token and
+  Claude will wire it into `lib/metadata.ts` and ship it.
+
+## Outcome — 13/14 pass, 1 blocked (row 13, D-18)
+
+Rows 1–12 and 14 pass with proof on disk. Row 13 (Search Console sitemap
+submission) is blocked on property creation and ownership verification, which is
+a human-only step.
+
+**D-23 is satisfied** — zero Rich Results errors across all three sampled URLs.
+Phase 10 SC5 is therefore met on every dimension except the D-18 Search Console
+submission, which stays open. Phase 10 is not complete until row 13 closes or the
+D-18 requirement is formally waived.
