@@ -8,6 +8,12 @@ import type { MediaItem } from "@/components/case-study/case-study-template";
  * the right box and nothing is letterboxed or stretched.
  *
  * Deliberately excluded:
+ * - `growit`'s `app-screens-overview.jpg` and `dashboard-overview.jpg` — the
+ *   same stock photograph of Lurie Garden in Chicago saved under two
+ *   product-sounding filenames, previously captioned as the app's core flow and
+ *   as a user dashboard. `mobile-interface.jpg` and `app-mockup-1.jpg` are the
+ *   same kind of thing and were never listed. A case study that shows stock
+ *   photography as product work is worse than one that shows less.
  * - `nagarro` — its six entries in PROJECTS.images are placeholder SVGs (a
  *   navy rectangle with a dashed red border), not artifacts of the work.
  * - `rambis-ui`'s seven image paths and two of `addvanced`'s — those files are
@@ -28,32 +34,19 @@ export const PROJECT_MEDIA: Record<string, readonly MediaItem[]> = {
       caption: "The shipped app, end to end.",
     },
     {
-      src: "/projects/growit/app-screens-overview.jpg",
-      alt: "Overview of GrowIt! app screens across the plant discovery flow",
-      width: 1920,
-      height: 1080,
+      src: "/projects/growit/before-after-comparison.jpg",
+      alt: "The GrowIt! Explore screen on a phone, headed \u201cViewing plants within 100 miles of Chicago, IL\u201d above a feed of community plant photos",
+      width: 1000,
+      height: 667,
       caption:
-        "The core flow: identify a plant, log it, watch it through a season.",
+        "Discovery, scoped to a radius. The header states the distance it is drawing from, which is the same rule that widens when a local feed comes up short.",
     },
     {
       src: "/projects/growit/persona-research.png",
-      alt: "GrowIt! persona research boards profiling gardener types and their goals",
+      alt: "GrowIt! persona board for Gregory Hamner, 51, a garden centre manager in Boise \u2014 goals, frustrations, motivations and preferred channels",
       width: 1200,
       height: 855,
       caption: "Persona work that set who the app was actually for.",
-    },
-    {
-      src: "/projects/growit/before-after-comparison.jpg",
-      alt: "Before and after comparison of the GrowIt! interface redesign",
-      width: 1000,
-      height: 667,
-      caption: "Before and after the redesign.",
-    },
-    {
-      src: "/projects/growit/dashboard-overview.jpg",
-      alt: "GrowIt! dashboard showing a user's tracked plants and growth data",
-      width: 1920,
-      height: 1080,
     },
   ],
   ohplays: [
