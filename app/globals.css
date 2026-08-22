@@ -2,6 +2,86 @@
 @plugin '@tailwindcss/typography';
 @custom-variant dark (&:is(.dark *));
 
+/*
+  The semantic colour layer.
+
+  Tailwind v4 does not read `tailwind.config.js` unless a stylesheet asks it to,
+  and this one never did — so every `bg-card`, `text-muted-foreground`,
+  `bg-primary` and `border-border` in the tree compiled to nothing. Badges
+  rendered as transparent chips, separators were invisible, and cards had no
+  ground. The values below come from DESIGN.md's palette, so the semantic names
+  resolve to the same zinc ramp the hand-written classes already use rather than
+  to a second, competing set of colours.
+
+  Card is deliberately the same value as background: this system draws depth
+  with a hairline, never with a tinted or lifted surface.
+*/
+:root {
+  --background: #ffffff; /* Paper */
+  --foreground: #18181b; /* Ink */
+  --card: #ffffff;
+  --card-foreground: #18181b;
+  --popover: #ffffff;
+  --popover-foreground: #18181b;
+  --primary: #18181b; /* Ink fill, Paper label */
+  --primary-foreground: #ffffff;
+  --secondary: #f4f4f5; /* Wash */
+  --secondary-foreground: #18181b;
+  --muted: #f4f4f5;
+  --muted-foreground: #71717a; /* Quiet */
+  --accent: #f4f4f5;
+  --accent-foreground: #18181b;
+  --destructive: #b91c1c;
+  --destructive-foreground: #ffffff;
+  --border: #e4e4e7; /* Hairline */
+  --input: #d4d4d8; /* Edge */
+  --ring: #18181b;
+}
+
+.dark {
+  --background: #09090b; /* Ink Deep */
+  --foreground: #fafafa; /* Paper Inverse */
+  --card: #09090b;
+  --card-foreground: #fafafa;
+  --popover: #09090b;
+  --popover-foreground: #fafafa;
+  --primary: #ffffff; /* inverted: Paper fill, Ink label */
+  --primary-foreground: #18181b;
+  --secondary: #18181b; /* Wash Inverse */
+  --secondary-foreground: #fafafa;
+  --muted: #18181b;
+  --muted-foreground: #a1a1aa; /* Quiet Inverse — steps one stop lighter */
+  --accent: #18181b;
+  --accent-foreground: #fafafa;
+  --destructive: #f87171;
+  --destructive-foreground: #18181b;
+  --border: #27272a; /* Hairline Inverse */
+  --input: #3f3f46; /* Edge Inverse */
+  --ring: #fafafa;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
 /* Motion and interaction utilities */
 @utility motion-safe {
   @media (prefers-reduced-motion: no-preference) {
@@ -29,7 +109,9 @@
   ::before,
   ::backdrop,
   ::file-selector-button {
-    border-color: var(--color-gray-200, currentColor);
+    /* zinc, not gray: a bare `border-t` anywhere in the tree should land in
+       the same colour family as every hairline the design system draws. */
+    border-color: var(--color-zinc-200, currentColor);
   }
 
   /* Video Player Custom Styles */
