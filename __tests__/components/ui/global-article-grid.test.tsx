@@ -529,10 +529,15 @@ describe("GlobalArticleGrid", () => {
   });
 
   describe("Performance Tests", () => {
-    it("should implement lazy loading for images", () => {
+    it("ships no placeholder imagery", () => {
       render(<GlobalArticleGrid />);
 
-      const images = screen.getAllByRole("img", { hidden: true });
+      // Each card used to open with a random photograph from picsum.photos,
+      // keyed by slug — a placeholder service standing in for article art.
+      // The title and description are the preview; any image added back here
+      // must be real and must carry loading/decoding hints.
+      const images = screen.queryAllByRole("img", { hidden: true });
+      expect(images).toHaveLength(0);
       images.forEach((img) => {
         expect(img).toHaveAttribute("loading", "lazy");
         expect(img).toHaveAttribute("decoding", "async");

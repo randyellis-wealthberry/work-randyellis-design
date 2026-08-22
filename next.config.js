@@ -164,7 +164,8 @@ const nextConfig = {
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     unoptimized: false,
-    domains: ["images.unsplash.com", "picsum.photos"],
+    // picsum.photos removed with the placeholder article art it served.
+    domains: ["images.unsplash.com"],
     remotePatterns: [
       {
         protocol: "https",

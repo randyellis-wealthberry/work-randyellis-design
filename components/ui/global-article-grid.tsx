@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { Star } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { AdvancedReadTimeBadge } from "@/components/ui/advanced-read-time-badge";
@@ -170,17 +169,10 @@ export function GlobalArticleGrid({
                 </div>
               )}
 
-              {/* Article Hero Image */}
-              <div className="relative aspect-video overflow-hidden rounded-t-lg">
-                <Image
-                  src={`https://picsum.photos/600/300?random=${article.slug}`}
-                  alt={`${article.title} preview`}
-                  fill
-                  className="object-cover transition-transform duration-300 group-hover:scale-105"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                />
-              </div>
-
+              {/* No hero image. What sat here was a random photograph pulled
+                  from picsum.photos per slug — a placeholder service standing
+                  in for article art, cropped to 16:9 and unrelated to the
+                  writing. An article's title and description are its preview. */}
               <Link
                 href={`/blog/${article.slug}`}
                 className="block h-full p-6 no-underline"

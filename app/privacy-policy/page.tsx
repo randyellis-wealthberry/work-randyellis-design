@@ -12,9 +12,9 @@ export default function PrivacyPolicyPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-12">
       <h1 className="mb-8 text-3xl font-bold">Privacy Policy</h1>
-      <div className="prose prose-zinc dark:prose-invert max-w-none">
+      <div className="prose prose-zinc dark:prose-invert">
         <p className="mb-6 text-sm text-zinc-600 dark:text-zinc-400">
-          Last updated: {new Date().toLocaleDateString()}
+          Last updated: <time dateTime="2026-08-19">19 August 2026</time>
         </p>
 
         <h2>1. Information We Collect</h2>
@@ -148,13 +148,7 @@ export default function PrivacyPolicyPage() {
         <h3>Exercise Your Rights</h3>
         <p>
           To exercise any of these rights, contact us at:{" "}
-          <a
-            href="https://zinley.com/card/angela"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            angela@me.zinley.com
-          </a>
+          <a href="mailto:hello@randyellis.design">hello@randyellis.design</a>
         </p>
 
         <h2>5. Data Security and Retention</h2>
@@ -251,13 +245,7 @@ export default function PrivacyPolicyPage() {
         <ul>
           <li>
             <strong>Email:</strong>{" "}
-            <a
-              href="https://zinley.com/card/angela"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              angela@me.zinley.com
-            </a>
+            <a href="mailto:hello@randyellis.design">hello@randyellis.design</a>
           </li>
           <li>
             <strong>Website:</strong> work.randyellis.design

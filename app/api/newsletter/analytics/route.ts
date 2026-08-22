@@ -1,8 +1,13 @@
 import { NextResponse } from "next/server";
 import { emailStorage } from "@/lib/email-storage";
+import { isAdminRequest, unauthorized } from "@/lib/security/admin-auth";
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
+    // Reads every subscription record to derive growth and source breakdowns.
+    // Same gate as stats and export.
+    if (!isAdminRequest(request)) return unauthorized();
+
     const subscriptions = await emailStorage.getAllSubscriptions();
     const now = new Date();
     const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
