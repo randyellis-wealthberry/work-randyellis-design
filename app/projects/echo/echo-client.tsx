@@ -7,6 +7,10 @@ import {
   ROW,
   type Capability,
 } from "@/components/case-study/case-study-template";
+import {
+  CaseStudyDiagramSection,
+  diagramTocExtra,
+} from "@/components/case-study/diagrams";
 import { PROJECT_MEDIA } from "@/lib/data/project-media";
 import { PROJECTS } from "@/lib/data/projects";
 
@@ -71,10 +75,15 @@ export default function EchoClientPage() {
       capabilitiesLabel="What EchoDrive does"
       deliverablesLabel="What shipped"
       closeHeadline="Field research is the cheapest part of a logistics build, and the part most teams skip."
-      tocExtra={
-        quotes.length > 0 ? [{ id: "client", label: QUOTES_LABEL }] : []
-      }
+      tocExtra={[
+        ...diagramTocExtra("echo"),
+        ...(quotes.length > 0 ? [{ id: "client", label: QUOTES_LABEL }] : []),
+      ]}
     >
+      {/* The handoff this page argues for, drawn. It reads as the synthesis of
+          the decisions above, so it opens the page's own sections. */}
+      <CaseStudyDiagramSection slug="echo" />
+
       {quotes.length > 0 && (
         <section
           id="client"

@@ -276,6 +276,39 @@
   --sh-entity: #d4d4d8;
 }
 
+/*
+  Case-study diagrams.
+
+  Six variables, and every other value inside a diagram derives from these by
+  opacity — a lane tint is ink at 0.018, a step chip is ink at 0.12, focal text
+  is paper at 0.78. That is what lets one inline SVG serve both themes instead
+  of shipping a light copy and a dark copy of the same figure.
+
+  There is no accent hue here on purpose. The system has exactly one (Live
+  Amber, on the Live Product badge); spending it on diagram nodes would empty
+  it of meaning, so a diagram's focal node signals by inverting instead —
+  solid Ink fill, Paper text.
+*/
+.diagram-figure {
+  --dg-paper: #ffffff;
+  --dg-wash: #f4f4f5;
+  --dg-ink: #18181b;
+  --dg-prose: #52525b;
+  --dg-quiet: #71717a;
+  --dg-edge: #d4d4d8;
+  --dg-hairline: #e4e4e7;
+}
+
+.dark .diagram-figure {
+  --dg-paper: #09090b;
+  --dg-wash: #18181b;
+  --dg-ink: #fafafa;
+  --dg-prose: #d4d4d8;
+  --dg-quiet: #a1a1aa;
+  --dg-edge: #3f3f46;
+  --dg-hairline: #27272a;
+}
+
 /* Screen reader only utility for hidden SEO content */
 @layer utilities {
   .sr-only {

@@ -4,6 +4,10 @@ import {
   CaseStudyTemplate,
   type RecordLink,
 } from "@/components/case-study/case-study-template";
+import {
+  CaseStudyDiagramSection,
+  diagramTocExtra,
+} from "@/components/case-study/diagrams";
 import { PROJECT_MEDIA } from "@/lib/data/project-media";
 import type { Project } from "@/lib/data/types";
 
@@ -87,6 +91,11 @@ export default function ProjectDetailClient({
       record={record}
       proofNote={copy?.note ?? fallbackNote}
       deliverablesLabel="What shipped"
-    />
+      tocExtra={diagramTocExtra(project.slug)}
+    >
+      {/* Renders only for the slugs that have a diagram; the rest get nothing
+          rather than an empty section. */}
+      <CaseStudyDiagramSection slug={project.slug} />
+    </CaseStudyTemplate>
   );
 }
