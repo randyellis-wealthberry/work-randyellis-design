@@ -139,6 +139,17 @@ export function MobileMenu({ isOpen, onOpenChange }: MobileMenuProps) {
               </Link>
 
               <Link
+                href="/services"
+                onClick={handleNavigationClick}
+                className="group flex min-h-[44px] items-center rounded-lg px-4 py-3 text-base font-medium text-zinc-600 transition-colors hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
+              >
+                Services
+                <span className="ml-auto text-zinc-400 opacity-0 transition-opacity group-hover:opacity-100 dark:text-zinc-600">
+                  →
+                </span>
+              </Link>
+
+              <Link
                 href="/projects"
                 onClick={handleNavigationClick}
                 className="group flex min-h-[44px] items-center rounded-lg px-4 py-3 text-base font-medium text-zinc-600 transition-colors hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"

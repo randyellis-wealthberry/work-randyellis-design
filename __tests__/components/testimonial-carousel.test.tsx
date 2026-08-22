@@ -8,6 +8,7 @@ jest.mock("motion/react", () => ({
     div: ({ children, ...props }: any) => <div {...props}>{children}</div>,
   },
   useInView: jest.fn(() => true),
+  useReducedMotion: jest.fn(() => false),
 }));
 
 // Mock Shadcn UI carousel
@@ -57,35 +58,6 @@ jest.mock("../../components/ui/carousel", () => ({
     <button data-testid="carousel-previous" {...props}>
       Previous
     </button>
-  ),
-}));
-
-// Mock Shadcn UI card
-jest.mock("../../components/ui/card", () => ({
-  Card: ({ children, ...props }: any) => (
-    <div data-testid="card" {...props}>
-      {children}
-    </div>
-  ),
-  CardContent: ({ children, ...props }: any) => (
-    <div data-testid="card-content" {...props}>
-      {children}
-    </div>
-  ),
-  CardDescription: ({ children, ...props }: any) => (
-    <div data-testid="card-description" {...props}>
-      {children}
-    </div>
-  ),
-  CardHeader: ({ children, ...props }: any) => (
-    <div data-testid="card-header" {...props}>
-      {children}
-    </div>
-  ),
-  CardTitle: ({ children, ...props }: any) => (
-    <h3 data-testid="card-title" {...props}>
-      {children}
-    </h3>
   ),
 }));
 
@@ -185,35 +157,54 @@ describe("TestimonialCarousel", () => {
     });
   });
 
-  describe("card structure", () => {
-    it("uses cards for testimonials", () => {
-      render(<TestimonialCarousel testimonials={mockTestimonials} />);
+  describe("quote structure", () => {
+    // Each quote is a figure bounded by hairlines, not a card: the editorial
+    // surfaces build structure from rules, and a shadowed box would group
+    // content the way this design system never does.
+    it("renders each testimonial as a figure with a blockquote", () => {
+      const { container } = render(
+        <TestimonialCarousel testimonials={mockTestimonials} />,
+      );
 
-      const cards = screen.getAllByTestId("card");
-      expect(cards).toHaveLength(mockTestimonials.length);
+      expect(container.querySelectorAll("figure")).toHaveLength(
+        mockTestimonials.length,
+      );
+      expect(container.querySelectorAll("blockquote")).toHaveLength(
+        mockTestimonials.length,
+      );
     });
 
-    it("has proper card content structure", () => {
-      render(<TestimonialCarousel testimonials={mockTestimonials} />);
+    it("attributes every quote in a figcaption", () => {
+      const { container } = render(
+        <TestimonialCarousel testimonials={mockTestimonials} />,
+      );
 
-      const cardContents = screen.getAllByTestId("card-content");
-      expect(cardContents.length).toBeGreaterThan(0);
+      expect(container.querySelectorAll("figcaption")).toHaveLength(
+        mockTestimonials.length,
+      );
     });
   });
 
   describe("accessibility", () => {
-    it("has proper heading structure for testimonial attribution", () => {
+    it("gives every pager control a 44px target and a label", () => {
       render(<TestimonialCarousel testimonials={mockTestimonials} />);
 
-      const cardTitles = screen.getAllByTestId("card-title");
-      expect(cardTitles.length).toBeGreaterThan(0);
+      const dots = screen.getAllByRole("button", {
+        name: /go to testimonial/i,
+      });
+      expect(dots.length).toBeGreaterThan(0);
+      dots.forEach((dot) => {
+        expect(dot).toHaveClass("h-11");
+      });
     });
 
-    it("includes role descriptions for context", () => {
+    it("marks the current testimonial for assistive technology", () => {
       render(<TestimonialCarousel testimonials={mockTestimonials} />);
 
-      const cardDescriptions = screen.getAllByTestId("card-description");
-      expect(cardDescriptions.length).toBeGreaterThan(0);
+      const current = screen
+        .getAllByRole("button", { name: /go to testimonial/i })
+        .filter((dot) => dot.getAttribute("aria-current") === "true");
+      expect(current).toHaveLength(1);
     });
   });
 

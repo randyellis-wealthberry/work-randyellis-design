@@ -26,6 +26,11 @@ export const SITE_PAGES: ReadonlyArray<{
     description: "Background, roles, and how I work",
   },
   {
+    title: "Services",
+    href: "/services",
+    description: "Fractional CDO retainer — fixed hours, monthly",
+  },
+  {
     title: "Projects",
     href: "/projects",
     description: "Case studies and product work",
