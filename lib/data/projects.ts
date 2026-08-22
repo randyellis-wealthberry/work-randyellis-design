@@ -1309,7 +1309,7 @@ export const PROJECTS: Project[] = [
     video: "",
     thumbnail: "/projects/waffle/hero-thumbnail.webp",
     images: [
-      "/projects/waffle/dashboard.png",
+      "/projects/waffle/chat-home.png",
       "/projects/waffle/scorecard-overview.png",
       "/projects/waffle/scorecard-questions.png",
       "/projects/waffle/scorecard-templates.png",

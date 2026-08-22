@@ -241,10 +241,10 @@ export const PROJECT_MEDIA: Record<string, readonly MediaItem[]> = {
         "The public landing page at waffle.cards: paste a job description and watch the scorecard build itself live.",
     },
     {
-      src: "/projects/waffle/dashboard.png",
+      src: "/projects/waffle/chat-home.png",
       alt: "The Waffle chat home: a greeting, four role starter cards for software engineer, product manager, sales representative and designer, locked interview-prep and candidate-compare actions, and an input reading \u201cDescribe the role you're hiring for\u201d",
       width: 1920,
-      height: 1171,
+      height: 1033,
       caption:
         "Where a scorecard starts: a sentence about the role, not a form. The starter cards are a way in for anyone who would rather not begin from a blank field.",
     },
