@@ -148,4 +148,21 @@ All four researchers independently converged on the correction:
 
 | REQ-ID | Phase | Status |
 |--------|-------|--------|
-| _(filled by roadmap)_ | | |
+| CRED-10 | Phase 11 | Pending |
+| CRED-11 | Phase 11 | Pending |
+| CRED-12 | Phase 11 | Pending |
+| CRED-13 | Phase 11 | Pending |
+| CRED-14 | Phase 11 | Pending |
+| CRED-15 | Phase 11 | Pending |
+| CRED-16 | Phase 11 | Pending |
+| PRF-01 | Phase 11 | Pending |
+| PRF-02 | Phase 11 | Pending |
+| ENT-01 | Phase 12 | Pending |
+| ENT-02 | Phase 12 | Pending |
+| ENT-03 | Phase 12 | Pending (human gate — see ENT-03 planning constraint) |
+| ENT-04 | Phase 12 | Pending |
+| ENT-05 | Phase 12 | Pending |
+
+**Coverage:** 14/14 committed v3.0 requirements mapped. No orphans.
+
+Deferred (not mapped to a phase — see "Future Requirements" above): MI-4, EL-5, GE-3, POL-01, dead-code cleanup.

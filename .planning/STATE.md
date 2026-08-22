@@ -3,10 +3,10 @@ gsd_state_version: 1.0
 milestone: v3.0
 milestone_name: Enterprise Credibility
 status: planning
-last_updated: "2026-08-22T22:40:11.814Z"
+last_updated: "2026-08-22T23:00:00.000Z"
 last_activity: 2026-08-22
 progress:
-  total_phases: 0
+  total_phases: 2
   completed_phases: 0
   total_plans: 0
   completed_plans: 0
@@ -17,17 +17,19 @@ progress:
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-08-15 after v1.0 milestone)
+See: .planning/PROJECT.md (updated 2026-08-22 after v2.0 milestone shipped)
 
-**Core value:** A hiring manager finds a coherent, senior, *verifiable* story with an obvious way to book a conversation — shipped and audit-verified in v1.0. v2.0 adds proof of *how Randy decides*.
-**Current focus:** v3.0 Enterprise Credibility — defining requirements
+**Core value:** A hiring manager finds a coherent, senior, *verifiable* story with an obvious way to book a conversation — shipped and audit-verified in v1.0. v2.0 added proof of *how Randy decides*. v3.0 closes the metric-integrity gap v2.0 carried forward and makes Echo/Nagarro legible as regulated, large-organization proof.
+**Current focus:** v3.0 Enterprise Credibility — Phase 11 (Metric Integrity Close-Out), ready to plan
 
 ## Current Position
 
-Phase: Not started (defining requirements)
-Plan: —
-Status: Defining requirements
-Last activity: 2026-08-22 — Milestone v3.0 started
+Phase: 11 of 12 (Metric Integrity Close-Out)
+Plan: TBD — roadmap created, plans not yet generated
+Status: Ready to plan
+Last activity: 2026-08-22 — ROADMAP.md written for Phase 11-12; REQUIREMENTS.md traceability filled (14/14 mapped)
+
+Progress: [░░░░░░░░░░] 0%
 
 ## Performance Metrics
 
@@ -44,47 +46,38 @@ Last activity: 2026-08-22 — Milestone v3.0 started
 | 09 | 5 | - | - |
 
 **Recent Trend:** — (no v3.0 plans executed yet)
-| Phase 05 P02 | 19min | 5 tasks | 24 files |
 
 ## Accumulated Context
 
 ### Roadmap Evolution
 
-- Phase 10 added 2026-08-16: SEO Remediation — scoped from `.planning/research/SEO-AUDIT.md` (codebase audit: stale sw.js kill switch, robots `/_next/` block, `/test` noindex, structured-data consolidation sequenced after Phase 9 CRED-09, sitemap lastModified, live post-deploy verification). Depends on Phase 9.
+- Phase 10 added 2026-08-16: SEO Remediation — scoped from `.planning/research/SEO-AUDIT.md`. Depends on Phase 9.
+- Phase 11-12 added 2026-08-22: v3.0 Enterprise Credibility roadmap created from `.planning/research/SUMMARY.md` (4 parallel researchers, HIGH confidence). Phase 11 = Metric Integrity Close-Out (CRED-10..16, PRF-01/02, 9 requirements). Phase 12 = Enterprise Legibility (ENT-01..05, 5 requirements). Sequenced (not parallelized) because `app/page.tsx` is the single file both phases touch — Phase 11 must fully land, including its regression-test rewrite, before Phase 12 reopens it.
 
 ### Decisions
 
 Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecting current work:
 
-- Roadmap: bespoke-page convergence strategy = insert shared narrative components into the 5 existing bespoke routes (Phase 7), NOT collapse them onto a single generic template — de-risked per architecture research
-- Roadmap: `ledgeriq` orphan-route deletion (FND-02) scheduled before its content rewrite so copy isn't authored twice
-- ~~Roadmap: deck-coverage audit (FND-03) is a hard gate before Phase 8 content~~ — **REVERSED 2026-08-15 by Randy.** The deck is one record of his work, not its boundary; his firsthand account is a valid source. Audit demoted to advisory reference. Surviving guardrails: self-consistency across surfaces, credit attribution (CRED-06), NDA judgment (CRED-08)
-- Roadmap: CRED-09 cross-surface verification is its own final phase (9), not folded into "content done" — modeled on v1.0 audit remediation
-- [Phase 05]: D-12 accessibility contract carried forward for Phase 6: preserve deleted case-study-section.tsx's section id / role=region / aria-labelledby->{id}-heading contract while rendering the heading via ScrambleSectionTitle, not a plain h2
-- [Phase 05]: D-16 no-AI-slop chip allowlist for Phase 6 UI-SPEC.md: Badge primitive only, no lucide icons, no Card wrapper, no new tokens, amber accent reserved for the Live Product status badge
-- [Phase 06]: `TextScramble` no longer sets `role="button"`/`tabIndex` — it overrode heading semantics on every `ScrambleSectionTitle` site-wide, so screen readers got buttons instead of a document outline. Verified `role="button"` count is now 0 across all 7 case-study pages
-- [Phase 06]: `decisions[].outcome` is optional by design — omitting it is how the model declines to state a result instead of inventing one (CRED-07)
-- ~~[Phase 07]: `CaseStudyNarrative` composite added so bespoke pages share one component set rather than four hand-copied JSX blocks that drift~~ — **SUPERSEDED 2026-08-22 by Randy.** The convergence it hedged against happened: all 7 case studies now render through `components/case-study/case-study-template.tsx`, which composes `RoleNarrativeSection`, `DecisionCallout`, `ReflectionBlock` and `CaseStudyTOC` itself with each page's own labels. The composite had no remaining caller and was deleted; the four parts it wrapped survive as the template's implementation
-- [Phase 05]: FND-01 closed: Project type resolves exclusively from lib/data/types.ts; app/data.ts deleted; Phase 6 decisions[]/roleNarrative fields will typecheck against the live model
+- Roadmap: Phase 11 must complete (figure removal + `home-page-argument.test.tsx` rewrite) before Phase 12 opens `app/page.tsx` again — the one cross-phase file conflict
+- Roadmap: CRED-14 (test rewrite) is required in the SAME plan as CRED-10 (figure removal) — the existing test currently asserts the unbacked figures ARE present and goes red the instant they're removed
+- Roadmap: PRF-02 (stat-band layout after removing 3 of 4 figures) is one design decision applied once across 5 render surfaces, not solved independently five times — the single biggest scope-sizing risk research flagged for Phase 11
+- Roadmap: the plan carrying ENT-03 (Nagarro metrics reframe) must be marked `autonomous: false` — Randy's per-metric disposition for NAGARRO-01..08 is a human gate structurally identical to v2.0's CRED-08 sign-off
+- Randy, 2026-08-22 (requirements definition): Nagarro's 8 `Unbacked` metrics resolve via firsthand-account policy (same rule as v2.0's case-study content), not deletion — requires per-metric disposition recorded first
+- Randy, 2026-08-22: stat band replacement = promote the 4 named awards from JSON-LD-only to visible copy; no computed/blended aggregate
+- Randy, 2026-08-22: grouped entry point = one `<Link>`, no multi-chip filter bar (n=1 problem — only Echo is genuinely regulated/field-ops today)
+- Randy, 2026-08-22: repo docs (PRODUCT.md, README.md, SEO_OPTIMIZATION_REPORT.md, docs/reports/accessibility/implementation-roadmap.md) ARE in scope for the figure-removal grep sweep (CRED-16), excluded from the automated regression test's scan roots
+- Research correction, 2026-08-22: `components/core/animated-number-basic.tsx` (cited by PROJECT.md and the v2.0 audit as "the source" of the three figures) is dead code, zero imports, retired in effect by commit `8de7262` — there is no single source; the figures are hand-typed into ~10 live surfaces independently
+- Research finding, 2026-08-22: two live defects exist in no prior audit — `app/about/opengraph-image.tsx:238` renders "6" Design Awards (third recurrence of v1.0's CRED-01), and Echo's `"Significant"` metric ships live in JSON-LD despite being invisible on Echo's own rendered page
 
 ### Pending Todos
 
-- **Decision content: 7 of 7 projects populated** (17 decisions total). growit 5, addvanced 2, rambis-ui 2, ohplays 2, echo 2, nagarro 2, ledgeriq 2. Outcomes present on 14 of 17; ledgeriq's 2 and one nagarro decision are absent by choice rather than invented.
-- **CNT-01..08 complete 2026-08-16.** Voice pass done: corporate "we/our" went 41 → 14 across the 7 projects, and every surviving instance is deliberate — the 3 Echo stakeholder quotes (other people speaking), genuine team execution on 3-person and 4-person teams, and Nagarro's org-level "our". Not a find/replace: CRED-06 requires "we" where a team executed and "I" only for Randy's own calls. No sections were thin, so nothing needed filling.
-- **Voice pass also caught two attribution leftovers**: ohplays' reflection opened "Leading Oh!Plays" (he was UX Researcher & Designer) and leaned on "the success of Oh!Plays", a post-launch outcome he had already said was not his. Both rewritten.
-- ~~LedgerIQ composite disclosure surface~~ **RESOLVED 2026-08-16.** Added `Project.isComposite`, driving a "Composite" badge on the grid card and a "Composite Case Study" badge plus a one-line explanation in the detail-page hero. Grid status badges now share one stacking container so Live Product and Composite cannot overlap.
-- **Echo NDA line applied (CRED-08 RESOLVED).** Randy set it at process-and-design-only. Removed "$184.4 million" LTL revenue, "16% revenue increase", "12% shipment volume", "1,000 beta downloads" and "10,000+ active drivers" from five surfaces: project data, the bespoke client hero, `processStory.outcome`, two stakeholder quotes, and page metadata (description + OpenGraph).
-- **Nagarro NDA: none (CRED-08 RESOLVED).** Randy confirmed a public-facing role; its metrics are publishable and stay.
-- ~~Echo stakeholder quote sourcing~~ **RESOLVED 2026-08-16.** Randy confirmed the quotes come from real project retros and emails. They stay, with the business figures already stripped.
+None yet for v3.0.
 
 ### Blockers/Concerns
 
-- Phase 8 requires Randy's sign-off (CRED-08) on NDA/confidentiality depth for Nagarro and Echo before that content ships — not resolvable without his input
-- LedgerIQ's real-vs-composite status is ambiguous (existing copy reads hypothetical/composite) — confirm with Randy before deepening its narrative in Phase 8
-- ~~Verify 4.8★ App Store rating and 240K+ users~~ RESOLVED 2026-08-16: Randy confirmed both are real and sourceable. They appear on 6 surfaces (homepage, projects metadata, OG image, JSON-LD FAQ, structured data, project metrics) and stay. Optional follow-up: add an as-of date so they age honestly — needs the date from Randy.
-- ~~Verify Chameleon Collective URL (carried from v1.0)~~ RESOLVED 2026-08-21 (Phase 10 plan 10-08): `https://chameleoncollective.com` returns HTTP 200 in one hop; both visible occurrences confirmed; the legacy schema module carrying the other references was deleted
-- ~~LedgerIQ real-vs-composite ambiguity~~ RESOLVED 2026-08-15: it is a composite, now disclosed in roleNarrative
-- ~~Phase 8 requires Randy's sign-off (CRED-08) on Nagarro and Echo~~ RESOLVED 2026-08-15: Echo = process/design only, Nagarro = unrestricted
+- **ENT-03 human gate (Phase 12):** Nagarro's per-metric disposition for NAGARRO-01..08 (backed-by-alternate-source / downgraded-to-qualitative / accepted-as-firsthand-account) must be recorded by Randy before any reframe copy is written. Not resolvable without his input — mirrors v2.0's CRED-08, which was a real blocker.
+- **`related-content.tsx` live/dead status disputed:** 3 of 4 researchers call it a live surface (renders "2.5M+ users" at line 255); the 4th traced `app/blog/layout.tsx:4`'s import as commented-out and calls it dead. Needs a fresh check at Phase 11 plan time before deciding whether to edit it.
+- **Echo's category term (ENT-01) is undecided** and must be collision-checked against every project's existing `category`/`categories[]`/`tags[]` before selection — Nagarro already carries `"Accessibility Compliance"`, and `lib/project-utils.ts` matches by case-insensitive substring.
 
 ## Deferred Items
 
@@ -95,14 +88,18 @@ Items acknowledged and carried forward from previous milestone close:
 | Tech debt | POS-02 proof-chips deviation | Folded into Phase 5 (DEBT-01) | v1.0 close |
 | Tech debt | WAF-02 badge click dead-zone | Folded into Phase 5 (DEBT-02) | v1.0 close |
 | Tech debt | Stale `app/data.ts` PROJECTS array | Folded into Phase 5 (FND-01) | v1.0 close |
-| Polish | Visual polish pass beyond case-study surfaces | Deferred to v2.x/v3 (POL-01) | v1.0 close |
+| Polish | Visual polish pass beyond case-study surfaces | Deferred to v3.x (POL-01) | v1.0 close |
+| Data model | Consolidate `about-client.tsx`'s `achievements` into `PROOF_EXHIBITS` | Deferred past v3.0 (MI-4) | v3.0 requirements |
+| Content | Surface Echo's `constraints.environmental` data | Deferred past v3.0 (EL-5) | v3.0 requirements |
+| A11y | Reuse `role="status"` filter-state announcement on new entry point | Deferred past v3.0 (GE-3) | v3.0 requirements |
+| Tech debt | Dead-code cleanup: `enhanced-metrics-grid.tsx`, `enhanced-hover-cards.tsx` | Deferred past v3.0 | v3.0 requirements |
 
 ## Session Continuity
 
-Last session: 2026-08-22T00:05:40.299Z
-Stopped at: Phase 10 context gathered
+Last session: 2026-08-22T23:00:00.000Z
+Stopped at: v3.0 ROADMAP.md written (Phase 11-12), REQUIREMENTS.md traceability filled, STATE.md updated
 Resume file: None
 
 ## Operator Next Steps
 
-- Start the next milestone with /gsd-new-milestone
+- Run `/gsd:plan-phase 11` to plan Metric Integrity Close-Out
