@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v2.0
 milestone_name: Case-Study Depth
-status: executing
-stopped_at: Phase 10 context gathered
-last_updated: "2026-08-22T00:05:40.312Z"
-last_activity: 2026-08-22
+status: complete
+stopped_at: v2.0 archived; v3.0 staged in MILESTONE-CONTEXT.md
+last_updated: "2026-08-22T22:26:40.178Z"
+last_activity: 2026-08-22 — v2.0 Case-Study Depth completed and archived
 progress:
   total_phases: 6
-  completed_phases: 2
+  completed_phases: 6
   total_plans: 18
-  completed_plans: 16
-  percent: 33
+  completed_plans: 18
+  percent: 100
 ---
 
 # STATE — Randy Ellis Portfolio
@@ -25,12 +25,17 @@ See: .planning/PROJECT.md (updated 2026-08-15 after v1.0 milestone)
 
 ## Current Position
 
-Phase: 10 (seo-remediation) — EXECUTING
-Plan: 10 of 10
-Status: Ready to execute
+Milestone: v2.0 Case-Study Depth — **COMPLETE**, archived 2026-08-22
+Phase: none active
+Plan: —
+Status: Awaiting v3.0 kickoff
 Last activity: 2026-08-22
 
-Progress: [█████████░] 89%
+Progress: [██████████] 100%
+
+**Next:** `/gsd:new-milestone` — it consumes `.planning/MILESTONE-CONTEXT.md`
+(v3.0 Enterprise Credibility, Phases 11-12) and writes fresh ROADMAP and
+REQUIREMENTS entries. `REQUIREMENTS.md` was removed at close by design.
 
 ## Performance Metrics
 
@@ -85,7 +90,7 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 - Phase 8 requires Randy's sign-off (CRED-08) on NDA/confidentiality depth for Nagarro and Echo before that content ships — not resolvable without his input
 - LedgerIQ's real-vs-composite status is ambiguous (existing copy reads hypothetical/composite) — confirm with Randy before deepening its narrative in Phase 8
 - ~~Verify 4.8★ App Store rating and 240K+ users~~ RESOLVED 2026-08-16: Randy confirmed both are real and sourceable. They appear on 6 surfaces (homepage, projects metadata, OG image, JSON-LD FAQ, structured data, project metrics) and stay. Optional follow-up: add an as-of date so they age honestly — needs the date from Randy.
-- Verify Chameleon Collective URL (carried from v1.0) — appears in `app/about/about-client.tsx` and 3 places in `components/seo/structured-data.tsx`
+- ~~Verify Chameleon Collective URL (carried from v1.0)~~ RESOLVED 2026-08-21 (Phase 10 plan 10-08): `https://chameleoncollective.com` returns HTTP 200 in one hop; both visible occurrences confirmed; the legacy schema module carrying the other references was deleted
 - ~~LedgerIQ real-vs-composite ambiguity~~ RESOLVED 2026-08-15: it is a composite, now disclosed in roleNarrative
 - ~~Phase 8 requires Randy's sign-off (CRED-08) on Nagarro and Echo~~ RESOLVED 2026-08-15: Echo = process/design only, Nagarro = unrestricted
 
@@ -105,3 +110,7 @@ Items acknowledged and carried forward from previous milestone close:
 Last session: 2026-08-22T00:05:40.299Z
 Stopped at: Phase 10 context gathered
 Resume file: None
+
+## Operator Next Steps
+
+- Start the next milestone with /gsd-new-milestone
