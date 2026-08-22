@@ -31,7 +31,7 @@ Any Rich Results Test **ERROR** blocks phase completion until fixed and re-verif
 | 10 | Rich Results Test — GrowIt project | https://search.google.com/test/rich-results?url=https://work.randyellis.design/projects/growit | No errors | "1 valid item detected" — Breadcrumbs, green. Crawled successfully Aug 22 2026, 3:40:17 PM. Zero errors, zero warnings | 10-verification-screenshots/rrt-growit.png | pass | The D-14 `teamSize` exception raises no RRT warning: CreativeWork is not a Google rich-result type, so RRT never evaluates it. Row 14 remains the vocabulary-conformance evidence |
 | 11 | Rich Results Test — Blog post | https://search.google.com/test/rich-results?url=https://work.randyellis.design/blog/profits-not-pixels | No errors; Article detected | "3 valid items detected" — Articles, Breadcrumbs, Paywalled Content, all green. Crawled successfully Aug 22 2026, 3:41:22 PM. **Zero errors.** 5 non-critical issues on the Article item: missing field "image" (optional); invalid datetime value for "datePublished" (optional); "datePublished" missing a timezone (optional); invalid datetime value for "dateModified" (optional); "dateModified" missing a timezone (optional) | 10-verification-screenshots/rrt-blog.png, 10-verification-screenshots/rrt-blog-warnings.png | pass | Every issue is marked (optional) → warnings, non-blocking per D-23. Both dates render as bare `2025-07-21` with no time or offset. Carried as an observation for Randy, not a Phase 10 gate |
 | 12 | Returning-visitor SW unregistration | Browser DevTools → Application → Service Workers (or `navigator.serviceWorker.getRegistrations()` in console) after loading the site | Zero registrations | `navigator.serviceWorker.getRegistrations()` returned `[]` after a full production page load | 10-verification-screenshots/sw-registrations.png | pass | Kill-switch confirmed: no registration survives on a returning visit |
-| 13 | Search Console | https://search.google.com/search-console | Property for work.randyellis.design exists; sitemap `https://work.randyellis.design/sitemap.xml` submitted with status Success (D-18) | **Blocked — the property does not exist.** Signed in as the account on this machine, Search Console returns "Oops, you don't have access to this property" for `https://work.randyellis.design/`, and the property picker returns "No matching property" (the account holds zero properties). No `google-site-verification` meta tag is present in `app/layout.tsx`, `lib/metadata.ts`, or the live production HTML, so ownership has never been verified | — | blocked | Sitemap submission is not reachable yet: the property must first be created **and ownership verified**. Options — (a) DNS TXT record at the registrar for a domain property, (b) `metadata.verification.google` in `lib/metadata.ts` + deploy, then Verify, (c) HTML file in `public/`. (b) is a code change Claude can make once Randy starts the Add-property flow and supplies the token. Live sitemap itself is healthy: HTTP 200, 19 URLs |
+| 13 | Search Console | https://search.google.com/search-console | Property for work.randyellis.design exists; sitemap `https://work.randyellis.design/sitemap.xml` submitted with status Success (D-18) | **Success.** Created a **domain property** `sc-domain:randyellis.design` (superset of the plan's URL-prefix wording — it covers work., hire., www. and the apex, across http and https). Ownership auto-verified via **Domain name provider** using a TXT record at the apex. Sitemap `https://work.randyellis.design/sitemap.xml` submitted 2026-08-22: Type Sitemap, Last read Aug 22 2026, **Status Success, 19 discovered pages, 0 videos** | 10-verification-screenshots/gsc-sitemap.png | pass | Verification TXT added to Vercel DNS (Vercel is both registrar and nameserver) alongside the existing hostedemail SPF record; both resolve on the authoritative and public resolvers. Chose DNS over a meta tag deliberately: v3.0 CRED-11 edits `lib/metadata.ts`, and a verification token living in the file being swept is a silent-removal risk. Account avatar cropped from the proof per T-10-23 |
 | 14 | schema.org validator (substitute for rows 9–11) | `curl -s -X POST https://validator.schema.org/validate --data-urlencode url=<page>` for all three URLs | No severe errors other than the D-14 `teamSize`/`role` exception | Home: 0 errors (WebSite, Person, SearchAction). Blog: 0 errors (Article, BreadcrumbList, Person, WebPage). GrowIt: 1 error — `INVALID_PREDICATE teamSize on CreativeWork`, the expected D-14 exception. All three `isRendered: true` | 10-verification-screenshots/schemaorg-home.json, schemaorg-projects-growit.json, schemaorg-blog-profits-not-pixels.json | pass | Not a like-for-like RRT substitute: this validates schema.org vocabulary conformance, not Google's rich-result eligibility. It does establish that no malformed markup exists for RRT to report |
 
 ## Run Log
@@ -79,23 +79,14 @@ as a verdict.
   decision, but worth a deliberate look given the reader question logged in
   `MILESTONE-CONTEXT.md`.
 
-## Open for Randy
+## Outcome — 14/14 pass — Phase 10 SC5 satisfied (D-16/D-17/D-18/D-22/D-23)
 
-- **Row 13 (Search Console)** — the only remaining gate. No property exists for
-  work.randyellis.design under the account signed in on this machine, and the site
-  carries no verification meta tag, so ownership has never been established.
-  Creating the property requires a DNS TXT record, a deployed meta tag, or an
-  uploaded HTML file — none of which Claude can complete alone. Start the
-  Add-property flow, and if you choose the meta-tag route, hand over the token and
-  Claude will wire it into `lib/metadata.ts` and ship it.
+Every row passes with proof on disk.
 
-## Outcome — 13/14 pass, 1 blocked (row 13, D-18)
+- **D-17** — Rich Results Test run on home, one project page and one blog post
+- **D-23** — zero Rich Results errors on all three; the five Article findings are each `(optional)`
+- **D-18** — Search Console property created, ownership verified, sitemap submitted with status Success and 19 pages discovered
+- **D-22** — every check run against production, never a preview deployment
+- **D-16/D-19** — proof artifacts captured and committed
 
-Rows 1–12 and 14 pass with proof on disk. Row 13 (Search Console sitemap
-submission) is blocked on property creation and ownership verification, which is
-a human-only step.
-
-**D-23 is satisfied** — zero Rich Results errors across all three sampled URLs.
-Phase 10 SC5 is therefore met on every dimension except the D-18 Search Console
-submission, which stays open. Phase 10 is not complete until row 13 closes or the
-D-18 requirement is formally waived.
+**SEO-05 is complete.** Phase 10 is ready to close.

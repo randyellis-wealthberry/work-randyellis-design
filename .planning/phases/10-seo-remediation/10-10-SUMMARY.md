@@ -2,7 +2,7 @@
 phase: 10-seo-remediation
 plan: 10
 subsystem: seo
-tags: [seo, verification, rich-results, search-console, human-gate, blocked]
+tags: [seo, verification, rich-results, search-console, human-gate, dns]
 dependency_graph:
   requires: ["10-09"]
   provides: []
@@ -13,6 +13,7 @@ tech_stack:
 key_files:
   created:
     - .planning/phases/10-seo-remediation/10-verification-screenshots/rrt-blog-warnings.png
+    - .planning/phases/10-seo-remediation/10-verification-screenshots/gsc-sitemap.png
   modified:
     - .planning/phases/10-seo-remediation/10-VERIFICATION-CHECKLIST.md
     - .planning/phases/10-seo-remediation/10-verification-screenshots/rrt-home.png
@@ -23,19 +24,20 @@ decisions:
   - Rows 9-11 cleared by re-running RRT in Randy's authenticated Chrome session (explicitly authorized), overriding the standing isolated-Playwright preference for this run
   - automation-results.json rows 9-11 "fail" confirmed a false negative; the checklist is authoritative
   - T-10-23 applied — the account avatar was cropped from all RRT screenshots before they entered the public repo
-  - D-18 NOT satisfied — no Search Console property exists; ownership was never verified
-requirements_completed: []
-requirements_blocked: [SEO-05]
+  - D-18 satisfied — domain property sc-domain:randyellis.design created, DNS-verified, sitemap submitted Success
+  - Domain property chosen over URL-prefix: covers work./hire./www./apex in one verification
+  - DNS TXT chosen over meta tag: v3.0 CRED-11 edits lib/metadata.ts, where a token would be at risk of silent removal
+requirements_completed: [SEO-05]
 metrics:
   completed_date: "2026-08-22"
   task_count: 3
-  file_count: 5
-status: blocked
+  file_count: 6
+status: complete
 ---
 
-# Phase 10 Plan 10: Live Verification Close-Out — RRT Clean, Search Console Blocked
+# Phase 10 Plan 10: Live Verification Close-Out — 14/14 Pass
 
-**The three Rich Results Tests that had been stuck behind a Google login wall since Plan 10-09 ran clean in Randy's authenticated browser — zero errors on home, `/projects/growit` and `/blog/profits-not-pixels`, satisfying D-17 and D-23 — but Search Console (D-18) cannot proceed: no property exists for work.randyellis.design and the site carries no verification meta tag, so ownership has never been established. Checklist stands at 13/14 pass, row 13 blocked.**
+**Phase 10 verification is complete at 14/14. The three Rich Results Tests stuck behind a Google login wall since Plan 10-09 ran clean in Randy's authenticated browser — zero errors on all three URLs, satisfying D-17 and D-23. Search Console turned out to need more than a submission: no property existed at all, so a domain property was created for `randyellis.design`, ownership auto-verified via a DNS TXT record on Vercel, and the sitemap submitted with status Success and 19 pages discovered — satisfying D-18. SEO-05 is complete.**
 
 ## What Shipped
 
@@ -69,28 +71,42 @@ dialog from a structured-data finding. RRT had never run. This is recorded in th
 checklist's D-23 Gate section; `automation-results.json` is superseded and should
 not be read as a verdict.
 
-### Row 13 — blocked, and further from done than the plan assumed
+### Row 13 — resolved, but it was a bigger task than the plan described
 
-The plan framed this as "submit the sitemap." It is not reachable:
+The plan framed this as "submit the sitemap." It wasn't: no Search Console
+property existed for the domain at all, the account held zero properties, and no
+`google-site-verification` meta tag was present in the code or the live HTML.
+Ownership had never been established, so submission was unreachable.
 
-- Search Console returns "Oops, you don't have access to this property" for `https://work.randyellis.design/`
-- The property picker returns "No matching property" — the signed-in account holds **zero** properties
-- No `google-site-verification` meta tag exists in `app/layout.tsx`, `lib/metadata.ts`, or the live production HTML
+Resolved end to end with Randy's authorization:
 
-So the property was never created and ownership was never verified. Submission
-requires first establishing ownership: a DNS TXT record at the registrar, a
-deployed meta tag via `metadata.verification.google`, or an HTML file in
-`public/`. The meta-tag route is a code change Claude can make once Randy starts
-the Add-property flow and supplies the token.
+1. **Domain property created** — `sc-domain:randyellis.design`. Deliberately a
+   domain property rather than the URL-prefix property the plan's wording implies:
+   it is a superset, covering `work.`, `hire.`, `www.` and the apex across both
+   http and https. Vercel's Connected Projects lists all four.
+2. **DNS TXT added** at the apex via Vercel (registrar *and* nameserver), alongside
+   the existing hostedemail SPF record. Purely additive — the `*` ALIAS, apex
+   ALIAS and `hire` CNAME were untouched. Confirmed resolving on both the
+   authoritative nameserver and Google's public resolver before verifying.
+3. **Ownership auto-verified** — method "Domain name provider".
+4. **Sitemap submitted** — `https://work.randyellis.design/sitemap.xml`,
+   **Status Success, 19 discovered pages, 0 videos.**
 
-The sitemap itself is healthy — HTTP 200, 19 URLs, verified live during this plan.
+**Why DNS over a meta tag:** v3.0 Phase 11 (CRED-11) edits `lib/metadata.ts` to
+strip the unbacked figures. A verification token living in the exact file a
+removal sweep will run over is a silent-unverification risk, and losing
+verification loses the property history with it. DNS sits outside that blast
+radius and survives every redeploy.
 
 ### Privacy handling
 
 T-10-23 in this plan's threat model instructs cropping account identifiers before
 screenshots enter the repo. The repo is **public**. All four RRT screenshots were
-cropped to remove the Google account avatar from the header bar. The Search
-Console page, which displayed the account email, was **not** saved to disk.
+cropped to remove the Google account avatar from the header bar, and
+`gsc-sitemap.png` was cropped the same way. The earlier Search Console screen that
+rendered the account email in the page body was **not** saved to disk at all; the
+committed Sitemaps proof shows only the property name, the sitemap URL and the
+Success row.
 
 ## STATE.md Updates
 
@@ -98,8 +114,12 @@ Console page, which displayed the account email, was **not** saved to disk.
   `https://chameleoncollective.com` returns HTTP 200 in one hop; both visible
   occurrences confirmed; zero schema references remain. The open bullet in STATE
   "Blockers/Concerns" can be struck.
-- **Phase 10 verification outcome:** 13/14 rows pass. Row 13 blocked on D-18.
-  Phase 10 is not complete until row 13 closes or D-18 is formally waived.
+- **Phase 10 verification outcome:** 14/14 rows pass. SEO-05 complete; Phase 10
+  ready to close.
+- **New standing dependency:** the apex TXT record `google-site-verification=…`
+  on randyellis.design now carries Search Console ownership. Removing it
+  unverifies the property and forfeits its history. Worth a note wherever DNS is
+  documented.
 
 ## Observations Carried for Randy
 
@@ -117,12 +137,8 @@ Console page, which displayed the account email, was **not** saved to disk.
   Chief Design Officer" — relevant to the reader question logged in
   `.planning/MILESTONE-CONTEXT.md`.
 
-## Blocked
+## Status
 
-**SEO-05 cannot be marked complete.** D-18 makes Search Console submission
-required, and it needs Randy to create and verify the property. Two paths:
-
-1. Randy creates a domain property via DNS TXT at the registrar, then submits `sitemap.xml`
-2. Randy starts Add-property → meta tag, hands Claude the token → Claude wires `metadata.verification.google` and ships → Randy clicks Verify, then submits
-
-Alternatively, waive D-18 for this milestone and carry the submission forward.
+**SEO-05 complete. Phase 10 ready to close.** All 14 checklist rows pass with
+proof committed. `/gsd:complete-milestone` can now run for v2.0, after which
+`/gsd:new-milestone` will consume `.planning/MILESTONE-CONTEXT.md` for v3.0.
