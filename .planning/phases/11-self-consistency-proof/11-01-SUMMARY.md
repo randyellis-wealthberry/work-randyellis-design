@@ -118,3 +118,11 @@ None - no external service configuration required.
 ---
 *Phase: 11-self-consistency-proof*
 *Completed: 2026-08-23*
+
+## Self-Check: PASSED
+
+- FOUND: `app/about/opengraph-image.tsx`
+- FOUND: `.planning/phases/11-self-consistency-proof/11-01-SUMMARY.md`
+- FOUND: commit `ed14d0a` (Task 1 fix)
+- FOUND: commit `94a5517` (SUMMARY docs commit)
+- Content check: `app/about/opengraph-image.tsx:238` contains the bare `4` literal

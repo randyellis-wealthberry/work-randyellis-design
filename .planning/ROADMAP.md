@@ -60,7 +60,7 @@ stale framing that generated the withdrawn premise.
 
 **Plans**: 5 plans in 4 waves
 
-- [ ] 11-01-PLAN.md — CRED-13: `/about` OG image states 4 Design Awards, not 6 (wave 1, standalone commit per D-02)
+- [x] 11-01-PLAN.md — CRED-13: `/about` OG image states 4 Design Awards, not 6 (wave 1, standalone commit per D-02)
 - [ ] 11-02-PLAN.md — REC-01: verify the withdrawn-premise corrections across the planning record, remediate only gaps (wave 2, sequenced after 11-01 per D-10's "second" and to make D-02's "first" commit deterministic)
 - [ ] 11-03-PLAN.md — PRF-01: the four named awards as visible copy inside `/about`'s Design awards cell (wave 2)
 - [ ] 11-04-PLAN.md — CRED-12: award-count consistency regression test across five stating surfaces (wave 3, written last per D-14)
@@ -120,24 +120,29 @@ stale framing that generated the withdrawn premise.
 | 8. Content Rewrite & Credibility Guardrails | v2.0 | pre-GSD (traced) | Complete | 2026-08-16 |
 | 9. Cross-Surface Verification | v2.0 | 5/5 | Complete | 2026-08-20 |
 | 10. SEO Remediation | v2.0 | 10/10 | Complete | 2026-08-22 |
-| 11. Self-Consistency & Proof | v3.0 | 0/TBD | Not started | - |
+| 11. Self-Consistency & Proof | v3.0 | 1/5 | In Progress|  |
 | 12. Enterprise Legibility | v3.0 | 0/TBD | Not started | - |
 
 ## Backlog
 
 - **POL-01** — visual polish pass beyond case-study surfaces (deferred from v1.0
   and v2.0)
+
 - **POL-02** — waffle converged onto the shared template as a *case study* (it
   already shares the template as a product page)
+
 - **Blog Article structured data** — `datePublished`/`dateModified` emit bare
   dates with no time or timezone; no `image`; `Paywalled Content` detected on a
   post that is not paywalled
+
 - **`/services` reader conflict** — `/services` and the retainer funnel were built
   outside GSD and now own the metadata description and primary conversion path on
   a site whose PROJECT.md core value names the hiring manager as the reader.
   A positioning decision, not a queued task
+
 - **MI-4** — consolidate `about-client.tsx`'s local `achievements` array into
   `lib/data/retainer.ts`'s `PROOF_EXHIBITS` (deferred from v3.0 — see REQUIREMENTS.md "Future Requirements")
+
 - **EL-5** — surface Echo's already-authored but never-rendered `constraints.environmental` data (deferred from v3.0)
 - **GE-3** — reuse the existing `role="status"` filter-state announcement on the new `/projects` entry point (deferred from v3.0)
 - Dead-code cleanup of `enhanced-metrics-grid.tsx`, `enhanced-hover-cards.tsx` (deferred from v3.0)
