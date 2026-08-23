@@ -107,7 +107,7 @@ conversation. **Shipped and audit-verified in v1.0.**
 | Typed data model over MDX for narrative | Keeps every claim greppable for credibility audits | ✓ Good — made the v2.0 audit possible by direct verification |
 | Deck demoted from gate to advisory reference (2026-08-15) | Randy's firsthand account is the real source; the deck was blocking real content | ⚠ Mixed — unblocked Phase 8, but the reversal was recorded only in the audit; every downstream summary kept the pre-reversal framing and restaged the `Unbacked` rows as debt in v3.0. Corrected 2026-08-22 (REC-01) |
 | `Unbacked` figures are accurate and stay (2026-08-22) | The audit says so in its own verdict definitions: `Unbacked` = absent from a 48-page PDF scoped to two case studies, not a finding of falsehood. Five of seven projects were never in it | ✓ Good — withdrew a whole phase of removal work built on a misreading. Lesson: read a document's own definitions before acting on how another doc summarized it |
-| DNS TXT over meta tag for Search Console verification | v3.0 CRED-11 edits `lib/metadata.ts`; a token there is a silent-removal risk | ✓ Good — survives redeploys, covers all subdomains |
+| DNS TXT over meta tag for Search Console verification | ~~v3.0 CRED-11 edits `lib/metadata.ts`; a token there is a silent-removal risk~~ **CORRECTED 2026-08-22 (REC-01):** CRED-11 is void (see REQUIREMENTS.md §"Voided requirements"); DNS TXT was still the right call independent of that — a static meta tag remains fragile against any future `lib/metadata.ts` edit | ✓ Good — survives redeploys, covers all subdomains |
 | Inline audit remediation over closure phase | 3 blockers = ~7 file edits; full GSD chain disproportionate | ✓ Good — fixed + verified same session |
 
 ## Context

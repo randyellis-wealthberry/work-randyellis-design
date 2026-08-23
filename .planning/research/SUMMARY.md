@@ -1,5 +1,10 @@
 # Project Research Summary
 
+> **Note — 2026-08-22.** The metric-removal framing this research was built around is
+> superseded: the premise of removing `2.5M+`, `$50M`, and `800+` was withdrawn the same day.
+> The file:line surface data throughout `.planning/research/` remains accurate; CRED-10,
+> CRED-11, CRED-14, CRED-16 and PRF-02 are void. See `REQUIREMENTS.md` §"Scope Correction".
+
 **Project:** Randy Ellis Portfolio — v3.0 Enterprise Credibility
 **Domain:** Remediation milestone on a shipped Next.js 15 portfolio (metric-integrity regression test, Echo/Nagarro reframing, a projects grouping UI) — NOT a greenfield build
 **Researched:** 2026-08-22

@@ -49,7 +49,7 @@ stale framing that generated the withdrawn premise.
   - **The proof bands keep all four entries.** `grid-cols-2 sm:grid-cols-4` on the homepage, `/services` and `/about` stays as-is — there is no collapse to design around. PRF-01 is additive: where the named awards appear relative to the existing `4` cell is the open design decision.
   - **Both bands carry a shared footnote** — *"Every figure above is career to date, across roles at Nagarro, Chameleon Collective, and Wealthberry Labs"* (`app/page.tsx`, `app/services/services-client.tsx`). All four awards are from GrowIt!, a single product. If the named awards land inside those bands, that sentence needs to stay true.
   - **`/services` wraps values in `AnimatedMetricValue`** (counts up from zero); the homepage deliberately does not — a documented Phase-10 choice. Award names cannot count up. Any award content added to `/services` must account for this.
-  - **`app/page.tsx` is the cross-phase file conflict with Phase 12.** Complete this phase before Phase 12 opens it.
+  - ~~**`app/page.tsx` is the cross-phase file conflict with Phase 12.** Complete this phase before Phase 12 opens it.~~ **CORRECTED 2026-08-22 (REC-01):** there is no cross-phase `app/page.tsx` conflict — it assumed figure removal and a `home-page-argument.test.tsx` rewrite that were both voided. Phase 11 touches only `app/about/opengraph-image.tsx`, `app/about/about-client.tsx` and one new test file. `app/page.tsx` remains off-limits this phase for a separate reason: D-08 scopes PRF-01 to `/about` only.
 
 **Suggested internal order**:
 
