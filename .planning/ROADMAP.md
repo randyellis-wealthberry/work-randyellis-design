@@ -58,7 +58,13 @@ stale framing that generated the withdrawn premise.
   3. PRF-01 named-awards copy on `/about`, honouring the footnote and animation constraints above
   4. CRED-12 consistency test last, once the final shape is settled
 
-**Plans**: TBD
+**Plans**: 5 plans in 4 waves
+
+- [ ] 11-01-PLAN.md — CRED-13: `/about` OG image states 4 Design Awards, not 6 (wave 1, standalone commit per D-02)
+- [ ] 11-02-PLAN.md — REC-01: verify the withdrawn-premise corrections across the planning record, remediate only gaps (wave 1)
+- [ ] 11-03-PLAN.md — PRF-01: the four named awards as visible copy inside `/about`'s Design awards cell (wave 2)
+- [ ] 11-04-PLAN.md — CRED-12: award-count consistency regression test across five stating surfaces (wave 3, written last per D-14)
+- [ ] 11-05-PLAN.md — Phase gate: `lint` → `tsc` → `test` plus blocking human verification of the rendered band (wave 4)
 
 **UI hint**: yes
 
@@ -66,7 +72,7 @@ stale framing that generated the withdrawn premise.
 
 **Goal**: Echo and Nagarro read, across every rendered surface, as proof Randy can operate inside a regulated, large-organization environment — Echo recategorized and demonstrably promoted, its one qualitative metric resolved at the data layer, Nagarro's raw metrics reframed only after each has a recorded backing disposition — and the `/projects` page carries one real, accessible entry point into that regulated/field-operations work.
 
-**Depends on**: Phase 11 — `app/page.tsx` must be clear of Phase 11's edits (figure removal + test rewrite complete) before this phase reopens the same file to reword the Selected-work paragraph naming Echo/Nagarro
+**Depends on**: Phase 11 — sequenced after it, but the original cross-phase file conflict is gone. That conflict assumed Phase 11 would edit `app/page.tsx` for figure removal and rewrite `home-page-argument.test.tsx`; both were voided when the metric-removal premise was withdrawn (2026-08-22). Phase 11 as planned touches only `app/about/opengraph-image.tsx`, `app/about/about-client.tsx` and a new test file, so `app/page.tsx` is untouched and free for this phase to reword the Selected-work paragraph naming Echo/Nagarro
 
 **Requirements**: ENT-01, ENT-02, ENT-03, ENT-04, ENT-05
 
@@ -137,4 +143,4 @@ stale framing that generated the withdrawn premise.
 - Dead-code cleanup of `enhanced-metrics-grid.tsx`, `enhanced-hover-cards.tsx` (deferred from v3.0)
 
 ---
-*Last updated: 2026-08-22 — v3.0 Enterprise Credibility roadmap created (Phase 11-12)*
+*Last updated: 2026-08-22 — v3.0 Enterprise Credibility roadmap created (Phase 11-12); Phase 11 planned (5 plans, 4 waves) and Phase 12's stale `app/page.tsx` dependency corrected*
