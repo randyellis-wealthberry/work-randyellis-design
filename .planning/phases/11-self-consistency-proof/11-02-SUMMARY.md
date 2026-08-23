@@ -198,3 +198,9 @@ None - no external service configuration required.
 ---
 *Phase: 11-self-consistency-proof*
 *Completed: 2026-08-23*
+
+## Self-Check: PASSED
+
+- FOUND: `.planning/phases/11-self-consistency-proof/11-02-SUMMARY.md`
+- FOUND: `36dde44` (remediation commit)
+- FOUND: `1ad7512` (summary commit)

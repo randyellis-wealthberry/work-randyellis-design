@@ -90,7 +90,7 @@ is no reason to force it into v3.0.
       `h-4 w-4`, and much else). Reuses `__tests__/seo/no-legacy-schema.test.ts`'s directory
       walker, which excludes `.planning/` by construction
 
-- [ ] **REC-01**: The withdrawn premise is corrected everywhere it is recorded — `PROJECT.md`'s
+- [x] **REC-01**: The withdrawn premise is corrected everywhere it is recorded — `PROJECT.md`'s
       Active requirements and Key Decisions, `MILESTONES.md`'s v2.0 "Known deferred items", and
       `.planning/milestones/v2.0-MILESTONE-AUDIT.md` — each stating that `Unbacked` means "absent
       from the deck", not "unsupported", per the audit's own definitions
@@ -185,7 +185,7 @@ is no reason to force it into v3.0.
 | CRED-12 | Phase 11 | Pending |
 | CRED-13 | Phase 11 | Complete |
 | PRF-01 | Phase 11 | Pending |
-| REC-01 | Phase 11 | Pending |
+| REC-01 | Phase 11 | Complete |
 | ENT-01 | Phase 12 | Pending |
 | ENT-02 | Phase 12 | Pending |
 | ENT-03 | Phase 12 | Pending |
