@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v3.0
 milestone_name: Enterprise Credibility
 status: executing
-stopped_at: Completed 11-03-PLAN.md
-last_updated: "2026-08-23T13:08:40.421Z"
+stopped_at: Completed 11-04-PLAN.md
+last_updated: "2026-08-23T13:29:43.642Z"
 last_activity: 2026-08-23
 progress:
   total_phases: 2
   completed_phases: 0
   total_plans: 5
-  completed_plans: 3
+  completed_plans: 4
   percent: 0
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-08-22 after v2.0 milestone shipped)
 ## Current Position
 
 Phase: 11 (self-consistency-proof) — EXECUTING
-Plan: 4 of 5
+Plan: 5 of 5
 Status: Ready to execute
 Last activity: 2026-08-23
 
@@ -50,6 +50,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 11 P01 | 6min | 2 tasks | 1 files |
 | Phase 11 P02 | 20min | 2 tasks | 4 files |
 | Phase 11 P03 | 8min | 3 tasks | 1 files |
+| Phase 11 P04 | 22min | 2 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -77,6 +78,9 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 - [Phase 11]: REC-01 remediated 4 residual live-premise references: PROJECT.md:110, STATE.md Roadmap Evolution + 4 Decisions bullets, ROADMAP.md:52 — Sweep A (by REQ-ID) and Sweep B (by stale phrase) found these outside the three D-09-named documents; struck through and dated CORRECTED 2026-08-22 per plan's correction style
 - [Phase 11]: Design awards cell: award strings drop the repeated (GrowIt!) suffix, carried once by a 'For GrowIt!' description lead-in instead — Four identical parentheticals in a quarter-width cell is noise; product attribution is shared context, not per-award data
 - [Phase 11]: Design awards cell render branches on presence of achievement.awards, not a label === 'Design awards' string comparison — Gives plan 11-04's consistency test a stable structural anchor; a future label reword cannot silently drop the list
+- [Phase 11]: Reused collectSourceFiles verbatim from no-legacy-schema.test.ts (D-13) rather than importing it, matching repo convention of self-contained SEO test files
+- [Phase 11]: Root OG image (app/opengraph-image.tsx) states no award count and is covered only by the surface-set sweep, not a count assertion
+- [Phase 11]: All four mutation-detection paths for the award-count consistency test proven to go red under targeted single-surface mutation, then reverted clean
 
 ### Pending Todos
 
@@ -105,8 +109,8 @@ Items acknowledged and carried forward from previous milestone close:
 
 ## Session Continuity
 
-Last session: 2026-08-23T13:08:40.411Z
-Stopped at: Completed 11-03-PLAN.md
+Last session: 2026-08-23T13:29:43.633Z
+Stopped at: Completed 11-04-PLAN.md
 Resume file: None
 
 ## Operator Next Steps

@@ -83,7 +83,7 @@ is no reason to force it into v3.0.
       **stale** — it names dead and deleted files, and its JSON-LD item is already done, which is
       exactly how the awards became machine-visible but human-invisible
 
-- [ ] **CRED-12**: A regression test pins the award count as **consistent across every surface**
+- [x] **CRED-12**: A regression test pins the award count as **consistent across every surface**
       that states it — `retainer.ts`, `about-client.tsx`, the JSON-LD `award` array, and both OG
       generators — so a figure cannot drift on one surface again. Verified structurally against
       the data shape, not by bare string match (`"4"` alone collides with `grid-cols-4`,
@@ -182,7 +182,7 @@ is no reason to force it into v3.0.
 
 | REQ-ID | Phase | Status |
 |--------|-------|--------|
-| CRED-12 | Phase 11 | Pending |
+| CRED-12 | Phase 11 | Complete |
 | CRED-13 | Phase 11 | Complete |
 | PRF-01 | Phase 11 | Complete |
 | REC-01 | Phase 11 | Complete |
