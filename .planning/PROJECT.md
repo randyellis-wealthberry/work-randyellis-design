@@ -31,13 +31,19 @@ monetized AI SaaS.
 
 **Phases:** 11-12 (numbering continues from v2.0)
 
-**Goal:** Every figure on the site is deck-backed or gone, and the two
+**Goal:** The site agrees with itself and names its proof, and the two
 large-organization engagements read as proof of operating inside regulatory and
 scale constraint.
 
+> **Rescoped 2026-08-22.** The original goal ("every figure deck-backed or gone")
+> inverted `DECK-COVERAGE-AUDIT.md`, which states at `:34` that `Unbacked` means
+> *"not found in this deck… **This is not a defect and requires no action**"* and
+> at `:37` that the non-deck-source rule was removed because *"Randy's own account
+> of his engagements is a source."* The three sitewide figures are accurate and stay.
+
 **Target features:**
-- Metric integrity close-out — execute the three outstanding `Unbacked` verdicts
-  from the Phase 5 deck audit rather than reconciling copy around them
+- Self-consistency and named proof — fix the one surface still claiming 6 design
+  awards, and show the four named awards where a human can read them
 - Enterprise legibility — Echo and Nagarro reframed for a reader evaluating
   whether Randy can operate inside a regulated, large organization
 - A grouped entry point for the regulated / field-operations work
@@ -66,11 +72,14 @@ conversation. **Shipped and audit-verified in v1.0.**
 
 ### Active (v3.0 Enterprise Credibility — committed)
 
-- [ ] CRED-10/11/12: the three `Unbacked` sitewide figures removed at source and
-      pinned with a regression test; the 4 named awards preserved
-- [ ] ENT-01..04: Echo recategorized and promoted; the qualitative value in its
-      metrics slot resolved; Nagarro reframed in org-design terms; one grouped
-      entry point for the regulated / field-operations work
+- [ ] CRED-13 / PRF-01 / CRED-12: `/about`'s OG image says 4 Design Awards (it
+      says 6 today, contradicting three other surfaces); the 4 named awards
+      promoted from JSON-LD-only to visible copy; consistency pinned by a test
+- [ ] REC-01: the withdrawn metric-removal premise corrected wherever recorded
+- [ ] ENT-01..05: Echo recategorized and promoted across all three ordering
+      mechanisms; the qualitative value in its metrics slot resolved; Nagarro
+      reframed in org-design terms; one grouped entry point for the regulated /
+      field-operations work
 
 ### Deferred (not this milestone)
 
@@ -96,7 +105,8 @@ conversation. **Shipped and audit-verified in v1.0.**
 | `isLiveProduct` optional flag + static route shadowing `[slug]` | Additive data-model change, zero routing special-cases | ✓ Good |
 | One shared `CaseStudyTemplate` over four separate narrative components | Stronger structural consistency; one file to keep honest | ✓ Good — pulled waffle into the same system for free; requirement text needed restating at close |
 | Typed data model over MDX for narrative | Keeps every claim greppable for credibility audits | ✓ Good — made the v2.0 audit possible by direct verification |
-| Deck demoted from gate to advisory reference (2026-08-15) | Randy's firsthand account is the real source; the deck was blocking real content | ⚠ Mixed — unblocked Phase 8, but FND-03's `Unbacked` verdicts then went unactioned into v3.0 |
+| Deck demoted from gate to advisory reference (2026-08-15) | Randy's firsthand account is the real source; the deck was blocking real content | ⚠ Mixed — unblocked Phase 8, but the reversal was recorded only in the audit; every downstream summary kept the pre-reversal framing and restaged the `Unbacked` rows as debt in v3.0. Corrected 2026-08-22 (REC-01) |
+| `Unbacked` figures are accurate and stay (2026-08-22) | The audit says so in its own verdict definitions: `Unbacked` = absent from a 48-page PDF scoped to two case studies, not a finding of falsehood. Five of seven projects were never in it | ✓ Good — withdrew a whole phase of removal work built on a misreading. Lesson: read a document's own definitions before acting on how another doc summarized it |
 | DNS TXT over meta tag for Search Console verification | v3.0 CRED-11 edits `lib/metadata.ts`; a token there is a silent-removal risk | ✓ Good — survives redeploys, covers all subdomains |
 | Inline audit remediation over closure phase | 3 blockers = ~7 file edits; full GSD chain disproportionate | ✓ Good — fixed + verified same session |
 

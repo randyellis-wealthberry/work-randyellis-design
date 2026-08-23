@@ -20,11 +20,11 @@ progress:
 See: .planning/PROJECT.md (updated 2026-08-22 after v2.0 milestone shipped)
 
 **Core value:** A hiring manager finds a coherent, senior, *verifiable* story with an obvious way to book a conversation — shipped and audit-verified in v1.0. v2.0 added proof of *how Randy decides*. v3.0 closes the metric-integrity gap v2.0 carried forward and makes Echo/Nagarro legible as regulated, large-organization proof.
-**Current focus:** v3.0 Enterprise Credibility — Phase 11 (Metric Integrity Close-Out), ready to plan
+**Current focus:** v3.0 Enterprise Credibility — Phase 11 (Self-Consistency & Proof), context gathered
 
 ## Current Position
 
-Phase: 11 of 12 (Metric Integrity Close-Out)
+Phase: 11 of 12 (Self-Consistency & Proof)
 Plan: TBD — roadmap created, plans not yet generated
 Status: Ready to plan
 Last activity: 2026-08-22 — ROADMAP.md written for Phase 11-12; REQUIREMENTS.md traceability filled (14/14 mapped)
@@ -52,7 +52,7 @@ Progress: [░░░░░░░░░░] 0%
 ### Roadmap Evolution
 
 - Phase 10 added 2026-08-16: SEO Remediation — scoped from `.planning/research/SEO-AUDIT.md`. Depends on Phase 9.
-- Phase 11-12 added 2026-08-22: v3.0 Enterprise Credibility roadmap created from `.planning/research/SUMMARY.md` (4 parallel researchers, HIGH confidence). Phase 11 = Metric Integrity Close-Out (CRED-10..16, PRF-01/02, 9 requirements). Phase 12 = Enterprise Legibility (ENT-01..05, 5 requirements). Sequenced (not parallelized) because `app/page.tsx` is the single file both phases touch — Phase 11 must fully land, including its regression-test rewrite, before Phase 12 reopens it.
+- Phase 11-12 added 2026-08-22: v3.0 Enterprise Credibility roadmap created from `.planning/research/SUMMARY.md` (4 parallel researchers, HIGH confidence). Phase 11 = Self-Consistency & Proof (CRED-12, CRED-13, PRF-01, REC-01). **Rescoped 2026-08-22**: the metric-removal premise was withdrawn — `DECK-COVERAGE-AUDIT.md:34` states `Unbacked` means "not found in this deck… not a defect and requires no action", and `:37` removed the non-deck-source rule. The three sitewide figures are accurate and stay; CRED-10/11/14/16 and PRF-02 are void. Phase 12 = Enterprise Legibility (ENT-01..05, 5 requirements). Sequenced (not parallelized) because `app/page.tsx` is the single file both phases touch — Phase 11 must fully land, including its regression-test rewrite, before Phase 12 reopens it.
 
 ### Decisions
 
@@ -102,4 +102,4 @@ Resume file: None
 
 ## Operator Next Steps
 
-- Run `/gsd:plan-phase 11` to plan Metric Integrity Close-Out
+- Run `/gsd:plan-phase 11` to plan Self-Consistency & Proof

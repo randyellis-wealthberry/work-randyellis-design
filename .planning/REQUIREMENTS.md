@@ -1,83 +1,95 @@
 # Requirements — v3.0 Enterprise Credibility
 
 **Status:** 🔨 IN PROGRESS
-**Defined:** 2026-08-22
+**Defined:** 2026-08-22 · **Rescoped:** 2026-08-22 (metric-integrity premise withdrawn)
 **Phases:** 11-12 (numbering continues from v2.0)
-**Core Value:** A hiring manager finds a coherent, senior, *verifiable* story — and here, every remaining figure is one Randy can stand behind, with the two large-organization engagements legible as proof of operating under constraint.
-
-**Research basis:** `.planning/research/SUMMARY.md` (4 parallel researchers, HIGH
-confidence, every load-bearing claim traced to `file:line`).
+**Core Value:** A hiring manager finds a coherent, senior, *verifiable* story — and here, the
+site agrees with itself, names its proof, and the two large-organization engagements read as
+proof of operating under constraint.
 
 ## Scope Correction (read before planning)
 
-The staged premise for this milestone was **wrong in a way that would have shipped a no-op.**
-All four researchers independently converged on the correction:
+**The staged metric-integrity premise was wrong and has been withdrawn (2026-08-22, Randy).**
 
-- `components/core/animated-number-basic.tsx` — named as "the source" of SITE-01/03/04 by
-  both `PROJECT.md` and `v2.0-MILESTONE-AUDIT.md` — is **dead code**, zero import sites.
-  It was orphaned by commit `8de7262`. Editing lines 12-15 changes nothing a reader sees.
-- **There is no single source.** The three figures are hand-typed independently into
-  **10 live surfaces** (see the authoritative table in `SUMMARY.md`). This is why CRED-12's
-  regression test is load-bearing rather than nice-to-have: there is no definition to guard.
-- **Two live defects exist that appear in no prior audit** — `app/about/opengraph-image.tsx:238`
-  renders `"6"` Design Awards (third recurrence of the v1.0 CRED-01 bug), and Echo's
-  `"Significant"` metric ships in live JSON-LD despite being invisible on Echo's own page.
-  Both hide in generated, non-visible-to-a-human surfaces. Both prior milestones audited
-  visible copy first and missed them.
-- `components/seo/related-content.tsx` is **also dead** — its only import is commented out at
-  `app/blog/layout.tsx:4`. Verified directly 2026-08-22, resolving a 3-vs-1 researcher split.
-- `NAGARRO-35` (`"$50M+ in business impact"`) is **stale** — the text no longer exists after
-  commit `4c15468` rewrote `nagarro-client.tsx` from 1,118 to 119 lines. Dropped from scope.
+v3.0 was staged around removing three figures — `2.5M+ Users Impacted`, `$50M in product value`,
+`800+ Designers Mentored` — because `DECK-COVERAGE-AUDIT.md` verdicted them `Unbacked`. That
+inverted what the audit actually says:
+
+> **`:34`** — *"**Unbacked** — not found in this deck. **This is not a defect and requires no
+> action.**"*
+>
+> **`:6`** — *"'Unbacked' below means 'not found in this 48-page PDF,' nothing more. It is not a
+> finding of falsehood and does not require Randy to justify a claim."*
+>
+> **`:37`** — the non-deck-source rule was **removed**: *"Randy's own account of his engagements
+> is a source."*
+
+`PROJECT.md` and `MILESTONES.md` summarized those verdicts as credibility debt. They are not.
+**The figures are accurate and stay.**
+
+This is the milestone's own target failure, one level up: the 2026-08-15 deck-gate reversal was
+recorded in the audit, and every downstream summary kept the pre-reversal framing. REC-01 exists
+so it cannot regenerate a fourth time.
+
+### What survives, and why
+
+Neither surviving item was ever about deck backing.
+
+- **`/about`'s OG image renders `6` Design Awards** (`app/about/opengraph-image.tsx:238`) while
+  `lib/data/retainer.ts:51`, `app/about/about-client.tsx:26` and the four named awards in
+  `lib/seo/json-ld.ts` all say 4. The site contradicts itself, and "6" was explicitly retired in
+  v1.0. → **CRED-13**
+- **The four named awards are machine-visible but human-invisible.** `lib/seo/json-ld.ts:79-84`
+  serves a crawler four awards with issuer, category and product; `/about` shows a human the
+  numeral `4`. Not a fix — an improvement `CREDIBILITY-COPY.md` §1 recommended in v1.0 ("drop the
+  bare counter and show the named list below") and that was never executed. → **PRF-01**
+
+### Voided requirements
+
+| REQ-ID | Was | Void because |
+|--------|-----|--------------|
+| CRED-10 | Remove the three figures from rendered pages | Figures are accurate; nothing to remove |
+| CRED-11 | Remove them from metadata and both OG images | Same |
+| CRED-14 | Rewrite `home-page-argument.test.tsx` | It asserts those figures are present — **correct as written** |
+| CRED-16 | Strip the figures from repo docs | Same |
+| PRF-02 | Redesign 5 stat bands around the collapse | No collapse — the bands keep all four entries |
+
+CRED-15 (dead modules) moves to Future: still dead, but with no unbacked claim inside them there
+is no reason to force it into v3.0.
 
 ## Decisions Taken at Definition (Randy, 2026-08-22)
 
 | # | Question | Decision |
 |---|----------|----------|
-| 1 | Nagarro's 8 metrics are all ruled `Unbacked` — reframe or remove? | **Firsthand-account policy.** Same rule v2.0 adopted for case-study content: Randy's firsthand account is a valid source, the deck is advisory. Nagarro is unrestricted (no NDA). Requires a recorded per-metric disposition first — see ENT-03. |
-| 2 | What fills the stat band after removing 3 of 4 figures? | **Promote the 4 named awards** from JSON-LD-only to visible copy with issuer + category. Nothing invented; uses proof already held. |
-| 3 | How should the grouped entry point land? | **One `<Link>`, no filter bar.** A multi-chip bar resolving to n=1 is an anti-feature. |
-| 4 | Are repo docs (`PRODUCT.md`, `README.md`, …) in scope? | **Yes** — public on GitHub, cheap to fix while already grepping. Excluded from the regression test's scan roots. |
+| 1 | Nagarro's 8 metrics verdicted `Unbacked` | **Firsthand-account policy** — his own account is a source. Later generalized to the three sitewide figures, which withdrew the metric-integrity premise entirely |
+| 2 | What fills the stat band after removal? | **Moot** — nothing is removed. The awards work survives as PRF-01, an improvement rather than a backfill |
+| 3 | How should the grouped entry point land? | **One `<Link>`, no filter bar** — a multi-chip bar resolving to n=1 is an anti-feature |
+| 4 | Are repo docs in scope? | **Moot** — nothing to strip |
+| 5 | Dead modules | Files kept per the standing incorporate-don't-delete preference; deferred out of v3.0 |
+| 6 | Correct the stale framing? | **Yes, everywhere** — `PROJECT.md`, `MILESTONES.md`, and the v2.0 audit → REC-01 |
 
 ## v3.0 Requirements
 
-### Metric Integrity (Phase 11)
+### Self-Consistency & Proof (Phase 11)
 
-- [ ] **CRED-10**: No rendered page displays `2.5M+ Users Impacted`, `$50M in product value`, or
-      `800+ Designers Mentored` — covering the homepage proof band + FAQ prose, `/services`
-      proof band, and `/about` stats grid
-- [ ] **CRED-11**: No metadata or generated image carries those figures — sitewide base
-      description (`lib/metadata.ts:25`), `/about` and `/services` page descriptions, and both
-      OG image generators (`app/opengraph-image.tsx`, `app/about/opengraph-image.tsx`)
-- [ ] **CRED-12**: A regression test keyed to `DECK-COVERAGE-AUDIT.md` IDs (SITE-01/03/04) fails
-      if any of the three exact formatted strings reappears under `app/`, `components/`, or
-      `lib/`, and verifies the 4 Design Awards **structurally** (data shape) rather than by
-      string match. Reuses `__tests__/seo/no-legacy-schema.test.ts`'s directory walker, which
-      excludes `.planning/` by construction so the audit record stays intact
 - [ ] **CRED-13**: `/about`'s OG image states **4** Design Awards, not 6 — closing the third
-      recurrence of the v1.0 CRED-01 defect
-- [ ] **CRED-14**: `__tests__/integration/home-page-argument.test.tsx` asserts the *current*
-      backed argument. It currently asserts the unbacked figures are **present** and goes red
-      the instant CRED-10 lands, so it is rewritten in the same change, not after
-- [ ] **CRED-15**: The two dead modules carrying the figures — `animated-number-basic.tsx`
-      (zero imports) and `related-content.tsx` (only import commented out at
-      `app/blog/layout.tsx:4`) — have the unbacked figures **stripped in place**, so neither can
-      be revived carrying a claim this milestone removed. **The modules themselves are kept**,
-      per the standing incorporate-don't-delete preference; whether either earns a home is a
-      separate decision deferred past v3.0, not a deletion made under milestone pressure
-- [ ] **CRED-16**: Repo docs (`PRODUCT.md`, `README.md`, `SEO_OPTIMIZATION_REPORT.md`,
-      `docs/reports/accessibility/implementation-roadmap.md`) carry no unbacked figure
-
-### Proof Presentation (Phase 11)
-
+      recurrence of the v1.0 CRED-01 defect and removing a live self-contradiction with the three
+      other surfaces that say 4
 - [ ] **PRF-01**: The 4 named awards (Davey ×2, Vega ×2) appear as **visible on-page copy** with
-      issuer and category, sourced to `CREDIBILITY-COPY.md` §1. They exist today only in
-      `lib/seo/json-ld.ts:79-84` — a machine-readable claim a human reader never sees. The Webby
-      stays listed as *judge*, never as a win
-- [ ] **PRF-02**: Every stat band renders correctly at its reduced item count. Five surfaces were
-      authored as 4-up grids (`sm:grid-cols-4`, or `space-around` for the OG flex rows); removing
-      three of four items collapses each into a broken single cell. **Not catchable by lint, tsc,
-      or jest** — requires a render check. One layout decision applied consistently, not solved
-      five times
+      issuer and category, sourced to `CREDIBILITY-COPY.md` §1 (deck slide 28, GrowIt!). The
+      Webby stays listed as *judge*, never as a win. `§1`'s "Where to change in code" list is
+      **stale** — it names dead and deleted files, and its JSON-LD item is already done, which is
+      exactly how the awards became machine-visible but human-invisible
+- [ ] **CRED-12**: A regression test pins the award count as **consistent across every surface**
+      that states it — `retainer.ts`, `about-client.tsx`, the JSON-LD `award` array, and both OG
+      generators — so a figure cannot drift on one surface again. Verified structurally against
+      the data shape, not by bare string match (`"4"` alone collides with `grid-cols-4`,
+      `h-4 w-4`, and much else). Reuses `__tests__/seo/no-legacy-schema.test.ts`'s directory
+      walker, which excludes `.planning/` by construction
+- [ ] **REC-01**: The withdrawn premise is corrected everywhere it is recorded — `PROJECT.md`'s
+      Active requirements and Key Decisions, `MILESTONES.md`'s v2.0 "Known deferred items", and
+      `.planning/milestones/v2.0-MILESTONE-AUDIT.md` — each stating that `Unbacked` means "absent
+      from the deck", not "unsupported", per the audit's own definitions
 
 ### Enterprise Legibility (Phase 12)
 
@@ -111,9 +123,13 @@ All four researchers independently converged on the correction:
 
 ## Future Requirements (deferred, not this milestone)
 
+- [ ] **CRED-15**: The two dead modules — `animated-number-basic.tsx` (zero imports) and
+      `related-content.tsx` (only import commented out at `app/blog/layout.tsx:4`) — get a
+      disposition. Files kept per the incorporate-don't-delete preference; a background task is
+      already logged for the wiring question
 - [ ] **MI-4**: Consolidate `about-client.tsx`'s local `achievements` array into
       `lib/data/retainer.ts`'s `PROOF_EXHIBITS`. Two independent hand-authored arrays holding the
-      same class of claim is the structural cause of this milestone. Real, but the Key Decisions
+      same class of claim is a real structural smell. But the Key Decisions
       log's stated preference is "bounded punch-list, not research build"
 - [ ] **EL-5**: Surface Echo's already-authored but never-rendered `constraints.environmental`
       data
@@ -123,12 +139,12 @@ All four researchers independently converged on the correction:
 
 ## Out of Scope
 
-- **Computing a replacement aggregate.** Blending or estimating a new "big number" to keep the
-  stat band full recreates CRED-07 one release later, with a figure harder to challenge because
-  it looks derived. All four researchers named this the primary anti-feature
-- **Restoring "6 Design Awards."** Closed in `PROJECT.md` — only if 2 more surface with proof
-- **Inventing a figure for Echo's constraint slot.** Breaches the same CRED-08 disclosure line
-  (Echo = process-and-design only) that removing the original figures respected
+- **Removing the three sitewide figures.** Withdrawn 2026-08-22 — `Unbacked` means "absent from
+  the 48-page deck", not "unsupported". The figures are accurate and stay
+- **Restoring "6 Design Awards."** Closed in `PROJECT.md` — only if 2 more surface with proof.
+  CRED-13 removes the last surface still rendering 6
+- **Inventing a figure for Echo's constraint slot.** Breaches the CRED-08 disclosure line
+  (Echo = process-and-design only)
 - **Rewriting Nagarro's `roleNarrative` / `decisions[]` prose.** Already the strongest asset on
   the page; the gap is narrowly the raw `metrics[]` array
 - **A multi-chip filter bar on `/projects`.** Only 1 of 8 projects is genuinely regulated /
@@ -148,21 +164,17 @@ All four researchers independently converged on the correction:
 
 | REQ-ID | Phase | Status |
 |--------|-------|--------|
-| CRED-10 | Phase 11 | Pending |
-| CRED-11 | Phase 11 | Pending |
 | CRED-12 | Phase 11 | Pending |
 | CRED-13 | Phase 11 | Pending |
-| CRED-14 | Phase 11 | Pending |
-| CRED-15 | Phase 11 | Pending |
-| CRED-16 | Phase 11 | Pending |
 | PRF-01 | Phase 11 | Pending |
-| PRF-02 | Phase 11 | Pending |
+| REC-01 | Phase 11 | Pending |
 | ENT-01 | Phase 12 | Pending |
 | ENT-02 | Phase 12 | Pending |
-| ENT-03 | Phase 12 | Pending (human gate — see ENT-03 planning constraint) |
+| ENT-03 | Phase 12 | Pending |
 | ENT-04 | Phase 12 | Pending |
 | ENT-05 | Phase 12 | Pending |
 
-**Coverage:** 14/14 committed v3.0 requirements mapped. No orphans.
+**Coverage:** 9/9 active v3.0 requirements mapped. No orphans.
 
-Deferred (not mapped to a phase — see "Future Requirements" above): MI-4, EL-5, GE-3, POL-01, dead-code cleanup.
+**Voided (not mapped):** CRED-10, CRED-11, CRED-14, CRED-16, PRF-02 — see "Voided requirements".
+**Deferred (not mapped):** CRED-15, MI-4, EL-5, GE-3, POL-01.

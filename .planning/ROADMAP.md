@@ -10,44 +10,53 @@
 
 **Phase Numbering:** continues from v2.0. Phase 10 was the last phase of v2.0 (shipped), so v3.0 starts at 11.
 
-- [ ] **Phase 11: Metric Integrity Close-Out** - Remove the three unbacked sitewide figures at every live surface and repo doc, fix the `/about` OG "6 awards" bug, promote the 4 named awards to visible copy, and lock it all in with a rewritten regression test
+- [ ] **Phase 11: Self-Consistency & Proof** - Fix the `/about` OG "6 awards" contradiction, promote the 4 named awards from JSON-LD-only to visible copy, pin award-count consistency with a test, and correct the stale framing that generated the withdrawn metric-removal premise
 - [ ] **Phase 12: Enterprise Legibility** - Echo and Nagarro reframed for a reader evaluating regulated, large-organization operating experience, with one grouped entry point on `/projects`
 
 ## Phase Details
 
-### Phase 11: Metric Integrity Close-Out
+### Phase 11: Self-Consistency & Proof
 
-**Goal**: Every unbacked figure (`2.5M+ Users Impacted`, `$50M in product value`, `800+ Designers Mentored`) is gone from every live surface and the four named repo docs, the `/about` OG image's stray "6 Design Awards" bug is fixed to 4, the 4 named awards are promoted from JSON-LD-only to visible on-page copy with issuer and category, and a rewritten regression test locks all of it in place.
+> **Rescoped 2026-08-22.** Was "Metric Integrity Close-Out". The metric-removal premise was
+> withdrawn — `DECK-COVERAGE-AUDIT.md:34` states plainly that `Unbacked` means *"not found in
+> this deck… **This is not a defect and requires no action**"*, and `:37` records that the
+> non-deck-source rule was removed because *"Randy's own account of his engagements is a
+> source."* `PROJECT.md` and `MILESTONES.md` had summarized those verdicts as credibility debt.
+> The three figures are accurate and stay. CRED-10, CRED-11, CRED-14, CRED-16 and PRF-02 are
+> void; see REQUIREMENTS.md "Voided requirements".
 
-**Depends on**: Phase 10 (v2.0, shipped) — first phase of v3.0, no dependency within this milestone
+**Goal**: The site agrees with itself about how many design awards Randy has won, names those
+four awards where a human can read them, pins that consistency with a test, and corrects the
+stale framing that generated the withdrawn premise.
 
-**Requirements**: CRED-10, CRED-11, CRED-12, CRED-13, CRED-14, CRED-15, CRED-16, PRF-01, PRF-02
+**Depends on**: Phase 10 (v2.0, shipped) — first phase of v3.0
+
+**Requirements**: CRED-12, CRED-13, PRF-01, REC-01
 
 **Success Criteria** (what must be TRUE):
 
-  1. A full-repo grep for the three exact strings (`rg -n '2\.5M\+|\$50M|800\+'`) returns zero matches across `app/`, `components/`, and `lib/` — covering the homepage proof band + FAQ prose, `/services` proof band and metadata, `/about` stats grid and metadata, both OG image generators, sitewide base metadata (`lib/metadata.ts`), and the two dead modules (`animated-number-basic.tsx`, `related-content.tsx`) with the figures stripped in place — and the same three strings are absent from `PRODUCT.md`, `README.md`, `SEO_OPTIMIZATION_REPORT.md`, and `docs/reports/accessibility/implementation-roadmap.md`
-  2. The 4 named awards (Davey ×2, Vega ×2) render as visible on-page copy with issuer and category — today they exist only in `lib/seo/json-ld.ts:79-84`, invisible to a human reader; the Webby stays listed as judge, never as a win
-  3. `/about`'s OG image states **4** Design Awards, not 6 — closing the third recurrence of the v1.0 CRED-01 defect
-  4. No stat band renders a 4-up grid holding one surviving item — verified by an actual render check across all 5 affected surfaces (homepage + `/services` via `PROOF_EXHIBITS`, `/about`'s `achievements` grid, both OG image generators), because this is not catchable by `npm run lint`, `tsc --noEmit`, or `jest`
-  5. `npm run lint` → `npx tsc --noEmit` → `npm test` all pass, including `__tests__/integration/home-page-argument.test.tsx` rewritten to assert the current backed argument (not the removed figures) and a regression test keyed to `DECK-COVERAGE-AUDIT.md` IDs (SITE-01/03/04) that fails if any of the three exact strings reappears and verifies the 4 Design Awards structurally (data shape), not by string match
+  1. Every surface that states an award count states **4** — `app/about/opengraph-image.tsx:238` currently renders `6` while `lib/data/retainer.ts:51`, `app/about/about-client.tsx:26` and `lib/seo/json-ld.ts`'s four-entry `award` array all say 4
+  2. The four named awards (Davey ×2, Vega ×2, all GrowIt!) render as visible on-page copy with issuer and category — today they exist only in `lib/seo/json-ld.ts:79-84`, readable by a crawler but not by a person. The Webby appears as *judge*, never as a win
+  3. A regression test pins award-count consistency across all four surfaces, verified structurally against the data shape rather than by bare string match (`"4"` collides with `grid-cols-4`, `h-4 w-4`, and much else)
+  4. `PROJECT.md`, `MILESTONES.md` and `.planning/milestones/v2.0-MILESTONE-AUDIT.md` each state that `Unbacked` means "absent from the deck", not "unsupported" — so a future audit cannot regenerate the withdrawn premise a fourth time
+  5. `npm run lint` → `npx tsc --noEmit` → `npm test` all pass (build is NOT a validation gate — `next.config.js` ignores lint and type errors)
 
 **Planning constraints** (hard, do not route around):
 
-  - **CRED-14 must land in the SAME plan as CRED-10.** `__tests__/integration/home-page-argument.test.tsx:59-66` currently asserts the unbacked figures are PRESENT; it goes red the instant they're removed. Splitting figure-removal and test-rewrite across plans guarantees a red suite between them.
-  - **PRF-02 is a design decision made ONCE and applied to 5 surfaces**, not solved five times. Decide the replacement stat-band layout before touching any of the 5 render sites, then apply it consistently.
-  - **`app/page.tsx` is the single cross-phase file conflict with Phase 12.** This phase edits `:85` (FAQ prose, "mentored 800+ designers") and consumes `PROOF_EXHIBITS` at `:165`. Phase 12 may reword the Selected-work paragraph in the same file. This phase must fully complete — including its test rewrite — before Phase 12 opens `app/page.tsx`.
-  - **PRF-01's copy is already written and sourced — do not re-derive it.** `.planning/CREDIBILITY-COPY.md` §1 carries all 4 awards traced to deck slide 28 (GrowIt! case study) with issuer and category, plus a ready-to-use awards block for the about page. Two constraints ride with it: the **Webby is a Judge credential from deck slide 2, never counted among awards won**, and §1's own Phase-1 recommendation was to *"drop the bare counter and show the named list below"* — written in v1.0, never executed, which is why `/about` ships the numeral `4` today.
-  - **§1's "Where to change in code" list is STALE — do not follow it.** It names `components/core/animated-number-basic.tsx` (dead code) and `components/seo/structured-data.tsx` (deleted in Phase 10). Its JSON-LD item is already done (`lib/seo/json-ld.ts:79-84`), which is precisely how the 4 named awards became machine-visible but human-invisible. The live targets are `app/about/about-client.tsx:19-40` (local `achievements` array) and `app/about/opengraph-image.tsx`, where the stray `"6"` also lives.
-  - **`/about` alone does not satisfy PRF-01.** `about-client.tsx`'s `achievements` is a local array, not an import; the homepage and `/services` read a different one (`PROOF_EXHIBITS`, `lib/data/retainer.ts`). Both must be addressed. Consolidating them is deferred as MI-4 — do not fold it in here.
-  - Re-verify `components/seo/related-content.tsx`'s live/dead status (`app/blog/layout.tsx:4`'s import state) fresh at plan time before deciding whether to edit or skip it — researchers disagreed and it needs one current check, not a majority vote.
+  - **Do not remove `2.5M+`, `$50M`, or `800+` from any surface.** They are accurate and in scope to keep. `__tests__/integration/home-page-argument.test.tsx:59-66` asserts they are present and is **correct as written** — do not touch it.
+  - **PRF-01's copy is already written — do not re-derive it.** `.planning/CREDIBILITY-COPY.md` §1 carries all 4 awards traced to deck slide 28 (GrowIt!) with issuer and category, plus a ready-to-use awards block. Its own Phase-1 recommendation was to *"drop the bare counter and show the named list below"* — written in v1.0, never executed, which is why `/about` ships the numeral `4` today.
+  - **§1's "Where to change in code" list is STALE — do not follow it.** It names `components/core/animated-number-basic.tsx` (dead code) and `components/seo/structured-data.tsx` (deleted in Phase 10). Its JSON-LD item is already done. The live targets are `app/about/about-client.tsx` and `app/about/opengraph-image.tsx`.
+  - **The proof bands keep all four entries.** `grid-cols-2 sm:grid-cols-4` on the homepage, `/services` and `/about` stays as-is — there is no collapse to design around. PRF-01 is additive: where the named awards appear relative to the existing `4` cell is the open design decision.
+  - **Both bands carry a shared footnote** — *"Every figure above is career to date, across roles at Nagarro, Chameleon Collective, and Wealthberry Labs"* (`app/page.tsx`, `app/services/services-client.tsx`). All four awards are from GrowIt!, a single product. If the named awards land inside those bands, that sentence needs to stay true.
+  - **`/services` wraps values in `AnimatedMetricValue`** (counts up from zero); the homepage deliberately does not — a documented Phase-10 choice. Award names cannot count up. Any award content added to `/services` must account for this.
+  - **`app/page.tsx` is the cross-phase file conflict with Phase 12.** Complete this phase before Phase 12 opens it.
 
-**Suggested internal order** (from research, deviate only with reason):
+**Suggested internal order**:
 
-  1. Fix the `/about` OG "6 Design Awards" bug as its own independently-shippable commit — pure bug fix, no design decision blocking it
-  2. Strip the figures from the two dead modules (`animated-number-basic.tsx`, `related-content.tsx`) in place; keep the files per the incorporate-don't-delete standing preference
-  3. Decide the stat-band replacement layout once (e.g., promote the 4 named awards into the freed slots)
-  4. Remove the figures from the remaining live surfaces and rewrite `home-page-argument.test.tsx` together, in the same plan
-  5. Close with a full-repo grep sweep across `app/`, `components/`, `lib/`, and the 4 named repo docs as the phase's closing gate
+  1. Fix the `/about` OG `6` → `4` as its own independently-shippable commit — pure bug, nothing blocks it
+  2. REC-01 record corrections — cheap, and stops the withdrawn premise propagating while the rest is in flight
+  3. PRF-01 named-awards copy on `/about`, honouring the footnote and animation constraints above
+  4. CRED-12 consistency test last, once the final shape is settled
 
 **Plans**: TBD
 
@@ -105,7 +114,7 @@
 | 8. Content Rewrite & Credibility Guardrails | v2.0 | pre-GSD (traced) | Complete | 2026-08-16 |
 | 9. Cross-Surface Verification | v2.0 | 5/5 | Complete | 2026-08-20 |
 | 10. SEO Remediation | v2.0 | 10/10 | Complete | 2026-08-22 |
-| 11. Metric Integrity Close-Out | v3.0 | 0/TBD | Not started | - |
+| 11. Self-Consistency & Proof | v3.0 | 0/TBD | Not started | - |
 | 12. Enterprise Legibility | v3.0 | 0/TBD | Not started | - |
 
 ## Backlog
