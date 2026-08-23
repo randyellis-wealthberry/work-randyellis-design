@@ -16,7 +16,13 @@ import { CTASection } from "@/components/ui/cta-section";
  * context line, and a decorative glyph above each one adds nothing the number
  * does not already say.
  */
-const achievements = [
+const achievements: ReadonlyArray<{
+  value: string;
+  label: string;
+  description: string;
+  awards?: readonly string[];
+  judgeCredential?: string;
+}> = [
   {
     value: "2.5M+",
     label: "Users impacted",
@@ -25,7 +31,14 @@ const achievements = [
   {
     value: "4",
     label: "Design awards",
-    description: "Recognition for innovative design work",
+    description: "For GrowIt!",
+    awards: [
+      "Silver — The Davey Awards, Mobile Apps/Social",
+      "Silver — The Davey Awards, Mobile Apps/Lifestyle",
+      "3rd Place — Vega Digital Awards, Best User Interface App/Experience",
+      "3rd Place — Vega Digital Awards, Best Lifestyle App",
+    ],
+    judgeCredential: "Also a Webby Awards judge.",
   },
   {
     value: "$50M",
