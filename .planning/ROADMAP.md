@@ -62,7 +62,7 @@ stale framing that generated the withdrawn premise.
 
 - [x] 11-01-PLAN.md — CRED-13: `/about` OG image states 4 Design Awards, not 6 (wave 1, standalone commit per D-02)
 - [x] 11-02-PLAN.md — REC-01: verify the withdrawn-premise corrections across the planning record, remediate only gaps (wave 2, sequenced after 11-01 per D-10's "second" and to make D-02's "first" commit deterministic)
-- [ ] 11-03-PLAN.md — PRF-01: the four named awards as visible copy inside `/about`'s Design awards cell (wave 2)
+- [x] 11-03-PLAN.md — PRF-01: the four named awards as visible copy inside `/about`'s Design awards cell (wave 2)
 - [ ] 11-04-PLAN.md — CRED-12: award-count consistency regression test across five stating surfaces (wave 3, written last per D-14)
 - [ ] 11-05-PLAN.md — Phase gate: `lint` → `tsc` → `test` plus blocking human verification of the rendered band (wave 4)
 
@@ -120,7 +120,7 @@ stale framing that generated the withdrawn premise.
 | 8. Content Rewrite & Credibility Guardrails | v2.0 | pre-GSD (traced) | Complete | 2026-08-16 |
 | 9. Cross-Surface Verification | v2.0 | 5/5 | Complete | 2026-08-20 |
 | 10. SEO Remediation | v2.0 | 10/10 | Complete | 2026-08-22 |
-| 11. Self-Consistency & Proof | v3.0 | 2/5 | In Progress|  |
+| 11. Self-Consistency & Proof | v3.0 | 3/5 | In Progress|  |
 | 12. Enterprise Legibility | v3.0 | 0/TBD | Not started | - |
 
 ## Backlog

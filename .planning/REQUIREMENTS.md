@@ -77,7 +77,7 @@ is no reason to force it into v3.0.
       recurrence of the v1.0 CRED-01 defect and removing a live self-contradiction with the three
       other surfaces that say 4
 
-- [ ] **PRF-01**: The 4 named awards (Davey ×2, Vega ×2) appear as **visible on-page copy** with
+- [x] **PRF-01**: The 4 named awards (Davey ×2, Vega ×2) appear as **visible on-page copy** with
       issuer and category, sourced to `CREDIBILITY-COPY.md` §1 (deck slide 28, GrowIt!). The
       Webby stays listed as *judge*, never as a win. `§1`'s "Where to change in code" list is
       **stale** — it names dead and deleted files, and its JSON-LD item is already done, which is
@@ -184,7 +184,7 @@ is no reason to force it into v3.0.
 |--------|-------|--------|
 | CRED-12 | Phase 11 | Pending |
 | CRED-13 | Phase 11 | Complete |
-| PRF-01 | Phase 11 | Pending |
+| PRF-01 | Phase 11 | Complete |
 | REC-01 | Phase 11 | Complete |
 | ENT-01 | Phase 12 | Pending |
 | ENT-02 | Phase 12 | Pending |

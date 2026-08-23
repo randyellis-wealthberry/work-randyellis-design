@@ -104,6 +104,14 @@ None - no external service configuration required.
 - `judgeCredential` is a separate field from `awards`, so 11-04's test can assert no `award` entry matches `/webby/i` without any special-casing.
 - No blockers for 11-04 (consistency test) or 11-05 (checkpoint/visual review, which per the plan's own `<verification>` step 7 is where human confirmation of the rendered result belongs — this plan's automated gate is green but visual sign-off is deferred by design).
 
+## Self-Check: PASSED
+
+- FOUND: `app/about/about-client.tsx`
+- FOUND: `.planning/phases/11-self-consistency-proof/11-03-SUMMARY.md`
+- FOUND: `fad9ff9` (Task 1 commit)
+- FOUND: `392d7d2` (Task 2 commit)
+- FOUND: `537b372` (SUMMARY commit)
+
 ---
 *Phase: 11-self-consistency-proof*
 *Completed: 2026-08-23*
