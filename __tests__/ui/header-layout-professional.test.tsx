@@ -79,7 +79,7 @@ describe("Professional Header Layout (TDD RED Phase)", () => {
       // Should have left column (name + subtitle)
       expect(screen.getByText("Randy Ellis")).toBeInTheDocument();
       expect(
-        screen.getByText("Taste, made executable."),
+        screen.getByText("Design-led, end to end."),
       ).toBeInTheDocument();
 
       // Should have right column (navigation only)
