@@ -475,9 +475,25 @@ export default function AboutClient() {
                 {achievement.label}
                 {/* Each figure's context differs, so it stays with its figure
                     rather than collapsing into one shared qualifier. */}
-                <span className="mt-1 block text-xs text-zinc-500 dark:text-zinc-400">
-                  {achievement.description}
-                </span>
+                {achievement.awards ? (
+                  <div className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">
+                    {achievement.description}
+                    <ul className="mt-1 list-none space-y-0.5">
+                      {achievement.awards.map((award) => (
+                        <li key={award}>{award}</li>
+                      ))}
+                    </ul>
+                    {achievement.judgeCredential && (
+                      <p className="mt-1.5 border-t border-zinc-200 pt-1.5 italic dark:border-zinc-800">
+                        {achievement.judgeCredential}
+                      </p>
+                    )}
+                  </div>
+                ) : (
+                  <span className="mt-1 block text-xs text-zinc-500 dark:text-zinc-400">
+                    {achievement.description}
+                  </span>
+                )}
               </dt>
             </div>
           ))}
