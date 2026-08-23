@@ -235,7 +235,7 @@ export default async function OpengraphImage() {
                   color: "#60a5fa",
                 }}
               >
-                6
+                4
               </div>
               <div
                 style={{
