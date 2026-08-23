@@ -40,13 +40,33 @@ CRED-12 (award-count consistency test), REC-01 (correct the record).
 ### Named awards placement (PRF-01)
 - **D-03:** The `/about` proof band keeps **all four cells unchanged**, including
   `4 / Design awards`. There is no collapse to design around.
-- **D-04:** The four named awards render **inside the existing `4 / Design awards` cell's
+- **D-04:** ~~The four named awards render **inside the existing `4 / Design awards` cell's
   description slot** — the `<span className="mt-1 block text-xs …">` at
-  `app/about/about-client.tsx:463-466`. Not a separate block, not a new section.
-- **D-05:** *Implementation constraint:* that span currently holds a **single one-line
+  `app/about/about-client.tsx:463-466`. Not a separate block, not a new section.~~
+  **SUPERSEDED 2026-08-23 at the plan 11-05 human-verification checkpoint.** Randy reviewed the
+  rendered result and rejected it: *"This looks horrible, awards needs it down section below
+  career impact section."* In-cell placement was shipped in `11-03` exactly as D-04 specified,
+  and the measurements show why it failed — in the four-column band the awards cell's
+  description rendered **286px tall against 55–71px siblings** (132px column, `text-xs`, each
+  award wrapping to three lines), stretching the row to 338px and stranding the other three
+  cells above ~230px of dead space. **Replacement decision: the awards render in their own
+  `#recognition` section immediately below the Career impact band**, as full-width hairline
+  rows. Every award now sets on one line. The band is byte-identical to its pre-phase state and
+  back to a 123px row. This is the checkpoint doing its job — D-04 was a reasonable guess that
+  only a rendered page could falsify.
+- **D-05:** ~~*Implementation constraint:* that span currently holds a **single one-line
   qualifier** ("Recognition for innovative design work"). Four award names with issuers will
   not fit as one run-on sentence. Render as a **compact list inside the cell** — the decision
-  is placement (in-cell), not a specific single-line format.
+  is placement (in-cell), not a specific single-line format.~~
+  **SUPERSEDED 2026-08-23 with D-04** — it existed only to constrain the in-cell format. Its
+  premise ("four award names with issuers will not fit") was correct, and is precisely why D-04
+  fell. The one-line qualifier it describes has been restored to the cell verbatim.
+- **D-04a (new, 2026-08-23):** The named awards live on the `achievements` entry whose figure
+  counts them, and the `#recognition` section reads them from there via
+  `achievements.find(a => a.awards)` rather than holding a second copy. Two hand-authored lists
+  of the same claim is how the OG image came to say `6` while three other surfaces said 4. This
+  also keeps `__tests__/seo/award-count-consistency.test.ts` green unchanged — its Block 2
+  anchors on `label: "Design awards"` and slices the `awards: [` array that follows it.
 - **D-06:** **No decorative glyphs.** `CREDIBILITY-COPY.md` §1 drafts the awards with medal
   emoji (🥈🥈🥉🥉); the established design voice rejects them —
   `about-client.tsx:15-18`: *"No icons: the Proof Exhibit signature is a figure over a context
@@ -78,7 +98,9 @@ CRED-12 (award-count consistency test), REC-01 (correct the record).
 - **D-14:** Write it **last**, once the PRF-01 shape is settled, so it pins the final state.
 
 ### Claude's Discretion
-- Exact markup for the in-cell award list (D-05) — placement is locked, format is not.
+- ~~Exact markup for the in-cell award list (D-05) — placement is locked, format is not.~~
+  **SUPERSEDED 2026-08-23** with D-04/D-05 — there is no in-cell list. Markup for the
+  `#recognition` section's hairline rows remains discretionary.
 - Exact wording of the REC-01 correction notes.
 - Whether the consistency test lives in `__tests__/seo/` alongside its precedent or a new
   `__tests__/credibility/` directory.

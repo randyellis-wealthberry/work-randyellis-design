@@ -15,6 +15,13 @@ import { CTASection } from "@/components/ui/cta-section";
  * The proof exhibits. No icons: the Proof Exhibit signature is a figure over a
  * context line, and a decorative glyph above each one adds nothing the number
  * does not already say.
+ *
+ * The named awards live on the entry whose figure counts them, so the array's
+ * length and the rendered `4` cannot drift apart — that drift is exactly what
+ * `__tests__/seo/award-count-consistency.test.ts` exists to catch. They are
+ * rendered by the Recognition section below the band, not inside this cell: a
+ * quarter-width column at `text-xs` turned four issuer-and-category strings
+ * into a 286px ribbon beside three 55px siblings.
  */
 const achievements: ReadonlyArray<{
   value: string;
@@ -31,7 +38,7 @@ const achievements: ReadonlyArray<{
   {
     value: "4",
     label: "Design awards",
-    description: "For GrowIt!",
+    description: "Recognition for innovative design work",
     awards: [
       "Silver — The Davey Awards, Mobile Apps/Social",
       "Silver — The Davey Awards, Mobile Apps/Lifestyle",
@@ -51,6 +58,14 @@ const achievements: ReadonlyArray<{
     description: "Growing the next generation of design talent",
   },
 ];
+
+/**
+ * The Recognition section reads the named awards off the proof exhibit whose
+ * figure counts them, rather than holding a second copy. Two hand-authored
+ * lists of the same claim is how the OG image came to say `6` while three
+ * other surfaces said 4.
+ */
+const recognition = achievements.find((achievement) => achievement.awards);
 
 const experience = [
   {
@@ -310,6 +325,7 @@ const TRANSITION_SECTION = {
 /** Named once, so each heading and the contents line cannot drift apart. */
 const SECTIONS = [
   { id: "impact", label: "Career impact" },
+  { id: "recognition", label: "Recognition" },
   { id: "journey", label: "Career journey" },
   { id: "experience", label: "Professional experience" },
   { id: "teaching", label: "Adjunct instructor experience" },
@@ -475,30 +491,53 @@ export default function AboutClient() {
                 {achievement.label}
                 {/* Each figure's context differs, so it stays with its figure
                     rather than collapsing into one shared qualifier. */}
-                {achievement.awards ? (
-                  <div className="mt-1 text-xs text-zinc-500 dark:text-zinc-400">
-                    {achievement.description}
-                    <ul className="mt-1 list-none space-y-0.5">
-                      {achievement.awards.map((award) => (
-                        <li key={award}>{award}</li>
-                      ))}
-                    </ul>
-                    {achievement.judgeCredential && (
-                      <p className="mt-1.5 border-t border-zinc-200 pt-1.5 italic dark:border-zinc-800">
-                        {achievement.judgeCredential}
-                      </p>
-                    )}
-                  </div>
-                ) : (
-                  <span className="mt-1 block text-xs text-zinc-500 dark:text-zinc-400">
-                    {achievement.description}
-                  </span>
-                )}
+                <span className="mt-1 block text-xs text-zinc-500 dark:text-zinc-400">
+                  {achievement.description}
+                </span>
               </dt>
             </div>
           ))}
         </dl>
       </motion.section>
+
+      {recognition?.awards && (
+        <motion.section
+          id="recognition"
+          aria-labelledby="recognition-heading"
+          className={SECTION}
+          variants={VARIANTS_SECTION}
+          transition={TRANSITION_SECTION}
+        >
+          <SectionLabel id="recognition-heading">
+            {labelFor("recognition")}
+          </SectionLabel>
+          {/* Full-width hairline rows, not the proof band's quarter-width cell.
+              Four placement-issuer-category strings at `text-xs` in a 132px
+              column wrapped to three lines each; here they get the line length
+              they need. */}
+          <p className="mt-6 text-base text-zinc-600 dark:text-zinc-300">
+            All four for GrowIt!
+          </p>
+          <ul className="mt-4">
+            {recognition.awards.map((award) => (
+              <li
+                key={award}
+                className="border-t border-zinc-200 py-4 text-base text-zinc-900 dark:border-zinc-800 dark:text-white"
+              >
+                {award}
+              </li>
+            ))}
+          </ul>
+          {/* The Webby is a judging credential, never a win and never counted
+              among the four — so it sits outside the list, in the subordinate
+              tone the other three proof-band qualifiers use. */}
+          {recognition.judgeCredential && (
+            <p className="border-t border-zinc-200 py-4 text-base text-zinc-500 dark:border-zinc-800 dark:text-zinc-400">
+              {recognition.judgeCredential}
+            </p>
+          )}
+        </motion.section>
+      )}
 
       <motion.section
         id="journey"
