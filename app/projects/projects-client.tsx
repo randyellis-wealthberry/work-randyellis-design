@@ -51,13 +51,13 @@ const VARIANTS_ITEM = {
 };
 
 function ProjectThumbnail({ project }: { project: (typeof PROJECTS)[0] }) {
-  // Special handling for Nagarro project - always show the logo
-  if (
-    project.slug === "nagarro" &&
-    project.thumbnail?.includes("nagarro-logo")
-  ) {
+  // Logo thumbnails (Nagarro) are brand lockups, not screenshots. The asset is a
+  // dark-ink mark on white, so it gets an explicit white plate — the same treatment
+  // components/client-logos.tsx uses — instead of bleeding an accidental white
+  // rectangle into the card in dark mode.
+  if (project.thumbnail?.includes("-logo.")) {
     return (
-      <div className="aspect-video overflow-hidden">
+      <div className="aspect-video overflow-hidden bg-white">
         <Image
           src={project.thumbnail}
           alt={`${project.name} - ${project.subtitle || project.description} showcasing ${project.technologies.slice(0, 3).join(", ")} implementation`}
@@ -95,13 +95,18 @@ function ProjectThumbnail({ project }: { project: (typeof PROJECTS)[0] }) {
     ? project.thumbnail
     : null;
 
-  const staticThumbnail =
+  // A thumbnail that is a real still image — usable both as the static card image
+  // and as the <video> poster below.
+  const posterSrc =
     !isVideoUrl(project.thumbnail || "") &&
     !isUnicornStudioId(project.thumbnail || "") &&
     !isLocalMp4Thumbnail &&
     project.thumbnail
       ? project.thumbnail
-      : "/images/projects/placeholder-thumbnail.jpg";
+      : undefined;
+
+  const staticThumbnail =
+    posterSrc ?? "/images/projects/placeholder-thumbnail.jpg";
 
   // Priority: UnicornStudio > Local MP4 > External Video > Static thumbnail
   if (unicornId) {
@@ -128,6 +133,7 @@ function ProjectThumbnail({ project }: { project: (typeof PROJECTS)[0] }) {
       <div className="aspect-video overflow-hidden">
         <HoverVideo
           src={localMp4Src}
+          poster={posterSrc}
           alt={`${project.name} - ${project.subtitle || project.description} showcasing ${project.technologies.slice(0, 3).join(", ")} implementation`}
           className="h-full w-full transition-transform duration-300 group-hover:scale-105"
           resetOnLeave={true}

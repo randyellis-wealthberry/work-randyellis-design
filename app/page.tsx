@@ -450,6 +450,13 @@ function ProjectThumbnail({ project }: { project: (typeof PROJECTS)[0] }) {
         >
           <LazyHoverVideo
             src={project.video}
+            poster={
+              project.thumbnail &&
+              !isVideoUrl(project.thumbnail) &&
+              !project.thumbnail.includes(".mp4")
+                ? project.thumbnail
+                : undefined
+            }
             alt={`${project.name} - Fractional Chief Design Officer portfolio project showcasing startup design leadership, scalable design systems, and AI-powered product innovation by Randy Ellis`}
             className="h-full w-full"
             resetOnLeave={true}
@@ -462,6 +469,29 @@ function ProjectThumbnail({ project }: { project: (typeof PROJECTS)[0] }) {
 
   const thumbnailSrc =
     project.thumbnail || "/images/projects/placeholder-thumbnail.jpg";
+
+  // Logo thumbnails (Nagarro) are brand lockups on white — give them an explicit
+  // white plate so the mark stays legible in dark mode instead of reading as a bare
+  // white rectangle. Mirrors the treatment in app/projects/projects-client.tsx.
+  if (thumbnailSrc.includes("-logo.")) {
+    return (
+      <Link href={`/projects/${project.slug}`}>
+        <div
+          className="aspect-video max-h-48 w-full cursor-pointer overflow-hidden rounded-lg bg-white transition-opacity duration-200 hover:opacity-90"
+          onMouseEnter={() => trackProjectHover(project.name, project.id)}
+          onClick={() => trackProjectView(project.name)}
+        >
+          <Image
+            src={thumbnailSrc}
+            alt={`${project.name} - Fractional Chief Design Officer portfolio project showcasing startup design leadership, scalable design systems, and AI-powered product innovation by Randy Ellis`}
+            width={500}
+            height={300}
+            className="h-full w-full object-cover"
+          />
+        </div>
+      </Link>
+    );
+  }
 
   if (isVideoUrl(thumbnailSrc)) {
     return (
