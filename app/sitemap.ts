@@ -42,6 +42,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
+      url: `${WEBSITE_URL}/skills`,
+      lastModified: BUILD_TIME,
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
       url: `${WEBSITE_URL}/metis`,
       lastModified: BUILD_TIME,
       changeFrequency: "monthly",
