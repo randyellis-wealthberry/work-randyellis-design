@@ -2,9 +2,9 @@
 
 import { motion } from "motion/react";
 import Link from "next/link";
+import { InstallPicker } from "@/components/skills/install-picker";
 
 const REPO_URL = "https://github.com/randyellis-wealthberry/skills";
-const INSTALL_COMMAND = "npx skills@latest add randyellis-wealthberry/skills";
 
 const VARIANTS_CONTAINER = {
   hidden: { opacity: 0 },
@@ -298,16 +298,7 @@ export default function SkillsClient() {
         <h2 className="text-xl font-medium text-zinc-900 dark:text-zinc-100">
           Install
         </h2>
-        <div className="overflow-x-auto rounded-lg bg-zinc-100 p-4 dark:bg-zinc-900">
-          <code className="font-mono text-sm whitespace-pre text-zinc-800 dark:text-zinc-200">
-            {INSTALL_COMMAND}
-          </code>
-        </div>
-        <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-400">
-          Or copy any <code className="font-mono text-sm">skills/…</code>{" "}
-          directory into your project’s{" "}
-          <code className="font-mono text-sm">.claude/skills/</code>.
-        </p>
+        <InstallPicker />
       </motion.section>
 
       {/* Prior art */}
