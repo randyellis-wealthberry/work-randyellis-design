@@ -8,7 +8,7 @@ const DESCRIPTION =
   "Open-source agent skills that hold design work to a defensible standard: every decision names its alternative and its cost, every claim is limited to what you actually did, and every outcome reports the part that cut against you.";
 
 export const metadata: Metadata = {
-  title: "Skills",
+  title: "AI Skills",
   description: DESCRIPTION,
   alternates: {
     canonical: "/skills",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     "AI Product Design",
   ],
   openGraph: {
-    title: "Skills",
+    title: "AI Skills",
     description: DESCRIPTION,
     url: "/skills",
   },
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 export default function SkillsPage() {
   const breadcrumbItems = [
     { name: "Home", url: WEBSITE_URL },
-    { name: "Skills", url: `${WEBSITE_URL}/skills` },
+    { name: "AI Skills", url: `${WEBSITE_URL}/skills` },
   ];
 
   return (

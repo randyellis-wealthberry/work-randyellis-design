@@ -135,7 +135,7 @@ export default function SkillsClient() {
           Open source · Agent skills · MIT
         </p>
         <h1 className="mb-5 text-3xl font-semibold tracking-tight text-zinc-900 sm:text-4xl dark:text-zinc-100">
-          Skills
+          AI Skills
         </h1>
         <p className="mb-6 text-lg leading-relaxed text-zinc-700 dark:text-zinc-300">
           Agent skills for people who have to defend their design work.
