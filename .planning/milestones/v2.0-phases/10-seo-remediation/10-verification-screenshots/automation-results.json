@@ -1,0 +1,31 @@
+{
+  "row9": {
+    "status": "fail",
+    "errors": [
+      "Rich Results Test reported errors in page content"
+    ],
+    "warnings": [],
+    "detections": []
+  },
+  "row10": {
+    "status": "fail",
+    "errors": [
+      "Rich Results Test reported errors in page content"
+    ],
+    "warnings": [],
+    "detections": []
+  },
+  "row11": {
+    "status": "fail",
+    "errors": [
+      "Rich Results Test reported errors in page content"
+    ],
+    "warnings": [],
+    "detections": []
+  },
+  "row12": {
+    "status": "pass",
+    "hasRegistration": false,
+    "registrations": []
+  }
+}

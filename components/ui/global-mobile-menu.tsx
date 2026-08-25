@@ -281,11 +281,16 @@ export function GlobalMobileMenu() {
                 {/* Recent pages */}
                 {recentPages.length > 0 && (
                   <div className="mx-auto w-full max-w-md px-6 pb-4">
-                    <p className="mb-2 flex items-center gap-1.5 text-xs font-medium tracking-wide text-zinc-500 uppercase dark:text-zinc-400">
+                    {/* Centred to the sheet, like the nav links and the theme
+                        button. `max-w-md` centres this block but not its
+                        contents, so above 448px the label and chips drifted to
+                        the block's left edge while everything else in the menu
+                        stayed on the centre line. */}
+                    <p className="mb-2 flex items-center justify-center gap-1.5 text-xs font-medium tracking-wide text-zinc-500 uppercase dark:text-zinc-400">
                       <Clock className="h-3.5 w-3.5" aria-hidden="true" />
                       Recently viewed
                     </p>
-                    <ul className="flex flex-wrap gap-2">
+                    <ul className="flex flex-wrap justify-center gap-2">
                       {recentPages.map((p) => (
                         <li key={p.href}>
                           <Link

@@ -1,5 +1,10 @@
-import { Badge } from "@/components/ui/badge";
-import { ScrambleSectionTitle } from "@/components/ui/scramble-section-title";
+"use client";
+
+import {
+  Disclosure,
+  DisclosureTrigger,
+  DisclosureContent,
+} from "@/components/motion-primitives/disclosure";
 
 export type Decision = {
   title: string;
@@ -10,71 +15,69 @@ export type Decision = {
 
 type DecisionCalloutProps = {
   decision: Decision;
-  /** 1-based position, rendered as the "Decision N" chip. */
+  /** 1-based position, used only to build a unique heading id. */
   index: number;
   /** Section id this callout belongs to, used to build unique heading ids. */
   sectionId: string;
+  /**
+   * The figure that draws this decision, if one exists. It renders last, after
+   * the outcome, because a drawing argues a claim the reader has already been
+   * given — it is evidence, not an illustration of the heading.
+   */
+  figure?: React.ReactNode;
 };
 
 /**
  * One design decision with its fork made explicit.
  *
- * Deliberately not wrapped in <Card> (D-16): the surrounding section already
- * uses cards for prose blocks, and nesting another card flattens the visual
- * hierarchy exactly where the reader should slow down. A subtle background
- * provides visual separation without excessive weight.
+ * Not a card and not a tinted callout: the decisions are a list before they are
+ * essays, so each is a hairline-separated entry whose long half — the rationale
+ * — opens on demand. The outcome stays visible, because what a decision cost is
+ * the part a reader came for.
  */
 export function DecisionCallout({
   decision,
   index,
   sectionId,
+  figure,
 }: DecisionCalloutProps) {
   const headingId = `${sectionId}-decision-${index}-heading`;
 
   return (
     <article
       aria-labelledby={headingId}
-      className="bg-muted/30 hover:bg-muted/50 rounded-lg p-5 transition-colors duration-200 md:p-6"
+      className="border-t border-zinc-200 py-8 first:border-t-0 first:pt-0 dark:border-zinc-800"
     >
-      <div className="mb-3 flex flex-wrap items-center gap-2">
-        <Badge variant="outline" className="px-2 py-0.5 text-xs">
-          Decision {index}
-        </Badge>
-      </div>
-
-      <ScrambleSectionTitle
-        as="h3"
+      <h3
         id={headingId}
-        className="mb-3 text-xl font-semibold"
+        className="text-lg font-medium text-zinc-900 dark:text-white"
       >
         {decision.title}
-      </ScrambleSectionTitle>
-
-      <div className="space-y-3">
-        <p className="text-foreground text-base leading-relaxed font-medium">
-          {decision.decision}
-        </p>
-
-        <div>
-          <p className="text-muted-foreground mb-1 text-xs tracking-wide uppercase">
-            Why, and what I passed on
-          </p>
-          <p className="text-muted-foreground text-base leading-relaxed">
+      </h3>
+      <p className="mt-3 max-w-[62ch] text-base leading-relaxed text-zinc-900 dark:text-zinc-100">
+        {decision.decision}
+      </p>
+      <Disclosure className="mt-4">
+        <DisclosureTrigger>
+          <button
+            type="button"
+            className="min-h-[44px] cursor-pointer text-sm font-medium text-zinc-500 underline decoration-zinc-300 underline-offset-4 transition-colors hover:text-zinc-900 hover:decoration-zinc-900 focus-visible:ring-2 focus-visible:ring-zinc-900 focus-visible:ring-offset-2 focus-visible:outline-none dark:text-zinc-400 dark:decoration-zinc-700 dark:hover:text-white dark:hover:decoration-zinc-100 dark:focus-visible:ring-white"
+          >
+            Why
+          </button>
+        </DisclosureTrigger>
+        <DisclosureContent>
+          <p className="max-w-[62ch] pb-2 text-base leading-relaxed text-zinc-600 dark:text-zinc-400">
             {decision.rationale}
           </p>
-        </div>
-
-        {decision.outcome && (
-          <div>
-            <p className="text-muted-foreground mb-1 text-xs tracking-wide uppercase">
-              What happened
-            </p>
-            <p className="text-muted-foreground text-base leading-relaxed">
-              {decision.outcome}
-            </p>
-          </div>
-        )}
-      </div>
+        </DisclosureContent>
+      </Disclosure>
+      {decision.outcome && (
+        <p className="mt-4 max-w-[62ch] text-base leading-relaxed font-medium text-zinc-900 tabular-nums dark:text-white">
+          {decision.outcome}
+        </p>
+      )}
+      {figure}
     </article>
   );
 }

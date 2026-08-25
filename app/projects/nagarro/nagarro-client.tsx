@@ -1,1082 +1,119 @@
 "use client";
-import { motion, useInView, AnimatePresence } from "motion/react";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ScrambleSectionTitle } from "@/components/ui/scramble-section-title";
-import { Magnetic } from "@/components/ui/magnetic";
-import { Spotlight } from "@/components/ui/spotlight";
+
 import {
-  ExternalLink,
-  Award,
-  Target,
-  Globe,
-  Lightbulb,
-  Sparkles,
-  Heart,
-  Zap,
-  Star,
-  Rocket,
-  Coffee,
-  PartyPopper,
-} from "lucide-react";
-import Link from "next/link";
-import Image from "next/image";
+  CaseStudyTemplate,
+  type LedgerRow,
+  type RecordLink,
+} from "@/components/case-study/case-study-template";
+import {
+  CaseStudyDiagramSection,
+  diagramTocExtra,
+} from "@/components/case-study/diagrams";
 import { PROJECTS } from "@/lib/data/projects";
-import { CaseStudyNarrative } from "@/components/case-study/case-study-narrative";
-import { ReflectionBlock } from "@/components/case-study/reflection-block";
-import { useRef, useState, useEffect, useCallback, memo, useMemo } from "react";
-import { AnimatedNumber } from "@/components/core/animated-number";
-import { parseMetricValue } from "@/lib/utils/parseMetricValue";
-import { ReadingProgress } from "@/components/ui/reading-progress";
 
-const VARIANTS_CONTAINER = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-    },
+const project = PROJECTS.find((p) => p.id === "nagarro-design-leadership")!;
+
+/**
+ * Nagarro is the one case study whose rows carry their own outcome, so it runs
+ * the three-column form: the lever I had, the instrument I used in place of
+ * authority I did not have, and what it produced. Every figure below appears
+ * exactly once on the page, attached to the work that produced it.
+ */
+const SPAN: readonly LedgerRow[] = [
+  {
+    problem: "Fifteen designers, reporting directly.",
+    response:
+      "A mentor-coaching program built on capability development rather than task management.",
+    result: "+40% junior designer retention",
   },
-};
+  {
+    problem:
+      "Eighteen thousand more across 36 countries, and authority over none of them.",
+    response:
+      "The Digital Accessibility Strategy 2023, written as a framework teams could adopt rather than a gate they had to pass.",
+    result: "+25% lead generation, on accessibility as differentiation",
+  },
+  {
+    problem: "A design function read as an operational cost.",
+    response:
+      "Design positioned as a business driver, argued in public rather than enforced through process.",
+    result: "50% brand recognition growth, 100+ qualified leads",
+  },
+  {
+    problem: "No external voice for the practice.",
+    response:
+      "Fifteen-plus published articles and a keynote on inclusive design and global collaboration.",
+    result: "10K+ subscribers, +40% website traffic",
+  },
+  {
+    problem:
+      "An accessibility framework with nothing outside the company to test it against.",
+    response:
+      "A partnership with ADT Health on eldercare accessibility, run as a real engagement.",
+    result:
+      "Validation in the field, and entry into healthcare and government work",
+  },
+];
 
-const VARIANTS_SECTION = {
-  hidden: { opacity: 0, y: 20, filter: "blur(8px)" },
-  visible: { opacity: 1, y: 0, filter: "blur(0px)" },
-};
-
-const TRANSITION_SECTION = {
-  duration: 0.3,
-};
-
-// Get the Nagarro project data
-const nagarroProject = PROJECTS.find(
-  (p) => p.id === "nagarro-design-leadership",
-)!;
-
-const MetricCard = memo(function MetricCard({
-  metric,
-  index,
-  onCelebrate,
-}: {
-  metric: { label: string; value: string };
-  index: number;
-  onCelebrate: () => void;
-}) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
-  const [hasAnimated, setHasAnimated] = useState(false);
-  const [showHeartbeat, setShowHeartbeat] = useState(false);
-  const { number, prefix, suffix } = parseMetricValue(metric.value);
-
-  // Trigger celebration when animation completes
-  useEffect(() => {
-    if (isInView && !hasAnimated) {
-      const timer = setTimeout(
-        () => {
-          setHasAnimated(true);
-          onCelebrate();
-          setShowHeartbeat(true);
-          setTimeout(() => setShowHeartbeat(false), 1000);
-        },
-        1500 + index * 200,
-      ); // Staggered celebration
-      return () => clearTimeout(timer);
-    }
-  }, [isInView, hasAnimated, index, onCelebrate]);
-
-  return (
-    <motion.div
-      ref={ref}
-      className="group relative cursor-pointer overflow-hidden rounded-2xl bg-zinc-300/30 p-[1px] dark:bg-zinc-600/30"
-      whileHover={{
-        scale: 1.05,
-        rotateY: 5,
-        rotateX: 5,
-      }}
-      whileTap={{
-        scale: 0.98,
-        rotateY: -2,
-        rotateX: -2,
-      }}
-      initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
-      animate={
-        isInView
-          ? {
-              opacity: 1,
-              y: 0,
-              filter: "blur(0px)",
-              transition: {
-                duration: 0.6,
-                delay: index * 0.15,
-                ease: [0.25, 0.46, 0.45, 0.94],
-              },
-            }
-          : {}
-      }
-      style={{
-        transformStyle: "preserve-3d",
-        perspective: "1000px",
-      }}
-      onClick={() => {
-        setShowHeartbeat(true);
-        setTimeout(() => setShowHeartbeat(false), 600);
-      }}
-    >
-      <Spotlight
-        className="from-zinc-900 via-zinc-800 to-zinc-700 blur-2xl dark:from-zinc-100 dark:via-zinc-200 dark:to-zinc-50"
-        size={64}
-      />
-      <div className="relative h-full w-full overflow-hidden rounded-[15px] bg-white p-6 dark:bg-zinc-950">
-        {/* Heartbeat pulse effect */}
-        <motion.div
-          className="absolute inset-0 rounded-[15px] bg-gradient-to-r from-blue-400/20 to-purple-400/20"
-          animate={
-            showHeartbeat
-              ? {
-                  scale: [1, 1.1, 1],
-                  opacity: [0, 0.3, 0],
-                }
-              : {}
-          }
-          transition={{ duration: 0.6, ease: "easeOut" }}
-        />
-
-        {/* Floating celebration particles */}
-        <AnimatePresence>
-          {hasAnimated && (
-            <motion.div
-              className="absolute top-2 right-2"
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0 }}
-            >
-              <Sparkles className="h-4 w-4 text-yellow-500" />
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        <div className="relative z-10 text-center">
-          {/* Achievement badge for excellent metrics */}
-          {metric.value.includes("%") && parseInt(metric.value) >= 40 && (
-            <motion.div
-              className="absolute -top-2 -right-2 rounded-full bg-gradient-to-r from-green-400 to-emerald-500 p-1"
-              initial={{ scale: 0, rotate: -180 }}
-              animate={hasAnimated ? { scale: 1, rotate: 0 } : {}}
-              transition={{
-                delay: 1.8 + index * 0.1,
-                duration: 0.5,
-                type: "spring",
-                bounce: 0.5,
-              }}
-            >
-              <Star className="h-3 w-3 text-white" />
-            </motion.div>
-          )}
-
-          <motion.div
-            className="mb-2 flex items-center justify-center gap-1 text-3xl font-bold text-zinc-900 dark:text-zinc-100"
-            animate={
-              showHeartbeat
-                ? {
-                    scale: [1, 1.1, 1],
-                  }
-                : {}
-            }
-            transition={{ duration: 0.3 }}
-          >
-            {prefix && <span>{prefix}</span>}
-            <AnimatedNumber
-              value={isInView ? number : 0}
-              springOptions={{
-                bounce: 0.2,
-                duration: 1500 + index * 200,
-              }}
-              className="tabular-nums"
-            />
-            {suffix && <span>{suffix}</span>}
-          </motion.div>
-
-          <motion.div
-            className="text-sm font-medium text-zinc-600 dark:text-zinc-400"
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : {}}
-            transition={{ delay: 1 + index * 0.15, duration: 0.4 }}
-          >
-            {metric.label}
-          </motion.div>
-        </div>
-
-        {/* Subtle hover glow effect */}
-        <motion.div className="absolute inset-0 rounded-[15px] bg-gradient-to-r from-blue-500/0 via-purple-500/0 to-pink-500/0 opacity-0 transition-opacity duration-300 group-hover:opacity-10" />
-      </div>
-    </motion.div>
-  );
-});
-
-// Performance optimization: Memoize ProjectCard to prevent unnecessary re-renders
-const ProjectCard = memo(function ProjectCard({
-  title,
-  description,
-  index,
-}: {
-  title: string;
-  description: string;
-  index: number;
-}) {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const [showIcon, setShowIcon] = useState(false);
-
-  // Performance optimization: Memoize icon selection
-  const projectIcon = useMemo(() => {
-    if (title.includes("Accessibility")) return <Heart className="h-4 w-4" />;
-    if (title.includes("Framework")) return <Target className="h-4 w-4" />;
-    if (title.includes("Healthcare")) return <Zap className="h-4 w-4" />;
-    if (title.includes("Evangelism")) return <Rocket className="h-4 w-4" />;
-    if (title.includes("Mentoring")) return <Coffee className="h-4 w-4" />;
-    return <Sparkles className="h-4 w-4" />;
-  }, [title]);
-
-  return (
-    <motion.div
-      className="group relative cursor-pointer overflow-hidden rounded-2xl bg-zinc-300/30 p-[1px] dark:bg-zinc-600/30"
-      initial={{ opacity: 0, x: -20, filter: "blur(8px)" }}
-      whileInView={{
-        opacity: 1,
-        x: 0,
-        filter: "blur(0px)",
-        transition: {
-          duration: 0.5,
-          delay: index * 0.1,
-          ease: "easeOut",
-        },
-      }}
-      whileHover={{
-        scale: 1.01, // Reduced for performance
-        y: -1,
-        transition: { duration: 0.15, ease: "easeOut" },
-      }}
-      whileTap={{ scale: 0.98 }}
-      onHoverStart={() => setShowIcon(true)}
-      onHoverEnd={() => setShowIcon(false)}
-      onClick={() => setIsExpanded(!isExpanded)}
-      viewport={{ once: true }}
-    >
-      <Spotlight
-        className="from-zinc-900 via-zinc-800 to-zinc-700 blur-2xl dark:from-zinc-100 dark:via-zinc-200 dark:to-zinc-50"
-        size={64}
-      />
-      <div className="relative h-full w-full rounded-[15px] bg-white p-6 dark:bg-zinc-950">
-        <div className="flex items-start gap-4">
-          <motion.div
-            className="relative flex h-8 w-8 flex-shrink-0 items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-blue-600 to-purple-600 text-sm font-medium text-white"
-            whileHover={{
-              scale: 1.05, // Reduced animation
-              rotate: 180, // Reduced rotation
-              transition: { duration: 0.5, ease: "easeInOut" },
-            }}
-          >
-            <AnimatePresence mode="wait">
-              {showIcon ? (
-                <motion.div
-                  key="icon"
-                  initial={{ opacity: 0, scale: 0, rotate: -180 }}
-                  animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                  exit={{ opacity: 0, scale: 0, rotate: 180 }}
-                  transition={{ duration: 0.3 }}
-                  className="text-white"
-                >
-                  {projectIcon}
-                </motion.div>
-              ) : (
-                <motion.span
-                  key="number"
-                  initial={{ opacity: 0, scale: 0 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  {index + 1}
-                </motion.span>
-              )}
-            </AnimatePresence>
-          </motion.div>
-          <div className="flex-1 space-y-2">
-            <motion.h4
-              className="flex items-center gap-2 font-medium text-zinc-900 dark:text-zinc-100"
-              layoutId={`title-${index}`}
-            >
-              {title}
-              <motion.div
-                animate={showIcon ? { rotate: 360 } : { rotate: 0 }}
-                transition={{ duration: 0.5 }}
-              >
-                <Sparkles className="h-3 w-3 text-blue-500 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-              </motion.div>
-            </motion.h4>
-            <motion.p
-              className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400"
-              animate={{
-                height: isExpanded ? "auto" : "auto",
-                opacity: 1,
-              }}
-              transition={{ duration: 0.3 }}
-            >
-              {description}
-            </motion.p>
-
-            {/* Hidden easter egg for engaged users */}
-            <AnimatePresence>
-              {isExpanded && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="mt-2 flex items-center gap-1 text-xs font-medium text-blue-600 dark:text-blue-400"
-                >
-                  <PartyPopper className="h-3 w-3" />
-                  Impact: Global scale design transformation
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        </div>
-      </div>
-    </motion.div>
-  );
-});
+/** Published work from the period. Every link resolves to a real document. */
+const RECORD: readonly RecordLink[] = [
+  {
+    title: "Digital Accessibility Strategy 2023",
+    url: "https://www.scribd.com/document/608106646/Nagarro-Digital-Accessibility-Strategy#fullscreen=1",
+    description:
+      "The enterprise accessibility framework itself, as it was circulated.",
+  },
+  {
+    title: "Inclusive Design Keynote",
+    url: "https://www.scribd.com/document/608112855/Inclusive-Design-Keynote#fullscreen=1",
+    description:
+      "The talk on designing across cultures with globally distributed teams.",
+  },
+  {
+    title: "ADT Health Partnership",
+    url: "https://www.scribd.com/document/640248976/Adt-Health#fullscreen=1",
+    description:
+      "The eldercare accessibility collaboration that tested the framework outside the company.",
+  },
+  {
+    title: "Articles and writing",
+    url: "https://medium.com/@randyellis",
+    description:
+      "Published pieces on design leadership, accessibility, and healthcare UX.",
+  },
+];
 
 export default function NagarroClientPage() {
-  const [celebrationMode, setCelebrationMode] = useState(false);
-  const [, setGlobalCelebrationCount] = useState(0);
-  const [, setKonamiActivated] = useState(false);
-
-  // Respect user's motion preferences
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-
-    const handleChange = (e: MediaQueryListEvent) => {
-      // Motion preference tracking for future use
-      console.debug("Motion preference:", e.matches);
-    };
-
-    mediaQuery.addEventListener("change", handleChange);
-    return () => mediaQuery.removeEventListener("change", handleChange);
-  }, []);
-
-  // Celebration handler for metrics
-  const handleCelebration = useCallback(() => {
-    setGlobalCelebrationCount((prev) => {
-      const newCount = prev + 1;
-      if (newCount === 4) {
-        // All 4 metrics have animated
-        setCelebrationMode(true);
-        setTimeout(() => {
-          setCelebrationMode(false);
-        }, 3000);
-      }
-      return newCount;
-    });
-  }, []);
-
-  // Fun easter egg: Konami code listener
-  useEffect(() => {
-    let konamiSequence: string[] = [];
-    const konamiCode = [
-      "ArrowUp",
-      "ArrowUp",
-      "ArrowDown",
-      "ArrowDown",
-      "ArrowLeft",
-      "ArrowRight",
-      "ArrowLeft",
-      "ArrowRight",
-      "KeyB",
-      "KeyA",
-    ];
-
-    const handleKeyPress = (e: KeyboardEvent) => {
-      konamiSequence.push(e.code);
-      if (konamiSequence.length > konamiCode.length) {
-        konamiSequence = konamiSequence.slice(-konamiCode.length);
-      }
-
-      if (konamiSequence.join(",") === konamiCode.join(",")) {
-        setKonamiActivated(true);
-        setCelebrationMode(true);
-        setTimeout(() => {
-          setCelebrationMode(false);
-          setKonamiActivated(false);
-        }, 5000);
-        konamiSequence = [];
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyPress);
-    return () => window.removeEventListener("keydown", handleKeyPress);
-  }, []);
-
-  const externalLinks = [
-    {
-      title: "Digital Accessibility Strategy 2023",
-      url: "https://www.scribd.com/document/608106646/Nagarro-Digital-Accessibility-Strategy#fullscreen=1",
-      description:
-        "Comprehensive framework for enterprise accessibility implementation",
-    },
-    {
-      title: "Inclusive Design Keynote",
-      url: "https://www.scribd.com/document/608112855/Inclusive-Design-Keynote#fullscreen=1",
-      description:
-        "Keynote presentation on global design collaboration strategies",
-    },
-    {
-      title: "Medium Publications & Articles",
-      url: "https://medium.com/@randyellis",
-      description:
-        "Published articles and insights on design leadership, accessibility, and healthcare UX",
-    },
-    {
-      title: "ADT Health Partnership Case Study",
-      url: "https://www.scribd.com/document/640248976/Adt-Health#fullscreen=1",
-      description:
-        "Healthcare technology accessibility collaboration and eldercare solutions",
-    },
-  ];
-
-  const projectInitiatives = [
-    {
-      title: "Digital Accessibility Strategy 2023",
-      description:
-        "Enterprise-wide accessibility compliance framework implementing WCAG 2.1 AA standards across 36 countries, directly contributing to 25% lead generation increase through competitive differentiation.",
-    },
-    {
-      title: "Inclusive Design Framework",
-      description:
-        "Multi-cultural design guidelines enabling global teams to create culturally sensitive experiences, improving designer retention by 40% and accelerating project delivery timelines.",
-    },
-    {
-      title: "Healthcare Technology Partnerships",
-      description:
-        "Strategic collaboration with ADT Health and eldercare technology companies, pioneering accessibility solutions that opened new market opportunities in healthcare and government sectors.",
-    },
-    {
-      title: "Design Evangelism Strategy",
-      description:
-        "Thought leadership initiative producing 15+ industry articles reaching 10,000+ subscribers, driving 50% brand recognition growth and positioning Nagarro as accessibility innovation leader.",
-    },
-    {
-      title: "Global Designer Mentoring Program",
-      description:
-        "Comprehensive capability development program for 15+ designers across global teams, focusing on accessibility expertise and inclusive design practices, achieving 40% retention improvement.",
-    },
-  ];
-
   return (
-    <>
-      <ReadingProgress />
-
-      <motion.main
-        id="main-content"
-        className="relative space-y-32 sm:space-y-24"
-        variants={VARIANTS_CONTAINER}
-        initial="hidden"
-        animate="visible"
-      >
-        {/* Hero Section */}
-        <motion.section
-          variants={VARIANTS_SECTION}
-          transition={TRANSITION_SECTION}
-          className="space-y-8"
-        >
-          <div className="space-y-6">
-            <motion.h1
-              className="text-4xl font-bold text-zinc-900 md:text-6xl dark:text-zinc-100"
-              data-cursor-hover
-              whileHover={{
-                textShadow: "0 0 20px rgba(59, 130, 246, 0.3)",
-                transition: { duration: 0.3 },
-              }}
-            >
-              DESIGN{" "}
-              <motion.span
-                className="text-blue-600"
-                animate={{
-                  backgroundImage: [
-                    "linear-gradient(45deg, #3b82f6, #8b5cf6)",
-                    "linear-gradient(45deg, #8b5cf6, #ec4899)",
-                    "linear-gradient(45deg, #ec4899, #f59e0b)",
-                    "linear-gradient(45deg, #f59e0b, #10b981)",
-                    "linear-gradient(45deg, #10b981, #3b82f6)",
-                  ],
-                }}
-                transition={{
-                  duration: 8,
-                  repeat: Infinity,
-                  ease: "linear",
-                }}
-                style={{
-                  backgroundClip: "text",
-                  WebkitBackgroundClip: "text",
-                  color: "transparent",
-                }}
-              >
-                @NAGARRO
-              </motion.span>
-            </motion.h1>
-
-            {/* Nagarro Logo */}
-            <motion.div
-              className="relative my-8"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.2, duration: 0.5 }}
-              whileHover={{ scale: 1.02 }}
-              data-cursor-hover
-            >
-              <Image
-                src="/projects/nagarro/nagarro-logo.webp"
-                alt="Nagarro company logo - Global digital engineering leader"
-                width={800}
-                height={800}
-                className="mx-auto w-full max-w-2xl rounded-xl shadow-2xl dark:shadow-blue-500/20"
-                priority
-              />
-              <div className="pointer-events-none absolute inset-0 rounded-xl bg-gradient-to-t from-blue-600/10 to-transparent" />
-            </motion.div>
-
-            <p className="max-w-3xl text-xl text-zinc-600 dark:text-zinc-400">
-              Scaling design excellence across 18,000+ Nagarrians in 36
-              countries through strategic design evangelism, accessibility
-              innovation, and inclusive design leadership that drove 50% brand
-              recognition growth and $50M+ in business impact.
-            </p>
-            <div className="flex flex-wrap gap-3">
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Badge
-                  variant="secondary"
-                  className="bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100"
-                  data-cursor-hover
-                >
-                  Mar 2022 - Oct 2022
-                </Badge>
-              </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Badge
-                  variant="secondary"
-                  className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100"
-                  data-cursor-hover
-                >
-                  Head of Design
-                </Badge>
-              </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Badge variant="secondary" data-cursor-hover>
-                  Enterprise Scale
-                </Badge>
-              </motion.div>
-            </div>
-          </div>
-        </motion.section>
-
-        {/* Metrics Section */}
-        <motion.section
-          variants={VARIANTS_SECTION}
-          transition={TRANSITION_SECTION}
-          className="relative"
-        >
-          {/* Global celebration confetti */}
-          <AnimatePresence>
-            {celebrationMode && (
-              <motion.div
-                className="pointer-events-none absolute inset-0 z-50"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-              >
-                {Array.from({ length: 20 }).map((_, i) => (
-                  <motion.div
-                    key={i}
-                    className="absolute h-2 w-2 rounded-full bg-gradient-to-r from-blue-400 to-purple-500"
-                    initial={{
-                      x:
-                        Math.random() *
-                        (typeof window !== "undefined"
-                          ? window.innerWidth
-                          : 1200),
-                      y: -10,
-                      rotate: 0,
-                      scale: 0,
-                    }}
-                    animate={{
-                      y:
-                        (typeof window !== "undefined"
-                          ? window.innerHeight
-                          : 800) + 10,
-                      rotate: 360,
-                      scale: [0, 1, 1, 0],
-                      x:
-                        Math.random() *
-                        (typeof window !== "undefined"
-                          ? window.innerWidth
-                          : 1200),
-                    }}
-                    transition={{
-                      duration: 2, // Faster confetti animation
-                      delay: i * 0.05, // Reduced delay for performance
-                      ease: "easeOut",
-                    }}
-                  />
-                ))}
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          <div className="mb-5 flex items-center justify-between">
-            <ScrambleSectionTitle
-              className="text-lg font-medium"
-              data-cursor-hover
-            >
-              Impact Metrics
-            </ScrambleSectionTitle>
-
-            {/* Global team celebration */}
-            <div className="flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400">
-              <Globe className="h-4 w-4" />
-              <span>Celebrating 18,000+ Nagarrians</span>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
-            {nagarroProject.metrics?.slice(0, 4).map((metric, index) => (
-              <MetricCard
-                key={index}
-                metric={metric}
-                index={index}
-                onCelebrate={handleCelebration}
-              />
-            ))}
-          </div>
-
-          {/* Subtle achievement message */}
-          <AnimatePresence>
-            {celebrationMode && (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                className="mt-6 text-center"
-                role="status"
-                aria-live="polite"
-              >
-                <p className="text-lg font-medium text-blue-600">
-                  Amazing! These metrics represent real impact on 18,000+ lives!
-                </p>
-                <div className="sr-only">
-                  Celebration activated! All design metrics have been animated,
-                  showing the incredible impact of design leadership at Nagarro
-                  across 18,000+ team members.
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </motion.section>
-
-        {/* Strategic Initiatives */}
-        <motion.section
-          variants={VARIANTS_SECTION}
-          transition={TRANSITION_SECTION}
-        >
-          <div className="mb-5 flex items-center gap-3">
-            <ScrambleSectionTitle
-              className="text-lg font-medium"
-              data-cursor-hover
-            >
-              Strategic Design Initiatives
-            </ScrambleSectionTitle>
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              className="text-blue-500"
-            >
-              <Target className="h-5 w-5" />
-            </motion.div>
-          </div>
-
-          <motion.div
-            className="grid grid-cols-1 gap-6 md:grid-cols-2"
-            variants={{
-              visible: {
-                transition: {
-                  staggerChildren: 0.1,
-                },
-              },
-            }}
-          >
-            {projectInitiatives.map((project, index) => (
-              <ProjectCard
-                key={index}
-                title={project.title}
-                description={project.description}
-                index={index}
-              />
-            ))}
-          </motion.div>
-
-          {/* Accessibility and inclusivity statement */}
-          <div
-            className="sr-only"
-            role="note"
-            aria-label="Accessibility commitment"
-          >
-            These strategic design initiatives demonstrate our commitment to
-            inclusive design practices that celebrate diversity and create
-            accessible experiences for all users. Each initiative was designed
-            with accessibility-first principles, ensuring that design excellence
-            serves everyone, regardless of ability or background.
-          </div>
-
-          {/* Hidden message for engaged users */}
-          <motion.div
-            className="mt-8 text-center text-xs text-zinc-500 opacity-0 transition-opacity duration-1000 hover:opacity-100 dark:text-zinc-400"
-            whileHover={{ scale: 1.05 }}
-            data-cursor-hover
-          >
-            <Heart className="mr-1 inline h-3 w-3" />
-            <span role="img" aria-label="Hidden message for engaged users">
-              Thank you for taking the time to explore these design leadership
-              initiatives! Your engagement helps us create better, more
-              inclusive experiences.
-            </span>
-          </motion.div>
-        </motion.section>
-
-        {/* Process Story */}
-        <motion.section
-          variants={VARIANTS_SECTION}
-          transition={TRANSITION_SECTION}
-        >
-          <ScrambleSectionTitle className="mb-5 text-lg font-medium">
-            The Journey
-          </ScrambleSectionTitle>
-          <div className="space-y-8">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-3">
-                  <Target className="h-5 w-5 text-blue-600" />
-                  The Challenge
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="leading-relaxed text-zinc-600 dark:text-zinc-400">
-                  {nagarroProject.processStory?.background}
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-3">
-                  <Lightbulb className="h-5 w-5 text-blue-600" />
-                  Strategic Approach
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="leading-relaxed text-zinc-600 dark:text-zinc-400">
-                  {nagarroProject.processStory?.approach}
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-3">
-                  <Award className="h-5 w-5 text-blue-600" />
-                  Transformational Outcome
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <p className="leading-relaxed text-zinc-600 dark:text-zinc-400">
-                    {nagarroProject.processStory?.outcome}
-                  </p>
-                  <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
-                    <div className="rounded-lg bg-zinc-50 p-4 text-center dark:bg-zinc-900/50">
-                      <div className="mb-1 text-2xl font-bold text-blue-600">
-                        50%
-                      </div>
-                      <div className="text-sm text-zinc-600 dark:text-zinc-400">
-                        Brand Recognition Growth
-                      </div>
-                    </div>
-                    <div className="rounded-lg bg-zinc-50 p-4 text-center dark:bg-zinc-900/50">
-                      <div className="mb-1 text-2xl font-bold text-green-600">
-                        100+
-                      </div>
-                      <div className="text-sm text-zinc-600 dark:text-zinc-400">
-                        Qualified Leads Generated
-                      </div>
-                    </div>
-                    <div className="rounded-lg bg-zinc-50 p-4 text-center dark:bg-zinc-900/50">
-                      <div className="mb-1 text-2xl font-bold text-purple-600">
-                        40%
-                      </div>
-                      <div className="text-sm text-zinc-600 dark:text-zinc-400">
-                        Designer Retention Increase
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </motion.section>
-
-        {/* Key Insights */}
-        <motion.section
-          variants={VARIANTS_SECTION}
-          transition={TRANSITION_SECTION}
-        >
-          <ScrambleSectionTitle className="mb-5 text-lg font-medium">
-            Strategic Insights
-          </ScrambleSectionTitle>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            {nagarroProject.processStory?.keyInsights?.map((insight, index) => (
-              <Card key={index}>
-                <CardContent className="pt-6">
-                  <p className="leading-relaxed font-medium text-zinc-600 dark:text-zinc-400">
-                    {insight}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </motion.section>
-
-        {/* Stakeholder Testimonials */}
-        <motion.section
-          variants={VARIANTS_SECTION}
-          transition={TRANSITION_SECTION}
-        >
-          <ScrambleSectionTitle className="mb-5 text-lg font-medium">
-            Leadership Impact
-          </ScrambleSectionTitle>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            {nagarroProject.processStory?.stakeholderQuotes?.map(
-              (quote, index) => (
-                <Card key={index}>
-                  <CardContent className="pt-6">
-                    <blockquote className="mb-4 leading-relaxed text-zinc-600 italic dark:text-zinc-400">
-                      &ldquo;{quote.quote}&rdquo;
-                    </blockquote>
-                    <div className="text-sm">
-                      <div className="font-medium text-zinc-900 dark:text-zinc-100">
-                        {quote.author}
-                      </div>
-                      <div className="text-zinc-500 dark:text-zinc-400">
-                        {quote.role}
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ),
-            )}
-          </div>
-        </motion.section>
-
-        {/* External Resources */}
-        <motion.section
-          variants={VARIANTS_SECTION}
-          transition={TRANSITION_SECTION}
-        >
-          <ScrambleSectionTitle
-            className="mb-5 text-lg font-medium"
-            data-cursor-hover
-          >
-            Strategic Resources & Publications
-          </ScrambleSectionTitle>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            {externalLinks.map((link, index) => (
-              <Magnetic
-                key={`link-${index}-${link.title}`}
-                springOptions={{ bounce: 0 }}
-                intensity={0.2}
-              >
-                {" "}
-                {/* Reduced intensity for performance */}
-                <motion.div
-                  className="group block"
-                  whileHover={{ y: -2 }}
-                  whileTap={{ scale: 0.98 }}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{
-                    opacity: 1,
-                    y: 0,
-                    transition: { delay: index * 0.1, duration: 0.4 },
-                  }}
-                  viewport={{ once: true }}
-                >
-                  <div className="relative overflow-hidden rounded-2xl bg-zinc-300/30 p-[1px] transition-colors duration-200 hover:bg-zinc-400/40 dark:bg-zinc-600/30 dark:hover:bg-zinc-500/40">
-                    <Spotlight
-                      className="from-zinc-900 via-zinc-800 to-zinc-700 blur-2xl dark:from-zinc-100 dark:via-zinc-200 dark:to-zinc-50"
-                      size={64}
-                    />
-                    <div className="relative flex h-full w-full flex-col rounded-[15px] bg-white p-6 dark:bg-zinc-950">
-                      <div className="flex-1 space-y-3">
-                        <motion.h4
-                          className="flex items-center gap-2 font-medium text-zinc-900 dark:text-zinc-100"
-                          whileHover={{ x: 2 }}
-                        >
-                          {link.title}
-                          <motion.div
-                            whileHover={{ rotate: 45, scale: 1.1 }}
-                            transition={{ duration: 0.2 }}
-                          >
-                            <ExternalLink className="h-4 w-4 text-zinc-400 transition-colors group-hover:text-blue-500" />
-                          </motion.div>
-                        </motion.h4>
-                        <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
-                          {link.description}
-                        </p>
-                      </div>
-
-                      {/* Large "Open" CTA Button */}
-                      <motion.div
-                        className="mt-4 border-t border-zinc-200 pt-4 dark:border-zinc-700"
-                        initial={{ opacity: 0.8 }}
-                        whileHover={{ opacity: 1 }}
-                      >
-                        <Button
-                          asChild
-                          className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg transition-all duration-300 group-hover:scale-[1.02] hover:from-blue-700 hover:to-purple-700 hover:shadow-xl"
-                          size="lg"
-                        >
-                          <motion.a
-                            href={link.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center justify-center gap-2"
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
-                          >
-                            <span className="font-semibold">Open</span>
-                            <motion.div
-                              whileHover={{ rotate: 45, scale: 1.1 }}
-                              transition={{ duration: 0.2 }}
-                            >
-                              <ExternalLink className="h-4 w-4" />
-                            </motion.div>
-                          </motion.a>
-                        </Button>
-                      </motion.div>
-                    </div>
-                  </div>
-                </motion.div>
-              </Magnetic>
-            ))}
-          </div>
-        </motion.section>
-
-        {/* Technologies & Methodologies */}
-        <motion.section
-          variants={VARIANTS_SECTION}
-          transition={TRANSITION_SECTION}
-        >
-          <ScrambleSectionTitle className="mb-5 text-lg font-medium">
-            Technologies & Methodologies
-          </ScrambleSectionTitle>
-          <div className="flex flex-wrap gap-3">
-            {nagarroProject.technologies.map((tech, index) => (
-              <Badge key={index} variant="outline" className="text-sm">
-                {tech}
-              </Badge>
-            ))}
-          </div>
-        </motion.section>
-
-        <CaseStudyNarrative project={nagarroProject} />
-
-        {/* Reflection */}
-        {nagarroProject.processStory?.reflection && (
-          <motion.div
-            variants={VARIANTS_SECTION}
-            transition={TRANSITION_SECTION}
-          >
-            <ReflectionBlock
-              reflection={nagarroProject.processStory.reflection}
-              heading="Leadership Reflection"
-            />
-          </motion.div>
-        )}
-
-        {/* Navigation */}
-        <motion.section
-          variants={VARIANTS_SECTION}
-          transition={TRANSITION_SECTION}
-          className="mb-16 border-t border-zinc-200 px-4 pt-8 sm:mb-20 sm:px-6 lg:mb-24 lg:px-8 dark:border-zinc-700"
-        >
-          <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
-            <Magnetic springOptions={{ bounce: 0 }} intensity={0.3}>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Link
-                  href="/projects"
-                  className="group inline-flex items-center gap-2 rounded-lg bg-zinc-100 px-6 py-3 text-zinc-900 transition-all duration-200 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700"
-                >
-                  <motion.span
-                    whileHover={{ x: -2 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    ←
-                  </motion.span>
-                  Back to Projects
-                </Link>
-              </motion.div>
-            </Magnetic>
-
-            <Magnetic springOptions={{ bounce: 0 }} intensity={0.3}>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Link
-                  href="/about"
-                  className="group inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-3 text-white transition-all duration-200 hover:from-blue-700 hover:to-purple-700"
-                >
-                  Learn More About My Work
-                  <motion.div
-                    whileHover={{ rotate: 45, scale: 1.1 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <ExternalLink className="h-4 w-4" />
-                  </motion.div>
-                </Link>
-              </motion.div>
-            </Magnetic>
-          </div>
-
-          {/* Static footer message */}
-          <div className="mt-8 text-center">
-            <div className="inline-flex items-center gap-1 text-xs text-zinc-500 dark:text-zinc-400">
-              <Heart className="h-3 w-3" />
-              <span>
-                Thank you for exploring this design leadership journey!
-              </span>
-            </div>
-          </div>
-        </motion.section>
-      </motion.main>
-    </>
+    <CaseStudyTemplate
+      project={project}
+      title="Head of Design for 18,000 people. Fifteen reported to me."
+      lead="Nagarro, March to October 2022. Eight months, a company scaling from 15,000 people to 18,000, and a global design organization to build across 36 countries."
+      proofPosition="top"
+      proofLabel="The shape of the post"
+      proof={[
+        { value: "18,000+", context: "Nagarrians in the organization" },
+        { value: "36", context: "Countries it operated in" },
+        { value: "15", context: "Designers who reported to me" },
+        { value: "8", context: "Months in the role" },
+      ]}
+      proofNote="Head of Design, Nagarro, March–October 2022."
+      ledgerLabel="The span of control"
+      ledgerHeads={[
+        "What I was given",
+        "What I did with it",
+        "What it produced",
+      ]}
+      ledger={SPAN}
+      record={RECORD}
+      closeHeadline="If your design org has this shape, the same problem is already waiting."
+      closeBody="Bring the design decision your roadmap is currently stuck on. We will work through it on the call, and you will leave with the answer whether or not we work together."
+      tocExtra={diagramTocExtra("nagarro")}
+    >
+      {/* The span of control above states the numbers; this states what they
+          cost. It follows the ledger because it is the argument the ledger
+          implies, not a second telling of it. */}
+      <CaseStudyDiagramSection slug="nagarro" />
+    </CaseStudyTemplate>
   );
 }

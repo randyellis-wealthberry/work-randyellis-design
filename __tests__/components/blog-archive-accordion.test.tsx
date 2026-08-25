@@ -32,7 +32,7 @@ const mockArticles = [
   },
 ];
 
-describe.skip("BlogArchiveAccordion - Component needs implementation", () => {
+describe("BlogArchiveAccordion", () => {
   beforeEach(() => {
     (getBlogArticles as jest.Mock).mockReturnValue(mockArticles);
   });
@@ -79,8 +79,9 @@ describe.skip("BlogArchiveAccordion - Component needs implementation", () => {
 
     fireEvent.click(screen.getByText("Test Article 1"));
 
-    // Debug: Check if "Published:" text is present
-    expect(screen.getByText(/Published:/)).toBeInTheDocument();
+    // The details block is a Terms List (DESIGN.md) now — a <dl> with a
+    // hairline above every row — so the term is a <dt>, not "Published:".
+    expect(screen.getByText("Published")).toBeInTheDocument();
     // Check if date is present with more flexible matching
     expect(
       screen.getByText((content, element) => {
@@ -100,18 +101,26 @@ describe.skip("BlogArchiveAccordion - Component needs implementation", () => {
     expect(screen.getByText("testing")).toBeInTheDocument();
   });
 
-  it("should show view count when available", () => {
+  it("should not print fabricated view counts", () => {
+    // lib/utils/blog-data.ts ships hardcoded `views` that no analytics source
+    // produced. PRODUCT.md's first principle is credibility through proof,
+    // which bans invented numbers, so the archive no longer renders them as
+    // confirmed figures. The field survives only as a relative sort key.
     render(<BlogArchiveAccordion />);
 
     fireEvent.click(screen.getByText("Test Article 1"));
 
-    expect(screen.getByText("100 views")).toBeInTheDocument();
+    expect(screen.queryByText(/views/i)).not.toBeInTheDocument();
+    expect(screen.queryByText("100")).not.toBeInTheDocument();
   });
 
-  it("should show featured badge for featured articles", () => {
-    render(<BlogArchiveAccordion />);
+  it("should not mark featured articles with an amber chip", () => {
+    // The One Family Rule: Live Amber means "this project is live and you can
+    // open it today" and nothing else; a second use makes it mean nothing.
+    const { container } = render(<BlogArchiveAccordion />);
 
-    expect(screen.getByText("Featured")).toBeInTheDocument();
+    expect(screen.queryByText("Featured")).not.toBeInTheDocument();
+    expect(container.innerHTML).not.toMatch(/amber/);
   });
 
   it("should have read article link", () => {
@@ -148,7 +157,7 @@ describe.skip("BlogArchiveAccordion - Component needs implementation", () => {
     expect(articles[1]).toHaveTextContent("Test Article 2"); // 2024-12-20 (older)
   });
 
-  it("should handle articles without views gracefully", () => {
+  it("should render identically whether or not an article carries views", () => {
     const articlesWithoutViews = [
       {
         ...mockArticles[0],

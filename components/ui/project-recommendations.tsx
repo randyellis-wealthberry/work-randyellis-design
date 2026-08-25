@@ -1,11 +1,7 @@
 "use client";
 
-import { motion } from "motion/react";
 import Link from "next/link";
-import Image from "next/image";
 import { ArrowRight } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 
 interface Project {
   id: string;
@@ -24,6 +20,11 @@ interface ProjectRecommendationsProps {
   maxRecommendations?: number;
 }
 
+/**
+ * Where to go next, as a list rather than a card grid. This sits at the foot of
+ * a case study that has already spent its imagery on the work itself, so the
+ * rows carry the argument: what the project is, in one line, one hairline apart.
+ */
 export function ProjectRecommendations({
   currentProjectId,
   projects,
@@ -31,12 +32,10 @@ export function ProjectRecommendations({
 }: ProjectRecommendationsProps) {
   const currentProject = projects.find((p) => p.id === currentProjectId);
 
-  // Filter out current project and get recommendations
-  // Prioritize same category, then featured projects
+  // Same category first, then whatever order the record is in.
   const recommendations = projects
     .filter((p) => p.id !== currentProjectId)
     .sort((a, b) => {
-      // Same category gets priority
       const aCategory = a.category === currentProject?.category ? 1 : 0;
       const bCategory = b.category === currentProject?.category ? 1 : 0;
       return bCategory - aCategory;
@@ -46,83 +45,41 @@ export function ProjectRecommendations({
   if (recommendations.length === 0) return null;
 
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="mt-16 border-t border-zinc-200 pt-16 dark:border-zinc-800"
-    >
-      <div className="mb-8 flex items-center justify-between">
-        <div>
-          <h3 className="text-xl font-semibold text-zinc-900 dark:text-zinc-100">
-            Related Projects
-          </h3>
-          <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
-            Explore more work in similar domains
-          </p>
-        </div>
+    <ul>
+      {recommendations.map((project) => (
+        <li
+          key={project.id}
+          className="border-t border-zinc-200 dark:border-zinc-800"
+        >
+          <Link
+            href={`/projects/${project.slug}`}
+            className="group grid grid-cols-1 py-5 focus-visible:ring-2 focus-visible:ring-zinc-900 focus-visible:ring-offset-2 focus-visible:outline-none sm:grid-cols-[minmax(0,22rem)_1fr] dark:focus-visible:ring-white"
+          >
+            <span className="flex items-start gap-1.5 text-base font-medium text-zinc-900 underline decoration-zinc-300 underline-offset-4 transition-colors group-hover:decoration-zinc-900 sm:pr-8 dark:text-white dark:decoration-zinc-700 dark:group-hover:decoration-zinc-100">
+              {project.name}
+              <ArrowRight
+                aria-hidden="true"
+                className="mt-1 h-4 w-4 shrink-0 text-zinc-400 transition-transform group-hover:translate-x-0.5 dark:text-zinc-500"
+              />
+            </span>
+            <span className="mt-2 max-w-[62ch] text-base text-zinc-500 sm:mt-0 dark:text-zinc-400">
+              {project.description}
+            </span>
+          </Link>
+        </li>
+      ))}
+      <li className="border-t border-zinc-200 dark:border-zinc-800">
         <Link
           href="/projects"
-          className="group flex items-center gap-1 text-sm text-zinc-600 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+          className="group inline-flex min-h-[44px] items-center gap-1.5 py-5 text-base font-medium text-zinc-900 underline decoration-zinc-300 underline-offset-4 transition-colors hover:decoration-zinc-900 focus-visible:ring-2 focus-visible:ring-zinc-900 focus-visible:ring-offset-2 focus-visible:outline-none dark:text-white dark:decoration-zinc-700 dark:hover:decoration-zinc-100 dark:focus-visible:ring-white"
         >
-          View all projects ({projects.length})
-          <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
+          All {projects.length} case studies
+          <ArrowRight
+            aria-hidden="true"
+            className="h-4 w-4 shrink-0 text-zinc-400 transition-transform group-hover:translate-x-0.5 dark:text-zinc-500"
+          />
         </Link>
-      </div>
-
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {recommendations.map((project, index) => (
-          <motion.div
-            key={project.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
-          >
-            <Card className="group h-full transition-all duration-300 hover:shadow-lg">
-              <Link href={`/projects/${project.slug}`}>
-                <div className="aspect-video overflow-hidden rounded-t-lg">
-                  <Image
-                    src={
-                      project.thumbnail ||
-                      "/images/projects/placeholder-thumbnail.jpg"
-                    }
-                    alt={project.name}
-                    width={400}
-                    height={225}
-                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                </div>
-              </Link>
-              <CardContent className="p-4">
-                <div className="mb-2 flex items-start justify-between">
-                  <Badge variant="outline" className="text-xs">
-                    {project.category}
-                  </Badge>
-                  <Badge
-                    variant={
-                      project.status === "completed" ? "default" : "secondary"
-                    }
-                    className="text-xs"
-                  >
-                    {project.status}
-                  </Badge>
-                </div>
-                <Link
-                  href={`/projects/${project.slug}`}
-                  className="transition-colors group-hover:text-blue-600"
-                >
-                  <h4 className="mb-2 line-clamp-1 font-medium text-zinc-900 dark:text-zinc-100">
-                    {project.name}
-                  </h4>
-                </Link>
-                <p className="line-clamp-2 text-sm text-zinc-600 dark:text-zinc-400">
-                  {project.description}
-                </p>
-              </CardContent>
-            </Card>
-          </motion.div>
-        ))}
-      </div>
-    </motion.section>
+      </li>
+    </ul>
   );
 }

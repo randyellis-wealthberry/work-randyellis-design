@@ -1,0 +1,72 @@
+HTTP/2 200 
+accept-ranges: bytes
+access-control-allow-origin: *
+age: 87
+cache-control: public, max-age=0, must-revalidate
+cdn-cache-control: max-age=0
+content-disposition: inline; filename="sw.js"
+content-type: application/javascript; charset=utf-8
+date: Fri, 21 Aug 2026 23:58:01 GMT
+etag: "012fa06f806b6e59fa7501571d2a8ad6"
+last-modified: Fri, 21 Aug 2026 23:56:34 GMT
+server: Vercel
+strict-transport-security: max-age=63072000; includeSubDomains; preload
+x-content-type-options: nosniff
+x-dns-prefetch-control: on
+x-frame-options: DENY
+x-matched-path: /sw.js
+x-vercel-cache: HIT
+x-vercel-id: sfo1::l2jfn-1787356681253-ffece18ceeee
+x-xss-protection: 1; mode=block
+content-length: 1660
+
+---BODY---
+/**
+ * Service Worker Kill-Switch
+ *
+ * Replaces stale next-pwa/Workbox SW. Unregisters on first activation,
+ * clears all caches for returning visitors.
+ *
+ * CRITICAL: MUST NEVER gain a fetch handler. Exists only to clean up
+ * and remove itself. Delete once analytics show no stale-SW traffic.
+ *
+ * Lifecycle: install → skipWaiting → activate → clear caches →
+ * unregister → reload clients → done.
+ */
+
+self.addEventListener("install", (event) => {
+  // Take over immediately, don't wait for existing clients to close
+  self.skipWaiting();
+});
+
+self.addEventListener("activate", (event) => {
+  event.waitUntil(
+    (async () => {
+      try {
+        // 1. Clear all caches (removes stale Workbox precache)
+        const cacheNames = await caches.keys();
+        await Promise.all(cacheNames.map((name) => caches.delete(name)));
+
+        // 2. Claim all clients to ensure immediate takeover
+        await self.clients.claim();
+
+        // 3. Unregister this service worker (it's done its job)
+        await self.registration.unregister();
+
+        // 4. Navigate/reload all open windows to stop running stale JS
+        const clients = await self.clients.matchAll({ type: "window" });
+        await Promise.all(
+          clients.map((client) =>
+            client.navigate(client.url).catch(() => undefined),
+          ),
+        );
+      } catch (error) {
+        // Swallow errors — a failed cleanup must never throw out of activate
+        // The browser will retry on the next page load
+        console.error("SW kill-switch cleanup failed:", error);
+      }
+    })(),
+  );
+});
+
+// No fetch handler — this SW does nothing but clean up

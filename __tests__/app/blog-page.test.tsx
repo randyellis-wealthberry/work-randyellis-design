@@ -75,8 +75,9 @@ describe("BlogPage", () => {
   it("should render blog archive accordion", () => {
     render(<BlogPage />);
 
-    // Check for "All Articles" section heading which indicates accordion presence
-    expect(screen.getByText("All Articles")).toBeInTheDocument();
+    // Section labels are sentence case (DESIGN.md Typography → Label:
+    // "Sentence case — never uppercase, never letterspaced into a kicker").
+    expect(screen.getByText("All articles")).toBeInTheDocument();
     expect(screen.getAllByText("Test Article 1")).toHaveLength(2); // accordion + recommendations
     expect(screen.getAllByText("Test Article 2")).toHaveLength(2); // accordion + recommendations
   });
@@ -84,13 +85,17 @@ describe("BlogPage", () => {
   it("should render global recommendations grid", () => {
     render(<BlogPage />);
 
-    expect(screen.getByText("Latest Articles")).toBeInTheDocument();
+    expect(screen.getByText("Latest articles")).toBeInTheDocument();
   });
 
   it("should show article count in description", () => {
     render(<BlogPage />);
 
-    expect(screen.getByText(/2 articles/i)).toBeInTheDocument();
+    // The count is its own `tabular-nums` span (The Tabular Figures Rule), so
+    // it no longer shares a text node with the word "articles".
+    const lead = screen.getByText(/explore insights/i);
+    expect(lead).toHaveTextContent(/2 articles/i);
+    expect(lead.querySelector(".tabular-nums")).toHaveTextContent("2");
   });
 
   it("should show categories in description", () => {
@@ -120,18 +125,40 @@ describe("BlogPage", () => {
     expect(main).toBeInTheDocument();
   });
 
-  it("should render responsive layout", () => {
-    render(<BlogPage />);
+  it("should not re-declare the site container inside RouteContainer", () => {
+    const { container } = render(<BlogPage />);
 
-    // Check for container div instead of main element
-    const container = screen.getByText("Blog Archive").closest(".container");
-    expect(container).toBeInTheDocument();
+    // The Whole-Chrome Rule (DESIGN.md): the route's measure and gutters are
+    // owned by RouteContainer, which already wraps header, content and footer.
+    // The page's own `container mx-auto px-4` nested a second gutter inside it.
+    expect(screen.getByText("Blog Archive").closest(".container")).toBeNull();
+    expect(container.querySelector(".container")).toBeNull();
+
+    // The page's landmark is the skip-link target and themes the browser's
+    // own surfaces (The Browser Surfaces Rule).
+    const main = screen.getByRole("main");
+    expect(main).toHaveAttribute("id", "main-content");
+    expect(main).toHaveClass("selection:bg-zinc-900", "caret-zinc-900");
   });
 
-  it("should handle spacing and padding correctly", () => {
-    render(<BlogPage />);
+  it("should open every movement through the shared section chrome", () => {
+    const { container } = render(<BlogPage />);
 
+    // Vertical rhythm is the documented 80px between movements, carried by the
+    // SECTION constant — not a `space-y` on the container, which outranks the
+    // section's own margin and would flatten it to 48px.
     const main = screen.getByRole("main");
-    expect(main).toHaveClass("space-y-12");
+    expect(main.className).not.toMatch(/\bspace-y-/);
+
+    const sections = container.querySelectorAll("section");
+    expect(sections.length).toBeGreaterThan(0);
+    sections.forEach((section) => {
+      expect(section).toHaveClass(
+        "mt-20",
+        "border-t",
+        "border-zinc-900",
+        "pt-10",
+      );
+    });
   });
 });

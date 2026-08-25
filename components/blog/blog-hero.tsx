@@ -11,9 +11,11 @@ interface BlogHeroProps {
   date?: string;
 }
 
+// The Visible At Zero Rule: the hidden state is fully painted and only settles
+// 10px, so the post's title is never conditional on a script or a scroll.
 const VARIANTS_SECTION = {
-  hidden: { opacity: 0, y: 20, filter: "blur(8px)" },
-  visible: { opacity: 1, y: 0, filter: "blur(0px)" },
+  hidden: { opacity: 1, y: 10 },
+  visible: { opacity: 1, y: 0 },
 };
 
 const TRANSITION_SECTION = {
@@ -32,14 +34,17 @@ export function BlogHero({
 
   return (
     <motion.section
-      className="space-y-8 pt-16 pb-12 text-center"
+      className="not-prose space-y-8 pb-12"
       variants={VARIANTS_SECTION}
       transition={TRANSITION_SECTION}
       initial="hidden"
       animate="visible"
     >
-      {/* Hero Banner Image */}
-      <div className="mx-auto max-w-4xl">
+      {/* The Media Band Figure (DESIGN.md): a 1px Hairline on a Wash ground at
+          `rounded-xl` with 12px of padding (16px above `sm`), holding the asset
+          at `rounded-lg`. A bare rounded image changed the page's ground
+          wherever the art had a light background. */}
+      <figure className="rounded-xl border border-zinc-200 bg-zinc-100 p-3 sm:p-4 dark:border-zinc-800 dark:bg-zinc-900">
         <Image
           src={heroImage}
           alt={heroAlt || title}
@@ -47,33 +52,36 @@ export function BlogHero({
           height={630}
           priority
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
-          className="rounded-xl"
+          className="w-full rounded-lg"
         />
-      </div>
+      </figure>
 
-      {/* Title and Description */}
-      <div className="space-y-4 px-4">
-        <h1 className="mb-6 text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
+      {/* Display / Lead, left-aligned like every other page title on the site.
+          Display is 600 at -0.03em capped at 18ch; the Lead is one paragraph at
+          1.125rem in Prose capped at 62ch. This was 36px/700 centred with an
+          uncapped 20px paragraph under it. */}
+      <div className="space-y-6">
+        <h1 className="max-w-[18ch] text-4xl leading-[1.05] font-semibold tracking-[-0.03em] text-balance text-zinc-900 sm:text-5xl dark:text-white">
           {title}
         </h1>
 
-        <p className="mx-auto max-w-2xl text-xl leading-relaxed text-zinc-600 dark:text-zinc-400">
+        <p className="max-w-[62ch] text-lg leading-relaxed text-zinc-600 dark:text-zinc-300">
           {description}
         </p>
 
-        {/* Author and Date */}
+        {/* Provenance in the Footnote voice; the date is a countable figure. */}
         {(author || date) && (
-          <div className="flex items-center justify-center space-x-4 pt-4 text-sm text-zinc-500 dark:text-zinc-400">
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-sm text-zinc-500 dark:text-zinc-400">
             {author && <span>By {author}</span>}
-            {author && date && <span>•</span>}
+            {author && date && <span aria-hidden="true">·</span>}
             {date && (
-              <span>
+              <time className="tabular-nums" dateTime={date}>
                 {new Date(date).toLocaleDateString("en-US", {
                   year: "numeric",
                   month: "long",
                   day: "numeric",
                 })}
-              </span>
+              </time>
             )}
           </div>
         )}

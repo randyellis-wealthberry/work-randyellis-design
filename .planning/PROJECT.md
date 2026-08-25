@@ -13,39 +13,40 @@ monetized AI SaaS.
 **Source-of-truth for claims:** Randy's 48-page product design deck +
 `.planning/CREDIBILITY-COPY.md`. Do not add unbacked numbers.
 
-## Current State (v1.0 shipped)
+## Current State (v2.0 shipped)
 
-- **Shipped:** 2026-08-15 via PR #47 (merge `7db0645`) + inline audit remediation (`514de29`)
-- **Scale:** 49 commits, 64 files (+3,378/−801) across the milestone
-- **Verification:** 18/18 REQ-IDs audited (17 satisfied, POS-02 documented deviation); lint/tsc clean; 1175 tests passing (1 known-flaky FPS test)
-- **Tag:** v1.0
+- **Shipped:** 2026-08-22 — v2.0 Case-Study Depth
+- **Scale:** 221 commits, 353 files (+44,454/−25,294) across the milestone, 2026-08-15 → 2026-08-22
+- **Verification:** 30/31 REQ-IDs verified directly against the codebase and live production; CRED-07 sitewide gap accepted as debt; MIG-01..04 restated to the shipped architecture
+- **Live SEO:** Search Console domain property verified, sitemap submitted (Success, 19 pages), Rich Results clean on 3 sampled URLs, zero banned schema types in production HTML
+- **Tags:** v1.0, v2.0
 
-## Current Milestone: v2.0 Case-Study Depth
+<details><summary>v1.0 Recruiter-Readiness (shipped 2026-08-15)</summary>
 
-**Goal:** Turn the 7 project case studies (growit, ohplays, ledgeriq, addvanced,
-echo, nagarro, rambis-ui) from generic corporate summaries into first-person,
-decision-driven case studies that prove senior design leadership to a hiring
-manager. (Waffle stays as its v1.0 product-showcase page — not a case study.)
+- 49 commits, 64 files (+3,378/−801); 18/18 REQ-IDs audited; shipped via PR #47 (`7db0645`) + inline remediation (`514de29`)
+
+</details>
+
+## Current Milestone: v3.0 Enterprise Credibility
+
+**Phases:** 11-12 (numbering continues from v2.0)
+
+**Goal:** The site agrees with itself and names its proof, and the two
+large-organization engagements read as proof of operating inside regulatory and
+scale constraint.
+
+> **Rescoped 2026-08-22.** The original goal ("every figure deck-backed or gone")
+> inverted `DECK-COVERAGE-AUDIT.md`, which states at `:34` that `Unbacked` means
+> *"not found in this deck… **This is not a defect and requires no action**"* and
+> at `:37` that the non-deck-source rule was removed because *"Randy's own account
+> of his engagements is a source."* The three sitewide figures are accurate and stay.
 
 **Target features:**
-- Narrative template evolution — extend the `[slug]` layout to express
-  problem → *my* role → key decisions *with rationale* → measurable outcome →
-  reflection (the current template can't carry this structure)
-- Content rewrite (7 case studies) — corporate "we developed…" voice →
-  first-person "I chose X because Y"
-- Data completeness — fill thin/empty challenges·solutions·learnings so no
-  section renders shallow
-- Outcome proofing — every decision tied to a verifiable metric; the v1.0
-  credibility guard stays (no unbacked numbers)
-- Tech-debt fold-in — POS-02 proof-chips, WAF-02 badge dead-zone, delete stale
-  `app/data.ts` PROJECTS array
-
-**Key constraint:** Source-of-truth = Randy's firsthand account of each engagement.
-The 48-page deck and `.planning/CREDIBILITY-COPY.md` are supporting references, not
-a gate (deck-gate removed 2026-08-15). The writer still never invents content to
-fill a slot, the site must not contradict itself, and independently checkable
-figures should be right. Verify Chameleon URL + 4.8★
-App Store proof before either lands in copy.
+- Self-consistency and named proof — fix the one surface still claiming 6 design
+  awards, and show the four named awards where a human can read them
+- Enterprise legibility — Echo and Nagarro reframed for a reader evaluating
+  whether Randy can operate inside a regulated, large organization
+- A grouped entry point for the regulated / field-operations work
 
 ## Core Value
 
@@ -58,19 +59,27 @@ conversation. **Shipped and audit-verified in v1.0.**
 
 ### Validated
 
+- ✓ Case-study depth: all 7 case studies carry typed `decisions[]` with rationale, `roleNarrative` and `processStory` — v2.0
+- ✓ Structural consistency: all 5 standalone project pages share `components/case-study/case-study-template.tsx` + `diagrams` — v2.0
+- ✓ Cross-surface reconciliation: visible copy, metadata, OG and JSON-LD agree across every touched project — v2.0 (CRED-09)
+- ✓ SEO foundation: kill-switch SW, `/_next/` unblocked, dev routes gone, structured data consolidated and server-rendered, sitemap timestamped, live-verified 14/14 — v2.0 (SEO-01..05)
+
 - ✓ Credibility: every public claim accurate and verifiable (4 named awards, real testimonials, 240K+ GrowIt everywhere, no fabricated schema, no hidden SEO) — v1.0
 - ✓ Positioning: leadership-forward hero + single title lane through metadata/OG/JSON-LD ("Head of Product & Fractional CDO") — v1.0
 - ✓ Readiness: above-the-fold cal.com booking CTA, tracked resume PDF, 5-client logo bar, homepage testimonials — v1.0
 - ✓ Waffle product showcase: `/projects/waffle` page + "Live Product" badged grid card + dual tracked CTAs — v1.0
 - ✓ Pre-existing platform: Next.js 15 App Router on Vercel, SEO JSON-LD, Motion/Radix/Tailwind v4, MDX blog, Loops newsletter — existing
 
-### Active (v2.0 Case-Study Depth — committed)
+### Active (v3.0 Enterprise Credibility — committed)
 
-- [ ] Narrative template evolution: `[slug]` layout expresses problem → my role → decisions-with-rationale → measurable outcome → reflection
-- [ ] Content rewrite (all 8): first-person senior-decision narrative
-- [ ] Data completeness: fill thin/empty challenges·solutions·learnings
-- [ ] Outcome proofing: decisions tied to verifiable metrics (credibility guard holds)
-- [ ] Tech-debt fold-in: POS-02 proof-chips, WAF-02 badge dead-zone, delete stale `app/data.ts` PROJECTS array
+- [ ] CRED-13 / PRF-01 / CRED-12: `/about`'s OG image says 4 Design Awards (it
+      says 6 today, contradicting three other surfaces); the 4 named awards
+      promoted from JSON-LD-only to visible copy; consistency pinned by a test
+- [ ] REC-01: the withdrawn metric-removal premise corrected wherever recorded
+- [ ] ENT-01..05: Echo recategorized and promoted across all three ordering
+      mechanisms; the qualitative value in its metrics slot resolved; Nagarro
+      reframed in org-design terms; one grouped entry point for the regulated /
+      field-operations work
 
 ### Deferred (not this milestone)
 
@@ -94,6 +103,11 @@ conversation. **Shipped and audit-verified in v1.0.**
 | Duplicated CTA JSX (no shared component) in waffle-client | Keeps trackEvent call sites greppable/auditable | ✓ Good |
 | Literal amber utilities over CSS custom property | tailwind.config.js is dead code in this Tailwind v4 setup | ✓ Good |
 | `isLiveProduct` optional flag + static route shadowing `[slug]` | Additive data-model change, zero routing special-cases | ✓ Good |
+| One shared `CaseStudyTemplate` over four separate narrative components | Stronger structural consistency; one file to keep honest | ✓ Good — pulled waffle into the same system for free; requirement text needed restating at close |
+| Typed data model over MDX for narrative | Keeps every claim greppable for credibility audits | ✓ Good — made the v2.0 audit possible by direct verification |
+| Deck demoted from gate to advisory reference (2026-08-15) | Randy's firsthand account is the real source; the deck was blocking real content | ⚠ Mixed — unblocked Phase 8, but the reversal was recorded only in the audit; every downstream summary kept the pre-reversal framing and restaged the `Unbacked` rows as debt in v3.0. Corrected 2026-08-22 (REC-01) |
+| `Unbacked` figures are accurate and stay (2026-08-22) | The audit says so in its own verdict definitions: `Unbacked` = absent from a 48-page PDF scoped to two case studies, not a finding of falsehood. Five of seven projects were never in it | ✓ Good — withdrew a whole phase of removal work built on a misreading. Lesson: read a document's own definitions before acting on how another doc summarized it |
+| DNS TXT over meta tag for Search Console verification | ~~v3.0 CRED-11 edits `lib/metadata.ts`; a token there is a silent-removal risk~~ **CORRECTED 2026-08-22 (REC-01):** CRED-11 is void (see REQUIREMENTS.md §"Voided requirements"); DNS TXT was still the right call independent of that — a static meta tag remains fragile against any future `lib/metadata.ts` edit | ✓ Good — survives redeploys, covers all subdomains |
 | Inline audit remediation over closure phase | 3 blockers = ~7 file edits; full GSD chain disproportionate | ✓ Good — fixed + verified same session |
 
 ## Context
@@ -106,11 +120,17 @@ validation gate — ignores lint/type errors). Known flaky: `animation-load-test
 
 This document evolves at phase transitions and milestone boundaries.
 
-**After each phase transition:**
+**After each phase transition** (via `/gsd-transition`):
 1. Requirements invalidated? → Move to Out of Scope with reason
 2. Requirements validated? → Move to Validated with phase reference
 3. New requirements emerged? → Add to Active
 4. Decisions to log? → Add to Key Decisions
 
+**After each milestone** (via `/gsd:complete-milestone`):
+1. Full review of all sections
+2. Core Value check — still the right priority?
+3. Audit Out of Scope — reasons still valid?
+4. Update Context with current state
+
 ---
-*Last updated: 2026-08-15 — started v2.0 Case-Study Depth milestone*
+*Last updated: 2026-08-22 — started v3.0 Enterprise Credibility milestone*

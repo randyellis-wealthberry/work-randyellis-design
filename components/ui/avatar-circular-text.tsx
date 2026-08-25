@@ -10,9 +10,12 @@ interface AvatarCircularTextProps {
 
 const AvatarCircularText = ({ className = "" }: AvatarCircularTextProps) => {
   return (
+    // Entrance motion moves; it never hides. The portrait is the one piece of
+    // evidence on this page that a person is behind it — it was absent from
+    // server HTML until a script ran.
     <motion.div
       className={`relative inline-block ${className}`}
-      initial={{ opacity: 0, scale: 0.8 }}
+      initial={{ opacity: 1, scale: 1 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
@@ -25,7 +28,7 @@ const AvatarCircularText = ({ className = "" }: AvatarCircularTextProps) => {
       />
       <motion.div
         className="absolute inset-0 flex items-center justify-center"
-        initial={{ opacity: 0, scale: 0.5 }}
+        initial={{ opacity: 1, scale: 1 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
       >

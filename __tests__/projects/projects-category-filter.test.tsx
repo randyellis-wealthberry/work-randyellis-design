@@ -9,7 +9,9 @@ jest.mock("next/navigation", () => ({
   useSearchParams: () => mockSearchParams,
 }));
 
-// Mock motion components to avoid animation issues in tests
+// Mock motion components to avoid animation issues in tests.
+// The index is a hairline list, so the row elements (ul/li) are motion
+// components too — the entrance stagger runs on the list.
 jest.mock("motion/react", () => ({
   motion: {
     main: ({ children, ...props }: any) => <main {...props}>{children}</main>,
@@ -17,6 +19,8 @@ jest.mock("motion/react", () => ({
       <section {...props}>{children}</section>
     ),
     div: ({ children, ...props }: any) => <div {...props}>{children}</div>,
+    ul: ({ children, ...props }: any) => <ul {...props}>{children}</ul>,
+    li: ({ children, ...props }: any) => <li {...props}>{children}</li>,
   },
   AnimatePresence: ({ children }: any) => children,
 }));

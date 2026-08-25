@@ -1,4 +1,4 @@
-import { ScrambleSectionTitle } from "@/components/ui/scramble-section-title";
+"use client";
 
 export type TocItem = {
   /** Must match the target section's `id`. */
@@ -17,7 +17,13 @@ type CaseStudyTOCProps = {
  *
  * Plain anchors, no scroll-spy: the scroll listener a spy needs would run on
  * every frame for a purely decorative highlight, and native anchors already
- * give keyboard and screen-reader users the jump targets that matter.
+ * give keyboard and screen-reader users the jump targets that matter. The page
+ * also carries one scroll-linked element already — the margin rail — and a
+ * second would break The One Crank Rule.
+ *
+ * Reads as a contents line rather than a boxed widget: a hairline above, the
+ * labels in the subordinate voice, and the section names verbatim so the nav
+ * and the headings it points at never drift apart.
  */
 export function CaseStudyTOC({
   items,
@@ -31,21 +37,20 @@ export function CaseStudyTOC({
     <nav
       id={sectionId}
       aria-labelledby={headingId}
-      className="border-muted mx-auto max-w-4xl rounded-lg border p-5 md:p-6"
+      className="border-t border-zinc-200 pt-5 dark:border-zinc-800"
     >
-      <ScrambleSectionTitle
-        as="h2"
+      <h2
         id={headingId}
-        className="text-muted-foreground mb-3 text-sm tracking-wide uppercase"
+        className="text-sm font-medium tracking-[0.02em] text-zinc-500 dark:text-zinc-400"
       >
         On this page
-      </ScrambleSectionTitle>
-      <ul className="flex flex-wrap gap-x-6 gap-y-2">
+      </h2>
+      <ul className="mt-2 flex flex-wrap gap-x-6">
         {items.map((item) => (
           <li key={item.id}>
             <a
               href={`#${item.id}`}
-              className="text-muted-foreground hover:text-foreground focus-visible:ring-ring rounded-sm text-base underline-offset-4 transition-colors duration-200 hover:underline focus-visible:ring-2 focus-visible:outline-none"
+              className="-my-2 inline-flex min-h-[44px] items-center text-base text-zinc-900 underline decoration-zinc-300 underline-offset-4 transition-colors hover:decoration-zinc-900 focus-visible:ring-2 focus-visible:ring-zinc-900 focus-visible:ring-offset-2 focus-visible:outline-none dark:text-white dark:decoration-zinc-700 dark:hover:decoration-zinc-100 dark:focus-visible:ring-white"
             >
               {item.label}
             </a>

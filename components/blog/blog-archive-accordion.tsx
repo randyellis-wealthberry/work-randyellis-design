@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { ChevronUp, Star } from "lucide-react";
+import { ArrowRight, ChevronUp } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   Accordion,
@@ -9,11 +9,8 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "@/components/core/accordion";
-import { AdvancedReadTimeBadge } from "@/components/ui/advanced-read-time-badge";
 import { Badge } from "@/components/ui/badge";
 import { getBlogArticles, type BlogArticle } from "@/lib/utils/blog-data";
-import { InView } from "@/components/motion-primitives/in-view";
-import { TextEffect } from "@/components/motion-primitives/text-effect";
 
 interface BlogArchiveAccordionProps {
   className?: string;
@@ -31,93 +28,95 @@ function ArticleTrigger({ article }: { article: BlogArticle }) {
   return (
     <div className="flex w-full items-center justify-between">
       <div className="min-w-0 flex-1">
-        <div className="mb-1 flex items-center gap-3">
-          <TextEffect
-            as="h3"
-            preset="fade-in-blur"
-            className="truncate font-medium text-zinc-950 dark:text-zinc-50"
-            delay={0.1}
-            speedSegment={1.2}
-          >
-            {article.title}
-          </TextEffect>
-          {article.featured && (
-            <div className="flex h-5 w-5 items-center justify-center rounded-full bg-amber-100 dark:bg-amber-900/50">
-              <Star className="h-2.5 w-2.5 fill-amber-500 text-amber-500" />
-            </div>
-          )}
-        </div>
-        <div className="flex items-center gap-2 text-sm text-zinc-500 dark:text-zinc-400">
+        {/* Subhead voice: Body at font-medium in Ink. The title rendered
+            through TextEffect before, whose hidden state is opacity 0 — The
+            Visible At Zero Rule says entrance motion moves, it never hides. */}
+        {/* Wraps rather than truncates. At 390 the row is ~330px wide and
+            `truncate` clipped every title mid-word — on a Read surface the
+            title is the whole basis for choosing what to read. */}
+        <h3 className="mb-1 text-base font-medium text-pretty text-zinc-900 dark:text-white">
+          {article.title}
+        </h3>
+        {/* No amber star. The One Family Rule keeps Live Amber for "this
+            project is live and you can open it today" and nothing else; a
+            second use of it makes it mean nothing. The Tabular Figures Rule
+            puts `tabular-nums` on the read time a reader scans down a column. */}
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-sm text-zinc-500 dark:text-zinc-400">
           <span className="capitalize">{article.category}</span>
-          <span>•</span>
-          <span>{article.readTime} min read</span>
+          <span aria-hidden="true">·</span>
+          <span className="tabular-nums">{article.readTime} min read</span>
         </div>
       </div>
-      <ChevronUp className="ml-4 h-4 w-4 shrink-0 text-zinc-950 transition-transform duration-200 group-data-expanded:-rotate-180 dark:text-zinc-50" />
+      <ChevronUp
+        aria-hidden="true"
+        className="ml-4 h-4 w-4 shrink-0 text-zinc-400 transition-transform duration-200 group-data-expanded:-rotate-180 dark:text-zinc-500"
+      />
     </div>
   );
 }
 
 function ArticleContent({ article }: { article: BlogArticle }) {
   return (
-    <div className="space-y-4 text-zinc-500 dark:text-zinc-400">
-      <div className="flex flex-col space-y-2 border-b border-zinc-200 pb-4 dark:border-zinc-700">
-        <h4 className="font-semibold text-zinc-950 dark:text-zinc-50">
-          Article Details
-        </h4>
-        <p>
-          <span className="font-medium">Published:</span>{" "}
-          {formatPublishedDate(article.publishedDate)}
-        </p>
-        <p>
-          <span className="font-medium">Category:</span> {article.category}
-        </p>
-        <div className="flex items-center gap-2">
-          <span className="font-medium">Read Time:</span>
-          <AdvancedReadTimeBadge
-            readTime={article.readTime}
-            variant="outline"
-          />
+    <div className="pb-5 text-zinc-500 dark:text-zinc-400">
+      {/* A Terms List (DESIGN.md): hairline above every row, the term sized to
+          the term, the value in the remaining space.
+          The "Views" row is gone. `lib/utils/blog-data.ts` ships hardcoded
+          counts (1,250 / 890 / 675 / 1,120) that no analytics source produced,
+          and this rendered them as confirmed figures — PRODUCT.md's first
+          principle is credibility through proof, which bans invented numbers.
+          Nothing replaces it: an unmeasured number has no honest placeholder. */}
+      <dl className="border-b border-zinc-200 text-sm dark:border-zinc-800">
+        <div className="grid grid-cols-1 border-t border-zinc-200 py-3 sm:grid-cols-[minmax(0,14rem)_1fr] dark:border-zinc-800">
+          <dt className="text-zinc-500 dark:text-zinc-400">Published</dt>
+          <dd className="font-medium text-zinc-900 dark:text-white">
+            <time className="tabular-nums" dateTime={article.publishedDate}>
+              {formatPublishedDate(article.publishedDate)}
+            </time>
+          </dd>
         </div>
-        {article.views && (
-          <p>
-            <span className="font-medium">Views:</span>{" "}
-            {article.views.toLocaleString()} views
-          </p>
-        )}
-      </div>
-
-      <div>
-        <h4 className="mb-2 font-semibold text-zinc-950 dark:text-zinc-50">
-          Description
-        </h4>
-        <p
-          className="mb-3 text-zinc-500 dark:text-zinc-400"
-          style={{ textDecoration: "none" }}
-        >
-          {article.description}
-        </p>
-
+        <div className="grid grid-cols-1 border-t border-zinc-200 py-3 sm:grid-cols-[minmax(0,14rem)_1fr] dark:border-zinc-800">
+          <dt className="text-zinc-500 dark:text-zinc-400">Category</dt>
+          <dd className="font-medium text-zinc-900 dark:text-white">
+            {article.category}
+          </dd>
+        </div>
+        <div className="grid grid-cols-1 border-t border-zinc-200 py-3 sm:grid-cols-[minmax(0,14rem)_1fr] dark:border-zinc-800">
+          <dt className="text-zinc-500 dark:text-zinc-400">Read time</dt>
+          <dd className="font-medium text-zinc-900 tabular-nums dark:text-white">
+            {article.readTime} min
+          </dd>
+        </div>
         {article.tags.length > 0 && (
-          <div className="mb-3">
-            <span className="mb-2 block font-medium">Tags:</span>
-            <div className="flex flex-wrap gap-1">
+          <div className="grid grid-cols-1 border-t border-zinc-200 py-3 sm:grid-cols-[minmax(0,14rem)_1fr] dark:border-zinc-800">
+            <dt className="text-zinc-500 dark:text-zinc-400">Tags</dt>
+            <dd className="flex flex-wrap gap-1">
               {article.tags.map((tag) => (
                 <Badge key={tag} variant="outline" className="text-xs">
                   {tag}
                 </Badge>
               ))}
-            </div>
+            </dd>
           </div>
         )}
+      </dl>
 
-        <a
-          href={`/blog/${article.slug}`}
-          className="inline-flex items-center text-blue-600 transition-colors hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
-        >
-          Read Article →
-        </a>
-      </div>
+      <p className="mt-5 max-w-[62ch] text-base text-zinc-500 dark:text-zinc-400">
+        {article.description}
+      </p>
+
+      {/* Ink with an Edge underline, not blue-600 — a new hue on a text surface
+          is a bug report, not a design decision. 44px target via `-my-3 py-3`,
+          and a focus ring in Ink (Paper in dark); this link had neither. */}
+      <a
+        href={`/blog/${article.slug}`}
+        className="group mt-2 -mb-3 inline-flex min-h-[44px] items-center gap-1.5 py-3 text-base font-medium text-zinc-900 underline decoration-zinc-300 underline-offset-4 transition-colors hover:decoration-zinc-900 focus-visible:ring-2 focus-visible:ring-zinc-900 focus-visible:ring-offset-2 focus-visible:outline-none dark:text-white dark:decoration-zinc-700 dark:hover:decoration-zinc-100 dark:focus-visible:ring-white"
+      >
+        Read article
+        <ArrowRight
+          aria-hidden="true"
+          className="h-4 w-4 shrink-0 text-zinc-400 transition-transform group-hover:translate-x-0.5 dark:text-zinc-500"
+        />
+      </a>
     </div>
   );
 }
@@ -139,38 +138,26 @@ export function BlogArchiveAccordion({ className }: BlogArchiveAccordionProps) {
   }
 
   return (
+    // Hairline rows at the documented weight: Hairline (zinc-200/zinc-800)
+    // separates peers. The dark side was zinc-700, which is Edge — the stroke
+    // weight for buttons and inputs, one step too strong for a row rule.
     <Accordion
       className={cn(
-        "flex w-full flex-col divide-y divide-zinc-200 dark:divide-zinc-700",
+        "flex w-full flex-col divide-y divide-zinc-200 border-y border-zinc-200 dark:divide-zinc-800 dark:border-zinc-800",
         className,
       )}
       transition={{ duration: 0.2 }}
       type="single"
     >
-      {articles.map((article, index) => (
-        <InView
-          key={article.slug}
-          variants={{
-            hidden: { opacity: 0, y: 50, scale: 0.95 },
-            visible: { opacity: 1, y: 0, scale: 1 },
-          }}
-          transition={{
-            duration: 0.6,
-            delay: index * 0.1,
-            ease: [0.21, 1.11, 0.81, 0.99],
-          }}
-          viewOptions={{ margin: "0px 0px -200px 0px" }}
-          once
-        >
-          <AccordionItem value={article.slug} className="py-3">
-            <AccordionTrigger className="w-full text-left text-zinc-950 dark:text-zinc-50">
-              <ArticleTrigger article={article} />
-            </AccordionTrigger>
-            <AccordionContent>
-              <ArticleContent article={article} />
-            </AccordionContent>
-          </AccordionItem>
-        </InView>
+      {articles.map((article) => (
+        <AccordionItem key={article.slug} value={article.slug}>
+          <AccordionTrigger className="w-full py-5 text-left focus-visible:ring-2 focus-visible:ring-zinc-900 focus-visible:ring-offset-2 focus-visible:outline-none dark:focus-visible:ring-white">
+            <ArticleTrigger article={article} />
+          </AccordionTrigger>
+          <AccordionContent>
+            <ArticleContent article={article} />
+          </AccordionContent>
+        </AccordionItem>
       ))}
     </Accordion>
   );

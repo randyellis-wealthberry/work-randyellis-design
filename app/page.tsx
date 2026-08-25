@@ -1,897 +1,388 @@
 "use client";
-import { useState, useEffect } from "react";
+
 import { motion } from "motion/react";
-import { ChevronUp } from "lucide-react";
-import { Spotlight } from "@/components/ui/spotlight";
-import { Magnetic } from "@/components/ui/magnetic";
 import Link from "next/link";
-import Image from "next/image";
-import { AnimatedBackground } from "@/components/ui/animated-background";
+import { ArrowRight, ArrowUpRight, ChevronUp } from "lucide-react";
 import {
   Accordion,
   AccordionItem,
   AccordionTrigger,
   AccordionContent,
 } from "@/components/core/accordion";
-import { AnimatedNumberBasic } from "@/components/core/animated-number-basic";
-import { TransitionPanel } from "@/components/motion-primitives/transition-panel";
-import { ScrambleSectionTitle } from "@/components/ui/scramble-section-title";
-import { isVideoUrl } from "@/lib/video-utils";
-import { LazyHoverVideo } from "@/components/ui/lazy-hover-video";
-import { getRandomProjects } from "@/lib/project-utils";
 import {
-  AnimatedSpan,
-  Terminal,
-  TypingAnimation,
-} from "@/components/magicui/terminal";
-import { WORK_EXPERIENCE, BLOG_POSTS, SOCIAL_LINKS } from "@/lib/data";
-import { PROJECTS } from "@/lib/data/projects";
-import {
-  trackProjectHover,
-  trackProjectView,
-  trackContactIntent,
-} from "@/lib/analytics";
-import { FeatureFlagDemo } from "@/components/feature-flag-demo";
-import { TextGradientScroll } from "@/components/ui/text-gradient-scroll";
-import { LetsChatButton } from "@/components/ui/lets-chat-dialog";
-import { BOOKING_URL } from "@/lib/constants";
-import { testimonials } from "@/lib/data/testimonials";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+  SectionLabel,
+  SECTION,
+  ROW,
+} from "@/components/case-study/section-chrome";
+import { ProjectThumbnail } from "@/components/ui/project-thumbnail";
 import { ClientLogos } from "@/components/client-logos";
 import { CalButton } from "@/components/booking/cal-embed";
-import { BuyMeACoffeeButton } from "@/components/ui/buy-me-a-coffee";
-import { CTASection } from "@/components/ui/cta-section";
+import { FeatureFlagDemo } from "@/components/feature-flag-demo";
+import { PROJECTS } from "@/lib/data/projects";
+import { projectThumbnail } from "@/lib/data/project-thumbnails";
+import { SOCIAL_LINKS } from "@/lib/data";
+import { testimonials } from "@/lib/data/testimonials";
+import { RETAINER_LEDGER, PROOF_EXHIBITS } from "@/lib/data/retainer";
+import { trackContactIntent } from "@/lib/analytics";
+import { BOOKING_URL } from "@/lib/constants";
+import {
+  PRIMARY_BUTTON,
+  SECONDARY_BUTTON,
+} from "@/components/ui/button-styles";
 
+// Visible At Zero: the hidden state paints the content and only settles the
+// y-offset, so the page is complete in server HTML.
 const VARIANTS_CONTAINER = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-    },
-  },
+  hidden: { opacity: 1 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.12 } },
 };
 
 const VARIANTS_SECTION = {
-  hidden: { opacity: 0, y: 20, filter: "blur(8px)" },
-  visible: { opacity: 1, y: 0, filter: "blur(0px)" },
+  hidden: { opacity: 1, y: 10 },
+  visible: { opacity: 1, y: 0 },
 };
 
-const TRANSITION_SECTION = {
-  duration: 0.3,
-};
+const TRANSITION_SECTION = { duration: 0.3 };
 
-function MagneticSocialLink({
-  children,
-  link,
-}: {
-  children: React.ReactNode;
-  link: string;
-}) {
-  return (
-    <Magnetic springOptions={{ bounce: 0 }} intensity={0.3}>
-      <a
-        href={link}
-        target="_blank"
-        rel="noopener noreferrer"
-        onClick={() => trackContactIntent("social_link", link)}
-        className="group relative inline-flex shrink-0 items-center gap-[1px] rounded-full bg-zinc-100 px-2.5 py-1 text-sm text-zinc-900 transition-colors duration-200 hover:bg-zinc-950 hover:text-zinc-50 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700"
-      >
-        {children}
-        <svg
-          width="15"
-          height="15"
-          viewBox="0 0 15 15"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-3 w-3"
-        >
-          <path
-            d="M3.64645 11.3536C3.45118 11.1583 3.45118 10.8417 3.64645 10.6465L10.2929 4L6 4C5.72386 4 5.5 3.77614 5.5 3.5C5.5 3.22386 5.72386 3 6 3L11.5 3C11.6326 3 11.7598 3.05268 11.8536 3.14645C11.9473 3.24022 12 3.36739 12 3.5L12 9.00001C12 9.27615 11.7761 9.50001 11.5 9.50001C11.2239 9.50001 11 9.27615 11 9.00001V4.70711L4.35355 11.3536C4.15829 11.5488 3.84171 11.5488 3.64645 11.3536Z"
-            fill="currentColor"
-            fillRule="evenodd"
-            clipRule="evenodd"
-          ></path>
-        </svg>
-      </a>
-    </Magnetic>
-  );
-}
+const TEXT_LINK =
+  "-my-3 inline-flex min-h-[44px] w-fit items-center gap-1.5 py-3 font-medium text-zinc-900 underline decoration-zinc-300 underline-offset-4 transition-colors hover:decoration-zinc-900 focus-visible:ring-2 focus-visible:ring-zinc-900 focus-visible:ring-offset-2 focus-visible:outline-none dark:text-white dark:decoration-zinc-700 dark:hover:decoration-zinc-100 dark:focus-visible:ring-white";
 
-function TransitionPanelExample() {
-  const [activeIndex, setActiveIndex] = useState(0);
+/**
+ * The three case studies the homepage argues from: a product a reader can open
+ * today, an enterprise engagement, and one that reached consumer scale. The
+ * rest are one link away.
+ */
+const FEATURED_SLUGS = ["waffle", "echo", "growit"];
 
-  const panels = [
-    {
-      title: "Design Philosophy",
-      content:
-        "Creating intuitive interfaces that bridge the gap between user needs and business goals. Every pixel serves a purpose, every interaction tells a story.",
-    },
-    {
-      title: "Technical Expertise",
-      content:
-        "Specializing in React, Next.js, and modern web technologies. Building scalable, performant applications with attention to detail and user experience.",
-    },
-    {
-      title: "Innovation Focus",
-      content:
-        "Exploring the intersection of AI and design. Leveraging generative AI tools to enhance creative workflows and deliver exceptional digital experiences.",
-    },
-  ];
-
-  const variants = {
-    enter: { opacity: 0, y: 20, filter: "blur(4px)" },
-    center: { opacity: 1, y: 0, filter: "blur(0px)" },
-    exit: { opacity: 0, y: -20, filter: "blur(4px)" },
-  };
-
-  return (
-    <div className="space-y-4">
-      <div className="flex space-x-2">
-        {panels.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setActiveIndex(index)}
-            className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors duration-200 ${
-              activeIndex === index
-                ? "bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900"
-                : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:bg-zinc-700"
-            }`}
-          >
-            {panels[index].title}
-          </button>
-        ))}
-      </div>
-      <TransitionPanel
-        activeIndex={activeIndex}
-        variants={variants}
-        transition={{ duration: 0.3 }}
-        className="min-h-[120px] rounded-xl bg-zinc-50 p-6 dark:bg-zinc-900/50"
-      >
-        {panels.map((panel, index) => (
-          <div key={index} className="space-y-3">
-            <h4 className="text-lg font-medium text-zinc-900 dark:text-zinc-100">
-              {panel.title}
-            </h4>
-            <p className="leading-relaxed text-zinc-600 dark:text-zinc-400">
-              {panel.content}
-            </p>
-          </div>
-        ))}
-      </TransitionPanel>
-    </div>
-  );
-}
-
-function AccordionIcons() {
-  return (
-    <Accordion
-      className="flex w-full flex-col divide-y divide-zinc-200 dark:divide-zinc-700"
-      transition={{ duration: 0.2 }}
-    >
-      <AccordionItem value="ai-design-approach" className="py-2">
-        <AccordionTrigger className="w-full text-left text-zinc-950 dark:text-zinc-50">
-          <div className="flex items-center justify-between">
-            <div>What&apos;s your approach to AI in design?</div>
-            <ChevronUp className="h-4 w-4 text-zinc-950 transition-transform duration-200 group-data-expanded:-rotate-180 dark:text-zinc-50" />
-          </div>
-        </AccordionTrigger>
-        <AccordionContent>
-          <p className="text-zinc-500 dark:text-zinc-400">
-            I believe AI should enhance human creativity, not replace it. My
-            work on the AI Design System Generator demonstrates how AI can
-            accelerate the design process while maintaining design quality and
-            accessibility. I focus on leveraging AI to automate repetitive
-            tasks, generate intelligent suggestions, and help designers make
-            more informed decisions based on data and user behavior patterns.
-          </p>
-        </AccordionContent>
-      </AccordionItem>
-      <AccordionItem value="design-development-bridge" className="py-2">
-        <AccordionTrigger className="w-full text-left text-zinc-950 dark:text-zinc-50">
-          <div className="flex items-center justify-between">
-            <div>How do you bridge design and development?</div>
-            <ChevronUp className="h-4 w-4 text-zinc-950 transition-transform duration-200 group-data-expanded:-rotate-180 dark:text-zinc-50" />
-          </div>
-        </AccordionTrigger>
-        <AccordionContent>
-          <p className="text-zinc-500 dark:text-zinc-400">
-            With a background spanning both design leadership and hands-on
-            development, I understand the challenges on both sides. I create
-            design systems that are technically feasible, write production-ready
-            React code, and ensure designs translate seamlessly to
-            implementation. My approach involves early technical validation,
-            component-driven design, and close collaboration between design and
-            engineering teams throughout the product development lifecycle.
-          </p>
-        </AccordionContent>
-      </AccordionItem>
-      <AccordionItem value="scaling-products" className="py-2">
-        <AccordionTrigger className="w-full text-left text-zinc-950 dark:text-zinc-50">
-          <div className="flex items-center justify-between">
-            <div>What&apos;s your experience with scaling products?</div>
-            <ChevronUp className="h-4 w-4 text-zinc-950 transition-transform duration-200 group-data-expanded:-rotate-180 dark:text-zinc-50" />
-          </div>
-        </AccordionTrigger>
-        <AccordionContent>
-          <p className="text-zinc-500 dark:text-zinc-400">
-            I&apos;ve led products that have reached significant scale,
-            including GrowIt, one of the fastest-growing gardening apps in the
-            U.S. with over 240K active users and a 4.8★ App Store rating. My
-            experience spans from early-stage product validation to scaling
-            infrastructure and teams. I focus on building sustainable growth
-            through excellent user experience, data-driven decision making, and
-            scalable technical architecture that can handle rapid user growth.
-          </p>
-        </AccordionContent>
-      </AccordionItem>
-      <AccordionItem value="product-leadership" className="py-2">
-        <AccordionTrigger className="w-full text-left text-zinc-950 dark:text-zinc-50">
-          <div className="flex items-center justify-between">
-            <div>How do you approach product leadership?</div>
-            <ChevronUp className="h-4 w-4 text-zinc-950 transition-transform duration-200 group-data-expanded:-rotate-180 dark:text-zinc-50" />
-          </div>
-        </AccordionTrigger>
-        <AccordionContent>
-          <p className="text-zinc-500 dark:text-zinc-400">
-            As Head of Product at Wealthberry Labs and former Head of Design at
-            Nagarro, I&apos;ve learned that great products emerge from balancing
-            user needs, business goals, and technical constraints. I believe in
-            empowering teams through clear vision, data-driven decisions, and
-            fostering a culture of experimentation. Having mentored 800+
-            designers, I&apos;m passionate about developing talent and building
-            cross-functional teams that deliver exceptional user experiences.
-          </p>
-        </AccordionContent>
-      </AccordionItem>
-    </Accordion>
-  );
-}
-
-// Move codeScenarios outside component to prevent recreation on every render
-const CODE_SCENARIOS = [
+/**
+ * What a founder asks before booking. Kept verbatim from the previous page —
+ * these answer real objections and they are what the FAQ structured data
+ * describes.
+ */
+const FAQS = [
   {
-    command: "> npm run dev",
-    steps: [
-      {
-        delay: 1000,
-        text: "Starting Next.js development server...",
-        className: "text-blue-500",
-      },
-      {
-        delay: 1500,
-        text: "✓ Ready in 2.9s",
-        className: "text-green-500",
-      },
-      {
-        delay: 2000,
-        text: "- Local: http://localhost:3000",
-        className: "text-muted-foreground",
-      },
-      {
-        delay: 2500,
-        text: "○ Compiling /",
-        className: "text-yellow-500",
-      },
-      {
-        delay: 3000,
-        text: "✓ Compiled successfully",
-        className: "text-green-500",
-      },
-      {
-        delay: 3500,
-        text: "Portfolio loaded with 2.5M+ users impact",
-        className: "text-green-500",
-      },
-    ],
+    id: "ai-design-approach",
+    question: "What's your approach to AI in design?",
+    answer:
+      "I believe AI should enhance human creativity, not replace it. My work on the AI Design System Generator demonstrates how AI can accelerate the design process while maintaining design quality and accessibility. I focus on leveraging AI to automate repetitive tasks, generate intelligent suggestions, and help designers make more informed decisions based on data and user behavior patterns.",
   },
   {
-    command: '> git commit -m "feat: add WebGL animations"',
-    steps: [
-      {
-        delay: 1000,
-        text: "[main 4159ad5] feat: add WebGL animations",
-        className: "text-green-500",
-      },
-      {
-        delay: 1500,
-        text: "3 files changed, 127 insertions(+)",
-        className: "text-muted-foreground",
-      },
-      {
-        delay: 2000,
-        text: "create mode 100644 components/ui/animated-webgl.tsx",
-        className: "text-green-500",
-      },
-      {
-        delay: 2500,
-        text: "modified   app/projects/[slug]/page.tsx",
-        className: "text-yellow-500",
-      },
-      {
-        delay: 3000,
-        text: "✓ AI-powered design components ready",
-        className: "text-blue-500",
-      },
-    ],
+    id: "design-development-bridge",
+    question: "How do you bridge design and development?",
+    answer:
+      "With a background spanning both design leadership and hands-on development, I understand the challenges on both sides. I create design systems that are technically feasible, write production-ready React code, and ensure designs translate seamlessly to implementation. My approach involves early technical validation, component-driven design, and close collaboration between design and engineering teams throughout the product development lifecycle.",
   },
   {
-    command: "> pnpm build",
-    steps: [
-      {
-        delay: 1000,
-        text: "▲ Next.js 15.4.4",
-        className: "text-blue-500",
-      },
-      {
-        delay: 1500,
-        text: "✓ Creating an optimized production build",
-        className: "text-green-500",
-      },
-      {
-        delay: 2000,
-        text: "✓ Compiled successfully",
-        className: "text-green-500",
-      },
-      {
-        delay: 2500,
-        text: "✓ Collecting page data",
-        className: "text-green-500",
-      },
-      {
-        delay: 3000,
-        text: "Generated static pages (8)",
-        className: "text-muted-foreground",
-      },
-      {
-        delay: 3500,
-        text: "Portfolio optimized for $50M product value",
-        className: "text-green-500",
-      },
-    ],
+    id: "scaling-products",
+    question: "What's your experience with scaling products?",
+    answer:
+      "I've led products that have reached significant scale, including GrowIt, one of the fastest-growing gardening apps in the U.S., which at its peak reached over 240K active users and a 4.8★ App Store rating. My experience spans from early-stage product validation to scaling infrastructure and teams. I focus on building sustainable growth through excellent user experience, data-driven decision making, and scalable technical architecture that can handle rapid user growth.",
   },
   {
-    command: "> npm test",
-    steps: [
-      {
-        delay: 1000,
-        text: "PASS components/AnimatedMetricCard.test.tsx",
-        className: "text-green-500",
-      },
-      {
-        delay: 1500,
-        text: "PASS lib/project-utils.test.ts",
-        className: "text-green-500",
-      },
-      {
-        delay: 2000,
-        text: "PASS integration/selected-projects.test.tsx",
-        className: "text-green-500",
-      },
-      {
-        delay: 2500,
-        text: "Test Suites: 8 passed, 8 total",
-        className: "text-green-500",
-      },
-      {
-        delay: 3000,
-        text: "Tests: 24 passed, 24 total",
-        className: "text-green-500",
-      },
-      {
-        delay: 3500,
-        text: "AI Design System validated ✓",
-        className: "text-blue-500",
-      },
-    ],
+    id: "product-leadership",
+    question: "How do you approach product leadership?",
+    answer:
+      "As Head of Product at Wealthberry Labs and former Head of Design at Nagarro, I've learned that great products emerge from balancing user needs, business goals, and technical constraints. I believe in empowering teams through clear vision, data-driven decisions, and fostering a culture of experimentation. Having mentored 800+ designers, I'm passionate about developing talent and building cross-functional teams that deliver exceptional user experiences.",
   },
 ];
 
-function TerminalDemo() {
-  // Use state and useEffect to avoid hydration mismatch
-  const [selectedScenario, setSelectedScenario] = useState(CODE_SCENARIOS[0]);
-
-  useEffect(() => {
-    // Set random scenario only on client side after mount
-    // Empty dependency array - only runs once on mount
-    setSelectedScenario(
-      CODE_SCENARIOS[Math.floor(Math.random() * CODE_SCENARIOS.length)],
-    );
-  }, []);
-
-  const handleTerminalClick = () => {
-    window.open("https://github.com/randyellis-wealthberry", "_blank");
-  };
-
+function Section({
+  id,
+  label,
+  children,
+}: {
+  id: string;
+  label: string;
+  children: React.ReactNode;
+}) {
   return (
-    <div
-      className="cursor-pointer transition-transform hover:scale-[1.02] active:scale-[0.98]"
-      onClick={handleTerminalClick}
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          handleTerminalClick();
-        }
-      }}
-      aria-label="View GitHub profile"
+    <motion.section
+      id={id}
+      aria-labelledby={`${id}-heading`}
+      className={SECTION}
+      variants={VARIANTS_SECTION}
+      transition={TRANSITION_SECTION}
     >
-      <Terminal className="transition-shadow hover:shadow-lg">
-        <TypingAnimation>{selectedScenario.command}</TypingAnimation>
-
-        {selectedScenario.steps.map((step, index) => (
-          <AnimatedSpan
-            key={index}
-            delay={step.delay}
-            className={step.className}
-          >
-            <span>{step.text}</span>
-          </AnimatedSpan>
-        ))}
-      </Terminal>
-    </div>
+      <SectionLabel id={`${id}-heading`}>{label}</SectionLabel>
+      {children}
+    </motion.section>
   );
 }
 
-function ProjectThumbnail({ project }: { project: (typeof PROJECTS)[0] }) {
-  // Check if project has a video and it's a local MP4 file for thumbnail display
-  if (
-    project.video &&
-    project.video.includes(".mp4") &&
-    project.video.startsWith("/")
-  ) {
-    return (
-      <Link href={`/projects/${project.slug}`}>
-        <div
-          className="aspect-video max-h-48 w-full cursor-pointer overflow-hidden rounded-lg transition-opacity duration-200 hover:opacity-90"
-          onMouseEnter={() => trackProjectHover(project.name, project.id)}
-          onClick={() => trackProjectView(project.name)}
-        >
-          <LazyHoverVideo
-            src={project.video}
-            alt={`${project.name} - Fractional Chief Design Officer portfolio project showcasing startup design leadership, scalable design systems, and AI-powered product innovation by Randy Ellis`}
-            className="h-full w-full"
-            resetOnLeave={true}
-            projectName={project.name}
-          />
-        </div>
-      </Link>
-    );
-  }
+export default function Home() {
+  const featured = FEATURED_SLUGS.map((slug) =>
+    PROJECTS.find((project) => project.slug === slug),
+  ).filter((project): project is (typeof PROJECTS)[number] => Boolean(project));
 
-  const thumbnailSrc =
-    project.thumbnail || "/images/projects/placeholder-thumbnail.jpg";
+  const [recommendation] = testimonials;
 
-  if (isVideoUrl(thumbnailSrc)) {
-    return (
-      <Link href={`/projects/${project.slug}`}>
-        <div
-          className="aspect-video max-h-48 w-full cursor-pointer overflow-hidden rounded-lg transition-opacity duration-200 hover:opacity-90"
-          onMouseEnter={() => trackProjectHover(project.name, project.id)}
-          onClick={() => trackProjectView(project.name)}
-        >
-          <iframe
-            src={thumbnailSrc}
-            className="h-full w-full"
-            frameBorder="0"
-            allow="autoplay; fullscreen; picture-in-picture"
-            allowFullScreen
-            title={project.name}
-          />
-        </div>
-      </Link>
-    );
-  }
-
-  return (
-    <Link href={`/projects/${project.slug}`}>
-      <Image
-        src={thumbnailSrc}
-        alt={`${project.name} - Fractional Chief Design Officer portfolio project showcasing startup design leadership, scalable design systems, and AI-powered product innovation by Randy Ellis`}
-        onMouseEnter={() => trackProjectHover(project.name, project.id)}
-        onClick={() => trackProjectView(project.name)}
-        width={500}
-        height={300}
-        className="aspect-video max-h-48 w-full cursor-pointer rounded-lg object-cover transition-opacity duration-200 hover:opacity-90"
-      />
-    </Link>
-  );
-}
-
-export default function Personal() {
-  // Randomly select 2 projects for display - selection persists during session
-  // Use state and useEffect to avoid hydration mismatch with Math.random()
-  const [selectedProjects, setSelectedProjects] = useState<typeof PROJECTS>([]);
-
-  useEffect(() => {
-    setSelectedProjects(getRandomProjects(PROJECTS, 2));
-  }, []);
   return (
     <motion.main
       id="main-content"
-      className="space-y-32 sm:space-y-24"
+      className="pb-8 caret-zinc-900 selection:bg-zinc-900 selection:text-white dark:caret-zinc-100 dark:selection:bg-zinc-100 dark:selection:text-zinc-900"
       variants={VARIANTS_CONTAINER}
       initial="hidden"
       animate="visible"
     >
+      {/* The claim. One h1, carrying the words the page is actually about —
+          the old page hid its h1 in sr-only and set the visible title as a
+          paragraph under an eyebrow, so the document had no heading at all. */}
       <motion.section
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
-        <div className="flex-1">
-          <h1 className="sr-only">
-            Randy Ellis - Design Leader, Head of Product & Fractional Chief
-            Design Officer
-          </h1>
-          <ScrambleSectionTitle className="mb-3 text-lg font-medium text-zinc-500 dark:text-zinc-400">
-            Head of Product & Fractional CDO
-          </ScrambleSectionTitle>
-          <p className="mb-5 text-3xl font-semibold tracking-tight text-zinc-900 sm:text-4xl dark:text-zinc-50">
-            Design leader who ships AI products.
-          </p>
-          <p className="max-w-2xl text-base leading-snug tracking-tight text-zinc-600 dark:text-zinc-400">
-            I turn startups into design-led organizations — and write the code
-            to prove it.
-          </p>
-          <div className="mt-6 flex flex-wrap gap-2">
-            <Badge variant="secondary" className="text-sm">
-              20 years in design
-            </Badge>
-            <Badge variant="secondary" className="text-sm">
-              8+ yrs leading teams
-            </Badge>
-            <Badge variant="secondary" className="text-sm">
-              Ships React / Next.js / TypeScript
-            </Badge>
-          </div>
-          <div className="mt-6 flex flex-wrap gap-3">
-            <CalButton
-              onClick={() => trackContactIntent("booking", BOOKING_URL)}
-              className="inline-flex cursor-pointer items-center gap-2 rounded-lg bg-zinc-900 px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-zinc-700 dark:bg-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-200"
-            >
-              Book a 30-min call
-            </CalButton>
-            <Link
-              href="/projects"
-              className="inline-flex items-center gap-2 rounded-lg border border-zinc-300 px-5 py-2.5 text-sm font-medium text-zinc-700 transition-colors hover:bg-zinc-100 dark:border-zinc-700 dark:text-zinc-300 dark:hover:bg-zinc-800"
-            >
-              View work
-            </Link>
-            <BuyMeACoffeeButton className="px-5 py-2.5 text-sm focus-visible:ring-offset-white dark:focus-visible:ring-offset-zinc-950" />
-          </div>
+        <h1 className="max-w-[18ch] text-4xl leading-[1.05] font-semibold tracking-[-0.03em] text-balance text-zinc-900 sm:text-5xl dark:text-white">
+          Design leader who ships AI products.
+        </h1>
+        <p className="mt-5 max-w-[62ch] text-lg text-zinc-600 dark:text-zinc-300">
+          I turn startups into design-led organizations — and write the code to
+          prove it. Head of Product and Fractional Chief Design Officer, working
+          with founders on AI product design, design systems, and the decisions
+          a roadmap is already waiting on.
+        </p>
+        <p className="mt-4 max-w-[62ch] text-sm text-zinc-500 dark:text-zinc-400">
+          20 years in design · 8+ years leading teams · Ships React, Next.js and
+          TypeScript
+        </p>
+
+        {/* One primary. The old page shipped three, two of them the same
+            booking link with the same label. */}
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <CalButton
+            onClick={() => trackContactIntent("booking", BOOKING_URL)}
+            className={PRIMARY_BUTTON}
+          >
+            Book a 30-minute call
+          </CalButton>
+          <Link href="/projects" className={SECONDARY_BUTTON}>
+            See the work
+          </Link>
         </div>
       </motion.section>
 
-      <motion.section
-        variants={VARIANTS_SECTION}
-        transition={TRANSITION_SECTION}
-      >
-        <AnimatedNumberBasic />
-      </motion.section>
+      <Section id="proof" label="What the work has been worth">
+        <dl className="mt-8 grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-4 sm:gap-x-16">
+          {PROOF_EXHIBITS.map((exhibit) => (
+            <div key={exhibit.context} className="flex flex-col">
+              {/* The true figure ships in the HTML. The old band counted up
+                  from zero on a metric that was on screen at load. */}
+              <dd className="text-3xl font-semibold tracking-[-0.03em] text-zinc-900 tabular-nums sm:text-4xl dark:text-white">
+                {exhibit.value}
+              </dd>
+              <dt className="mt-3 text-sm leading-snug text-zinc-700 dark:text-zinc-300">
+                {exhibit.context}
+              </dt>
+            </div>
+          ))}
+        </dl>
+        <p className="mt-8 max-w-[62ch] text-xs text-zinc-500 dark:text-zinc-400">
+          Every figure above is career to date, across roles at Nagarro,
+          Chameleon Collective, and Wealthberry Labs.
+        </p>
+      </Section>
 
       <motion.section
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
+        className="mt-20"
       >
         <ClientLogos />
       </motion.section>
 
-      <motion.section
-        variants={VARIANTS_SECTION}
-        transition={TRANSITION_SECTION}
-      >
-        <ScrambleSectionTitle className="mb-5 text-lg font-medium">
-          Core Ideologies
-        </ScrambleSectionTitle>
-        <TransitionPanelExample />
-      </motion.section>
+      <Section id="work" label="Selected work">
+        <p className="mt-6 max-w-[62ch] text-base text-zinc-600 dark:text-zinc-300">
+          AI-powered product work with figures attached: LedgerIQ&apos;s payroll
+          anomaly detection cut errors 78% and saved $180K a year, EchoDrive
+          carried two logistics platforms to launch on on-site driver research,
+          and Nagarro&apos;s design practice reached 18,000 employees across 36
+          countries.
+        </p>
+        <ul className="mt-8">
+          {featured.map((project) => {
+            const still = projectThumbnail(project.slug);
 
-      <motion.section
-        variants={VARIANTS_SECTION}
-        transition={TRANSITION_SECTION}
-        className="mt-32 sm:mt-24"
-      >
-        <ScrambleSectionTitle className="mb-5 text-lg font-medium">
-          AI Product Design Services & Expertise
-        </ScrambleSectionTitle>
-        <TextGradientScroll
-          text="Specializing in AI/ML product design and generative AI integration for enterprise-scale solutions. Expertise spans AI-powered product innovation, design systems architecture for large organizations, and human-centered AI consulting. From AI UX research and interface design to machine learning product strategy and technical implementation, I deliver comprehensive AI product solutions that drive measurable business outcomes. Available for generative AI consulting, AI design systems development, and product leadership for AI-powered ventures."
-          type="word"
-          textOpacity="medium"
-          className="max-w-4xl text-base leading-snug tracking-tight text-zinc-700 dark:text-zinc-300"
-        />
-      </motion.section>
-
-      <motion.section
-        variants={VARIANTS_SECTION}
-        transition={TRANSITION_SECTION}
-        className="mt-32 sm:mt-24"
-      >
-        <div className="mb-5 flex items-center justify-between">
-          <ScrambleSectionTitle className="text-lg font-medium">
-            Selected Projects
-          </ScrambleSectionTitle>
-          <Link
-            href="/projects"
-            className="group relative inline-flex items-center text-sm text-zinc-600 transition-colors duration-200 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
-          >
-            View all projects ({PROJECTS.length})
-            <span className="absolute bottom-0 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 transition-all duration-200 group-hover:max-w-full dark:bg-zinc-50"></span>
-          </Link>
-        </div>
-        <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 sm:gap-8">
-          {selectedProjects.length > 0
-            ? selectedProjects.map((project) => (
-                <div key={project.id} className="flex h-full flex-col">
-                  <div className="mb-4 flex-shrink-0">
-                    <ProjectThumbnail project={project} />
-                  </div>
-                  <div className="flex flex-grow flex-col px-1">
-                    <Link
-                      className="font-base group relative mb-2 inline-block font-[450] text-zinc-900 dark:text-zinc-50"
-                      href={`/projects/${project.slug}`}
-                      onClick={() => trackProjectView(project.name)}
-                    >
-                      {project.name}
-                      <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 transition-all duration-200 group-hover:max-w-full dark:bg-zinc-50"></span>
-                    </Link>
-                    {project.subtitle && (
-                      <p className="mb-2 text-sm text-zinc-500 dark:text-zinc-400">
-                        {project.subtitle}
-                      </p>
-                    )}
-                    <p className="flex-grow text-base text-zinc-600 dark:text-zinc-400">
-                      {project.description}
-                    </p>
-                  </div>
-                </div>
-              ))
-            : // Loading placeholder during hydration
-              Array.from({ length: 2 }).map((_, index) => (
-                <div
-                  key={`placeholder-${index}`}
-                  className="flex h-full flex-col"
-                >
-                  <div className="mb-4 flex-shrink-0">
-                    <div className="aspect-video max-h-48 w-full animate-pulse rounded-lg bg-zinc-100 dark:bg-zinc-800" />
-                  </div>
-                  <div className="flex flex-grow flex-col space-y-2 px-1">
-                    <div className="h-6 animate-pulse rounded bg-zinc-100 dark:bg-zinc-800" />
-                    <div className="h-4 w-3/4 animate-pulse rounded bg-zinc-100 dark:bg-zinc-800" />
-                    <div className="h-4 flex-grow animate-pulse rounded bg-zinc-100 dark:bg-zinc-800" />
-                  </div>
-                </div>
-              ))}
-        </div>
-      </motion.section>
-
-      <motion.section
-        variants={VARIANTS_SECTION}
-        transition={TRANSITION_SECTION}
-        className="mt-32 sm:mt-24"
-      >
-        <ScrambleSectionTitle className="mb-5 text-lg font-medium">
-          What am I working on
-        </ScrambleSectionTitle>
-        <div className="grid grid-cols-1 gap-12 sm:gap-8">
-          <div className="space-y-4">
-            <Link href="/metis">
-              <div className="aspect-video max-h-48 w-full cursor-pointer overflow-hidden rounded-lg transition-opacity duration-200 hover:opacity-90">
-                <LazyHoverVideo
-                  src="/images/projects/metis/metis-logomark-glitch.mp4"
-                  alt="METIS logomark glitch animation"
-                  className="h-full w-full"
-                  resetOnLeave={true}
-                />
-              </div>
-            </Link>
-            <div className="px-1">
-              <Link
-                className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"
-                href="/metis"
+            return (
+              <li
+                key={project.slug}
+                className="grid grid-cols-1 gap-4 border-t border-zinc-200 py-5 sm:grid-cols-[minmax(0,18rem)_1fr] sm:gap-8 dark:border-zinc-800"
               >
-                METIS:LAYER - AI BUSINESS STRATEGY FOR DIGITAL DESIGNERS
-                <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 transition-all duration-200 group-hover:max-w-full dark:bg-zinc-50"></span>
-              </Link>
-              <p className="text-base text-zinc-600 dark:text-zinc-400">
-                My new project to bridge the gap between design excellence and
-                boardroom fluency. Inspired by PROFITS, NOT PIXELS Manuscript
+                {/* The image is a sibling of the link, never a child of it: a
+                    lightbox trigger is a button, and a button inside an anchor
+                    is both invalid and ambiguous to click. Two targets, each
+                    doing one thing — the picture enlarges, the words navigate. */}
+                {still && <ProjectThumbnail thumbnail={still} />}
+                <Link
+                  href={`/projects/${project.slug}`}
+                  className="group flex flex-col gap-2 focus-visible:ring-2 focus-visible:ring-zinc-900 focus-visible:ring-offset-2 focus-visible:outline-none dark:focus-visible:ring-white"
+                >
+                  <span className="flex items-start gap-1.5 text-base font-medium text-zinc-900 underline decoration-zinc-300 underline-offset-4 transition-colors group-hover:decoration-zinc-900 dark:text-white dark:decoration-zinc-700 dark:group-hover:decoration-zinc-100">
+                    {project.name}
+                    <ArrowRight
+                      aria-hidden="true"
+                      className="mt-1 h-4 w-4 shrink-0 text-zinc-400 transition-transform group-hover:translate-x-0.5 dark:text-zinc-500"
+                    />
+                  </span>
+                  <span className="text-xs text-zinc-500 dark:text-zinc-400">
+                    {project.category}
+                  </span>
+                  <span className="max-w-[62ch] text-base text-zinc-500 dark:text-zinc-400">
+                    {project.description}
+                  </span>
+                  {project.metrics?.[0] && (
+                    <span className="text-sm text-zinc-500 dark:text-zinc-400">
+                      <span className="font-medium text-zinc-900 tabular-nums dark:text-white">
+                        {project.metrics[0].value}
+                      </span>{" "}
+                      {project.metrics[0].label}
+                    </span>
+                  )}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+        <div className="mt-6 flex flex-col gap-4">
+          <Link href="/projects" className={TEXT_LINK}>
+            All {PROJECTS.length} case studies
+            <ArrowRight aria-hidden="true" className="h-4 w-4 shrink-0" />
+          </Link>
+          <p className="text-sm text-zinc-500 dark:text-zinc-400">
+            Currently building{" "}
+            <Link href="/metis" className={TEXT_LINK}>
+              METIS:LAYER
+            </Link>{" "}
+            — AI business strategy for designers, bridging design excellence and
+            boardroom fluency.
+          </p>
+        </div>
+      </Section>
+
+      <Section id="retainer" label="How the engagement runs">
+        <p className="mt-6 max-w-[62ch] text-base text-zinc-600 dark:text-zinc-300">
+          A fractional Chief Design Officer retainer: guaranteed hours every
+          month, spent on design strategy, systems, AI product surfaces, and the
+          team decisions that come with them.
+        </p>
+        <div className="mt-8">
+          {RETAINER_LEDGER.map((row) => (
+            <div key={row.without} className={ROW}>
+              <p className="text-base text-zinc-500 sm:pr-8 dark:text-zinc-400">
+                {row.without}
+              </p>
+              <p className="mt-2 text-base font-medium text-zinc-900 sm:mt-0 dark:text-white">
+                {row.with}
               </p>
             </div>
-          </div>
+          ))}
         </div>
-      </motion.section>
-
-      <motion.section
-        variants={VARIANTS_SECTION}
-        transition={TRANSITION_SECTION}
-        className="mt-32 sm:mt-24"
-      >
-        <ScrambleSectionTitle className="mb-5 text-lg font-medium">
-          Github Projects
-        </ScrambleSectionTitle>
-        <TerminalDemo />
-      </motion.section>
-
-      <motion.section
-        variants={VARIANTS_SECTION}
-        transition={TRANSITION_SECTION}
-        className="mt-32 sm:mt-24"
-      >
-        <div className="mb-5 flex items-center justify-between">
-          <ScrambleSectionTitle className="text-lg font-medium">
-            Recent Work Experience
-          </ScrambleSectionTitle>
-          <Link
-            href="/about"
-            className="group relative inline-flex items-center text-sm text-zinc-600 transition-colors duration-200 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
-          >
-            View all
-            <span className="absolute bottom-0 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 transition-all duration-200 group-hover:max-w-full dark:bg-zinc-50"></span>
+        <div className="mt-6">
+          <Link href="/services" className={TEXT_LINK}>
+            Terms, rate, and what a month looks like
+            <ArrowRight aria-hidden="true" className="h-4 w-4 shrink-0" />
           </Link>
         </div>
-        <div className="flex flex-col space-y-2">
-          <div
-            data-testid="next-journey-banner"
-            className="rounded-2xl border-2 border-dashed border-zinc-300 bg-transparent p-4 dark:border-zinc-700"
-          >
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <h4 className="font-normal dark:text-zinc-100">
-                  Looking for my next journey
-                </h4>
-                <p className="text-zinc-500 dark:text-zinc-400">
-                  Open to Head of Product / Design roles and fractional
-                  engagements. Let&apos;s chat.
+      </Section>
+
+      {recommendation && (
+        <Section
+          id="recommendation"
+          label="What people who have worked with me say"
+        >
+          <figure className={`${ROW} mt-6`}>
+            <figcaption className="text-base text-zinc-500 sm:pr-8 dark:text-zinc-400">
+              <span className="block text-zinc-900 dark:text-white">
+                {recommendation.author}
+              </span>
+              {recommendation.role}
+            </figcaption>
+            <blockquote className="mt-2 max-w-[68ch] text-base font-medium text-zinc-900 sm:mt-0 dark:text-white">
+              {`“${recommendation.quote}”`}
+            </blockquote>
+          </figure>
+          <p className="mt-4 text-xs text-zinc-500 dark:text-zinc-400">
+            A LinkedIn recommendation, quoted in full and attributed.{" "}
+            <Link href="/about" className={TEXT_LINK}>
+              More on the about page
+            </Link>
+          </p>
+        </Section>
+      )}
+
+      <Section id="questions" label="Questions founders ask">
+        <Accordion
+          className="mt-6 flex w-full flex-col"
+          transition={{ duration: 0.2 }}
+        >
+          {FAQS.map((faq) => (
+            <AccordionItem
+              key={faq.id}
+              value={faq.id}
+              className="border-t border-zinc-200 dark:border-zinc-800"
+            >
+              <AccordionTrigger className="w-full py-5 text-left">
+                <div className="flex w-full items-start justify-between gap-4">
+                  <span className="text-base font-medium text-zinc-900 dark:text-white">
+                    {faq.question}
+                  </span>
+                  <ChevronUp
+                    aria-hidden="true"
+                    className="mt-1 h-4 w-4 shrink-0 text-zinc-400 transition-transform duration-200 group-data-expanded:-rotate-180 dark:text-zinc-500"
+                  />
+                </div>
+              </AccordionTrigger>
+              <AccordionContent>
+                <p className="max-w-[62ch] pb-5 text-base text-zinc-600 dark:text-zinc-300">
+                  {faq.answer}
                 </p>
-              </div>
-              <LetsChatButton className="shrink-0">
-                Let&apos;s chat
-              </LetsChatButton>
-            </div>
-          </div>
-          {WORK_EXPERIENCE.map((job) => (
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </Section>
+
+      <motion.section
+        className={SECTION}
+        variants={VARIANTS_SECTION}
+        transition={TRANSITION_SECTION}
+      >
+        <h2 className="max-w-[24ch] text-2xl leading-tight font-semibold tracking-[-0.03em] text-zinc-900 sm:text-3xl dark:text-white">
+          Thirty minutes is enough to know whether this fits.
+        </h2>
+        <p className="mt-4 max-w-[62ch] text-base text-zinc-600 dark:text-zinc-300">
+          Bring the design decision that is currently stuck. We will work
+          through it on the call, and you will leave with the answer whether or
+          not you take the retainer.
+        </p>
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <CalButton
+            onClick={() => trackContactIntent("booking", BOOKING_URL)}
+            className={PRIMARY_BUTTON}
+          >
+            Book a 30-minute call
+          </CalButton>
+          <Link href="/blog" className={SECONDARY_BUTTON}>
+            Read the writing
+          </Link>
+        </div>
+
+        <div className="mt-10 flex flex-wrap gap-x-6 gap-y-2">
+          {SOCIAL_LINKS.map((link) => (
             <a
-              className="relative overflow-hidden rounded-2xl bg-zinc-300/30 p-[1px] dark:bg-zinc-600/30"
-              href={job.link}
+              key={link.label}
+              href={link.link}
               target="_blank"
               rel="noopener noreferrer"
-              key={job.id}
+              className="-my-3 inline-flex items-center gap-1.5 py-3 text-sm text-zinc-500 underline decoration-zinc-300 underline-offset-4 transition-colors hover:text-zinc-900 hover:decoration-zinc-900 focus-visible:ring-2 focus-visible:ring-zinc-900 focus-visible:ring-offset-2 focus-visible:outline-none dark:text-zinc-400 dark:decoration-zinc-700 dark:hover:text-white dark:hover:decoration-zinc-100 dark:focus-visible:ring-white"
             >
-              <Spotlight
-                className="from-zinc-900 via-zinc-800 to-zinc-700 blur-2xl dark:from-zinc-100 dark:via-zinc-200 dark:to-zinc-50"
-                size={64}
-              />
-              <div className="relative h-full w-full rounded-[15px] bg-white p-4 dark:bg-zinc-950">
-                <div className="relative flex w-full flex-row justify-between">
-                  <div>
-                    <h4 className="font-normal dark:text-zinc-100">
-                      {job.title}
-                    </h4>
-                    <p className="text-zinc-500 dark:text-zinc-400">
-                      {job.company}
-                    </p>
-                  </div>
-                  <p className="text-zinc-600 dark:text-zinc-400">
-                    {job.start} - {job.end}
-                  </p>
-                </div>
-              </div>
+              {link.label}
+              <ArrowUpRight aria-hidden="true" className="h-4 w-4 shrink-0" />
+              <span className="sr-only">(opens in a new tab)</span>
             </a>
           ))}
         </div>
       </motion.section>
 
-      <motion.section
-        variants={VARIANTS_SECTION}
-        transition={TRANSITION_SECTION}
-      >
-        <div className="mb-3 flex items-center justify-between">
-          <ScrambleSectionTitle className="text-lg font-medium">
-            Blog
-          </ScrambleSectionTitle>
-          <Link
-            href="/blog"
-            className="group relative inline-flex items-center text-sm text-zinc-600 transition-colors duration-200 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
-          >
-            View archive
-            <span className="absolute bottom-0 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 transition-all duration-200 group-hover:max-w-full dark:bg-zinc-50"></span>
-          </Link>
-        </div>
-        <div className="flex flex-col space-y-0">
-          <AnimatedBackground
-            enableHover
-            className="h-full w-full rounded-lg bg-zinc-100 dark:bg-zinc-900/80"
-            transition={{
-              type: "spring",
-              bounce: 0,
-              duration: 0.2,
-            }}
-          >
-            {BLOG_POSTS.map((post) => (
-              <Link
-                key={post.uid}
-                className="-mx-3 rounded-xl px-3 py-3"
-                href={post.link}
-                data-id={post.uid}
-              >
-                <div className="flex flex-col space-y-1">
-                  <h4 className="font-normal dark:text-zinc-100">
-                    {post.title}
-                  </h4>
-                  <p className="text-zinc-500 dark:text-zinc-400">
-                    {post.description}
-                  </p>
-                </div>
-              </Link>
-            ))}
-          </AnimatedBackground>
-        </div>
-      </motion.section>
-
-      <motion.section
-        variants={VARIANTS_SECTION}
-        transition={TRANSITION_SECTION}
-      >
-        <ScrambleSectionTitle className="mb-5 text-lg font-medium">
-          FAQ
-        </ScrambleSectionTitle>
-        <AccordionIcons />
-      </motion.section>
-
-      <motion.section
-        variants={VARIANTS_SECTION}
-        transition={TRANSITION_SECTION}
-        className="mt-32 sm:mt-24"
-      >
-        <ScrambleSectionTitle className="mb-5 text-lg font-medium">
-          What Colleagues Say
-        </ScrambleSectionTitle>
-        <div className="grid gap-6 md:grid-cols-2">
-          {testimonials.map((testimonial) => (
-            <Card key={testimonial.author}>
-              <CardContent className="pt-6">
-                <blockquote className="leading-relaxed text-zinc-600 italic dark:text-zinc-400">
-                  &ldquo;{testimonial.quote}&rdquo;
-                </blockquote>
-                <footer className="mt-4 text-sm text-zinc-500 dark:text-zinc-400">
-                  <span className="font-medium text-zinc-700 dark:text-zinc-300">
-                    {testimonial.author}
-                  </span>
-                  <br />
-                  {testimonial.role}
-                </footer>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </motion.section>
-
-      <motion.section
-        variants={VARIANTS_SECTION}
-        transition={TRANSITION_SECTION}
-      >
-        <ScrambleSectionTitle className="mb-5 text-lg font-medium">
-          AI Product Design Case Studies & Results
-        </ScrambleSectionTitle>
-        <TextGradientScroll
-          text="Proven track record delivering AI-powered product innovations with quantifiable business impact. LedgerIQ AI payroll fraud detection achieved 78% error reduction and $180K annual savings. EchoDrive cloud intelligence platform delivered 67% productivity boost through AI-powered automation. Rambis UI design system serves 2.5K+ weekly downloads with 100% accessibility compliance. Nagarro design leadership impacted 18,000+ employees across 36 countries with 50% brand recognition growth. Available for AI product design consulting and generative AI integration projects."
-          type="letter"
-          textOpacity="medium"
-          className="mb-8 max-w-3xl text-base leading-snug tracking-tight text-zinc-700 dark:text-zinc-300"
-        />
-        <CTASection />
-        <div className="flex items-center justify-start space-x-3">
-          {SOCIAL_LINKS.map((link) => (
-            <MagneticSocialLink key={link.label} link={link.link}>
-              {link.label}
-            </MagneticSocialLink>
-          ))}
-        </div>
-      </motion.section>
-
-      {/* Feature Flag Demo - Development Only */}
+      {/* Development only. */}
       <FeatureFlagDemo />
     </motion.main>
   );

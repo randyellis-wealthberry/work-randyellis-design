@@ -1,237 +1,280 @@
 # Pitfalls Research
 
-**Domain:** Rewriting existing portfolio case studies to be deeper/more persuasive (v2.0 Case-Study Depth, post-credibility-purge)
-**Researched:** 2026-08-15
-**Confidence:** HIGH (grounded directly in this repo's code/data — `lib/data/projects.ts`, `app/projects/[slug]/page.tsx`, `app/projects/{addvanced,echo,nagarro,rambis-ui,waffle}/`, `.planning/CREDIBILITY-COPY.md`, v1.0 audit history) with MEDIUM confidence on general credibility/ghostwriting best-practice framing (industry convention, not tool-verified)
+**Domain:** v3.0 Enterprise Credibility — removing unbacked sitewide figures, reframing NDA-bound case studies, adding project filtering (subsequent milestone on a shipped Next.js 15 portfolio)
+**Researched:** 2026-08-22
+**Confidence:** HIGH — every pitfall below is grounded in direct codebase inspection of this exact repo (file:line evidence), the project's own audit trail (`v1.0`/`v2.0` MILESTONE-AUDIT.md, `DECK-COVERAGE-AUDIT.md`), and a currently-live, currently-passing test suite that will collide with this milestone's work. Nothing here is generic web-dev advice.
+
+## How this research was done
+
+Before writing anything, the actual removal/reframe surfaces were traced end to end:
+`rg` for `2.5M`, `$50M`, `800+` across the whole repo (excluding `node_modules`/`.next`), the `AnimatedNumberBasic` import graph, `PROOF_EXHIBITS` and `about-client.tsx` consumers, `lib/data/projects.ts` for Echo/Nagarro's actual `category`, `metrics`, `tags`, and `timeline` fields, `GlobalCaseStudyGrid`'s sort implementation, `filterProjectsByCategory`'s matching logic, `lib/seo/json-ld.ts`'s schema builders, and `.planning/DECK-COVERAGE-AUDIT.md`'s per-claim verdicts for Echo and Nagarro. Several of the findings below are things the task brief does not mention and the milestone context does not name — they were found by reading the code, not inferred from the prompt.
+
+---
 
 ## Critical Pitfalls
 
-### Pitfall 1: Embellishment Creep — Inventing Decisions/Metrics to Fill the Narrative
+### Pitfall 1: The audit's own "source" file is dead code — the real edit surfaces are two independently-hand-duplicated arrays it doesn't name
 
 **What goes wrong:**
-The new template demands "problem → my role → key decisions with rationale → measurable outcome → reflection" for all 8 projects. Where the deck is silent on *why* a decision was made, or on a number to prove the outcome, the natural writing impulse is to invent a plausible-sounding rationale or round a number up "because it's probably close enough." This is exactly the failure mode v1.0 was created to purge (fake testimonials, unverifiable "6 Design Awards," invented `aggregateRating`). The risk is structurally *higher* in v2.0 because the template itself requires a "rationale" and "metric" slot per decision — an empty slot is uncomfortable, and filling it convincingly is easy.
+`v2.0-MILESTONE-AUDIT.md` and `.planning/PROJECT.md` both cite `components/core/animated-number-basic.tsx:12-15` as *the* source of SITE-01/03/04. It is not. `rg -rn "AnimatedNumberBasic|animated-number-basic"` across the entire repo returns **only the component's own definition file** — it is imported nowhere. It is 2026's version of the `app/data.ts` dead-code landmine the v1.0 retro already warned about ("stale dead code... unimported dead code, landmine if re-imported").
+
+The figures that actually render live in **two separately-authored copies with different shapes**:
+- `lib/data/retainer.ts` → `PROOF_EXHIBITS` (`{value, context}[]`, order: 2.5M+, $50M, 800+, 4) — rendered by **both** `app/page.tsx:165` (homepage) and `app/services/services-client.tsx:189` (`/services`).
+- `app/about/about-client.tsx:19-40` → local `achievements` const (`{value, label, description}[]`, order: 2.5M+, 4, $50M, 800+) — rendered at `about-client.tsx:456`.
+
+These are not the same object, don't share field names, and don't share order. There is no single constant to edit once.
 
 **Why it happens:**
-Persuasive, decision-driven writing has a narrative shape that real projects don't always fill cleanly. Writers (including an AI assistant executing this milestone) pattern-match "what a good case study sounds like" and produce specific-sounding prose (e.g., LedgerIQ's existing "10 hours of manual audit work per pay cycle," "What if I told you most companies are unknowingly hemorrhaging money") that reads confidently but traces to no verifiable source — this pattern already exists in the current copy (`lib/data/projects.ts:389,505`) and rewriting "deeper" without a source-check step will reproduce and compound it rather than fix it.
+An executor who trusts the audit's file:line citation as ground truth will open `animated-number-basic.tsx`, edit or delete lines 12-15, run the tests, see green, and believe the work is done — because nothing consumes that file, nothing will break, and nothing will look different on the live site.
 
-**How to avoid:**
-- Every new sentence that names a number, a decision rationale, or an outcome must trace to a specific deck slide or `.planning/CREDIBILITY-COPY.md` line. Treat "I'm not sure where this came from" during self-review as a hard stop, not a style note.
-- Distinguish rationale you can attribute ("I chose X because the deck confirms Y constraint") from rationale that is plausible-sounding invention. If the deck doesn't state the *why*, either quote the *what* only, or phrase reflection generically without inventing a specific reason.
-- Where the deck doesn't cover a project at all (or covers it thinly), flag it for Randy per the PROJECT.md rule — do not backfill with invented specifics to hit the template's five-part structure.
-- Add a lightweight "source" annotation convention during drafting (e.g., an inline comment or a companion claims-log per project) that maps each hard claim to its deck slide/section, then strip the annotations before publish. This makes the fact-check step mechanical instead of relying on memory.
+**Consequences:**
+All four live surfaces stay unchanged; the "removal" is invisible and reverts nothing. This is a stealthier version of the exact v1.0 failure ("the '6' lingered in 2 spots") — here it could linger in *all four* spots while the diff looks plausible.
 
-**Warning signs:**
-- Precise-sounding numbers with no unit qualifier disagreement resolution (e.g., "50% increase in brand recognition," "100+ qualified leads," "40% designer retention improvement," "reached 10,000+ subscribers" — all already present in the Nagarro entry, `lib/data/projects.ts:1057`) that can't be traced to a deck page.
-- Rhetorical framing that substitutes for evidence ("What if I told you...", "Our target client was experiencing the perfect storm...") — persuasive voice standing in for a missing fact.
-- A case study that reads *more* precisely quantified after the rewrite than the deck actually supports.
+**Prevention:**
+Do not start from the cited file. Start from `rg -n '"2\.5M\+"|"\$50M"|"800\+"' app components lib` and treat every hit as a real edit site. Treat a zero-import result for the cited component as a canary that the citation is stale, not as confirmation there's nothing to do. Once edited, delete `components/core/animated-number-basic.tsx` outright rather than leaving its stale values in place — it is unused, and editing-but-not-deleting a dead file just creates the next milestone's landmine.
 
-**Phase to address:**
-Data completeness / outcome-proofing phase — but only if it includes an explicit per-project, per-claim source-check gate (not just "fill in the sections"). This should run *before* narrative polish, not after.
+**Detection / warning sign:** `git diff --stat` after "removal" touches only `components/core/animated-number-basic.tsx` and nothing under `app/about`, `app/services`, `app/page.tsx`, `lib/metadata.ts`, or `app/*opengraph-image.tsx`.
+
+**Owning phase:** Phase 11 (metric integrity).
 
 ---
 
-### Pitfall 2: Cross-Surface Claim Drift (Copy vs Metadata vs OG vs JSON-LD)
+### Pitfall 2: Deleting 3-of-4 items collapses a `grid-cols-4` stats band into one lonely cell — in three separate places
 
 **What goes wrong:**
-A claim gets corrected or reworded in the visible case-study copy but the same claim lingers, unchanged, in `generateMetadata()` (title/description/keywords), the OG image generator, or `CreativeWorkStructuredData`/`ProjectFAQStructuredData` schema — because these are separate code paths that pull from the same `PROJECTS` record but aren't all touched in the same edit pass. This is not hypothetical: it is the exact failure that happened in v1.0 ("the '6 awards' claim lingered in OG-image generators and metadata after the visible copy was fixed" — `.planning/PROJECT.md` Key Decisions). v2.0 touches the same surfaces (title/description built from `project.longDescription`/`project.description`, `keywords` array, OG `alt` text, JSON-LD `metrics`) for all 8 projects at once, multiplying the number of places a stale number can hide.
+Both live homepage/`/services` `PROOF_EXHIBITS` renders and the `/about` `achievements` render use `grid grid-cols-2 ... sm:grid-cols-4` (confirmed at `app/services/services-client.tsx:188`, and the equivalent pattern in `about-client.tsx:455`). This layout is authored assuming exactly four peer items with `gap-x-16`/`gap-y-10` spacing. Removing three leaves a single `<dd>/<dt>` pair sitting in a 4-track grid — visually a stray number floating in the left column with three empty tracks beside/below it, not a redesigned "one honest stat" callout.
 
 **Why it happens:**
-`app/projects/[slug]/page.tsx` builds `generateMetadata()` and `CreativeWorkStructuredData` from the *same* `project` object used by the client template, so a naive assumption is "if I update the object, everything downstream updates automatically." That's true for fields that are read directly (e.g., `project.metrics` flows straight into JSON-LD), but false for anything transformed, cached, or duplicated — e.g., a metric string embedded in `longDescription` prose vs. the same metric stored separately in `metrics`/`awards` arrays can diverge silently, and standalone-route projects (see Pitfall 7) don't share `generateMetadata()` with `[slug]` at all.
+The task is framed as a content deletion ("remove three figures"), but the container is fixed-column CSS authored for a specific count. Deleting array items without touching the grid definition is a data change masquerading as a layout change.
 
-**How to avoid:**
-- After each project's content rewrite, grep across ALL surfaces for the old claim text/number, not just the visible page: `rg -n "<old number/phrase>" app/ lib/ components/seo/` before considering that project done.
-- Treat `generateMetadata()`, OG image `alt` text, and JSON-LD (`CreativeWorkStructuredData`, `ProjectFAQStructuredData`) as required checklist items per project, not incidental — add a literal checklist line per project ("metadata/OG/schema reconciled") mirroring how POS-04 had to be fixed in metadata/OG/JSON-LD during v1.0 audit remediation.
-- Run a repo-wide grep for every hard number that changes (old GrowIt "1M+"/"100K" style bugs) as a final gate across all 8 projects together, not per-project in isolation — cross-project consistency (e.g., a stat reused in two places) is easy to miss when reviewing one file at a time.
+**Consequences:**
+Ships a page that "still builds, still passes tests" (nothing asserts grid-track occupancy) but visibly reads as broken or unfinished to exactly the enterprise-credibility-conscious reader this milestone exists to convince.
 
-**Warning signs:**
-- Any project record where a number/claim appears in more than one field (`description`, `longDescription`, `metrics`, `outcome`, keywords) — each occurrence is a place it can go stale independently.
-- Standalone-route projects (`addvanced`, `echo`, `nagarro`, `rambis-ui`, `waffle`) that have their own `page.tsx`/`*-client.tsx` files with independently-authored metadata — these do not inherit fixes made to `[slug]`'s `generateMetadata()`.
+**Prevention:**
+Treat this as a UI decision, not a copy edit. Options, in order of preference: (a) replace the grid with a single prominent stat treatment (the "4 Design Awards" figure deserves to read as a headline claim, not a leftover grid cell); (b) if Randy wants to backfill with other *backed* facts (years in practice, named clients, testimonial count) to keep a multi-item band, that is a scope decision for Randy, not a default; (c) at minimum, change `sm:grid-cols-4` to a layout that matches a 1-item count at every one of the three render sites — this must be an explicit, verified edit in each of `app/page.tsx`, `app/services/services-client.tsx`, and `app/about/about-client.tsx`, because they are three independent JSX blocks, not one shared component.
 
-**Phase to address:**
-Should be a dedicated verification step at the end of the content-rewrite phase (or its own short audit phase), explicitly modeled on the v1.0 audit remediation that closed CRED-01/CRED-03/POS-04. Do not fold it into "content rewrite" as an assumed side effect — v1.0 proved it needs to be a distinct, deliberate pass.
+**Detection / warning sign:** Render `/`, `/about`, `/services` locally after the edit and look — this is not catchable by `npm run lint`/`tsc`/`npm test` alone; it requires an actual visual check (or a Playwright/RTL snapshot of the grid's rendered column count).
+
+**Owning phase:** Phase 11 (the collapse is a direct, immediate consequence of the removal work).
 
 ---
 
-### Pitfall 3: Confidentiality/NDA Exposure From Naming Real Companies and Client Work
+### Pitfall 3: OG image generators re-break the exact "OG unfurl contradicts on-page" failure v1.0 already had — and one of them still carries a THIRD, undetected recurrence of the "6 awards" bug right now
 
 **What goes wrong:**
-Deepening a case study naturally pulls in more specific detail — internal metrics, org structure, strategic rationale, screenshots of real product UI — for real, named companies and clients (Nagarro, Echo Global Logistics, and whichever real companies back GrowIt/OhPlays/LedgerIQ/AddVanced/RambisUI in the deck). Some of that detail may be under NDA, may be commercially sensitive to the ex-employer, or may simply not be something the named company consented to having republished in more depth than before. The current Nagarro entry already states specific internal figures (employee count 15,000→18,000+, "40% designer retention improvement," "40% website traffic increase," "100+ qualified leads") attributed to a real, currently-operating global consultancy — republishing these *more prominently and persuasively* raises the stakes if any of them were never meant to be public or are now stale/wrong.
+`app/opengraph-image.tsx` and `app/about/opengraph-image.tsx` hardcode their own `flex`/`justify-content: space-around` stat rows with per-item colors (`#60a5fa`, `#a78bfa`, `#34d399`) — a third and fourth independent copy of these figures, in `edge` runtime JSX-as-image code that render tooling (lint/tsc/jest) does not visually check. Deleting 2 of 3 divs in a `space-around` flex row re-centers the remaining one oddly instead of producing an intentional single-stat card.
 
-**Why it happens:**
-"More persuasive" and "more specific" are the same lever a rewrite pulls — the temptation is to add color (internal team dynamics, stakeholder quotes, screenshots, exact financial/business metrics) without re-checking whether the current employer/client relationship still permits disclosure at that level of detail. Confidentiality risk doesn't announce itself; it looks identical to "good, specific case-study writing."
+**Separately, and more urgently:** `app/about/opengraph-image.tsx:238` currently renders **`"6"`** next to "Design Awards" — not `4`. This is the *identical* bug v1.0's CRED-01 blocker described (`about OG "6 awards won"`), fixed once in `514de29`, and confirmed absent from `about-client.tsx`'s own `achievements` array (which correctly says `"4"`). It has silently reappeared in the OG generator specifically, undetected by both the v1.0 remediation grep and the entire v2.0 audit (which only checked `LocalBusiness`/`Organization`/`ProfessionalService`/`FAQPage` schema counts, not this stat). This is currently live in the working tree, not hypothetical.
 
-**How to avoid:**
-- Before deepening any project tied to a real, identifiable employer or client (especially Nagarro, Echo — both real named companies), explicitly flag to Randy: "this section adds new specificity — confirm still OK to publish at this level of detail," rather than assuming the deck's existing level of disclosure is a blanket license to go deeper.
-- Default to describing decisions, process, and outcomes in terms of *design/product reasoning* rather than the client's internal business metrics unless those exact metrics are already public (e.g., in the deck, in a public case study, or in a press release) — precise internal numbers (revenue, headcount deltas, lead counts) are exactly the kind of detail an employer is most likely to consider confidential even years later.
-- Do not add new screenshots, mockups, or UI captures of client products beyond what already exists in the deck/site without an explicit "cleared to publish" check — a deeper case study creates pressure to add visual proof that wasn't vetted the first time.
-- Apply extra scrutiny to any project where Randy was an employee (Nagarro "Head of Design") vs. a named contractor/freelance engagement — employment relationships often carry broader confidentiality obligations than project-based freelance work.
+**Why it happens:** OG generators are visually-composed JSX that nobody reads as "content" the way page copy is; they get audited by grep-for-the-old-number, and greps for "6 Design Awards" as a phrase don't match a bare `"6"` sitting next to a decorative dot and a separate "Design Awards" label three lines later in unrelated JSX.
 
-**Warning signs:**
-- New copy adds a specific number, org detail, or strategic rationale that does not appear verbatim in the deck or `CREDIBILITY-COPY.md` — even if it "sounds like something Randy would know," if it's not sourced, it's also not cleared.
-- A case study for a still-operating company (as opposed to a defunct startup or a personal/side project) getting materially more detailed than before.
-- Screenshots or descriptions of internal tooling, dashboards, or workflows rather than user-facing product surfaces.
+**Consequences:** A recruiter's link-preview (Slack, iMessage, Twitter/X, LinkedIn) for `/about` currently shows 6 awards while every rendered page says 4 — the exact flow-break v1.0's audit flagged as its #1 E2E risk ("pre-click OG impression contradicts on-page hero").
 
-**Phase to address:**
-Should be a review gate inside the content-rewrite phase, applied per-project at the point deck-backed content is being selected — pair it with the fabrication source-check (Pitfall 1) since both require going back to the deck/Randy per claim. This is a judgment call only Randy can make, so the deliverable is a flagged list, not a unilateral decision by whoever executes the phase.
+**Prevention:** While editing either OG generator for CRED-10/11/12, explicitly diff the awards figure against `CREDIBILITY-COPY.md §1` (4 named awards, Davey + Vega Digital). Do not treat "not named in the task's 4-surface list" as "not in scope" — both OG files ARE two of the four named surfaces, and this bug sits inside one of them. After editing, actually render `/opengraph-image` and `/about/opengraph-image` in a browser (or via the OG debugger) rather than trusting that the file compiles.
+
+**Detection / warning sign:** `rg -n '"6"' app/about/opengraph-image.tsx` — already reproducible today, before any v3.0 edits are made.
+
+**Owning phase:** Phase 11 (it's inside the exact files CRED-10/11/12 already touches).
 
 ---
 
-### Pitfall 4: Sole-Credit Over-Claiming — "I" Language on Team/Collaborative Work
+### Pitfall 4: The task's 4-named-surface list undercounts by at least 5 real files
 
-**What goes wrong:**
-The milestone explicitly wants the voice shifted from "we developed…" to first-person "I chose X because Y." For solo or clearly-led work this is accurate and appropriately senior. But several of these projects have real team sizes (`teamSize: 8`, `6`, `8`, `3`, `6`, `15`, `4` across the 8 projects) and titles that imply orchestration of others (e.g., Nagarro "Head of Design" over 15 people, GrowIt "Product Designer & Frontend Lead" with a team of 8). A blanket find-replace of "we" → "I" risks misrepresenting collaborative/delegated work as solo individual-contributor work — which is a *different* kind of credibility problem than fabricated numbers, but just as damaging to a senior-hire audience who will read case studies expecting to distinguish "I personally decided/designed this" from "I led a team that decided/designed this."
+**What goes wrong:** Beyond `/about`, `/services`, `lib/metadata.ts`, and both OG generators, the following files contain the same figures and sit outside `.planning/` (so they are not covered by the task's stated .planning exemption) and outside the named list:
+- `components/seo/related-content.tsx:255` — `"Explore projects that have impacted 2.5M+ users"` (a contextual internal-link description rendered on `/about`).
+- `PRODUCT.md` (repo root, 3 occurrences) — a live-looking positioning reference doc, not a planning artifact.
+- `README.md:11` — states `"$50M+ product value... 2.5M+ users globally"`.
+- `SEO_OPTIMIZATION_REPORT.md` — a historical before/after report that *also* still contains the old "6 design awards" wording as a documented past state (arguably fine to leave — it's a report of history — but worth an explicit decision, not a silent skip).
+- `docs/reports/accessibility/implementation-roadmap.md:636,693` — an accessibility-audit artifact with HTML-escaped copy (`&rsquo;`) that appears to be a captured snapshot of prior site copy, including `"$50M in product value"`.
 
-**Why it happens:**
-"First-person, decision-driven" is easy to over-apply mechanically (swap pronouns) rather than accurately (attribute the *level* at which Randy operated — individual decision vs. team leadership vs. organizational strategy). The instruction to sound senior and ownership-driven creates pressure toward "I" even where "I led the team that decided" or "I set the direction; the team executed X" is the honest and, for a *leadership* audience, actually more credible framing.
+**Why it happens:** This is precisely the v1.0 lesson restated — "claim fixes need a repo-wide grep per claim (all renderable surfaces), not a per-page fix list" — except this time the miss-risk is root-level docs and report artifacts, not OG generators.
 
-**How to avoid:**
-- Establish an explicit "I vs. we vs. led" rule before rewriting: use "I" only for decisions Randy personally made or drove; use "I led/directed the team that…" for team-executed work under his direction; never claim solo authorship of work a stated team of 3–15 people did.
-- For each project, cross-check the claimed decision against `role` and `teamSize` in `lib/data/projects.ts` — a claim like "I built the design system" on a project with `teamSize: 8` and role "Product Designer & Frontend Lead" needs to read as leadership/ownership of direction, not solo execution, unless the deck specifically attributes that piece of work to Randy alone.
-- Remember: for a hiring-manager audience evaluating a *design leadership* hire, "I led a team of 8 to decide X" is a stronger signal than a falsely-solo "I decided X" — over-claiming solo credit doesn't even serve the persuasive goal, it just adds risk.
-- Watch `teamMembers`/`stakeholderQuotes` fields in the data model — if a project has named collaborators, the rewritten narrative should be internally consistent with crediting them, not erase them to make Randy's role read bigger.
+**Consequences:** A future audit (v4.0-style) finds the same lingering-claim pattern a third time, in files nobody thought to name because they aren't `app/`/`components/`/`lib/` and aren't `.planning/` either — a genuine gray zone the task's own exemption list doesn't resolve.
 
-**Warning signs:**
-- "I" attached to work items on a project where `teamSize` > 1 and Randy's `role` is a lead/director title implying delegation (Nagarro, GrowIt, LedgerIQ).
-- Complete absence of "we"/"the team"/named collaborators in a rewritten case study that has substantial team size in its own data record — the vanishing of a team that's on record elsewhere on the same page is a visible inconsistency, not just an ethics concern.
-- Reflection sections that claim strategic outcomes ("I improved retention by 40%") for outcomes that are organization-level metrics, not individually attributable.
+**Prevention:** Before starting CRED-10/11/12, run the repo-wide grep and explicitly triage every hit into one of three buckets, recorded in the plan or commit message: **(a) live renderable surface — must fix** (the 4 named + `related-content.tsx`); **(b) historical/report artifact — leave, note why** (`SEO_OPTIMIZATION_REPORT.md`, `docs/reports/...`); **(c) illustrative code example, not a claim — leave** (see Pitfall 6). Do not silently omit `PRODUCT.md`/`README.md` — decide explicitly whether they count as "the site" for this milestone's purposes (they are read by humans and by any LLM/agent tooling that greps the repo, even though Google never indexes them).
 
-**Phase to address:**
-Content-rewrite phase, as an explicit style rule applied per project (not left to case-by-case judgment during drafting) — pair with a lightweight per-project check against `role`/`teamSize` before finalizing "I" statements.
+**Detection / warning sign:** `rg -rn '2\.5M\+|\$50M|800\+' --glob '!node_modules' --glob '!.next' --glob '!.planning' .` finding hits outside the four named files.
+
+**Owning phase:** Phase 11.
 
 ---
 
-### Pitfall 5: Generic Voice and Process-Theater Reading Junior Despite Added Depth
+### Pitfall 5: A currently-passing test asserts the exact values being removed — it will fail the moment PROOF_EXHIBITS shrinks, and nobody discovers this by writing the new regression test alone
 
-**What goes wrong:**
-Adding length and a "decisions with rationale" structure doesn't automatically read as senior — it can just as easily read as *more* generic if the added content is process narration ("first we did discovery, then we did research, then we ideated, then we tested") rather than judgment narration (what was actually hard, what was uncertain, what Randy chose to prioritize and why, what he'd do differently). The existing LedgerIQ copy already shows this pattern: marketing-style rhetorical hooks ("What if I told you...") and generic textbook process description ("Rule-based systems catch obvious problems but miss the subtle patterns") rather than specific, decision-level reasoning tied to this project. Deepening in that direction produces *more* words that still read junior.
+**What goes wrong:** `__tests__/integration/home-page-argument.test.tsx:59-66` — `"states the proof figures in the markup rather than counting up to them"` — does:
+```ts
+["2.5M+", "$50M", "800+", "4"].forEach((value) => {
+  expect(screen.getByText(value)).toBeInTheDocument();
+});
+```
+This is a real, currently-green assertion on the rendered homepage. The instant `PROOF_EXHIBITS` drops to one item, `screen.getByText("$50M")` throws and this suite goes red — deterministically, not hypothetically. Writing a *new* regression test (task B) does nothing to fix this; it is a separate file that will happily pass alongside a red `home-page-argument.test.tsx` unless someone also finds and edits this one.
 
-**Why it happens:**
-Process description is easier to write than judgment narration — it doesn't require recalling or sourcing a specific hard tradeoff, and it fills space convincingly. Under deadline/volume pressure (8 rewrites), the path of least resistance is generic "here's the standard design process applied to this project" rather than "here's the one thing that was genuinely difficult and how I resolved it."
+**Why it happens:** The task brief describes writing a new test but doesn't mention auditing existing tests for collisions. `npm test` will catch this — but only if someone runs the full suite and reads the failure, rather than running only the new test file and calling it done.
 
-**How to avoid:**
-- For each project, identify 1–3 *specific, non-obvious* decisions before writing prose — decisions where a reasonable alternative existed and Randy chose against it for a stated reason. If none can be identified from the deck, that's a signal the project is thin (see Pitfall 6), not a cue to generate generic process narrative to fill the gap.
-- Ban template process-language as a default ("we conducted user research," "we ideated multiple solutions," "we iterated based on feedback") unless it's anchoring a specific, named finding or decision — generic process description should be the exception that supports a specific point, not the narrative's backbone.
-- Read each rewritten case study asking "could this paragraph be copy-pasted into a different project's page and still sound plausible?" — if yes, it's generic and needs a project-specific decision or number swapped in (that is itself deck-verified, not invented — see Pitfall 1).
+**Consequences:** A red baseline suite shipped alongside a green new test — exactly the kind of "looks done" gap this milestone is trying to eliminate in the product copy, reproduced in the test suite instead.
 
-**Warning signs:**
-- Reflection/learnings sections that state universal design truisms ("I learned the importance of user research") rather than something specific to this project's outcome.
-- Rhetorical/marketing framing devices (questions to the reader, "the perfect storm," dramatic reveals) substituting for concrete specifics.
-- A case study that got measurably longer in the rewrite without gaining new *facts* — length added via elaboration/repetition of already-stated points rather than new deck-backed detail.
+**Prevention:** Before writing the new regression test, run `rg -rln '2\.5M\+|\$50M|800\+' __tests__/` and treat every hit as a required edit in the *same* plan/commit as the removal. Update this test's assertion to whatever the post-removal proof band actually contains (likely just `"4"` plus its context), and re-derive its adjacent assertions (`expect(screen.queryByText("0")).not.toBeInTheDocument()` still makes sense; the section still needs `id="proof"` / `aria-labelledby="proof-heading"` per the `"anchors every section it labels"` test at line 68-77 — verify that test also still passes with a 1-item proof section).
 
-**Phase to address:**
-Content-rewrite phase — this is a craft/quality bar that should be part of the per-project acceptance criteria (e.g., "at least N deck-backed, non-obvious decisions with stated rationale per project"), not just a "make it deeper" instruction.
+**Detection / warning sign:** `npm test` (full run, not a single file) after the removal — the project's own documented verify order (`lint` → `tsc --noEmit` → `test`) already requires this; skipping straight to a single new test file circumvents it.
 
----
-
-### Pitfall 6: Thin-Data Projects Render Empty or Padded Sections
-
-**What goes wrong:**
-The milestone explicitly names this risk ("Data completeness — fill thin/empty challenges·solutions·learnings so no section renders shallow"), but the failure mode has two opposite bad outcomes, not one: (a) a section stays visibly empty/thin in the shipped page because the deck genuinely doesn't cover it, which looks unfinished; or (b) the fix for (a) is to invent content to fill the section, which reintroduces Pitfall 1's fabrication risk under a different name ("data completeness" as an excuse to backfill). The deck coverage is uneven across the 8 projects — `CREDIBILITY-COPY.md` only backs awards/testimonials/GrowIt metrics/schema cleanup in detail; it does not provide deck-sourced depth for all 8 projects' challenges/solutions/learnings equally, and PROJECT.md itself flags "any project the deck doesn't back → flag for Randy, do not invent" as a live open risk, not a solved problem.
-
-**Why it happens:**
-A template with five mandatory narrative slots (problem, role, decisions, outcome, reflection) per project creates structural pressure to fill every slot for every project, even when the underlying source material doesn't support equal depth across all 8. Treating "fill the section" and "have a deck-backed source for the section" as the same task is the root error.
-
-**How to avoid:**
-- Before rewriting, run a deck-coverage audit across all 8 projects: for each, mark challenges/solutions/learnings as Backed (deck/CREDIBILITY-COPY has specifics) / Partial (deck has some detail, needs Randy for the rest) / Unbacked (deck is silent). This gate should run *before* content rewriting starts, not be discovered mid-rewrite project-by-project.
-- For Unbacked/Partial sections, the template needs a legitimate "less depth here, and that's fine" path — not every project needs to hit the same narrative density. A shorter, honest section beats a padded, invented one. Ship variable depth across projects rather than forcing uniform depth through embellishment.
-- Route Unbacked findings to Randy as a concrete question list, not a blocking unknown absorbed silently into "best guess" prose.
-
-**Warning signs:**
-- A project section that reads noticeably more generic/vague than the others once all 8 are drafted — often the tell that it was padded rather than sourced.
-- Any project where the rewrite required "inference" or "reasonable assumption" language during drafting (even internally) rather than direct sourcing.
-- LedgerIQ specifically warrants a check: existing copy already uses hypothetical/composite framing ("Our target client was experiencing...") that suggests this may be a concept/speculative project rather than a real client engagement — deepening it without resolving that ambiguity risks presenting a hypothetical as if it were a verified real-world outcome.
-
-**Phase to address:**
-Should be its own gate at the start of the content-rewrite work (a "deck-coverage audit," producing a per-project Backed/Partial/Unbacked table) feeding into, but distinct from, the "data completeness" work item in PROJECT.md — the roadmap should treat coverage-auditing and content-writing as sequential, not the same step.
+**Owning phase:** Phase 11.
 
 ---
 
-### Pitfall 7: Inconsistent Template Treatment Across 8 Pages — Route Shadowing Breaks "Extend the [slug] Layout"
+### Pitfall 6: A naive grep-based regression test is either too loose (misses reworded reappearance) or too tight (trips on `.planning/`, `DESIGN.md`'s illustrative example, SVG `rx="6"`, and the legitimate "4")
 
-**What goes wrong:**
-Of the 8 projects, only 3 (`growit`, `ohplays`, `ledgeriq`) are actually served by the dynamic `app/projects/[slug]/page.tsx` route at runtime. The other 5 (`addvanced`, `echo`, `nagarro`, `rambis-ui`, `waffle`) each have their own static route directory (`app/projects/addvanced/page.tsx`, etc.) with independent `page.tsx` + `*-client.tsx` files that **shadow** the dynamic route — Next.js App Router resolves static/explicit path segments before dynamic ones, so `/projects/nagarro` is served by `app/projects/nagarro/page.tsx`, never by `[slug]`, even though `nagarro` also exists as a record in `PROJECTS`. This is not a hypothetical risk — v1.0's own Key Decisions log confirms this pattern was used deliberately for waffle ("static route shadowing `[slug]` route... Additive data-model change, zero routing special-cases"). If the roadmap's "extend the `[slug]` layout" work only touches `app/projects/[slug]/project-detail-client.tsx`, 5 of 8 case studies will not receive the new narrative template at all — they'll keep whatever bespoke structure their standalone client component already has, producing a site where 3 pages have the new deep-narrative treatment and 5 don't, undermining the milestone's core goal of a consistent, senior narrative across all 8.
+**What goes wrong, concretely, in this repo:**
+- **Too loose:** matching only the literal old numeric strings misses a "laundered" reappearance (see Pitfall 9) — e.g. if `$50M` becomes "tens of millions in product value" somewhere, a string-match test for `"$50M"` stays green while the underlying claim survives in prose.
+- **Too tight, false positive #1:** `.planning/` legitimately contains **22 files** mentioning `2.5M` (deck audits, credibility copy, milestone history) — a test that walks the whole repo fails immediately against its own project history.
+- **Too tight, false positive #2:** `DESIGN.md:231` and `components/ui/animated-metric-value.tsx:38` both cite `"2.5M+"` as an *illustrative example* of "The True Precision Rule" (a general animation/precision convention), not as a live claim. A test that flags any file containing the string `2.5M+` anywhere will trip on these permanently, forcing either an ignore-list hack or a test nobody trusts.
+- **Too tight, false positive #3 (the dangerous one):** the number `"4"` — the figure that must survive — is a single character with essentially unlimited legitimate occurrences in this codebase: `grid-cols-4`, `h-4 w-4`, `teamSize: 4`, SVG `rx="6"`/`markerHeight="6"` (not "4" but same class of problem for a bare-digit approach to "6"), array indices, etc. A test asserting *presence* of `"4"` via `getByText("4")` on a page (as the existing home-page test already does) is only safe because it's scoped to one page's rendered DOM text nodes — a source-level regex for bare `"4"` across `app/`/`components/`/`lib/` would be useless (millions of false hits).
 
-**Why it happens:**
-The `[slug]` route and the standalone routes both read from the same `PROJECTS` data array, which creates the illusion of a single unified template — but the *presentation* layer (the client components and their JSX/layout) is not shared. A plan written at the "update the project template" level of abstraction can miss that this actually means 6 different template implementations to update (1 shared `[slug]` template + 5 independent standalone templates), not 1.
+**Correct scoping, derived from this repo's own precedent** (`__tests__/seo/no-legacy-schema.test.ts`, the closest sibling test):
+1. **Reuse that test's file-walk pattern exactly.** Its `collectSourceFiles([app, components, lib])` helper already excludes `node_modules`, `.next`, `out`, `.git`, `dist`, and — by construction, since it never lists them as roots — `.planning/`, `docs/`, and root `*.md` files. Copy this root list, don't invent a new one.
+2. **Match on the full authored value string, not a bare number.** `"2.5M+"`, `"$50M"`, `"800+"` are each distinctive enough (decimal + `M+`, dollar sign, `+` after 3 digits) that a literal-string search for these exact tokens has near-zero collision risk in this codebase (verified: no false hits found for these three exact strings outside the known-legitimate ones). Do **not** use a numeric regex like `/\b50\b/` or `/\b4\b/` — those explode into false positives immediately (`50%` metrics on Nagarro, `4`-anything everywhere).
+3. **Verify the "4 Design Awards" side structurally, not textually.** Rather than asserting `"4"` is absent-or-present as a bare string, assert the actual data shape: `PROOF_EXHIBITS` (or whatever it's renamed to) has exactly one entry, and that entry's `value === "4"` and `context`/`label` matches `/design award/i`. This is precise, doesn't care about grid classes or SVG markup, and directly encodes "the backed figure survived unchanged" rather than "some digit 4 exists somewhere."
+4. **Explicitly exempt, by comment, the two known illustrative false positives** (`DESIGN.md`, `animated-metric-value.tsx`'s comment) if the test's root list would otherwise reach them — better yet, don't add `docs/`-style prose files to the walk at all, matching point 1.
+5. **Layer a rendered-output check on top of the source-level one**, mirroring `home-page-argument.test.tsx`'s own pattern: render `/`, `/about`, `/services` with RTL and `screen.queryByText(...)` for the old values — this catches cases where the *data* was fixed but a hardcoded JSX string wasn't (or vice versa), which pure source-grep can't.
 
-**How to avoid:**
-- Before planning the template-evolution work, explicitly enumerate all 6 code paths that render a project detail page: `app/projects/[slug]/project-detail-client.tsx` (serves growit/ohplays/ledgeriq) plus the 5 standalone `*-client.tsx` files (`addvanced-client.tsx`, `echo-client.tsx`, `nagarro-client.tsx`, `rambis-client.tsx`, `waffle-client.tsx`). Decide explicitly: (a) migrate the 5 standalone pages onto the shared `[slug]` template and delete the bespoke routes, or (b) apply the new narrative structure independently to each of the 5 standalone components. Do not assume "extend `[slug]`" covers all 8 — verify at the routing level, not the data level.
-- If keeping route-shadowing (option b), the acceptance criteria for "consistent template treatment" must be defined at the rendered-output level (does each page visually/structurally follow problem → role → decisions → outcome → reflection?) and checked against each of the 6 files individually, not assumed from a single `[slug]` edit.
-- Watch for `echo-client-final.tsx` (734 lines, unused/not imported by `app/projects/echo/page.tsx`, which imports `echo-client.tsx` instead) — dead code that could be mistakenly edited instead of the live file, wasting rewrite effort on a component that never ships.
+**Prevention (summary):** Two-layer test — (1) structural assertions on the actual TS data (`PROOF_EXHIBITS`/`achievements` array length + exact remaining entry), scoped to `lib/data/retainer.ts` and `app/about/about-client.tsx` directly by import, not by grep; (2) a source-text sweep for the three *exact* removed value strings, scoped to `app`/`components`/`lib` only, reusing `no-legacy-schema.test.ts`'s directory walk. Do not attempt a single regex clever enough to catch both directions at once — it will be either unreadable or wrong.
 
-**Warning signs:**
-- A roadmap/plan phrase like "extend the [slug] layout to express problem → role → decisions → outcome → reflection" without an explicit list of which of the 8 project pages that change actually reaches.
-- Post-rewrite QA that only spot-checks 1–2 project pages (likely ones served by `[slug]`) and assumes the rest match.
-- Any edit made to `echo-client-final.tsx` — confirm it's dead code before spending rewrite effort there.
-
-**Phase to address:**
-Narrative-template-evolution phase, at the design/planning step before any content is written — this is a routing/architecture decision (migrate to shared template vs. update 5 bespoke templates independently) that determines the shape of every subsequent content-rewrite task, so it must be resolved first, not discovered mid-rewrite.
+**Owning phase:** Phase 11.
 
 ---
 
-### Pitfall 8: SEO/OG Regressions From Touching 8 Pages' Metadata at Once
+### Pitfall 7: "Resolve the `Significant` metric" without a pattern risks trading one anti-pattern for another — and the anti-pattern already exists live, right now, as precedent for what NOT to repeat
 
-**What goes wrong:**
-Rewriting `description`/`longDescription` (which feed `generateMetadata()` title/description/OG/Twitter cards) and adding awards/metrics arrays across 8 projects simultaneously creates a wide blast radius for regressions that are easy to miss individually: OG image `alt` text going stale (Pitfall 2), `keywords` arrays losing previously-present terms during a rewrite, JSON-LD `dateCreated`/`metrics`/`teamSize`/`role` fields not being updated in lockstep with narrative changes to those same facts, and — for the 5 standalone-route projects (Pitfall 7) — metadata that isn't generated through the shared `generateMetadata()` function at all and must be hand-verified per file.
+**What goes wrong:** Echo's `metrics` array (`lib/data/projects.ts`, Echo project block) already contains:
+```ts
+{ label: "Call Center Stress Reduction", value: "Significant" }
+```
+This sits in the same array, rendered by the same `AnimatedMetricValue`/exhibit component, as `{ label: "ELD Compliance", value: "100%" }` and `{ label: "Platforms Designed", value: "2" }` — a qualitative adjective standing shoulder-to-shoulder with two hard numbers, in a visual grammar (`case-study-template.tsx`'s `Exhibit` rendering, `.slice(0, 4)` of `metrics`) built for quantities. `AnimatedMetricValue` already has an explicit fallback for this (`isNumeric` check → renders plain text, no fake count-up) — the component doesn't crash, but the *rhetorical* problem remains: a reader scanning a metrics row reads "Significant" as commensurate with the numbers beside it, which is exactly the kind of implied-magnitude claim CRED-07 ("never invent a figure") exists to prevent, just in adjective form instead of digit form. This value was already ruled `Unbacked` by `DECK-COVERAGE-AUDIT.md` (ECHO-05).
 
-**Why it happens:**
-Metadata/OG/schema are "downstream" of the content and easy to treat as auto-derived even where they're actually separately authored strings (e.g., standalone pages' own metadata exports, or hardcoded OG image text). Doing 8 rewrites in the same pass increases the surface area without necessarily increasing the rigor of the per-page metadata check, especially if reviewers focus on the visible page content (which is what's actually "deeper and more persuasive") rather than the SEO surfaces (which don't visually change).
+**Why it happens:** "Resolve the qualitative value" is easy to satisfy with a better adjective ("meaningful," "substantial") rather than a structural fix — the deleted-figure-but-kept-implication failure mode (see Pitfall 9) applied to a single metrics-array cell instead of a whole claim.
 
-**How to avoid:**
-- Treat metadata/OG/JSON-LD verification as an explicit per-project checklist item (same fix as Pitfall 2), run this check for all 8 including the 5 standalone-route pages that don't go through `[slug]`'s `generateMetadata()`.
-- Before/after diff each project's rendered `<title>`, meta description, OG image, and JSON-LD script tag (can be scripted with a simple fetch+parse against local dev server) to catch unintended drops (e.g., a keyword silently disappearing) as well as unintended stale carryover (Pitfall 2).
-- Confirm `ProjectFAQStructuredData` (referenced per-slug in `app/projects/[slug]/page.tsx`) stays consistent with any new claims — FAQ schema answers are exactly the kind of secondary surface where an old number can hide.
+**Prevention:** Don't reach for a stronger or weaker adjective. Either (a) replace the row with a verifiable **mechanism** claim, not a magnitude claim — e.g. "Replaced phone-based status checks with an in-app tracker" describes what was built, not how much it helped, and needs no backing beyond "this is what Randy designed"; or (b) drop the row from the `metrics` array entirely and let any qualitative color live in `roleNarrative`/`processStory` prose, where it isn't visually paired with `100%` and `2` in a grid that primes the reader to read it as data.
 
-**Warning signs:**
-- A project's visible copy changed but its OG image / meta description weren't touched in the same commit.
-- Standalone-route projects with metadata exports that were never audited because reviewers assumed they're covered by "the `[slug]` metadata work."
+**Detection / warning sign:** Any `metrics[].value` that is an adjective rather than a number/percentage/count is a tell — grep `metrics:` blocks in `lib/data/projects.ts` for non-numeric `value` fields after this change and confirm none remain, or that any that do are deliberate structural choices (b), not a swapped-in adjective.
 
-**Phase to address:**
-Cross-surface verification step at the end of the content-rewrite phase (same phase as Pitfall 2's gate) — ideally a single audit pass covering all 8 projects' metadata/OG/schema together, run after content is finalized, mirroring how v1.0's inline audit remediation caught POS-04's metadata/OG/JSON-LD gaps.
+**Owning phase:** Phase 12 (enterprise legibility — this is Echo's reframe, not the sitewide figure removal).
 
 ---
 
-### Pitfall 9: Accessibility Regressions From Long-Form Narrative Content
+### Pitfall 8: "Removing the number but keeping the implication" is laundering, not disclosure — and it can hide in a *different* sentence of the same project entry
 
-**What goes wrong:**
-Deepening case studies from "generic corporate summaries" to full narrative sections (problem/role/decisions/outcome/reflection × 8 projects) substantially increases page length and text density. Common regressions when content volume grows without a corresponding accessibility pass: heading hierarchy skipping levels as new subsections get inserted (e.g., a "Key Decisions" subsection added under "Reflection" without checking `h2`/`h3` nesting), long blocks of prose without landmark/skip-navigation affordances, decorative animation (Motion-based scroll reveals, already used heavily per CLAUDE.md's animation system) triggering on long-scroll pages without respecting `prefers-reduced-motion`, and quote/testimonial blocks added without proper `<blockquote>`/citation semantics.
+**What goes wrong:** Echo's `roleNarrative` already sets the correct precedent — its code comment reads *"Client business figures (adoption counts, revenue and volume growth) removed per the CRED-08 line Randy set for Echo: process and design only."* — and the narrative text explicitly states the business specifics "stay with the client" rather than restating them more softly. That is the bar. The failure mode to avoid when reframing Nagarro (or extending Echo further) is deleting a number from the `metrics` array while leaving the *same magnitude* restated in `challenges[]`, `solutions[]`, or `processStory` prose a few hundred lines later in the same object — e.g. removing `{label: "Brand Recognition Growth", value: "50%"}` from `metrics` while `processStory.outcome` still says "Brand recognition increased by 50%." The number reappears in prose form, in the same file, in the same project entry — a place no metrics-array-scoped check would ever look.
 
-**Why it happens:**
-Accessibility is usually verified against the *existing* page shape; when a template gains new sections, each new section needs its own heading-level and landmark decisions, and it's easy to nest new content wherever it fits visually rather than semantically. This project's existing animation-heavy motion system multiplies the surface area for `prefers-reduced-motion` gaps once each of 8 pages gains more scroll-triggered sections.
+**How to tell a rewrite respected the line vs. laundered it:** A genuine disclosure rewrite removes the *quantity* and replaces it with either nothing, or a claim about *what was designed/decided* (a decision, a mechanism, a scope) — never a same-magnitude paraphrase ("significant," "substantial," "meaningfully increased") standing in the vacated slot. If you can mentally substitute the deleted number back into the new sentence and it still reads true, the rewrite laundered rather than removed.
 
-**How to avoid:**
-- When the narrative template is defined (problem/role/decisions/outcome/reflection), decide the heading hierarchy explicitly as part of the template (e.g., project name `h1`, each narrative section `h2`, individual decisions within "Key Decisions" as `h3`) and apply it uniformly — this is easiest to get right once, at the template-definition step, rather than auditing 8 pages after the fact.
-- Reuse existing reduced-motion handling (per CLAUDE.md's "Performance-optimized" animation system) for any new scroll-triggered reveal added to accommodate longer content — don't add new Motion variants without checking they inherit the same reduced-motion guard as existing ones.
-- If testimonial/stakeholder quotes are added or reformatted as part of the "persuasive" rewrite, use semantic `<blockquote cite="">`/`<cite>` rather than styled `<div>`s, consistent with the real, attributable quotes established in `.planning/CREDIBILITY-COPY.md`.
+**Prevention:** When editing a project's `metrics` array for CRED-08 framing, `rg` the specific number (e.g. `"50%"`, `"18,000"`) across the *entire* project object in `lib/data/projects.ts` — `challenges`, `solutions`, `learnings`, `overview`, `processStory.background/approach/methodology/keyInsights/outcome/reflection` — not just the `metrics` block. Nagarro's `processStory.keyInsights` and `outcome` fields already restate `"50% brand recognition increase"`, `"100+ qualified leads"`, `"40% website traffic"` multiple times outside the `metrics` array — any Phase 12 edit to the metrics band that doesn't also touch these will leave the exact same magnitude claims live in prose, unaudited.
 
-**Warning signs:**
-- New subsections added to a project page whose heading level was chosen by "what looks right visually" rather than checked against the surrounding hierarchy.
-- Longer pages with more scroll-triggered animation instances than before, not re-tested with reduced-motion OS setting on.
-
-**Phase to address:**
-Narrative-template-evolution phase should fix the heading hierarchy once at the template level; each per-project content-rewrite should inherit it without needing a separate a11y decision per project. A final accessibility spot-check across all 8 (heading order, reduced-motion, quote semantics) belongs in the same cross-surface verification pass as Pitfalls 2 and 8.
+**Owning phase:** Phase 12.
 
 ---
 
-### Pitfall 10: Scope Creep Across 8 Parallel Rewrites
+### Pitfall 9: `DECK-COVERAGE-AUDIT.md` already ruled ALL EIGHT of Nagarro's metrics `Unbacked` — reframing the *labels* to org-design language without resolving the *values* repeats the exact v2.0 Phase 9 mistake one milestone later
 
-**What goes wrong:**
-"Rewrite all 8" invites drift: fixing unrelated bugs noticed mid-rewrite (e.g., the `echo-client-final.tsx` dead file, POS-02 proof-chips, WAF-02 badge dead-zone — already explicitly called out as in-scope tech debt, which is fine — but also *other* things noticed along the way that weren't scoped), inconsistent depth/quality across the 8 as some get more attention than others under time pressure, and silent divergence in tone/structure per project as "the template" gets reinterpreted slightly differently project-to-project without a fixed reference.
+**What goes wrong:** `.planning/DECK-COVERAGE-AUDIT.md` (NAGARRO-01 through NAGARRO-08) shows the deck has **zero** coverage of Nagarro at all — every metric (`18,000+`, `50%`, `100+`, `10K+`, `+40%` ×2, `+25%`, `15+`) is verdict `Unbacked`, for the stated reason "No slide in the 48-page deck mentions Nagarro" (the audit even raises an open question at line 673-680 asking whether alternate backing — LinkedIn, a Nagarro case study, press — exists). The task frames Nagarro's work as purely a *terminology* exercise ("agency-growth metrics → organizational-design terms," under "CRED-08: Nagarro = unrestricted"). "Unrestricted" resolves the *disclosure* question (no NDA blocks it) but says nothing about the *backing* question the deck audit already raised and left open.
 
-**Why it happens:**
-8 independent rewrites naturally invite 8 independent interpretations of "deeper and more persuasive" unless a single reference example is established first. Each project also surfaces its own temptations (fix this button, tighten this schema, polish this animation) that compound across 8 iterations into a much larger diff than "content rewrite" implies.
+If Phase 12 relabels ("Brand Recognition Growth: 50%" → some org-design-sounding label) while leaving the same `Unbacked` value untouched, that is structurally identical to what the project's own retrospective already flags as a mistake: *"Phase 9's 09-03-PLAN aligned the `$50M` wording across surfaces — harmonising a claim the audit had already ruled unsupported, which made the problem harder to see because afterwards every surface agreed."* Polishing the presentation of an unresolved truth question makes it look more finished, not more true — and specifically makes it *harder* for the next audit to notice, because well-worded numbers don't stand out the way clumsy ones do.
 
-**How to avoid:**
-- Write and get explicit approval on ONE fully-rewritten reference project first (ideally the best-documented one — GrowIt, given it has the most deck-verified specifics per `CREDIBILITY-COPY.md`) before touching the other 7, so structure/tone/depth calibration happens once, not 8 times independently.
-- Keep the named tech-debt fold-in items (POS-02, WAF-02, stale `app/data.ts` PROJECTS array) as their own explicit checklist separate from "content rewrite," so incidental fixes discovered during the 8 rewrites get triaged (fix now vs. log for later) rather than silently absorbed into scope.
-- Track completion per project against the same fixed checklist (deck-coverage audited, decisions sourced, I/we credit checked, metadata/OG/schema reconciled, a11y heading check) rather than a vague "done" — this keeps the 8 rewrites uniform in rigor even if calendar time per project varies.
+**Prevention:** Before touching Nagarro's copy, force an explicit disposition for each of NAGARRO-01..08, recorded somewhere durable (a plan doc, a code comment, an update to `DECK-COVERAGE-AUDIT.md` itself): **Backed-by-alternate-source** (if Randy can point to LinkedIn/press/an internal Nagarro reference), **Downgraded-to-qualitative** (same treatment as Pitfall 7), or **Accepted-as-firsthand-account** (Randy directly experienced this as Head of Design — arguably not the same evidentiary bar as a third-party deck slide, and worth stating as a conscious policy rather than an implicit one). "Unrestricted" should not silently come to mean "un-investigated."
 
-**Warning signs:**
-- The diff for "content rewrite" phase touching files unrelated to any of the 8 project pages or their data (a sign of drift into unrelated cleanup).
-- Reviewing the 8 finished case studies side by side and finding they don't share a recognizable structure/voice (a sign each was interpreted independently rather than against a shared reference).
+**Detection / warning sign:** After Phase 12 ships, check whether `DECK-COVERAGE-AUDIT.md`'s Nagarro rows still say `Unbacked` with no accompanying disposition recorded anywhere — if so, the reframe changed words, not truth-status.
 
-**Phase to address:**
-Content-rewrite phase — sequence a single reference-project pilot before the remaining 7, and keep tech-debt fold-in items on a separate, explicitly-scoped checklist.
+**Owning phase:** Phase 12.
+
+---
+
+### Pitfall 10: "Promote Echo to first in project ordering" is ambiguous across three unrelated mechanisms — and Echo's own `timeline` field will silently defeat one of them
+
+**What goes wrong:** There is **no `order` field** on `Project` (`lib/data/types.ts`) — "project ordering" resolves to at least three independent, non-unified mechanisms in this codebase, and fixing one does nothing to the others:
+
+1. **Homepage featured order** — a hardcoded array in `app/page.tsx:55`: `const FEATURED_SLUGS = ["waffle", "echo", "growit"];`. Echo is already 2nd. Promoting it to "first" here means editing this literal array — a one-line fix, but easy to think is the *only* ordering that matters because it's the most visible.
+2. **`/projects` grid list order** — literal array position in `lib/data/projects.ts` (`PROJECTS`), preserved as-is through `filterProjectsByCategory` (filtering only, never sorting) and consumed directly by `projects-client.tsx`'s `.map()`. Moving Echo's object earlier in the array literal changes this and also changes `sitemap.ts`'s iteration order (cosmetic for SEO, but changes URL-list ordering nonetheless).
+3. **"Related/Featured Case Studies" recommendation widgets** (`components/ui/global-case-study-grid.tsx`, used on project detail pages) — sorts at **runtime** by `featured` boolean, then by `views` (rarely populated), then by **a year parsed out of the `timeline` string** via regex (`timeline.match(/\d{4}/g)`, most recent wins). Echo's `timeline` field is the literal string `"Alpha → Beta → Launch"` — **it contains no year at all**, so the regex match returns nothing and the fallback year is `0`. In this sort, Echo will rank **last**, not first, behind every project whose `timeline` contains a real year — the *opposite* of the intended promotion, and it fails with zero errors or warnings; it just silently ranks wrong.
+
+**Why it happens:** "Ordering" reads as a single concept from the outside; in this codebase it is three unrelated implementations that happen to coincidentally usually agree, because nobody has needed to force a specific promotion before.
+
+**Prevention:** Treat "promote Echo to first" as three separate, independently-verified edits: (a) reorder `FEATURED_SLUGS` in `app/page.tsx`; (b) reorder Echo's object in `lib/data/projects.ts` if `/projects` array-order visibly matters for "first"; (c) either give Echo's `timeline` field a real year (e.g. `"2022 · Alpha → Beta → Launch"`) so `GlobalCaseStudyGrid`'s regex-based sort has something to key on, or accept — explicitly, in writing — that recommendation widgets will keep ranking it by whatever the sort produces regardless of intent. Do not assume moving one array fixes the others.
+
+**Detection / warning sign:** Render each of the three surfaces (`/` featured list, `/projects` grid, a project detail page's "Featured Case Studies" widget) after the change and check Echo's position in each independently — a single "it's now first on the homepage" check will not catch the other two.
+
+**Owning phase:** Phase 12.
+
+---
+
+### Pitfall 11: `PROJECT_CATEGORIES` is a dead, already-drifted enum — a new filter/grouping will either bypass it or discover it's wrong
+
+**What goes wrong:** `lib/data/types.ts:105` exports `PROJECT_CATEGORIES = ["All", "Enterprise (SaaS)", "Mobile App", "Web Dev", "Design Systems", "UI/UX", "AI/ML"]`. It is re-exported from `lib/data/index.ts` and consumed **nowhere else** — no filter chips, no dropdown, no validation ties `Project.category` (typed as plain `string`) to this list. Proof it has already drifted: Nagarro's live `category` is `"Design Leadership"` — not a member of this list — and nothing caught it, because nothing checks.
+
+**Consequences:** Building Task D's filter UI on top of this stale const either (a) invents a fresh grouping mechanism that bypasses it entirely, compounding the drift (now there are two disagreeing sources of "what categories exist"), or (b) tries to wire the const into new chip UI and discovers mid-build that it doesn't match live data, including whatever new category value gets chosen for Echo's reframe.
+
+**Prevention:** Before adding the filter, compute the *actual* live category surface: `[...new Set(PROJECTS.flatMap(p => [p.category, ...(p.categories ?? [])]))]`. Reconcile `PROJECT_CATEGORIES` against that output — update the const to match reality, or delete it if the new filter UI is going to derive its options from live data instead (safer long-term, since it can't drift again). Decide explicitly whether the new "regulated / field-operations" grouping is a `category` value, a `categories[]` member, or a separate concept — don't let the choice fall out implicitly from whichever field happens to be easiest to filter on.
+
+**Owning phase:** Phase 12.
+
+---
+
+### Pitfall 12: `filterProjectsByCategory`'s all-fields substring match can silently pull Nagarro into an "Echo-only" regulated-work filter
+
+**What goes wrong:** `lib/project-utils.ts`'s `filterProjectsByCategory` matches a search term against `name`, `category`, `categories[]`, **and every entry in `tags[]`**, case-insensitively, as substring OR-across-fields. Nagarro's live `tags` already include `"Accessibility Compliance"`. If the new regulated/field-operations grouping is implemented as (or matched against) a term like `"compliance"` — a natural word choice for Echo's ELD-compliance framing — it will *also* match Nagarro via `"Accessibility Compliance"`, silently pulling an unrestricted org-design case study into a filter whose entire point is "this work happened inside a regulated, constrained organization." That's a false positive that directly undermines the enterprise-legibility argument this milestone exists to make.
+
+**Prevention:** Before choosing the filter term, `rg -n '<candidate term>' lib/data/projects.ts` against every project's existing `tags`/`categories`/`category` to check for accidental collisions. If precision matters here (it does — a wrong match is worse than no filter), consider bypassing the loose OR-search for this specific grouping in favor of an explicit boolean/enum field, rather than reusing the general-purpose fuzzy matcher built for free-text search.
+
+**Owning phase:** Phase 12.
+
+---
+
+### Pitfall 13: New filter UI risks reintroducing the exact Suspense/prerender failure the existing code comment already warns about — invisibly, because `npm run build` isn't the verify gate
+
+**What goes wrong:** `app/projects/page.tsx` already wraps `ProjectsClient` in `<Suspense fallback={null}>` specifically because `ProjectsClient` calls `useSearchParams()` and Next 15 requires this for a statically prerendered route — the comment says outright: *"without it `next build` fails; build is not in the verify gate, so do not remove."* Any new filter-chip component that calls `useSearchParams()` (or a hook that wraps it) from a *different* location — e.g. a standalone `<CategoryFilterChips />` rendered directly from `page.tsx` as a sibling of the Suspense boundary, rather than as a child of `ProjectsClient` inside it — reintroduces the same class of failure. Because `next.config.js` sets `eslint.ignoreDuringBuilds` and `typescript.ignoreBuildErrors`, and because the project's own documented verify order is `lint` → `tsc --noEmit` → `test` (explicitly **not** `build`), this exact failure mode will pass every command an executor is told to run, and only surface on `next build` / Vercel deploy.
+
+**Prevention:** Add any new `useSearchParams()`-consuming filter UI **inside** `ProjectsClient`, under the existing Suspense boundary — don't create a second call site. As an explicit extra step beyond the documented verify order, run `npm run build` locally at least once after adding filter UI specifically to catch this class of regression, even though it isn't the formal gate.
+
+**Owning phase:** Phase 12.
+
+---
+
+### Pitfall 14: A new filter can silently misdescribe the `WebSite` SearchAction schema Phase 10 shipped — a structured-data regression of the exact kind Phase 10 spent a whole phase eliminating
+
+**What goes wrong:** `lib/seo/json-ld.ts:108` already emits a `WebSite` schema with a `SearchAction` advertising `/projects?category={term}` as the canonical search URL, and `lib/project-utils.ts`'s own doc comment says explicitly: *"Backs the `/projects?category=` URL filter that the WebSite SearchAction advertises (Phase 10 D-13)."* If the new filter UI introduces a **different** query-param shape — a `?filter=` param, multi-select `?category=a,b`, or a client-only state that doesn't touch the URL at all — the schema keeps advertising a search pattern the site no longer actually implements. That's a structured-data-accuracy regression, silently shipped, on the exact axis (schema truthfully describing the site) Phase 10's SEO-04 requirement was built to guarantee.
+
+**Prevention:** Reuse the existing `category` param name and single-value semantics exactly for any new filter UI. If a materially different filter shape is genuinely needed, update `lib/seo/json-ld.ts`'s `SearchAction` definition in the same change, and re-run `__tests__/seo/no-legacy-schema.test.ts` plus a live Rich Results Test on `/projects` afterward — mirroring Phase 10's own verification pattern rather than assuming schema and UI stay in sync automatically (nothing currently enforces that they do).
+
+**Owning phase:** Phase 12.
+
+---
+
+### Pitfall 15: New filter/grouping UI risks repeating the exact heading-semantics accessibility bug from v2.0 — right next to the element it broke
+
+**What goes wrong:** `/projects`'s `<h1>` is rendered via `ScrambleSectionTitle` (`projects-client.tsx:164`, `as="h1"`) — the same `TextScramble`-family component whose `ScrambleSectionTitle` wrapper was found in v2.0 to set `role="button"`/`tabIndex` on every section title sitewide, overriding heading semantics for screen readers. Any new filter chip/tab UI added near this heading is at risk of repeating the same class of mistake: interactive-looking elements (chips) built as `<div role="button">` instead of real `<button>`/`<a>`, or a chip group missing `role="group"`/an accessible name, or duplicating the announcement mechanism.
+
+The page **already has a working live region** for filter state — `role="status"` at `projects-client.tsx:177-205`, announcing match count and offering a "Clear filter" link. A second, independently-triggered announcement from new chip UI (e.g. its own `aria-live` region) would produce **two competing announcements** for one user action.
+
+**Prevention:** Build any new filter chips as real `<Link>`/`<button>` elements, matching this file's own established focus-ring convention (`focus-visible:ring-2 focus-visible:ring-zinc-900 focus-visible:ring-offset-2 dark:focus-visible:ring-white`, already used on `ProjectRow` and the "Clear filter" links). Route all state changes through the existing `category` URL param so the existing `role="status"` paragraph's copy naturally reflects the new state — do not add a second live region.
+
+**Owning phase:** Phase 12.
+
+---
+
+### Pitfall 16: A new grouping badge would be the third status badge on the grid card, diluting the deliberate single-hue-exception rule
+
+**What goes wrong:** The grid card badge row (`projects-client.tsx:96-118`) already carries a deliberate, documented rule: `isLiveProduct` gets the **only** amber badge in the whole system, with a code comment stating *"The single hue exception in the whole system: a product a reader can open today is a different kind of claim."* `isComposite` uses the neutral `secondary` variant specifically so it doesn't compete visually. If Task D expresses the regulated/field-operations grouping as a *third* inline badge — especially with any new color — it dilutes the one color the codebase intentionally reserves for "Live Product," and adds a third simultaneous badge to a row that currently holds at most two (status + one of live-product/composite).
+
+**Prevention:** If a visual badge is wanted at all for the new grouping, use the existing neutral `secondary` variant, not a new color, and confirm against `DESIGN.md`'s conventions first. Prefer expressing the grouping purely as a filter (chips + URL param, no card-level badge) — lower-risk, and it's what Phase 10's infrastructure was already built to support.
+
+**Owning phase:** Phase 12.
+
+---
+
+### Pitfall 17: JSON-LD `additionalProperty` is *derived* from `metrics`/`category` — editing those fields by hand for CRED-10/11/12 or the Echo/Nagarro reframe changes live structured data without a separate edit
+
+**What goes wrong:** `lib/seo/json-ld.ts:166-169` maps every project's `metrics[]` 1:1 into `additionalProperty: PropertyValue[]` on its `CreativeWork` schema, and `genre: props.category` feeds the same schema directly from the `category` string. This is good architecture (single source of truth) but means the JSON-LD for `/projects/echo` and `/projects/nagarro` **will change** the moment Task C edits either project's `metrics` array or `category` field — without anyone touching `json-ld.ts` at all. That's usually fine (it's the intended behavior), but it means Phase 10's SEO-04 guarantee ("zero banned schema types, clean structured data") needs to be **re-verified for these two specific URLs after Task C**, not assumed to still hold because `no-legacy-schema.test.ts` (which checks for banned `@type` strings, not correctness of `additionalProperty` content) still passes.
+
+**Prevention:** After Task C's Echo/Nagarro edits, run `no-legacy-schema.test.ts` (regression, should still be green) **and** fetch/render `/projects/echo` and `/projects/nagarro`'s live JSON-LD to confirm `additionalProperty` reflects the new metrics — mirroring Phase 10's own "verified against production, not source" method (its SEO-04 row explicitly checked live homepage output, not just source code). These are exactly the two URLs this milestone changes; they should be the two URLs re-run through Rich Results Test, same as Phase 10 sampled 3 URLs at its own close.
+
+**Owning phase:** Phase 11 for the CRED-10/11/12-triggered version (metadata.ts is touched here and is the file the project's own Key Decisions table already flags as a silent-removal risk for the Search Console verification token — a reminder to not touch anything unrelated in that file while editing it); Phase 12 for the Task C-triggered version (Echo/Nagarro `metrics`/`category` edits).
 
 ---
 
@@ -239,85 +282,105 @@ Content-rewrite phase — sequence a single reference-project pilot before the r
 
 | Shortcut | Immediate Benefit | Long-term Cost | When Acceptable |
 |----------|-------------------|-----------------|------------------|
-| Leaving 5 projects on bespoke standalone routes instead of migrating to shared `[slug]` template | Avoids a routing/migration task now | Permanent template drift; every future template change must be applied 6 times, not once | Never for this milestone's stated goal of consistent narrative depth — acceptable only as a deliberate, documented decision with a plan to converge later |
-| Backfilling thin sections with plausible-but-unsourced prose to "complete" the template | Every project looks equally deep immediately | Reintroduces the exact fabrication risk v1.0 spent a full milestone purging; recovery cost is high if caught post-publish | Never |
-| Mechanical "we" → "I" find/replace across all 8 projects | Fast, uniform-feeling voice shift | Misattributes team/organizational work as solo IC work to a leadership-hire audience who will notice | Never — always apply the I/we/led rule (Pitfall 4) per claim |
-| Editing `echo-client-final.tsx` instead of confirming `echo-client.tsx` is the live file | Saves 30 seconds of verification | Wastes the entire rewrite effort on a component that never renders | Never — always confirm the actively-imported file first |
+| Edit `animated-number-basic.tsx`'s dead values instead of deleting the file | Looks like "the audit's cited fix" is done | Landmine if ever re-imported (identical to v1.0's `app/data.ts`) — carries stale figures forward | Never — delete it |
+| Replace a removed metric's adjective with a softer adjective ("Significant" → "Meaningful") | Satisfies "resolve the qualitative value" literally | Keeps the implied-magnitude anti-pattern CRED-07 exists to prevent, just reworded | Never |
+| Relabel Nagarro's metrics for org-design tone without resolving their `Unbacked` deck-audit status | Ships CRED-08's terminology ask quickly | Repeats the Phase 9 `$50M`-harmonization mistake the retro already names as a lesson | Never without an explicit per-metric disposition recorded |
+| Reorder only `FEATURED_SLUGS` and call Echo "promoted" | Homepage visibly changes, fastest win | `/projects` array order and `GlobalCaseStudyGrid`'s year-based sort still disagree | Only if explicitly scoped as "homepage-only" promotion, stated as such |
+| Add filter chips reading URL state without reusing the `category` param | Faster to build in isolation | Silently breaks the WebSite SearchAction schema's truthfulness (Pitfall 14) | Never |
+| Skip re-running Rich Results Test on `/projects/echo` and `/projects/nagarro` after Task C | Saves a manual step | JSON-LD `additionalProperty`/`genre` changes go unverified against the exact SEO-04 bar Phase 10 set | Never for these two specific URLs — they're the ones this milestone changes |
 
 ## Integration Gotchas
 
 | Integration | Common Mistake | Correct Approach |
 |-------------|-----------------|-------------------|
-| Deck as source-of-truth | Treating "the deck doesn't explicitly contradict this" as license to include it | Only include claims the deck (or `CREDIBILITY-COPY.md`) affirmatively states; absence of contradiction is not confirmation |
-| `generateMetadata()` / OG image generators | Assuming metadata auto-updates when `PROJECTS` data changes | Verify each surface separately per project — metadata/OG for standalone-route projects is hand-authored, not derived |
-| JSON-LD (`CreativeWorkStructuredData`, `ProjectFAQStructuredData`) | Updating narrative copy but not the parallel schema fields (`metrics`, `teamSize`, `role`, `dateCreated`) | Reconcile schema fields as part of the same edit that changes the underlying fact, not as an afterthought |
-| Cal.com / tracked CTAs referenced inside case-study narratives (if added as persuasive CTAs mid-story) | Adding a new CTA instance without wiring `trackEvent` per the existing analytics pattern | Follow the established `trackEvent("event_name", {...})` pattern from CLAUDE.md; don't hand-roll an untracked link |
+| Search Console apex TXT verification | Assuming `lib/metadata.ts` edits for CRED-10/11/12 are copy-only and can't touch the verification token | Confirm the DNS-based verification (not a meta tag) is untouched — this milestone doesn't need to touch it, but `lib/metadata.ts` is exactly the file the project's own Key Decisions table flags as a silent-removal risk |
+| `next/og` (`ImageResponse`, edge runtime) | Treating OG generator edits as "just delete two divs" | Edge-runtime JSX-as-image isn't visually checked by lint/tsc/jest — render the actual OG route after editing |
+| `useSearchParams()` + Next 15 static prerender | Adding a second unguarded `useSearchParams()` call site for new filter UI | Keep all `useSearchParams()` usage inside the existing `<Suspense>` boundary in `ProjectsClient` |
+| WebSite `SearchAction` schema (Phase 10 D-13) | Building filter UI with different param semantics than the schema advertises | Reuse the `category` param exactly, or update the schema in the same change |
 
 ## Performance Traps
 
+Not a major concern for this milestone's scope (no new data fetching, no scale change) — the one relevant item:
+
 | Trap | Symptoms | Prevention | When It Breaks |
 |------|----------|------------|-----------------|
-| Longer case-study pages with more scroll-triggered Motion sections per project | Slower initial paint / more JS work on scroll for pages that were already animation-heavy | Reuse existing lazy-loading patterns (`next/dynamic`) for any new heavy section rather than adding more eagerly-loaded animation blocks | Noticeable once 3+ new animated sections are added per page across all 8 projects simultaneously |
-| More images/screenshots added per project to support deeper narrative | Larger page weight, slower LCP on project pages | Follow existing WebP/AVIF + responsive sizing conventions already in `next.config.js`; don't add unoptimized images ad hoc | Compounds across 8 pages if each adds 2-3 unoptimized images |
+| Leaving `animated-number-basic.tsx` in the tree with edited-but-still-fake values | None immediately — it's unimported | A future page/PR re-imports it for a "quick stat block" and ships stale/fabricated figures again | The moment anyone re-imports it |
 
 ## Security Mistakes
 
+Reframed for this domain as **disclosure/confidentiality mistakes**, since the live risk here is client-confidentiality boundary violations, not conventional appsec:
+
 | Mistake | Risk | Prevention |
 |---------|------|------------|
-| Publishing internal client metrics/screenshots beyond what was previously cleared (Pitfall 3) | NDA/confidentiality exposure, damaged professional relationship with named real companies (Nagarro, Echo) | Explicit per-project "cleared to publish at this depth" check with Randy before adding new specificity to real-client work |
-| Reusing `trackEvent` names or analytics properties that leak internal project codenames or unreleased-product details | Minor information leakage via client-side analytics payloads | Keep analytics event/property naming consistent with existing public project names, not internal-only identifiers |
+| Softening a removed client figure into a same-magnitude adjective | Functionally discloses the withheld business result while claiming compliance with CRED-08 | Apply the "could you substitute the number back in and have it still read true?" test from Pitfall 8 to every rewritten sentence, not just the metrics array |
+| Editing Echo's `metrics` array but not `challenges`/`solutions`/`processStory` for the same restated figures | Ships an inconsistent disclosure boundary within one project object | `rg` the specific number across the *entire* project block, not just the array being edited |
+| Treating "CRED-08: Nagarro = unrestricted" as "no verification needed" | Ships Unbacked figures polished into more-persuasive prose (Pitfall 9) | Record an explicit per-metric disposition before reframing language |
 
 ## UX Pitfalls
 
 | Pitfall | User Impact | Better Approach |
-|---------|-------------|-------------------|
-| Long, dense narrative with no skimmability aids | A time-pressed hiring manager bounces before reaching the "decisions" or "outcome" section that actually proves seniority | Give each project a consistent, scannable structure (clear section headers, a short outcome callout near the top) so the proof is reachable even by a skimmer |
-| Uniform depth forced onto thin-data projects (Pitfall 6) | Padded, vague sections read as filler and undercut trust in the *better*-sourced projects on the same site | Allow variable depth; a short, honest section is more credible than a long, generic one |
-| Inconsistent structure between `[slug]`-served and standalone-route projects (Pitfall 7) | A hiring manager clicking through multiple case studies notices some are "the deep new format" and some aren't, reading as unfinished/inconsistent | Resolve the routing/template question explicitly before content work (see Pitfall 7) |
+|---------|--------------|-------------------|
+| 4-item stat grid collapsed to 1 item, layout untouched | Reads as an unfinished/broken page to the exact enterprise-credibility-conscious reader this milestone targets | Redesign the container for the new item count in all three render sites (Pitfall 2) |
+| OG card stat row re-centers awkwardly after deleting 2 of 3 flex children | Recruiter/hiring-manager link-preview looks broken before they even click through | Recompose the OG layout deliberately, verify by rendering the route |
+| New filter chips built as non-semantic elements near an already-broken `<h1>` | Screen-reader users get an ambiguous document outline on the one page adding new interactive chrome | Real `<button>`/`<a>` elements, existing focus-ring convention, single live region |
+| A third badge color on grid cards for the new grouping | Dilutes the one deliberate color-as-signal convention (`isLiveProduct`) | Neutral `secondary` variant, or no badge — filter-only |
 
 ## "Looks Done But Isn't" Checklist
 
-- [ ] **Content rewrite marked complete for a project:** Often missing a metadata/OG/JSON-LD reconciliation pass — verify by grepping the old claim text across `app/`, `lib/`, `components/seo/` (Pitfall 2).
-- [ ] **"All 8 projects use the new template":** Often actually means only the 3 `[slug]`-served projects do — verify by checking each of the 6 rendering files individually (Pitfall 7).
-- [ ] **"Decisions have rationale now":** Often means plausible-sounding rationale was added, not deck-sourced rationale — verify each decision traces to a deck slide or `CREDIBILITY-COPY.md` line (Pitfall 1).
-- [ ] **"First-person voice applied":** Often means a mechanical we→I swap — verify against `teamSize`/`role` per project that "I" claims are individually attributable, not team output relabeled (Pitfall 4).
-- [ ] **"Thin sections filled":** Often means filled with invented specifics rather than deck-sourced ones, or with generic process language — verify against a deck-coverage audit table, not just "does the section have text now" (Pitfalls 1, 5, 6).
-- [ ] **"Case study deepened for a real named client":** Often skips a re-confirmation that the added specificity is still OK to publish — verify explicit sign-off exists for any new detail beyond what was previously live (Pitfall 3).
+- [ ] **Figure removal (CRED-10/11/12):** Often "done" after editing only the audit-cited `animated-number-basic.tsx` — verify by re-running the repo-wide grep (Pitfall 4's command) and confirming zero hits in `app/`, `components/`, `lib/`, including `related-content.tsx`, both OG generators (check the actual rendered figure, not just presence of the file diff), and the existing `home-page-argument.test.tsx`.
+- [ ] **Regression test (task B):** Often "done" once the new test file is green — verify it is not vacuously true by checking it out against the pre-removal commit and confirming it fails there (a red-then-green check, not just green).
+- [ ] **Echo `Significant` metric resolved:** Often "done" once the string changes — verify the new value isn't a same-weight adjective standing in the same visual slot (Pitfall 7), and that no other file in the project's `processStory`/`challenges`/`solutions` restates the withheld magnitude in prose.
+- [ ] **Nagarro reframe:** Often "done" once labels sound org-design-y — verify each of NAGARRO-01..08's backing disposition is recorded somewhere, not silently inherited from "CRED-08 unrestricted."
+- [ ] **Echo promoted to first:** Often "done" once the homepage visibly shows it first — verify `/projects` grid order and any `GlobalCaseStudyGrid` recommendation widget independently; check that Echo's `timeline` field has a parseable year if that widget's ranking matters.
+- [ ] **Category/grouping added:** Often "done" once a new filter param works locally — verify the WebSite `SearchAction` schema still matches, `PROJECT_CATEGORIES` reconciled against live data, and `npm run build` (not just lint/tsc/test) succeeds.
+- [ ] **JSON-LD still clean:** Often assumed "still fine" because `no-legacy-schema.test.ts` passes — verify the *content* of `/projects/echo` and `/projects/nagarro`'s `additionalProperty`/`genre` fields reflects the actual post-edit metrics/category, via a live render or Rich Results Test, not just the absence-of-banned-types check.
 
 ## Recovery Strategies
 
 | Pitfall | Recovery Cost | Recovery Steps |
-|---------|----------------|------------------|
-| Fabricated/unsourced claim shipped to production | MEDIUM | Same playbook as v1.0's inline audit remediation: grep the claim across copy/metadata/OG/JSON-LD, replace or remove everywhere at once, redeploy, log the lesson in Key Decisions like the "6 awards" entry |
-| NDA/confidentiality-sensitive detail published about a real named company | HIGH | Remove immediately (not just soften wording), check search-engine/social caches (Google cache, LinkedIn preview cache, Vercel/CDN cache) for lingering copies of the OG image or cached page, consider direct outreach to the affected company if exposure was material |
-| "I" over-claims solo credit for team-led work | LOW-MEDIUM | Rewrite the specific claim to "I led the team that…" or attribute correctly; low cost if caught pre-publish via the role/teamSize check, higher if a specific former colleague notices and raises it publicly |
-| Template inconsistency discovered post-ship (some of the 8 didn't get the new structure) | MEDIUM | Requires a follow-up mini-phase to apply the template to the missed standalone-route pages — cheaper if caught during the routing-audit step (Pitfall 7) than after all 8 are "signed off" |
+|---------|-----------------|------------------|
+| Figures lingered in an unnamed surface (Pitfall 1, 3, 4) | LOW | Repo-wide grep for the 3 exact value strings scoped to `app`/`components`/`lib`; fix each hit; re-render affected OG routes |
+| Stats-band layout still visually collapsed | LOW-MEDIUM | Revisit the grid/flex container definition at each of the 3 (page)/(OG) render sites; this is a design decision, may need Randy's input on the replacement treatment |
+| Existing test suite red after removal | LOW | Update `home-page-argument.test.tsx`'s assertions to the new proof-band contents in the same commit |
+| Nagarro's `Unbacked` metrics reframed but not resolved | MEDIUM | Retroactively record a disposition per NAGARRO-0X row; if no alternate backing exists, downgrade to qualitative post-hoc — cheaper now than after a future audit flags it a second time |
+| Echo promoted on homepage only, not elsewhere | LOW | Check and fix `/projects` array order and `GlobalCaseStudyGrid` sort input (timeline year) independently |
+| New filter breaks `next build` via a second `useSearchParams()` site | LOW | Move the offending hook call inside the existing `ProjectsClient`/Suspense boundary |
+| SearchAction schema now describes a filter that no longer exists as specified | LOW | Update `lib/seo/json-ld.ts`'s `SearchAction` target to match the shipped param shape |
 
 ## Pitfall-to-Phase Mapping
 
 | Pitfall | Prevention Phase | Verification |
 |---------|-------------------|----------------|
-| 1. Embellishment/fabrication creep | Data-completeness / outcome-proofing phase, with an explicit per-claim source-check step | Every hard claim traceable to a specific deck slide or `CREDIBILITY-COPY.md` line; unbacked claims flagged to Randy, not invented |
-| 2. Cross-surface claim drift | End of content-rewrite phase (dedicated verification step) | Grep old claim text across `app/`, `lib/`, `components/seo/`; per-project metadata/OG/JSON-LD checklist item |
-| 3. Confidentiality/NDA exposure | Content-rewrite phase, per-project review gate for real-named-client projects | Explicit "cleared to publish at this depth" sign-off logged per project before deeper content on Nagarro/Echo/other named clients ships |
-| 4. Sole-credit over-claiming | Content-rewrite phase, applied as a style rule per claim | "I" claims checked against `role`/`teamSize`; team-executed work uses "I led/directed," not bare "I" |
-| 5. Generic voice / process theater | Content-rewrite phase, per-project acceptance criteria | Each project has 1-3 specific, deck-backed, non-obvious decisions; generic process language flagged in review |
-| 6. Thin-data empty sections | New up-front deck-coverage-audit step, before content rewriting starts | Per-project Backed/Partial/Unbacked table produced and routed to Randy for gaps, before any prose is written |
-| 7. Inconsistent template across 8 pages (route shadowing) | Narrative-template-evolution phase, at the design/planning step (before content work) | Explicit enumeration of all 6 rendering files; documented decision to migrate-to-shared-template vs. update-5-bespoke-templates |
-| 8. SEO/OG regressions | Same cross-surface verification step as Pitfall 2 | Before/after diff of title/meta description/OG image/JSON-LD per project, including the 5 standalone-route pages |
-| 9. Accessibility of long-form content | Narrative-template-evolution phase (heading hierarchy decided once at template level) | Heading order and reduced-motion check across all 8 in the final cross-surface verification pass |
-| 10. Scope creep across 8 rewrites | Content-rewrite phase, sequenced as 1 reference project + 7 following it | Fixed per-project checklist (deck-coverage, credit rule, metadata/OG/schema, a11y) applied uniformly; tech-debt items tracked separately from content changes |
+| 1. Dead-code "source" file misleads the edit scope | Phase 11 | Repo-wide grep for exact value strings finds zero hits outside intentional exceptions; `animated-number-basic.tsx` deleted |
+| 2. Stats-band grid collapse (3 render sites) | Phase 11 | Visual render check of `/`, `/about`, `/services`; grid/flex container redefined, not just data-thinned |
+| 3. OG generators re-break/still-broken awards count | Phase 11 | Render `/opengraph-image` and `/about/opengraph-image`; awards figure matches `CREDIBILITY-COPY.md` |
+| 4. Undercounted surface list (`PRODUCT.md`, `README.md`, `related-content.tsx`, report docs) | Phase 11 | Explicit triage table of every grep hit, committed as part of the plan |
+| 5. Existing test collides with the removal | Phase 11 | `npm test` full run green, not just the new test file |
+| 6. Regression-test scoping (too loose / too tight) | Phase 11 | Two-layer test: structural data assertions + scoped literal-string sweep reusing `no-legacy-schema.test.ts`'s directory walk |
+| 7. "Significant" metric traded for another adjective | Phase 12 | No `metrics[].value` is a bare adjective unless deliberately chosen as a mechanism claim |
+| 8. Number removed but restated in nearby prose | Phase 12 | `rg` the specific figure across the whole project object, not just `metrics[]` |
+| 9. Nagarro's 8 Unbacked metrics relabeled, not resolved | Phase 12 | Explicit per-metric disposition recorded (backed / downgraded / firsthand-accepted) |
+| 10. "Promote to first" ambiguous across 3 mechanisms | Phase 12 | Independent check of `FEATURED_SLUGS`, `PROJECTS` array order, and `GlobalCaseStudyGrid`'s rendered order |
+| 11. `PROJECT_CATEGORIES` dead/drifted enum | Phase 12 | Const reconciled against live `PROJECTS` category/tag values before filter ships |
+| 12. Loose substring filter cross-matches Nagarro into regulated-work grouping | Phase 12 | Candidate filter term checked against all existing `tags`/`categories` for collisions |
+| 13. New filter UI reintroduces Suspense/prerender failure | Phase 12 | `npm run build` run manually post-change (outside the normal verify gate) |
+| 14. Filter shape diverges from SearchAction schema | Phase 12 | `category` param reused exactly, or schema updated in the same change; `no-legacy-schema.test.ts` + Rich Results Test rerun |
+| 15. Filter chips repeat heading-semantics/live-region bugs | Phase 12 | Real interactive elements, single `role="status"` region reused |
+| 16. Third badge color dilutes `isLiveProduct` signal | Phase 12 | Neutral variant or no badge; checked against `DESIGN.md` |
+| 17. JSON-LD `additionalProperty`/`genre` silently changes with data edits | Phase 11 (CRED-10/11/12 trigger) / Phase 12 (Task C trigger) | Live-render or Rich Results Test on `/projects/echo` and `/projects/nagarro` post-edit |
 
 ## Sources
 
-- `.planning/PROJECT.md` — v1.0 Key Decisions table (source of the "claims lingered in OG/metadata after copy fix" lesson; v2.0 constraint that unbacked projects get flagged, not invented)
-- `.planning/CREDIBILITY-COPY.md` — verified source-of-truth scope and its explicit limits (only awards/testimonials/GrowIt metrics/schema-cleanup are deck-sourced in detail here; other 7 projects' deeper claims are not pre-verified by this file)
-- `.planning/MILESTONES.md` — v1.0 CRED-01/CRED-03/POS-04 audit-remediation history (direct precedent for Pitfall 2's cross-surface drift)
-- `lib/data/projects.ts` — direct inspection of all 8 project records (`slug`, `teamSize`, `role`, `metrics`, existing narrative copy) that grounds Pitfalls 1, 4, 5, 6
-- `app/projects/[slug]/page.tsx` — `generateMetadata()`/`CreativeWorkStructuredData`/`ProjectFAQStructuredData` wiring, grounding Pitfalls 2 and 8
-- `app/projects/{addvanced,echo,nagarro,rambis-ui,waffle}/` directory structure — direct code evidence for Pitfall 7 (static route shadowing of `[slug]`) and the `echo-client.tsx` vs `echo-client-final.tsx` dead-code finding
-- Next.js App Router routing precedence (static/explicit segments resolve before dynamic `[slug]` segments) — standard, well-documented framework behavior; HIGH confidence, corroborated by this repo's own Key Decisions entry describing "static route shadowing" as a deliberate pattern already used for `waffle`
+- `.planning/PROJECT.md` — Key Decisions table (Outcome column), current milestone scope
+- `.planning/MILESTONES.md` — v1.0/v2.0 accomplishments and known-deferred items
+- `.planning/RETROSPECTIVE.md` — v1.0 lessons ("claim fixes need a repo-wide grep per claim," "OG image generators are content surfaces")
+- `.planning/milestones/v1.0-MILESTONE-AUDIT.md` — CRED-01/CRED-03/POS-04 blocker evidence (the original "6 awards"/"100K+" lingering-surface findings)
+- `.planning/milestones/v2.0-MILESTONE-AUDIT.md` — CRED-07 gap carried to v3.0, Phase 9 `$50M`-harmonization lesson, governance findings on missing GSD artifacts
+- `.planning/DECK-COVERAGE-AUDIT.md` — per-claim Backed/Unbacked verdicts for Echo (ECHO-01..33) and Nagarro (NAGARRO-01..14+), award backing detail
+- `.planning/CREDIBILITY-COPY.md` — the 4 named awards' issuer/category sourcing
+- Direct repo inspection (2026-08-22): `components/core/animated-number-basic.tsx`, `app/opengraph-image.tsx`, `app/about/opengraph-image.tsx`, `lib/data/retainer.ts`, `app/about/about-client.tsx`, `lib/data/projects.ts` (Echo/Nagarro full entries), `lib/data/types.ts`, `app/projects/projects-client.tsx`, `app/projects/page.tsx`, `app/page.tsx`, `components/ui/global-case-study-grid.tsx`, `lib/project-utils.ts`, `lib/seo/json-ld.ts`, `components/ui/animated-metric-value.tsx`, `app/robots.ts`, `app/sitemap.ts`, `middleware.ts`, `__tests__/seo/no-legacy-schema.test.ts`, `__tests__/integration/home-page-argument.test.tsx`
+- Repo-wide `rg` sweeps for `2.5M+`, `$50M`, `800+` across the working tree (`.planning/` = 22 files; live surfaces = 9+ files; root docs = `PRODUCT.md`, `README.md`, `SEO_OPTIMIZATION_REPORT.md`, `docs/reports/accessibility/implementation-roadmap.md`)
 
 ---
-*Pitfalls research for: rewriting portfolio case studies deeper/more persuasive (v2.0 Case-Study Depth)*
-*Researched: 2026-08-15*
+*Pitfalls research for: v3.0 Enterprise Credibility (Phases 11-12)*
+*Researched: 2026-08-22*

@@ -23,6 +23,7 @@ jest.mock("motion/react", () => ({
     get: jest.fn(() => 0),
     set: jest.fn(),
   })),
+  useReducedMotion: jest.fn(() => false),
   AnimatePresence: ({ children }: any) => children,
 }));
 
@@ -54,7 +55,14 @@ describe("About Page Professional Experience", () => {
 
   describe("Professional Experience Section", () => {
     it("should render the Professional Experience heading", () => {
-      expect(screen.getByText("Professional Experience")).toBeInTheDocument();
+      // The label renders through ScrambleSectionTitle, which splits its text
+      // into per-character spans, so query it by accessible name.
+      expect(
+        screen.getByRole("heading", {
+          level: 2,
+          name: "Professional experience",
+        }),
+      ).toBeInTheDocument();
     });
 
     it("should display all 7 professional experience entries", () => {
@@ -73,8 +81,10 @@ describe("About Page Professional Experience", () => {
       });
     });
 
-    it("should display promotion badge for Head of Design role", () => {
-      expect(screen.getByText("⭐ Promotion")).toBeInTheDocument();
+    it("marks the Head of Design promotion", () => {
+      // Was an emoji chip in a yellow pill; the ramp is zinc plus weight, and
+      // a promotion is a fact stated in the row's subordinate column.
+      expect(screen.getByText("Promotion")).toBeInTheDocument();
     });
 
     it("should display all 7 companies", () => {
@@ -161,9 +171,9 @@ describe("About Page Professional Experience", () => {
     });
 
     it("should display achievements for all roles", () => {
-      // Test that Key Achievements sections exist (8 professional + 2 teaching = 10 total)
-      const achievementHeaders = screen.getAllByText("Key Achievements:");
-      expect(achievementHeaders).toHaveLength(10); // 8 professional (incl. Chameleon Collective) + 2 teaching roles
+      // The "Key Achievements:" h4 labels are gone — the heading ladder has no
+      // fourth size, and the achievements are hairline-separated rows under the
+      // role they belong to. The achievements themselves must still be there.
 
       // Test specific achievements from resume data (using getAllByText for potentially duplicate content)
       expect(
@@ -182,7 +192,7 @@ describe("About Page Professional Experience", () => {
 
     it("should have proper accessibility attributes", () => {
       const experienceSection = screen
-        .getByText("Professional Experience")
+        .getByRole("heading", { level: 2, name: "Professional experience" })
         .closest("section");
       expect(experienceSection).toBeInTheDocument();
 
@@ -247,37 +257,27 @@ describe("About Page Professional Experience", () => {
     });
   });
 
-  describe("College Badges for ThriveDX", () => {
-    it("should display Partner Universities heading for ThriveDX", () => {
-      expect(screen.getByText("Partner Universities:")).toBeInTheDocument();
-    });
+  describe("Partner universities for ThriveDX", () => {
+    // These were four rounded badges under a "Partner Universities:" h4 with a
+    // graduation-cap icon. Text structures in this system are square and the
+    // ladder has no fourth heading, so they are one set line in the role's row.
+    it("names every partner university on one line", () => {
+      const line = screen.getByText(/^Taught through/);
+      expect(line).toBeInTheDocument();
 
-    it("should display all 4 college badges for ThriveDX", () => {
-      const colleges = [
+      [
         "University of Wisconsin",
         "Institute of Technology of New Jersey",
         "University of Miami",
         "University of Kansas",
-      ];
-
-      colleges.forEach((college) => {
-        expect(screen.getByText(college)).toBeInTheDocument();
+      ].forEach((college) => {
+        expect(line).toHaveTextContent(college);
       });
     });
 
-    it("should display graduation cap icon with Partner Universities heading", () => {
-      const partnerUniversitiesSection = screen
-        .getByText("Partner Universities:")
-        .closest("h4");
-      expect(partnerUniversitiesSection).toBeInTheDocument();
-      expect(partnerUniversitiesSection).toHaveClass("flex items-center gap-2");
-    });
-
-    it("should not display college badges for General Assembly role", () => {
-      // The General Assembly role should not have college badges
-      // We test this by ensuring the college names only appear once (under ThriveDX)
-      const wisconsinElements = screen.getAllByText("University of Wisconsin");
-      expect(wisconsinElements).toHaveLength(1);
+    it("attaches the universities only to the ThriveDX role", () => {
+      expect(screen.getAllByText(/^Taught through/)).toHaveLength(1);
+      expect(screen.getAllByText(/University of Wisconsin/)).toHaveLength(1);
     });
   });
 });

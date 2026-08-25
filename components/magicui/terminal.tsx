@@ -17,7 +17,7 @@ export const AnimatedSpan = ({
   ...props
 }: AnimatedSpanProps) => (
   <motion.div
-    initial={{ opacity: 0, y: -5 }}
+    initial={{ opacity: 1, y: -5 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, margin: "-50px" }}
     transition={{ duration: 0.3, delay: delay / 1000 }}

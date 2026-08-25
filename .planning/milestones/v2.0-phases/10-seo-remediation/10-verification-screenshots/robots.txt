@@ -1,0 +1,30 @@
+User-Agent: *
+Allow: /
+Disallow: /private/
+Disallow: /admin/
+Disallow: /api/
+Disallow: /drafts/
+
+User-Agent: GPTBot
+User-Agent: ChatGPT-User
+User-Agent: OAI-SearchBot
+User-Agent: ClaudeBot
+User-Agent: Claude-Web
+User-Agent: Claude-SearchBot
+User-Agent: Claude-User
+User-Agent: anthropic-ai
+User-Agent: CCBot
+User-Agent: PerplexityBot
+User-Agent: Perplexity-User
+User-Agent: Google-Extended
+User-Agent: Applebot-Extended
+User-Agent: Bytespider
+User-Agent: meta-externalagent
+Allow: /
+Disallow: /private/
+Disallow: /admin/
+Disallow: /api/
+Disallow: /drafts/
+
+Host: https://work.randyellis.design
+Sitemap: https://work.randyellis.design/sitemap.xml

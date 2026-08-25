@@ -1,29 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { InView } from "@/components/motion-primitives/in-view";
-import { TextEffect } from "@/components/motion-primitives/text-effect";
+import { ArrowRight } from "lucide-react";
 import { PROJECTS } from "@/lib/data/projects";
 import type { Project } from "@/lib/data/types";
 import { cn } from "@/lib/utils";
 import { useMemo, useCallback } from "react";
+import { SECTION, SectionLabel } from "@/components/case-study/section-chrome";
 import {
   trackRecommendationCaseStudyClick,
   trackRecommendationCardHover,
 } from "@/lib/analytics";
-
-// Animation variants matching existing project-detail-client.tsx patterns
-const VARIANTS_ITEM = {
-  hidden: { opacity: 0, y: 20, filter: "blur(8px)" },
-  visible: { opacity: 1, y: 0, filter: "blur(0px)" },
-};
-
-const TRANSITION_ITEM = {
-  duration: 0.4,
-};
 
 interface GlobalCaseStudyGridProps {
   excludeCurrentSlug?: string;
@@ -35,6 +22,14 @@ interface GlobalCaseStudyGridProps {
   showDescription?: boolean;
   sourcePageType?: "project" | "blog";
   sourceSlug?: string;
+}
+
+/** A stable id for `aria-labelledby`, derived from the section's own title. */
+function slugifyTitle(title: string): string {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
 }
 
 export function GlobalCaseStudyGrid({
@@ -132,124 +127,79 @@ export function GlobalCaseStudyGrid({
     return null;
   }
 
-  return (
-    <section
-      className={cn("space-y-6", className)}
-      data-testid="case-study-grid-container"
-    >
-      {/* Section Title */}
-      <TextEffect as="h2" className="text-2xl font-bold" preset="fade-in-blur">
-        {title}
-      </TextEffect>
+  const headingId = `${slugifyTitle(title)}-heading`;
 
-      {/* Grid */}
-      <div
-        className="grid auto-rows-fr grid-cols-1 gap-6 md:grid-cols-2"
-        data-testid="case-study-grid"
+  return (
+    // The Recommendations List (DESIGN.md), same as /projects and the "More
+    // Articles" list: hairline rows, no cards. The shadcn `Card` that stood
+    // here carried `hover:shadow-lg` and an auto-playing 16:9 video per card —
+    // two things the Hairline-First Rule and the One Crank Rule both rule out
+    // at the foot of a page. "The page has already spent its imagery on the
+    // work itself."
+    <section
+      className={cn(SECTION, className)}
+      aria-labelledby={headingId}
+      data-testid="case-study-list-container"
+    >
+      <SectionLabel id={headingId}>{title}</SectionLabel>
+
+      <ul
+        className="mt-6 border-b border-zinc-200 dark:border-zinc-800"
+        data-testid="case-study-list"
       >
         {filteredProjects.map((project: Project, index: number) => (
-          <InView
+          <li
             key={project.id}
-            variants={VARIANTS_ITEM}
-            transition={{ ...TRANSITION_ITEM, delay: index * 0.1 }}
-            viewOptions={{ once: true }}
+            className="border-t border-zinc-200 dark:border-zinc-800"
+            data-testid="case-study-row"
           >
-            <Card
-              className="group h-full transition-all duration-300 hover:shadow-lg"
-              data-testid="case-study-card"
+            <Link
+              href={`/projects/${project.slug}`}
+              aria-label={`View ${project.name} case study`}
+              onClick={() => handleProjectClick(project, index)}
+              onMouseEnter={() => handleProjectHover(project, index)}
+              className="group grid grid-cols-1 py-5 focus-visible:ring-2 focus-visible:ring-zinc-900 focus-visible:ring-offset-2 focus-visible:outline-none sm:grid-cols-[minmax(0,18rem)_1fr] dark:focus-visible:ring-white"
             >
-              <Link
-                href={`/projects/${project.slug}`}
-                aria-label={`View ${project.name} case study`}
-                onClick={() => handleProjectClick(project, index)}
-                onMouseEnter={() => handleProjectHover(project, index)}
-                className="block h-full"
-              >
-                {/* Media Container */}
-                <div className="aspect-video overflow-hidden rounded-t-lg">
-                  {project.video && project.id !== "featured-project-2" ? (
-                    <div
-                      className="group relative aspect-video overflow-hidden"
-                      data-testid="video-container"
-                    >
-                      <video
-                        src={project.video}
-                        poster={project.thumbnail}
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                        data-testid="lazy-video"
-                      />
-                    </div>
-                  ) : project.thumbnail ? (
-                    <div className="group relative aspect-video overflow-hidden">
-                      <Image
-                        src={project.thumbnail}
-                        alt={`${project.name} preview`}
-                        fill
-                        className="object-cover transition-transform duration-300 group-hover:scale-105"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                      />
-                    </div>
-                  ) : (
-                    <div className="bg-muted flex aspect-video items-center justify-center">
-                      <span className="text-muted-foreground">
-                        No preview available
-                      </span>
-                    </div>
-                  )}
-                </div>
+              <span className="flex flex-col gap-2 sm:pr-8">
+                <span className="flex items-start gap-1.5 text-base font-medium text-zinc-900 underline decoration-zinc-300 underline-offset-4 transition-colors group-hover:decoration-zinc-900 dark:text-white dark:decoration-zinc-700 dark:group-hover:decoration-zinc-100">
+                  {project.name}
+                  <ArrowRight
+                    aria-hidden="true"
+                    className="mt-1 h-4 w-4 shrink-0 text-zinc-400 transition-transform group-hover:translate-x-0.5 dark:text-zinc-500"
+                  />
+                </span>
 
-                {/* Card Content */}
-                <CardHeader className="space-y-2">
-                  <div className="flex items-start justify-between gap-2">
-                    <CardTitle className="line-clamp-2 transition-colors group-hover:text-blue-600">
-                      {project.name}
-                    </CardTitle>
-                    {project.featured && (
-                      <Badge variant="secondary" className="shrink-0">
-                        Featured
-                      </Badge>
-                    )}
-                  </div>
-
-                  {project.subtitle && (
-                    <p className="text-muted-foreground line-clamp-2 text-sm">
-                      {project.subtitle}
-                    </p>
-                  )}
-                </CardHeader>
-
-                <CardContent className="space-y-4">
-                  {/* Description (if enabled) */}
-                  {showDescription && project.description && (
-                    <p className="text-muted-foreground line-clamp-3 text-sm">
-                      {project.description}
-                    </p>
-                  )}
-
-                  {/* Category Badge */}
-                  <div className="flex flex-wrap gap-2">
-                    <Badge variant="outline">{project.category}</Badge>
-                    {project.categories && project.categories.length > 1 && (
-                      <Badge variant="outline">
+                <span className="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-xs text-zinc-500 dark:text-zinc-400">
+                  <span>{project.category}</span>
+                  {project.categories && project.categories.length > 1 && (
+                    <>
+                      <span aria-hidden="true">·</span>
+                      <span className="tabular-nums">
                         +{project.categories.length - 1} more
-                      </Badge>
-                    )}
-                  </div>
+                      </span>
+                    </>
+                  )}
+                  <span aria-hidden="true">·</span>
+                  <span className="tabular-nums">{project.timeline}</span>
+                </span>
+              </span>
 
-                  {/* Timeline */}
-                  <div className="text-muted-foreground text-xs">
-                    {project.timeline}
-                  </div>
-                </CardContent>
-              </Link>
-            </Card>
-          </InView>
+              <span className="mt-3 flex flex-col gap-2 sm:mt-0">
+                {project.subtitle && (
+                  <span className="max-w-[62ch] text-base text-zinc-500 dark:text-zinc-400">
+                    {project.subtitle}
+                  </span>
+                )}
+                {showDescription && project.description && (
+                  <span className="max-w-[62ch] text-sm text-zinc-500 dark:text-zinc-400">
+                    {project.description}
+                  </span>
+                )}
+              </span>
+            </Link>
+          </li>
         ))}
-      </div>
+      </ul>
     </section>
   );
 }

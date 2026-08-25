@@ -83,7 +83,10 @@ export function ScrollToTop({
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          className={`fixed ${positionClasses[position]} pointer-events-none z-40`}
+          // The group lives on the wrapper, not the button: the tooltip is the
+          // button's sibling, so a group on the button itself never reached it
+          // and the label never appeared.
+          className={`group fixed ${positionClasses[position]} pointer-events-none z-40`}
           initial={{ opacity: 0, scale: 0, y: 50 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0, y: 50 }}
@@ -96,7 +99,7 @@ export function ScrollToTop({
           <Magnetic intensity={0.3}>
             <motion.button
               onClick={scrollToTop}
-              className={`group pointer-events-auto relative h-12 w-12 overflow-hidden rounded-full shadow-lg transition-all duration-300 ${config.bgClass} hover:shadow-xl focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none`}
+              className={`pointer-events-auto relative h-12 w-12 overflow-hidden rounded-full shadow-lg transition-all duration-300 ${config.bgClass} hover:shadow-xl focus-visible:ring-2 focus-visible:ring-zinc-900 focus-visible:ring-offset-2 focus-visible:ring-offset-white focus-visible:outline-none dark:focus-visible:ring-white dark:focus-visible:ring-offset-zinc-950`}
               whileHover={config.animation.hover}
               whileTap={config.animation.tap}
               aria-label="Scroll to top"
@@ -145,8 +148,9 @@ export function ScrollToTop({
                 />
               )}
 
-              {/* Progress ring for playful mode */}
-              {personality === "playful" && (
+              {/* Progress ring for playful mode. Guarded: it reads layout
+                  during render, which has no meaning on the server. */}
+              {personality === "playful" && typeof window !== "undefined" && (
                 <motion.div
                   className="absolute inset-0 rounded-full border-2 border-white/30"
                   style={{
@@ -158,14 +162,12 @@ export function ScrollToTop({
           </Magnetic>
 
           {/* Tooltip */}
-          <motion.div
-            className="pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 rounded bg-zinc-900 px-2 py-1 text-xs whitespace-nowrap text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100 dark:bg-zinc-100 dark:text-zinc-900"
-            initial={{ y: 10, opacity: 0 }}
-            whileHover={{ y: 0, opacity: 1 }}
-          >
+          {/* Opacity is CSS-driven off the wrapper's hover and focus state; a
+              pointer-events-none element can never fire its own hover. */}
+          <div className="pointer-events-none absolute bottom-full left-1/2 mb-2 -translate-x-1/2 rounded bg-zinc-900 px-2 py-1 text-xs whitespace-nowrap text-white opacity-0 transition-opacity duration-200 group-focus-within:opacity-100 group-hover:opacity-100 dark:bg-zinc-100 dark:text-zinc-900">
             {personality === "rocket" ? "Blast off!" : "Back to top"}
             <div className="absolute top-full left-1/2 h-2 w-2 -translate-x-1/2 rotate-45 bg-zinc-900 dark:bg-zinc-100" />
-          </motion.div>
+          </div>
         </motion.div>
       )}
     </AnimatePresence>

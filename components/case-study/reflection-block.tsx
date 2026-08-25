@@ -1,4 +1,6 @@
-import { ScrambleSectionTitle } from "@/components/ui/scramble-section-title";
+"use client";
+
+import { SectionLabel, SECTION } from "./section-chrome";
 
 type ReflectionBlockProps = {
   reflection: string;
@@ -13,29 +15,21 @@ type ReflectionBlockProps = {
  * Held apart from `outcome` deliberately: outcome is what the project did,
  * reflection is what the person learned. Collapsing them is how case studies
  * end up restating metrics and calling it insight.
+ *
+ * Opens like every other section on the page — one rule at full contrast and a
+ * label — rather than as a quoted callout with its own left border.
  */
 export function ReflectionBlock({
   reflection,
-  heading = "Reflection",
+  heading = "Looking back",
   sectionId = "reflection",
 }: ReflectionBlockProps) {
   const headingId = `${sectionId}-heading`;
 
   return (
-    <section
-      id={sectionId}
-      role="region"
-      aria-labelledby={headingId}
-      className="border-muted mx-auto max-w-4xl space-y-3 border-l-2 py-1 pl-5 md:pl-6"
-    >
-      <ScrambleSectionTitle
-        as="h2"
-        id={headingId}
-        className="text-2xl font-bold"
-      >
-        {heading}
-      </ScrambleSectionTitle>
-      <p className="text-muted-foreground text-base leading-relaxed">
+    <section id={sectionId} aria-labelledby={headingId} className={SECTION}>
+      <SectionLabel id={headingId}>{heading}</SectionLabel>
+      <p className="mt-6 max-w-[62ch] text-base leading-relaxed text-zinc-600 dark:text-zinc-400">
         {reflection}
       </p>
     </section>

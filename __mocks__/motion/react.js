@@ -45,6 +45,21 @@ export const useInView = jest.fn((ref, options) => {
 
 export const useIsomorphicLayoutEffect = jest.fn();
 
+// useMotionTemplate: returns a motion-value-like object whose get() renders the
+// template string (used by Tilt for `perspective(...) rotateX(...) rotateY(...)`)
+export const useMotionTemplate = jest.fn((strings, ...values) => {
+  const read = () =>
+    strings.reduce((acc, str, i) => {
+      const v = values[i];
+      const resolved =
+        v && typeof v === "object" && typeof v.get === "function"
+          ? v.get()
+          : (v ?? "");
+      return acc + str + (i < values.length ? String(resolved) : "");
+    }, "");
+  return { ...mockMotionValue, get: jest.fn(read) };
+});
+
 export const useReducedMotion = jest.fn(() => false);
 
 export const useScroll = jest.fn((options) => {
@@ -156,6 +171,18 @@ export const motion = {
   ul: createMotionComponent("ul"),
   ol: createMotionComponent("ol"),
   li: createMotionComponent("li"),
+  figure: createMotionComponent("figure"),
+  figcaption: createMotionComponent("figcaption"),
+  form: createMotionComponent("form"),
+  input: createMotionComponent("input"),
+  label: createMotionComponent("label"),
+  path: createMotionComponent("path"),
+  circle: createMotionComponent("circle"),
+  rect: createMotionComponent("rect"),
+  g: createMotionComponent("g"),
+  video: createMotionComponent("video"),
+  tr: createMotionComponent("tr"),
+  td: createMotionComponent("td"),
 };
 
 // AnimatePresence component

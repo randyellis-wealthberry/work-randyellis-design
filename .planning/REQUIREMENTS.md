@@ -1,126 +1,198 @@
-# Requirements: Randy Ellis Portfolio — v2.0 Case-Study Depth
+# Requirements — v3.0 Enterprise Credibility
 
-**Defined:** 2026-08-15
-**Core Value:** A hiring manager finds a coherent, senior, *verifiable* story — and here, proof of *how Randy decides*, not just what he shipped.
+**Status:** 🔨 IN PROGRESS
+**Defined:** 2026-08-22 · **Rescoped:** 2026-08-22 (metric-integrity premise withdrawn)
+**Phases:** 11-12 (numbering continues from v2.0)
+**Core Value:** A hiring manager finds a coherent, senior, *verifiable* story — and here, the
+site agrees with itself, names its proof, and the two large-organization engagements read as
+proof of operating under constraint.
 
-**Scope note:** "All 8 projects" reconciles to **7 case studies** getting the deep narrative treatment (growit, ohplays, ledgeriq, addvanced, echo, nagarro, rambis-ui). **Waffle is excluded** — it is a product showcase page shipped in v1.0, not a case study. Only 3 of the 7 (growit, ohplays, ledgeriq) render through the `[slug]` template today; the other 4 are bespoke standalone pages being converged onto the evolved shared template.
+## Scope Correction (read before planning)
 
-## v1 Requirements
+**The staged metric-integrity premise was wrong and has been withdrawn (2026-08-22, Randy).**
 
-### Foundation — Decisions Gate (blocking prerequisites)
+v3.0 was staged around removing three figures — `2.5M+ Users Impacted`, `$50M in product value`,
+`800+ Designers Mentored` — because `DECK-COVERAGE-AUDIT.md` verdicted them `Unbacked`. That
+inverted what the audit actually says:
 
-- [x] **FND-01**: `Project` type resolves from `lib/data/types.ts` (not stale `app/data.ts`); stale `app/data.ts` PROJECTS array deleted — new narrative fields typecheck against the model actually used
-- [x] **FND-02**: Orphaned `/ledgeriq` root route deleted; `/projects/ledgeriq` is the single canonical LedgerIQ page (no crawlable duplicate)
-- [x] **FND-03**: Per-project deck-coverage audit produced — a Backed / Partial / Unbacked table for the 7 case studies. **Advisory only**; the gate it once imposed on Phase 8 was removed 2026-08-15
-- [x] **FND-04**: Dead code removed — `echo-client-final.tsx` (unused) and abandoned `components/case-study/*` — so rewrites edit only live files
+> **`:34`** — *"**Unbacked** — not found in this deck. **This is not a defect and requires no
+> action.**"*
+>
+> **`:6`** — *"'Unbacked' below means 'not found in this 48-page PDF,' nothing more. It is not a
+> finding of falsehood and does not require Randy to justify a claim."*
+>
+> **`:37`** — the non-deck-source rule was **removed**: *"Randy's own account of his engagements
+> is a source."*
 
-### Template & Data Model
+`PROJECT.md` and `MILESTONES.md` summarized those verdicts as credibility debt. They are not.
+**The figures are accurate and stay.**
 
-- [x] **TPL-01**: `Project` / `processStory` model extended with structured narrative fields — `decisions[]{title, decision, rationale, outcome}`, `roleNarrative`, and a genuine `reflection` (distinct from outcome summary)
-- [x] **TPL-02**: Narrative UI components built from existing primitives + `@tailwindcss/typography` (decision callout, in-page anchor nav, reflection block) — no new npm dependencies, no MDX
-- [x] **TPL-03**: Evolved `[slug]` template renders the full arc — problem → *my* role → decisions-with-rationale → measurable outcome → reflection — with no section rendering shallow when data is present
-- [x] **TPL-04**: Evolved template piloted and validated on growit (pure-data) before mass rollout
+This is the milestone's own target failure, one level up: the 2026-08-15 deck-gate reversal was
+recorded in the audit, and every downstream summary kept the pre-reversal framing. REC-01 exists
+so it cannot regenerate a fourth time.
 
-### Bespoke Convergence
+### What survives, and why
 
-- [x] **MIG-01**: addvanced migrated from bespoke JSX onto the evolved shared template
-- [x] **MIG-02**: echo migrated onto the shared template (live `echo-client`, not the dead `-final` variant)
-- [x] **MIG-03**: nagarro migrated onto the shared template
-- [x] **MIG-04**: rambis-ui migrated onto the shared template
+Neither surviving item was ever about deck backing.
 
-### Content Rewrite (first-person, decision-driven)
+- **`/about`'s OG image renders `6` Design Awards** (`app/about/opengraph-image.tsx:238`) while
+  `lib/data/retainer.ts:51`, `app/about/about-client.tsx:26` and the four named awards in
+  `lib/seo/json-ld.ts` all say 4. The site contradicts itself, and "6" was explicitly retired in
+  v1.0. → **CRED-13**
 
-- [x] **CNT-01**: growit rewritten — corporate "we" → first-person decision narrative; challenges·solutions·learnings complete; decisions tied to verifiable outcomes
-- [x] **CNT-02**: ohplays rewritten to the same bar
-- [x] **CNT-03**: ledgeriq rewritten to the same bar
-- [x] **CNT-04**: addvanced rewritten to the same bar
-- [x] **CNT-05**: echo rewritten to the same bar
-- [x] **CNT-06**: nagarro rewritten to the same bar
-- [x] **CNT-07**: rambis-ui rewritten to the same bar
-- [x] **CNT-08**: Where they genuinely happened, decisions include "alternatives considered" and leadership signals (mentoring/influence/strategy) — applied per project, never as uniform template fill
+- **The four named awards are machine-visible but human-invisible.** `lib/seo/json-ld.ts:79-84`
+  serves a crawler four awards with issuer, category and product; `/about` shows a human the
+  numeral `4`. Not a fix — an improvement `CREDIBILITY-COPY.md` §1 recommended in v1.0 ("drop the
+  bare counter and show the named list below") and that was never executed. → **PRF-01**
 
-### Credibility Guardrails (cross-cutting — v1.0 discipline, intensified)
+### Voided requirements
 
-- [x] **CRED-06**: "I vs we vs led" credit rule applied per project — team-led work (teamSize 3–15, director titles) is not misattributed as solo IC work
-- [x] **CRED-07**: Every decision/metric/outcome comes from Randy's firsthand account; the writer never invents one to fill a narrative slot. Figures a reader can independently check (store ratings, download counts) should be right, and the site must not contradict itself across surfaces
-- [x] **CRED-08**: NDA / named-company disclosure signed off by Randy for live companies (Nagarro, Echo) before their internal metrics are narrated deeper
-- [x] **CRED-09**: Cross-surface verification pass — visible copy vs metadata vs OG image vs JSON-LD reconciled across every touched project (modeled on v1.0 audit remediation)
+| REQ-ID | Was | Void because |
+|--------|-----|--------------|
+| CRED-10 | Remove the three figures from rendered pages | Figures are accurate; nothing to remove |
+| CRED-11 | Remove them from metadata and both OG images | Same |
+| CRED-14 | Rewrite `home-page-argument.test.tsx` | It asserts those figures are present — **correct as written** |
+| CRED-16 | Strip the figures from repo docs | Same |
+| PRF-02 | Redesign 5 stat bands around the collapse | No collapse — the bands keep all four entries |
 
-### Tech-Debt Fold-In
+CRED-15 (dead modules) moves to Future: still dead, but with no unbacked claim inside them there
+is no reason to force it into v3.0.
 
-- [x] **DEBT-01**: POS-02 proof-chips — dense subhead resolved to the intended chip treatment
-- [x] **DEBT-02**: WAF-02 — Waffle "Live Product" badge click dead-zone fixed
+## Decisions Taken at Definition (Randy, 2026-08-22)
 
-### SEO Remediation
+| # | Question | Decision |
+|---|----------|----------|
+| 1 | Nagarro's 8 metrics verdicted `Unbacked` | **Firsthand-account policy** — his own account is a source. Later generalized to the three sitewide figures, which withdrew the metric-integrity premise entirely |
+| 2 | What fills the stat band after removal? | **Moot** — nothing is removed. The awards work survives as PRF-01, an improvement rather than a backfill |
+| 3 | How should the grouped entry point land? | **One `<Link>`, no filter bar** — a multi-chip bar resolving to n=1 is an anti-feature |
+| 4 | Are repo docs in scope? | **Moot** — nothing to strip |
+| 5 | Dead modules | Files kept per the standing incorporate-don't-delete preference; deferred out of v3.0 |
+| 6 | Correct the stale framing? | **Yes, everywhere** — `PROJECT.md`, `MILESTONES.md`, and the v2.0 audit → REC-01 |
 
-- [ ] **SEO-01**: Service worker kill-switch + PWA cleanup — replace stale Workbox SW with self-unregistering kill-switch, delete PWA artifacts (manifest, fallback files, components/pwa/, app/offline/)
-- [ ] **SEO-02**: robots.txt `/_next/` unblocking + AI crawler policy — remove `/_next/` from disallow list so Googlebot can render client-side content, open site to AI crawlers (GPTBot, CCBot, Claude-Web, etc.)
-- [ ] **SEO-03**: Test route deletion/blocking — delete `/test/codeblock` and `/test-glow` entirely, audit all `/app` routes for other dev-only pages and delete or noindex
-- [ ] **SEO-04**: Structured data consolidation + server-render migration — emit only Person, WebSite, CreativeWork, Article (server-rendered in RSC pages); delete LocalBusiness, Organization, ProfessionalService, and all FAQ schema (CONTEXT D-08/D-09, CRED-07 no-fabrication)
-- [ ] **SEO-05**: Sitemap lastModified + live verification — add lastModified dates to sitemap URLs; mandatory post-deploy verification (robots.txt fetch, Rich Results Test, Search Console sitemap submission)
+## v3.0 Requirements
 
-## v2 Requirements (deferred)
+### Self-Consistency & Proof (Phase 11)
 
-### Polish
+- [x] **CRED-13**: `/about`'s OG image states **4** Design Awards, not 6 — closing the third
+      recurrence of the v1.0 CRED-01 defect and removing a live self-contradiction with the three
+      other surfaces that say 4
 
-- **POL-01**: Visual polish pass beyond case-study surfaces
-- **POL-02**: Waffle converged onto shared template (only if it ever becomes a case study rather than a product page)
+- [x] **PRF-01**: The 4 named awards (Davey ×2, Vega ×2) appear as **visible on-page copy** with
+      issuer and category, sourced to `CREDIBILITY-COPY.md` §1 (deck slide 28, GrowIt!). The
+      Webby stays listed as *judge*, never as a win. `§1`'s "Where to change in code" list is
+      **stale** — it names dead and deleted files, and its JSON-LD item is already done, which is
+      exactly how the awards became machine-visible but human-invisible
+
+- [x] **CRED-12**: A regression test pins the award count as **consistent across every surface**
+      that states it — `retainer.ts`, `about-client.tsx`, the JSON-LD `award` array, and both OG
+      generators — so a figure cannot drift on one surface again. Verified structurally against
+      the data shape, not by bare string match (`"4"` alone collides with `grid-cols-4`,
+      `h-4 w-4`, and much else). Reuses `__tests__/seo/no-legacy-schema.test.ts`'s directory
+      walker, which excludes `.planning/` by construction
+
+- [x] **REC-01**: The withdrawn premise is corrected everywhere it is recorded — `PROJECT.md`'s
+      Active requirements and Key Decisions, `MILESTONES.md`'s v2.0 "Known deferred items", and
+      `.planning/milestones/v2.0-MILESTONE-AUDIT.md` — each stating that `Unbacked` means "absent
+      from the deck", not "unsupported", per the audit's own definitions
+
+### Enterprise Legibility (Phase 12)
+
+- [ ] **ENT-01**: Echo is recategorized off `"Mobile App"` into a regulated / field-operations
+      framing. The chosen term is collision-checked against every project's existing
+      `category` / `categories[]` / `tags[]` first — `lib/project-utils.ts` matches by
+      case-insensitive substring, and Nagarro already carries `"Accessibility Compliance"`
+
+- [ ] **ENT-02**: Echo's `{ label: "Call Center Stress Reduction", value: "Significant" }` is
+      resolved at the data layer in `lib/data/projects.ts`. A qualitative word in a numeric slot
+      reads as a hole where a number should be. Fixing the data fixes the live JSON-LD
+      `additionalProperty` for free — there is no separate schema task
+
+- [ ] **ENT-03**: Nagarro's raw `metrics[]` reads in organizational-design terms — **after** each
+      of NAGARRO-01..08 has a recorded disposition (backed-by-alternate-source / downgraded-to-
+      qualitative / accepted-as-firsthand-account). Relabeling before dispositioning repeats the
+      Phase 9 `$50M` harmonization mistake. `metrics[0]` ("Nagarrians Impacted: 18,000+") is
+      already org-scale and stays; the gap is indices 1-7, which flow verbatim into live JSON-LD
+
+- [ ] **ENT-05**: Echo's promotion holds across **all three** independent ordering mechanisms —
+      `FEATURED_SLUGS` (`app/page.tsx:55`), `PROJECTS` array position (`lib/data/projects.ts`),
+      and `GlobalCaseStudyGrid`'s runtime sort. The third parses a year out of `timeline`; Echo's
+      is `"Alpha → Beta → Launch"` with no year, so it currently falls back to `0` and ranks Echo
+      **last** — silently, with no error. Each mechanism verified by rendering its surface
+
+### Grouped Entry Point (Phase 12)
+
+- [ ] **ENT-04**: One entry point on `/projects` leads to the regulated / field-operations work,
+      built as a real `<Link>` on the `?category=` mechanism already shipped in Phase 10 (D-13)
+      and already advertised by the `WebSite` `SearchAction` schema. It must call
+      `useSearchParams()` from inside the existing `<Suspense>` boundary in
+      `app/projects/projects-client.tsx`, never a second call site, and must never attach an
+      interactive role to the section heading — the v2.0 `TextScramble` regression (`26c7bf0`)
+
+## Future Requirements (deferred, not this milestone)
+
+- [ ] **CRED-15**: The two dead modules — `animated-number-basic.tsx` (zero imports) and
+      `related-content.tsx` (only import commented out at `app/blog/layout.tsx:4`) — get a
+      disposition. Files kept per the incorporate-don't-delete preference; a background task is
+      already logged for the wiring question
+
+- [ ] **MI-4**: Consolidate `about-client.tsx`'s local `achievements` array into
+      `lib/data/retainer.ts`'s `PROOF_EXHIBITS`. Two independent hand-authored arrays holding the
+      same class of claim is a real structural smell. But the Key Decisions
+      log's stated preference is "bounded punch-list, not research build"
+
+- [ ] **EL-5**: Surface Echo's already-authored but never-rendered `constraints.environmental`
+      data
+
+- [ ] **GE-3**: Reuse the existing `role="status"` filter-state announcement on the new entry point
+- [ ] **POL-01**: Visual polish pass beyond case-study surfaces (deferred from v1.0)
+- [ ] Dead-code cleanup of `enhanced-metrics-grid.tsx`, `enhanced-hover-cards.tsx`
 
 ## Out of Scope
 
-| Feature | Reason |
-|---------|--------|
-| Waffle rewritten as a case study | It's a product showcase shipped in v1.0; different intent than a career case study |
-| MDX / second content pipeline | Forks content systems, breaks greppable-claims credibility audit; typed-data model chosen |
-| New narrative libraries (before/after sliders, reading-progress emoji tracker) | No asset pairs exist; existing primitives + typography cover it |
-| Inventing "alternatives considered" where the deck is silent | Fabrication risk — the exact failure v1.0 purged |
-| Visual redesign / rebrand | Substance over aesthetics (carried from v1.0) |
-| Restoring the elaborate bespoke `/ledgeriq` design | Canonicalizing on the auditable shared template; richer-but-un-auditable loses |
+- **Removing the three sitewide figures.** Withdrawn 2026-08-22 — `Unbacked` means "absent from
+  the 48-page deck", not "unsupported". The figures are accurate and stay
+
+- **Restoring "6 Design Awards."** Closed in `PROJECT.md` — only if 2 more surface with proof.
+  CRED-13 removes the last surface still rendering 6
+
+- **Inventing a figure for Echo's constraint slot.** Breaches the CRED-08 disclosure line
+  (Echo = process-and-design only)
+
+- **Rewriting Nagarro's `roleNarrative` / `decisions[]` prose.** Already the strongest asset on
+  the page; the gap is narrowly the raw `metrics[]` array
+
+- **A multi-chip filter bar on `/projects`.** Only 1 of 8 projects is genuinely regulated /
+  field-ops; a chip bar resolving to n=1 adds ARIA and interaction cost for a grouping a scanning
+  reader of an 8-item list gets for free
+
+- **A new `/projects/field-operations` route.** `PROJECT.md` Key Decision: group on `/projects`,
+  never a new surface needing its own metadata, OG image, and JSON-LD
+
+- **A decorative "NDA" badge system.** The prose already states the boundary; a badge implies a
+  taxonomy the data model doesn't have
+
+- **The `/services` dual-reader question.** `/services` and the retainer funnel own the metadata
+  description and primary conversion path on a site whose core value names the hiring manager as
+  the reader. Which reader wins is a positioning decision for Randy, not a queued task. Logged so
+  it is not silently inherited a third time
+
+- **Site rebuild or visual redesign.** Consistent with v1.0 and v2.0
 
 ## Traceability
 
-Populated during roadmap creation.
+| REQ-ID | Phase | Status |
+|--------|-------|--------|
+| CRED-12 | Phase 11 | Complete |
+| CRED-13 | Phase 11 | Complete |
+| PRF-01 | Phase 11 | Complete |
+| REC-01 | Phase 11 | Complete |
+| ENT-01 | Phase 12 | Pending |
+| ENT-02 | Phase 12 | Pending |
+| ENT-03 | Phase 12 | Pending |
+| ENT-04 | Phase 12 | Pending |
+| ENT-05 | Phase 12 | Pending |
 
-| Requirement | Phase | Status |
-|-------------|-------|--------|
-| FND-01 | Phase 5 | Complete |
-| FND-02 | Phase 5 | Complete |
-| FND-03 | Phase 5 | Complete (advisory) |
-| FND-04 | Phase 5 | Complete |
-| TPL-01 | Phase 6 | Complete |
-| TPL-02 | Phase 6 | Complete |
-| TPL-03 | Phase 6 | Complete |
-| TPL-04 | Phase 6 | Complete |
-| MIG-01 | Phase 7 | Complete |
-| MIG-02 | Phase 7 | Complete |
-| MIG-03 | Phase 7 | Complete |
-| MIG-04 | Phase 7 | Complete |
-| CNT-01 | Phase 8 | Complete |
-| CNT-02 | Phase 8 | Complete |
-| CNT-03 | Phase 8 | Complete |
-| CNT-04 | Phase 8 | Complete |
-| CNT-05 | Phase 8 | Complete |
-| CNT-06 | Phase 8 | Complete |
-| CNT-07 | Phase 8 | Complete |
-| CNT-08 | Phase 8 | Complete |
-| CRED-06 | Phase 8 | Complete |
-| CRED-07 | Phase 8 | Complete |
-| CRED-08 | Phase 8 | Complete |
-| CRED-09 | Phase 9 | Complete |
-| SEO-01 | Phase 10 | Pending |
-| SEO-02 | Phase 10 | Pending |
-| SEO-03 | Phase 10 | Pending |
-| SEO-04 | Phase 10 | Pending |
-| SEO-05 | Phase 10 | Pending |
-| DEBT-01 | Phase 5 | Complete |
-| DEBT-02 | Phase 5 | Complete |
+**Coverage:** 9/9 active v3.0 requirements mapped. No orphans.
 
-**Coverage:**
-- v1 requirements: 26 total
-- v2 requirements (SEO): 5 total
-- Mapped to phases: 31/31 ✓
-- Unmapped: 0
-
----
-*Requirements defined: 2026-08-15*
-*Last updated: 2026-08-20 — SEO requirements added (Phase 10)*
+**Voided (not mapped):** CRED-10, CRED-11, CRED-14, CRED-16, PRF-02 — see "Voided requirements".
+**Deferred (not mapped):** CRED-15, MI-4, EL-5, GE-3, POL-01.

@@ -55,17 +55,72 @@ export function RambisGridCard({
   );
 }
 
+export type RambisGridAction = { label: string; href: string };
+
+export type RambisGridFooter = {
+  heading?: string;
+  body?: string;
+  primary?: RambisGridAction;
+  secondary?: RambisGridAction;
+};
+
+const DEFAULT_FOOTER: Required<Pick<RambisGridFooter, "heading" | "body">> & {
+  primaryLabel: string;
+  secondaryLabel: string;
+} = {
+  heading: "Ready to get started?",
+  body: "Explore our component library and start building amazing user interfaces with Rambis UI.",
+  primaryLabel: "View Components",
+  secondaryLabel: "Documentation",
+};
+
+const PRIMARY_ACTION_CLASS =
+  "bg-primary text-primary-foreground hover:bg-primary/90 inline-flex items-center rounded-lg px-6 py-3 font-medium transition-colors";
+const SECONDARY_ACTION_CLASS =
+  "border-border hover:bg-muted inline-flex items-center rounded-lg border px-6 py-3 font-medium transition-colors";
+
+function FooterAction({
+  action,
+  fallbackLabel,
+  className,
+}: {
+  action?: RambisGridAction;
+  fallbackLabel: string;
+  className: string;
+}) {
+  if (action?.href) {
+    const external = /^https?:\/\//.test(action.href);
+    return (
+      <a
+        href={action.href}
+        className={className}
+        {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      >
+        {action.label}
+      </a>
+    );
+  }
+  return (
+    <button type="button" className={className}>
+      {action?.label ?? fallbackLabel}
+    </button>
+  );
+}
+
 // Example grid layout with staggered animations
 export function RambisAnimatedGrid({
   title = "Rambis UI Components",
   subtitle = "Professional design system components",
   items = [],
   className,
+  footer,
 }: {
   title?: string;
   subtitle?: string;
   items?: Array<{ title: string; description: string }>;
   className?: string;
+  /** Closing call-to-action block; pass hrefs to turn the buttons into links. */
+  footer?: RambisGridFooter;
 }) {
   const defaultItems = [
     {
@@ -157,21 +212,24 @@ export function RambisAnimatedGrid({
         >
           <div className="bg-muted/50 border-border rounded-2xl border p-8">
             <h3 className="text-foreground mb-4 text-xl font-semibold">
-              Ready to get started?
+              {footer?.heading ?? DEFAULT_FOOTER.heading}
             </h3>
             <p className="text-muted-foreground mx-auto mb-6 max-w-lg">
-              Explore our component library and start building amazing user
-              interfaces with Rambis UI.
+              {footer?.body ?? DEFAULT_FOOTER.body}
             </p>
-            <div className="flex justify-center gap-4">
+            <div className="flex flex-wrap justify-center gap-4">
               <GlareHover {...GlarePresets.button} borderRadius="0.5rem">
-                <button className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-lg px-6 py-3 font-medium transition-colors">
-                  View Components
-                </button>
+                <FooterAction
+                  action={footer?.primary}
+                  fallbackLabel={DEFAULT_FOOTER.primaryLabel}
+                  className={PRIMARY_ACTION_CLASS}
+                />
               </GlareHover>
-              <button className="border-border hover:bg-muted rounded-lg border px-6 py-3 font-medium transition-colors">
-                Documentation
-              </button>
+              <FooterAction
+                action={footer?.secondary}
+                fallbackLabel={DEFAULT_FOOTER.secondaryLabel}
+                className={SECONDARY_ACTION_CLASS}
+              />
             </div>
           </div>
         </FadeContent>

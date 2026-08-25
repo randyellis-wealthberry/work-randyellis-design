@@ -43,7 +43,7 @@ const mockArticles = [
   },
 ];
 
-describe.skip("GlobalRecommendationsGrid - Component needs update", () => {
+describe("GlobalRecommendationsGrid", () => {
   beforeEach(() => {
     (getBlogArticles as jest.Mock).mockReturnValue(mockArticles);
   });
@@ -73,12 +73,16 @@ describe.skip("GlobalRecommendationsGrid - Component needs update", () => {
     expect(screen.queryByText("Recommended Article 2")).not.toBeInTheDocument();
   });
 
-  it("should prioritize featured articles", () => {
-    render(<GlobalRecommendationsGrid limit={1} />);
+  it("should prioritize featured articles by position, not by a badge", () => {
+    // The amber "Featured" chip is gone: The One Family Rule (DESIGN.md) keeps
+    // Live Amber for a live product and nothing else, and the flag already
+    // does its whole job by sorting the article to the top of the list.
+    const { container } = render(<GlobalRecommendationsGrid />);
 
-    // Featured article should be shown first
-    expect(screen.getByText("Recommended Article 1")).toBeInTheDocument();
-    expect(screen.getByText("Featured")).toBeInTheDocument();
+    const rows = container.querySelectorAll("li");
+    expect(rows[0]).toHaveTextContent("Recommended Article 1");
+    expect(screen.queryByText("Featured")).not.toBeInTheDocument();
+    expect(container.innerHTML).not.toMatch(/amber/);
   });
 
   it("should show read time badges", () => {
@@ -133,21 +137,39 @@ describe.skip("GlobalRecommendationsGrid - Component needs update", () => {
     expect(screen.queryByText("More Articles")).not.toBeInTheDocument();
   });
 
-  it("should apply custom className", () => {
+  it("should apply custom className alongside the shared section chrome", () => {
     render(<GlobalRecommendationsGrid className="custom-class" />);
 
-    const section = screen.getByText("More Articles").closest("div");
+    const section = screen.getByText("More Articles").closest("section");
     expect(section).toHaveClass("custom-class");
+    // SECTION, imported from section-chrome.tsx rather than re-typed here.
+    expect(section).toHaveClass(
+      "mt-20",
+      "border-t",
+      "border-zinc-900",
+      "pt-10",
+    );
   });
 
-  it("should use responsive grid layout", () => {
-    render(<GlobalRecommendationsGrid />);
+  it("should render a hairline list of links, not a card grid", () => {
+    // Recommendations List (DESIGN.md): "a hairline list of links, not a card
+    // grid". This was six shadcn Cards with shadow-sm/hover:shadow-md, each
+    // wrapped in <Magnetic> so they chased the cursor.
+    const { container } = render(<GlobalRecommendationsGrid />);
 
-    const grid = screen
-      .getByText("Recommended Article 1")
-      .closest('[class*="grid"]');
-    expect(grid).toHaveClass("grid");
-    expect(grid).toHaveClass("grid-cols-1", "md:grid-cols-2");
+    const list = container.querySelector("ul");
+    expect(list).toHaveClass("border-b", "border-zinc-200");
+    expect(list?.className).not.toMatch(/\bgrid\b/);
+
+    const rows = container.querySelectorAll("li");
+    expect(rows.length).toBeGreaterThan(0);
+    rows.forEach((row) => {
+      expect(row).toHaveClass("border-t", "border-zinc-200");
+      expect(row.className).not.toMatch(/shadow|rounded/);
+    });
+
+    // No shadow anywhere in the section, at rest or on hover.
+    expect(container.innerHTML).not.toMatch(/shadow/);
   });
 
   it("should show published dates", () => {

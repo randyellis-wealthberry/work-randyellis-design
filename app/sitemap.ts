@@ -18,6 +18,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1.0,
     },
     {
+      url: `${WEBSITE_URL}/services`,
+      lastModified: BUILD_TIME,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
       url: `${WEBSITE_URL}/projects`,
       lastModified: BUILD_TIME,
       changeFrequency: "weekly",

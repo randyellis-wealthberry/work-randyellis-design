@@ -1,4 +1,8 @@
 import Image from "next/image";
+import {
+  AnimatedContent,
+  AnimatedContentItem,
+} from "@/components/motion-primitives/animated-content";
 
 /**
  * Real employers/clients from Randy's experience. Logos live in /public/logos.
@@ -19,22 +23,30 @@ export function ClientLogos() {
       <p className="mb-4 text-sm font-medium text-zinc-500 dark:text-zinc-400">
         Teams &amp; clients I&apos;ve designed for
       </p>
-      <ul className="flex flex-wrap items-center gap-3">
-        {CLIENTS.map((client) => (
-          <li
-            key={client.name}
-            className="flex h-14 w-32 items-center justify-center rounded-lg bg-white p-3 ring-1 ring-zinc-200/70 dark:ring-zinc-700/60"
-          >
-            <Image
-              src={client.src}
-              alt={`${client.name} logo`}
-              width={120}
-              height={40}
-              className="max-h-8 w-auto object-contain opacity-80 grayscale transition duration-200 hover:opacity-100 hover:grayscale-0"
-            />
-          </li>
-        ))}
-      </ul>
+      <AnimatedContent
+        staggerDelay={0.08}
+        staggerDirection="bottom"
+        distance={12}
+      >
+        <ul className="flex flex-wrap items-center gap-3">
+          {CLIENTS.map((client, index) => (
+            <li key={client.name}>
+              <AnimatedContentItem
+                delay={index * 0.08}
+                className="flex h-14 w-32 items-center justify-center rounded-lg bg-white p-3 ring-1 ring-zinc-200/70 dark:ring-zinc-700/60"
+              >
+                <Image
+                  src={client.src}
+                  alt={`${client.name} logo`}
+                  width={120}
+                  height={40}
+                  className="max-h-8 w-auto object-contain opacity-80 grayscale transition duration-200 hover:opacity-100 hover:grayscale-0"
+                />
+              </AnimatedContentItem>
+            </li>
+          ))}
+        </ul>
+      </AnimatedContent>
     </div>
   );
 }

@@ -1,14 +1,17 @@
-import { render, screen, within, fireEvent } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { GlobalCaseStudyGrid } from "@/components/ui/global-case-study-grid";
-import { PROJECTS } from "@/lib/data/projects";
-import { Project } from "@/lib/data/types";
 import {
   trackRecommendationCaseStudyClick,
   trackRecommendationCardHover,
 } from "@/lib/analytics";
+import { Project } from "@/lib/data/types";
 
-// Mock the motion components to avoid animation issues in tests
+// Mock the motion components to avoid animation issues in tests.
+// NOTE: the component no longer imports either of these — the mocks are kept
+// deliberately so the "renders no InView / TextEffect wrappers" tests below can
+// prove their testids are absent rather than merely un-mocked.
+/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars -- factory props are destructured only to keep them off the DOM spread */
 jest.mock("@/components/motion-primitives/in-view", () => ({
   InView: ({ children, viewOptions, ...props }: any) => (
     <div data-testid="in-view" {...props}>
@@ -30,6 +33,7 @@ jest.mock("@/components/motion-primitives/text-effect", () => ({
     </Component>
   ),
 }));
+/* eslint-enable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars */
 
 // Magnetic component removed from global-case-study-grid.tsx
 
@@ -118,52 +122,243 @@ describe("GlobalCaseStudyGrid", () => {
     jest.clearAllMocks();
   });
 
-  describe("Spacing Tests", () => {
-    it("should use exact spacing classes matching existing patterns", () => {
+  describe("Hairline List Structure", () => {
+    // WHY: DESIGN.md's "Recommendations List" signature — "a hairline list of
+    // links, not a card grid". The old shadcn Card grid (space-y-6 / gap-6 /
+    // md:grid-cols-2 / auto-rows-fr) is gone, so the spacing + responsive-grid
+    // assertions are replaced by assertions on the list chrome that replaced it.
+
+    it("should open the section with the shared SECTION chrome", () => {
       render(<GlobalCaseStudyGrid />);
 
-      // Check container has space-y-6 (matching line 994 in project-detail-client.tsx)
-      const container = screen.getByTestId("case-study-grid-container");
-      expect(container).toHaveClass("space-y-6");
-
-      // Check grid has gap-6 (matching line 1001)
-      const grid = screen.getByTestId("case-study-grid");
-      expect(grid).toHaveClass("gap-6");
+      const container = screen.getByTestId("case-study-list-container");
+      expect(container.tagName).toBe("SECTION");
+      // SECTION from @/components/case-study/section-chrome
+      expect(container).toHaveClass(
+        "mt-20",
+        "scroll-mt-10",
+        "border-t",
+        "border-zinc-900",
+        "pt-10",
+      );
     });
 
-    it("should have exact responsive grid layout classes", () => {
+    it("should label the section by its own heading", () => {
       render(<GlobalCaseStudyGrid />);
 
-      const grid = screen.getByTestId("case-study-grid");
-      expect(grid).toHaveClass("grid", "grid-cols-1", "md:grid-cols-2");
+      const container = screen.getByTestId("case-study-list-container");
+      const heading = screen.getByRole("heading", { level: 2 });
+
+      expect(heading).toHaveAttribute("id", "featured-case-studies-heading");
+      expect(container).toHaveAttribute(
+        "aria-labelledby",
+        "featured-case-studies-heading",
+      );
+    });
+
+    it("should render a <ul> hairline list closed by a bottom rule", () => {
+      render(<GlobalCaseStudyGrid />);
+
+      const list = screen.getByTestId("case-study-list");
+      expect(list.tagName).toBe("UL");
+      expect(list).toHaveClass("mt-6", "border-b", "border-zinc-200");
+      expect(list).toHaveClass("dark:border-zinc-800");
+    });
+
+    it("should render each case study as an <li> row opened by a top rule", () => {
+      render(<GlobalCaseStudyGrid />);
+
+      const rows = screen.getAllByTestId("case-study-row");
+      expect(rows.length).toBeGreaterThan(0);
+      rows.forEach((row) => {
+        expect(row.tagName).toBe("LI");
+        expect(row).toHaveClass("border-t", "border-zinc-200");
+        expect(row).toHaveClass("dark:border-zinc-800");
+      });
+    });
+
+    it("should not lay the recommendations out as a responsive card grid", () => {
+      render(<GlobalCaseStudyGrid />);
+
+      const container = screen.getByTestId("case-study-list-container");
+      const list = screen.getByTestId("case-study-list");
+
+      expect(container).not.toHaveClass("space-y-6");
+      expect(list).not.toHaveClass("grid");
+      expect(list).not.toHaveClass("grid-cols-1");
+      expect(list).not.toHaveClass("md:grid-cols-2");
+      expect(list).not.toHaveClass("auto-rows-fr");
+      expect(list).not.toHaveClass("gap-6");
+    });
+
+    it("should hang each row directly off the list, with no animation wrapper between", () => {
+      render(<GlobalCaseStudyGrid />);
+
+      const list = screen.getByTestId("case-study-list");
+      const rows = screen.getAllByTestId("case-study-row");
+
+      rows.forEach((row) => {
+        expect(row.parentElement).toBe(list);
+      });
     });
   });
 
-  describe("Responsive Tests", () => {
-    it("should display 2x1 layout on desktop and stacked on mobile", () => {
+  describe("Hairline list, not cards", () => {
+    // WHY: DESIGN.md's Hairline-First Rule + One Family Rule. A row is a rule
+    // and text — no card box, no hover lift, no shadow. These are the deliberate
+    // OPPOSITE of the old `transition-all duration-300 hover:shadow-lg` Card
+    // assertions.
+
+    it("should render no shadow of any kind inside the section", () => {
       render(<GlobalCaseStudyGrid />);
 
-      const grid = screen.getByTestId("case-study-grid");
-
-      // Should have responsive classes for 2x1 → stacked behavior
-      expect(grid).toHaveClass("grid-cols-1"); // Mobile: stacked
-      expect(grid).toHaveClass("md:grid-cols-2"); // Desktop: 2x1
+      const container = screen.getByTestId("case-study-list-container");
+      expect(container.querySelectorAll('[class*="shadow-"]')).toHaveLength(0);
+      expect(container.className).not.toMatch(/shadow-/);
     });
 
-    it("should maintain equal height cards with auto-rows-fr", () => {
+    it("should give rows no card chrome (no rounded box, no hover lift)", () => {
       render(<GlobalCaseStudyGrid />);
 
-      const grid = screen.getByTestId("case-study-grid");
-      expect(grid).toHaveClass("auto-rows-fr");
+      const rows = screen.getAllByTestId("case-study-row");
+      rows.forEach((row) => {
+        expect(row.className).not.toMatch(/rounded/);
+        expect(row.className).not.toMatch(/hover:shadow/);
+        expect(row.className).not.toMatch(/transition-all/);
+        expect(row.className).not.toMatch(/hover:-translate-y/);
+        expect(row).not.toHaveClass("h-full");
+      });
+    });
+
+    it("should render no InView or TextEffect wrappers", () => {
+      render(<GlobalCaseStudyGrid />);
+
+      expect(screen.queryByTestId("in-view")).not.toBeInTheDocument();
+      expect(screen.queryByTestId("text-effect")).not.toBeInTheDocument();
+    });
+
+    it("should not wrap rows in Magnetic", () => {
+      render(<GlobalCaseStudyGrid />);
+
+      const rows = screen.getAllByTestId("case-study-row");
+      rows.forEach((row) => {
+        expect(row.closest('[data-testid="magnetic"]')).toBeNull();
+      });
+    });
+
+    it("should not render a Featured badge", () => {
+      render(<GlobalCaseStudyGrid />);
+
+      // `featured` still drives sort order (see the Data Logic tests) but it is
+      // no longer decorated with a shadcn <Badge variant="secondary">.
+      expect(screen.queryByText("Featured")).not.toBeInTheDocument();
+      const container = screen.getByTestId("case-study-list-container");
+      expect(container.querySelectorAll('[class*="badge"]')).toHaveLength(0);
+    });
+  });
+
+  describe("No Media", () => {
+    // WHY: DESIGN.md's Recommendations List — "The page has already spent its
+    // imagery on the work itself." The per-card autoplaying <video> / next/image
+    // thumbnail (and its "No preview available" fallback) is gone entirely, so
+    // every old media assertion collapses into these three.
+
+    it("should render zero <img> and <video> elements", () => {
+      const { container } = render(<GlobalCaseStudyGrid />);
+
+      expect(container.querySelectorAll("img, video")).toHaveLength(0);
+    });
+
+    it("should render no video/thumbnail containers", () => {
+      render(<GlobalCaseStudyGrid />);
+
+      expect(screen.queryByTestId("video-container")).not.toBeInTheDocument();
+      expect(screen.queryByTestId("lazy-video")).not.toBeInTheDocument();
+      expect(
+        screen.queryByText("No preview available"),
+      ).not.toBeInTheDocument();
+    });
+
+    it("should render no 16:9 media frame", () => {
+      render(<GlobalCaseStudyGrid />);
+
+      const container = screen.getByTestId("case-study-list-container");
+      expect(container.querySelectorAll(".aspect-video")).toHaveLength(0);
+      expect(
+        container.querySelectorAll('[class*="object-cover"]'),
+      ).toHaveLength(0);
+    });
+  });
+
+  describe("Row Typography", () => {
+    // WHY: One Family Rule (zinc only, no blue) + the underline that marks a
+    // link as a link, and the Tabular Figures Rule for the timeline.
+
+    it("should style the project name as an underlined zinc link, never blue", () => {
+      render(<GlobalCaseStudyGrid />);
+
+      const rows = screen.getAllByTestId("case-study-row");
+      const title = within(rows[0]).getByText("Featured Project 1");
+
+      expect(title.tagName).toBe("SPAN");
+      expect(title).toHaveClass(
+        "text-base",
+        "font-medium",
+        "text-zinc-900",
+        "underline",
+        "decoration-zinc-300",
+        "underline-offset-4",
+      );
+      // Hover darkens the decoration, it does not change the hue.
+      expect(title).toHaveClass("group-hover:decoration-zinc-900");
+      expect(title.className).not.toMatch(/blue/);
+    });
+
+    it("should use no blue anywhere in the section", () => {
+      render(<GlobalCaseStudyGrid />);
+
+      const container = screen.getByTestId("case-study-list-container");
+      expect(container.querySelectorAll('[class*="blue"]')).toHaveLength(0);
+    });
+
+    it("should set the timeline in tabular figures", () => {
+      render(<GlobalCaseStudyGrid />);
+
+      const rows = screen.getAllByTestId("case-study-row");
+      const timeline = within(rows[0]).getByText("2024");
+
+      expect(timeline).toHaveClass("tabular-nums");
+    });
+
+    it("should set the overflow category count in tabular figures", () => {
+      render(<GlobalCaseStudyGrid />);
+
+      const rows = screen.getAllByTestId("case-study-row");
+      // Featured Project 1 has 2 categories → "+1 more"
+      const overflow = within(rows[0]).getByText("+1 more");
+
+      expect(overflow).toHaveClass("tabular-nums");
+    });
+
+    it("should render the meta line as plain text, not badges", () => {
+      render(<GlobalCaseStudyGrid />);
+
+      const rows = screen.getAllByTestId("case-study-row");
+      const category = within(rows[0]).getByText("Mobile App");
+
+      expect(category.tagName).toBe("SPAN");
+      expect(category.className).not.toMatch(/rounded/);
+      expect(category.className).not.toMatch(/border/);
+      expect(category.className).not.toMatch(/bg-/);
     });
   });
 
   describe("Data Logic Tests", () => {
-    it("should filter and return exactly 2 case studies for perfect 2x1 layout", () => {
+    it("should filter and return exactly 2 case studies by default", () => {
       render(<GlobalCaseStudyGrid />);
 
-      const caseStudyCards = screen.getAllByTestId("case-study-card");
-      expect(caseStudyCards).toHaveLength(2);
+      const caseStudyRows = screen.getAllByTestId("case-study-row");
+      expect(caseStudyRows).toHaveLength(2);
     });
 
     it("should exclude current case study when currentSlug provided", () => {
@@ -180,16 +375,16 @@ describe("GlobalCaseStudyGrid", () => {
     it("should prioritize featured projects first", () => {
       render(<GlobalCaseStudyGrid />);
 
-      const caseStudyCards = screen.getAllByTestId("case-study-card");
-      const firstCard = caseStudyCards[0];
-      const secondCard = caseStudyCards[1];
+      const caseStudyRows = screen.getAllByTestId("case-study-row");
+      const firstRow = caseStudyRows[0];
+      const secondRow = caseStudyRows[1];
 
       // Both should be featured projects (higher priority)
       expect(
-        within(firstCard).getByText("Featured Project 1"),
+        within(firstRow).getByText("Featured Project 1"),
       ).toBeInTheDocument();
       expect(
-        within(secondCard).getByText("Featured Project 2"),
+        within(secondRow).getByText("Featured Project 2"),
       ).toBeInTheDocument();
     });
 
@@ -198,12 +393,12 @@ describe("GlobalCaseStudyGrid", () => {
       // So Featured Project 1 should come first (higher views)
       render(<GlobalCaseStudyGrid />);
 
-      const caseStudyCards = screen.getAllByTestId("case-study-card");
-      const firstCard = caseStudyCards[0];
+      const caseStudyRows = screen.getAllByTestId("case-study-row");
+      const firstRow = caseStudyRows[0];
 
       // Featured Project 1 has higher views (5000 > 4000), so it should come first
       expect(
-        within(firstCard).getByText("Featured Project 1"),
+        within(firstRow).getByText("Featured Project 1"),
       ).toBeInTheDocument();
     });
 
@@ -213,9 +408,9 @@ describe("GlobalCaseStudyGrid", () => {
         <GlobalCaseStudyGrid currentSlug="featured-project-1" limit={1} />,
       );
 
-      // Should only show 1 card (Featured Project 2)
-      const cards = screen.queryAllByTestId("case-study-card");
-      expect(cards).toHaveLength(1);
+      // Should only show 1 row (Featured Project 2)
+      const rows = screen.queryAllByTestId("case-study-row");
+      expect(rows).toHaveLength(1);
 
       // When we exclude both featured projects, nothing should render
       const { container } = render(
@@ -225,7 +420,7 @@ describe("GlobalCaseStudyGrid", () => {
         />,
       );
 
-      // Component should render but with no cards due to filtering
+      // Component should render but with no rows due to filtering
       expect(container.firstChild).toBeTruthy();
     });
 
@@ -233,8 +428,8 @@ describe("GlobalCaseStudyGrid", () => {
       // Use limit=1 to simulate having only 1 project available
       render(<GlobalCaseStudyGrid limit={1} />);
 
-      const caseStudyCards = screen.getAllByTestId("case-study-card");
-      expect(caseStudyCards).toHaveLength(1);
+      const caseStudyRows = screen.getAllByTestId("case-study-row");
+      expect(caseStudyRows).toHaveLength(1);
     });
   });
 
@@ -267,104 +462,50 @@ describe("GlobalCaseStudyGrid", () => {
       expect(heading).toHaveTextContent("Featured Case Studies");
     });
 
-    it("should have proper focus management for cards", () => {
+    it("should have proper focus management for rows", () => {
       render(<GlobalCaseStudyGrid />);
 
-      const cards = screen.getAllByTestId("case-study-card");
-      cards.forEach((card) => {
-        const link = within(card).getByRole("link");
+      const rows = screen.getAllByTestId("case-study-row");
+      rows.forEach((row) => {
+        const link = within(row).getByRole("link");
         expect(link).not.toHaveAttribute("tabindex", "-1");
       });
     });
-  });
 
-  describe("Animation Tests", () => {
-    it("should use motion variants matching existing patterns", () => {
+    it("should give the row link a visible focus ring", () => {
+      // WHY: DESIGN.md's One Family Rule focus-ring clause — a keyboard focus
+      // ring in the same zinc family, never the browser default outline alone.
       render(<GlobalCaseStudyGrid />);
 
-      // Check InView components are present for stagger animation
-      const inViewComponents = screen.getAllByTestId("in-view");
-      expect(inViewComponents.length).toBeGreaterThan(0);
-
-      // Check TextEffect is used for title
-      const textEffect = screen.getByTestId("text-effect");
-      expect(textEffect).toBeInTheDocument();
-    });
-
-    it("should have staggered animation delays for cards", () => {
-      render(<GlobalCaseStudyGrid />);
-
-      const cards = screen.getAllByTestId("case-study-card");
-      const cardInViews = cards
-        .map((card) => card.closest('[data-testid="in-view"]'))
-        .filter(Boolean);
-
-      // Should have staggered delays (each card gets index * delay)
-      expect(cardInViews).toHaveLength(cards.length);
-    });
-
-    it("should have stable hover effects without magnetic movement", () => {
-      render(<GlobalCaseStudyGrid />);
-
-      const cards = screen.getAllByTestId("case-study-card");
-      cards.forEach((card) => {
-        // Cards should have transition classes for hover effects
-        expect(card).toHaveClass("transition-all");
-        expect(card).toHaveClass("hover:shadow-lg");
+      const links = screen.getAllByRole("link", {
+        name: /View .* case study/,
       });
-    });
-  });
-
-  describe("Hover States Tests", () => {
-    it("should have exact hover classes matching existing patterns", () => {
-      render(<GlobalCaseStudyGrid />);
-
-      const cards = screen.getAllByTestId("case-study-card");
-      cards.forEach((card) => {
-        // Match exact classes from line 1005 in project-detail-client.tsx
-        expect(card).toHaveClass(
-          "group",
-          "transition-all",
-          "duration-300",
-          "hover:shadow-lg",
+      expect(links.length).toBeGreaterThan(0);
+      links.forEach((link) => {
+        expect(link).toHaveClass(
+          "focus-visible:ring-2",
+          "focus-visible:ring-zinc-900",
+          "focus-visible:ring-offset-2",
+          "focus-visible:outline-none",
         );
-      });
-    });
-
-    it("should have hover effects on video elements", () => {
-      render(<GlobalCaseStudyGrid />);
-
-      // Check for video elements with hover classes
-      const videoContainers = screen.getAllByTestId("video-container");
-      videoContainers.forEach((container) => {
-        expect(container).toHaveClass("group");
+        expect(link).toHaveClass("dark:focus-visible:ring-white");
       });
     });
   });
 
   describe("Component Structure Tests", () => {
-    it("should reuse existing Card components", () => {
+    it("should name each row through its link, not a card heading", () => {
+      // WHY: there is no CardTitle/<h3> any more — the project name lives in a
+      // <span> inside the row <Link>, so the link is the only accessible name.
       render(<GlobalCaseStudyGrid />);
 
-      // Should use Card component with proper structure
-      const cards = screen.getAllByTestId("case-study-card");
-      cards.forEach((card) => {
-        expect(card).toHaveClass("group"); // Card itself has group class
+      const container = screen.getByTestId("case-study-list-container");
+      expect(container.querySelectorAll("h3")).toHaveLength(0);
+
+      const firstLink = screen.getByRole("link", {
+        name: "View Featured Project 1 case study",
       });
-    });
-
-    it("should have proper video/thumbnail structure", () => {
-      render(<GlobalCaseStudyGrid />);
-
-      // Each card should have either video or thumbnail
-      const cards = screen.getAllByTestId("case-study-card");
-      cards.forEach((card) => {
-        const videoContainer = within(card).queryByTestId("video-container");
-        const thumbnailImg = within(card).queryByRole("img");
-
-        // Should have either video or thumbnail (not both)
-        expect(videoContainer || thumbnailImg).toBeTruthy();
-      });
+      expect(firstLink).toHaveTextContent("Featured Project 1");
     });
 
     it("should display project metadata correctly", () => {
@@ -381,6 +522,21 @@ describe("GlobalCaseStudyGrid", () => {
       // Should show categories
       expect(screen.getByText("Mobile App")).toBeInTheDocument();
       expect(screen.getByText("Web App")).toBeInTheDocument();
+
+      // Should show timelines
+      expect(screen.getAllByText("2024")).toHaveLength(2);
+    });
+
+    it("should constrain the second column to a readable measure", () => {
+      render(<GlobalCaseStudyGrid showDescription={true} />);
+
+      const subtitle = screen.getByText("Featured Subtitle 1");
+      const description = screen.getByText(
+        "This is a featured project description.",
+      );
+
+      expect(subtitle).toHaveClass("max-w-[62ch]", "text-base");
+      expect(description).toHaveClass("max-w-[62ch]", "text-sm");
     });
 
     it("should have proper link structure for SEO", () => {
@@ -394,114 +550,7 @@ describe("GlobalCaseStudyGrid", () => {
     });
   });
 
-  describe("Card Animation Cohesion Tests", () => {
-    it("should have stable hover effects without movement", () => {
-      render(<GlobalCaseStudyGrid />);
-
-      const cards = screen.getAllByTestId("case-study-card");
-      cards.forEach((card) => {
-        // Cards should NOT be wrapped by magnetic component
-        const magneticWrapper = card.closest('[data-testid="magnetic"]');
-        expect(magneticWrapper).toBeNull();
-
-        // Cards should be direct children of InView wrapper
-        const inViewWrapper = card.closest('[data-testid="in-view"]');
-        expect(inViewWrapper).toBeTruthy();
-      });
-    });
-
-    it("should not create visual disconnect between border and content", () => {
-      render(<GlobalCaseStudyGrid />);
-
-      const cards = screen.getAllByTestId("case-study-card");
-      cards.forEach((card) => {
-        // Check that card has unified hover classes, not nested motion div
-        expect(card).toHaveClass("transition-all");
-
-        // Should NOT have a separate motion.div that moves independently
-        const motionDiv = card.querySelector(
-          '[data-testid="case-study-card-inner"]',
-        );
-        expect(motionDiv).toBeNull(); // This will fail with current implementation
-      });
-    });
-
-    it("should apply hover shadow to complete card boundary", () => {
-      render(<GlobalCaseStudyGrid />);
-
-      const cards = screen.getAllByTestId("case-study-card");
-      cards.forEach((card) => {
-        // Hover effects should be on the Card itself, not inner div
-        expect(card).toHaveClass("hover:shadow-lg");
-
-        // Inner content should use group-hover, not direct hover
-        // Specifically check video/image elements that should use group-hover
-        const hoverElements = card.querySelectorAll("video, img");
-        hoverElements.forEach((element) => {
-          if (element.className.includes("hover:")) {
-            expect(element.className).toMatch(/group-hover:/);
-          }
-        });
-      });
-    });
-
-    it("should be directly wrapped by InView for entrance animations", () => {
-      render(<GlobalCaseStudyGrid />);
-
-      const cards = screen.getAllByTestId("case-study-card");
-      cards.forEach((card) => {
-        // The card should be directly wrapped by InView only
-        const inViewWrapper = card.closest('[data-testid="in-view"]');
-        expect(inViewWrapper).toBeTruthy();
-
-        // InView should be the direct parent wrapper
-        const cardParent = card.parentElement;
-        expect(cardParent?.getAttribute("data-testid")).toBe("in-view");
-      });
-    });
-
-    it("should maintain consistent hover state across entire card", () => {
-      render(<GlobalCaseStudyGrid />);
-
-      const cards = screen.getAllByTestId("case-study-card");
-      cards.forEach((card) => {
-        // Card should have group class for coordinated hover states
-        expect(card).toHaveClass("group");
-
-        // Title should respond to group-hover, not create its own hover
-        const titleElement = card.querySelector('h3, [role="heading"]');
-        if (titleElement) {
-          expect(titleElement).toHaveClass("group-hover:text-blue-600");
-          expect(titleElement.className).not.toMatch(/^.*hover:text-.*$/);
-        }
-      });
-    });
-  });
-
   describe("Performance Tests", () => {
-    it("should implement lazy loading for videos", () => {
-      render(<GlobalCaseStudyGrid />);
-
-      const videoElements = screen.getAllByTestId("lazy-video");
-      videoElements.forEach((video) => {
-        // Videos use lazy loading through intersection observer or similar,
-        // but HTML5 video elements don't have a 'loading' attribute like images
-        expect(video).toBeInTheDocument();
-        expect(video.tagName).toBe("VIDEO");
-      });
-    });
-
-    it("should optimize image loading", () => {
-      render(<GlobalCaseStudyGrid />);
-
-      const images = screen.getAllByRole("img");
-      images.forEach((img) => {
-        // Should have optimized loading attributes
-        expect(img).toHaveAttribute("loading", "lazy");
-        expect(img).toHaveAttribute("decoding", "async");
-      });
-    });
-
     it("should memoize project filtering logic", () => {
       const { rerender } = render(<GlobalCaseStudyGrid />);
 
@@ -509,7 +558,7 @@ describe("GlobalCaseStudyGrid", () => {
       rerender(<GlobalCaseStudyGrid />);
 
       // This test verifies memoization is implemented in the component
-      expect(screen.getAllByTestId("case-study-card")).toHaveLength(2);
+      expect(screen.getAllByTestId("case-study-row")).toHaveLength(2);
     });
   });
 
@@ -523,18 +572,37 @@ describe("GlobalCaseStudyGrid", () => {
       ).not.toBeInTheDocument();
     });
 
+    it("should derive the heading id from a custom title", () => {
+      render(<GlobalCaseStudyGrid title="Related Projects" />);
+
+      const container = screen.getByTestId("case-study-list-container");
+      expect(container).toHaveAttribute(
+        "aria-labelledby",
+        "related-projects-heading",
+      );
+    });
+
     it("should accept custom className", () => {
       render(<GlobalCaseStudyGrid className="custom-class" />);
 
-      const container = screen.getByTestId("case-study-grid-container");
+      const container = screen.getByTestId("case-study-list-container");
       expect(container).toHaveClass("custom-class");
+      // ...without dropping the shared SECTION chrome
+      expect(container).toHaveClass("mt-20", "border-t", "pt-10");
     });
 
     it("should limit results when limit prop is provided", () => {
       render(<GlobalCaseStudyGrid limit={1} />);
 
-      const caseStudyCards = screen.getAllByTestId("case-study-card");
-      expect(caseStudyCards).toHaveLength(1);
+      const caseStudyRows = screen.getAllByTestId("case-study-row");
+      expect(caseStudyRows).toHaveLength(1);
+    });
+
+    it("should honor maxItems as an alias for limit", () => {
+      render(<GlobalCaseStudyGrid maxItems={3} />);
+
+      const caseStudyRows = screen.getAllByTestId("case-study-row");
+      expect(caseStudyRows).toHaveLength(3);
     });
 
     it("should handle showDescription prop", () => {
@@ -564,21 +632,20 @@ describe("GlobalCaseStudyGrid", () => {
 
       // Should still render valid projects
       expect(
-        screen.getByTestId("case-study-grid-container"),
+        screen.getByTestId("case-study-list-container"),
       ).toBeInTheDocument();
     });
 
-    it("should handle missing video/thumbnail gracefully", () => {
-      // Component should handle missing media gracefully
-      // This test verifies no crashes with normal data structure
+    it("should not depend on project media fields to render a row", () => {
+      // WHY: the row reads name/slug/category/timeline/subtitle only. Thumbnail
+      // and video are never touched now that the list carries no imagery.
       expect(() => {
         render(<GlobalCaseStudyGrid />);
       }).not.toThrow();
 
-      // Should still render projects with available media
-      expect(
-        screen.getByTestId("case-study-grid-container"),
-      ).toBeInTheDocument();
+      const { container } = render(<GlobalCaseStudyGrid />);
+      expect(container.querySelectorAll("img, video")).toHaveLength(0);
+      expect(screen.getAllByTestId("case-study-row").length).toBeGreaterThan(0);
     });
   });
 
@@ -606,11 +673,11 @@ describe("GlobalCaseStudyGrid", () => {
         />,
       );
 
-      // Click on the first case study card
-      const caseStudyCards = screen.getAllByTestId("case-study-card");
-      const firstCardLink = within(caseStudyCards[0]).getByRole("link");
+      // Click on the first case study row
+      const caseStudyRows = screen.getAllByTestId("case-study-row");
+      const firstRowLink = within(caseStudyRows[0]).getByRole("link");
 
-      await user.click(firstCardLink);
+      await user.click(firstRowLink);
 
       expect(mockTrackRecommendationCaseStudyClick).toHaveBeenCalledWith(
         "blog",
@@ -632,11 +699,11 @@ describe("GlobalCaseStudyGrid", () => {
         />,
       );
 
-      // Hover over the first case study card
-      const caseStudyCards = screen.getAllByTestId("case-study-card");
-      const firstCardLink = within(caseStudyCards[0]).getByRole("link");
+      // Hover over the first case study row
+      const caseStudyRows = screen.getAllByTestId("case-study-row");
+      const firstRowLink = within(caseStudyRows[0]).getByRole("link");
 
-      await user.hover(firstCardLink);
+      await user.hover(firstRowLink);
 
       expect(mockTrackRecommendationCardHover).toHaveBeenCalledWith(
         "case_study",
@@ -657,11 +724,11 @@ describe("GlobalCaseStudyGrid", () => {
         />,
       );
 
-      // Click on the second case study card (index 1)
-      const caseStudyCards = screen.getAllByTestId("case-study-card");
-      const secondCardLink = within(caseStudyCards[1]).getByRole("link");
+      // Click on the second case study row (index 1)
+      const caseStudyRows = screen.getAllByTestId("case-study-row");
+      const secondRowLink = within(caseStudyRows[1]).getByRole("link");
 
-      await user.click(secondCardLink);
+      await user.click(secondRowLink);
 
       expect(mockTrackRecommendationCaseStudyClick).toHaveBeenCalledWith(
         "blog",
@@ -678,10 +745,10 @@ describe("GlobalCaseStudyGrid", () => {
       render(<GlobalCaseStudyGrid />);
 
       // Click without source page type or slug
-      const caseStudyCards = screen.getAllByTestId("case-study-card");
-      const firstCardLink = within(caseStudyCards[0]).getByRole("link");
+      const caseStudyRows = screen.getAllByTestId("case-study-row");
+      const firstRowLink = within(caseStudyRows[0]).getByRole("link");
 
-      await user.click(firstCardLink);
+      await user.click(firstRowLink);
 
       expect(mockTrackRecommendationCaseStudyClick).toHaveBeenCalledWith(
         "project",
@@ -706,11 +773,11 @@ describe("GlobalCaseStudyGrid", () => {
         render(<GlobalCaseStudyGrid />);
       }).not.toThrow();
 
-      const caseStudyCards = screen.getAllByTestId("case-study-card");
-      const firstCardLink = within(caseStudyCards[0]).getByRole("link");
+      const caseStudyRows = screen.getAllByTestId("case-study-row");
+      const firstRowLink = within(caseStudyRows[0]).getByRole("link");
 
       expect(async () => {
-        await user.click(firstCardLink);
+        await user.click(firstRowLink);
       }).not.toThrow();
     });
   });
