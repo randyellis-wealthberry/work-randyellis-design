@@ -3,6 +3,14 @@ import { TextEffect } from "@/components/ui/text-effect";
 import Link from "next/link";
 import UtilityBar from "@/components/ui/utility-bar";
 
+const NAV_LINKS = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
+  { href: "/projects", label: "Projects" },
+  { href: "/skills", label: "Skills" },
+  { href: "/blog", label: "Blog" },
+] as const;
+
 export function Header() {
   return (
     <>
@@ -12,43 +20,21 @@ export function Header() {
         role="banner"
         data-testid="main-header"
       >
-        {/* Desktop Navigation — own row, flush-left with content edge */}
-        <nav className="-ml-4 hidden pt-4 lg:flex lg:items-center lg:gap-12">
-          <Link
-            href="/"
-            className="flex min-h-[44px] items-center rounded-md px-4 py-3 text-sm font-medium text-zinc-600 no-underline transition-colors hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
-            style={{ textDecoration: "none" }}
-          >
-            Home
-          </Link>
-          <Link
-            href="/about"
-            className="flex min-h-[44px] items-center rounded-md px-4 py-3 text-sm font-medium text-zinc-600 no-underline transition-colors hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
-            style={{ textDecoration: "none" }}
-          >
-            About
-          </Link>
-          <Link
-            href="/projects"
-            className="flex min-h-[44px] items-center rounded-md px-4 py-3 text-sm font-medium text-zinc-600 no-underline transition-colors hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
-            style={{ textDecoration: "none" }}
-          >
-            Projects
-          </Link>
-          <Link
-            href="/skills"
-            className="flex min-h-[44px] items-center rounded-md px-4 py-3 text-sm font-medium text-zinc-600 no-underline transition-colors hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
-            style={{ textDecoration: "none" }}
-          >
-            Skills
-          </Link>
-          <Link
-            href="/blog"
-            className="flex min-h-[44px] items-center rounded-md px-4 py-3 text-sm font-medium text-zinc-600 no-underline transition-colors hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
-            style={{ textDecoration: "none" }}
-          >
-            Blog
-          </Link>
+        {/* Navigation — own row, flush-left with content edge. Shown at every
+            breakpoint: it used to be lg:-only, which hid every link on phones
+            and tablets since there is no separate mobile menu. Tight spacing
+            below lg keeps all five on one line at 360px. */}
+        <nav className="-ml-2 flex items-center gap-0 pt-4 lg:-ml-4 lg:gap-12">
+          {NAV_LINKS.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="flex min-h-[44px] items-center rounded-md px-2 py-3 text-sm font-medium text-zinc-600 no-underline transition-colors hover:bg-zinc-100 hover:text-zinc-900 lg:px-4 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
+              style={{ textDecoration: "none" }}
+            >
+              {link.label}
+            </Link>
+          ))}
         </nav>
 
         <div className="pt-8 sm:pt-24">
