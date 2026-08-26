@@ -1,5 +1,6 @@
 import { NagarroAuthorityDiagram } from "@/components/case-study/diagrams/nagarro-authority";
 import { RambisForkCostDiagram } from "@/components/case-study/diagrams/rambis-fork-cost";
+import { SkillsAsciiDiagram } from "@/components/case-study/diagrams/skills-ascii";
 
 /**
  * The one still each project shows in a list row.
@@ -94,6 +95,11 @@ export const PROJECT_THUMBNAILS: Record<string, ProjectThumbnail> = {
     kind: "diagram",
     alt: "The Rambis UI figure: a relearning fee charged at every adopter of a clean-sheet system, against one inherited foundation paid for once",
     Diagram: RambisForkCostDiagram,
+  },
+  skills: {
+    kind: "diagram",
+    alt: "The agent skills thumbnail: block-character word art reading AGENT SKILLS above the install command",
+    Diagram: SkillsAsciiDiagram,
   },
 };
 
