@@ -1374,6 +1374,64 @@ export const PROJECTS: Project[] = [
         "Waffle taught me that the hard part of AI products isn't the LLM integration — it's the product wrapper that makes the AI useful in a real workflow. I spent more time on the PDF export, team sharing, and template library than on the actual scorecard generation, because those are the features that convert free users into paying teams. The biggest surprise: hiring managers don't want full control over the AI. They want guard rails. The first version let users edit the system prompt, thinking 'power users will love this.' Nobody used it. What they actually wanted was confidence that the output was legally safe and professionally written. Removing that flexibility and hardening the bias-reducing prompts increased conversions by 23%. Sometimes the best UX decision is to give users less choice, not more.",
     },
   },
+  {
+    id: "skills",
+    name: "Agent Skills",
+    subtitle: "Design Judgment as Installable Agent Skills",
+    slug: "skills",
+    description:
+      "An open-source collection of agent skills that hold design work to a defensible standard — every decision names its alternative and its cost, every claim is limited to what you actually did, and every outcome reports the part that cut against you.",
+    longDescription:
+      "A design portfolio used to work as proof by being expensive: producing a polished case study cost real hours, so the artifact was the evidence. That cost is now zero, and evaluation moved to the only question that still carries information — walk me through why you didn't just do the simpler thing. These skills exist to make an agent useful for answering it. Agents are good at producing rationale that sounds right and much worse at producing rationale that is true, so left alone they write a case study where every decision was correct and nothing was traded away. Four skills close that gap, published as plain SKILL.md markdown under MIT and installable into any of the 77 agents the skills CLI supports.",
+    category: "Open Source",
+    categories: ["Open Source", "AI/ML", "Design System"],
+    tags: [
+      "Agent Skills",
+      "Open Source",
+      "Design Rationale",
+      "AI Tooling",
+      "Markdown",
+      "Developer Experience",
+    ],
+    link: "https://github.com/randyellis-wealthberry/skills",
+    githubLink: "https://github.com/randyellis-wealthberry/skills",
+    video: "", // No product video — this project ships as markdown, not a UI
+    // There is no product screenshot to use: the deliverable is markdown files
+    // installed from a command line. The word-art card is what it looks like
+    // where you meet it, and it doubles as the OG image.
+    thumbnail: "/projects/skills/ascii-thumbnail.svg",
+    images: [],
+    timeline: "2026",
+    status: "in-progress",
+    technologies: ["Markdown", "SKILL.md", "skills CLI", "Git", "MIT License"],
+    featured: false,
+    role: "Author",
+    roleNarrative:
+      "I wrote all four skills and the worked examples behind them. The method they encode is mine — built across social platforms, logistics, fintech, AI products, a design system, and design leadership at enterprise scale — but the packaging format is not: the structure is modeled on emilkowalski/skills, and the installer is the vercel-labs skills CLI. Neither is my work and neither is reproduced here.",
+    decisions: [
+      {
+        title: "Ship the method as skills, not as more case studies",
+        decision:
+          "Published the working method as four portable SKILL.md files rather than writing additional case studies demonstrating it.",
+        rationale:
+          "Another case study argues the method once, to whoever reads that page. A skill applies it every time someone runs an agent against their own work, including people whose projects I will never see. The cost is that a skill is harder to evaluate than a case study — a reader can judge a case study by reading it, whereas a skill only proves itself against work I am not present for.",
+      },
+      {
+        title: "Hold the skills to the standard they enforce",
+        decision:
+          "Wrote the worked examples so that several of them argue against their own author — the buried features, the documentation failure, the scale number that describes an organization rather than a team.",
+        rationale:
+          "A skill that demands you report the outcome that cut against you, illustrated only by examples where everything went well, teaches the opposite of what it says. The cost is a portfolio artifact that volunteers its own worst results, which is not what a portfolio is usually for.",
+      },
+      {
+        title: "Describe the engagements instead of naming them",
+        decision:
+          "Anonymized every client and project reference in the skills, and said so in the README rather than letting the examples pass as unattributed.",
+        rationale:
+          "The skills are installed into other people's repositories, which is the wrong place for a client list. Describing the work — a social gardening platform, a payroll fraud-detection system — keeps the method legible while taking the identities out. Disclosing the anonymization costs some of the authority that named work carries, but an undisclosed composite is exactly the thing these skills tell you not to produce.",
+      },
+    ],
+  },
 ];
 
 // Helper function to get featured projects (reduces initial data load)
