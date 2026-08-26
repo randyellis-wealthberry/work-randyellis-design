@@ -138,7 +138,7 @@ export default function SkillsClient() {
           AI Skills
         </h1>
         <p className="mb-6 text-lg leading-relaxed text-zinc-700 dark:text-zinc-300">
-          Agent skills for people who have to defend their design work.
+          Rationale as a design material.
         </p>
         <div className="flex flex-wrap items-center gap-3">
           <a
