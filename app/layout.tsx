@@ -15,6 +15,7 @@ import ResourceHints from "@/components/cdn/resource-hints";
 import { createBaseMetadata } from "@/lib/metadata";
 import { MobileMenuProvider } from "@/context/mobile-menu-context";
 import { GlobalMobileMenu } from "@/components/ui/global-mobile-menu";
+import { PeripheralDot } from "@/components/ui/peripheral-dot";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -148,6 +149,7 @@ export default async function RootLayout({
               </RouteContainer>
             </div>
             <GlobalMobileMenu />
+            <PeripheralDot />
           </MobileMenuProvider>
         </ThemeProvider>
         <Analytics />
