@@ -7,7 +7,7 @@ import { WEBSITE_URL } from "@/lib/constants";
 export const metadata: Metadata = {
   title: "Services — Fractional CDO Retainer",
   description:
-    "A fractional Chief Design Officer retainer: fixed hours every month on design strategy, systems, and AI product surfaces. 2.5M+ users reached, $50M product value delivered.",
+    "A fractional Chief Design Officer retainer: fixed hours every month on design strategy, systems, and AI product surfaces. 500M+ users reached, $500M+ product value delivered.",
   alternates: {
     canonical: "/services",
   },

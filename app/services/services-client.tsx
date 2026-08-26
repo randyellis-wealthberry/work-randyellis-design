@@ -198,8 +198,9 @@ export default function ServicesClient() {
               ))}
             </dl>
             <p className="mt-8 text-xs text-zinc-500 dark:text-zinc-400">
-              Every figure above is career to date, across roles at Nagarro,
-              Chameleon Collective, and Wealthberry Labs.
+              Every figure above is career to date, across roles at DigitasLBi,
+              Leo Burnett, Alight, Nagarro, Chameleon Collective, and
+              Wealthberry Labs.
             </p>
           </div>
         </div>

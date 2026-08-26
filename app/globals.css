@@ -443,3 +443,55 @@
     grid-column: span 2;
   }
 }
+
+/*
+  Peripheral cue for the card easter egg (components/ui/peripheral-dot.tsx).
+  Two passes on one 2.6s cycle: the core changes luminance, the ring supplies
+  the motion the rod-rich periphery actually keys on. ~0.4Hz, well under the
+  3Hz flash threshold in WCAG 2.3.1.
+*/
+@keyframes peripheral-dot-core {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes peripheral-dot-ping {
+  0% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  70%,
+  100% {
+    opacity: 0;
+    transform: scale(3.4);
+  }
+}
+
+.peripheral-dot-core {
+  animation: peripheral-dot-core 2.6s ease-in-out infinite;
+}
+
+.peripheral-dot-ping {
+  animation: peripheral-dot-ping 2.6s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/*
+  Reduced motion keeps the cue — a dot someone can still find — and drops only
+  the part that moves.
+*/
+@media (prefers-reduced-motion: reduce) {
+  .peripheral-dot-core {
+    animation: none;
+    opacity: 0.8;
+  }
+
+  .peripheral-dot-ping {
+    animation: none;
+    opacity: 0;
+  }
+}

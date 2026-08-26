@@ -252,7 +252,7 @@ export function getContextualLinks(currentPath: string): RelatedItem[] {
     // On about, suggest projects and blog
     links.push({
       title: "See My Work",
-      description: "Explore projects that have impacted 2.5M+ users",
+      description: "Explore projects that have impacted 500M+ users",
       url: "/projects",
       type: "project",
     });

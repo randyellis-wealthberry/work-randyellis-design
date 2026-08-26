@@ -82,7 +82,7 @@ const FAQS = [
     id: "product-leadership",
     question: "How do you approach product leadership?",
     answer:
-      "As Head of Product at Wealthberry Labs and former Head of Design at Nagarro, I've learned that great products emerge from balancing user needs, business goals, and technical constraints. I believe in empowering teams through clear vision, data-driven decisions, and fostering a culture of experimentation. Having mentored 800+ designers, I'm passionate about developing talent and building cross-functional teams that deliver exceptional user experiences.",
+      "As Head of Product at Wealthberry Labs and former Head of Design at Nagarro, I've learned that great products emerge from balancing user needs, business goals, and technical constraints. I believe in empowering teams through clear vision, data-driven decisions, and fostering a culture of experimentation. Having mentored 2000+ designers, I'm passionate about developing talent and building cross-functional teams that deliver exceptional user experiences.",
   },
 ];
 
@@ -141,8 +141,8 @@ export default function Home() {
           a roadmap is already waiting on.
         </p>
         <p className="mt-4 max-w-[62ch] text-sm text-zinc-500 dark:text-zinc-400">
-          20 years in design · 8+ years leading teams · Ships React, Next.js and
-          TypeScript
+          20+ years in design · 8+ years leading teams · Ships React, Next.js
+          and TypeScript
         </p>
 
         {/* One primary. The old page shipped three, two of them the same
@@ -176,8 +176,8 @@ export default function Home() {
           ))}
         </dl>
         <p className="mt-8 max-w-[62ch] text-xs text-zinc-500 dark:text-zinc-400">
-          Every figure above is career to date, across roles at Nagarro,
-          Chameleon Collective, and Wealthberry Labs.
+          Every figure above is career to date, across roles at DigitasLBi, Leo
+          Burnett, Alight, Nagarro, Chameleon Collective, and Wealthberry Labs.
         </p>
       </Section>
 

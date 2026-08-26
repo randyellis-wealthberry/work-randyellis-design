@@ -59,7 +59,7 @@ describe("Home page argument", () => {
   it("states the proof figures in the markup rather than counting up to them", () => {
     // The True Figure First Rule: a figure already on screen never renders zero
     // and animates back.
-    ["2.5M+", "$50M", "800+", "4"].forEach((value) => {
+    ["500M+", "$500M+", "2000+", "4"].forEach((value) => {
       expect(screen.getByText(value)).toBeInTheDocument();
     });
     expect(screen.queryByText("0")).not.toBeInTheDocument();

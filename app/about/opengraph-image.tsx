@@ -158,7 +158,7 @@ export default async function OpengraphImage() {
                   marginRight: "15px",
                 }}
               />
-              Mentored 800+ Designers Globally
+              Mentored 2000+ Designers Globally
             </div>
           </div>
         </div>
@@ -209,7 +209,7 @@ export default async function OpengraphImage() {
                   color: "#34d399",
                 }}
               >
-                2.5M+
+                500M+
               </div>
               <div
                 style={{
@@ -261,7 +261,7 @@ export default async function OpengraphImage() {
                   color: "#a78bfa",
                 }}
               >
-                $50M
+                $500M+
               </div>
               <div
                 style={{
