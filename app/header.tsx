@@ -43,6 +43,13 @@ export function Header() {
             Projects
           </Link>
           <Link
+            href="/skills"
+            className="flex min-h-[44px] items-center rounded-md px-4 py-3 text-sm font-medium text-zinc-600 no-underline transition-colors hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
+            style={{ textDecoration: "none" }}
+          >
+            AI Skills
+          </Link>
+          <Link
             href="/blog"
             className="flex min-h-[44px] items-center rounded-md px-4 py-3 text-sm font-medium text-zinc-600 no-underline transition-colors hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
             style={{ textDecoration: "none" }}
@@ -65,7 +72,7 @@ export function Header() {
             className="whitespace-nowrap text-zinc-600 dark:text-zinc-400"
             delay={0.5}
           >
-            Taste, made executable.
+            Design-led, end to end.
           </TextEffect>
         </div>
       </header>

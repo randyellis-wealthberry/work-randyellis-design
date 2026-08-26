@@ -36,6 +36,11 @@ export const SITE_PAGES: ReadonlyArray<{
     description: "Case studies and product work",
   },
   {
+    title: "AI Skills",
+    href: "/skills",
+    description: "Open-source agent skills for defensible design work",
+  },
+  {
     title: "Blog",
     href: "/blog",
     description: "Writing on design, AI, and engineering",
@@ -45,7 +50,7 @@ export const SITE_PAGES: ReadonlyArray<{
 let cachedIndex: SearchResult[] | null = null;
 
 /**
- * Everything the mobile menu can search: the four site pages, every
+ * Everything the mobile menu can search: every top-level site page, every
  * non-archived project, and every blog post. Built once and reused — the
  * whole index is a few dozen entries, so a lazily memoised in-memory array
  * beats any API round-trip and needs no cache invalidation.
