@@ -45,8 +45,8 @@ export const PROOF_EXHIBITS: ReadonlyArray<{
   value: string;
   context: string;
 }> = [
-  { value: "2.5M+", context: "Users reached by shipped product" },
-  { value: "$50M", context: "Product value delivered" },
-  { value: "800+", context: "Designers mentored" },
+  { value: "500M+", context: "Users reached by shipped product and campaigns" },
+  { value: "$500M+", context: "Product value delivered" },
+  { value: "2000+", context: "Designers mentored" },
   { value: "4", context: "Design awards won" },
 ];

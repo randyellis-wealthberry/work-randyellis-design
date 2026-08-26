@@ -22,7 +22,7 @@ export function createBaseMetadata(): Metadata {
       template: "%s | Randy Ellis",
     },
     description:
-      "Head of Product & Fractional Chief Design Officer helping startups ship design-led AI products. 2.5M+ users impacted, $50M product value delivered.",
+      "Head of Product & Fractional Chief Design Officer helping startups ship design-led AI products. 500M+ users impacted, $500M+ product value delivered.",
     keywords: [
       "Fractional Chief Design Officer",
       "Fractional CDO",

@@ -31,7 +31,7 @@ const achievements: ReadonlyArray<{
   judgeCredential?: string;
 }> = [
   {
-    value: "2.5M+",
+    value: "500M+",
     label: "Users impacted",
     description: "Across multiple products and platforms",
   },
@@ -48,12 +48,12 @@ const achievements: ReadonlyArray<{
     judgeCredential: "Also a Webby Awards judge.",
   },
   {
-    value: "$50M",
+    value: "$500M+",
     label: "Product value",
     description: "Generated through strategic design decisions",
   },
   {
-    value: "800+",
+    value: "2000+",
     label: "Designers mentored",
     description: "Growing the next generation of design talent",
   },

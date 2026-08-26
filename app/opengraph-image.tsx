@@ -96,7 +96,12 @@ export default async function OpengraphImage() {
           <div
             style={{
               display: "flex",
-              justifyContent: "space-around",
+              // `space-around` sized the gaps out of whatever the figures left
+              // over, so widening them to 500M+/$500M+ closed the gaps to zero
+              // and the numbers ran together. A fixed gap holds regardless of
+              // how wide a figure gets.
+              justifyContent: "center",
+              gap: "56px",
               width: "100%",
               marginTop: "40px",
             }}
@@ -115,7 +120,7 @@ export default async function OpengraphImage() {
                   color: "#60a5fa",
                 }}
               >
-                2.5M+
+                500M+
               </div>
               <div
                 style={{
@@ -140,7 +145,7 @@ export default async function OpengraphImage() {
                   color: "#a78bfa",
                 }}
               >
-                $50M
+                $500M+
               </div>
               <div
                 style={{
@@ -165,7 +170,7 @@ export default async function OpengraphImage() {
                   color: "#34d399",
                 }}
               >
-                800+
+                2000+
               </div>
               <div
                 style={{
