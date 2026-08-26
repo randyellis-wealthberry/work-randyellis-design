@@ -67,6 +67,56 @@ const achievements: ReadonlyArray<{
  */
 const recognition = achievements.find((achievement) => achievement.awards);
 
+/**
+ * What each aggregate figure is actually made of.
+ *
+ * The proof band states four totals; on their own, a total that large invites
+ * the reader to assume solo credit, which is the one thing it does not mean.
+ * This names the organizations the work sat inside and what each contributes,
+ * so the arithmetic is checkable rather than asserted. It is also the part of
+ * the page an answer engine can quote when asked how the numbers hold up.
+ */
+const careerScale: ReadonlyArray<{
+  org: string;
+  scope: string;
+  backs: string;
+}> = [
+  {
+    org: "DigitasLBi",
+    scope: "Global digital agency · 1000+ designers · Fortune 500 roster",
+    backs:
+      "Major brand accounts reaching 100–300M+ people per campaign cycle, inside a 1000+ designer organization.",
+  },
+  {
+    org: "Leo Burnett",
+    scope: "Global creative agency · 500+ designers",
+    backs:
+      "Mass-market campaigns with global reach, inside a 500+ person creative organization.",
+  },
+  {
+    org: "Alight",
+    scope: "Benefits and HR technology · millions of employees served",
+    backs:
+      "Enterprise platforms used by millions of workers across major corporations.",
+  },
+  {
+    org: "Nagarro",
+    scope: "500+ person consultancy · Director of DesignOps",
+    backs:
+      "Enterprise engagements at $10–50M contract value; design operations across a 200+ designer population.",
+  },
+  {
+    org: "Chameleon Collective",
+    scope: "Fractional design leadership · multiple client organizations",
+    backs: "Design leadership across 20–50 designers on client teams.",
+  },
+  {
+    org: "Wealthberry Labs",
+    scope: "Founder · AI-native hiring compliance",
+    backs: "Current work, where the prior two decades get applied.",
+  },
+];
+
 const experience = [
   {
     company: "Chameleon Collective",
@@ -325,6 +375,7 @@ const TRANSITION_SECTION = {
 /** Named once, so each heading and the contents line cannot drift apart. */
 const SECTIONS = [
   { id: "impact", label: "Career impact" },
+  { id: "scale", label: "How the numbers add up" },
   { id: "recognition", label: "Recognition" },
   { id: "journey", label: "Career journey" },
   { id: "experience", label: "Professional experience" },
@@ -498,6 +549,46 @@ export default function AboutClient() {
             </div>
           ))}
         </dl>
+      </motion.section>
+
+      <motion.section
+        id="scale"
+        aria-labelledby="scale-heading"
+        className={SECTION}
+        variants={VARIANTS_SECTION}
+        transition={TRANSITION_SECTION}
+      >
+        <SectionLabel id="scale-heading">{labelFor("scale")}</SectionLabel>
+        <p className="mt-6 max-w-[70ch] text-base text-zinc-600 dark:text-zinc-300">
+          Every figure above is a career-to-date aggregate across the
+          organizations below — the scale the work sat inside, not solo credit.
+        </p>
+        <ul className="mt-4">
+          {careerScale.map((entry) => (
+            <li
+              key={entry.org}
+              className="border-t border-zinc-200 py-4 dark:border-zinc-800"
+            >
+              <p className="text-base text-zinc-900 dark:text-white">
+                {entry.org}
+              </p>
+              <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400">
+                {entry.scope}
+              </p>
+              <p className="mt-2 max-w-[70ch] text-base text-zinc-600 dark:text-zinc-300">
+                {entry.backs}
+              </p>
+            </li>
+          ))}
+        </ul>
+        {/* The qualifier the totals cannot carry themselves, in the same
+            subordinate tone the Webby credential uses below. */}
+        <p className="max-w-[70ch] border-t border-zinc-200 py-4 text-base text-zinc-500 dark:border-zinc-800 dark:text-zinc-400">
+          500M+ is the addressable audience of the products and campaigns the
+          work shaped, not unique users. 2000+ counts designers mentored,
+          influenced, and collaborated with across these organizations, not
+          direct reports.
+        </p>
       </motion.section>
 
       {recognition?.awards && (

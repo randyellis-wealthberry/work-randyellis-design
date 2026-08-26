@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import AboutClient from "@/app/about/about-client";
 
 // Mock motion components to avoid animation issues in tests
@@ -54,6 +54,18 @@ describe("About Page Professional Experience", () => {
   });
 
   describe("Professional Experience Section", () => {
+    /**
+     * These assertions are about the Professional experience section, but they
+     * queried the whole document — so any legitimate second mention of a
+     * company or role elsewhere on the page failed them as a duplicate. Scoped
+     * to the section that owns the rows, they assert what the describe says.
+     */
+    const experience = () => {
+      const section = document.getElementById("experience");
+      if (!section) throw new Error("experience section not rendered");
+      return within(section);
+    };
+
     it("should render the Professional Experience heading", () => {
       // The label renders through ScrambleSectionTitle, which splits its text
       // into per-character spans, so query it by accessible name.
@@ -99,12 +111,12 @@ describe("About Page Professional Experience", () => {
       ];
 
       expectedCompanies.forEach((company) => {
-        expect(screen.getByText(company)).toBeInTheDocument();
+        expect(experience().getByText(company)).toBeInTheDocument();
       });
     });
 
     it("should display entries in chronological order (newest first)", () => {
-      const roleElements = screen.getAllByText(
+      const roleElements = experience().getAllByText(
         /Head of Product|Lead UX Researcher|Head of Design|Director of DesignOps|Associate Director|Lead Product Designer|User Experience Strategist/,
       );
 
