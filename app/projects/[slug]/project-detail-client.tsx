@@ -13,7 +13,6 @@ import type { Project } from "@/lib/data/types";
 
 type ProjectDetailClientProps = {
   project: Project;
-  relatedProjects?: Project[];
 };
 
 /**

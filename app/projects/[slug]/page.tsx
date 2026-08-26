@@ -39,10 +39,6 @@ export default async function ProjectDetailPage({
     notFound();
   }
 
-  const relatedProjects = PROJECTS.filter(
-    (p) => p.id !== project.id && p.category === project.category,
-  ).slice(0, 2);
-
   return (
     <>
       <JsonLd
@@ -53,10 +49,7 @@ export default async function ProjectDetailPage({
         id="breadcrumb-jsonld"
         data={buildBreadcrumbSchema(projectBreadcrumbItems(project))}
       />
-      <ProjectDetailClient
-        project={project}
-        relatedProjects={relatedProjects}
-      />
+      <ProjectDetailClient project={project} />
     </>
   );
 }
