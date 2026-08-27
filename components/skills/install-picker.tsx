@@ -79,7 +79,22 @@ export function InstallPicker() {
 
   return (
     <div className="space-y-5">
-      <Terminal className="max-h-none bg-zinc-950 dark:bg-zinc-900">
+      <Terminal
+        className="max-h-none bg-zinc-950 dark:bg-zinc-900"
+        actions={
+          <button
+            type="button"
+            onClick={handleCopy}
+            // The terminal is dark in BOTH themes, so this button is styled
+            // light-on-dark with no `dark:` variants — a themed treatment
+            // would go invisible here in light mode. The negative margin
+            // cancels the 44px target so the chrome keeps its own height.
+            className="-my-3 inline-flex min-h-[44px] cursor-pointer items-center rounded-md px-2.5 py-3 text-xs font-medium text-zinc-400 transition-colors hover:bg-white/10 hover:text-zinc-100 focus-visible:ring-2 focus-visible:ring-zinc-100 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 focus-visible:outline-none"
+          >
+            {copied ? "Copied" : "Copy"}
+          </button>
+        }
+      >
         {/* Decorative. A screen reader announcing 220 block-drawing characters
             would bury the heading that follows it, so the art is hidden and the
             section's own <h2> carries the meaning. */}
@@ -127,7 +142,14 @@ export function InstallPicker() {
         </AnimatedSpan>
       </Terminal>
 
-      <div className="flex flex-wrap items-center gap-2">
+      {/* A group, not a bare row: the sr-only line below described these chips
+          but no element referenced it, so assistive tech announced eleven
+          unexplained toggles. aria-labelledby is what makes it a caption. */}
+      <div
+        role="group"
+        aria-labelledby="agent-picker-label"
+        className="flex flex-wrap items-center gap-2"
+      >
         <span className="sr-only" id="agent-picker-label">
           Choose your agent to see its install command and path
         </span>
@@ -143,7 +165,11 @@ export function InstallPicker() {
                 setHasPicked(true);
               }}
               className={cn(
-                "rounded-full border px-3 py-1.5 text-sm transition-colors",
+                // py-2.5 + min-h clears 44px without widening the chip, so the
+                // row count at 375px is unchanged — this buys the target size
+                // with height alone.
+                "inline-flex min-h-[44px] cursor-pointer items-center rounded-full border px-3 py-2.5 text-sm transition-colors",
+                "focus-visible:ring-2 focus-visible:ring-zinc-900 focus-visible:ring-offset-2 focus-visible:ring-offset-white focus-visible:outline-none dark:focus-visible:ring-zinc-100 dark:focus-visible:ring-offset-zinc-950",
                 active
                   ? "border-zinc-900 bg-zinc-900 text-zinc-50 dark:border-zinc-100 dark:bg-zinc-100 dark:text-zinc-900"
                   : "border-zinc-300 text-zinc-600 hover:border-zinc-400 hover:text-zinc-900 dark:border-zinc-700 dark:text-zinc-400 dark:hover:border-zinc-500 dark:hover:text-zinc-100",
@@ -153,13 +179,6 @@ export function InstallPicker() {
             </button>
           );
         })}
-        <button
-          type="button"
-          onClick={handleCopy}
-          className="ml-auto rounded-full border border-zinc-300 px-3 py-1.5 text-sm text-zinc-600 transition-colors hover:border-zinc-400 hover:text-zinc-900 dark:border-zinc-700 dark:text-zinc-400 dark:hover:border-zinc-500 dark:hover:text-zinc-100"
-        >
-          {copied ? "Copied" : "Copy"}
-        </button>
       </div>
 
       <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-400">

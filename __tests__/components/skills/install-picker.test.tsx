@@ -141,4 +141,29 @@ describe("InstallPicker — accessibility", () => {
     expect(art).toBeInTheDocument();
     expect(art?.textContent).toContain("█");
   });
+
+  it("binds the chips to their instructions as one labelled group", () => {
+    render(<InstallPicker />);
+
+    const group = screen.getByRole("group", {
+      name: "Choose your agent to see its install command and path",
+    });
+
+    expect(
+      within(group).getByRole("button", { name: "Claude Code" }),
+    ).toBeInTheDocument();
+  });
+
+  it("keeps Copy out of the agent group — it acts, it does not select", () => {
+    render(<InstallPicker />);
+
+    const group = screen.getByRole("group", {
+      name: "Choose your agent to see its install command and path",
+    });
+
+    expect(screen.getByRole("button", { name: "Copy" })).toBeInTheDocument();
+    expect(
+      within(group).queryByRole("button", { name: "Copy" }),
+    ).not.toBeInTheDocument();
+  });
 });

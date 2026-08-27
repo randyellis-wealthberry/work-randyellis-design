@@ -95,9 +95,16 @@ export const TypingAnimation = ({
 interface TerminalProps {
   children: React.ReactNode;
   className?: string;
+  /**
+   * Optional controls for the window chrome, right-aligned beside the traffic
+   * lights. Meant for actions that operate on what the terminal is showing —
+   * a copy button belongs to the command it sits above, not to whatever
+   * selector happens to follow the terminal in the flow.
+   */
+  actions?: React.ReactNode;
 }
 
-export const Terminal = ({ children, className }: TerminalProps) => {
+export const Terminal = ({ children, className, actions }: TerminalProps) => {
   return (
     <div
       className={cn(
@@ -106,10 +113,13 @@ export const Terminal = ({ children, className }: TerminalProps) => {
       )}
     >
       <div className="border-border flex flex-col gap-y-2 border-b p-3 sm:p-4">
-        <div className="flex flex-row gap-x-2">
+        <div className="flex flex-row items-center gap-x-2">
           <div className="h-2 w-2 rounded-full bg-red-500"></div>
           <div className="h-2 w-2 rounded-full bg-yellow-500"></div>
           <div className="h-2 w-2 rounded-full bg-green-500"></div>
+          {/* ml-auto is safe here in a way it is not in a wrapping row: this
+              line never wraps, so "push right" always means the same edge. */}
+          {actions ? <div className="ml-auto flex">{actions}</div> : null}
         </div>
       </div>
       <pre className="p-3 sm:p-4">
