@@ -7,6 +7,7 @@ import { NewsletterSignup } from "@/components/ui/newsletter-signup";
 import { RouteContainer } from "@/components/layout/route-container";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { GoogleAnalytics } from "@/components/analytics/google-analytics";
 import { JsonLd } from "@/components/seo/json-ld";
 import { buildPersonSchema, buildWebSiteSchema } from "@/lib/seo/json-ld";
@@ -153,6 +154,7 @@ export default async function RootLayout({
           </MobileMenuProvider>
         </ThemeProvider>
         <Analytics />
+        <SpeedInsights />
         {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
           <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
         )}
