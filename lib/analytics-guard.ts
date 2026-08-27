@@ -36,8 +36,16 @@ export function sanitize(
     // parameters arrive. It is deliberately not reported as dropped.
     if (value === undefined) continue;
 
-    // Arrays are typeof "object" too, and Vercel rejects them the same way.
-    if (typeof value === "object" && value !== null) {
+    // Allowlist, not a denylist: only string, number, boolean, or null are
+    // kept. Everything else — objects, arrays, functions, symbols, bigints —
+    // is rejected the same way, since Vercel accepts only those four types.
+    const isSafe =
+      value === null ||
+      typeof value === "string" ||
+      typeof value === "number" ||
+      typeof value === "boolean";
+
+    if (!isSafe) {
       dropped.push(key);
       if (process.env.NODE_ENV !== "production" && !warned.has(key)) {
         warned.add(key);

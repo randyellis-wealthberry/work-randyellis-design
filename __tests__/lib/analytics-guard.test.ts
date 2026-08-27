@@ -67,6 +67,27 @@ describe("sanitize", () => {
     expect(result.props).toEqual({ cleared: null });
     expect(result.dropped).toEqual([]);
   });
+
+  it("drops a function value and reports it as dropped", () => {
+    const result = sanitize("e", { good: "yes", handler: () => {} });
+
+    expect(result.props).toEqual({ good: "yes" });
+    expect(result.dropped).toEqual(["handler"]);
+  });
+
+  it("drops a symbol value and reports it as dropped", () => {
+    const result = sanitize("e", { good: "yes", token: Symbol("id") });
+
+    expect(result.props).toEqual({ good: "yes" });
+    expect(result.dropped).toEqual(["token"]);
+  });
+
+  it("drops a bigint value and reports it as dropped", () => {
+    const result = sanitize("e", { good: "yes", big: 10n });
+
+    expect(result.props).toEqual({ good: "yes" });
+    expect(result.dropped).toEqual(["big"]);
+  });
 });
 
 describe("throttled", () => {
