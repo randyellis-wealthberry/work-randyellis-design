@@ -37,7 +37,7 @@ export function BuyMeACoffeeButton({
       <button
         type="button"
         onClick={() => {
-          trackContactIntent("buy_me_a_coffee", BMC_URL);
+          trackContactIntent("buy_me_a_coffee", BMC_URL, "coffee_link");
           setOpen(true);
         }}
         className={cn(

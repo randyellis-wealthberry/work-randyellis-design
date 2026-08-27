@@ -1,7 +1,10 @@
 // Analytics utility functions for both Google Analytics and Vercel Analytics
 import { track } from "@vercel/analytics";
 import { sanitize, currentPage } from "@/lib/analytics-guard";
-import { CONVERSION_EVENTS } from "@/lib/analytics-events";
+import {
+  CONVERSION_EVENTS,
+  type ConversionSurface,
+} from "@/lib/analytics-events";
 
 // Track custom events to both GA and Vercel Analytics
 export const trackEvent = (
@@ -178,6 +181,7 @@ export const trackSectionView = (sectionName: string, scrollDepth?: number) => {
 export const trackContactIntent = (
   contactType: string,
   contactValue?: string,
+  surface?: ConversionSurface,
 ) => {
   trackEvent(
     "contact_intent",
@@ -187,6 +191,7 @@ export const trackContactIntent = (
     createProperties({
       contact_method: contactType,
       contact_value: contactValue,
+      surface,
     }),
   );
 };

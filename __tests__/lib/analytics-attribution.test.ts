@@ -52,3 +52,38 @@ describe("trackEvent integration", () => {
     expect(props).toHaveProperty("ok", "yes");
   });
 });
+
+describe("trackContactIntent attribution", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    mockTrack.mockClear();
+  });
+
+  it("records which surface originated the booking click", () => {
+    const { trackContactIntent } = require("../../lib/analytics");
+
+    trackContactIntent(
+      "booking",
+      "https://example.com/book",
+      "case_study_footer",
+    );
+
+    expect(mockTrack).toHaveBeenCalledWith(
+      "contact_intent",
+      expect.objectContaining({
+        contact_method: "booking",
+        surface: "case_study_footer",
+      }),
+    );
+  });
+
+  it("still works for a caller that passes no surface", () => {
+    const { trackContactIntent } = require("../../lib/analytics");
+
+    trackContactIntent("booking", "https://example.com/book");
+
+    const [, props] = mockTrack.mock.calls[0];
+    expect(props).not.toHaveProperty("surface");
+    expect(props).toHaveProperty("contact_method", "booking");
+  });
+});

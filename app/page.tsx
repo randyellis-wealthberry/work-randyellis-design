@@ -149,7 +149,9 @@ export default function Home() {
             booking link with the same label. */}
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <CalButton
-            onClick={() => trackContactIntent("booking", BOOKING_URL)}
+            onClick={() =>
+              trackContactIntent("booking", BOOKING_URL, "home_hero")
+            }
             className={PRIMARY_BUTTON}
           >
             Book a 30-minute call
@@ -355,7 +357,9 @@ export default function Home() {
         </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <CalButton
-            onClick={() => trackContactIntent("booking", BOOKING_URL)}
+            onClick={() =>
+              trackContactIntent("booking", BOOKING_URL, "home_secondary_cta")
+            }
             className={PRIMARY_BUTTON}
           >
             Book a 30-minute call

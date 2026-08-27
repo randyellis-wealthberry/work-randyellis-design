@@ -62,7 +62,11 @@ export function LetsChatButton({
       <button
         type="button"
         onClick={() => {
-          trackContactIntent("virtual_assistant_open", ZINLEY_URL);
+          trackContactIntent(
+            "virtual_assistant_open",
+            ZINLEY_URL,
+            "chat_dialog",
+          );
           setOpen(true);
         }}
         className={cn(
@@ -140,6 +144,7 @@ export function LetsChatButton({
                     trackContactIntent(
                       "virtual_assistant_call",
                       ZINLEY_EMBED_URL,
+                      "chat_dialog",
                     );
                     setStep("call");
                   }}
