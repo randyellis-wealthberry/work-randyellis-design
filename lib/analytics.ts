@@ -1,5 +1,10 @@
 // Analytics utility functions for both Google Analytics and Vercel Analytics
 import { track } from "@vercel/analytics";
+import { sanitize, currentPage } from "@/lib/analytics-guard";
+import {
+  CONVERSION_EVENTS,
+  type ConversionSurface,
+} from "@/lib/analytics-events";
 
 // Track custom events to both GA and Vercel Analytics
 export const trackEvent = (
@@ -20,15 +25,22 @@ export const trackEvent = (
   }
 
   // Vercel Analytics
-  const trackData: Record<string, string | number | boolean> = {
-    category,
-  };
+  const raw: Record<string, unknown> = { category };
 
-  if (label) trackData.label = label;
-  if (value !== undefined) trackData.value = value;
-  if (properties) Object.assign(trackData, properties);
+  if (label) raw.label = label;
+  if (value !== undefined) raw.value = value;
+  if (properties) Object.assign(raw, properties);
 
-  track(action, trackData);
+  // Only conversions carry `page`. Adding it everywhere would spend event
+  // budget on questions nobody asks, and would break the exact-payload
+  // assertions in the existing analytics suites.
+  if (CONVERSION_EVENTS.has(action)) {
+    const page = currentPage();
+    if (page) raw.page = page;
+  }
+
+  const { name, props } = sanitize(action, raw);
+  track(name, props);
 };
 
 // Track page views (useful for SPA navigation)
@@ -169,6 +181,7 @@ export const trackSectionView = (sectionName: string, scrollDepth?: number) => {
 export const trackContactIntent = (
   contactType: string,
   contactValue?: string,
+  surface?: ConversionSurface,
 ) => {
   trackEvent(
     "contact_intent",
@@ -178,6 +191,7 @@ export const trackContactIntent = (
     createProperties({
       contact_method: contactType,
       contact_value: contactValue,
+      surface,
     }),
   );
 };

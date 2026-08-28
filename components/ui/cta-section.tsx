@@ -40,7 +40,9 @@ export function CTASection() {
       {/* Order is the hierarchy: the call is the primary because it is first. */}
       <div className="mt-8 flex flex-col gap-3 sm:flex-row">
         <CalButton
-          onClick={() => trackContactIntent("booking", BOOKING_URL)}
+          onClick={() =>
+            trackContactIntent("booking", BOOKING_URL, "shared_cta_section")
+          }
           className={PRIMARY_BUTTON}
         >
           Book a 30-min call
@@ -51,7 +53,11 @@ export function CTASection() {
           target="_blank"
           rel="noopener noreferrer"
           onClick={() =>
-            trackContactIntent("virtual_assistant_open", ASSISTANT_URL)
+            trackContactIntent(
+              "virtual_assistant_open",
+              ASSISTANT_URL,
+              "shared_cta_section",
+            )
           }
           className={SECONDARY_BUTTON_OUTBOUND}
         >

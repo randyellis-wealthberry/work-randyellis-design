@@ -731,7 +731,13 @@ export function CaseStudyTemplate({
                 <div className="flex flex-col gap-3 sm:flex-row">
                   <Magnetic intensity={0.15} springOptions={{ bounce: 0 }}>
                     <CalButton
-                      onClick={() => trackContactIntent("booking", BOOKING_URL)}
+                      onClick={() =>
+                        trackContactIntent(
+                          "booking",
+                          BOOKING_URL,
+                          "case_study_footer",
+                        )
+                      }
                       className={PRIMARY_BUTTON}
                     >
                       Book a 30-minute call

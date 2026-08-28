@@ -2,8 +2,9 @@
 
 import { useEffect } from "react";
 import { useReportWebVitals } from "next/web-vitals";
-
-// Use existing va interface from Vercel Analytics
+import { track } from "@vercel/analytics";
+import { throttled } from "@/lib/analytics-guard";
+import { HIGH_FREQUENCY_WINDOW_MS } from "@/lib/analytics-events";
 
 // Web Vitals reporting for performance monitoring
 export function WebVitalsReporter() {
@@ -16,17 +17,14 @@ export function WebVitalsReporter() {
     // Send to analytics in production
     if (process.env.NODE_ENV === "production") {
       // Send to Vercel Analytics
-      if (typeof window !== "undefined" && "va" in window) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (window as any).va?.("track", "Web Vital", {
-          name: metric.name,
-          value: metric.value,
-          rating: metric.rating,
-          delta: metric.delta,
-          id: metric.id,
-          navigationType: metric.navigationType,
-        });
-      }
+      track("Web Vital", {
+        name: metric.name,
+        value: metric.value,
+        rating: metric.rating,
+        delta: metric.delta,
+        id: metric.id,
+        navigationType: metric.navigationType,
+      });
 
       // Send to Google Analytics
       if (window.gtag) {
@@ -43,20 +41,6 @@ export function WebVitalsReporter() {
           },
         });
       }
-
-      // Send to custom analytics endpoint
-      fetch("/api/analytics/web-vitals", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...metric,
-          url: window.location.href,
-          userAgent: navigator.userAgent,
-          timestamp: Date.now(),
-        }),
-      }).catch((err) => console.warn("Failed to send web vitals:", err));
     }
   });
 
@@ -76,18 +60,11 @@ export function PerformanceMetrics() {
         const ttfb =
           navigationTiming.responseStart - navigationTiming.requestStart;
 
-        if (window.va) {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          (window as any).va?.("track", "TTFB", {
-            value: Math.round(ttfb),
-            rating:
-              ttfb <= 800
-                ? "good"
-                : ttfb <= 1800
-                  ? "needs-improvement"
-                  : "poor",
-          });
-        }
+        track("TTFB", {
+          value: Math.round(ttfb),
+          rating:
+            ttfb <= 800 ? "good" : ttfb <= 1800 ? "needs-improvement" : "poor",
+        });
       }
 
       // Resource loading metrics
@@ -98,13 +75,10 @@ export function PerformanceMetrics() {
         );
       }, 0);
 
-      if (window.va) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (window as any).va?.("track", "Resource Size", {
-          value: Math.round(totalResourceSize / 1024), // KB
-          count: resources.length,
-        });
-      }
+      track("Resource Size", {
+        value: Math.round(totalResourceSize / 1024), // KB
+        count: resources.length,
+      });
 
       // Memory usage (if available)
       if ("memory" in performance) {
@@ -117,9 +91,8 @@ export function PerformanceMetrics() {
             };
           }
         ).memory;
-        if (window.va && memory) {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          (window as any).va?.("track", "Memory Usage", {
+        if (memory) {
+          track("Memory Usage", {
             used: Math.round(memory.usedJSHeapSize / 1024 / 1024), // MB
             total: Math.round(memory.totalJSHeapSize / 1024 / 1024), // MB
             limit: Math.round(memory.jsHeapSizeLimit / 1024 / 1024), // MB
@@ -145,9 +118,8 @@ export function PerformanceMetrics() {
       const connection =
         nav.connection || nav.mozConnection || nav.webkitConnection;
 
-      if (connection && window.va) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (window as any).va?.("track", "Connection", {
+      if (connection) {
+        track("Connection", {
           effectiveType: connection.effectiveType,
           downlink: connection.downlink,
           rtt: connection.rtt,
@@ -168,13 +140,16 @@ export function PerformanceMetrics() {
     const trackInteraction = () => {
       interactionCount++;
 
-      // Report interaction count every 10 interactions
-      if (interactionCount % 10 === 0 && window.va) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (window as any).va?.("track", "User Interactions", {
-          count: interactionCount,
-        });
+      // High-frequency events (click/keydown/scroll/touchstart) can fire
+      // hundreds of times a minute; throttle emits so a single active user
+      // cannot burn a meaningful slice of the monthly event budget.
+      if (!throttled("web_vitals_interaction", HIGH_FREQUENCY_WINDOW_MS)) {
+        return;
       }
+
+      track("User Interactions", {
+        count: interactionCount,
+      });
     };
 
     // Track various interaction types
@@ -203,14 +178,11 @@ export function PagePerformanceTracker({ pageName }: { pageName: string }) {
     return () => {
       const timeOnPage = Date.now() - startTime;
 
-      if (window.va) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (window as any).va?.("track", "Time on Page", {
-          page: pageName,
-          duration: timeOnPage,
-          durationSeconds: Math.round(timeOnPage / 1000),
-        });
-      }
+      track("Time on Page", {
+        page: pageName,
+        duration: timeOnPage,
+        durationSeconds: Math.round(timeOnPage / 1000),
+      });
     };
   }, [pageName]);
 
