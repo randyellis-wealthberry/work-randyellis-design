@@ -251,4 +251,9 @@ const withMDX = require("@next/mdx")({
   },
 });
 
-module.exports = withMDX(nextConfig);
+// BotID installs the proxy rewrites its client token relies on. Composed
+// around withMDX rather than converting this file to ESM, which the docs'
+// `export default` form would otherwise require.
+const { withBotId } = require("botid/next/config");
+
+module.exports = withBotId(withMDX(nextConfig));
