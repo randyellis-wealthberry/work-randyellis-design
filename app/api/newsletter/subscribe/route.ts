@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { checkBotId } from "botid/server";
 import { LoopsClient } from "loops";
 import { z } from "zod";
 import { emailStorage } from "@/lib/email-storage";
@@ -11,6 +12,15 @@ const emailSchema = z.object({
 
 export async function POST(request: NextRequest) {
   try {
+    // First, before any work and before touching configuration. A bot that
+    // gets a 500 here learns whether LOOPS_API_KEY is set; a bot that gets a
+    // 403 learns nothing.
+    const verification = await checkBotId();
+
+    if (verification.isBot) {
+      return NextResponse.json({ error: "Access denied" }, { status: 403 });
+    }
+
     // Check for required environment variables
     if (!process.env.LOOPS_API_KEY) {
       return NextResponse.json(
