@@ -6,6 +6,12 @@
 import type { Metadata } from "next";
 import { getBaseUrl, createAbsoluteUrl } from "./env";
 
+// Next.js replaces (not merges) a page's `alternates` object, so every helper
+// that sets a canonical must re-attach the feed link or the page loses it.
+const RSS_ALTERNATE_TYPES = {
+  "application/rss+xml": [{ url: "/rss.xml", title: "Randy Ellis — Blog" }],
+};
+
 /**
  * Create base metadata configuration with dynamic URLs
  */
@@ -16,6 +22,7 @@ export function createBaseMetadata(): Metadata {
     metadataBase: new URL(baseUrl),
     alternates: {
       canonical: "/",
+      types: RSS_ALTERNATE_TYPES,
     },
     title: {
       default: "Randy Ellis | Head of Product & Fractional CDO",
@@ -95,6 +102,7 @@ export function createPageMetadata({
     description,
     alternates: {
       canonical: canonicalUrl,
+      types: RSS_ALTERNATE_TYPES,
     },
     keywords: keywords.length > 0 ? keywords : undefined,
     openGraph: {
@@ -149,6 +157,7 @@ export function createArticleMetadata({
     description,
     alternates: {
       canonical: canonicalUrl,
+      types: RSS_ALTERNATE_TYPES,
     },
     keywords: tags.length > 0 ? tags : undefined,
     authors: [{ name: "Randy Ellis", url: getBaseUrl() }],
@@ -229,6 +238,7 @@ export function projectMetadata(project: Project): Metadata {
     description: project.description,
     alternates: {
       canonical: `/projects/${project.slug}`,
+      types: RSS_ALTERNATE_TYPES,
     },
     keywords: [
       project.name,
