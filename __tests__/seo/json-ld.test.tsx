@@ -281,7 +281,12 @@ describe.each(PROJECTS.map((p) => [p.slug, p]))(
       const json = JSON.stringify(schema);
       expect(json).not.toContain('"Organization"');
       expect(json).not.toContain("roleName");
-      expect(json).not.toContain("license");
+      // Keyed form, not the bare word: this guards against the schema.org
+      // `license` property being emitted, and a project is allowed to say
+      // "licensed" in its own prose. Pixelbox's description does, and
+      // `skills` lists "MIT License" among its technologies — that one only
+      // slipped past the bare-word check because it is capitalised.
+      expect(json).not.toContain('"license":');
       expect(json).not.toContain("Team Collaboration");
       expect(json).not.toContain("Wealthberry");
     });
@@ -438,7 +443,7 @@ describe("JsonLd component", () => {
     const html = renderToStaticMarkup(<JsonLd data={data} />);
 
     expect(html).toContain('<script type="application/ld+json">');
-    expect(html).not.toContain(' id=');
+    expect(html).not.toContain(" id=");
   });
 
   test("renders array data as single script", () => {
@@ -446,25 +451,22 @@ describe("JsonLd component", () => {
     const html = renderToStaticMarkup(<JsonLd data={data} />);
 
     const parsed = JSON.parse(
-      html.match(/>(.*?)<\/script>/)?.[1]?.replace(/\\u003c/g, "<").replace(/\\u003e/g, ">") || "[]",
+      html
+        .match(/>(.*?)<\/script>/)?.[1]
+        ?.replace(/\\u003c/g, "<")
+        .replace(/\\u003e/g, ">") || "[]",
     );
     expect(parsed).toEqual(data);
   });
 
   test("component file is NOT a client component", () => {
-    const filePath = path.join(
-      process.cwd(),
-      "components/seo/json-ld.tsx",
-    );
+    const filePath = path.join(process.cwd(), "components/seo/json-ld.tsx");
     const content = fs.readFileSync(filePath, "utf-8");
     expect(content.split("\n")[0]).not.toContain("use client");
   });
 
   test("component file does NOT import next/script", () => {
-    const filePath = path.join(
-      process.cwd(),
-      "components/seo/json-ld.tsx",
-    );
+    const filePath = path.join(process.cwd(), "components/seo/json-ld.tsx");
     const content = fs.readFileSync(filePath, "utf-8");
     expect(content).not.toContain("next/script");
   });
