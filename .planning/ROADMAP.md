@@ -12,6 +12,7 @@
 
 - [x] **Phase 11: Self-Consistency & Proof** - Fix the `/about` OG "6 awards" contradiction, promote the 4 named awards from JSON-LD-only to visible copy, pin award-count consistency with a test, and correct the stale framing that generated the withdrawn metric-removal premise (completed 2026-08-24)
 - [ ] **Phase 12: Enterprise Legibility** - Echo and Nagarro reframed for a reader evaluating regulated, large-organization operating experience, with one grouped entry point on `/projects`
+- [ ] **Phase 13: AEO Remediation** - Answer-engine readiness: collapsed-accordion content mounted in server HTML, FAQPage schema restored, blog dates unified to one source, llms.txt + RSS shipped, homepage gets its own metadata, entity/OG loose ends closed (added 2026-08-29 from `.planning/research/SEO-AEO-AUDIT.md`)
 
 ## Phase Details
 
@@ -104,9 +105,83 @@ stale framing that generated the withdrawn premise.
 
 **UI hint**: yes
 
+### Phase 13: AEO Remediation
+
+> Added 2026-08-29, scoped from `.planning/research/SEO-AEO-AUDIT.md` (codebase +
+> live-HTML audit). Independent of Phase 12's requirements, but 13-04 moves
+> `app/page.tsx`'s content into `app/home-client.tsx` — Phase 12's file
+> references to `app/page.tsx:55` (`FEATURED_SLUGS`) and the Selected-work
+> paragraph now resolve to `app/home-client.tsx`. Phase 12's human gate
+> (ENT-03 dispositions) is untouched.
+
+**Goal**: The content AI crawlers should be citing actually reaches them — collapsed
+accordions no longer unmount their children from the server HTML, the visible FAQ
+carries FAQPage schema again (D-08 amended), every blog post states one publication
+date everywhere, machines get llms.txt and an RSS feed, and the homepage declares its
+own metadata.
+
+**Depends on**: Phase 10 (v2.0 SEO remediation, shipped). Not blocked by Phase 12.
+
+**Requirements**: audit findings T-01..T-04, T-06..T-10, T-12..T-14, T-16
+
+**Success Criteria** (what must be TRUE):
+
+  1. `curl` of `/`, `/blog`, and `/projects/rambis-ui` returns the FAQ answers, the
+     blog archive's per-post links, and the Rambis accordion content in the raw HTML
+     (T-01)
+  2. The homepage emits a `FAQPage` JSON-LD node whose questions/answers match the
+     visible "Questions founders ask" content verbatim; the stale comment at
+     `app/page.tsx:59-61` is gone (T-02)
+  3. Each blog post has exactly one publication date, sourced from one place, and the
+     sitemap, archive UI, OG `publishedTime`, and Article JSON-LD all agree (T-03)
+  4. `/llms.txt` serves a Markdown map of the site (identity, services, case studies,
+     posts) and `/rss.xml` serves a valid RSS 2.0 feed linked via
+     `<link rel="alternate">` in the root layout (T-04, T-06)
+  5. All four blog posts emit complete article OG (title, description, url, image,
+     publishedTime) via `createArticleMetadata()` — no longer dead code (T-07)
+  6. Person JSON-LD carries `email`; the resume PDF is linked from a rendered page
+     (T-08)
+  7. `app/page.tsx` is a server component exporting homepage-specific metadata and
+     importing `app/home-client.tsx`, per the repo's own convention (T-09)
+  8. Waffle emits `CreativeWork` JSON-LD like every other project page;
+     `projectMetadata` never emits `openGraph.images: []`; `WebSite.potentialAction`
+     is gone (T-10, T-13)
+  9. Dead SEO code and stale docs are removed (`related-content.tsx`,
+     `getMetadataBase`, two root-level SEO reports); the sitemap test asserts the
+     real static-page count (T-14)
+  10. `npm run lint` → `npx tsc --noEmit` → `npm test` all pass (build is NOT a gate)
+
+**Planning constraints** (hard, do not route around):
+
+  - **Do not regress the Visible-At-Zero rule** — the accordion fix must keep content
+    mounted (height-collapse, `forceMount`, or `<details>`), not re-hide it behind JS.
+  - **FAQPage restores a schema D-08 excluded.** Amend D-08 in the decision log rather
+    than silently violating it: FAQPage is now permitted *because* the Q&A is visible
+    server-rendered content — the original removal predates that.
+  - **One date source for blog posts.** `lib/utils/blog-data.ts` must derive from or
+    be reconciled with the MDX metadata, not remain a third hand-typed copy. The MDX
+    byline + JSON-LD dates are the authoritative ones (they were author-written);
+    the mock array's dates are the ones to correct.
+  - **The homepage split is a move, not a rewrite** — `home-client.tsx` receives
+    `app/page.tsx`'s content verbatim; `__tests__/integration/home-page-argument.test.tsx`
+    must stay green (update its import only).
+  - **Do not touch** the `/services` HTML-comment memo (T-18, intentional), the
+    middleware/vercel.json cache headers (T-17, needs measurement), or
+    `/projects/skills` vs `/skills` (T-15, positioning decision).
+
+**Plans**: 5 plans in 3 waves
+
+- [ ] 13-01-PLAN.md — T-04/T-06: llms.txt route + RSS 2.0 feed + `rel=alternate` (wave 1)
+- [ ] 13-02-PLAN.md — T-01/T-02: accordion content mounted in server HTML on all three surfaces; FAQPage JSON-LD on the homepage (wave 1)
+- [ ] 13-03-PLAN.md — T-03/T-07/T-12: blog date unification + `createArticleMetadata()` adoption in all four MDX posts (wave 1)
+- [ ] 13-04-PLAN.md — T-08/T-09/T-10/T-13/T-14/T-16: homepage server/client split, Person email, resume link, waffle CreativeWork, projectMetadata OG fallback, drop SearchAction, dead-code/doc cleanup, sitemap test count (wave 2, after 13-02 since both touch `app/page.tsx`)
+- [ ] 13-05-PLAN.md — Phase gate: lint → tsc → test + raw-HTML verification of success criteria 1–4 (wave 3)
+
+**UI hint**: yes (accordion behavior + homepage split must be visually verified)
+
 ## Progress
 
-**Execution Order:** Phases execute in numeric order: 11 → 12
+**Execution Order:** Phases execute in numeric order: 11 → 12 (13 is independent of 12 and may execute first)
 
 | Phase | Milestone | Plans | Status | Completed |
 |-------|-----------|-------|--------|-----------|
@@ -122,6 +197,7 @@ stale framing that generated the withdrawn premise.
 | 10. SEO Remediation | v2.0 | 10/10 | Complete | 2026-08-22 |
 | 11. Self-Consistency & Proof | v3.0 | 5/5 | Complete   | 2026-08-24 |
 | 12. Enterprise Legibility | v3.0 | 0/TBD | Not started | - |
+| 13. AEO Remediation | v3.0 | 0/5 | Executing | - |
 
 ## Backlog
 
@@ -147,5 +223,16 @@ stale framing that generated the withdrawn premise.
 - **GE-3** — reuse the existing `role="status"` filter-state announcement on the new `/projects` entry point (deferred from v3.0)
 - Dead-code cleanup of `enhanced-metrics-grid.tsx`, `enhanced-hover-cards.tsx` (deferred from v3.0)
 
+- **Blog publishing cadence** — the highest-leverage AEO lever is new content;
+  4 posts, newest 2025-07-21 (audit T-05). Content work, not a queued code task
+
+- **Visible contact page / section** — email appears only in privacy/terms;
+  whether to surface it to humans (vs schema-only) is a positioning decision
+  (audit T-08 residue)
+
+- **`/projects/skills` vs `/skills`** near-duplicate URLs (audit T-15) and the
+  middleware/vercel.json cache-header conflict on `/projects/*` HTML (audit
+  T-17) — each needs a decision/measurement before action
+
 ---
-*Last updated: 2026-08-22 — v3.0 Enterprise Credibility roadmap created (Phase 11-12); Phase 11 planned (5 plans, 4 waves) and Phase 12's stale `app/page.tsx` dependency corrected*
+*Last updated: 2026-08-29 — Phase 13 AEO Remediation added from SEO/AEO audit (5 plans, 3 waves), executing*

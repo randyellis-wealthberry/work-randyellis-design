@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-08-22 after v2.0 milestone shipped)
 
 **Core value:** A hiring manager finds a coherent, senior, *verifiable* story with an obvious way to book a conversation — shipped and audit-verified in v1.0. v2.0 added proof of *how Randy decides*. v3.0 closes the metric-integrity gap v2.0 carried forward and makes Echo/Nagarro legible as regulated, large-organization proof.
-**Current focus:** Phase 11 — self-consistency-proof
+**Current focus:** Phase 13 — aeo-remediation (Phase 11 shipped 2026-08-24; Phase 12 awaits ENT-03 human gate)
 
 ## Current Position
 
-Phase: 11 (self-consistency-proof) — EXECUTING
-Plan: 5 of 5
-Status: Ready to execute
-Last activity: 2026-08-23
+Phase: 13 (aeo-remediation) — EXECUTING
+Plan: 0 of 5
+Status: Planned, executing on branch gsd/phase-13-aeo-remediation
+Last activity: 2026-08-29
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -57,6 +57,7 @@ Progress: [░░░░░░░░░░] 0%
 ### Roadmap Evolution
 
 - Phase 10 added 2026-08-16: SEO Remediation — scoped from `.planning/research/SEO-AUDIT.md`. Depends on Phase 9.
+- Phase 13 added 2026-08-29: AEO Remediation — scoped from `.planning/research/SEO-AEO-AUDIT.md` (full codebase + live-HTML audit). Independent of Phase 12 and may execute first. **File-move implication for Phase 12:** plan 13-04 splits the homepage into a server `app/page.tsx` + `app/home-client.tsx`, so Phase 12's references to `app/page.tsx:55` (`FEATURED_SLUGS`) and the Selected-work paragraph now live in `app/home-client.tsx`. D-08 amended: FAQPage schema is permitted again because the FAQ answers are now server-rendered visible content (the original exclusion predates that).
 - Phase 11-12 added 2026-08-22: v3.0 Enterprise Credibility roadmap created from `.planning/research/SUMMARY.md` (4 parallel researchers, HIGH confidence). Phase 11 = Self-Consistency & Proof (CRED-12, CRED-13, PRF-01, REC-01). **Rescoped 2026-08-22**: the metric-removal premise was withdrawn — `DECK-COVERAGE-AUDIT.md:34` states `Unbacked` means "not found in this deck… not a defect and requires no action", and `:37` removed the non-deck-source rule. The three sitewide figures are accurate and stay; CRED-10/11/14/16 and PRF-02 are void. Phase 12 = Enterprise Legibility (ENT-01..05, 5 requirements). ~~Sequenced (not parallelized) because `app/page.tsx` is the single file both phases touch — Phase 11 must fully land, including its regression-test rewrite, before Phase 12 reopens it.~~ **CORRECTED 2026-08-22 (REC-01):** the cross-phase `app/page.tsx` conflict no longer exists — it assumed removing the three sitewide figures and a `home-page-argument.test.tsx` rewrite that were both voided. Phase 11 as planned touches only `app/about/opengraph-image.tsx`, `app/about/about-client.tsx` and one new test file; Phase 12 is free to open `app/page.tsx`.
 
 ### Decisions
@@ -89,7 +90,7 @@ None yet for v3.0.
 ### Blockers/Concerns
 
 - **ENT-03 human gate (Phase 12):** Nagarro's per-metric disposition for NAGARRO-01..08 (backed-by-alternate-source / downgraded-to-qualitative / accepted-as-firsthand-account) must be recorded by Randy before any reframe copy is written. Not resolvable without his input — mirrors v2.0's CRED-08, which was a real blocker.
-- **`related-content.tsx` live/dead status disputed:** 3 of 4 researchers call it a live surface (renders "2.5M+ users" at line 255); the 4th traced `app/blog/layout.tsx:4`'s import as commented-out and calls it dead. Needs a fresh check at Phase 11 plan time before deciding whether to edit it.
+- ~~**`related-content.tsx` live/dead status disputed:** 3 of 4 researchers call it a live surface (renders "2.5M+ users" at line 255); the 4th traced `app/blog/layout.tsx:4`'s import as commented-out and calls it dead. Needs a fresh check at Phase 11 plan time before deciding whether to edit it.~~ **RESOLVED 2026-08-29 (Phase 13 audit):** dead — its only import site is the commented-out `app/blog/layout.tsx:4`; deleted in plan 13-04.
 - **Echo's category term (ENT-01) is undecided** and must be collision-checked against every project's existing `category`/`categories[]`/`tags[]` before selection — Nagarro already carries `"Accessibility Compliance"`, and `lib/project-utils.ts` matches by case-insensitive substring.
 
 ## Deferred Items
