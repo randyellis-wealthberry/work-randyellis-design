@@ -31,9 +31,14 @@ describe("Legacy schema module deletion (Phase 10-08)", () => {
   });
 
   describe("Test 2: No forbidden schema @type values in app/components/lib (D-08)", () => {
+    // FAQPage removed from this list 2026-08-29 (Phase 13 T-02, D-08
+    // amendment): the homepage Q&A is now server-rendered visible content, so
+    // FAQPage markup for it is legitimate. lib/seo/json-ld.ts's
+    // buildFaqPageSchema takes the visible FAQS array as input precisely so
+    // schema and page cannot diverge. Organization/LocalBusiness/
+    // ProfessionalService remain forbidden.
     const forbiddenTypes = [
       "LocalBusiness",
-      "FAQPage",
       "ProfessionalService",
       "Organization",
     ];

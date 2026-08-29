@@ -1,8 +1,11 @@
 /**
  * Server-safe JSON-LD schema builders for structured data
  *
- * D-08 entity story: Person (Randy) + WebSite + CreativeWork + Article only.
- * No Organization, LocalBusiness, ProfessionalService, or FAQPage nodes.
+ * D-08 entity story: Person (Randy) + WebSite + CreativeWork + Article,
+ * plus FAQPage (amended 2026-08-29, Phase 13 T-02: FAQPage is permitted
+ * because the homepage Q&A is now server-rendered visible content — the
+ * original exclusion predates that). Still no Organization, LocalBusiness,
+ * or ProfessionalService nodes.
  */
 
 import { WEBSITE_URL } from "@/lib/constants";
@@ -231,6 +234,30 @@ export function buildBreadcrumbSchema(
       position: index + 1,
       name: item.name,
       item: item.url,
+    })),
+  };
+}
+
+/**
+ * FAQPage schema (Phase 13 T-02, D-08 amendment).
+ *
+ * MUST be fed the same array the visible accordion renders — FAQPage markup
+ * for Q&A a human cannot read on the page is a policy violation, which is why
+ * this builder takes the data rather than owning a copy of it.
+ */
+export function buildFaqPageSchema(
+  faqs: ReadonlyArray<{ question: string; answer: string }>,
+): JsonLdObject {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
     })),
   };
 }
