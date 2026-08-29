@@ -21,13 +21,13 @@ progress:
 See: .planning/PROJECT.md (updated 2026-08-22 after v2.0 milestone shipped)
 
 **Core value:** A hiring manager finds a coherent, senior, *verifiable* story with an obvious way to book a conversation — shipped and audit-verified in v1.0. v2.0 added proof of *how Randy decides*. v3.0 closes the metric-integrity gap v2.0 carried forward and makes Echo/Nagarro legible as regulated, large-organization proof.
-**Current focus:** Phase 13 — aeo-remediation (Phase 11 shipped 2026-08-24; Phase 12 awaits ENT-03 human gate)
+**Current focus:** Phase 13 (aeo-remediation) COMPLETE on branch gsd/phase-13-aeo-remediation — awaiting merge. Phase 12 awaits ENT-03 human gate.
 
 ## Current Position
 
-Phase: 13 (aeo-remediation) — EXECUTING
-Plan: 0 of 5
-Status: Planned, executing on branch gsd/phase-13-aeo-remediation
+Phase: 13 (aeo-remediation) — COMPLETE (5/5 plans, gate passed 2026-08-29)
+Plan: 5 of 5
+Status: Branch gsd/phase-13-aeo-remediation ready for PR/merge
 Last activity: 2026-08-29
 
 Progress: [░░░░░░░░░░] 0%
@@ -121,4 +121,9 @@ Resume file: None
 
 ## Operator Next Steps
 
-- Run `/gsd:plan-phase 11` to plan Self-Consistency & Proof
+- Merge `gsd/phase-13-aeo-remediation` (PR to main), deploy, then re-run the
+  raw-HTML checks in 13-05-SUMMARY.md against the live site
+- Investigate the pre-existing failing suites (5 `analytics-*` +
+  `motion-reduced` — fail on clean main, not a Phase 13 regression)
+- Phase 12 remains blocked on the ENT-03 per-metric dispositions (human gate)
+- Highest-leverage AEO lever left: publish blog posts (audit T-05, backlog)

@@ -12,7 +12,7 @@
 
 - [x] **Phase 11: Self-Consistency & Proof** - Fix the `/about` OG "6 awards" contradiction, promote the 4 named awards from JSON-LD-only to visible copy, pin award-count consistency with a test, and correct the stale framing that generated the withdrawn metric-removal premise (completed 2026-08-24)
 - [ ] **Phase 12: Enterprise Legibility** - Echo and Nagarro reframed for a reader evaluating regulated, large-organization operating experience, with one grouped entry point on `/projects`
-- [ ] **Phase 13: AEO Remediation** - Answer-engine readiness: collapsed-accordion content mounted in server HTML, FAQPage schema restored, blog dates unified to one source, llms.txt + RSS shipped, homepage gets its own metadata, entity/OG loose ends closed (added 2026-08-29 from `.planning/research/SEO-AEO-AUDIT.md`)
+- [x] **Phase 13: AEO Remediation** - Answer-engine readiness: collapsed-accordion content mounted in server HTML, FAQPage schema restored, blog dates unified to one source, llms.txt + RSS shipped, homepage gets its own metadata, entity/OG loose ends closed (added 2026-08-29 from `.planning/research/SEO-AEO-AUDIT.md`; completed 2026-08-29)
 
 ## Phase Details
 
@@ -171,11 +171,11 @@ own metadata.
 
 **Plans**: 5 plans in 3 waves
 
-- [ ] 13-01-PLAN.md — T-04/T-06: llms.txt route + RSS 2.0 feed + `rel=alternate` (wave 1)
-- [ ] 13-02-PLAN.md — T-01/T-02: accordion content mounted in server HTML on all three surfaces; FAQPage JSON-LD on the homepage (wave 1)
-- [ ] 13-03-PLAN.md — T-03/T-07/T-12: blog date unification + `createArticleMetadata()` adoption in all four MDX posts (wave 1)
-- [ ] 13-04-PLAN.md — T-08/T-09/T-10/T-13/T-14/T-16: homepage server/client split, Person email, resume link, waffle CreativeWork, projectMetadata OG fallback, drop SearchAction, dead-code/doc cleanup, sitemap test count (wave 2, after 13-02 since both touch `app/page.tsx`)
-- [ ] 13-05-PLAN.md — Phase gate: lint → tsc → test + raw-HTML verification of success criteria 1–4 (wave 3)
+- [x] 13-01-PLAN.md — T-04/T-06: llms.txt route + RSS 2.0 feed + `rel=alternate` (wave 1)
+- [x] 13-02-PLAN.md — T-01/T-02: accordion content mounted in server HTML on all three surfaces; FAQPage JSON-LD on the homepage (wave 1)
+- [x] 13-03-PLAN.md — T-03/T-07/T-12: blog date unification + `createArticleMetadata()` adoption in all four MDX posts (wave 1)
+- [x] 13-04-PLAN.md — T-08/T-09/T-10/T-13/T-14/T-16: homepage server/client split, Person email, resume link, waffle CreativeWork, projectMetadata OG fallback, drop SearchAction, dead-code/doc cleanup, sitemap test count (wave 2, after 13-02 since both touch `app/page.tsx`)
+- [x] 13-05-PLAN.md — Phase gate: lint → tsc → test + raw-HTML verification of success criteria 1–4 (wave 3)
 
 **UI hint**: yes (accordion behavior + homepage split must be visually verified)
 
@@ -197,7 +197,7 @@ own metadata.
 | 10. SEO Remediation | v2.0 | 10/10 | Complete | 2026-08-22 |
 | 11. Self-Consistency & Proof | v3.0 | 5/5 | Complete   | 2026-08-24 |
 | 12. Enterprise Legibility | v3.0 | 0/TBD | Not started | - |
-| 13. AEO Remediation | v3.0 | 0/5 | Executing | - |
+| 13. AEO Remediation | v3.0 | 5/5 | Complete | 2026-08-29 |
 
 ## Backlog
 
