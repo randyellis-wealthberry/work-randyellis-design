@@ -64,6 +64,11 @@ Progress: [░░░░░░░░░░] 0%
 
 Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecting current work:
 
+- [Phase 13]: D-08 amended — FAQPage schema permitted because the homepage Q&A is server-rendered visible content (accordion no longer unmounts collapsed children); Organization/LocalBusiness/ProfessionalService remain forbidden. `buildFaqPageSchema` takes the visible FAQS array as input so schema and page cannot diverge.
+- [Phase 13]: D-13 amended — Waffle now uses `projectMetadata` + CreativeWork/Breadcrumb JSON-LD like every other project route (it was the one project page with no CreativeWork node); bespoke OG card kept via explicit override.
+- [Phase 13]: Blog dates — the MDX byline/JSON-LD dates are authoritative; `lib/utils/blog-data.ts` was corrected to match and is pinned by `__tests__/seo/blog-date-consistency.test.ts`.
+- [Phase 13]: `projectOgImage` is raster-only (SVG excluded — most OG scrapers reject it) and `projectMetadata` omits `images` rather than emitting `[]`, which suppressed the file-convention OG fallback.
+
 - ~~Roadmap: Phase 11 must complete (figure removal + `home-page-argument.test.tsx` rewrite) before Phase 12 opens `app/page.tsx` again — the one cross-phase file conflict~~ **CORRECTED 2026-08-22 (REC-01):** void — CRED-10 and CRED-14 were voided; `home-page-argument.test.tsx` is correct as written and Phase 11 does not touch `app/page.tsx` at all (see REQUIREMENTS.md §"Voided requirements")
 - ~~Roadmap: CRED-14 (test rewrite) is required in the SAME plan as CRED-10 (figure removal) — the existing test currently asserts the unbacked figures ARE present and goes red the instant they're removed~~ **CORRECTED 2026-08-22 (REC-01):** void — CRED-10 and CRED-14 were voided; `home-page-argument.test.tsx` is correct as written and needs no rewrite (see REQUIREMENTS.md §"Voided requirements")
 - ~~Roadmap: PRF-02 (stat-band layout after removing 3 of 4 figures) is one design decision applied once across 5 render surfaces, not solved independently five times — the single biggest scope-sizing risk research flagged for Phase 11~~ **CORRECTED 2026-08-22 (REC-01):** void — PRF-02 was voided; no collapse occurs since all four figures stay, so no layout redesign is needed (see REQUIREMENTS.md §"Voided requirements")

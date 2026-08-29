@@ -104,7 +104,12 @@ describe("Project route wiring (D-14)", () => {
     });
   });
 
-  describe("Waffle exclusion (D-13)", () => {
+  describe("Waffle inclusion (Phase 13 T-10, amends D-13)", () => {
+    // D-13 originally excluded Waffle from the shared helpers. The Phase 13
+    // audit found it was the ONE project route emitting no CreativeWork
+    // JSON-LD, and its hand-typed metadata drifted from the project data.
+    // Waffle now follows the same pattern as the other project pages, with
+    // an explicit override keeping its bespoke 1200×630 OG card.
     let waffleSource: string;
 
     beforeAll(() => {
@@ -112,14 +117,14 @@ describe("Project route wiring (D-14)", () => {
       waffleSource = fs.readFileSync(fullPath, "utf-8");
     });
 
-    it("uses createPageMetadata (NOT projectMetadata)", () => {
-      expect(waffleSource).toContain("createPageMetadata(");
-      expect(waffleSource).not.toContain("projectMetadata(");
+    it("uses projectMetadata (NOT createPageMetadata)", () => {
+      expect(waffleSource).toContain("projectMetadata(");
+      expect(waffleSource).not.toContain("createPageMetadata(");
     });
 
-    it("does NOT use server-rendered JSON-LD builders", () => {
-      expect(waffleSource).not.toContain("buildCreativeWorkSchema");
-      expect(waffleSource).not.toContain('@/components/seo/json-ld"');
+    it("uses the server-rendered JSON-LD builders", () => {
+      expect(waffleSource).toContain("buildCreativeWorkSchema");
+      expect(waffleSource).toContain("buildBreadcrumbSchema");
     });
 
     it("does NOT render old client structured-data components", () => {

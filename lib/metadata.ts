@@ -190,13 +190,6 @@ export function createArticleMetadata({
   };
 }
 
-/**
- * Get environment-aware metadata base for Next.js
- */
-export function getMetadataBase(): URL {
-  return new URL(getBaseUrl());
-}
-
 import type { Project } from "./data/types";
 import { WEBSITE_URL } from "./constants";
 
@@ -204,10 +197,13 @@ import { WEBSITE_URL } from "./constants";
  * Extract OG-suitable image from project data (D-05)
  * Returns thumbnail if it's an image, otherwise falls back to first image
  * in the images array (handles video thumbnails like LedgerIQ's .mp4)
+ *
+ * Raster formats only (Phase 13 T-10): most OG scrapers reject SVG, so an
+ * SVG thumbnail counts as "no image" and the file-convention OG card
+ * (app/projects/opengraph-image.tsx) takes over instead.
  */
 export function projectOgImage(project: Project): string | undefined {
-  const isImage = (path: string) =>
-    /\.(png|jpe?g|webp|avif|gif|svg)$/i.test(path);
+  const isImage = (path: string) => /\.(png|jpe?g|webp|avif|gif)$/i.test(path);
 
   if (project.thumbnail && isImage(project.thumbnail)) {
     return project.thumbnail;
@@ -255,22 +251,25 @@ export function projectMetadata(project: Project): Metadata {
       description: project.description,
       url: `/projects/${project.slug}`,
       authors: ["Randy Ellis"],
-      images: img
-        ? [
-            {
-              url: img,
-              width: 1200,
-              height: 630,
-              alt: title,
-            },
-          ]
-        : [],
+      // Omit `images` entirely when no raster image resolves — an explicit
+      // empty array suppresses the opengraph-image.tsx file-convention
+      // fallback (Phase 13 T-10).
+      ...(img && {
+        images: [
+          {
+            url: img,
+            width: 1200,
+            height: 630,
+            alt: title,
+          },
+        ],
+      }),
     },
     twitter: {
       card: "summary_large_image",
       title,
       description: project.description,
-      images: img ? [img] : [],
+      ...(img && { images: [img] }),
     },
   };
 }

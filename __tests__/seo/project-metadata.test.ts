@@ -17,7 +17,9 @@ describe("projectOgImage (D-05)", () => {
       test("returns thumbnail when it matches image extension regex", () => {
         const result = projectOgImage(project);
 
-        if (project.thumbnail?.match(/\.(png|jpe?g|webp|avif|gif|svg)$/i)) {
+        // Raster-only since Phase 13 T-10 — SVG is rejected by most OG
+        // scrapers, so an SVG thumbnail counts as "no image".
+        if (project.thumbnail?.match(/\.(png|jpe?g|webp|avif|gif)$/i)) {
           expect(result).toBe(project.thumbnail);
         }
       });
@@ -27,7 +29,7 @@ describe("projectOgImage (D-05)", () => {
 
         if (project.thumbnail?.match(/\.mp4$/i)) {
           const firstImage = project.images?.find((img: string) =>
-            /\.(png|jpe?g|webp|avif|gif|svg)$/i.test(img),
+            /\.(png|jpe?g|webp|avif|gif)$/i.test(img),
           );
           expect(result).toBe(firstImage);
         }
@@ -216,7 +218,10 @@ describe("projectMetadata (D-02..D-08)", () => {
             },
           ]);
         } else {
-          expect(metadata.openGraph?.images).toEqual([]);
+          // Phase 13 T-10: `images` must be ABSENT, not an empty array — an
+          // explicit [] suppresses the opengraph-image.tsx file-convention
+          // fallback that should serve these projects.
+          expect(metadata.openGraph?.images).toBeUndefined();
         }
       });
 
@@ -227,7 +232,7 @@ describe("projectMetadata (D-02..D-08)", () => {
         if (img) {
           expect(metadata.twitter?.images).toEqual([img]);
         } else {
-          expect(metadata.twitter?.images).toEqual([]);
+          expect(metadata.twitter?.images).toBeUndefined();
         }
       });
     },

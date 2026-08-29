@@ -51,6 +51,9 @@ export function buildPersonSchema(): JsonLdObject {
     description: siteDescription(),
     url: `${WEBSITE_URL}/`,
     image: `${WEBSITE_URL}/images/randyellis-official-avatar.png`,
+    // Phase 13 T-08: the answer to "how do I contact Randy Ellis?" belongs on
+    // the entity AI assistants read. Same address the legal pages publish.
+    email: "hello@randyellis.design",
     sameAs: [
       "https://www.linkedin.com/in/iamrandyellis/",
       "https://github.com/randyellis-wealthberry",
@@ -89,10 +92,11 @@ export function buildPersonSchema(): JsonLdObject {
 }
 
 /**
- * WebSite schema with SearchAction (D-13)
+ * WebSite schema (D-13; SearchAction dropped in Phase 13 T-13)
  *
- * The filter is implemented in Plan 10-06 — app/projects/projects-client.tsx
- * reads ?category= query param.
+ * The old SearchAction advertised /projects?category={…} — a client-side
+ * category filter, not site search — and Google's sitelinks-searchbox
+ * feature it fed is deprecated anyway.
  */
 export function buildWebSiteSchema(): JsonLdObject {
   const baseMetadata = createBaseMetadata();
@@ -107,14 +111,6 @@ export function buildWebSiteSchema(): JsonLdObject {
     description: siteDescription(),
     inLanguage: "en-US",
     author: personRef(),
-    potentialAction: {
-      "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: `${WEBSITE_URL}/projects?category={search_term_string}`,
-      },
-      "query-input": "required name=search_term_string",
-    },
   };
 }
 
