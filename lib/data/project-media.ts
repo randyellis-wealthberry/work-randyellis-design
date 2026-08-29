@@ -249,4 +249,35 @@ export const PROJECT_MEDIA: Record<string, readonly MediaItem[]> = {
         "Where a scorecard starts: a sentence about the role, not a form. The starter cards are a way in for anyone who would rather not begin from a blank field.",
     },
   ],
+  // Pixelbox is pre-launch. Every score, tier and dial position in these three
+  // frames is sample data rendered by the design system, not a real portfolio's
+  // reading, and each caption says so — the product's own brief requires it,
+  // and a screenshot of an unshipped product is exactly where a reader would
+  // otherwise assume a result.
+  pixelbox: [
+    {
+      src: "/projects/pixelbox/hero.png",
+      alt: "The Pixelbox landing hero: 'Your portfolio is raw metal. Have it assayed.' above a URL field and a Take a Reading button, beside an engraved plate labelled un-assayed with its dial at rest",
+      width: 1200,
+      height: 843,
+      caption:
+        "The landing page opens on the object the product acts upon: an unstamped plate, dial at rest, reading not taken. The three claims under the field — no scraping, you keep rights, monthly payouts — are the objections a creator arrives with.",
+    },
+    {
+      src: "/projects/pixelbox/readiness-gate.png",
+      alt: "The Readiness Gate section listing eight numbered checks: resolution and file quality, structure and metadata, volume of work, data accessibility, content originality, recency, licensing clarity, and multimodal diversity",
+      width: 1200,
+      height: 800,
+      caption:
+        "The gate is binary — a portfolio qualifies for ingestion or it does not — but never silent. Each of the eight checks states what it wants in a sentence, so a failure returns something to fix rather than a mystery score.",
+    },
+    {
+      src: "/projects/pixelbox/index-dial.png",
+      alt: "Index dial states across tiers, showing sample readings of 368 Emerging, 495 Building, 612 Solid, 731 Strong and 814 Elite, with flat and rising trend markers",
+      width: 1200,
+      height: 560,
+      caption:
+        "The Readiness Index across its tiers, with sample values. The arc end is deliberately soft and the 850 is never emphasised: a visible ceiling invites a creator to reach it and stop, and freshness is itself one of the scored components.",
+    },
+  ],
 };

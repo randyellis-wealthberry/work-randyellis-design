@@ -96,6 +96,14 @@ export const PROJECT_THUMBNAILS: Record<string, ProjectThumbnail> = {
     alt: "The Rambis UI figure: a relearning fee charged at every adopter of a clean-sheet system, against one inherited foundation paid for once",
     Diagram: RambisForkCostDiagram,
   },
+  pixelbox: {
+    kind: "image",
+    src: "/projects/pixelbox/hero.png",
+    alt: "The Pixelbox landing hero on a near-black ground, reading 'Your portfolio is raw metal. Have it assayed.' beside an engraved plate whose dial is unmoved and labelled un-assayed, reading not taken",
+    width: 1200,
+    height: 843,
+    fit: "cover",
+  },
   skills: {
     kind: "diagram",
     alt: "The agent skills thumbnail: block-character word art reading AGENT SKILLS above the install command",

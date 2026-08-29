@@ -1375,6 +1375,85 @@ export const PROJECTS: Project[] = [
     },
   },
   {
+    id: "pixelbox",
+    name: "Pixelbox",
+    subtitle: "An Assay Office for Design Portfolios",
+    slug: "pixelbox",
+    description:
+      "Paste a portfolio URL and get a certified reading — an eight-check pass/fail gate and a 300–850 Readiness Index. Work that clears the gate can earn from consent-based, fully-licensed AI datasets built only from what the creator opts in.",
+    longDescription:
+      "Most portfolios sit dormant: built once, rarely revisited, earning nothing between client inquiries. AI teams meanwhile need rights-clean visual and case-study data, and their options are either scraped — legally risky — or thin, carrying images without the reasoning that makes them worth training on. Pixelbox is the instrument between the two. A creator submits a URL with no signup and gets a truthful reading of how ready their work is for licensing; if they want to go further they claim the report, install a script on their own site, flag NDA and client-owned work for exclusion, and earn monthly when cleared work is licensed. The metaphor is literal rather than decorative — an assay office is where a goldsmith brings raw, unproven metal to be tested and stamped with certified purity — and it runs down to the engraved index dial, the hallmark stamp, and the unstamped raw plate the landing page opens on. A MetisLayer product, built solo. Nothing has shipped yet: the design system, the rule-based scoring seed, and the scan endpoint exist; the database, auth, payments, and headless rendering do not.",
+    category: "AI/ML",
+    categories: ["AI/ML", "Web Dev", "UI/UX"],
+    tags: [
+      "AI Training Data",
+      "Consent-First",
+      "Data Licensing",
+      "Design System",
+      "Scoring Model",
+      "Next.js",
+      "Solo Build",
+    ],
+    link: "https://test.pixelbox.space",
+    video: "",
+    thumbnail: "/projects/pixelbox/hero.png",
+    images: [
+      "/projects/pixelbox/hero.png",
+      "/projects/pixelbox/readiness-gate.png",
+      "/projects/pixelbox/index-dial.png",
+    ],
+    timeline: "2026 – Present",
+    status: "in-progress",
+    technologies: [
+      "Next.js 16",
+      "React 19",
+      "Tailwind CSS v4",
+      "shadcn/ui",
+      "Framer Motion",
+      "Zod",
+      "TypeScript",
+      "Vercel",
+    ],
+    featured: false,
+    role: "Founder, Designer, and Engineer",
+    roleNarrative:
+      "Pixelbox is a solo build. I own the product thesis, the design brief, the assay-office visual language, the scoring model, and the code — there is no team and no client. That cuts both ways, and the second half matters more: nothing here has been through the corrective pressure a team or a market applies. The decisions below are reasoned and documented, and they are untested against a single real creator. That is the honest state of a product at phase one of six.",
+    decisions: [
+      {
+        title: "An assay office, not another node graph",
+        decision:
+          "Built the entire interface on a precious-metals assay metaphor — engraved dial, hallmark stamp, raw unstamped plate — instead of the mesh/node-graph visualization the earlier score card used.",
+        rationale:
+          "The node-graph version worked, which is exactly why it was hard to abandon. But dots-and-lines 'network visualization' is becoming its own AI-generated-product cliché, the way glassmorphism and gradient blobs did before it — it reads as 'data product' the way stock photos of handshakes read as 'corporate.' The assay office says something the graph could not: this is a place that tests unproven material and certifies it. The cost is specificity over familiarity. A visitor who has seen fifty AI dashboards knows instantly how to read the fifty-first, and has to spend a moment on this one. I took that trade on the grounds that if a screenshot could be mistaken for a generic AI-native SaaS dashboard, a crypto wallet, or a network-viz tool, the design has failed.",
+      },
+      {
+        title: "A 300–850 index with no visible ceiling, not a percentage",
+        decision:
+          "Scored portfolio quality as an open-ended index modeled on a consumer credit score, with named tiers and a deliberately soft, unlabelled arc end — no emphasised 850, no progress bar.",
+        rationale:
+          "A percentage implies a finish line, and a creator who believes they have hit 100% stops updating their portfolio — which is the one behaviour the product cannot afford, since freshness is itself a scored component. The credit-score model has no ceiling to reach. The cost is that I am borrowing a mechanism people already distrust: credit scoring's opacity is its defining failure. So the analogy is only safe if I take the opposite position on transparency, which means every index movement has to ship with a plain-language reason — '+12, added outcome data to 2 projects' — and the rule-based engine has to store each individual phrase match with its context sentence so a creator can dispute a number and see precisely what produced it.",
+      },
+      {
+        title: "Consent enforced by architecture, not by policy",
+        decision:
+          "Data enters only through a script the creator installs on their own site and can remove; NDA and client-owned work is flagged per asset and gated at ingestion.",
+        rationale:
+          "Every competitor can write 'we respect creator rights' into a policy page. Almost none can arrange things so that excluded work never arrives in the first place — the usual shape is to ingest broadly and filter downstream, which means the sensitive asset was on the platform's disks the whole time. Gating at ingestion is the claim a competitor cannot truthfully copy without rebuilding their pipeline. The cost is the worst kind for a consumer funnel: friction exactly where it hurts. Scraping needs nothing from the creator; this needs them to install a snippet and audit their own back catalogue for NDA work. It moves the real activation metric from signup to script-installed, and I expect that step to be where most people leave.",
+      },
+      {
+        title: "Rule-based scoring for v1, with LLM assistance out of scope",
+        decision:
+          "Scored case-study quality with fixed phrase lists across seven signal categories, requiring a concrete noun or number nearby before a match counts, rather than asking a model to evaluate the writing.",
+        rationale:
+          "An LLM would read the nuance better, and I still ruled it out for v1. The product's whole proposition is a number a creator can trust and contest, and 'the model thought your process rationale was weak' is not a contestable statement — it is not reproducible between runs, and it cannot be shown as evidence. Fixed rules can be printed. The cost is real and I am not going to pretend otherwise: the engine will miss well-written work that avoids the phrasings on the list, and it will reward writers who learn to write toward the detector. The secondary-validation rule blunts the second failure without removing it.",
+      },
+    ],
+    processStory: {
+      reflection:
+        "The thing I keep circling is that Pixelbox asks creators to trust it about the exact thing they have most reason to be cynical about. They have watched models get trained on scraped creative work without consent or payment, and a platform arriving now with better manners and a payout schedule is, on its face, indistinguishable from extraction with a nicer interface. I do not think a landing page can argue its way out of that, so the product has to be built such that the answer is structural — the script is theirs to remove, exclusions gate ingestion rather than filter it, creators stay pseudonymous to buyers by default. What I cannot yet claim is that any of it works. There are zero creators scanned, zero signups, zero buyer conversations, and the earnings figures in the codebase are unsourced placeholders sitting behind a note that says exactly that. Writing this entry while the product is still pre-launch was itself the useful exercise: every sentence I wanted to write with a number in it turned out to be a sentence I had not earned.",
+    },
+  },
+  {
     id: "skills",
     name: "Agent Skills",
     subtitle: "Design Judgment as Installable Agent Skills",
