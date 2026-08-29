@@ -1,19 +1,13 @@
 import { BlogPostJsonLd } from "@/components/seo/blog-post-json-ld";
 import { BlogHeroWrapper } from "@/components/blog/blog-hero-wrapper";
+import { createArticleMetadata } from "@/lib/metadata";
 
-export const metadata = {
+export const metadata = createArticleMetadata({
   title: "Profits, Not Pixels: Why Business Impact Matters",
   description:
     "How the design job market has shifted from aesthetics to business impact and ROI-driven decisions.",
-  alternates: {
-    canonical: "/blog/profits-not-pixels",
-  },
-  openGraph: {
-    type: "article",
-    publishedTime: "2025-07-21",
-  },
-  date: "2025-07-21",
-  author: "Randy Ellis",
+  path: "/blog/profits-not-pixels",
+  publishedTime: "2025-07-21",
   tags: [
     "Design Leadership",
     "Business Impact",
@@ -21,8 +15,8 @@ export const metadata = {
     "UX Strategy",
     "ROI",
   ],
-  slug: "profits-not-pixels",
-};
+  image: "/images/blog/profits-not-pixels/hero.jpg",
+});
 
 <BlogPostJsonLd
   title="PROFITS, NOT PIXELS: The story of world's most expensive (yet, valuable?) cup of coffee"

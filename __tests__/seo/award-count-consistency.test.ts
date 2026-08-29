@@ -218,6 +218,7 @@ describe("Award-count consistency across every stating surface (CRED-12)", () =>
      * why. The surface set must never grow silently.
      */
     const ALLOWED_AWARD_FILES = [
+      "app/llms.txt/route.ts", // Phase 13: "certifications, awards, and design philosophy" — a link description for /about, states no count
       "app/about/about-client.tsx", // states the count — asserted in Block 2
       "app/about/opengraph-image.tsx", // states the count — asserted in Block 2
       "app/about/page.tsx", // states the count — asserted in Block 2
