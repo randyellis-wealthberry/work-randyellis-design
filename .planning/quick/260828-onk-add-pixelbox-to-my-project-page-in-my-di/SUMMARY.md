@@ -55,17 +55,28 @@ Note: `npm test` unscoped reports ~85 failing suites because Jest crawls stale
 git worktrees under `.claude/worktrees/`, each with its own `node_modules`.
 That is a workspace-hygiene issue, unrelated to this change.
 
-## Open item — carried, not closed
+## Open item — now closed
 
-**`https://test.pixelbox.space` is not publicly reachable.** It returns
-`302 → vercel.com/sso-api` (Vercel Deployment Protection). The entry links to
-it on the operator's stated intent to disable that protection. Until they do,
-the card's link sends visitors to a Vercel login page.
+**`https://test.pixelbox.space` is public as of 2026-08-28.** It previously
+returned `302 → vercel.com/sso-api` (Vercel Deployment Protection); the operator
+disabled that protection. Re-verified: `HTTP/2 200`, no redirect, and the body
+is the real build — zero occurrences of `Optimus`, `NETFLIX`, or `Meridian
+Labs`, the markers of the v0 template still sitting on the apex domain.
 
-The alternative is worse and was rejected: `pixelbox.space` serves a v0
-"Optimus" template carrying fabricated Netflix/Stripe/Linear logos and an
-invented CTO testimonial — the last thing to point a hiring manager at from a
-portfolio built on verifiable claims.
+The apex `pixelbox.space` was rejected as the link target and still should be:
+it serves that v0 template, carrying fabricated Netflix/Stripe/Linear logos and
+an invented CTO testimonial — the last thing to point a hiring manager at from
+a portfolio built on verifiable claims.
+
+## Noted for the operator, not acted on
+
+The live build surfaces earnings figures (`$60–160 estimated supplemental
+monthly range`, `$30–85`). The product repo's own `PRODUCT.md:144-145` records
+`TIER_EARNINGS` as **unsourced placeholders** that "must not be presented as
+researched figures." They are hedged as estimates on the page, so this is the
+product's call rather than the portfolio's — but the portfolio now links there,
+and a reader who clicks through meets a dollar range before anything else. The
+case study itself claims no figures.
 
 ## What this entry deliberately does not claim
 

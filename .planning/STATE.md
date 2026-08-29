@@ -111,7 +111,7 @@ Items acknowledged and carried forward from previous milestone close:
 
 | Date | Slug | Outcome |
 |------|------|---------|
-| 2026-08-28 | `add-pixelbox-to-my-project-page-in-my-di` | Added the `pixelbox` case study to `PROJECTS` (between `waffle` and `skills`) with thumbnail + 3-image gallery, sourced from the product repo rather than the live site, which serves a v0 "Optimus" template. Pre-launch framing: no metrics, no outcomes, no `isLiveProduct`. **Open:** `test.pixelbox.space` is still behind Vercel Deployment Protection. |
+| 2026-08-28 | `add-pixelbox-to-my-project-page-in-my-di` | Added the `pixelbox` case study to `PROJECTS` (between `waffle` and `skills`) with thumbnail + 3-image gallery, sourced from the product repo rather than the live site, which serves a v0 "Optimus" template. Pre-launch framing: no metrics, no outcomes, no `isLiveProduct`. Added a decision figure drawing where the rights gate sits relative to the platform boundary. Link verified public (`HTTP/2 200`, real build) after Deployment Protection was disabled. |
 
 ## Session Continuity
 
