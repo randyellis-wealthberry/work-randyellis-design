@@ -80,6 +80,8 @@ export type CaseStudyTemplateProps = {
   actions?: readonly PageAction[];
   /** Replaces the booking pair in the close when the surface sells something else. */
   closeActions?: readonly PageAction[];
+  /** Rendered in the hero between the actions and the contents line. */
+  heroExtra?: React.ReactNode;
   /** Defaults to the project's own background paragraph. */
   situation?: string;
   situationLabel?: string;
@@ -228,6 +230,7 @@ export function CaseStudyTemplate({
   lead,
   actions,
   closeActions,
+  heroExtra,
   situation,
   situationLabel = "What I walked into",
   intro,
@@ -355,6 +358,8 @@ export function CaseStudyTemplate({
             <ActionRow actions={actions} />
           </div>
         )}
+
+        {heroExtra && <div className="mt-8">{heroExtra}</div>}
 
         {tocItems.length >= 6 && (
           <div className="mt-12">
