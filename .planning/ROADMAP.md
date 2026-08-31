@@ -207,9 +207,22 @@ own metadata.
 - **POL-02** — waffle converged onto the shared template as a *case study* (it
   already shares the template as a product page)
 
-- **Blog Article structured data** — `datePublished`/`dateModified` emit bare
-  dates with no time or timezone; no `image`; `Paywalled Content` detected on a
-  post that is not paywalled
+- **Blog Article structured data** — two live items, verified 2026-08-29 after
+  Phase 13:
+  - `datePublished`/`dateModified` still emit bare dates with no time or
+    timezone on all four posts. Phase 13 (T-03) reconciled *which* date each
+    post claims, not the format, so the four RRT datetime warnings stand. Full
+    ISO-8601 with an offset clears them.
+  - `profits-not-pixels` passes no `imageUrl` to `<BlogPostJsonLd>`, so its
+    `Article` has no `image` — the only post of the four that doesn't. Its OG
+    metadata *does* carry the image; only the JSON-LD is missing it.
+  - ~~`Paywalled Content` detected on a post that is not paywalled~~
+    **RESOLVED 2026-08-29 — not a defect.** Per Google's paywalled-content
+    docs, `isAccessibleForFree: true` with no `hasPart` is the correct markup
+    for freely accessible content; `hasPart`/`cssSelector` is only for pages
+    that mix free and paid sections. RRT listing "Paywalled Content" as a green
+    valid item means it recognized the property, not that a paywall was
+    inferred. No action.
 
 - **`/services` reader conflict** — `/services` and the retainer funnel were built
   outside GSD and now own the metadata description and primary conversion path on

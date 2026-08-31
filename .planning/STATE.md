@@ -127,3 +127,35 @@ Resume file: None
   `motion-reduced` — fail on clean main, not a Phase 13 regression)
 - Phase 12 remains blocked on the ENT-03 per-metric dispositions (human gate)
 - Highest-leverage AEO lever left: publish blog posts (audit T-05, backlog)
+- Two small Article-schema items remain (ROADMAP Backlog, verified post-Phase-13):
+  bare dates with no timezone on all 4 posts, and `profits-not-pixels` not
+  passing `imageUrl` to `<BlogPostJsonLd>`
+
+### Doc hygiene, 2026-08-29
+
+`docs/SEO-AEO-ASSESSMENT.md` (untracked, never committed) was deleted after
+review against the tree. It was written pre-Phase-13 but carried a later
+timestamp, so it read as the newest SEO reference while contradicting shipped
+state. Adjudicated claim-by-claim:
+
+- Missed the Phase 13 headline defect (T-01, accordions unmounting collapsed
+  content) and praised the homepage FAQ as server-rendered when it wasn't.
+- Listed `llms.txt`, homepage server metadata, and a contact surface as open —
+  all shipped in Phase 13.
+- Its "stale documents" table told readers to delete `SEO_OPTIMIZATION_REPORT.md`
+  and `SEO_IMPLEMENTATION.md`, both already deleted in 13-04.
+- Its §2.5 "unbacked aggregate claims" item was void on arrival — it cited
+  CRED-11, which Randy voided 2026-08-22 (the metric-removal premise was
+  withdrawn; the figures are accurate and stay).
+- Its two accurate items (bare dates, missing Article image) were already in the
+  ROADMAP backlog; that entry has been sharpened rather than duplicated.
+
+`.planning/research/SEO-AUDIT.md` and `.planning/milestones/v2.0-research/SEO-AUDIT.md`
+are byte-identical but **both kept** — `v2.0-research/` is the frozen milestone
+snapshot, and its other files have already diverged from the live `research/`
+copies. Deleting either would break the archive convention.
+
+Still stale and still tracked: `docs/features/seo-implementation.md` (describes
+PWA, Organization/LocalBusiness/ProfessionalService schema, and "AI bot
+blocking" — all removed or inverted). Not touched here; needs a rewrite-or-delete
+decision.
