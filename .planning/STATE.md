@@ -113,6 +113,12 @@ Items acknowledged and carried forward from previous milestone close:
 | A11y | Reuse `role="status"` filter-state announcement on new entry point | Deferred past v3.0 (GE-3) | v3.0 requirements |
 | Tech debt | Dead-code cleanup: `enhanced-metrics-grid.tsx`, `enhanced-hover-cards.tsx` | Deferred past v3.0 | v3.0 requirements |
 
+## Quick Tasks Completed
+
+| Date | Slug | Outcome |
+|------|------|---------|
+| 2026-08-28 | `add-pixelbox-to-my-project-page-in-my-di` | Added the `pixelbox` case study to `PROJECTS` (between `waffle` and `skills`) with thumbnail + 3-image gallery, sourced from the product repo rather than the live site, which serves a v0 "Optimus" template. Pre-launch framing: no metrics, no outcomes, no `isLiveProduct`. Added a decision figure drawing where the rights gate sits relative to the platform boundary. Link verified public (`HTTP/2 200`, real build) after Deployment Protection was disabled. |
+
 ## Session Continuity
 
 Last session: 2026-08-23T13:29:43.633Z

@@ -19,6 +19,7 @@ import { NagarroAuthorityDiagram } from "./nagarro-authority";
 import { NagarroComplianceFloorDiagram } from "./nagarro-compliance-floor";
 import { OhPlaysFieldConditionsDiagram } from "./ohplays-field-conditions";
 import { OhPlaysForkDiagram } from "./ohplays-fork";
+import { PixelboxIngestionGateDiagram } from "./pixelbox-ingestion-gate";
 import { RambisForkCostDiagram } from "./rambis-fork-cost";
 import { RambisTwoLayersDiagram } from "./rambis-two-layers";
 import { WaffleChatCaptureDiagram } from "./waffle-chat-capture";
@@ -219,6 +220,14 @@ const DECISION_FIGURES: Record<string, Record<string, DecisionFigure>> = {
         "The scale has tick marks up to the conformance line and none above it, which is the entire problem: the target worth hitting sits in the part that cannot be scored. Stopping at the line buys a number, a defensible story and an easy budget conversation. Aiming past it buys the thing the standard was standing in for, and gives up every one of those.",
       minWidth: 880,
       Diagram: NagarroComplianceFloorDiagram,
+    },
+  },
+  pixelbox: {
+    "Consent enforced by architecture, not by policy": {
+      caption:
+        "Both routes have a rights control; they differ on which side of the line it runs. Filtering downstream means the flagged asset was on the platform's disks the whole time and the control is a cleanup, not a refusal. Moving the same check onto the boundary costs the funnel its easiest step — a creator now has to install a script and audit their own back catalogue — and buys the one claim a competitor cannot copy by rewriting a policy page.",
+      minWidth: 880,
+      Diagram: PixelboxIngestionGateDiagram,
     },
   },
   "rambis-ui": {

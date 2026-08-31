@@ -235,6 +235,7 @@ out/
 # Claude Code
 .claude/
 .anthropic/
+CLAUDE.local.md
 
 # GitHub Copilot
 .copilot/
