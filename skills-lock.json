@@ -1,0 +1,227 @@
+{
+  "version": 1,
+  "skills": {
+    "agy-delegate": {
+      "source": "amElnagdy/delegate-skills",
+      "sourceType": "github",
+      "skillPath": "skills/agy-delegate/SKILL.md",
+      "computedHash": "41301193e773a60e9f257bf7ccc53a210c88e542502575144af09ba09081691d"
+    },
+    "aider-delegate": {
+      "source": "amElnagdy/delegate-skills",
+      "sourceType": "github",
+      "skillPath": "skills/aider-delegate/SKILL.md",
+      "computedHash": "df6cd6c182086cfe13ab1f3943a58916278b6dc3fe1b7d02fc4d3da99b686d7d"
+    },
+    "claude-delegate": {
+      "source": "amElnagdy/delegate-skills",
+      "sourceType": "github",
+      "skillPath": "skills/claude-delegate/SKILL.md",
+      "computedHash": "8b168c394e97d250e3437d38266538ef6d0246ea8dc3af54590dc073a24f251a"
+    },
+    "cline-delegate": {
+      "source": "amElnagdy/delegate-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cline-delegate/SKILL.md",
+      "computedHash": "4aa5dbc26a71496e485abfe71ca175ed6248eacd0d0e8d58612bf85fd82a92fd"
+    },
+    "codex-delegate": {
+      "source": "amElnagdy/delegate-skills",
+      "sourceType": "github",
+      "skillPath": "skills/codex-delegate/SKILL.md",
+      "computedHash": "606e9dfba09cde77af435ecbae83902ea085c1e8771c9cb56d7d38bf1d81c8a7"
+    },
+    "commandcode-delegate": {
+      "source": "amElnagdy/delegate-skills",
+      "sourceType": "github",
+      "skillPath": "skills/commandcode-delegate/SKILL.md",
+      "computedHash": "1776dfe55c733192fe6d368db9374005d35d571ced4f74aa8ff2e888651f01f9"
+    },
+    "copilot-delegate": {
+      "source": "amElnagdy/delegate-skills",
+      "sourceType": "github",
+      "skillPath": "skills/copilot-delegate/SKILL.md",
+      "computedHash": "cdde2020dd20d5e4a2245a6471d648d01800607e4178a45ce49e58886447f572"
+    },
+    "cursor-delegate": {
+      "source": "amElnagdy/delegate-skills",
+      "sourceType": "github",
+      "skillPath": "skills/cursor-delegate/SKILL.md",
+      "computedHash": "f3c7e51b84407cb87bf7a37baa542c55ef718a70a2d0a2e9ed709021dab063d5"
+    },
+    "delegate-setup": {
+      "source": "amElnagdy/delegate-skills",
+      "sourceType": "github",
+      "skillPath": "skills/delegate-setup/SKILL.md",
+      "computedHash": "b643a314ae5c3bb701674e01138118a45e62b693d89512fcec94378502e8f47d"
+    },
+    "grok-delegate": {
+      "source": "amElnagdy/delegate-skills",
+      "sourceType": "github",
+      "skillPath": "skills/grok-delegate/SKILL.md",
+      "computedHash": "044ea6331b01f0db092f75d0d10d4a36dc4c5214474fc51ddd1573cede68f509"
+    },
+    "kimi-delegate": {
+      "source": "amElnagdy/delegate-skills",
+      "sourceType": "github",
+      "skillPath": "skills/kimi-delegate/SKILL.md",
+      "computedHash": "5a6694db25ae47e0e3920c921d54cbd8b9f5c34afff29dd6dbd5e273478e1d3e"
+    },
+    "mantis-advise": {
+      "source": "google/mantis",
+      "sourceType": "github",
+      "skillPath": "mantis-advise/SKILL.md",
+      "computedHash": "486318e39a372af76320362f40376e27998f64359937397eccf60541eafaee5a"
+    },
+    "mantis-architecture": {
+      "source": "google/mantis",
+      "sourceType": "github",
+      "skillPath": "mantis-architecture/SKILL.md",
+      "computedHash": "253351cbbd563abca2b9d487b3518c99b39e9b19f2e4c5fbadba1bac71af7a16"
+    },
+    "mantis-calibrate": {
+      "source": "google/mantis",
+      "sourceType": "github",
+      "skillPath": "mantis-calibrate/SKILL.md",
+      "computedHash": "bc60c82ee639c2f6b4402bc7b95ce8d918c7c1b88f038e2e68a89a027a745bbe"
+    },
+    "mantis-chain": {
+      "source": "google/mantis",
+      "sourceType": "github",
+      "skillPath": "mantis-chain/SKILL.md",
+      "computedHash": "154f5ed3610489cf1159f6d341d8ab13e936bce94546ba2716a72bd3d0901b17"
+    },
+    "mantis-critic": {
+      "source": "google/mantis",
+      "sourceType": "github",
+      "skillPath": "mantis-critic/SKILL.md",
+      "computedHash": "d1875a50e7e3643b22ef2490b5eb989a6e585f509de206a429eadc15f561d122"
+    },
+    "mantis-dedupe": {
+      "source": "google/mantis",
+      "sourceType": "github",
+      "skillPath": "mantis-dedupe/SKILL.md",
+      "computedHash": "84a05756105652e23a460ad28572ad43e6074d3141d73c7e4f2f23b0bec8467b"
+    },
+    "mantis-history": {
+      "source": "google/mantis",
+      "sourceType": "github",
+      "skillPath": "mantis-history/SKILL.md",
+      "computedHash": "515f077bcaef0843b5fedb6ab652e41391c9e81c99ef3f9110b66565acfb8d10"
+    },
+    "mantis-meta-agent": {
+      "source": "google/mantis",
+      "sourceType": "github",
+      "skillPath": "mantis-meta-agent/SKILL.md",
+      "computedHash": "970aca46869b0c805831d9b11146aaaef0b00a854ab794ff1b9493aae0fdd2a9"
+    },
+    "mantis-patch": {
+      "source": "google/mantis",
+      "sourceType": "github",
+      "skillPath": "mantis-patch/SKILL.md",
+      "computedHash": "3e2a3eb3d77059c319d0f6b0adab3f3f28e99e779cad7cbd61662889e1c05d97"
+    },
+    "mantis-pipeline-adapter": {
+      "source": "google/mantis",
+      "sourceType": "github",
+      "skillPath": "mantis-pipeline-adapter/SKILL.md",
+      "computedHash": "471179aba5f29513c0188d78de185bbbd526a539aabf318d0ee074b2b32c87b9"
+    },
+    "mantis-plan": {
+      "source": "google/mantis",
+      "sourceType": "github",
+      "skillPath": "mantis-plan/SKILL.md",
+      "computedHash": "422c16467e432c8d74be13036e86fdf4edbec3231738810051a41e22437ffe78"
+    },
+    "mantis-reflect": {
+      "source": "google/mantis",
+      "sourceType": "github",
+      "skillPath": "mantis-reflect/SKILL.md",
+      "computedHash": "3057c8c36d639739f46ee6586faa2c77a8f53372a4c0ca2be9663f3daf5424f9"
+    },
+    "mantis-report": {
+      "source": "google/mantis",
+      "sourceType": "github",
+      "skillPath": "mantis-report/SKILL.md",
+      "computedHash": "0be6165887e244bbb224bdcbfb75905282d356878b862bd5d922e7ac8f6fa842"
+    },
+    "mantis-reproduce": {
+      "source": "google/mantis",
+      "sourceType": "github",
+      "skillPath": "mantis-reproduce/SKILL.md",
+      "computedHash": "f5474c146f4c45bbcf33cbef3f5675cb55845d4130cf9e6e60230490e62a30a5"
+    },
+    "mantis-researcher": {
+      "source": "google/mantis",
+      "sourceType": "github",
+      "skillPath": "mantis-researcher/SKILL.md",
+      "computedHash": "025b43b2a984395add14e1eb80a152149966a9f68a734ae569fb194b81815b59"
+    },
+    "mantis-review": {
+      "source": "google/mantis",
+      "sourceType": "github",
+      "skillPath": "mantis-review/SKILL.md",
+      "computedHash": "c88e55fbad0b2a88de3266a3d7644dc9e2933e88767920b04de85bf9c49a001c"
+    },
+    "mantis-structural-index": {
+      "source": "google/mantis",
+      "sourceType": "github",
+      "skillPath": "mantis-structural-index/SKILL.md",
+      "computedHash": "3399dc453f04cb2e21a58bd30e7556d0232e172944d5e9e2705358e62dec8c0b"
+    },
+    "mantis-summarize": {
+      "source": "google/mantis",
+      "sourceType": "github",
+      "skillPath": "mantis-summarize/SKILL.md",
+      "computedHash": "38bfb08add00eceb11df53f91155c88536b473b517acd4e2f8b5924314a92687"
+    },
+    "mantis-threat-model": {
+      "source": "google/mantis",
+      "sourceType": "github",
+      "skillPath": "mantis-threat-model/SKILL.md",
+      "computedHash": "82cf16a79dc69bda21d20a85ec773343c8204f4f8d027c454f827ba34af98d1d"
+    },
+    "omp-delegate": {
+      "source": "amElnagdy/delegate-skills",
+      "sourceType": "github",
+      "skillPath": "skills/omp-delegate/SKILL.md",
+      "computedHash": "9e627f4f4f239f47e1314707e3718fe61604bdde308c6a2cb2f4bdcbe0505601"
+    },
+    "opencode-delegate": {
+      "source": "amElnagdy/delegate-skills",
+      "sourceType": "github",
+      "skillPath": "skills/opencode-delegate/SKILL.md",
+      "computedHash": "8c381178a81eca50f726967805f32a519679c45f959b3e22674daeaf864cb5ad"
+    },
+    "pi-delegate": {
+      "source": "amElnagdy/delegate-skills",
+      "sourceType": "github",
+      "skillPath": "skills/pi-delegate/SKILL.md",
+      "computedHash": "0ba40f17ccf5ae23db1b8273963ecdb2f501f1b5e0c1b777cf274bcee352b2c8"
+    },
+    "qoder-delegate": {
+      "source": "amElnagdy/delegate-skills",
+      "sourceType": "github",
+      "skillPath": "skills/qoder-delegate/SKILL.md",
+      "computedHash": "06781772d4dee6f3abf82b56ee5d02fedcaddacd09c9637acc17762cf6c56fbe"
+    },
+    "vibe-delegate": {
+      "source": "amElnagdy/delegate-skills",
+      "sourceType": "github",
+      "skillPath": "skills/vibe-delegate/SKILL.md",
+      "computedHash": "18cd261c3975ed8536aa615dee34e91a37c2b3fa04eb7d188f314a7afbde7320"
+    },
+    "warp-delegate": {
+      "source": "amElnagdy/delegate-skills",
+      "sourceType": "github",
+      "skillPath": "skills/warp-delegate/SKILL.md",
+      "computedHash": "b397cadc7661b98d2d00ddd9f2ba76a419eb035eef30bcff0d3f7dbf564f94a5"
+    },
+    "zcode-delegate": {
+      "source": "amElnagdy/delegate-skills",
+      "sourceType": "github",
+      "skillPath": "skills/zcode-delegate/SKILL.md",
+      "computedHash": "d3a6f80f3e012a4944cd8e2c44b7d2ff8704ed39e35cd6d9114cc9f3609cb968"
+    }
+  }
+}
