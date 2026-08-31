@@ -11,6 +11,8 @@ import {
   trackRecommendationCaseStudyClick,
   trackRecommendationCardHover,
 } from "@/lib/analytics";
+import { throttled } from "@/lib/analytics-guard";
+import { HIGH_FREQUENCY_WINDOW_MS } from "@/lib/analytics-events";
 
 interface GlobalCaseStudyGridProps {
   excludeCurrentSlug?: string;
@@ -111,6 +113,17 @@ export function GlobalCaseStudyGrid({
   // Handle hover analytics tracking
   const handleProjectHover = useCallback(
     (project: Project, position: number) => {
+      // Per-card key: hovering one card must not suppress the signal for
+      // the others, only repeat re-entries of the same card within the window.
+      if (
+        !throttled(
+          `recommendation_card_hover:case_study:${project.slug}`,
+          HIGH_FREQUENCY_WINDOW_MS,
+        )
+      ) {
+        return;
+      }
+
       trackRecommendationCardHover(
         "case_study",
         sourcePageType,

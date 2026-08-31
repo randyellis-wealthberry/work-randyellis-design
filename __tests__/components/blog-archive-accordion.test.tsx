@@ -53,25 +53,27 @@ describe("BlogArchiveAccordion", () => {
 
     expect(screen.getByText("5 min read")).toBeInTheDocument();
     expect(screen.getByText("8 min read")).toBeInTheDocument();
-    expect(screen.getByText("Development")).toBeInTheDocument();
-    expect(screen.getByText("Design")).toBeInTheDocument();
+    // Category text also exists inside the (collapsed but mounted) content
+    // rows since Phase 13 T-01, so match all occurrences.
+    expect(screen.getAllByText("Development").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Design").length).toBeGreaterThan(0);
   });
 
   it("should expand article content when clicked", () => {
     render(<BlogArchiveAccordion />);
 
-    // Initially, descriptions should not be visible
-    expect(
-      screen.queryByText("This is the first test article description."),
-    ).not.toBeInTheDocument();
+    // Since Phase 13 T-01 collapsed content stays MOUNTED (so crawlers can
+    // read it) but is aria-hidden until the item expands.
+    const description = screen.getByText(
+      "This is the first test article description.",
+    );
+    expect(description.closest('[aria-hidden="true"]')).not.toBeNull();
 
     // Click on the first article
     fireEvent.click(screen.getByText("Test Article 1"));
 
-    // Description should now be visible
-    expect(
-      screen.getByText("This is the first test article description."),
-    ).toBeInTheDocument();
+    // Content is now exposed to the accessibility tree
+    expect(description.closest('[aria-hidden="true"]')).toBeNull();
   });
 
   it("should show published date in content", () => {
@@ -81,7 +83,8 @@ describe("BlogArchiveAccordion", () => {
 
     // The details block is a Terms List (DESIGN.md) now — a <dl> with a
     // hairline above every row — so the term is a <dt>, not "Published:".
-    expect(screen.getByText("Published")).toBeInTheDocument();
+    // Every mounted row has one (Phase 13 T-01), so match all occurrences.
+    expect(screen.getAllByText("Published").length).toBeGreaterThan(0);
     // Check if date is present with more flexible matching
     expect(
       screen.getByText((content, element) => {

@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import Link from "next/link";
 import { InstallPicker } from "@/components/skills/install-picker";
+import { BuyMeACoffeeButton } from "@/components/ui/buy-me-a-coffee";
 
 const REPO_URL = "https://github.com/randyellis-wealthberry/skills";
 
@@ -156,6 +157,14 @@ export default function SkillsClient() {
             See the work behind them
           </Link>
         </div>
+        {/* Fine print, not a third button: the ask stays quieter than the work. */}
+        <p className="mt-5 text-xs leading-relaxed text-zinc-500 dark:text-zinc-400">
+          Free to use. If you find this useful,{" "}
+          <BuyMeACoffeeButton className="text-xs">
+            buy me a coffee
+          </BuyMeACoffeeButton>
+          .
+        </p>
       </motion.section>
 
       {/* Premise */}

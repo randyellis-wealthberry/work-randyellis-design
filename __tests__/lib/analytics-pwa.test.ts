@@ -11,6 +11,8 @@ const mockGtag = jest.fn();
 Object.defineProperty(window, "gtag", {
   value: mockGtag,
   writable: true,
+  // configurable so the error-handling tests can `delete window.gtag`
+  configurable: true,
 });
 
 describe("PWA Analytics Functions", () => {

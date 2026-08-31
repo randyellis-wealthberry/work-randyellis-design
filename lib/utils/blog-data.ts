@@ -29,7 +29,10 @@ export interface BlogArchiveData {
   totalCount: number;
 }
 
-// Mock blog articles data based on existing articles in the project
+// Listing copy for the blog archive, sitemap, and RSS feed. Each entry's
+// `publishedDate` is pinned to its post's MDX metadata by
+// __tests__/seo/blog-date-consistency.test.ts (Phase 13 T-03) — the MDX is
+// the authoritative source; edit dates there first.
 const mockArticles: BlogArticle[] = [
   {
     slug: "claude-obsidian-workflows",
@@ -48,7 +51,7 @@ const mockArticles: BlogArticle[] = [
     title: "Creating Professional Videos with Claude Code",
     description:
       "Learn how to leverage Claude Code to create stunning videos programmatically using Remotion and Manim libraries. A comprehensive guide for marketers, developers, and content creators.",
-    publishedDate: "2024-12-20",
+    publishedDate: "2024-12-15",
     readTime: 12,
     category: "Development",
     tags: ["claude-code", "video-generation", "remotion", "manim", "ai"],
@@ -60,7 +63,7 @@ const mockArticles: BlogArticle[] = [
     title: "Exploring the Intersection of Design, AI, and Design Engineering",
     description:
       "A deep dive into how artificial intelligence is transforming the design engineering landscape and what it means for the future of product development.",
-    publishedDate: "2024-11-15",
+    publishedDate: "2024-01-15",
     readTime: 6,
     category: "Design",
     tags: ["design", "ai", "design-engineering", "future"],
@@ -72,7 +75,7 @@ const mockArticles: BlogArticle[] = [
     title: "Profits, Not Pixels: Why Business Impact Matters",
     description:
       "Understanding how to balance design perfection with business outcomes and why focusing on impact over aesthetics leads to better results.",
-    publishedDate: "2024-10-30",
+    publishedDate: "2025-07-21",
     readTime: 5,
     category: "Business",
     tags: ["business", "design-strategy", "impact", "roi"],

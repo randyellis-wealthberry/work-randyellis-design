@@ -6,6 +6,12 @@
 import type { Metadata } from "next";
 import { getBaseUrl, createAbsoluteUrl } from "./env";
 
+// Next.js replaces (not merges) a page's `alternates` object, so every helper
+// that sets a canonical must re-attach the feed link or the page loses it.
+const RSS_ALTERNATE_TYPES = {
+  "application/rss+xml": [{ url: "/rss.xml", title: "Randy Ellis — Blog" }],
+};
+
 /**
  * Create base metadata configuration with dynamic URLs
  */
@@ -16,6 +22,7 @@ export function createBaseMetadata(): Metadata {
     metadataBase: new URL(baseUrl),
     alternates: {
       canonical: "/",
+      types: RSS_ALTERNATE_TYPES,
     },
     title: {
       default: "Randy Ellis | Head of Product & Fractional CDO",
@@ -95,6 +102,7 @@ export function createPageMetadata({
     description,
     alternates: {
       canonical: canonicalUrl,
+      types: RSS_ALTERNATE_TYPES,
     },
     keywords: keywords.length > 0 ? keywords : undefined,
     openGraph: {
@@ -149,6 +157,7 @@ export function createArticleMetadata({
     description,
     alternates: {
       canonical: canonicalUrl,
+      types: RSS_ALTERNATE_TYPES,
     },
     keywords: tags.length > 0 ? tags : undefined,
     authors: [{ name: "Randy Ellis", url: getBaseUrl() }],
@@ -181,13 +190,6 @@ export function createArticleMetadata({
   };
 }
 
-/**
- * Get environment-aware metadata base for Next.js
- */
-export function getMetadataBase(): URL {
-  return new URL(getBaseUrl());
-}
-
 import type { Project } from "./data/types";
 import { WEBSITE_URL } from "./constants";
 
@@ -195,10 +197,13 @@ import { WEBSITE_URL } from "./constants";
  * Extract OG-suitable image from project data (D-05)
  * Returns thumbnail if it's an image, otherwise falls back to first image
  * in the images array (handles video thumbnails like LedgerIQ's .mp4)
+ *
+ * Raster formats only (Phase 13 T-10): most OG scrapers reject SVG, so an
+ * SVG thumbnail counts as "no image" and the file-convention OG card
+ * (app/projects/opengraph-image.tsx) takes over instead.
  */
 export function projectOgImage(project: Project): string | undefined {
-  const isImage = (path: string) =>
-    /\.(png|jpe?g|webp|avif|gif|svg)$/i.test(path);
+  const isImage = (path: string) => /\.(png|jpe?g|webp|avif|gif)$/i.test(path);
 
   if (project.thumbnail && isImage(project.thumbnail)) {
     return project.thumbnail;
@@ -229,6 +234,7 @@ export function projectMetadata(project: Project): Metadata {
     description: project.description,
     alternates: {
       canonical: `/projects/${project.slug}`,
+      types: RSS_ALTERNATE_TYPES,
     },
     keywords: [
       project.name,
@@ -245,22 +251,25 @@ export function projectMetadata(project: Project): Metadata {
       description: project.description,
       url: `/projects/${project.slug}`,
       authors: ["Randy Ellis"],
-      images: img
-        ? [
-            {
-              url: img,
-              width: 1200,
-              height: 630,
-              alt: title,
-            },
-          ]
-        : [],
+      // Omit `images` entirely when no raster image resolves — an explicit
+      // empty array suppresses the opengraph-image.tsx file-convention
+      // fallback (Phase 13 T-10).
+      ...(img && {
+        images: [
+          {
+            url: img,
+            width: 1200,
+            height: 630,
+            alt: title,
+          },
+        ],
+      }),
     },
     twitter: {
       card: "summary_large_image",
       title,
       description: project.description,
-      images: img ? [img] : [],
+      ...(img && { images: [img] }),
     },
   };
 }

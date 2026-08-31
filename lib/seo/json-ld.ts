@@ -1,8 +1,11 @@
 /**
  * Server-safe JSON-LD schema builders for structured data
  *
- * D-08 entity story: Person (Randy) + WebSite + CreativeWork + Article only.
- * No Organization, LocalBusiness, ProfessionalService, or FAQPage nodes.
+ * D-08 entity story: Person (Randy) + WebSite + CreativeWork + Article,
+ * plus FAQPage (amended 2026-08-29, Phase 13 T-02: FAQPage is permitted
+ * because the homepage Q&A is now server-rendered visible content — the
+ * original exclusion predates that). Still no Organization, LocalBusiness,
+ * or ProfessionalService nodes.
  */
 
 import { WEBSITE_URL } from "@/lib/constants";
@@ -48,6 +51,9 @@ export function buildPersonSchema(): JsonLdObject {
     description: siteDescription(),
     url: `${WEBSITE_URL}/`,
     image: `${WEBSITE_URL}/images/randyellis-official-avatar.png`,
+    // Phase 13 T-08: the answer to "how do I contact Randy Ellis?" belongs on
+    // the entity AI assistants read. Same address the legal pages publish.
+    email: "hello@randyellis.design",
     sameAs: [
       "https://www.linkedin.com/in/iamrandyellis/",
       "https://github.com/randyellis-wealthberry",
@@ -86,10 +92,11 @@ export function buildPersonSchema(): JsonLdObject {
 }
 
 /**
- * WebSite schema with SearchAction (D-13)
+ * WebSite schema (D-13; SearchAction dropped in Phase 13 T-13)
  *
- * The filter is implemented in Plan 10-06 — app/projects/projects-client.tsx
- * reads ?category= query param.
+ * The old SearchAction advertised /projects?category={…} — a client-side
+ * category filter, not site search — and Google's sitelinks-searchbox
+ * feature it fed is deprecated anyway.
  */
 export function buildWebSiteSchema(): JsonLdObject {
   const baseMetadata = createBaseMetadata();
@@ -104,14 +111,6 @@ export function buildWebSiteSchema(): JsonLdObject {
     description: siteDescription(),
     inLanguage: "en-US",
     author: personRef(),
-    potentialAction: {
-      "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: `${WEBSITE_URL}/projects?category={search_term_string}`,
-      },
-      "query-input": "required name=search_term_string",
-    },
   };
 }
 
@@ -231,6 +230,30 @@ export function buildBreadcrumbSchema(
       position: index + 1,
       name: item.name,
       item: item.url,
+    })),
+  };
+}
+
+/**
+ * FAQPage schema (Phase 13 T-02, D-08 amendment).
+ *
+ * MUST be fed the same array the visible accordion renders — FAQPage markup
+ * for Q&A a human cannot read on the page is a policy violation, which is why
+ * this builder takes the data rather than owning a copy of it.
+ */
+export function buildFaqPageSchema(
+  faqs: ReadonlyArray<{ question: string; answer: string }>,
+): JsonLdObject {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
     })),
   };
 }

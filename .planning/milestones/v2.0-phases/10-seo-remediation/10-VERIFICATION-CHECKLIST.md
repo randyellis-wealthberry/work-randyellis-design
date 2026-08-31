@@ -72,8 +72,11 @@ as a verdict.
   Article. Emitting full ISO-8601 with an offset would clear them.
 - **The Article has no `image`.** Optional for validity, but articles with an
   image are eligible for richer treatment in Search.
-- **`Paywalled Content` is being detected** on a post that is not paywalled. Worth
-  confirming the `isAccessibleForFree` markup says what is intended.
+- ~~**`Paywalled Content` is being detected** on a post that is not paywalled. Worth
+  confirming the `isAccessibleForFree` markup says what is intended.~~ **RESOLVED
+  2026-08-29:** it says what is intended. `isAccessibleForFree: true` with no
+  `hasPart` is Google's markup for freely accessible content; the green
+  "Paywalled Content" item means the property was recognized. Not a defect.
 - **The Person carries two `jobTitle` values** — "Head of Product" and "Fractional
   Chief Design Officer". Valid, and consistent with the v1.0 single-title-lane
   decision, but worth a deliberate look given the reader question logged in

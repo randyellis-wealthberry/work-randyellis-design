@@ -18,13 +18,17 @@ describe("Sitemap", () => {
     });
   });
 
-  it("static URLs include exactly the 7 required pages", () => {
+  it("static URLs include all 9 required pages", () => {
+    // Count corrected in Phase 13 (T-14): /services and /skills shipped after
+    // this test was written and were never added.
     const urls = sitemapEntries.map((entry) => entry.url);
     const requiredStaticUrls = [
       `${WEBSITE_URL}/`,
+      `${WEBSITE_URL}/services`,
       `${WEBSITE_URL}/projects`,
       `${WEBSITE_URL}/about`,
       `${WEBSITE_URL}/blog`,
+      `${WEBSITE_URL}/skills`,
       `${WEBSITE_URL}/metis`,
       `${WEBSITE_URL}/privacy-policy`,
       `${WEBSITE_URL}/terms-of-service`,

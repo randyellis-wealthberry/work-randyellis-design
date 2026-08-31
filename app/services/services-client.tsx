@@ -260,7 +260,9 @@ export default function ServicesClient() {
         </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <CalButton
-            onClick={() => trackContactIntent("booking", BOOKING_URL)}
+            onClick={() =>
+              trackContactIntent("booking", BOOKING_URL, "services_pricing")
+            }
             className={PRIMARY_BUTTON}
           >
             Book a 30-minute call

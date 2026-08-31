@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 
 type AccordionContextType = {
@@ -129,19 +129,23 @@ export function AccordionContent({
   const value = useContext(AccordionItemContext);
   const isExpanded = openItems.has(value);
 
+  // Collapsed content stays mounted (height-collapsed, inert) so it exists in
+  // the server HTML — AI crawlers don't run JS, and unmounting collapsed items
+  // removed the FAQ answers and the blog archive's post links from the page
+  // they were written for (Phase 13, T-01).
   return (
-    <AnimatePresence>
-      {isExpanded && (
-        <motion.div
-          initial={{ height: 0, opacity: 0 }}
-          animate={{ height: "auto", opacity: 1 }}
-          exit={{ height: 0, opacity: 0 }}
-          transition={transition || { duration: 0.2 }}
-          className={cn("overflow-hidden", className)}
-        >
-          <div className="pt-2 pb-2">{children}</div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+    <motion.div
+      initial={false}
+      animate={{
+        height: isExpanded ? "auto" : 0,
+        opacity: isExpanded ? 1 : 0,
+      }}
+      transition={transition || { duration: 0.2 }}
+      className={cn("overflow-hidden", className)}
+      aria-hidden={!isExpanded}
+      inert={!isExpanded}
+    >
+      <div className="pt-2 pb-2">{children}</div>
+    </motion.div>
   );
 }

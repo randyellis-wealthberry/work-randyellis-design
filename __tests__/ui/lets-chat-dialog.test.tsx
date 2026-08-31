@@ -70,12 +70,14 @@ describe("LetsChatButton", () => {
     expect(trackContactIntent).toHaveBeenCalledWith(
       "virtual_assistant_open",
       ZINLEY_URL,
+      "chat_dialog",
     );
 
     fireEvent.click(screen.getByRole("button", { name: /proceed to call/i }));
     expect(trackContactIntent).toHaveBeenCalledWith(
       "virtual_assistant_call",
       ZINLEY_EMBED_URL,
+      "chat_dialog",
     );
   });
 

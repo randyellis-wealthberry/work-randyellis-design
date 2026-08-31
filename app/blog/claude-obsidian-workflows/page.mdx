@@ -1,18 +1,16 @@
 import { BlogHeroWrapper } from "@/components/blog/blog-hero-wrapper";
 import { BlogPostJsonLd } from "@/components/seo/blog-post-json-ld";
+import { createArticleMetadata } from "@/lib/metadata";
 
-export const metadata = {
+export const metadata = createArticleMetadata({
   title: "Claude + Obsidian: The Ultimate Knowledge System",
   description:
     "Transform two tools into a knowledge management system that revolutionizes how you capture, connect, and leverage information.",
-  alternates: {
-    canonical: "/blog/claude-obsidian-workflows",
-  },
-  openGraph: {
-    type: "article",
-    publishedTime: "2025-01-15",
-  },
-};
+  path: "/blog/claude-obsidian-workflows",
+  publishedTime: "2025-01-15",
+  tags: ["Claude Code", "Obsidian", "Knowledge Management", "Productivity"],
+  image: "/images/blog/claude-obsidian-workflows/hero.png",
+});
 
 <BlogPostJsonLd
   title="Claude + Obsidian: The Ultimate Knowledge Management System"

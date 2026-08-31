@@ -5,6 +5,7 @@ import {
   trackRecommendationCaseStudyClick,
   trackRecommendationCardHover,
 } from "@/lib/analytics";
+import { resetThrottle } from "@/lib/analytics-guard";
 import { Project } from "@/lib/data/types";
 
 // Mock the motion components to avoid animation issues in tests.
@@ -661,6 +662,12 @@ describe("GlobalCaseStudyGrid", () => {
 
     beforeEach(() => {
       jest.clearAllMocks();
+      // The hover throttle keys on card slug and persists across tests within
+      // this module (it's designed to survive re-renders, resetting only on a
+      // fresh page load). userEvent.click() fires a synthetic hover en route
+      // to the click, so an earlier click test can otherwise consume the
+      // throttle window for a card a later test hovers explicitly.
+      resetThrottle();
     });
 
     it("should track case study click analytics with correct parameters", async () => {

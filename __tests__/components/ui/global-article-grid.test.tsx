@@ -6,6 +6,7 @@ import {
   trackRecommendationArticleClick,
   trackRecommendationCardHover,
 } from "@/lib/analytics";
+import { resetThrottle } from "@/lib/analytics-guard";
 
 /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars -- factory props are destructured only to keep them off the DOM spread */
 
@@ -865,6 +866,12 @@ describe("GlobalArticleGrid", () => {
 
     beforeEach(() => {
       jest.clearAllMocks();
+      // The hover throttle keys on card slug and persists across tests within
+      // this module (it's designed to survive re-renders, resetting only on a
+      // fresh page load). userEvent.click() fires a synthetic hover en route
+      // to the click, so an earlier click test can otherwise consume the
+      // throttle window for a card a later test hovers explicitly.
+      resetThrottle();
       (getBlogArticles as jest.Mock).mockReturnValue(mockArticles);
     });
 

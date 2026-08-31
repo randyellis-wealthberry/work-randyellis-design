@@ -160,15 +160,11 @@ describe("buildWebSiteSchema", () => {
     });
   });
 
-  test("potentialAction has SearchAction with correct template (D-13)", () => {
-    expect(schema.potentialAction).toEqual({
-      "@type": "SearchAction",
-      target: {
-        "@type": "EntryPoint",
-        urlTemplate: `${WEBSITE_URL}/projects?category={search_term_string}`,
-      },
-      "query-input": "required name=search_term_string",
-    });
+  test("has no potentialAction (SearchAction dropped, Phase 13 T-13)", () => {
+    // The old SearchAction advertised /projects?category={…} — a client-side
+    // category filter, not site search — feeding Google's deprecated
+    // sitelinks-searchbox feature.
+    expect(schema.potentialAction).toBeUndefined();
   });
 
   test("schema contains no Organization", () => {
