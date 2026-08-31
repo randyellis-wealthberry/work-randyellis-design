@@ -1,7 +1,6 @@
 "use client";
 import { TextMorph } from "@/components/ui/text-morph";
 import { BreadcrumbNav } from "@/components/ui/breadcrumb-nav";
-// import { RelatedContent } from "@/components/seo/related-content";
 import { GlobalRecommendations } from "@/components/ui/global-recommendations";
 import { CTASection } from "@/components/ui/cta-section";
 import { useEffect, useState } from "react";

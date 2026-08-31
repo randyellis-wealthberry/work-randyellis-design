@@ -18,6 +18,10 @@ if (typeof global.TextEncoder === "undefined") {
 // Global test mocks - only in jsdom environment (not node)
 if (typeof window !== "undefined") {
   Object.defineProperty(window, "matchMedia", {
+    // configurable so tests can delete/override it (e.g. SSR-simulation in
+    // accessibility/motion-reduced.test.tsx) — non-configurable makes
+    // strict-mode `delete window.matchMedia` throw.
+    configurable: true,
     writable: true,
     value: jest.fn().mockImplementation((query) => ({
       matches: false,

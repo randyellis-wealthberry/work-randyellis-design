@@ -1,16 +1,18 @@
 import { Cover } from "@/mdx-components";
 import { BlogPostJsonLd } from "@/components/seo/blog-post-json-ld";
 import { BlogHeroWrapper } from "@/components/blog/blog-hero-wrapper";
+import { createArticleMetadata } from "@/lib/metadata";
 
-export const metadata = {
+export const metadata = createArticleMetadata({
   title: "Exploring Design, AI, and Design Engineering",
   description:
     "Design and artificial intelligence (AI) are increasingly intertwined, driving innovation across industries. As technology evolves, the role of design engineering is more critical than ever, bridging creativity and functionality.",
-  alternates: {
-    canonical:
-      "/blog/exploring-the-intersection-of-design-ai-and-design-engineering",
-  },
-};
+  path: "/blog/exploring-the-intersection-of-design-ai-and-design-engineering",
+  publishedTime: "2024-01-15",
+  tags: ["AI", "Design Engineering", "Product Design", "Design Systems"],
+  image:
+    "/images/blog/exploring-the-intersection-of-design-ai-and-design-engineering/hero.jpg",
+});
 
 <BlogPostJsonLd
   title="Exploring the Intersection of Design, AI, and Design Engineering"

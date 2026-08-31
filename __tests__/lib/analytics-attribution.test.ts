@@ -10,6 +10,8 @@ const mockGtag = jest.fn();
 Object.defineProperty(window, "gtag", {
   value: mockGtag,
   writable: true,
+  // configurable so tests can `delete window.gtag` without throwing
+  configurable: true,
 });
 
 describe("trackEvent integration", () => {

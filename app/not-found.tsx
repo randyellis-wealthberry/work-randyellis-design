@@ -34,6 +34,14 @@ const DESTINATIONS = [
   },
 ];
 
+// Phase 13 T-16: without this, the 404 page inherits the root layout's
+// alternates and emits rel=canonical pointing at the homepage — a soft signal
+// that every dead URL is a duplicate of "/". Noindex is what a 404 means.
+export const metadata = {
+  robots: { index: false, follow: false },
+  alternates: { canonical: null },
+};
+
 export default function NotFound() {
   return (
     <main

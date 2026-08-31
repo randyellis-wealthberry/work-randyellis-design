@@ -731,6 +731,14 @@ export default function AboutClient() {
             </div>
           ))}
         </dl>
+        {/* The PDF sat unlinked in /public for months (Phase 13 T-08) — the
+            reader who just verified the certificates is the reader who wants
+            the résumé. Opens in a tab like every outbound proof link here. */}
+        <div className="mt-6 text-sm">
+          <OutboundLink href="/randy-ellis-resume.pdf">
+            Download résumé (PDF)
+          </OutboundLink>
+        </div>
       </motion.section>
 
       <motion.section

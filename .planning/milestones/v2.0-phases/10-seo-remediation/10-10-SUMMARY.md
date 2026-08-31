@@ -128,8 +128,12 @@ Success row.
   warnings. Full ISO-8601 with an offset clears them.
 - **The Article has no `image`.** Optional for validity; images unlock richer
   Search treatment.
-- **`Paywalled Content` is detected** on a post that is not paywalled — worth
-  confirming the `isAccessibleForFree` markup is intentional.
+- ~~**`Paywalled Content` is detected** on a post that is not paywalled — worth
+  confirming the `isAccessibleForFree` markup is intentional.~~ **RESOLVED
+  2026-08-29:** intentional and correct. `isAccessibleForFree: true` with no
+  `hasPart` is Google's markup for freely accessible content; RRT lists
+  "Paywalled Content" as a green valid item because it recognized the property.
+  Not a defect, no action.
 - **The `profits-not-pixels` headline** renders as "PROFITS, NOT PIXELS: The story
   of world's most expensive (yet, valuable?) cup of coffee" — missing article
   before "world's", and the parenthetical reads awkwardly.

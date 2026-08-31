@@ -21,14 +21,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-08-22 after v2.0 milestone shipped)
 
 **Core value:** A hiring manager finds a coherent, senior, *verifiable* story with an obvious way to book a conversation — shipped and audit-verified in v1.0. v2.0 added proof of *how Randy decides*. v3.0 closes the metric-integrity gap v2.0 carried forward and makes Echo/Nagarro legible as regulated, large-organization proof.
-**Current focus:** Phase 11 — self-consistency-proof
+**Current focus:** Phase 13 (aeo-remediation) COMPLETE on branch gsd/phase-13-aeo-remediation — awaiting merge. Phase 12 awaits ENT-03 human gate.
 
 ## Current Position
 
-Phase: 11 (self-consistency-proof) — EXECUTING
+Phase: 13 (aeo-remediation) — COMPLETE (5/5 plans, gate passed 2026-08-29)
 Plan: 5 of 5
-Status: Ready to execute
-Last activity: 2026-08-23
+Status: Branch gsd/phase-13-aeo-remediation ready for PR/merge
+Last activity: 2026-08-29
 
 Progress: [░░░░░░░░░░] 0%
 
@@ -57,11 +57,17 @@ Progress: [░░░░░░░░░░] 0%
 ### Roadmap Evolution
 
 - Phase 10 added 2026-08-16: SEO Remediation — scoped from `.planning/research/SEO-AUDIT.md`. Depends on Phase 9.
+- Phase 13 added 2026-08-29: AEO Remediation — scoped from `.planning/research/SEO-AEO-AUDIT.md` (full codebase + live-HTML audit). Independent of Phase 12 and may execute first. **File-move implication for Phase 12:** plan 13-04 splits the homepage into a server `app/page.tsx` + `app/home-client.tsx`, so Phase 12's references to `app/page.tsx:55` (`FEATURED_SLUGS`) and the Selected-work paragraph now live in `app/home-client.tsx`. D-08 amended: FAQPage schema is permitted again because the FAQ answers are now server-rendered visible content (the original exclusion predates that).
 - Phase 11-12 added 2026-08-22: v3.0 Enterprise Credibility roadmap created from `.planning/research/SUMMARY.md` (4 parallel researchers, HIGH confidence). Phase 11 = Self-Consistency & Proof (CRED-12, CRED-13, PRF-01, REC-01). **Rescoped 2026-08-22**: the metric-removal premise was withdrawn — `DECK-COVERAGE-AUDIT.md:34` states `Unbacked` means "not found in this deck… not a defect and requires no action", and `:37` removed the non-deck-source rule. The three sitewide figures are accurate and stay; CRED-10/11/14/16 and PRF-02 are void. Phase 12 = Enterprise Legibility (ENT-01..05, 5 requirements). ~~Sequenced (not parallelized) because `app/page.tsx` is the single file both phases touch — Phase 11 must fully land, including its regression-test rewrite, before Phase 12 reopens it.~~ **CORRECTED 2026-08-22 (REC-01):** the cross-phase `app/page.tsx` conflict no longer exists — it assumed removing the three sitewide figures and a `home-page-argument.test.tsx` rewrite that were both voided. Phase 11 as planned touches only `app/about/opengraph-image.tsx`, `app/about/about-client.tsx` and one new test file; Phase 12 is free to open `app/page.tsx`.
 
 ### Decisions
 
 Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecting current work:
+
+- [Phase 13]: D-08 amended — FAQPage schema permitted because the homepage Q&A is server-rendered visible content (accordion no longer unmounts collapsed children); Organization/LocalBusiness/ProfessionalService remain forbidden. `buildFaqPageSchema` takes the visible FAQS array as input so schema and page cannot diverge.
+- [Phase 13]: D-13 amended — Waffle now uses `projectMetadata` + CreativeWork/Breadcrumb JSON-LD like every other project route (it was the one project page with no CreativeWork node); bespoke OG card kept via explicit override.
+- [Phase 13]: Blog dates — the MDX byline/JSON-LD dates are authoritative; `lib/utils/blog-data.ts` was corrected to match and is pinned by `__tests__/seo/blog-date-consistency.test.ts`.
+- [Phase 13]: `projectOgImage` is raster-only (SVG excluded — most OG scrapers reject it) and `projectMetadata` omits `images` rather than emitting `[]`, which suppressed the file-convention OG fallback.
 
 - ~~Roadmap: Phase 11 must complete (figure removal + `home-page-argument.test.tsx` rewrite) before Phase 12 opens `app/page.tsx` again — the one cross-phase file conflict~~ **CORRECTED 2026-08-22 (REC-01):** void — CRED-10 and CRED-14 were voided; `home-page-argument.test.tsx` is correct as written and Phase 11 does not touch `app/page.tsx` at all (see REQUIREMENTS.md §"Voided requirements")
 - ~~Roadmap: CRED-14 (test rewrite) is required in the SAME plan as CRED-10 (figure removal) — the existing test currently asserts the unbacked figures ARE present and goes red the instant they're removed~~ **CORRECTED 2026-08-22 (REC-01):** void — CRED-10 and CRED-14 were voided; `home-page-argument.test.tsx` is correct as written and needs no rewrite (see REQUIREMENTS.md §"Voided requirements")
@@ -89,7 +95,7 @@ None yet for v3.0.
 ### Blockers/Concerns
 
 - **ENT-03 human gate (Phase 12):** Nagarro's per-metric disposition for NAGARRO-01..08 (backed-by-alternate-source / downgraded-to-qualitative / accepted-as-firsthand-account) must be recorded by Randy before any reframe copy is written. Not resolvable without his input — mirrors v2.0's CRED-08, which was a real blocker.
-- **`related-content.tsx` live/dead status disputed:** 3 of 4 researchers call it a live surface (renders "2.5M+ users" at line 255); the 4th traced `app/blog/layout.tsx:4`'s import as commented-out and calls it dead. Needs a fresh check at Phase 11 plan time before deciding whether to edit it.
+- ~~**`related-content.tsx` live/dead status disputed:** 3 of 4 researchers call it a live surface (renders "2.5M+ users" at line 255); the 4th traced `app/blog/layout.tsx:4`'s import as commented-out and calls it dead. Needs a fresh check at Phase 11 plan time before deciding whether to edit it.~~ **RESOLVED 2026-08-29 (Phase 13 audit):** dead — its only import site is the commented-out `app/blog/layout.tsx:4`; deleted in plan 13-04.
 - **Echo's category term (ENT-01) is undecided** and must be collision-checked against every project's existing `category`/`categories[]`/`tags[]` before selection — Nagarro already carries `"Accessibility Compliance"`, and `lib/project-utils.ts` matches by case-insensitive substring.
 
 ## Deferred Items
@@ -115,4 +121,41 @@ Resume file: None
 
 ## Operator Next Steps
 
-- Run `/gsd:plan-phase 11` to plan Self-Consistency & Proof
+- Merge `gsd/phase-13-aeo-remediation` (PR to main), deploy, then re-run the
+  raw-HTML checks in 13-05-SUMMARY.md against the live site
+- Investigate the pre-existing failing suites (5 `analytics-*` +
+  `motion-reduced` — fail on clean main, not a Phase 13 regression)
+- Phase 12 remains blocked on the ENT-03 per-metric dispositions (human gate)
+- Highest-leverage AEO lever left: publish blog posts (audit T-05, backlog)
+- Two small Article-schema items remain (ROADMAP Backlog, verified post-Phase-13):
+  bare dates with no timezone on all 4 posts, and `profits-not-pixels` not
+  passing `imageUrl` to `<BlogPostJsonLd>`
+
+### Doc hygiene, 2026-08-29
+
+`docs/SEO-AEO-ASSESSMENT.md` (untracked, never committed) was deleted after
+review against the tree. It was written pre-Phase-13 but carried a later
+timestamp, so it read as the newest SEO reference while contradicting shipped
+state. Adjudicated claim-by-claim:
+
+- Missed the Phase 13 headline defect (T-01, accordions unmounting collapsed
+  content) and praised the homepage FAQ as server-rendered when it wasn't.
+- Listed `llms.txt`, homepage server metadata, and a contact surface as open —
+  all shipped in Phase 13.
+- Its "stale documents" table told readers to delete `SEO_OPTIMIZATION_REPORT.md`
+  and `SEO_IMPLEMENTATION.md`, both already deleted in 13-04.
+- Its §2.5 "unbacked aggregate claims" item was void on arrival — it cited
+  CRED-11, which Randy voided 2026-08-22 (the metric-removal premise was
+  withdrawn; the figures are accurate and stay).
+- Its two accurate items (bare dates, missing Article image) were already in the
+  ROADMAP backlog; that entry has been sharpened rather than duplicated.
+
+`.planning/research/SEO-AUDIT.md` and `.planning/milestones/v2.0-research/SEO-AUDIT.md`
+are byte-identical but **both kept** — `v2.0-research/` is the frozen milestone
+snapshot, and its other files have already diverged from the live `research/`
+copies. Deleting either would break the archive convention.
+
+Still stale and still tracked: `docs/features/seo-implementation.md` (describes
+PWA, Organization/LocalBusiness/ProfessionalService schema, and "AI bot
+blocking" — all removed or inverted). Not touched here; needs a rewrite-or-delete
+decision.
