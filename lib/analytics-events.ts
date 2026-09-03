@@ -15,6 +15,7 @@ export const CONVERSION_SURFACES = [
   "case_study_footer",
   "chat_dialog",
   "coffee_link",
+  "header_cta",
 ] as const;
 
 export type ConversionSurface = (typeof CONVERSION_SURFACES)[number];

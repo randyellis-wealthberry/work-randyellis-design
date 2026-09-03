@@ -2,6 +2,7 @@
 import { TextEffect } from "@/components/ui/text-effect";
 import Link from "next/link";
 import UtilityBar from "@/components/ui/utility-bar";
+import { HeaderBookingButton } from "@/components/ui/header-booking-button";
 
 export function Header() {
   return (
@@ -56,24 +57,33 @@ export function Header() {
           >
             Blog
           </Link>
+
+          {/* Primary CTA — right end of the nav row on desktop. */}
+          <HeaderBookingButton className="ml-auto" />
         </nav>
 
-        <div className="pt-8 sm:pt-24">
-          <Link
-            href="/"
-            className="font-medium whitespace-nowrap text-zinc-900 dark:text-white"
-          >
-            Randy Ellis
-          </Link>
-          <TextEffect
-            as="p"
-            preset="fade"
-            per="char"
-            className="whitespace-nowrap text-zinc-600 dark:text-zinc-400"
-            delay={0.5}
-          >
-            Design-led, end to end.
-          </TextEffect>
+        <div className="flex items-start justify-between gap-4 pt-8 sm:pt-24">
+          <div>
+            <Link
+              href="/"
+              className="font-medium whitespace-nowrap text-zinc-900 dark:text-white"
+            >
+              Randy Ellis
+            </Link>
+            <TextEffect
+              as="p"
+              preset="fade"
+              per="char"
+              className="whitespace-nowrap text-zinc-600 dark:text-zinc-400"
+              delay={0.5}
+            >
+              Design-led, end to end.
+            </TextEffect>
+          </div>
+
+          {/* Below lg the nav row is hidden and the fixed hamburger owns the
+              top-right corner, so the CTA sits beside the name instead. */}
+          <HeaderBookingButton className="shrink-0 lg:hidden" />
         </div>
       </header>
     </>
