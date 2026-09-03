@@ -41,12 +41,30 @@ const WORD_ART = [
 
 const SKILL_TOTAL = 4;
 
-function commandFor(agent: SkillAgent | null) {
-  const base = `npx skills@latest add ${REPO}`;
-  return agent ? `${base} -a ${agent.id}` : base;
+function commandFor(agent: SkillAgent | null, skill?: string) {
+  let command = `npx skills@latest add ${REPO}`;
+  if (skill) command += ` --skill ${skill}`;
+  if (agent) command += ` -a ${agent.id}`;
+  return command;
 }
 
-export function InstallPicker() {
+type InstallPickerProps = {
+  /**
+   * Install one named skill from the repo rather than the whole collection.
+   * The /skill page uses this for the free core file; /skills leaves it unset.
+   */
+  skill?: string;
+  /** How many skills the command installs, for the output line. */
+  skillCount?: number;
+  /** The banner art is the collection's; a single-file page turns it off. */
+  showArt?: boolean;
+};
+
+export function InstallPicker({
+  skill,
+  skillCount = SKILL_TOTAL,
+  showArt = true,
+}: InstallPickerProps = {}) {
   const reduceMotion = useReducedMotion();
   const [selectedId, setSelectedId] = useState<string>("claude-code");
   // Typing runs once, on arrival. After the visitor starts picking agents the
@@ -60,7 +78,7 @@ export function InstallPicker() {
     () => SKILL_AGENTS.find((a) => a.id === selectedId) ?? null,
     [selectedId],
   );
-  const command = commandFor(selected);
+  const command = commandFor(selected, skill);
 
   const handleCopy = useCallback(async () => {
     try {
@@ -98,15 +116,20 @@ export function InstallPicker() {
         {/* Decorative. A screen reader announcing 220 block-drawing characters
             would bury the heading that follows it, so the art is hidden and the
             section's own <h2> carries the meaning. */}
-        <div aria-hidden="true" className="text-zinc-500 dark:text-zinc-600">
-          {WORD_ART.map((row, i) => (
-            <AnimatedSpan key={i} delay={i * 60} className="whitespace-pre">
-              {row}
-            </AnimatedSpan>
-          ))}
-        </div>
+        {showArt && (
+          <div aria-hidden="true" className="text-zinc-500 dark:text-zinc-600">
+            {WORD_ART.map((row, i) => (
+              <AnimatedSpan key={i} delay={i * 60} className="whitespace-pre">
+                {row}
+              </AnimatedSpan>
+            ))}
+          </div>
+        )}
 
-        <AnimatedSpan delay={360} className="mt-3 text-zinc-500">
+        <AnimatedSpan
+          delay={showArt ? 360 : 0}
+          className={showArt ? "mt-3 text-zinc-500" : "text-zinc-500"}
+        >
           <span># {AGENT_COUNT} agents. One command.</span>
         </AnimatedSpan>
 
@@ -134,7 +157,8 @@ export function InstallPicker() {
           className="mt-1 wrap-anywhere whitespace-pre-wrap text-zinc-400"
         >
           <span>
-            <span className="text-green-400">✓</span> {SKILL_TOTAL} skills →{" "}
+            <span className="text-green-400">✓</span> {skillCount}{" "}
+            {skillCount === 1 ? "skill" : "skills"} →{" "}
             <span className="text-zinc-200">
               {selected ? selected.projectPath : ".agents/skills/"}
             </span>

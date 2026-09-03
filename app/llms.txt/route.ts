@@ -23,6 +23,7 @@ export function GET(): Response {
     "",
     `- [Fractional CDO retainer](${WEBSITE_URL}/services): a design leader on your team, by the month — design direction, systems, and the decisions a roadmap is waiting on`,
     `- [About Randy](${WEBSITE_URL}/about): experience, certifications, awards, and design philosophy`,
+    `- [Skill.md](${WEBSITE_URL}/skill): Randy's design judgment as one installable agent skill, free at ${WEBSITE_URL}/skill.md, with paid à la carte modules (researcher, product strategy, visual strategy, five advisors, all bets are off, diagram)`,
     `- [AI skills](${WEBSITE_URL}/skills): installable Claude agent skills for design work`,
     `- [METIS](${WEBSITE_URL}/metis): AI business strategy agent`,
     "",

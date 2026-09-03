@@ -266,3 +266,47 @@ export function buildFaqPageSchema(
 export function serializeJsonLd(data: unknown): string {
   return JSON.stringify(data).replace(/</g, "\\u003c").replace(/>/g, "\\u003e");
 }
+
+/**
+ * The free Skill.md as a piece of software source: a downloadable text file
+ * with a license, a version, and a stable URL. `SoftwareSourceCode` is the
+ * closest type schema.org offers for a file an agent runs, and it lets the
+ * MIT license and the raw URL travel with the page in search results.
+ */
+export function buildSkillFileSchema(input: {
+  name: string;
+  version: string;
+  updated: string;
+  modules: string[];
+}): JsonLdObject {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareSourceCode",
+    "@id": `${WEBSITE_URL}/skill#file`,
+    name: "Skill.md",
+    alternateName: input.name,
+    description:
+      "Randy Ellis's product design judgment as one installable agent skill: decision defensibility, claim discipline, interface assertion, AI product trust, design-system adoption, and leading without authority.",
+    url: `${WEBSITE_URL}/skill`,
+    codeRepository: "https://github.com/randyellis-wealthberry/skills",
+    programmingLanguage: "Markdown",
+    encodingFormat: "text/markdown",
+    version: input.version,
+    dateModified: input.updated,
+    license: "https://opensource.org/licenses/MIT",
+    isAccessibleForFree: true,
+    author: { "@id": PERSON_ID },
+    creator: { "@id": PERSON_ID },
+    distribution: {
+      "@type": "DataDownload",
+      contentUrl: `${WEBSITE_URL}/skill.md`,
+      encodingFormat: "text/markdown",
+    },
+    hasPart: input.modules.map((name) => ({
+      "@type": "SoftwareSourceCode",
+      name,
+      isAccessibleForFree: false,
+      url: `${WEBSITE_URL}/skill#modules`,
+    })),
+  };
+}

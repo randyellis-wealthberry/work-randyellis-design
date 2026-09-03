@@ -24,6 +24,7 @@ const customJestConfig = {
     "^@/(.*)$": "<rootDir>/$1",
     "^@vercel/analytics$": "<rootDir>/__mocks__/@vercel/analytics.js",
     "^motion/react$": "<rootDir>/__mocks__/motion/react.js",
+    "^server-only$": "<rootDir>/__mocks__/server-only.js",
   },
   collectCoverageFrom: [
     "app/**/*.{js,jsx,ts,tsx}",

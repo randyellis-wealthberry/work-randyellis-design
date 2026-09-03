@@ -249,9 +249,13 @@ export default function HomeClient() {
             </div>
           ))}
         </div>
-        <div className="mt-6">
+        <div className="mt-6 flex flex-col gap-y-6 sm:flex-row sm:flex-wrap sm:gap-x-8">
           <Link href="/services" className={TEXT_LINK}>
             Terms, rate, and what a month looks like
+            <ArrowRight aria-hidden="true" className="h-4 w-4 shrink-0" />
+          </Link>
+          <Link href="/skill" className={TEXT_LINK}>
+            Or install my judgment first, free
             <ArrowRight aria-hidden="true" className="h-4 w-4 shrink-0" />
           </Link>
         </div>
