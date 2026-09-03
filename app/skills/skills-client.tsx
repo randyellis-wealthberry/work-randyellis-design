@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import Link from "next/link";
 import { InstallPicker } from "@/components/skills/install-picker";
 import { BuyMeACoffeeButton } from "@/components/ui/buy-me-a-coffee";
+import { WORD_ART } from "@/lib/data/skill-word-art";
 
 const REPO_URL = "https://github.com/randyellis-wealthberry/skills";
 
@@ -138,6 +139,17 @@ export default function SkillsClient() {
         <h1 className="mb-5 text-3xl font-semibold tracking-tight text-zinc-900 sm:text-4xl dark:text-zinc-100">
           AI Skills
         </h1>
+        {/* Pixel wordmark, shared with the install terminal's banner. Leading
+            spaces are significant; `whitespace-pre` preserves them. The
+            layered text shadows give the solid-purple fill a stepped, lit
+            edge — echoing the pixel-title treatment of the Hermes terminal
+            header without borrowing its palette. */}
+        <pre
+          aria-hidden="true"
+          className="mb-6 overflow-x-auto font-mono text-[9px] leading-[1.15] font-medium tracking-normal whitespace-pre text-purple-600 [text-shadow:0_0_14px_rgb(147_51_234/0.35)] sm:text-xs sm:[text-shadow:0_0_22px_rgb(147_51_234/0.4)] dark:text-purple-400"
+        >
+          {WORD_ART.join("\n")}
+        </pre>
         <p className="mb-6 text-lg leading-relaxed text-zinc-700 dark:text-zinc-300">
           Rationale as a design material.
         </p>

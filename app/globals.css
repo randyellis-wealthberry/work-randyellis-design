@@ -297,6 +297,10 @@
   --dg-quiet: #71717a;
   --dg-edge: #d4d4d8;
   --dg-hairline: #e4e4e7;
+  /* Scoped accent, not part of the shared system above: only the skills
+     word-art figure consumes it, so granting that figure its hue costs the
+     rest of the diagram nothing. */
+  --dg-accent: #9333ea;
 }
 
 .dark .diagram-figure {
@@ -307,6 +311,7 @@
   --dg-quiet: #a1a1aa;
   --dg-edge: #3f3f46;
   --dg-hairline: #27272a;
+  --dg-accent: #c084fc;
 }
 
 /* Screen reader only utility for hidden SEO content */
