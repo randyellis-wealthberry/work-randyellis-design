@@ -1,12 +1,11 @@
 import { Metadata } from "next";
+import { canonicalAlternates } from "@/lib/metadata";
 import { LegalDocument } from "@/components/legal/legal-document";
 
 export const metadata: Metadata = {
   title: "Terms of Service",
   description: "Terms of service for Randy Ellis Design portfolio website",
-  alternates: {
-    canonical: "/terms-of-service",
-  },
+  alternates: canonicalAlternates("/terms-of-service"),
 };
 
 export default function TermsOfServicePage() {

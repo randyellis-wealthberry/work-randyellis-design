@@ -24,7 +24,7 @@ import { SOCIAL_LINKS } from "@/lib/data";
 import { testimonials } from "@/lib/data/testimonials";
 import { RETAINER_LEDGER, PROOF_EXHIBITS } from "@/lib/data/retainer";
 import { trackContactIntent } from "@/lib/analytics";
-import { BOOKING_URL } from "@/lib/constants";
+import { BOOKING_URL, DIAGNOSTIC_PATH } from "@/lib/constants";
 import { FAQS } from "@/lib/data/faqs";
 import {
   PRIMARY_BUTTON,
@@ -107,30 +107,39 @@ export default function HomeClient() {
           Design leader who ships AI products.
         </h1>
         <p className="mt-5 max-w-[62ch] text-lg text-zinc-600 dark:text-zinc-300">
-          I turn startups into design-led organizations — and write the code to
-          prove it. Head of Product and Fractional Chief Design Officer, working
-          with founders on AI product design, design systems, and the decisions
-          a roadmap is already waiting on.
+          AI features that demo well and break in production are the most
+          expensive thing a startup builds. I am the Head of Product and
+          Fractional Chief Design Officer founders bring in to get them shipped:
+          AI product design, design systems, and the decisions a roadmap is
+          already waiting on. I write the code to prove it.
         </p>
         <p className="mt-4 max-w-[62ch] text-sm text-zinc-500 dark:text-zinc-400">
           20+ years in design · 8+ years leading teams · Ships React, Next.js
           and TypeScript
         </p>
 
-        {/* One primary. The old page shipped three, two of them the same
-            booking link with the same label. */}
+        {/* One primary, and it is no longer the call. A founder who is only
+            curious had nothing to do here but give up calendar time; the
+            diagnostic is the step they can take alone. The call stays as the
+            secondary, and the work is the next section down. */}
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <Link
+            href={DIAGNOSTIC_PATH}
+            onClick={() =>
+              trackContactIntent("diagnostic", DIAGNOSTIC_PATH, "home_hero")
+            }
+            className={PRIMARY_BUTTON}
+          >
+            Run the ship-readiness diagnostic
+          </Link>
           <CalButton
             onClick={() =>
               trackContactIntent("booking", BOOKING_URL, "home_hero")
             }
-            className={PRIMARY_BUTTON}
+            className={SECONDARY_BUTTON}
           >
             Book a 30-minute call
           </CalButton>
-          <Link href="/projects" className={SECONDARY_BUTTON}>
-            See the work
-          </Link>
         </div>
       </motion.section>
 

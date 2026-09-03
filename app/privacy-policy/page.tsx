@@ -1,12 +1,11 @@
 import { Metadata } from "next";
+import { canonicalAlternates } from "@/lib/metadata";
 import { LegalDocument } from "@/components/legal/legal-document";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description: "Privacy policy for Randy Ellis Design portfolio website",
-  alternates: {
-    canonical: "/privacy-policy",
-  },
+  alternates: canonicalAlternates("/privacy-policy"),
 };
 
 export default function PrivacyPolicyPage() {

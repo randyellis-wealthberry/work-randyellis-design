@@ -13,6 +13,19 @@ const RSS_ALTERNATE_TYPES = {
 };
 
 /**
+ * The `alternates` block for a page that sets its own canonical.
+ *
+ * Seven pages wrote `alternates: { canonical }` by hand and every one of them
+ * silently dropped the RSS feed link the root layout advertises, because
+ * Next.js replaces the object rather than merging it. Use this instead.
+ */
+export function canonicalAlternates(
+  path: string,
+): NonNullable<Metadata["alternates"]> {
+  return { canonical: path, types: RSS_ALTERNATE_TYPES };
+}
+
+/**
  * Create base metadata configuration with dynamic URLs
  */
 export function createBaseMetadata(): Metadata {
