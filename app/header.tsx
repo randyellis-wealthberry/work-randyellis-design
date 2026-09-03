@@ -14,7 +14,7 @@ export function Header() {
         data-testid="main-header"
       >
         {/* Desktop Navigation — own row, flush-left with content edge */}
-        <nav className="-ml-4 hidden pt-4 lg:flex lg:items-center lg:gap-12">
+        <nav className="-ml-4 hidden pt-4 lg:flex lg:items-center lg:gap-4">
           <Link
             href="/"
             className="flex min-h-[44px] items-center rounded-md px-4 py-3 text-sm font-medium text-zinc-600 no-underline transition-colors hover:bg-zinc-100 hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-zinc-800 dark:hover:text-zinc-100"
@@ -59,7 +59,7 @@ export function Header() {
           </Link>
 
           {/* Primary CTA — right end of the nav row on desktop. */}
-          <HeaderBookingButton className="ml-auto" />
+          <HeaderBookingButton className="ml-auto shrink-0" />
         </nav>
 
         <div className="flex items-start justify-between gap-4 pt-8 sm:pt-24">
