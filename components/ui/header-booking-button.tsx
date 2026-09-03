@@ -25,8 +25,7 @@ export function HeaderBookingButton({ className }: HeaderBookingButtonProps) {
   return (
     <AntiMetalButton
       type="button"
-      label="Book a call"
-      aria-label="Book a 30-minute call"
+      label="Hire AI Randy"
       className={className}
       data-testid="header-booking-button"
       data-cal-namespace={CAL_NAMESPACE}

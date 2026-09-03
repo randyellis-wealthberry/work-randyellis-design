@@ -18,10 +18,7 @@ describe("HeaderBookingButton", () => {
 
   it("renders the AntiMetalButton with the site's booking label", () => {
     render(<HeaderBookingButton />);
-    const button = screen.getByRole("button", {
-      name: "Book a 30-minute call",
-    });
-    expect(button).toHaveTextContent("Book a call");
+    const button = screen.getByRole("button", { name: "Hire AI Randy" });
     expect(button).toHaveAttribute("type", "button");
     expect(button).toHaveClass("group/btn");
   });
