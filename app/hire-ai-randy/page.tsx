@@ -1,20 +1,19 @@
 import type { Metadata } from "next";
+import { canonicalAlternates } from "@/lib/metadata";
 import HireAiRandyClient from "./hire-ai-randy-client";
 import { JsonLd } from "@/components/seo/json-ld";
 import { buildBreadcrumbSchema, PERSON_ID } from "@/lib/seo/json-ld";
 import { DIAGNOSTIC_PATH, WEBSITE_URL } from "@/lib/constants";
 
-const TITLE = "Hire AI Randy — AI Product Ship Readiness Diagnostic";
+const TITLE = "Hire AI Randy — Ship Readiness Diagnostic";
 
 const DESCRIPTION =
-  "Twelve questions that score how ready your AI product is to ship, across AI surface UX, design system governance, roadmap feasibility, and boardroom metrics. Free, ten minutes, with the verdict a fractional Chief Design Officer would give you on a call.";
+  "A free ten-minute diagnostic that scores how ready your AI product is to ship across UX, design systems, roadmap feasibility, and boardroom metrics.";
 
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
-  alternates: {
-    canonical: DIAGNOSTIC_PATH,
-  },
+  alternates: canonicalAlternates(DIAGNOSTIC_PATH),
   keywords: [
     "AI Product Ship Readiness Diagnostic",
     "AI Product Design Audit",

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { canonicalAlternates } from "@/lib/metadata";
 import ServicesClient from "./services-client";
 import { JsonLd } from "@/components/seo/json-ld";
 import { buildBreadcrumbSchema, PERSON_ID } from "@/lib/seo/json-ld";
@@ -8,9 +9,7 @@ export const metadata: Metadata = {
   title: "Services — Fractional CDO Retainer",
   description:
     "A fractional Chief Design Officer retainer: fixed hours every month on design strategy, systems, and AI product surfaces. 500M+ users reached, $500M+ product value delivered.",
-  alternates: {
-    canonical: "/services",
-  },
+  alternates: canonicalAlternates("/services"),
   keywords: [
     "Fractional Chief Design Officer",
     "Fractional CDO Retainer",
@@ -73,6 +72,37 @@ export default function ServicesPage() {
       audienceType: "Startup founders and CTOs",
     },
     url: `${WEBSITE_URL}/services`,
+    // The figures the page prints in its terms list, and nothing it does not:
+    // an answer engine asked "what does Randy Ellis charge" should find the
+    // same numbers a reader does. Keep in step with TERMS in services-client.
+    offers: [
+      {
+        "@type": "Offer",
+        name: "Fractional Chief Design Officer retainer",
+        description:
+          "20 guaranteed hours a month, a weekly working session, async access between; six-month term, then month to month. No equity.",
+        url: `${WEBSITE_URL}/services`,
+        priceCurrency: "USD",
+        priceSpecification: {
+          "@type": "UnitPriceSpecification",
+          price: 8000,
+          priceCurrency: "USD",
+          unitCode: "MON",
+          unitText: "month",
+        },
+        availability: "https://schema.org/InStock",
+      },
+      {
+        "@type": "Offer",
+        name: "Two-week AI product design sprint",
+        description:
+          "A two-week engagement on one stuck design decision, credited to month one of the retainer.",
+        url: `${WEBSITE_URL}/services`,
+        price: 4000,
+        priceCurrency: "USD",
+        availability: "https://schema.org/InStock",
+      },
+    ],
   };
 
   return (
