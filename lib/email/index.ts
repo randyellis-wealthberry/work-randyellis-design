@@ -3,7 +3,7 @@
  * Centralizes email sending logic for the application
  */
 
-export { resend, RESEND_FROM, sendEmail } from "./resend";
+export { RESEND_FROM, sendEmail } from "./resend";
 export { emailTemplates } from "./templates";
 
 /**
