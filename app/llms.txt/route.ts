@@ -21,6 +21,7 @@ export function GET(): Response {
     "",
     "## Services",
     "",
+    `- [Hire AI Randy](${WEBSITE_URL}/hire-ai-randy): the AI product ship readiness diagnostic — twelve questions across AI surface UX, design system governance, roadmap feasibility, and boardroom metrics, scored with a verdict; free, ten minutes`,
     `- [Fractional CDO retainer](${WEBSITE_URL}/services): a design leader on your team, by the month — design direction, systems, and the decisions a roadmap is waiting on`,
     `- [About Randy](${WEBSITE_URL}/about): experience, certifications, awards, and design philosophy`,
     `- [AI skills](${WEBSITE_URL}/skills): installable Claude agent skills for design work`,

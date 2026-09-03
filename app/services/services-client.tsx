@@ -13,8 +13,7 @@ import {
   PRIMARY_BUTTON,
   SECONDARY_BUTTON,
 } from "@/components/ui/button-styles";
-
-const BOOKING_URL = "https://cal.com/randyellis/30min";
+import { BOOKING_URL, DIAGNOSTIC_PATH } from "@/lib/constants";
 
 const RECOMMENDATIONS_LABEL = "What people who have worked with me say";
 
@@ -38,8 +37,12 @@ const TERMS: ReadonlyArray<{
   // The on-ramp sits first on purpose: six months is a long first date, and a
   // reader meets the cheap yes before the expensive one.
   {
+    label: "Before anything",
+    value: "The ship-readiness diagnostic — free, ten minutes, online",
+  },
+  {
     label: "Start with",
-    value: "A two-week diagnostic — $4,000, credited to month one",
+    value: "A two-week sprint — $4,000, credited to month one",
   },
   { label: "Commitment", value: "20 hours a month, guaranteed" },
   { label: "Cadence", value: "Weekly working session, async access between" },
@@ -106,6 +109,17 @@ export default function ServicesClient() {
       <p className="mt-5 max-w-[62ch] text-lg text-zinc-600 dark:text-zinc-400">
         A fractional Chief Design Officer retainer: fixed hours every month,
         spent on the design decisions your roadmap is already waiting on.
+      </p>
+      <p className="mt-4 max-w-[62ch] text-sm text-zinc-500 dark:text-zinc-400">
+        Not sure it fits yet?{" "}
+        <Link
+          href={DIAGNOSTIC_PATH}
+          className="font-medium text-zinc-900 underline decoration-zinc-300 underline-offset-4 transition-colors hover:decoration-zinc-900 dark:text-white dark:decoration-zinc-700 dark:hover:decoration-zinc-100"
+        >
+          Run the ship-readiness diagnostic
+        </Link>{" "}
+        first. Ten minutes, free, and it ends with the verdict I would give you
+        on a call.
       </p>
 
       {/* The split. Two vertical devices with separate jobs: a scroll rail at
@@ -267,8 +281,8 @@ export default function ServicesClient() {
           >
             Book a 30-minute call
           </CalButton>
-          <Link href="/projects" className={SECONDARY_BUTTON}>
-            See the work first
+          <Link href={DIAGNOSTIC_PATH} className={SECONDARY_BUTTON}>
+            Run the diagnostic first
           </Link>
         </div>
       </div>

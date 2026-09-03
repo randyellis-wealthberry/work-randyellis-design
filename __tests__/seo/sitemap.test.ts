@@ -18,13 +18,15 @@ describe("Sitemap", () => {
     });
   });
 
-  it("static URLs include all 9 required pages", () => {
+  it("static URLs include all 10 required pages", () => {
     // Count corrected in Phase 13 (T-14): /services and /skills shipped after
-    // this test was written and were never added.
+    // this test was written and were never added. /hire-ai-randy added with
+    // the ship-readiness diagnostic.
     const urls = sitemapEntries.map((entry) => entry.url);
     const requiredStaticUrls = [
       `${WEBSITE_URL}/`,
       `${WEBSITE_URL}/services`,
+      `${WEBSITE_URL}/hire-ai-randy`,
       `${WEBSITE_URL}/projects`,
       `${WEBSITE_URL}/about`,
       `${WEBSITE_URL}/blog`,
@@ -94,15 +96,17 @@ describe("Sitemap", () => {
       `${WEBSITE_URL}/terms-of-service`,
     ];
 
-    const projectUrls = PROJECTS.map((p) => `${WEBSITE_URL}/projects/${p.slug}`);
+    const projectUrls = PROJECTS.map(
+      (p) => `${WEBSITE_URL}/projects/${p.slug}`,
+    );
 
     const staticAndProjectEntries = sitemapEntries.filter((entry) =>
       [...staticUrls, ...projectUrls].includes(entry.url),
     );
 
     // Extract all lastModified timestamps
-    const timestamps = staticAndProjectEntries.map(
-      (entry) => entry.lastModified!.getTime(),
+    const timestamps = staticAndProjectEntries.map((entry) =>
+      entry.lastModified!.getTime(),
     );
 
     // All timestamps should be identical (same build-time instant)

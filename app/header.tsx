@@ -2,7 +2,7 @@
 import { TextEffect } from "@/components/ui/text-effect";
 import Link from "next/link";
 import UtilityBar from "@/components/ui/utility-bar";
-import { HeaderBookingButton } from "@/components/ui/header-booking-button";
+import { HeaderCtaButton } from "@/components/ui/header-cta-button";
 
 export function Header() {
   return (
@@ -59,7 +59,7 @@ export function Header() {
           </Link>
 
           {/* Primary CTA — right end of the nav row on desktop. */}
-          <HeaderBookingButton className="ml-auto shrink-0" />
+          <HeaderCtaButton className="ml-auto shrink-0" />
         </nav>
 
         <div className="flex items-start justify-between gap-4 pt-8 sm:pt-24">
@@ -83,7 +83,7 @@ export function Header() {
 
           {/* Below lg the nav row is hidden and the fixed hamburger owns the
               top-right corner, so the CTA sits beside the name instead. */}
-          <HeaderBookingButton className="shrink-0 lg:hidden" />
+          <HeaderCtaButton className="shrink-0 lg:hidden" />
         </div>
       </header>
     </>

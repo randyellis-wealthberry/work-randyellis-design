@@ -1,6 +1,9 @@
 import React from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
-import { AntiMetalButton } from "@/components/ui/anti-metal-button";
+import {
+  AntiMetalButton,
+  AntiMetalLink,
+} from "@/components/ui/anti-metal-button";
 
 describe("AntiMetalButton", () => {
   it("renders the default label when nothing is passed", () => {
@@ -58,5 +61,45 @@ describe("AntiMetalButton", () => {
     container.querySelectorAll("g").forEach((g) => {
       expect(g).toHaveAttribute("fill", "#123456");
     });
+  });
+});
+
+describe("AntiMetalLink", () => {
+  it("renders an anchor with the same shell and the given label", () => {
+    render(<AntiMetalLink href="/hire-ai-randy" label="Hire AI Randy" />);
+    const link = screen.getByRole("link", { name: "Hire AI Randy" });
+    expect(link).toHaveAttribute("href", "/hire-ai-randy");
+    expect(link).toHaveClass("group/btn");
+  });
+
+  it("forwards refs and anchor props", () => {
+    const ref = React.createRef<HTMLAnchorElement>();
+    const onClick = jest.fn();
+    render(
+      <AntiMetalLink
+        ref={ref}
+        href="/x"
+        className="ml-auto"
+        data-testid="aml"
+        onClick={(event) => {
+          event.preventDefault();
+          onClick();
+        }}
+      >
+        Go
+      </AntiMetalLink>,
+    );
+    const link = screen.getByTestId("aml");
+    expect(ref.current).toBe(link);
+    expect(link).toHaveClass("ml-auto");
+    fireEvent.click(link);
+    expect(onClick).toHaveBeenCalledTimes(1);
+  });
+
+  it("renders the five chevrons the button renders", () => {
+    const { container } = render(<AntiMetalLink href="/x">Go</AntiMetalLink>);
+    expect(container.querySelectorAll('svg[aria-hidden="true"]')).toHaveLength(
+      5,
+    );
   });
 });

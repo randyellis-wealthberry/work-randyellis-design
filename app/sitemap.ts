@@ -30,6 +30,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: `${WEBSITE_URL}/hire-ai-randy`,
+      lastModified: BUILD_TIME,
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
       url: `${WEBSITE_URL}/about`,
       lastModified: BUILD_TIME,
       changeFrequency: "monthly",

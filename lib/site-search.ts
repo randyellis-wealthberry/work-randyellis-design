@@ -36,6 +36,11 @@ export const SITE_PAGES: ReadonlyArray<{
     description: "Case studies and product work",
   },
   {
+    title: "Hire AI Randy",
+    href: "/hire-ai-randy",
+    description: "The AI product ship readiness diagnostic, ten minutes, free",
+  },
+  {
     title: "AI Skills",
     href: "/skills",
     description: "Open-source agent skills for defensible design work",
