@@ -26,7 +26,7 @@ const FRAME =
  */
 export function ProjectThumbnail({ thumbnail }: { thumbnail: Thumbnail }) {
   if (thumbnail.kind === "diagram") {
-    const { Diagram, alt } = thumbnail;
+    const { Diagram, alt, fitWhole } = thumbnail;
 
     return (
       <AnimatedAsset
@@ -35,6 +35,8 @@ export function ProjectThumbnail({ thumbnail }: { thumbnail: Thumbnail }) {
         // 288px tile puts its 1px rules under a third of a pixel and reads as
         // an empty box; at 190% the focal node and the heavy rules survive, and
         // the tile becomes a legible fragment instead of an illegible whole.
+        // A figure can opt out with fitWhole: a wordmark cropped to a
+        // fragment ("ANDY' / KILLS") is worse than a small whole.
         className="aspect-[16/10] overflow-hidden rounded-lg"
         containerClassName={`diagram-figure ${FRAME}`}
         expandedChildren={
@@ -44,7 +46,7 @@ export function ProjectThumbnail({ thumbnail }: { thumbnail: Thumbnail }) {
         }
       >
         <div className="flex h-full w-full items-center justify-center">
-          <div className="w-[190%] shrink-0">
+          <div className={fitWhole ? "w-full" : "w-[190%] shrink-0"}>
             <Diagram />
           </div>
         </div>
