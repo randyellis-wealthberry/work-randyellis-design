@@ -259,6 +259,42 @@ export function buildFaqPageSchema(
 }
 
 /**
+ * CollectionPage + ItemList for an index page (projects, blog, skills).
+ *
+ * The list is fed the same entries the page renders, in render order, so the
+ * schema cannot name something the reader cannot see. Items carry only a name
+ * and a URL: each entry's own page owns its full description.
+ */
+export function buildCollectionPageSchema(input: {
+  name: string;
+  description: string;
+  url: string;
+  items: ReadonlyArray<{ name: string; url: string }>;
+}): JsonLdObject {
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": input.url,
+    name: input.name,
+    description: input.description,
+    url: input.url,
+    inLanguage: "en-US",
+    isPartOf: { "@id": WEBSITE_ID },
+    author: personRef(),
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: input.items.length,
+      itemListElement: input.items.map((item, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: item.name,
+        url: item.url,
+      })),
+    },
+  };
+}
+
+/**
  * Serialize JSON-LD data with < and > escaped to prevent script breakout
  *
  * Prevents `</script>` injection when schema text is user/data-derived

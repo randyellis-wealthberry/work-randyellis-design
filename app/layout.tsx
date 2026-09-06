@@ -17,6 +17,13 @@ import { createBaseMetadata } from "@/lib/metadata";
 import { MobileMenuProvider } from "@/context/mobile-menu-context";
 import { GlobalMobileMenu } from "@/components/ui/global-mobile-menu";
 import { PeripheralDot } from "@/components/ui/peripheral-dot";
+import { BotIdClient } from "botid/client";
+
+/** POST routes guarded by checkBotId(); the client must know them too. */
+const BOT_PROTECTED = [
+  { path: "/api/newsletter/subscribe", method: "POST" },
+  { path: "/api/diagnostic/complete", method: "POST" },
+];
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -112,6 +119,7 @@ export default async function RootLayout({
         {/* Structured Data — server-rendered (D-10); entity story per D-08 */}
         <JsonLd id="person-jsonld" data={buildPersonSchema()} />
         <JsonLd id="website-jsonld" data={buildWebSiteSchema()} />
+        <BotIdClient protect={BOT_PROTECTED} />
       </head>
       <body
         className={`${geist.variable} ${geistMono.variable} bg-white tracking-tight antialiased dark:bg-zinc-950`}

@@ -35,6 +35,14 @@ export type ProjectThumbnail =
       /** Names the figure for the lightbox trigger and the dialog. */
       alt: string;
       Diagram: () => React.ReactElement;
+      /**
+       * Tile zoom override. The default 190% exists so a full figure's fine
+       * rules survive being scaled into a 288px tile by showing a legible
+       * fragment of it. A wordmark is the opposite case — a cropped fragment
+       * ("ANDY' / KILLS") is worse than a small whole — so the skills figure
+       * opts out and fits.
+       */
+      fitWhole?: boolean;
     };
 
 export const PROJECT_THUMBNAILS: Record<string, ProjectThumbnail> = {
@@ -106,8 +114,9 @@ export const PROJECT_THUMBNAILS: Record<string, ProjectThumbnail> = {
   },
   skills: {
     kind: "diagram",
-    alt: "The agent skills thumbnail: block-character word art reading AGENT SKILLS above the install command",
+    alt: "The agent skills thumbnail: block-character word art reading RANDY'S SKILLS in purple above the install command",
     Diagram: SkillsAsciiDiagram,
+    fitWhole: true,
   },
 };
 

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { canonicalAlternates } from "@/lib/metadata";
 import AboutClient from "./about-client";
 import { JsonLd } from "@/components/seo/json-ld";
 import { buildBreadcrumbSchema } from "@/lib/seo/json-ld";
@@ -7,10 +8,8 @@ import { WEBSITE_URL } from "@/lib/constants";
 export const metadata: Metadata = {
   title: "About — AI Product Design Engineer & Leader",
   description:
-    "From design leader to AI product engineer: Built teams at Nagarro (100+ leads, 40% retention boost) to Head of Product at Wealthberry Labs. The story behind 500M+ users impacted.",
-  alternates: {
-    canonical: "/about",
-  },
+    "From design leader to AI product engineer: built teams at Nagarro, now Head of Product at Wealthberry Labs. The story behind 500M+ users impacted.",
+  alternates: canonicalAlternates("/about"),
   keywords: [
     "Randy Ellis About",
     "AI Product Design Engineer Biography",

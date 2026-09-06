@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { canonicalAlternates } from "@/lib/metadata";
 import MetisClient from "./metis-client";
 import { JsonLd } from "@/components/seo/json-ld";
 import { buildBreadcrumbSchema } from "@/lib/seo/json-ld";
@@ -8,9 +9,7 @@ export const metadata: Metadata = {
   title: "METIS — AI Business Strategy Agent",
   description:
     "A humble announcement about METIS and what I share with the design community. Bridging the gap between design excellence and boardroom fluency.",
-  alternates: {
-    canonical: "/metis",
-  },
+  alternates: canonicalAlternates("/metis"),
   keywords: [
     "METIS",
     "Randy Ellis",

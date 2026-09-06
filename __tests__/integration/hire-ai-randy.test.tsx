@@ -1,0 +1,283 @@
+import React from "react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
+import HireAiRandyPage from "@/app/hire-ai-randy/page";
+import { DIMENSIONS, OVERALL_VERDICTS } from "@/lib/data/diagnostic";
+import { trackContactIntent, trackEvent } from "@/lib/analytics";
+
+/**
+ * The diagnostic is the step between finding the site and booking a call:
+ * twelve questions, one dimension at a time, a scored verdict, and only then
+ * the ask. This suite walks that path.
+ */
+
+jest.mock("next/link", () => {
+  return function MockLink({
+    children,
+    href,
+    ...props
+  }: React.PropsWithChildren<{ href: string }>) {
+    return (
+      <a href={href} {...props}>
+        {children}
+      </a>
+    );
+  };
+});
+
+jest.mock("@/lib/analytics", () => ({
+  trackContactIntent: jest.fn(),
+  trackEvent: jest.fn(),
+}));
+
+jest.mock("@/components/booking/cal-embed", () => ({
+  CalButton: ({
+    children,
+    className,
+    onClick,
+  }: React.PropsWithChildren<{ className?: string; onClick?: () => void }>) => (
+    <button className={className} onClick={onClick}>
+      {children}
+    </button>
+  ),
+}));
+
+/** Choose the option at `optionIndex` for every question on the current step. */
+function answerCurrentStep(optionIndex: number) {
+  const groups = screen.getAllByRole("radiogroup");
+  groups.forEach((group) => {
+    const radios = within(group).getAllByRole("radio");
+    fireEvent.click(radios[optionIndex]);
+  });
+}
+
+function next() {
+  fireEvent.click(screen.getByRole("button", { name: /^Next: / }));
+}
+
+/** Answer all four dimensions with `optionIndex`, landing on the gate. */
+function answerAll(optionIndex: number) {
+  for (let step = 0; step < DIMENSIONS.length; step += 1) {
+    answerCurrentStep(optionIndex);
+    next();
+  }
+}
+
+/** Fill the email gate and submit; resolves once the verdict is on screen. */
+async function passGate(email = "founder@example.com") {
+  fireEvent.change(screen.getByLabelText(/^Email/), {
+    target: { value: email },
+  });
+  fireEvent.click(screen.getByRole("button", { name: "See the verdict" }));
+  await screen.findByRole("heading", { level: 2, name: "The verdict" });
+}
+
+/** Index of the option scoring `score` on every question in `dimension`. */
+function indexScoring(dimensionIndex: number, score: number): number[] {
+  return DIMENSIONS[dimensionIndex].questions.map((q) =>
+    q.options.findIndex((o) => o.score === score),
+  );
+}
+
+describe("Hire AI Randy diagnostic", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+    global.fetch = jest
+      .fn()
+      .mockResolvedValue(
+        new Response(JSON.stringify({ success: true }), { status: 200 }),
+      );
+    window.sessionStorage.clear();
+    Element.prototype.scrollIntoView = jest.fn();
+    render(<HireAiRandyPage />);
+  });
+
+  it("leads with one h1 and the first dimension", () => {
+    const headings = screen.getAllByRole("heading", { level: 1 });
+    expect(headings).toHaveLength(1);
+    expect(headings[0]).toHaveTextContent("Hire AI Randy");
+    expect(
+      screen.getByRole("heading", { level: 2, name: DIMENSIONS[0].name }),
+    ).toBeInTheDocument();
+    expect(screen.getAllByRole("radiogroup")).toHaveLength(3);
+  });
+
+  it("does not ask for the call before the verdict", () => {
+    expect(
+      screen.queryByRole("button", { name: /Book a 30-minute call/ }),
+    ).not.toBeInTheDocument();
+  });
+
+  it("refuses to advance until all three questions are answered", () => {
+    next();
+    expect(screen.getByRole("alert")).toHaveTextContent(
+      "3 questions still need an answer.",
+    );
+    expect(
+      screen.getByRole("heading", { level: 2, name: DIMENSIONS[0].name }),
+    ).toBeInTheDocument();
+
+    // Every unanswered question is marked, not just the summary.
+    const groups = screen.getAllByRole("radiogroup");
+    groups.forEach((group) => {
+      expect(group).toHaveAttribute("aria-invalid", "true");
+      expect(
+        within(group).getByText("Choose one option to continue."),
+      ).toBeInTheDocument();
+    });
+
+    // Answering one clears its marker, keeps the others, updates the count.
+    fireEvent.click(within(groups[0]).getAllByRole("radio")[0]);
+    expect(groups[0]).not.toHaveAttribute("aria-invalid");
+    expect(groups[1]).toHaveAttribute("aria-invalid", "true");
+    next();
+    expect(screen.getByRole("alert")).toHaveTextContent(
+      "2 questions still need an answer.",
+    );
+
+    answerCurrentStep(0);
+    expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+    expect(screen.queryByText("Choose one option to continue.")).toBeNull();
+    next();
+    expect(
+      screen.getByRole("heading", { level: 2, name: DIMENSIONS[1].name }),
+    ).toBeInTheDocument();
+  });
+
+  it("keeps answers when stepping back", () => {
+    answerCurrentStep(1);
+    next();
+    fireEvent.click(screen.getByRole("button", { name: "Back" }));
+    const groups = screen.getAllByRole("radiogroup");
+    groups.forEach((group) => {
+      expect(within(group).getAllByRole("radio")[1]).toBeChecked();
+    });
+  });
+
+  it("scores the best answers as ships and then asks for the call once", async () => {
+    for (let step = 0; step < DIMENSIONS.length; step += 1) {
+      const groups = screen.getAllByRole("radiogroup");
+      const indices = indexScoring(step, 3);
+      groups.forEach((group, i) => {
+        fireEvent.click(within(group).getAllByRole("radio")[indices[i]]);
+      });
+      next();
+    }
+    await passGate();
+    expect(global.fetch).toHaveBeenCalledWith(
+      "/api/diagnostic/complete",
+      expect.objectContaining({ method: "POST" }),
+    );
+
+    expect(
+      screen.getByRole("heading", { level: 2, name: "The verdict" }),
+    ).toBeInTheDocument();
+    expect(screen.getByText(OVERALL_VERDICTS.ships.title)).toBeInTheDocument();
+
+    const table = screen.getByRole("table", {
+      name: "Ship-readiness score by dimension",
+    });
+    expect(within(table).getByText("36 / 36")).toBeInTheDocument();
+
+    expect(
+      screen.getAllByRole("button", { name: /Book a 30-minute call/ }),
+    ).toHaveLength(1);
+    expect(trackEvent).toHaveBeenCalledWith(
+      "diagnostic_complete",
+      "engagement",
+      "ships",
+      36,
+    );
+
+    fireEvent.click(
+      screen.getByRole("button", { name: /Book a 30-minute call/ }),
+    );
+    expect(trackContactIntent).toHaveBeenCalledWith(
+      "booking",
+      expect.any(String),
+      "diagnostic_results",
+    );
+  });
+
+  it("names the weakest dimension as the place to start", async () => {
+    for (let step = 0; step < DIMENSIONS.length; step += 1) {
+      // Everything ships except the third dimension, which stalls.
+      const indices = indexScoring(step, step === 2 ? 0 : 3);
+      const groups = screen.getAllByRole("radiogroup");
+      groups.forEach((group, i) => {
+        fireEvent.click(within(group).getAllByRole("radio")[indices[i]]);
+      });
+      next();
+    }
+    await passGate();
+    expect(screen.getByText(`${DIMENSIONS[2].name}.`)).toBeInTheDocument();
+    expect(screen.getByText(DIMENSIONS[2].sprint)).toBeInTheDocument();
+    expect(screen.getByText(DIMENSIONS[2].verdicts.stalls)).toBeInTheDocument();
+  });
+
+  it("gates the verdict behind a required email", async () => {
+    answerAll(2);
+    expect(
+      screen.getByRole("heading", { level: 2, name: "Your email" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByRole("heading", { level: 2, name: "The verdict" }),
+    ).not.toBeInTheDocument();
+
+    // Empty submit: error, no request, still gated.
+    fireEvent.click(screen.getByRole("button", { name: "See the verdict" }));
+    expect(screen.getByRole("alert")).toHaveTextContent(/valid email/i);
+    expect(screen.getByLabelText(/^Email/)).toHaveAttribute(
+      "aria-invalid",
+      "true",
+    );
+    expect(global.fetch).not.toHaveBeenCalled();
+
+    // Server rejection keeps the gate closed and shows its message.
+    (global.fetch as jest.Mock).mockResolvedValueOnce(
+      new Response(JSON.stringify({ error: "Could not save your email." }), {
+        status: 500,
+      }),
+    );
+    fireEvent.change(screen.getByLabelText(/^Email/), {
+      target: { value: "founder@example.com" },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "See the verdict" }));
+    expect(await screen.findByRole("alert")).toHaveTextContent(
+      "Could not save your email.",
+    );
+    expect(
+      screen.queryByRole("heading", { level: 2, name: "The verdict" }),
+    ).not.toBeInTheDocument();
+
+    await passGate();
+    const saved = JSON.parse(
+      window.sessionStorage.getItem("hire-ai-randy:diagnostic") ?? "null",
+    );
+    expect(saved.email).toBe("founder@example.com");
+  });
+
+  it("persists progress in session storage and can start over", async () => {
+    answerCurrentStep(2);
+    next();
+    const saved = JSON.parse(
+      window.sessionStorage.getItem("hire-ai-randy:diagnostic") ?? "null",
+    );
+    expect(saved.step).toBe(1);
+    expect(Object.keys(saved.answers)).toHaveLength(3);
+
+    for (let step = 1; step < DIMENSIONS.length; step += 1) {
+      answerCurrentStep(2);
+      next();
+    }
+    await passGate();
+    fireEvent.click(
+      screen.getByRole("button", { name: /Start the diagnostic over/ }),
+    );
+    expect(
+      screen.getByRole("heading", { level: 2, name: DIMENSIONS[0].name }),
+    ).toBeInTheDocument();
+    screen.getAllByRole("radio").forEach((radio) => {
+      expect(radio).not.toBeChecked();
+    });
+  });
+});

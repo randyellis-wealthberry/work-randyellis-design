@@ -133,11 +133,9 @@ export default function WaffleClientPage() {
       title="Interview scorecards, written before the panel meets."
       lead="Waffle, 2025 to now — a live, paid AI product I designed and built end to end: research, product, interface, frontend, backend, payments, and the support inbox. Paste a job description and the rubric streams back in two to four minutes."
       actions={ACTIONS}
-      // Pilot: waveform audio player. The demo track is a placeholder until
-      // real Waffle audio (walkthrough narration) replaces it.
       heroExtra={
         <WaveformPlayer
-          audioSrc="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+          audioSrc="/audio/waffle-walkthrough.mp3"
           width={400}
           height={60}
           className="items-start"

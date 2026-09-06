@@ -13,6 +13,7 @@ import {
   SKILL_AGENTS,
   type SkillAgent,
 } from "@/lib/data/skill-agents";
+import { WORD_ART } from "@/lib/data/skill-word-art";
 import { cn } from "@/lib/utils";
 
 const REPO = "randyellis-wealthberry/skills";
@@ -26,18 +27,11 @@ const AGENTS_TABLE_URL =
  * overflowed by 30px and made a phone drag the terminal sideways to finish
  * reading the banner.
  *
- * This is the one thing here that must never wrap — the command and output
- * lines below wrap instead, so the art alone sets the terminal's minimum
- * width. Generated from a fixed-width letterform map, so the rows cannot
- * drift out of alignment when the word changes.
+ * The banner now renders the shared "RANDY'S / SKILLS" wordmark from
+ * `lib/data/skill-word-art.ts` — 37 columns, ~292px at `text-xs`, still
+ * inside that 317px budget. Measured, not estimated: the same way the
+ * original width was chosen.
  */
-const WORD_ART = [
-  "████ █  █ ███ █    █    ████",
-  "█    █ █   █  █    █    █   ",
-  "███  ██    █  █    █    ███ ",
-  "   █ █ █   █  █    █       █",
-  "████ █  █ ███ ████ ████ ████",
-];
 
 const SKILL_TOTAL = 4;
 
@@ -115,9 +109,14 @@ export function InstallPicker({
       >
         {/* Decorative. A screen reader announcing 220 block-drawing characters
             would bury the heading that follows it, so the art is hidden and the
-            section's own <h2> carries the meaning. */}
+            section's own <h2> carries the meaning. Purple — the one hue on
+            this page — echoing the pixel-title treatment of the Hermes
+            terminal header. */}
         {showArt && (
-          <div aria-hidden="true" className="text-zinc-500 dark:text-zinc-600">
+          <div
+            aria-hidden="true"
+            className="text-purple-400 [text-shadow:0_0_12px_rgb(147_51_234/0.45)] dark:text-purple-300"
+          >
             {WORD_ART.map((row, i) => (
               <AnimatedSpan key={i} delay={i * 60} className="whitespace-pre">
                 {row}

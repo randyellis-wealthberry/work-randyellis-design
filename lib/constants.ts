@@ -12,3 +12,6 @@ export const ASSISTANT_URL = "https://zinley.com/card/angela";
 /** Zinley card embed (iframe src) — loaded inside the "let's chat" dialog. */
 export const ZINLEY_EMBED_URL =
   "https://gw.zinley.com/v2/api/card/angela/embed";
+
+/** The ship-readiness diagnostic — the step between finding the site and booking a call. */
+export const DIAGNOSTIC_PATH = "/hire-ai-randy";

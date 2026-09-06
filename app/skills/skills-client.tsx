@@ -3,9 +3,11 @@
 import { motion } from "motion/react";
 import Link from "next/link";
 import { InstallPicker } from "@/components/skills/install-picker";
+import { SKILLS, SKILLS_REPO_URL } from "@/lib/data/skills";
 import { BuyMeACoffeeButton } from "@/components/ui/buy-me-a-coffee";
+import { WORD_ART } from "@/lib/data/skill-word-art";
 
-const REPO_URL = "https://github.com/randyellis-wealthberry/skills";
+const REPO_URL = SKILLS_REPO_URL;
 
 const VARIANTS_CONTAINER = {
   hidden: { opacity: 0 },
@@ -25,44 +27,6 @@ const VARIANTS_SECTION = {
 const TRANSITION_SECTION = {
   duration: 0.3,
 };
-
-type Skill = {
-  name: string;
-  role: string;
-  summary: string;
-  path: string;
-};
-
-const SKILLS: Skill[] = [
-  {
-    name: "randy-design-eng",
-    role: "The main skill",
-    summary:
-      "Decision defensibility, evidence standards, claim discipline, AI product surfaces, design-system API design, and leading design without authority. Worked examples from real projects live alongside it in DECISIONS.md.",
-    path: "/blob/main/skills/randy-design-eng/SKILL.md",
-  },
-  {
-    name: "ui-craft",
-    role: "The interface lens",
-    summary:
-      "How much a surface should assert: progressive disclosure over modes, ranked candidates over single confident answers, graceful scope degradation over empty states, composition over configuration, and designing the seam between two roles.",
-    path: "/blob/main/skills/ui-craft/SKILL.md",
-  },
-  {
-    name: "defend-decision",
-    role: "Construction skill",
-    summary:
-      "Take a design decision and harden it until it survives interrogation: the alternative at its strongest, the price you actually paid, and the outcome you would rather delete.",
-    path: "/blob/main/skills/defend-decision/SKILL.md",
-  },
-  {
-    name: "write-case-study",
-    role: "Construction skill",
-    summary:
-      "Write or audit a case study with strict claim discipline. Separates what you decided from what was handed to you, and what you validated from what shipped after you left.",
-    path: "/blob/main/skills/write-case-study/SKILL.md",
-  },
-];
 
 type Rule = {
   title: string;
@@ -138,6 +102,17 @@ export default function SkillsClient() {
         <h1 className="mb-5 text-3xl font-semibold tracking-tight text-zinc-900 sm:text-4xl dark:text-zinc-100">
           AI Skills
         </h1>
+        {/* Pixel wordmark, shared with the install terminal's banner. Leading
+            spaces are significant; `whitespace-pre` preserves them. The
+            layered text shadows give the solid-purple fill a stepped, lit
+            edge — echoing the pixel-title treatment of the Hermes terminal
+            header without borrowing its palette. */}
+        <pre
+          aria-hidden="true"
+          className="mb-6 overflow-x-auto font-mono text-[9px] leading-[1.15] font-medium tracking-normal whitespace-pre text-purple-600 [text-shadow:0_0_14px_rgb(147_51_234/0.35)] sm:text-xs sm:[text-shadow:0_0_22px_rgb(147_51_234/0.4)] dark:text-purple-400"
+        >
+          {WORD_ART.join("\n")}
+        </pre>
         <p className="mb-6 text-lg leading-relaxed text-zinc-700 dark:text-zinc-300">
           Rationale as a design material.
         </p>

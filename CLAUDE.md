@@ -192,7 +192,7 @@ npm run test:performance              # Run performance tests only
 - Responsive design is mandatory
 - Use Google Fonts
 - Neo-brutalism and modern dark mode style patterns available
-- Icons: Lucide React (primary), Remixicon
+- Icons: Lucide React
 
 **Code Style**
 - ESLint uses the flat config `eslint.config.mjs`
@@ -222,15 +222,9 @@ The `next.config.js` contains extensive webpack optimizations:
 ## API Routes & Backend
 
 Route handlers live under `app/api/`:
-- `app/api/newsletter/*` — subscribe, unsubscribe, export, stats, analytics. Backed by **Loops** (`loops` SDK); requires `LOOPS_API_KEY`. Subscriber state is helper-managed in `lib/email-storage.ts`.
+- `app/api/newsletter/*` — subscribe, unsubscribe. Backed by **Resend** contacts (`resend` SDK via `lib/email/`); requires `RESEND_API_KEY`, optional `RESEND_SEGMENT_ID`. Resend is the only subscriber store.
+- `app/api/diagnostic/complete/` — email gate for the Hire AI Randy verdict: upserts the Resend contact, emails Randy a `pdf-lib` report (`lib/email/diagnostic-report.ts`)
 - `app/api/csp-report/` — receives CSP violation reports
-- `app/api/cdn/optimize/` — image/asset optimization endpoint
-
-## Feature Flags
-
-- Uses the Vercel `flags` SDK with the Statsig adapter (`@flags-sdk/statsig`)
-- Flags defined in `lib/feature-flags.ts`; demo usage in `components/feature-flag-demo.tsx`
-- See `FEATURE_FLAGS_GUIDE.md` at repo root for the full workflow
 
 ## Forms
 
@@ -250,7 +244,7 @@ Route handlers live under `app/api/`:
 - Production removes console logs
 - Service workers are disabled entirely (PWA commented out), not just in development
 - Analytics only active in production
-- Most of the app runs without `.env.local`; only the newsletter API needs `LOOPS_API_KEY` (see `.env.example`)
+- Most of the app runs without `.env.local`; only the newsletter API needs `RESEND_API_KEY` (see `.env.example`)
 
 ## Common Patterns
 

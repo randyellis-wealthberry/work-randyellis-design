@@ -29,6 +29,7 @@ export async function sendEmail({
   html,
   from = RESEND_FROM,
   replyTo,
+  attachments,
 }: {
   to: string | string[];
   subject: string;
@@ -36,6 +37,7 @@ export async function sendEmail({
   html?: string;
   from?: string;
   replyTo?: string;
+  attachments?: { filename: string; content: Buffer }[];
 }) {
   if (!process.env.RESEND_API_KEY) {
     console.warn("[Resend] RESEND_API_KEY not configured. Email not sent.");
@@ -52,6 +54,7 @@ export async function sendEmail({
     if (text) emailData.text = text;
     if (html) emailData.html = html;
     if (replyTo) emailData.replyTo = replyTo;
+    if (attachments) emailData.attachments = attachments;
 
     const { data, error } = await getResendClient().emails.send(
       emailData as unknown as Parameters<Resend["emails"]["send"]>[0],

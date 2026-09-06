@@ -1,18 +1,21 @@
 import type { Metadata } from "next";
+import { canonicalAlternates } from "@/lib/metadata";
 import SkillsClient from "./skills-client";
 import { JsonLd } from "@/components/seo/json-ld";
-import { buildBreadcrumbSchema } from "@/lib/seo/json-ld";
+import {
+  buildBreadcrumbSchema,
+  buildCollectionPageSchema,
+} from "@/lib/seo/json-ld";
+import { SKILLS, SKILLS_REPO_URL } from "@/lib/data/skills";
 import { WEBSITE_URL } from "@/lib/constants";
 
 const DESCRIPTION =
-  "Open-source agent skills that hold design work to a defensible standard: every decision names its alternative and its cost, every claim is limited to what you actually did, and every outcome reports the part that cut against you.";
+  "Open-source agent skills that hold design work to a defensible standard: every decision names its alternative and its cost, every claim stays within what you did.";
 
 export const metadata: Metadata = {
   title: "AI Skills",
   description: DESCRIPTION,
-  alternates: {
-    canonical: "/skills",
-  },
+  alternates: canonicalAlternates("/skills"),
   keywords: [
     "Agent Skills",
     "Claude Skills",
@@ -41,6 +44,18 @@ export default function SkillsPage() {
       <JsonLd
         id="breadcrumb-jsonld"
         data={buildBreadcrumbSchema(breadcrumbItems)}
+      />
+      <JsonLd
+        id="collection-jsonld"
+        data={buildCollectionPageSchema({
+          name: "AI Skills",
+          description: DESCRIPTION,
+          url: `${WEBSITE_URL}/skills`,
+          items: SKILLS.map((skill) => ({
+            name: skill.name,
+            url: `${SKILLS_REPO_URL}${skill.path}`,
+          })),
+        })}
       />
       <SkillsClient />
     </>

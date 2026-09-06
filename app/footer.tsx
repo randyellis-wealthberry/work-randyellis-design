@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { TextLoop } from "@/components/ui/text-loop";
 import { FooterThemeToggle } from "@/components/ui/simple-theme-toggle";
+import { GhostedCoin } from "@/components/ui/ghosted-coin";
 
 // Derived rather than hardcoded — the footer year was still 2025 in August 2026.
 const COPYRIGHT_YEAR = new Date().getFullYear();
@@ -23,6 +24,7 @@ export function Footer() {
           >
             Blog
           </a>
+          <GhostedCoin />
           <FooterThemeToggle />
         </div>
       </div>

@@ -7,6 +7,7 @@ import {
   buildCreativeWorkSchema,
   buildArticleSchema,
   buildBreadcrumbSchema,
+  buildCollectionPageSchema,
   serializeJsonLd,
   PERSON_ID,
   WEBSITE_ID,
@@ -465,5 +466,38 @@ describe("JsonLd component", () => {
     const filePath = path.join(process.cwd(), "components/seo/json-ld.tsx");
     const content = fs.readFileSync(filePath, "utf-8");
     expect(content).not.toContain("next/script");
+  });
+});
+
+describe("buildCollectionPageSchema", () => {
+  const schema = buildCollectionPageSchema({
+    name: "Blog",
+    description: "Posts",
+    url: "https://work.randyellis.design/blog",
+    items: [
+      { name: "One", url: "https://work.randyellis.design/blog/one" },
+      { name: "Two", url: "https://work.randyellis.design/blog/two" },
+    ],
+  });
+
+  test("is a CollectionPage with an ItemList main entity", () => {
+    expect(schema["@type"]).toBe("CollectionPage");
+    const list = schema.mainEntity as {
+      "@type": string;
+      numberOfItems: number;
+      itemListElement: Array<{ position: number; name: string; url: string }>;
+    };
+    expect(list["@type"]).toBe("ItemList");
+    expect(list.numberOfItems).toBe(2);
+    expect(list.itemListElement.map((i) => i.position)).toEqual([1, 2]);
+    expect(list.itemListElement[1].url).toBe(
+      "https://work.randyellis.design/blog/two",
+    );
+  });
+
+  test("links to the WebSite and Person entities", () => {
+    expect(schema.isPartOf).toEqual({ "@id": WEBSITE_ID });
+    expect((schema.author as { "@id": string })["@id"]).toBe(PERSON_ID);
+    expect(JSON.stringify(schema)).not.toContain('"Organization"');
   });
 });

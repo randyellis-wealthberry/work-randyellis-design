@@ -17,6 +17,8 @@ export const CONVERSION_SURFACES = [
   "coffee_link",
   "skill_page",
   "skill_success",
+  "header_cta",
+  "diagnostic_results",
 ] as const;
 
 export type ConversionSurface = (typeof CONVERSION_SURFACES)[number];

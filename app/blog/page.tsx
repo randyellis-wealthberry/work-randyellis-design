@@ -4,17 +4,22 @@ import { GlobalRecommendationsGrid } from "@/components/blog/global-recommendati
 import { getBlogArchiveData } from "@/lib/utils/blog-data";
 import { SECTION, SectionLabel } from "@/components/case-study/section-chrome";
 import { createPageMetadata } from "@/lib/metadata";
+import { JsonLd } from "@/components/seo/json-ld";
+import { buildCollectionPageSchema } from "@/lib/seo/json-ld";
+import { WEBSITE_URL } from "@/lib/constants";
+
+const DESCRIPTION =
+  "AI design insights from the trenches: Claude + Obsidian workflows, AI video creation with Remotion, and why profits beat pixels. Real-world tutorials that work.";
 
 export const metadata: Metadata = createPageMetadata({
   title: "Blog",
-  description:
-    "📚 AI design insights from the trenches: Claude + Obsidian workflows, AI video creation with Remotion, and why profits beat pixels. Real-world tutorials that work.",
+  description: DESCRIPTION,
   path: "/blog",
 });
 
 export default function BlogPage() {
   const archiveData = getBlogArchiveData();
-  const { categories, totalCount } = archiveData;
+  const { articles, categories, totalCount } = archiveData;
 
   return (
     // No floating scroll-progress bar. The One Crank Rule names its removal
@@ -32,6 +37,19 @@ export default function BlogPage() {
       id="main-content"
       className="pb-8 caret-zinc-900 selection:bg-zinc-900 selection:text-white dark:caret-zinc-100 dark:selection:bg-zinc-100 dark:selection:text-zinc-900"
     >
+      {/* Every post the archive lists, newest first, as the page's ItemList. */}
+      <JsonLd
+        id="collection-jsonld"
+        data={buildCollectionPageSchema({
+          name: "Blog",
+          description: DESCRIPTION,
+          url: `${WEBSITE_URL}/blog`,
+          items: articles.map((article) => ({
+            name: article.title,
+            url: `${WEBSITE_URL}/blog/${article.slug}`,
+          })),
+        })}
+      />
       {/* Header Section */}
       <header className="space-y-6">
         <h1 className="max-w-[18ch] text-4xl leading-[1.05] font-semibold tracking-[-0.03em] text-balance text-zinc-900 sm:text-5xl dark:text-white">
