@@ -223,6 +223,7 @@ The `next.config.js` contains extensive webpack optimizations:
 
 Route handlers live under `app/api/`:
 - `app/api/newsletter/*` — subscribe, unsubscribe. Backed by **Resend** contacts (`resend` SDK via `lib/email/`); requires `RESEND_API_KEY`, optional `RESEND_SEGMENT_ID`. Resend is the only subscriber store.
+- `app/api/diagnostic/complete/` — email gate for the Hire AI Randy verdict: upserts the Resend contact, emails Randy a `pdf-lib` report (`lib/email/diagnostic-report.ts`)
 - `app/api/csp-report/` — receives CSP violation reports
 
 ## Forms

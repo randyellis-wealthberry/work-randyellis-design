@@ -33,38 +33,14 @@ export async function POST(request: NextRequest) {
     }
     const { email, firstName } = result.data;
 
-    const { resend, sendWelcomeEmail } = await import("@/lib/email");
-    const segmentId = process.env.RESEND_SEGMENT_ID;
-    const { error } = await resend.contacts.create({
-      email,
-      firstName,
-      unsubscribed: false,
-      ...(segmentId && { segments: [{ id: segmentId }] }),
-    });
-
+    const { upsertContact, sendWelcomeEmail } = await import("@/lib/email");
+    const { error } = await upsertContact({ email, firstName });
     if (error) {
-      // Resend contacts are one per email. Re-subscribing an existing (maybe
-      // unsubscribed) reader is an update, not a failure.
-      if (/already exists/i.test(error.message)) {
-        const updated = await resend.contacts.update({
-          email,
-          unsubscribed: false,
-          ...(firstName && { firstName }),
-        });
-        if (updated.error) {
-          console.error("Resend contact update error:", updated.error);
-          return NextResponse.json(
-            { error: "Failed to subscribe. Please try again." },
-            { status: 500 },
-          );
-        }
-      } else {
-        console.error("Resend contact create error:", error);
-        return NextResponse.json(
-          { error: "Failed to subscribe. Please try again." },
-          { status: 500 },
-        );
-      }
+      console.error("Resend contact error:", error);
+      return NextResponse.json(
+        { error: "Failed to subscribe. Please try again." },
+        { status: 500 },
+      );
     }
 
     // Welcome email is best effort. The subscription already succeeded.

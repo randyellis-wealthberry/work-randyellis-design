@@ -29,13 +29,16 @@ import { cn } from "@/lib/utils";
 /**
  * Where an unfinished diagnostic waits. A reload halfway through twelve
  * questions should not cost the founder their answers; the tab's session
- * storage keeps them until the tab closes, and nothing leaves the browser.
+ * storage keeps them until the tab closes. Answers leave the browser only
+ * when the founder submits their email at the gate.
  */
 const STORAGE_KEY = "hire-ai-randy:diagnostic";
 
 interface Saved {
   answers: Answers;
   step: number;
+  /** Set once the gate has been passed; the verdict is only restored with it. */
+  email?: string;
 }
 
 function readSaved(): Saved | null {
@@ -52,14 +55,21 @@ function readSaved(): Saved | null {
     ) {
       return null;
     }
-    const { answers, step } = parsed as Saved;
+    const { answers, step, email } = parsed as Saved;
     const clean: Record<string, number> = {};
     for (const [key, value] of Object.entries(answers)) {
       if (typeof value === "number") clean[key] = value;
     }
+    const hasEmail = typeof email === "string" && email.length > 0;
     return {
       answers: clean,
-      step: Math.min(Math.max(0, Math.trunc(step)), DIMENSIONS.length),
+      // Without an email on record the verdict is not unlocked; land on the
+      // gate instead.
+      step: Math.min(
+        Math.max(0, Math.trunc(step)),
+        hasEmail ? RESULTS_STEP : GATE_STEP,
+      ),
+      ...(hasEmail && { email }),
     };
   } catch {
     return null;
@@ -85,16 +95,23 @@ function clearSaved() {
 const TEXT_LINK =
   "-my-3 inline-flex min-h-[44px] w-fit items-center gap-1.5 py-3 font-medium text-zinc-900 underline decoration-zinc-300 underline-offset-4 transition-colors hover:decoration-zinc-900 focus-visible:ring-2 focus-visible:ring-zinc-900 focus-visible:ring-offset-2 focus-visible:outline-none dark:text-white dark:decoration-zinc-700 dark:hover:decoration-zinc-100 dark:focus-visible:ring-white";
 
-/** Steps 0..3 are the four dimensions; step 4 is the verdict. */
-const RESULTS_STEP = DIMENSIONS.length;
+/** Steps 0..3 are the four dimensions; 4 is the email gate; 5 the verdict. */
+const GATE_STEP = DIMENSIONS.length;
+const RESULTS_STEP = DIMENSIONS.length + 1;
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 export default function HireAiRandyClient() {
   const [answers, setAnswers] = useState<Answers>({});
   const [step, setStep] = useState(0);
   const [error, setError] = useState<string | null>(null);
+  const [email, setEmail] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [unlockedEmail, setUnlockedEmail] = useState<string | null>(null);
+  const [pending, setPending] = useState(false);
   // Saved state is read after mount so server and first client render agree.
   const [restored, setRestored] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
   const questionRefs = useRef<Record<string, HTMLFieldSetElement | null>>({});
   const skipScrollRef = useRef(true);
 
@@ -103,14 +120,22 @@ export default function HireAiRandyClient() {
     if (saved) {
       setAnswers(saved.answers);
       setStep(saved.step);
+      if (saved.email) {
+        setEmail(saved.email);
+        setUnlockedEmail(saved.email);
+      }
     }
     setRestored(true);
   }, []);
 
   useEffect(() => {
     if (!restored) return;
-    writeSaved({ answers, step });
-  }, [answers, step, restored]);
+    writeSaved({
+      answers,
+      step,
+      ...(unlockedEmail && { email: unlockedEmail }),
+    });
+  }, [answers, step, unlockedEmail, restored]);
 
   // Each step change moves the reader to the top of the new section and hands
   // focus to it, so a keyboard or screen-reader user lands on the question
@@ -165,8 +190,51 @@ export default function HireAiRandyClient() {
       return;
     }
     setError(null);
-    setStep((current) => Math.min(current + 1, RESULTS_STEP));
+    setStep((current) => Math.min(current + 1, GATE_STEP));
   }, [answers, step]);
+
+  const submitGate = useCallback(
+    async (event: React.FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      const trimmed = email.trim();
+      if (!EMAIL_PATTERN.test(trimmed)) {
+        setError("Enter a valid email address to see your verdict.");
+        emailRef.current?.focus();
+        return;
+      }
+      setError(null);
+      setPending(true);
+      try {
+        const response = await fetch("/api/diagnostic/complete", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: trimmed,
+            ...(firstName.trim() && { firstName: firstName.trim() }),
+            answers,
+          }),
+        });
+        if (!response.ok) {
+          const body = (await response.json().catch(() => null)) as {
+            error?: string;
+          } | null;
+          setError(body?.error ?? "Something went wrong. Please try again.");
+          emailRef.current?.focus();
+          return;
+        }
+        setUnlockedEmail(trimmed);
+        setStep(RESULTS_STEP);
+      } catch {
+        setError(
+          "Could not reach the server. Check your connection and try again.",
+        );
+        emailRef.current?.focus();
+      } finally {
+        setPending(false);
+      }
+    },
+    [answers, email, firstName],
+  );
 
   const back = useCallback(() => {
     setError(null);
@@ -177,6 +245,9 @@ export default function HireAiRandyClient() {
     clearSaved();
     setAnswers({});
     setError(null);
+    setEmail("");
+    setFirstName("");
+    setUnlockedEmail(null);
     setStep(0);
   }, []);
 
@@ -197,7 +268,7 @@ export default function HireAiRandyClient() {
         two-week sprint would start.
       </p>
       <p className="mt-4 max-w-[62ch] text-sm text-zinc-500 dark:text-zinc-400">
-        Free · About ten minutes · Your answers stay in this browser tab
+        Free · About ten minutes · Your email unlocks the verdict
       </p>
 
       {/* The route through the diagnostic, as a contents line rather than a
@@ -222,13 +293,22 @@ export default function HireAiRandyClient() {
             );
           })}
           <li
+            aria-current={step === GATE_STEP ? "step" : undefined}
+            className={cn(
+              step === GATE_STEP && "font-medium text-zinc-900 dark:text-white",
+              step > GATE_STEP && "text-zinc-700 dark:text-zinc-300",
+            )}
+          >
+            5. Your email
+          </li>
+          <li
             aria-current={step === RESULTS_STEP ? "step" : undefined}
             className={cn(
               step === RESULTS_STEP &&
                 "font-medium text-zinc-900 dark:text-white",
             )}
           >
-            5. The verdict
+            6. The verdict
           </li>
         </ol>
       </nav>
@@ -344,7 +424,7 @@ export default function HireAiRandyClient() {
           <div className="mt-8 flex flex-col gap-3 border-t border-zinc-200 pt-8 sm:flex-row dark:border-zinc-800">
             <button type="button" onClick={next} className={PRIMARY_BUTTON}>
               {step === DIMENSIONS.length - 1
-                ? "See the verdict"
+                ? "Next: Your email"
                 : "Next: " + DIMENSIONS[step + 1]!.name}
             </button>
             {step > 0 && (
@@ -354,8 +434,98 @@ export default function HireAiRandyClient() {
             )}
           </div>
         </section>
+      ) : step === GATE_STEP ? (
+        <section
+          key="gate"
+          ref={sectionRef}
+          tabIndex={-1}
+          aria-labelledby="gate-heading"
+          className={cn(SECTION, "focus:outline-none")}
+        >
+          <SectionLabel id="gate-heading">Your email</SectionLabel>
+          <p className="mt-6 max-w-[62ch] text-lg text-zinc-900 dark:text-white">
+            Twelve answers in. The verdict is scored and waiting; tell me where
+            to reach you and it unlocks.
+          </p>
+          <p className="mt-3 max-w-[62ch] text-base text-zinc-600 dark:text-zinc-300">
+            I read every completed diagnostic before a call. Your address also
+            joins the newsletter, and you can unsubscribe any time.
+          </p>
+          <form onSubmit={submitGate} noValidate className="mt-8 max-w-md">
+            <label
+              htmlFor="gate-email"
+              className="block text-base font-medium text-zinc-900 dark:text-white"
+            >
+              Email <span className="text-red-600 dark:text-red-400">*</span>
+            </label>
+            <input
+              ref={emailRef}
+              id="gate-email"
+              type="email"
+              name="email"
+              autoComplete="email"
+              required
+              value={email}
+              onChange={(event) => {
+                setEmail(event.target.value);
+                if (error) setError(null);
+              }}
+              aria-invalid={error ? true : undefined}
+              aria-describedby={error ? "gate-error" : undefined}
+              className={cn(
+                "mt-2 block min-h-[44px] w-full rounded-lg border bg-white px-3 text-base text-zinc-900 focus-visible:ring-2 focus-visible:ring-zinc-900 focus-visible:ring-offset-2 focus-visible:outline-none dark:bg-zinc-950 dark:text-white dark:focus-visible:ring-white",
+                error
+                  ? "border-red-600 dark:border-red-400"
+                  : "border-zinc-300 dark:border-zinc-700",
+              )}
+            />
+            {error && (
+              <p
+                id="gate-error"
+                role="alert"
+                className="mt-2 text-sm font-medium text-red-600 dark:text-red-400"
+              >
+                {error}
+              </p>
+            )}
+            <label
+              htmlFor="gate-first-name"
+              className="mt-5 block text-base font-medium text-zinc-900 dark:text-white"
+            >
+              First name{" "}
+              <span className="font-normal text-zinc-500 dark:text-zinc-400">
+                (optional)
+              </span>
+            </label>
+            <input
+              id="gate-first-name"
+              type="text"
+              name="firstName"
+              autoComplete="given-name"
+              maxLength={80}
+              value={firstName}
+              onChange={(event) => setFirstName(event.target.value)}
+              className="mt-2 block min-h-[44px] w-full rounded-lg border border-zinc-300 bg-white px-3 text-base text-zinc-900 focus-visible:ring-2 focus-visible:ring-zinc-900 focus-visible:ring-offset-2 focus-visible:outline-none dark:border-zinc-700 dark:bg-zinc-950 dark:text-white dark:focus-visible:ring-white"
+            />
+            <div className="mt-8 flex flex-col gap-3 border-t border-zinc-200 pt-8 sm:flex-row dark:border-zinc-800">
+              <button
+                type="submit"
+                disabled={pending}
+                aria-busy={pending || undefined}
+                className={cn(PRIMARY_BUTTON, pending && "opacity-60")}
+              >
+                {pending ? "Scoring…" : "See the verdict"}
+              </button>
+              <button type="button" onClick={back} className={SECONDARY_BUTTON}>
+                Back
+              </button>
+            </div>
+          </form>
+        </section>
       ) : (
         <section
+          // Keyed like the dimensions: SectionLabel keeps its text from mount.
+          key="verdict"
           ref={sectionRef}
           tabIndex={-1}
           aria-labelledby="verdict-heading"

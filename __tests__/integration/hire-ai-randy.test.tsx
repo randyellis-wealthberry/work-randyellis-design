@@ -51,9 +51,24 @@ function answerCurrentStep(optionIndex: number) {
 }
 
 function next() {
-  fireEvent.click(
-    screen.getByRole("button", { name: /^Next: |See the verdict/ }),
-  );
+  fireEvent.click(screen.getByRole("button", { name: /^Next: / }));
+}
+
+/** Answer all four dimensions with `optionIndex`, landing on the gate. */
+function answerAll(optionIndex: number) {
+  for (let step = 0; step < DIMENSIONS.length; step += 1) {
+    answerCurrentStep(optionIndex);
+    next();
+  }
+}
+
+/** Fill the email gate and submit; resolves once the verdict is on screen. */
+async function passGate(email = "founder@example.com") {
+  fireEvent.change(screen.getByLabelText(/^Email/), {
+    target: { value: email },
+  });
+  fireEvent.click(screen.getByRole("button", { name: "See the verdict" }));
+  await screen.findByRole("heading", { level: 2, name: "The verdict" });
 }
 
 /** Index of the option scoring `score` on every question in `dimension`. */
@@ -66,6 +81,11 @@ function indexScoring(dimensionIndex: number, score: number): number[] {
 describe("Hire AI Randy diagnostic", () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    global.fetch = jest
+      .fn()
+      .mockResolvedValue(
+        new Response(JSON.stringify({ success: true }), { status: 200 }),
+      );
     window.sessionStorage.clear();
     Element.prototype.scrollIntoView = jest.fn();
     render(<HireAiRandyPage />);
@@ -133,7 +153,7 @@ describe("Hire AI Randy diagnostic", () => {
     });
   });
 
-  it("scores the best answers as ships and then asks for the call once", () => {
+  it("scores the best answers as ships and then asks for the call once", async () => {
     for (let step = 0; step < DIMENSIONS.length; step += 1) {
       const groups = screen.getAllByRole("radiogroup");
       const indices = indexScoring(step, 3);
@@ -142,6 +162,11 @@ describe("Hire AI Randy diagnostic", () => {
       });
       next();
     }
+    await passGate();
+    expect(global.fetch).toHaveBeenCalledWith(
+      "/api/diagnostic/complete",
+      expect.objectContaining({ method: "POST" }),
+    );
 
     expect(
       screen.getByRole("heading", { level: 2, name: "The verdict" }),
@@ -173,7 +198,7 @@ describe("Hire AI Randy diagnostic", () => {
     );
   });
 
-  it("names the weakest dimension as the place to start", () => {
+  it("names the weakest dimension as the place to start", async () => {
     for (let step = 0; step < DIMENSIONS.length; step += 1) {
       // Everything ships except the third dimension, which stalls.
       const indices = indexScoring(step, step === 2 ? 0 : 3);
@@ -183,12 +208,55 @@ describe("Hire AI Randy diagnostic", () => {
       });
       next();
     }
+    await passGate();
     expect(screen.getByText(`${DIMENSIONS[2].name}.`)).toBeInTheDocument();
     expect(screen.getByText(DIMENSIONS[2].sprint)).toBeInTheDocument();
     expect(screen.getByText(DIMENSIONS[2].verdicts.stalls)).toBeInTheDocument();
   });
 
-  it("persists progress in session storage and can start over", () => {
+  it("gates the verdict behind a required email", async () => {
+    answerAll(2);
+    expect(
+      screen.getByRole("heading", { level: 2, name: "Your email" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByRole("heading", { level: 2, name: "The verdict" }),
+    ).not.toBeInTheDocument();
+
+    // Empty submit: error, no request, still gated.
+    fireEvent.click(screen.getByRole("button", { name: "See the verdict" }));
+    expect(screen.getByRole("alert")).toHaveTextContent(/valid email/i);
+    expect(screen.getByLabelText(/^Email/)).toHaveAttribute(
+      "aria-invalid",
+      "true",
+    );
+    expect(global.fetch).not.toHaveBeenCalled();
+
+    // Server rejection keeps the gate closed and shows its message.
+    (global.fetch as jest.Mock).mockResolvedValueOnce(
+      new Response(JSON.stringify({ error: "Could not save your email." }), {
+        status: 500,
+      }),
+    );
+    fireEvent.change(screen.getByLabelText(/^Email/), {
+      target: { value: "founder@example.com" },
+    });
+    fireEvent.click(screen.getByRole("button", { name: "See the verdict" }));
+    expect(await screen.findByRole("alert")).toHaveTextContent(
+      "Could not save your email.",
+    );
+    expect(
+      screen.queryByRole("heading", { level: 2, name: "The verdict" }),
+    ).not.toBeInTheDocument();
+
+    await passGate();
+    const saved = JSON.parse(
+      window.sessionStorage.getItem("hire-ai-randy:diagnostic") ?? "null",
+    );
+    expect(saved.email).toBe("founder@example.com");
+  });
+
+  it("persists progress in session storage and can start over", async () => {
     answerCurrentStep(2);
     next();
     const saved = JSON.parse(
@@ -201,6 +269,7 @@ describe("Hire AI Randy diagnostic", () => {
       answerCurrentStep(2);
       next();
     }
+    await passGate();
     fireEvent.click(
       screen.getByRole("button", { name: /Start the diagnostic over/ }),
     );

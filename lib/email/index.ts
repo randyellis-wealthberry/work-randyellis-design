@@ -6,6 +6,41 @@
 export { resend, RESEND_FROM, sendEmail } from "./resend";
 export { emailTemplates } from "./templates";
 
+/** Where site notifications land (contact form, diagnostic reports). */
+export const OWNER_EMAIL = "randy@wealthbrry.com";
+
+/**
+ * Add an address to the Resend contact list, or re-activate it if it is
+ * already there. Resend keeps one contact per email, so a returning or
+ * previously unsubscribed reader is an update, not an error.
+ */
+export async function upsertContact({
+  email,
+  firstName,
+}: {
+  email: string;
+  firstName?: string;
+}): Promise<{ error: { message: string } | null }> {
+  const { resend } = await import("./resend");
+  const segmentId = process.env.RESEND_SEGMENT_ID;
+  const created = await resend.contacts.create({
+    email,
+    firstName,
+    unsubscribed: false,
+    ...(segmentId && { segments: [{ id: segmentId }] }),
+  });
+  if (!created.error) return { error: null };
+  if (!/already exists/i.test(created.error.message)) {
+    return { error: created.error };
+  }
+  const updated = await resend.contacts.update({
+    email,
+    unsubscribed: false,
+    ...(firstName && { firstName }),
+  });
+  return { error: updated.error ?? null };
+}
+
 /**
  * Send welcome email to new newsletter subscriber
  */
@@ -66,7 +101,7 @@ export async function sendContactNotification({
   });
 
   return sendEmail({
-    to: "randy@wealthbrry.com", // Your email from CLAUDE.md
+    to: OWNER_EMAIL,
     subject: template.subject,
     text: template.text,
     html: template.html,
