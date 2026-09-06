@@ -495,3 +495,18 @@
     opacity: 0;
   }
 }
+
+/* footer easter egg: spinning coin */
+@keyframes ghosted-coin-spin {
+  to {
+    transform: rotateY(360deg);
+  }
+}
+.ghosted-coin {
+  animation: ghosted-coin-spin 2.4s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ghosted-coin {
+    animation: none;
+  }
+}
