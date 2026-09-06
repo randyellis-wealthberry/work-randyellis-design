@@ -137,20 +137,31 @@ export default function HireAiRandyClient() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [step]);
 
-  const choose = useCallback((questionId: string, index: number) => {
-    setAnswers((current) => ({ ...current, [questionId]: index }));
-    setError(null);
-  }, []);
+  const choose = useCallback(
+    (questionId: string, index: number) => {
+      const updated = { ...answers, [questionId]: index };
+      setAnswers(updated);
+      // Keep the per-question markers until every question is answered, so a
+      // founder who answers one of two missing questions still sees the other.
+      const dimension = DIMENSIONS[step];
+      if (dimension && isDimensionComplete(dimension, updated)) setError(null);
+    },
+    [answers, step],
+  );
 
   const next = useCallback(() => {
     const dimension = DIMENSIONS[step];
     if (!dimension) return;
     if (!isDimensionComplete(dimension, answers)) {
-      setError("Answer all three to continue.");
-      const first = dimension.questions.find(
+      const missing = dimension.questions.filter(
         (question) => answers[question.id] === undefined,
       );
-      if (first) questionRefs.current[first.id]?.focus();
+      setError(
+        missing.length === 1
+          ? "One question still needs an answer."
+          : `${missing.length} questions still need an answer.`,
+      );
+      questionRefs.current[missing[0]!.id]?.focus();
       return;
     }
     setError(null);
@@ -246,6 +257,8 @@ export default function HireAiRandyClient() {
           <div className="mt-8">
             {current.questions.map((question, questionIndex) => {
               const chosen = answers[question.id];
+              const missing = error !== null && chosen === undefined;
+              const errorId = `${question.id}-error`;
               return (
                 <fieldset
                   key={question.id}
@@ -254,14 +267,36 @@ export default function HireAiRandyClient() {
                   }}
                   role="radiogroup"
                   tabIndex={-1}
-                  className="border-t border-zinc-200 py-6 focus:outline-none dark:border-zinc-800"
+                  aria-invalid={missing || undefined}
+                  aria-describedby={missing ? errorId : undefined}
+                  className={cn(
+                    "border-t py-6 focus:outline-none",
+                    missing
+                      ? "border-red-600 dark:border-red-400"
+                      : "border-zinc-200 dark:border-zinc-800",
+                  )}
                 >
                   <legend className="float-left w-full pt-6 text-base font-medium text-zinc-900 dark:text-white">
-                    <span className="mr-2 text-zinc-500 tabular-nums dark:text-zinc-400">
+                    <span
+                      className={cn(
+                        "mr-2 tabular-nums",
+                        missing
+                          ? "text-red-600 dark:text-red-400"
+                          : "text-zinc-500 dark:text-zinc-400",
+                      )}
+                    >
                       {questionIndex + 1}.
                     </span>
                     {question.prompt}
                   </legend>
+                  {missing && (
+                    <p
+                      id={errorId}
+                      className="clear-both mt-2 text-sm font-medium text-red-600 dark:text-red-400"
+                    >
+                      Choose one option to continue.
+                    </p>
+                  )}
                   <div className="clear-both mt-4 flex flex-col gap-1">
                     {question.options.map((option, optionIndex) => {
                       const id = `${question.id}-${optionIndex}`;
@@ -299,7 +334,7 @@ export default function HireAiRandyClient() {
           {error && (
             <p
               role="alert"
-              className="mt-2 text-sm font-medium text-zinc-900 dark:text-white"
+              className="mt-2 text-sm font-medium text-red-600 dark:text-red-400"
             >
               {error}
             </p>

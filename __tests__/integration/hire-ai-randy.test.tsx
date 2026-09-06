@@ -90,14 +90,33 @@ describe("Hire AI Randy diagnostic", () => {
   it("refuses to advance until all three questions are answered", () => {
     next();
     expect(screen.getByRole("alert")).toHaveTextContent(
-      "Answer all three to continue.",
+      "3 questions still need an answer.",
     );
     expect(
       screen.getByRole("heading", { level: 2, name: DIMENSIONS[0].name }),
     ).toBeInTheDocument();
 
+    // Every unanswered question is marked, not just the summary.
+    const groups = screen.getAllByRole("radiogroup");
+    groups.forEach((group) => {
+      expect(group).toHaveAttribute("aria-invalid", "true");
+      expect(
+        within(group).getByText("Choose one option to continue."),
+      ).toBeInTheDocument();
+    });
+
+    // Answering one clears its marker, keeps the others, updates the count.
+    fireEvent.click(within(groups[0]).getAllByRole("radio")[0]);
+    expect(groups[0]).not.toHaveAttribute("aria-invalid");
+    expect(groups[1]).toHaveAttribute("aria-invalid", "true");
+    next();
+    expect(screen.getByRole("alert")).toHaveTextContent(
+      "2 questions still need an answer.",
+    );
+
     answerCurrentStep(0);
     expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+    expect(screen.queryByText("Choose one option to continue.")).toBeNull();
     next();
     expect(
       screen.getByRole("heading", { level: 2, name: DIMENSIONS[1].name }),
