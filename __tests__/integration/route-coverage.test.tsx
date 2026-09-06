@@ -40,9 +40,7 @@ const EXPECTED_ROUTES = [
   // API routes
   { path: "/api/newsletter/subscribe", name: "Newsletter Subscribe API" },
   { path: "/api/newsletter/unsubscribe", name: "Newsletter Unsubscribe API" },
-  { path: "/api/newsletter/analytics", name: "Newsletter Analytics API" },
-  { path: "/api/newsletter/export", name: "Newsletter Export API" },
-  { path: "/api/newsletter/stats", name: "Newsletter Stats API" },
+  { path: "/api/diagnostic/complete", name: "Diagnostic Complete API" },
 ];
 
 describe("TDD PHASE 1: Route Coverage Analysis", () => {
@@ -105,7 +103,7 @@ describe("TDD PHASE 1: Route Coverage Analysis", () => {
         route.path.startsWith("/api"),
       );
 
-      expect(apiRoutes).toHaveLength(5); // Expected API routes
+      expect(apiRoutes).toHaveLength(3); // Expected API routes
 
       apiRoutes.forEach((route) => {
         expect(route.path).toMatch(/^\/api\/[a-z0-9/-]+$/);

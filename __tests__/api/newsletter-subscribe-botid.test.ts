@@ -25,16 +25,9 @@ jest.mock("botid/server", () => ({
 }));
 
 const mockUpdateContact = jest.fn().mockResolvedValue({ success: true });
-jest.mock("loops", () => ({
-  LoopsClient: jest.fn().mockImplementation(() => ({
-    updateContact: mockUpdateContact,
-  })),
-}));
-
-jest.mock("@/lib/email-storage", () => ({
-  emailStorage: {
-    addSubscription: jest.fn().mockResolvedValue(undefined),
-  },
+jest.mock("@/lib/email", () => ({
+  resend: { contacts: { create: mockUpdateContact, update: jest.fn() } },
+  sendWelcomeEmail: jest.fn().mockResolvedValue(undefined),
 }));
 
 const subscribeRequest = () =>
@@ -47,7 +40,7 @@ const subscribeRequest = () =>
 describe("POST /api/newsletter/subscribe — BotID", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    process.env.LOOPS_API_KEY = "test-key";
+    process.env.RESEND_API_KEY = "test-key";
   });
 
   it("rejects a request BotID classifies as a bot", async () => {
@@ -80,9 +73,9 @@ describe("POST /api/newsletter/subscribe — BotID", () => {
   });
 
   it("checks for a bot before reading server configuration", async () => {
-    // A bot must not be able to probe whether LOOPS_API_KEY is set by
+    // A bot must not be able to probe whether RESEND_API_KEY is set by
     // observing a 500 instead of a 403.
-    delete process.env.LOOPS_API_KEY;
+    delete process.env.RESEND_API_KEY;
     mockCheckBotId.mockResolvedValue({ isBot: true });
     const { POST } = require("@/app/api/newsletter/subscribe/route");
 

@@ -10,10 +10,6 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 
 // Mock useReducedMotion hook
 const mockUseReducedMotion = jest.fn(() => false);
-jest.mock("@/lib/hooks/use-reduced-motion", () => ({
-  useReducedMotion: mockUseReducedMotion,
-}));
-
 // Mock motion data for testing
 const mockNagarroAnimationData = {
   title:

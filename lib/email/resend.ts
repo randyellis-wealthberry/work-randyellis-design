@@ -29,6 +29,7 @@ export async function sendEmail({
   html,
   from = RESEND_FROM,
   replyTo,
+  attachments,
 }: {
   to: string | string[];
   subject: string;
@@ -36,6 +37,7 @@ export async function sendEmail({
   html?: string;
   from?: string;
   replyTo?: string;
+  attachments?: { filename: string; content: Buffer }[];
 }) {
   try {
     const emailData: Record<string, unknown> = {
@@ -47,6 +49,7 @@ export async function sendEmail({
     if (text) emailData.text = text;
     if (html) emailData.html = html;
     if (replyTo) emailData.replyTo = replyTo;
+    if (attachments) emailData.attachments = attachments;
 
     const { data, error } = await resend.emails.send(
       emailData as unknown as Parameters<typeof resend.emails.send>[0],

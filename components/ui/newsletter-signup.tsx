@@ -12,7 +12,6 @@ import { SECTION, SectionLabel } from "@/components/case-study/section-chrome";
 import { PRIMARY_BUTTON } from "@/components/ui/button-styles";
 import { cn } from "@/lib/utils";
 import { trackNewsletterAttempt } from "@/lib/analytics";
-import { useFeatureFlag } from "@/hooks/use-feature-flag";
 import { useAnimationPerformance } from "@/hooks/use-animation-performance";
 
 const emailSchema = z.object({
@@ -33,7 +32,8 @@ const PREFIXES_WITHOUT_NEWSLETTER = ["/projects/"];
 
 export function NewsletterSignup() {
   const pathname = usePathname();
-  const isNewsletterEnabled = useFeatureFlag("newsletterEnabled");
+  const isNewsletterEnabled =
+    process.env.NEXT_PUBLIC_NEWSLETTER_ENABLED !== "false";
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<
     "idle" | "success" | "error" | "rate_limited"

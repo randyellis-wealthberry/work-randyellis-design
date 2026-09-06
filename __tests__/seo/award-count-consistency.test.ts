@@ -222,8 +222,6 @@ describe("Award-count consistency across every stating surface (CRED-12)", () =>
       "app/about/about-client.tsx", // states the count — asserted in Block 2
       "app/about/opengraph-image.tsx", // states the count — asserted in Block 2
       "app/about/page.tsx", // states the count — asserted in Block 2
-      "components/core/animated-number-basic.tsx", // dead code, zero imports anywhere in the repo, renders nothing, cannot disagree with anything
-      "components/ui/reading-progress.tsx", // "Award" here is a lucide-react icon import for a reading-progress milestone label, not a design-award count
       "lib/data/retainer.ts", // states the count — asserted in Block 1
       "lib/seo/json-ld.ts", // states the count — asserted in Block 1
     ].sort();

@@ -38,10 +38,6 @@ jest.mock("@/components/client-logos", () => ({
   ClientLogos: () => <div data-testid="client-logos" />,
 }));
 
-jest.mock("@/components/feature-flag-demo", () => ({
-  FeatureFlagDemo: () => null,
-}));
-
 describe("Home page argument", () => {
   beforeEach(() => {
     render(<HomePage />);
@@ -53,7 +49,9 @@ describe("Home page argument", () => {
     // The previous page hid its h1 in sr-only and set the visible title as a
     // paragraph under an eyebrow, so the document had no heading at all.
     expect(headings).toHaveLength(1);
-    expect(headings[0]).toHaveTextContent("Design leader who ships AI products");
+    expect(headings[0]).toHaveTextContent(
+      "Design leader who ships AI products",
+    );
   });
 
   it("states the proof figures in the markup rather than counting up to them", () => {
@@ -80,9 +78,7 @@ describe("Home page argument", () => {
     const work = document.getElementById("work")!;
     const projectLinks = within(work)
       .getAllByRole("link")
-      .filter((link) =>
-        link.getAttribute("href")?.startsWith("/projects/"),
-      );
+      .filter((link) => link.getAttribute("href")?.startsWith("/projects/"));
 
     expect(projectLinks).toHaveLength(3);
     expect(within(work).getByText(/All \d+ case studies/)).toBeInTheDocument();
