@@ -9,6 +9,7 @@ const customJestConfig = {
   testEnvironment: "jest-environment-jsdom",
   testPathIgnorePatterns: [
     "<rootDir>/.next/",
+    "<rootDir>/.claude/",
     "<rootDir>/node_modules/",
     "<rootDir>/react-email-starter/",
     "<rootDir>/email-list/",

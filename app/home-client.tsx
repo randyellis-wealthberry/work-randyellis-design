@@ -17,7 +17,6 @@ import {
 import { ProjectThumbnail } from "@/components/ui/project-thumbnail";
 import { ClientLogos } from "@/components/client-logos";
 import { CalButton } from "@/components/booking/cal-embed";
-import { FeatureFlagDemo } from "@/components/feature-flag-demo";
 import { PROJECTS } from "@/lib/data/projects";
 import { projectThumbnail } from "@/lib/data/project-thumbnails";
 import { SOCIAL_LINKS } from "@/lib/data";
@@ -368,7 +367,6 @@ export default function HomeClient() {
       </motion.section>
 
       {/* Development only. */}
-      <FeatureFlagDemo />
     </motion.main>
   );
 }

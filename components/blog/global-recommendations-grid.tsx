@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn, slugifyTitle } from "@/lib/utils";
 import { getBlogArticles, type BlogArticle } from "@/lib/utils/blog-data";
 import { SECTION, SectionLabel } from "@/components/case-study/section-chrome";
 
@@ -23,13 +23,6 @@ function formatPublishedDate(dateString: string): string {
 }
 
 /** A stable id for `aria-labelledby`, derived from the section's own title. */
-function slugifyTitle(title: string): string {
-  return title
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "");
-}
-
 /**
  * One article as a row in a hairline list — the Recommendations List grammar
  * (DESIGN.md): "a hairline list of links, not a card grid". What sat here was a

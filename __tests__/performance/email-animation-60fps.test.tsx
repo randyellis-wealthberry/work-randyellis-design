@@ -4,10 +4,6 @@ import { jest } from "@jest/globals";
 import { NewsletterSignup } from "@/components/ui/newsletter-signup";
 
 // Mock external dependencies
-jest.mock("@/hooks/use-feature-flag", () => ({
-  useFeatureFlag: () => true,
-}));
-
 jest.mock("@/lib/analytics", () => ({
   trackNewsletterAttempt: jest.fn(),
 }));
