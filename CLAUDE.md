@@ -222,7 +222,7 @@ The `next.config.js` contains extensive webpack optimizations:
 ## API Routes & Backend
 
 Route handlers live under `app/api/`:
-- `app/api/newsletter/*` — subscribe, unsubscribe. Backed by **Loops** (`loops` SDK); requires `LOOPS_API_KEY`. Subscriber state is helper-managed in `lib/email-storage.ts`.
+- `app/api/newsletter/*` — subscribe, unsubscribe. Backed by **Resend** contacts (`resend` SDK via `lib/email/`); requires `RESEND_API_KEY`, optional `RESEND_SEGMENT_ID`. Resend is the only subscriber store.
 - `app/api/csp-report/` — receives CSP violation reports
 
 ## Forms
@@ -243,7 +243,7 @@ Route handlers live under `app/api/`:
 - Production removes console logs
 - Service workers are disabled entirely (PWA commented out), not just in development
 - Analytics only active in production
-- Most of the app runs without `.env.local`; only the newsletter API needs `LOOPS_API_KEY` (see `.env.example`)
+- Most of the app runs without `.env.local`; only the newsletter API needs `RESEND_API_KEY` (see `.env.example`)
 
 ## Common Patterns
 

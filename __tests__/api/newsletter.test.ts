@@ -1,12 +1,5 @@
 import { z } from "zod";
 
-// Mock Loops
-jest.mock("loops", () => ({
-  LoopsClient: jest.fn().mockImplementation(() => ({
-    updateContact: jest.fn(),
-  })),
-}));
-
 // Mock fetch for Zapier webhook
 global.fetch = jest.fn();
 
@@ -43,83 +36,6 @@ describe("Newsletter API Logic", () => {
     it("rejects missing email", () => {
       const result = emailSchema.safeParse({});
       expect(result.success).toBe(false);
-    });
-  });
-
-  describe("Loops Integration", () => {
-    it("calls Loops updateContact with correct parameters", async () => {
-      const mockLoops = require("loops").LoopsClient;
-      const mockUpdateContact = jest
-        .fn()
-        .mockResolvedValue({ success: true, id: "contact-id" });
-      mockLoops.mockImplementation(() => ({
-        updateContact: mockUpdateContact,
-      }));
-
-      const loops = new mockLoops("test-key");
-      await loops.updateContact({
-        email: "test@example.com",
-        properties: {
-          firstName: "John",
-          source: "Website newsletter signup",
-          subscribed: true,
-        },
-      });
-
-      expect(mockUpdateContact).toHaveBeenCalledWith({
-        email: "test@example.com",
-        properties: {
-          firstName: "John",
-          source: "Website newsletter signup",
-          subscribed: true,
-        },
-      });
-    });
-
-    it("handles Loops API errors", async () => {
-      const mockLoops = require("loops").LoopsClient;
-      const mockUpdateContact = jest
-        .fn()
-        .mockResolvedValue({ success: false, message: "API error" });
-      mockLoops.mockImplementation(() => ({
-        updateContact: mockUpdateContact,
-      }));
-
-      const loops = new mockLoops("test-key");
-      const result = await loops.updateContact({
-        email: "test@example.com",
-        properties: {
-          firstName: "John",
-          source: "Website newsletter signup",
-          subscribed: true,
-        },
-      });
-
-      expect(result.success).toBe(false);
-      expect(result.message).toBe("API error");
-    });
-
-    it("handles Loops connection errors", async () => {
-      const mockLoops = require("loops").LoopsClient;
-      const mockUpdateContact = jest
-        .fn()
-        .mockRejectedValue(new Error("Connection error"));
-      mockLoops.mockImplementation(() => ({
-        updateContact: mockUpdateContact,
-      }));
-
-      const loops = new mockLoops("test-key");
-
-      await expect(
-        loops.updateContact({
-          email: "test@example.com",
-          properties: {
-            firstName: "John",
-            source: "Website newsletter signup",
-            subscribed: true,
-          },
-        }),
-      ).rejects.toThrow("Connection error");
     });
   });
 
