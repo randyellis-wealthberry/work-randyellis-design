@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { resend } = await import("@/lib/email");
+    const resend = (await import("@/lib/email")).getResendClient();
     const { error } = await resend.contacts.update({
       email: result.data.email,
       unsubscribed: true,

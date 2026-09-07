@@ -7,7 +7,7 @@ let client: Resend | null = null;
  * route modules are imported at build time for page-data collection, where
  * runtime secrets are absent, and `new Resend(undefined)` throws.
  */
-function getResendClient(): Resend {
+export function getResendClient(): Resend {
   if (!client) client = new Resend(process.env.RESEND_API_KEY);
   return client;
 }
