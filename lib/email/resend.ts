@@ -1,16 +1,16 @@
 import { Resend } from "resend";
 
-if (!process.env.RESEND_API_KEY) {
-  console.warn(
-    "[Resend] RESEND_API_KEY not configured. Email sending will fail.",
-  );
-}
+let client: Resend | null = null;
 
 /**
- * Resend client instance
- * Docs: https://resend.com/docs/send-with-nodejs
+ * Resend client, built on first use. Importing this module must never throw:
+ * route modules are imported at build time for page-data collection, where
+ * runtime secrets are absent, and `new Resend(undefined)` throws.
  */
-export const resend = new Resend(process.env.RESEND_API_KEY);
+export function getResendClient(): Resend {
+  if (!client) client = new Resend(process.env.RESEND_API_KEY);
+  return client;
+}
 
 /**
  * Default sender email for transactional emails
@@ -39,6 +39,11 @@ export async function sendEmail({
   replyTo?: string;
   attachments?: { filename: string; content: Buffer }[];
 }) {
+  if (!process.env.RESEND_API_KEY) {
+    console.warn("[Resend] RESEND_API_KEY not configured. Email not sent.");
+    return { success: false, error: "RESEND_API_KEY not configured" };
+  }
+
   try {
     const emailData: Record<string, unknown> = {
       from,
@@ -51,8 +56,8 @@ export async function sendEmail({
     if (replyTo) emailData.replyTo = replyTo;
     if (attachments) emailData.attachments = attachments;
 
-    const { data, error } = await resend.emails.send(
-      emailData as unknown as Parameters<typeof resend.emails.send>[0],
+    const { data, error } = await getResendClient().emails.send(
+      emailData as unknown as Parameters<Resend["emails"]["send"]>[0],
     );
 
     if (error) {

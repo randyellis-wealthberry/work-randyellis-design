@@ -8,6 +8,15 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
 
+  // The free Skill.md is read from disk by lib/skill/core.ts. Both routes that
+  // read it are static and render at build, so this is insurance: if either
+  // ever becomes dynamic, the file still ships inside the function bundle
+  // rather than 404ing at runtime.
+  outputFileTracingIncludes: {
+    "/skill": ["./content/skill/**"],
+    "/skill.md": ["./content/skill/**"],
+  },
+
   // EXPERIMENTAL OPTIMIZATIONS
   experimental: {
     // Optimize package imports - already configured well

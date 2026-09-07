@@ -242,6 +242,20 @@ export default function ServicesClient() {
               </div>
             ))}
           </dl>
+          {/* What the diagnostic hands over. One line, under the terms it
+              belongs to, pointing at the page that explains it. */}
+          <p className="mt-6 max-w-[62ch] text-base text-zinc-600 dark:text-zinc-400">
+            The diagnostic ends with a SKILL.md written for your product, so the
+            judgment stays in your agents after the two weeks. The free version
+            of that file, and the modules behind it, are at{" "}
+            <Link
+              href="/skill"
+              className="font-medium text-zinc-900 underline decoration-zinc-300 underline-offset-4 hover:decoration-zinc-900 dark:text-white dark:decoration-zinc-700 dark:hover:decoration-zinc-100"
+            >
+              Skill.md
+            </Link>
+            .
+          </p>
         </div>
       </div>
 

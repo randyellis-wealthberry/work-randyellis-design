@@ -140,6 +140,17 @@ export default function SkillsClient() {
           </BuyMeACoffeeButton>
           .
         </p>
+        <p className="mt-3 max-w-[62ch] text-sm leading-relaxed text-zinc-600 dark:text-zinc-400">
+          Want the whole method as one file, plus paid modules that go deeper?
+          That is{" "}
+          <Link
+            href="/skill"
+            className="font-medium text-zinc-900 underline decoration-zinc-300 underline-offset-4 hover:decoration-zinc-900 dark:text-white dark:decoration-zinc-700 dark:hover:decoration-zinc-100"
+          >
+            Skill.md
+          </Link>
+          .
+        </p>
       </motion.section>
 
       {/* Premise */}

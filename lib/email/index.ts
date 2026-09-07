@@ -3,7 +3,7 @@
  * Centralizes email sending logic for the application
  */
 
-export { resend, RESEND_FROM, sendEmail } from "./resend";
+export { RESEND_FROM, getResendClient, sendEmail } from "./resend";
 export { emailTemplates } from "./templates";
 
 /** Where site notifications land (contact form, diagnostic reports). */
@@ -21,7 +21,7 @@ export async function upsertContact({
   email: string;
   firstName?: string;
 }): Promise<{ error: { message: string } | null }> {
-  const { resend } = await import("./resend");
+  const resend = (await import("./resend")).getResendClient();
   const segmentId = process.env.RESEND_SEGMENT_ID;
   const created = await resend.contacts.create({
     email,
